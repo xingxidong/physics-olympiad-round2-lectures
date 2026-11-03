@@ -1,0 +1,34 @@
+\begin{exercise}\label{ex:o3fresnelcircle}
+均匀平面波正照半径$a$的圆孔，求距孔$L$的轴上菲涅耳场和强度。说明轴上为何可随孔径大小交替增强、减弱，不能一直用远场轴上场正比面积解释。
+\Diagram{fig:o3fresnelcircleq}{孔内同心环带到轴上点的二次相位不同}{\draw[curve](0,0)ellipse(.5 and 1.6);\draw[guide](0,0)ellipse(.25 and .8);\fill(5,0)circle(1.5pt)node[right]{$P$};\draw[curve](0,1.6)--(5,0);\draw[curve](0,-1.6)--(5,0);\draw[guide](0,0)--(5,0);\node[above]at(2.5,.2){$L$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3fresnelcircleq}轴上近轴传播积分为
+\[
+ U(P)=\frac{U_0\ee^{ikL}}{i\lambda L}
+ 2\pi\int_0^a r\ee^{ikr^2/(2L)}\dd r.
+\]
+令$q=kr^2/(2L)$，$r\dd r=(L/k)\dd q$，上下限变为$0,\phi_a$，其中$\phi_a=\pi a^2/(\lambda L)$。因此
+\[
+ \int_0^a r\ee^{ikr^2/(2L)}\dd r
+ =\frac Lk\int_0^{\phi_a}\ee^{iq}\dd q
+ =\frac Lk\left[\frac{\ee^{iq}}i\right]_0^{\phi_a}
+ =\frac{L}{ik}(\ee^{i\phi_a}-1).
+\]
+代回传播前因子，并用$k\lambda=2\pi$，得$U(P)=U_0\ee^{ikL}[1-\ee^{i\phi_a}]$。所以相对无遮挡平面波强度
+\[
+ I(P)/I_0=4\sin^2(\phi_a/2).
+\]
+\Diagram{fig:o3fresnelcirclea}{轴上强度按边缘二次相位振荡}{\draw[axis](0,0)--(6.8,0)node[right]{$\phi_a$};\draw[axis](0,0)--(0,2.8)node[above]{$I/I_0$};\draw[curve,domain=0:6.283,samples=110]plot(\x,{2.3*sin((\x/2) r)^2});\node[left]at(0,2.3){$4$};\node[below]at(3.1416,0){$\pi$};\node[below]at(6.283,0){$2\pi$};}
+图\ref{fig:o3fresnelcirclea}在$\phi_a\ll1$时$I/I_0\simeq\phi_a^2\propto a^4$，恢复远场轴上强度正比面积平方。较大孔径加入的环带可能与原场反相，使轴上减弱，能量分到轴外。积分仍要求近轴、孔径远大于波长；不能把$a\to\infty$的振荡直接当无限无遮挡平面波的极限，因为该极限不再一致满足所用截断条件。
+\end{solution}
+
+\begin{exercise}\label{ex:o3poisson}
+把上一题圆孔换为同半径不透明圆盘，仍以平面波正照。用互补原理求圆盘后轴上菲涅耳场，解释几何阴影中心的亮点及其模型条件。
+\Diagram{fig:o3poissonq}{圆盘遮挡几何直达光，边缘绕射仍到达轴上}{\draw[curve](0,0)ellipse(.45 and 1.5);\draw[very thick](0,-1.5)--(0,1.5);\draw[guide](0,1.5)--(5,0);\draw[guide](0,-1.5)--(5,0);\fill(5,0)circle(1.5pt)node[right]{$P$};\node[above]at(2.5,1.2){几何阴影内};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3poissonq}圆盘与圆孔互补，标量场线性给$U_{\rm disk}+U_{\rm hole}=U_{\rm free}$。上一题$U_{\rm hole}=U_{\rm free}(1-\ee^{i\phi_a})$，所以$U_{\rm disk}=U_{\rm free}\ee^{i\phi_a}$，轴上强度$I_{\rm disk}=I_0$。
+\Diagram{fig:o3poissona}{轴上边缘环带的相位相同，形成阴影中央亮点}{\draw[curve](0,0)circle(1.5);\fill(0,0)circle(3pt);\foreach\a in{0,60,120,180,240,300}{\draw[guide]({1.5*cos(\a)},{1.5*sin(\a)})--(0,0);}\node[below]at(0,-1.9){观察屏中心示意};}
+图\ref{fig:o3poissona}的中心亮点由圆周边缘到轴上等相位的衍射波叠加形成。实际有限尺寸光源、盘边误差、非轴对准和有限照明会降低或展宽亮点；理想强度结论限于轴上；阴影区其余位置仍可很暗，总透过功率也因圆盘遮挡而减小。
+\end{solution}

@@ -1,0 +1,103 @@
+\section{自由飞行、方向随机化与扩散尺度}
+\subsection{一次碰撞的抽样怎样变成长期输运}
+先用恒速随机飞行模型求扩散系数。粒子速率为$v$，碰撞时刻构成平均间隔$\tau$的泊松过程，每次碰撞后方向独立且各向同性，平均自由程为$\ell=v\tau$。这一模型保留了自由飞行和方向随机化，但省去了Maxwell气体碰撞中速率的变化。
+
+初始方向取各向同性。经过时间$t$没有碰撞的概率为$\ee^{-t/\tau}$；只要发生过至少一次方向随机化，当前速度与初始速度的平均点积便为零。因而速度相关函数为
+\[
+ C_v(t)=\langle\vct v(0)\cdot\vct v(t)\rangle=v^2\ee^{-t/\tau}.
+\]
+位移为$\vct r(t)=\int_0^t\vct v(s)\dd s$，将平方展开并取平均，得到$\langle r^2(t)\rangle=\int_0^t\int_0^t C_v(|s_1-s_2|)\dd s_1\dd s_2$。积分正方形中两个三角形的贡献相等；在$s_1\ge s_2$的三角形内，固定时间差$s=s_1-s_2$后，$s_2$从$0$到$t-s$，因此
+\begin{align*}
+ \langle r^2(t)\rangle
+ &=2\int_0^t(t-s)C_v(s)\dd s\\
+ &=2v^2\int_0^t(t-s)\ee^{-s/\tau}\dd s\\
+ &=2v^2\left[\tau(s+\tau-t)\ee^{-s/\tau}\right]_0^t\\
+ &=2v^2[\tau t-\tau^2(1-\ee^{-t/\tau})].
+\end{align*}
+短时间$t\ll\tau$时展开指数，首个非零项为$v^2t^2$，对应弹道运动；长时间$t\gg\tau$时为$2v^2\tau t=6Dt$，所以
+\[
+ D=\frac{v^2\tau}{3}=\frac{v\ell}{3}.
+\]
+系数$1/3$来自三维各向同性，不应移到一维仅左右随机的模型中照用。若速率变化、散射保留方向记忆或不同速率具有不同碰撞时间，必须重新求相关函数，不能把任何平均速率与平均自由程任意相乘。
+\ExpansionDiagram{fig:dep-th1-walk}{短时间近似直线飞行，长期由许多随机方向段累积}{
+\draw[->,thick](0,0)--(1,.4)--(1.6,1.3)--(2.6,1)--(3,.2)--(4,.7)--(4.4,1.8)--(5.2,1.4);\fill(0,0)circle(1.5pt)node[below]{$O$};\draw[dashed,->](0,0)--(5.2,1.4)node[midway,below]{$\vct r$};\node[above]at(2.5,2.2){每次碰撞后方向重新抽样};}
+图\ref{fig:dep-th1-walk}中的实际路程始终为$vt$，端点位移却因方向抵消而只有典型大小$\sqrt{6Dt}$。路程与位移不能混用来估计扩散所需时间。
+
+\subsection{从粗粒化位移到扩散方程}
+在比$\tau$长、但比宏观扩散时间短的区间$\Delta t$中，单个方向满足$\langle\Delta x\rangle=0$、$\langle\Delta x^2\rangle=2D\Delta t$。设位移$\xi$的归一化分布为$P(\xi)$，且介质均匀、没有平均漂移，则
+\[
+ n(x,t+\Delta t)=\int_{-\infty}^{\infty}P(\xi)n(x-\xi,t)\dd\xi.
+\]
+在密度变化尺度上展开两边，保留时间一阶项与位移二阶项，得
+\begin{align*}
+ n+\Delta t\,\partial_tn
+ &=n-\langle\xi\rangle\partial_xn
+   +\frac12\langle\xi^2\rangle\partial_x^2n\\
+ &=n+D\Delta t\,\partial_x^2n.
+\end{align*}
+约去$n$并除以$\Delta t$，再与粒子数守恒式$\partial_tn=-\partial_xj_N$比较；取均匀密度时通量为零，得到
+\[
+ \partial_t n=D\partial_x^2n,\qquad j_N=-D\partial_xn.
+\]
+其中$j_N$是粒子数通量。该连续近似要求密度变化尺度远大于$\ell$；壁面附近一个自由程内常有非各向同性层，边界条件应与吸收、反射或穿透的具体模型相符。
+
+\begin{example}[两吸收端之间的平均逃逸时间]
+粒子在$0<x<L$中扩散，两端到达即吸收。扩散系数为$D$，初始位置为$x_0$且远离壁面的微观边界层。求先从右端逃逸的概率，以及到达任一端的平均时间。
+\ExpansionDiagram{fig:dep-th1-exit-q}{两吸收端的首次到达问题，初始点为$x_0$}{
+\draw[->](0,0)--(6,0)node[right]{$x$};\draw[very thick](.5,-.6)--(.5,.8)node[above]{吸收};\draw[very thick](5.5,-.6)--(5.5,.8)node[above]{吸收};\fill(2.3,0)circle(2pt)node[below]{$x_0$};\node[below]at(.5,-.7){0};\node[below]at(5.5,-.7){$L$};\draw[<->](1.5,.4)--(3.1,.4);}
+\end{example}
+\begin{solution}
+用$p(x)$表示右端先到达的概率。图\ref{fig:dep-th1-exit-q}中从内点经过短粗粒化时间后，后续概率等于$p(x+\Delta x)$的平均。于是
+\[
+ p(x)=p(x)+p'(x)\langle\Delta x\rangle
+       +\frac12p''(x)\langle\Delta x^2\rangle
+     =p(x)+D\Delta t\,p''(x),
+\]
+故$p''=0$。逐次积分得$p'=A$、$p=Ax+B$。从左端出发已经被左端吸收，所以$p(0)=0$，给出$B=0$；从右端出发已经到达右端，所以$p(L)=1$，给出$A=1/L$。因此$p(x_0)=x_0/L$。
+
+用$T(x)$表示剩余平均到达时间。时间已经经过$\Delta t$，所以$T(x)=\Delta t+\langle T(x+\Delta x)\rangle$。展开右边得$T=\Delta t+T+D\Delta t\,T''$，约去$T$并除以$\Delta t$，得到$DT''=-1$。逐次积分为
+\[
+ T'(x)=-\frac{x}{D}+C_1,\qquad
+ T(x)=-\frac{x^2}{2D}+C_1x+C_2.
+\]
+两端一旦到达就不再等待，故$T(0)=T(L)=0$。前一条件给出$C_2=0$，后一条件给出$C_1=L/(2D)$，因此
+\[
+ T(x)=\frac{x(L-x)}{2D}.
+\]
+\ExpansionDiagram{fig:dep-th1-exit-a}{右端到达概率为直线，平均等待时间为抛物线}{
+\draw[->](0,0)--(5,0)node[right]{$x/L$};\draw[->](0,0)--(0,2.7)node[above]{归一化量};\draw[dotted](0,2)--(4,2);\draw(-.06,2)--(.06,2)node[left,xshift=-2pt]{$1$};\draw[dashed](0,0)--(4,2);\draw[thick,domain=0:4,samples=70]plot(\x,{2*\x*(4-\x)/4});\node[above]at(2,2){$T/T_{\max}$};\node[right]at(4,2){$p$};\node[below]at(4,0){1};}
+图\ref{fig:dep-th1-exit-a}中最长平均等待发生在中央，$T_{\max}=L^2/(8D)$，而非$L/v$。在本节的方向随机化模型下，这等于$3L^2/(8v\ell)$；$L\gg\ell$时远大于一次直线穿越时间。若初态距壁面仅约一个自由程且方向已经给定，最初一段弹道运动不可由此扩散边界模型准确描述。
+\end{solution}
+
+\begin{example}[封闭容器中的浓度均匀化]
+一长直容器截面积$A$、长度$L$，两端完全反射，初始密度$n(x,0)=n_0[1+\epsilon\cos(\pi x/L)]$，$|\epsilon|<1$。取恒定$D$，求密度、粒子流及不均匀振幅降为原来的$1/10$所需时间。
+\ExpansionDiagram{fig:dep-th1-mix-q}{反射端无粒子流，初态浓度由左向右平滑变化}{
+\draw(0,0)rectangle(5,1.6);\draw[very thick](0,0)--(0,1.6);\draw[very thick](5,0)--(5,1.6);\foreach\x/\n in{.5/5,1.5/4,2.5/3,3.5/2,4.5/1}{\foreach\j in{1,...,\n}{\fill(\x,{.2+1.2*\j/(\n+1)})circle(1.2pt);}}\node[below]at(2.5,0){$\partial_xn=0$于两端};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-th1-mix-q}的无流边界是$\partial_xn=0$。设$n=n_0[1+a(t)\cos(\pi x/L)]$，初值给出$a(0)=\epsilon$。对空间变量逐次求导，得
+\[
+ \partial_xn=-\frac{\pi n_0a}{L}\sin\frac{\pi x}{L},\qquad
+ \partial_x^2n=-\frac{\pi^2n_0a}{L^2}\cos\frac{\pi x}{L}.
+\]
+第一式在$x=0,L$都为零，满足反射边界。代入扩散方程并比较余弦项的系数，得到$\dot a=-D\pi^2a/L^2$。若$\epsilon\ne0$，分离变量并代入初值，
+\[
+ \int_\epsilon^{a(t)}\frac{\dd a}{a}
+ =-\frac{D\pi^2}{L^2}\int_0^t\dd s,
+ \qquad
+ \ln\frac{|a(t)|}{|\epsilon|}=-\frac{D\pi^2t}{L^2}.
+\]
+振幅保持初始符号，故$a(t)=\epsilon\ee^{-\pi^2Dt/L^2}$；$\epsilon=0$时$a(t)=0$也满足方程与初值。再由$j_N=-D\partial_xn$得到
+\[
+ n(x,t)=n_0\left[1+\epsilon\ee^{-\pi^2Dt/L^2}\cos\frac{\pi x}L\right],
+ \quad j_N=\frac{\pi Dn_0\epsilon}{L}\ee^{-\pi^2Dt/L^2}\sin\frac{\pi x}L.
+\]
+\ExpansionDiagram{fig:dep-th1-mix-a}{常数模保持总粒子数，余弦不均匀模随时间衰减}{
+\draw[->](0,0)--(5.5,0)node[right]{$x/L$};\draw[thick,domain=0:5,samples=80]plot(\x,{1.3+.7*cos(180*\x/5)});\draw[dashed,domain=0:5,samples=80]plot(\x,{1.3+.25*cos(180*\x/5)});\draw[dotted](0,1.3)--(5,1.3);\node[right]at(5,1.3){$n_0$};}
+图\ref{fig:dep-th1-mix-a}中常数模保持不变。将密度对容积积分，
+\[
+ N(t)=n_0A\left[x+\frac{\epsilon L}{\pi}
+ \ee^{-\pi^2Dt/L^2}\sin\frac{\pi x}{L}\right]_0^L=n_0AL,
+\]
+可见余弦项不改变总粒子数。当$\epsilon\ne0$时，振幅降为原来的$1/10$要求$\ee^{-\pi^2Dt/L^2}=1/10$，取对数得$-\pi^2Dt/L^2=-\ln10$，所以$t=L^2\ln10/(\pi^2D)$。若$\epsilon=0$，初态已经均匀。若只使容器长度变为两倍而材料和温度不变，均匀化时间增为四倍。反射边界保留常数模，吸收边界则不保留粒子总数；两类问题不能共用同一组末态条件。
+\end{solution}

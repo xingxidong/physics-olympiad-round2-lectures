@@ -1,0 +1,4 @@
+% 题设配图；与紧随其后的解答分别编号。
+\ExpansionDiagram{fig:audit-m-q-063}{倾斜圆面的法向与右手边界方向}{
+\begin{scope}[x={(1cm,0cm)},y={(-.35cm,.35cm)},z={(0cm,1cm)}]\draw[->](0,0,0)--(0,0,2.3)node[above]{$z$};\draw[thick,domain=0:360,samples=100]plot({1.6*cos(\x)},{1.6*.8*sin(\x)},{1.6*.6*sin(\x)});\draw[->,thick,domain=15:85,samples=30]plot({1.6*cos(\x)},{1.6*.8*sin(\x)},{1.6*.6*sin(\x)});\draw[->,thick](0,0,0)--(0,-1.2,1.6)node[right]{$\vct n$};\draw[->](0,0,0)--(1.6,0,0)node[midway,below]{$R$};\end{scope}\node[right]at(1,2){$\beta=\angle(\vct n,\vct e_z)$};\node[below]at(0,-1.5){圆面水平有向投影为$\pi R^2\cos\beta$};
+}

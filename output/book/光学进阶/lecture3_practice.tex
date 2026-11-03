@@ -1,0 +1,67 @@
+\begin{exercise}\label{ex:o3camera}
+直径$D=50$ mm、焦距$f=200$ mm的理想圆孔成像系统在550 nm工作。求后焦面点像首暗环半径与瑞利角间隔，并与宽度同为50 mm的长直缝比较。
+\Diagram{fig:o3cameraq}{圆孔点像落在后焦面}{\OptAxis\draw[<->](1,-1.3)--(1,1.3);\draw[curve](5,-1.6)--(5,1.6);\draw[curve](1,1.2)--(5,0);\draw[curve](1,-1.2)--(5,0);\node[above]at(1,1.3){$D$};\node[above]at(5,1.6){焦面};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3cameraq}圆孔首暗角$\theta_0\simeq1.22\lambda/D=1.342\times10^{-5}$弧度，焦面半径$\rho_0=f\theta_0\simeq2.684\,\mu\mathrm m$。
+\Diagram{fig:o3cameraa}{圆孔圆斑半径与长缝单方向宽度使用不同系数}{\draw[curve](-1.5,0)circle(.7);\draw[curve](1.5,-1)--(1.5,1);\draw[curve](2.1,-1)--(2.1,1);\node[below]at(-1.5,-1.3){圆孔};\node[below]at(1.8,-1.3){长缝};}
+同宽长缝首暗角$\lambda/a=1.10\times10^{-5}$弧度，焦面半宽为$2.20\,\mu\mathrm m$。图\ref{fig:o3cameraa}比较的都是中心到首零，圆孔有1.22因子，长缝没有。两者通光面积、二维像形和旁瓣分布不同，不能仅以一个更小数值判定所有成像指标更好。
+\end{solution}
+
+\begin{exercise}\label{ex:o3missinggeneral}
+光栅周期与缝宽之比$b/a=p/q$，其中$p,q$为互素正整数且$p>q$。求缺级的全部整数主极大级次。
+\Diagram{fig:o3missinggeneralq}{缺级要求光栅主峰和单缝暗纹重合}{\draw[axis](-.3,0)--(5,0)node[right]{级次};\foreach\x in{0,1,2,3,4}{\draw[curve](\x,0)--(\x,1);}\draw[guide](0,1.8)..controls(2,2.5)and(3,.1)..(4.5,0);\node[right]at(4.5,1.6){包络零点};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3missinggeneralq}重合条件$b\sin\theta=m\lambda$、$a\sin\theta=s\lambda$，$s\ne0$。相除$m/s=p/q$，所以$q m=p s$。由$p,q$互素，$m=kp,s=kq$，$k$为非零整数。
+\Diagram{fig:o3missinggenerala}{最先缺掉的正级次为$p$，随后为其整数倍}{\draw[axis](0,0)--(6.7,0)node[right]{$m$};\foreach\x in{1,2,3,4,5,6}{\draw[curve](\x,0)--(\x,.8);}\foreach\x in{3,6}{\draw[thick](\x-.2,.5)--(\x+.2,.9);\draw[thick](\x-.2,.9)--(\x+.2,.5);}\node[above]at(3,1.2){例$p=3$};}
+故缺级为$\pm p,\pm2p,\ldots$，前提这些级次本来可传播。图\ref{fig:o3missinggenerala}显示$p=3$例。若$b/a$为无理数，理想精确模型没有完全重合的非零级次，但可能有非常接近的弱主峰，实验上是否可见还取决于包络和动态范围。
+\end{solution}
+
+\begin{exercise}\label{ex:o3exposure}
+双缝中一缝被振动镜调制相位$\phi(t)=\phi_a\cos\Omega t$。给出长曝光干涉可见度的积分表达式，并在$\phi_a\ll1$时求二阶近似。
+\Diagram{fig:o3exposureq}{一臂相位作周期调制}{\draw[->](0,.8)--(4.5,.8);\draw[->](0,-.3)--(4.5,-.3);\draw[very thick](2,-.8)--(2,.2);\draw[<->](1.7,-1.3)--(2.3,-1.3);\node[below]at(2,-1.5){振动元件};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3exposureq}中两束等强，固定屏点的瞬时强度为$2I_1[1+\cos(\delta_0+\phi_a\cos\Omega t)]$。长曝光覆盖许多周期，可将时间平均改成对$u=\Omega t$的周期平均，
+\[
+ G=\frac1{2\pi}\int_0^{2\pi}\ee^{i\phi_a\cos u}\dd u=J_0(\phi_a).
+\]
+虚部为零，因为$u$与$u+\pi$的正弦项相反；实部保留。平均强度为$2I_1[1+J_0(\phi_a)\cos\delta_0]$，可见度是$|J_0(\phi_a)|$。
+\Diagram{fig:o3exposurea}{小幅调制的平均相量比单位长度缩短}{\draw[curve](0,0)circle(1.4);\draw[axis](0,0)--(1.4,0);\draw[guide](0,0)--(1.2,.72);\draw[guide](0,0)--(1.2,-.72);\draw[very thick,->](0,0)--(1.15,0);\node[below]at(0,-1.8){平均相量沿实轴};}
+图\ref{fig:o3exposurea}表示相量绕静态相位来回摆动后的平均。使用例\ref{ex:o3circular}已从角积分推导的$J_0$级数，分别取$j=0,1,2$项，得到
+\[
+ J_0(\phi_a)=1-\frac{\phi_a^2}{4}+\frac{\phi_a^4}{64}+\cdots.
+\]
+到二阶$\mathcal V\simeq1-\phi_a^2/4$。若振幅增大使$J_0$越过零点，条纹先消失再出现，且亮暗相位翻转$\pi$；因此大振幅下不能把二阶式外推成负可见度。相位方差虽为$\phi_a^2/2$，其分布并非高斯，直接套高斯相位噪声公式只会在最低非平凡阶巧合一致。短曝光还应保留实际起始相位和曝光区间。
+\end{solution}
+
+\begin{exercise}\label{ex:o3gratingorderoverlap}
+光栅中波长$\lambda_1$的$m$级与波长$\lambda_2$的$(m+1)$级方向重合。求两波长关系，说明增加$N$能否分开这种重级。
+\Diagram{fig:o3overlapq}{不同波长、不同级次可以具有同一出射角}{\draw[curve](0,-1.2)--(0,1.2);\draw[axis](0,0)--(3.7,1.6)node[right]{共同方向};\draw[guide](0,0)--(4,0);\node[above]at(1.9,1.8){$m\lambda_1=(m+1)\lambda_2$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3overlapq}同角要求$b\sin\theta=m\lambda_1=(m+1)\lambda_2$，所以$\lambda_2=m\lambda_1/(m+1)$。两个理想峰中心完全重合，即使$N$增大、各峰变窄，也不会产生角位置分离。
+\Diagram{fig:o3overlapa}{同中心的两峰变窄后仍重叠，需要级次筛选或额外色散}{\draw[axis](-2.3,0)--(2.5,0)node[right]{$\theta-\theta_0$};\draw[curve,domain=-2:2,samples=80]plot(\x,{2.2*exp(-4*\x*\x)});\draw[guide,domain=-2:2,samples=80]plot(\x,{1.5*exp(-8*\x*\x)});}
+图\ref{fig:o3overlapa}说明同级分辨率$mN$不能处理不同级完全重叠。可用滤光片限制输入谱段，或用棱镜等另一色散方向交叉分散。若两波长的单孔包络不同，强度可不同，但仅凭同一位置的强度不能唯一拆出两个未知谱线。
+\end{solution}
+
+\begin{exercise}\label{ex:o3illumination}
+总周期数$N$的光栅只有中间$N/2$条被均匀照亮，其余无光。求实际分辨率和主峰宽度相对全部照明的变化，讨论保持总入射功率与保持每缝照明两种条件。
+\Diagram{fig:o3illumq}{实体缝数与实际照明缝数不同}{\draw[curve](0,-.6)rectangle(5,.8);\foreach\x in{.25,.75,1.25,1.75,2.25,2.75,3.25,3.75,4.25,4.75}{\draw[curve](\x,-.6)--(\x,.8);}\draw[guide](1.25,-1)--(1.25,1.2);\draw[guide](3.75,-1)--(3.75,1.2);\node[above]at(2.5,1.2){照明区域};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3illumq}实际相干求和只有$N_{\rm eff}=N/2$项，首零角半宽变为原来2倍，瑞利分辨率$mN/2$。计算应采用实际受到相干照明的条数。
+\Diagram{fig:o3illuma}{缩小照明宽度加宽主峰；纵轴高度取决于功率约束}{\draw[axis](-2.5,0)--(2.7,0)node[right]{角偏移};\draw[curve,domain=-2.3:2.3,samples=80]plot(\x,{2.3*exp(-4*\x*\x)});\draw[guide,domain=-2.3:2.3,samples=80]plot(\x,{1.15*exp(-\x*\x)});}
+若每缝场不变，主峰强度按项数平方降为1/4，总透过功率降为1/2；若把原总功率集中到半数缝，每缝强度加倍，则主峰降为1/2，总功率不变。图\ref{fig:o3illuma}采用后一种归一化示意。角宽结论不受这两种整体振幅标定的影响。
+\end{solution}
+
+\begin{exercise}\label{ex:o3tiltblaze}
+反射闪耀光栅的入射方向相对宏观外法线与出射方向分居两侧，角度大小为$i,\theta$。小面法线相对宏观法线倾角$\alpha$。写出小面镜面条件和光栅相长条件，说明为何必须先画方向再定正负。
+\Diagram{fig:o3tiltblazeq}{入射与出射分居法线两侧，采用角度大小约定}{\draw[curve](-2.5,0)--(2.5,0);\draw[guide](0,0)--(0,2.7);\draw[->](-1.5,2.1)--(0,0);\draw[->](0,0)--(2,1.7);\draw[guide](0,0)--(.6,2.6);\node[above]at(.6,2.6){小面法线};\node[left]at(-.7,1.3){$i$};\node[right]at(1,1){$\theta$};}
+\end{exercise}
+\begin{solution}
+按图\ref{fig:o3tiltblazeq}，从表面指向光源的方向角为$-i$，出射为$+\theta$。镜面法线平分二者，故$\theta-i=2\alpha$。入射实际波矢沿向下向右，切向分量为$+k\sin i$；出射切向为$+k\sin\theta$，所以相长条件可取$b(\sin\theta-\sin i)=m\lambda$。
+\Diagram{fig:o3tiltblazea}{以实际波矢切向分量之差确定级次，法线平分反向入射与出射}{\draw[axis](-2.2,0)--(2.8,0)node[right]{切向};\draw[axis](0,0)--(1.4,2)node[right]{$\vct k_o$};\draw[axis](-1.6,2)--(0,0)node[midway,left]{$\vct k_i$};\draw[guide](0,0)--(.4,2.6);}
+联立$\theta=i+2\alpha$，得$\lambda_B=b[\sin(i+2\alpha)-\sin i]/m$。正常入射恢复$b\sin2\alpha/m$。图\ref{fig:o3tiltblazea}的角度约定不同于有些把入射与出射都按波矢同侧有向角定义的写法；公式应从图中切向波矢推得，不能把两个正弦的加减号脱离图使用。
+\end{solution}

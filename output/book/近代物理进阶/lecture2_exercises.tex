@@ -1,0 +1,115 @@
+\section{习题与解答}
+\input{lecture2_additional}
+\input{lecture2_practice}
+\begin{exercise}\label{ex:m2signals}
+例\ref{ex:m2twins}中地球每年发出一束时间标记光信号。求旅行者去程和返程接收到的频率，并据此还原地球25年的连续钟信号。
+\Diagram{fig:m2signalsq}{地球连续发光，旅行者先远离后靠近}{\draw[axis](-.2,0)--(3.5,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5.5)node[above]{$ct$};\draw[curve](0,0)--(2,2.5)--(0,5);\foreach\y in{.1,.3,.5}{\draw[guide](0,\y)--({4*\y},{5*\y});}\foreach\y in{1.3,2.1,2.9,3.7,4.5}{\draw[guide](0,\y)--({(4-.8*\y)/1.8},{(4+\y)/1.8});}}
+\end{exercise}
+\begin{solution}
+去程接收者远离，频率比为$\sqrt{(1-\beta)/(1+\beta)}=1/3$；返程靠近，频率比为3。旅行者两段固有时间各7.5年，所以去程接收相当于地球2.5年内发出的信号，返程接收其余22.5年。
+\Diagram{fig:m2signalsa}{转向瞬间接收到的光来自地球2.5年时刻}{\draw[axis](-.2,0)--(3.5,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5.5)node[above]{$ct$};\draw[curve](0,0)--(2,2.5)--(0,5);\draw[very thick,->](0,.5)--(2,2.5);\node[left]at(0,.5){2.5年};\node[right]at(2,2.5){$B$};}
+图\ref{fig:m2signalsa}中由光速连线也可算发射时刻$t_e=t_B-l/c=12.5-10=2.5$年。与旅行者去程、返程赋予地球的同时刻4.5年、20.5年都不同。接收信号连续，只有接收频率在理想瞬时换向模型中突变。
+\end{solution}
+
+\begin{exercise}\label{ex:m2fuelreturn}
+光子火箭需由地球静止起飞，加速至$\beta c$，到远处减速至相对地球静止，随后原路返回并最终停下。忽略巡航耗能，求包括全部返航燃料在内的初末质量比。
+\Diagram{fig:m2returnq}{四段速度改变与两段巡航}{\draw[axis](-.3,0)--(6,0)node[right]{$x$};\fill(0,0)circle(1.5pt)node[below]{地球};\fill(5,0)circle(1.5pt)node[below]{远端};\draw[->](.3,.8)--(4.7,.8)node[midway,above]{$+\beta c$};\draw[->](4.7,-.8)--(.3,-.8)node[midway,below]{$-\beta c$};}
+\end{exercise}
+\begin{solution}
+令$\chi=\operatorname{artanh}\beta>0$。图\ref{fig:m2returnq}中每次由静止到巡航或由巡航到静止，都需消耗绝对快度变化$\chi$。喷流方向在减速时反转，火箭质量仍减少，故应对快度变化取绝对值。
+\Diagram{fig:m2returna}{快度变化总长度为$4\chi$}{\draw[axis](-.3,0)--(6,0)node[right]{过程};\draw[axis](0,-1.5)--(0,1.8)node[above]{$\chi_{\rm ship}$};\draw[very thick](0,0)--(1,1)--(2,1)--(3,0)--(4,-1)--(5,-1)--(6,0);\node[left]at(0,1){$\chi$};\node[left]at(0,-1){$-\chi$};}
+图\ref{fig:m2returna}中四次点火的质量比逐次相乘，故$M_0/M_f=\ee^{4\chi}=[(1+\beta)/(1-\beta)]^2$。若$\beta=.8$，质量比为81。不能先算单程消耗，再以最终干质量为基准简单加倍，因为起飞时必须推动全部后续燃料。
+\end{solution}
+
+\begin{exercise}\label{ex:m2constalpha}
+飞船从静止出发，沿$x$保持固有加速度$\alpha$，直到到达地球距离$L$处。求地球时间、船上时间和末速度。
+\Diagram{fig:m2alphaq}{固定终点距离的持续加速}{\draw[axis](-.3,0)--(5,0)node[right]{$x$};\fill(0,0)circle(1.5pt);\draw[curve](4,-.5)--(4,1.2);\draw[<->](0,-.5)--(4,-.5)node[midway,below]{$L$};\draw[axis](.5,.5)--(2,.5)node[above]{$\alpha$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2alphaq}取飞船由原点静止出发。固有加速度定义给$\dd\chi/\dd\tau=\alpha/c$，所以$\chi=\alpha\tau/c$。再由四速度的时间和空间分量，
+\[
+ t=\int_0^\tau\cosh(\alpha s/c)\dd s
+ =\left[\frac c\alpha\sinh(\alpha s/c)\right]_0^\tau
+ =\frac c\alpha\sinh\chi,
+\]
+\[
+ x=\int_0^\tau c\sinh(\alpha s/c)\dd s
+ =\left[\frac{c^2}\alpha\cosh(\alpha s/c)\right]_0^\tau
+ =\frac{c^2}\alpha(\cosh\chi-1).
+\]
+两个积分常数已由$t=x=0$确定。
+\Diagram{fig:m2alphaa}{终点落在恒固有加速度双曲线上}{\draw[axis](-.2,0)--(4.6,0)node[right]{$\alpha x/c^2$};\draw[axis](0,-.2)--(0,4.6)node[above]{$\alpha t/c$};\draw[curve,domain=0:2,samples=70]plot({cosh(\x)-1},{sinh(\x)});\fill(2,2.828)circle(1.5pt)node[right]{$x=L$};\draw[guide](2,0)--(2,2.828);}
+在图\ref{fig:m2alphaa}中令$q=\alpha L/c^2$。到达时$\cosh\chi_f=1+q$，正向运动选择$\sinh\chi_f=+\sqrt{(1+q)^2-1}=\sqrt{q(2+q)}$，因此
+\[
+ t_f=\frac c\alpha\sqrt{q(2+q)},\quad
+ \tau_f=\frac c\alpha\operatorname{arcosh}(1+q),\quad
+ \beta_f=\frac{\sqrt{q(2+q)}}{1+q}.
+\]
+平方后$1-\beta_f^2=(1+q)^{-2}>0$，也给$\gamma_f=1+q$。小$q$时$\operatorname{arcosh}(1+q)\simeq\sqrt{2q}$，两种时间同趋$\sqrt{2L/\alpha}$、末速趋$\sqrt{2\alpha L}$。大$q$时$t_f\simeq L/c+c/\alpha$，而$\tau_f\simeq(c/\alpha)\ln(2q)$，远距离的船上时间仅呈对数增长；这依赖全程持续提供恒固有加速度。
+\end{solution}
+
+\begin{exercise}\label{ex:m2powerengine}
+理想光子火箭在自身瞬时静止系的辐射功率恒为$P_*$。将它与恒固有加速度光子火箭比较：分别求质量随固有时间的变化及固有功率随时间的条件。
+\Diagram{fig:m2engineq}{定向光束的固有功率与推力}{\draw[curve](2,0)rectangle(4.3,1);\node at(3.15,.5){火箭$m$};\draw[axis](1.8,.5)--(.2,.5)node[above]{$P_*/c$};\draw[axis](4.5,.5)--(5.7,.5)node[above]{$\alpha$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2engineq}中，瞬时船系向后发光的能量率为$P_*$，动量率大小为$P_*/c$。一阶能量与动量守恒分别给
+\[
+ \frac{\dd m}{\dd\tau}=-\frac{P_*}{c^2},\quad
+ mc\frac{\dd\chi}{\dd\tau}=\frac{P_*}{c},\quad
+ \alpha=c\frac{\dd\chi}{\dd\tau}=\frac{P_*}{mc}.
+\]
+若$P_*$恒定，以$m(0)=M_0$积分：$\int_{M_0}^{m}\dd\mu=-(P_*/c^2)\int_0^\tau\dd s$，得到$m=M_0-P_*\tau/c^2$。再相除两个微分方程，有$\dd\chi=-\dd m/m$，从初始静止积分得$\chi=-[\ln\mu]_{M_0}^{m}=\ln(M_0/m)$。推力恒定而惯性质量减小，故固有加速度不断增大。
+\Diagram{fig:m2enginea}{恒加速度需要功率与剩余质量同步下降}{\draw[axis](0,0)--(4.3,0)node[right]{$\alpha\tau/c$};\draw[axis](0,0)--(0,2.8)node[above]{$m/M_0,\ P_*/P_{*0}$};\draw[curve,domain=0:3.5,samples=70]plot(\x,{2.3*exp(-\x)});\node[left]at(0,2.3){$1$};}
+若要求图\ref{fig:m2enginea}中的$\alpha$恒定，必须令功率随质量改变：$P_*=mc\alpha$。质量方程于是变为
+\[
+ \frac{\dd m}{m}=-\frac\alpha c\dd\tau,
+ \quad \int_{M_0}^{m}\frac{\dd\mu}{\mu}
+ =-\frac\alpha c\int_0^\tau\dd s,
+ \quad \ln\frac m{M_0}=-\frac{\alpha\tau}c.
+\]
+取指数并代回功率条件，
+\[
+ m=M_0\ee^{-\alpha\tau/c},\qquad
+ P_*=M_0c\alpha\ee^{-\alpha\tau/c}.
+\]
+此时$\chi=\alpha\tau/c$，与恒固有加速度世界线一致。若干质量为$M_d$，两种程序都在$m=M_d$时停机：恒功率的可燃固有时间为$(M_0-M_d)c^2/P_*$，恒加速度则为$(c/\alpha)\ln(M_0/M_d)$。在相同初末质量比下，两种程序给出相同末快度；燃烧历时和沿途位置由功率程序决定。
+\end{solution}
+
+\begin{exercise}\label{ex:m2oppositejets}
+一对同时由同一点射出的对称光斑在源系以同速$\beta c$沿相反方向运动。视线与靠近光斑速度夹角为$\theta$。测得两侧视横向速度分别为$u_+,u_-$。求$\beta\cos\theta$及$\beta\sin\theta$。
+\Diagram{fig:m2jetsq}{靠近和远离光斑的投影}{\draw[axis](-.3,0)--(4.5,0)node[right]{视线};\draw[very thick,->](0,0)--(2.7,1.7)node[right]{$+$};\draw[very thick,->](0,0)--(-1.9,-1.2)node[left]{$-$};\node[below right]at(0,0){源};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2jetsq}的两侧横向位移大小相同，但接收时间分别缩短和拉长，故
+\[
+ \frac{u_+}c=\frac{\beta\sin\theta}{1-\beta\cos\theta},\quad
+ \frac{u_-}c=\frac{\beta\sin\theta}{1+\beta\cos\theta}.
+\]
+当$u_++u_->0$时，两式相除后解得$A=\beta\cos\theta=(u_+-u_-)/(u_++u_-)$。再乘回任一分母，得$B=\beta\sin\theta=2u_+u_-/[c(u_++u_-)]$。若两侧视横向速度都为零，可能是$\beta=0$，也可能是运动轴沿视线；此时横向数据不足以唯一反演，不能使用上述零分母公式。
+\Diagram{fig:m2jetsa}{两个可测投影组合给出速度和视角}{\draw[axis](0,0)--(3.8,0)node[right]{$A$};\draw[axis](0,0)--(0,2.8)node[above]{$B$};\draw[very thick,->](0,0)--(2.7,1.8)node[right]{$\beta$};\draw[guide](2.7,0)--(2.7,1.8)--(0,1.8);\node at(.9,.3){$\theta$};}
+图\ref{fig:m2jetsa}给$\beta=\sqrt{A^2+B^2}$、$\theta=\operatorname{atan2}(B,A)$。若由观测反演得到$\beta\geq1$，则对称、同速、远场或距离标定中至少一项不满足模型假设，不能把不相容的数据解释成真实超光速。
+\end{solution}
+
+\begin{exercise}\label{ex:m2imagebar}
+长度$L_0$的细杆沿$x$运动，杆与速度平行。观察者在远处，视线单位矢量$\vct n$与$x$夹角$\theta$。求同一照片中杆端横向投影的长度，并与等时长度比较。
+\Diagram{fig:m2barq}{照片由两端不同的发光事件组成}{\draw[curve](0,0)--(3.5,0);\fill(0,0)circle(1.5pt)node[below]{$A$};\fill(3.5,0)circle(1.5pt)node[below]{$B$};\draw[axis](1.7,.5)--(3,.5)node[above]{$V$};\draw[guide](0,0)--(1.5,2.2);\draw[guide](3.5,0)--(5,2.2);\node[right]at(5,2.2){$\vct n$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2barq}中，实验室同时杆长为$L=L_0/\gamma$。取尾端、头端世界线$x_A=Vt_A$、$x_B=Vt_B+L$。远处观察者的方向$\vct n$由物体指向相机，源点到相机的距离差近似为$-\vct n\cdot\Delta\vct r_e=-\cos\theta\Delta x_e$。同一照片要求
+\[
+ 0=\Delta t_o=t_B-t_A-\frac{\cos\theta}{c}\Delta x_e.
+\]
+再由两端世界线相减，$\Delta x_e=V(t_B-t_A)+L$，消去发射时间差得
+\[
+ \Delta x_e=\frac{L}{1-\beta\cos\theta}.
+\]
+\Diagram{fig:m2bara}{发光事件空间差向成像面的投影}{\draw[curve](0,0)--(4,0);\draw[guide](0,0)--(2,2.5);\draw[guide](4,0)--(5.56,1.95);\draw[very thick](2,2.5)--(4.44,.55);\draw[guide](4,0)--(4.44,.55);\node[above right]at(3.4,1.6){$L_{\rm photo}$};\node[below]at(2,0){$\Delta x_e$};}
+在图\ref{fig:m2bara}的像平面内，端点分离矢量须扣去沿视线分量，故
+\begin{align*}
+ L_{\rm photo}^2
+ &=|\Delta\vct r_e|^2-(\vct n\cdot\Delta\vct r_e)^2\\
+ &=(\Delta x_e)^2\sin^2\theta,
+\end{align*}
+因此$L_{\rm photo}=L_0\sin\theta/[\gamma(1-\beta\cos\theta)]$。在$\theta=\pi/2$时恢复$L_0/\gamma$。其角度函数与例\ref{ex:m2super}相同，沿用该例已经展开的商式求导，最大值在$\cos\theta=\beta$取得；代入$\sin\theta=1/\gamma$，得$L_{\rm photo,max}=L_0$。式中的$L$、$\Delta x_e$、$L_{\rm photo}$分别表示同时长度、延迟发射位置差和像面投影长，三者须按各自定义使用。
+\end{solution}

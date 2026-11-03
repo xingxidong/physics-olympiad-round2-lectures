@@ -1,0 +1,67 @@
+\section{磁性工质的熵与绝热降温}
+\subsection{由两态分布接到广义功}
+考虑$N$个相互独立的局域磁矩，磁矩大小为$\mu$，在外加磁感应强度$B>0$中有两个能级$\mp\mu B$。相互作用及内部磁场暂忽略，外场作为受控参数。令$x=\mu B/(\kb T)$，单个配分和为$2\cosh x$，于是
+\[
+ F_s=-N\kb T\ln(2\cosh x),\quad
+ M=-\left(\frac{\partial F_s}{\partial B}\right)_T=N\mu\tanh x,
+\]
+\[
+ U_s=-N\mu B\tanh x,\qquad
+ S_s=N\kb[\ln(2\cosh x)-x\tanh x].
+\]
+这里$M$是样品沿场方向的总磁矩。所选系统能量包含磁矩与外加场的耦合能，磁场发生器及其场能在系统之外，相应热力学微分为$\dd U_s=T\dd S_s-M\dd B$。若改用单位体积磁化强度或把场源纳入系统，须同时调整能量与功的定义。
+
+先有$\partial_Bx|_T=\mu/(\kb T)=x/B$，所以$M=-F_B=N\kb T\tanh x\,(x/B)=N\mu\tanh x$。从能级平均得到$U_s=-N\mu B\tanh x$后，用$S_s=(U_s-F_s)/T$得到上述熵。固定$B$时$\partial_Tx=-x/T$，因此$\partial_TU_s=-N\mu B\operatorname{sech}^2x(-x/T)$，再用$\mu B=\kb Tx$，得到
+\[
+ C_{B,s}=N\kb x^2\operatorname{sech}^2x.
+\]
+熵对$x$的导数为$N\kb[\tanh x-(\tanh x+x\operatorname{sech}^2x)]=-N\kb x\operatorname{sech}^2x$。再分别乘$x_T=-x/T$、$x_B=x/B$，得到
+\[
+ \dd S_s=\frac{C_{B,s}}T\dd T-\frac{C_{B,s}}B\dd B.
+\]
+对上述独立磁矩，可逆绝热过程满足$\dd T/T=\dd B/B$，即$B/T$保持不变，两个能级的占有比例也保持不变。推广到其他磁性物质或温度范围前，须重新计入相互作用及其他自由度的熵。
+\ExpansionDiagram{fig:dep-th4-spins}{外场改变两能级间隔，热平衡占有比由$B/T$决定}{
+\draw[->](0,0)--(0,3)node[above]{能量};\draw[thick](.6,.5)--(2.6,.5)node[right]{$-\mu B$};\draw[thick](.6,2.3)--(2.6,2.3)node[right]{$+\mu B$};\draw[<->](1.6,.6)--(1.6,2.2)node[midway,right]{$2\mu B$};\node[right]at(4,1.4){$N_+/N_-=\ee^{-2x}$};}
+图\ref{fig:dep-th4-spins}中的能级标记以能量为准：$N_+$指上能级占有数，$N_-$指下能级。磁矩沿场方向对应低能级，不能把磁矩方向的正号与能级正号混用。
+
+\subsection{晶格热容限制实际温降}
+若样品还有与磁矩保持内部热平衡的晶格，晶格热容为$C_l(T)$且暂不依赖$B$，总熵微分为
+\[
+ \dd S=\frac{C_l+C_{B,s}}T\dd T-\frac{C_{B,s}}B\dd B.
+\]
+可逆绝热条件给
+\[
+ \left(\frac{\dd T}{\dd B}\right)_S
+ =\frac TB\frac{C_{B,s}}{C_l+C_{B,s}}.
+\]
+晶格必须随磁矩一起降温，温降幅度因而小于独立自旋系统的$T\propto B$结果。若晶格与磁矩尚未来得及热平衡，则单一温度$T$已不足以描述过程，应另列两子系统的能量交换方程。
+
+\begin{example}[有限晶格热容的绝热去磁]
+样品的磁矩服从上述两态模型，晶格热容近似常数$C_l>0$。初态为$(B_i,T_i)$，其中$x_i=\mu B_i/(\kb T_i)$。样品与环境绝热并足够缓慢地减小外场到零，求理想模型给出的最终温度。特别取$x_i=1$、$C_l=N\kb$。
+\ExpansionDiagram{fig:dep-th4-demag-q}{磁矩与晶格内部换热，外部绝热，仅改变受控磁场}{
+\draw[dashed](-.4,-.4)rectangle(6,2);\draw(0,0)rectangle(2.2,1.5)node[midway]{磁矩};\draw(3,0)rectangle(5.4,1.5)node[midway]{晶格};\draw[<->](2.2,.7)--(3,.7);\node[above]at(2.7,2.1){总熵守恒};\draw[->](6.8,1.3)--(6.8,.1)node[below]{$B\downarrow$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-th4-demag-q}要求保存磁矩与晶格的总熵。晶格熵差是$C_l\ln(T_f/T_i)$。只要$T_f>0$，末场$B_f=0$时$x_f=0$，两个能级等概率，磁矩熵为$N\kb\ln2$。初末熵相等给
+\[
+ C_l\ln\frac{T_f}{T_i}+N\kb\ln2
+ =N\kb[\ln(2\cosh x_i)-x_i\tanh x_i].
+\]
+所以
+\[
+ \frac{T_f}{T_i}=
+ \exp\!\left\{\frac{N\kb}{C_l}
+ [\ln\cosh x_i-x_i\tanh x_i]\right\}.
+\]
+括号在$x_i>0$时为负：其导数是$\tanh x_i-[\tanh x_i+x_i\operatorname{sech}^2x_i]=-x_i\operatorname{sech}^2x_i<0$，且原点为零。因此$0<T_f<T_i$，但有限正$C_l$使这个近似模型中的$T_f$不为零。
+\ExpansionDiagram{fig:dep-th4-demag-a}{磁矩熵增加由晶格熵减少补偿；总熵保持不变}{
+\draw[->](0,0)--(6,0)node[right]{过程};\draw[->](0,0)--(0,3.9)node[above]{$S$};\draw[thick](.5,1)--(5,2.2)node[right]{$S_s$};\draw[dashed](.5,2.4)--(5,1.2)node[right]{$S_l$};\draw[dotted](.5,3.4)--(5,3.4)node[right]{$S_{\rm total}$};}
+图\ref{fig:dep-th4-demag-a}中磁矩熵的增加由晶格熵的减少补偿，线段仅表示变化趋势；温度由总熵方程求得。取$x_i=1,C_l=N\kb$，有$\ln\cosh1\simeq0.433781$、$\tanh1\simeq0.761594$，故$T_f/T_i\simeq\ee^{-0.327813}\simeq0.7205$。
+
+若错误地仅保留磁矩子系统并令$T/B$不变，会预测$B\to0$时温度也趋零，遗漏了冷却晶格所需的熵转移。更低温时晶格热容并非常数，磁矩相互作用和内部场也可能不可忽略；届时应把实际$C_l(T)$积分写入总熵方程，而不是无限外推本题的常热容近似。
+\end{solution}
+
+\subsection{降温与系统能量降低不是同一个条件}
+对只有磁矩的可逆绝热分支，$x$固定，$U_s=-N\mu B\tanh x$。减小$B$使$T$下降，却使负的$U_s$向零增加；由$\dd U_s=-M\dd B$，增加的能量来自受控外场参数的做功。温度反映占有分布相对能级间隔的尺度，不能脱离能量零点和外参变化，直接把降温解释为内能必定减少。
+
+若要用这一工质进行制冷，应先等温磁化向环境排热，再绝热减场降温，随后与较冷负载接触吸热。各段固定的量不同，热量分别按$T\dd S$积分，磁场控制功按本节约定计入。只有把样品、负载与场源的边界交代清楚，才能比较一个完整制冷循环的能量与熵。

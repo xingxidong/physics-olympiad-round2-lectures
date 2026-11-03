@@ -1,0 +1,1695 @@
+\chapter{约束临界问题}
+
+
+求约束临界状态，既要算出物体怎样运动，也要算出维持该运动所需的力。轨道只能推小球，轻绳只能拉质点，静摩擦受接触压力限制；接触合力还必须落在支承区域内。达到哪一条边界，决定了原运动能否继续。杆内强度问题则要进一步求出各截面传递的力与弯矩。
+
+除另有说明外，以地面为惯性参考系，轻杆、轻环的质量忽略不计，固定光滑接触不耗散能量。图中力箭头标出作用点与方向，长度通常不代表力的比例；结果曲线按相应函数绘制。
+
+
+
+\section{单侧约束与临界分离}
+
+绳只能拉，接触面只能沿允许方向施力。按现有约束求出的反力达到零时，还要判断后续运动趋势，才能确定是否松绳或分离。
+
+
+
+\subsection{单侧约束与临界分离}
+\subsubsection{约束力的允许方向}
+刚性光滑轨道对轨道外侧的小球只能施加向外的支持力，轻绳只能沿绳方向拉质点。计算时先保留原有几何约束，求出维持它所需的力，再与允许范围比较。
+
+以接触间隙 $h$ 向允许脱离的一侧为正，支持力大小为 $N$，单侧接触满足
+\[
+h\ge0,\qquad N\ge0,\qquad Nh=0.
+\]
+在保持接触的一段运动中 $h=0$；分离后 $N=0$，轨迹由新的运动方程决定。若还存在静摩擦，则必须同时满足 $|f|\le\mu N$。闭合套环、铰链和可承压的刚杆通常属于双侧约束，反力可以改变方向，不能套用单侧接触的非负条件。
+
+对轻绳，记绳长为 $L$、两端距离为 $r$，相应条件为
+\[
+r\le L,\qquad T\ge0,\qquad T(L-r)=0.
+\]
+绳松弛后只受实际外力；再次绷紧时若沿绳有非零的向外相对速度，还会出现约束冲量，不能直接延续原来的能量守恒式。
+
+\subsubsection{零反力是否意味着约束改变}
+解出 $N=0$ 或 $T=0$ 后，还要沿实际运动方向判断反力的符号：此前须处于允许范围，之后若要求负反力，原约束才会失效。反力若触零后回升，约束可能继续保持。判断时还应比较速度转向、摩擦达到极限和接触合力到达支承边缘的先后。
+图\ref{sup2:fig:d2-zero-test}画出两种反力零点。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.1,0)--(3.3,0)node[right]{$t$};\draw[axis](0,-1.1)--(0,1.5)node[above]{$N$};
+\draw[curve](0,1)--(1.5,0);\draw[guide](1.5,0)--(3,-1);\node[above right]at(1.5,0){$t_s$};
+\begin{scope}[shift={(5,0)}]
+\draw[axis](-.1,0)--(3.3,0)node[right]{$t$};\draw[axis](0,-.2)--(0,1.5)node[above]{$N$};
+\draw[curve,domain=0:3,samples=80]plot(\x,{.5*(\x-1.5)^2});\node[below]at(1.5,0){$t_s$};
+\end{scope}
+\end{tikzpicture}
+\caption{原约束延拓所需反力的两种零点。左图会进入不允许的负反力区；右图只触零后回升，须结合运动判断。}\label{sup2:fig:d2-zero-test}
+\end{figure}
+
+若切向运动由能量给出 $v^2(s)$，普通运动点满足 $a_t=\tfrac12\dd(v^2)/\dd s$。法向运动则满足
+\[
+\sum F_n=m\frac{v^2}{\rho}.
+\]
+这里主法线指向轨迹的曲率中心，支持力未必沿主法线正向。圆外侧运动中，重力的向心分量与向外支持力相减；圆内侧运动中，支持力可以直接提供向心力。
+
+下文所说的从竖直位置或凸轨道顶端静止倒下，均指从极小非零偏角释放，再取偏角趋零的极限。严格处在光滑不稳定平衡点且初速度为零时，理想运动方程的解仍是静止。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[圆弧与端点质量杆的分离]\label{ex:hw2-1}
+
+(1)质量$m$的小球由半径$r$的光滑圆弧最高点附近从静止沿外侧下滑，求离开圆弧的位置。(2)长$2l$的轻杆两端各有质量$m$的小球，分别接触光滑竖直墙和光滑水平地面，杆从近乎竖直状态由静止释放，求杆上端离墙的位置。图\ref{fig:hw2-1-q}中两题的角度均从竖直方向量起。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,0)}]\draw[curve,domain=0:90,samples=50]plot({2*sin(\x)},{2*cos(\x)});\draw[guide](0,0)--(0,2);\coordinate(P)at(1.41421356,1.41421356);\draw(0,0)--(P);\fill(P)circle(2pt)node[right]{$P$};\node[below]at(0,0){$O$};\node[left]at(0,2){$A$};\draw(0,.6)arc(90:45:.6)node[midway,above]{$\theta$};\end{scope}\begin{scope}[shift={(4,0)}]\draw[thick](0,2.7)--(0,0)--(3,0);\draw[curve](0,2.25)--(1.7,0);\fill(0,2.25)circle(2pt)node[left]{$A$};\fill(1.7,0)circle(2pt)node[below]{$B$};\node[right]at(.9,1.3){$2l$};\draw[guide](1.7,0)--(1.7,2.5);\draw(1.7,.55)arc(90:127.073:.55)node[midway,above left]{$\theta$};\end{scope}
+\end{tikzpicture}
+\caption{圆弧外侧下滑与端点质量杆下落}\label{fig:hw2-1-q}
+\end{figure}
+
+\begin{solution}
+圆弧上由能量守恒有$v^2=2gr(1-\cos\theta)$。图\ref{fig:hw2-1-s}左图向心方向的方程为$mg\cos\theta-N=mv^2/r$，故
+\[
+ N=mg(3\cos\theta-2),\qquad
+ \boxed{\cos\theta_c=2/3}.
+\]
+离开前$N>0$，继续沿圆弧运动会要求$N<0$，所以该零点确为分离点。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,0)}]\draw[curve,domain=0:90,samples=50]plot({2*sin(\x)},{2*cos(\x)});\draw[guide](0,0)--(0,2);\coordinate(P)at(1.41421356,1.41421356);\draw(0,0)--(P);\fill(P)circle(2pt)node[right]{$P$};\node[below]at(0,0){$O$};\node[left]at(0,2){$A$};\draw(0,.6)arc(90:45:.6)node[midway,above]{$\theta$};\draw[axis](P)--(.75,.75);\draw[axis](P)--(1.838478,1.838478)node[right]{$N$};\node[right]at(1.2,.55){$mg\cos\theta$};\end{scope}\begin{scope}[shift={(4,0)}]\draw[thick](0,2.7)--(0,0)--(3,0);\draw[curve](0,2.25)--(1.7,0);\fill(0,2.25)circle(2pt)node[left]{$A$};\fill(1.7,0)circle(2pt)node[below]{$B$};\node[right]at(.9,1.3){$2l$};\draw[guide](1.7,0)--(1.7,2.5);\draw(1.7,.55)arc(90:127.073:.55)node[midway,above left]{$\theta$};\draw[axis](0,2.25)--(.9,2.25)node[above]{$N_w$};\draw[axis](1.7,0)--(1.7,.85)node[right]{$N_B$};\end{scope}
+\end{tikzpicture}
+\caption{径向重力分量与墙的水平反力}\label{fig:hw2-1-s}
+\end{figure}
+
+杆题中$x_B=2l\sin\theta$、$y_A=2l\cos\theta$，两端速度分别为 $2l\cos\theta\,\dot\theta$ 和 $-2l\sin\theta\,\dot\theta$，故两端动能和为 $2ml^2\dot\theta^2$。势能的下降量为 $2mgl(1-\cos\theta)$，绕角度坐标的运动方程为 $4ml^2\ddot\theta=2mgl\sin\theta$。因此
+\[
+ \dot\theta^2=\frac gl(1-\cos\theta),\quad
+ \ddot\theta=\frac g{2l}\sin\theta.
+\]
+对两端坐标继续求导，
+\[
+\ddot x_B=2l(\cos\theta\,\ddot\theta-\sin\theta\,\dot\theta^2),
+\qquad
+\ddot y_A=-2l(\sin\theta\,\ddot\theta+\cos\theta\,\dot\theta^2).
+\]
+系统水平外力只有墙的反力$N_w$；上端水平速度为零，故
+\[
+ N_w=m\ddot x_B
+ =mg\sin\theta(3\cos\theta-2).
+\]
+地面对下端的支持力可由竖直动量求得：$N_B-2mg=m\ddot y_A$，于是
+\[
+ N_B=mg(1-2c+3c^2)>0,\qquad c=\cos\theta.
+\]
+在墙反力首次由正变负的位置，地面接触仍可保持。因此先失效的是墙面约束。
+
+杆上端离墙时同样有$\boxed{\cos\theta_c=2/3}$。这里判定分离的是墙的水平反力；圆弧题采用的向心力方程不适用于该杆系。
+
+
+\end{solution}
+
+
+
+\begin{example}[抛物线与椭圆外轨道]\label{ex:hw2-2}
+
+质量$m$的质点分别在光滑轨道$y=-x^2/b$（$b>0$）及$x^2/a^2+y^2/b^2=1$的上部外侧，从最高点附近由静止下滑。求是否分离；若分离，确定分离点。图\ref{fig:hw2-2-q}中椭圆半轴为$a,b>0$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,0)}]\draw[axis](0,0)--(2.5,0)node[right]{$x$};\draw[axis](0,0)--(0,1.2)node[above]{$y$};\draw[curve,domain=-1.7:1.7,samples=60]plot(\x,{-(\x)^2/2});\node[above left]at(0,0){$A$};\node at(0,-2){$y=-x^2/b$};\end{scope}\begin{scope}[shift={(6,0)}]\draw(0,0)ellipse(2 and 1.35);\coordinate(P)at(1.3,1.026);\draw[guide](0,0)--(P);\fill(P)circle(2pt)node[right]{$P$};\draw[axis](-2.3,0)--(2.4,0)node[right]{$x$};\draw[axis](0,-1.6)--(0,1.7)node[above]{$y$};\node[left]at(0,1.35){$A$};\end{scope}
+\end{tikzpicture}
+\caption{抛物线外轨道与椭圆外轨道}\label{fig:hw2-2-q}
+\end{figure}
+
+\begin{solution}
+在抛物线上，$y'=-2x/b$、$y''=-2/b$，因此曲率为
+\[
+\frac1{\rho_c}=\frac{|y''|}{(1+y'^2)^{3/2}}
+=\frac{2/b}{(1+4x^2/b^2)^{3/2}}.
+\]
+能量守恒给出 $mv^2/2=mgx^2/b$。以向下的主法向列式，得到图\ref{fig:hw2-2-s}左侧的支持力
+\[
+ \boxed{N=\frac{mg}{(1+4x^2/b^2)^{3/2}}>0}.
+\]
+因此不存在有限位置的分离。严格静止在不稳定的最高点会保持静止，题意采用从其邻域开始运动的极限。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,0)}]\draw[axis](0,0)--(2.5,0)node[right]{$x$};\draw[axis](0,0)--(0,1.6)node[above]{$N$};\draw[curve,domain=0:2.3,samples=60]plot(\x,{1.4/(1+\x*\x)^(1.5)});\node at(1,-.5){$N>0$};\end{scope}\begin{scope}[shift={(6,0)}]\draw(0,0)ellipse(2 and 1.35);\coordinate(P)at(1.3,1.026);\draw[axis](P)--(1.65,1.632)node[right]{$N$};\draw[guide](0,0)--(P);\fill(P)circle(2pt)node[right]{$P$};\draw[axis](-2.3,0)--(2.4,0)node[right]{$x$};\draw[axis](0,-1.6)--(0,1.7)node[above]{$y$};\node[left]at(0,1.35){$A$};\node at(0,-2){$D=a^2c^2+b^2(1-c^2)$};\end{scope}
+\end{tikzpicture}
+\caption{抛物线支持力保持正值，椭圆须另求分离点}\label{fig:hw2-2-s}
+\end{figure}
+
+抛物线单位主法向的竖直分量大小为$1/\sqrt{1+4x^2/b^2}$，因此
+\[
+ N=\frac{mg}{\sqrt{1+4x^2/b^2}}-\frac{mv^2}{\rho_c}.
+\]
+代入 $v^2=2gx^2/b$ 并通分，
+\[
+N=\frac{mg(1+4x^2/b^2)-4mgx^2/b^2}{(1+4x^2/b^2)^{3/2}},
+\]
+分子中的 $x^2$ 项抵消，支持力始终为正。椭圆的参数 $\theta$ 采用下文的坐标定义，一般不等于位置矢量与坐标轴的极角。
+
+椭圆取 $x=a\sin\theta$、$y=b\cos\theta$，记 $c=\cos\theta$、$D=a^2c^2+b^2(1-c^2)$。参数的一阶与二阶导数为
+\[
+x'=a\cos\theta,\quad y'=-b\sin\theta,\quad
+x''=-a\sin\theta,\quad y''=-b\cos\theta.
+\]
+外单位法线为 $(b\sin\theta,a\cos\theta)/\sqrt D$；曲率分子 $|x'y''-y'x''|=ab(\cos^2\theta+\sin^2\theta)=ab$。能量给出 $v^2=2gb(1-c)$，故法向方程为
+\[
+N=\frac{mgac}{\sqrt D}-\frac{2mgb(1-c)ab}{D^{3/2}}.
+\]
+用 $D=b^2+(a^2-b^2)c^2$ 合并分子，得到
+\[
+ N=\frac{mga}{D^{3/2}}\big[(a^2-b^2)c^3+3b^2c-2b^2\big].
+\]
+所以分离点由
+\[
+ \boxed{(a^2-b^2)c_*^3+3b^2c_*-2b^2=0,\quad
+ (x_*,y_*)=(a\sqrt{1-c_*^2},bc_*)}
+\]
+确定。该多项式在$c=0$时为负、$c=1$时为$a^2>0$，导数$3[b^2+(a^2-b^2)c^2]>0$，故$(0,1)$内恰有一根。$a=b$时退化为$c_*=2/3$。
+
+
+\end{solution}
+
+
+
+\begin{example}[轻绳竖直圆运动的三种结局]\label{sup2:problem-example-3}\label{sup2:example:d2-e3}
+
+长为 $R$ 的轻绳一端固定，另一端系质量为 $m$ 的质点。质点在最低点 B 获得水平速率 $u$，以后在竖直面内运动。角度从向下半径起算，见图\ref{sup2:fig:d2-e3-q}。按 $k=u^2/(gR)$ 分类讨论转向、松绳与完整周转。若把绳换成可拉可压的轻杆，越过顶点的条件有何改变？
+
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,1.8);\coordinate(B)at(0,.2);\coordinate(P)at({1.6*sin(60)},{1.8-1.6*cos(60)});
+\draw[guide](O)circle(1.6);\draw[thick](O)--(P);\draw[guide](O)--(B);
+\fill(O)circle(1.3pt)node[above left]{$O$};\fill(B)circle(1.3pt)node[below]{$B$};\fill(P)circle(1.7pt)node[right]{$P$};
+\draw(0,1.25)arc(-90:-30:.55);\node at(.4,1){$\theta$};
+\draw[axis](0,.2)--(.9,.2)node[right]{$u$};\node at(2.8,2.5){$k=u^2/(gR)$};
+\node at(2.8,1.5){$OP=R$};
+\end{tikzpicture}
+\caption{最低点发射的绳摆。角度沿右半圆向上增加，虚线表示绳保持绷紧时的圆轨道。}\label{sup2:fig:d2-e3-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+在绳仍绷紧时，质点上升高度为 $R(1-\cos\theta)$。能量与沿绳向内的牛顿方程给出
+\[
+v^2=gR(k-2+2\cos\theta),\qquad
+T-mg\cos\theta=\frac{mv^2}{R},
+\]
+因此
+\[
+T=mg(k-2+3\cos\theta).
+\]
+必须同时满足 $v^2\ge0$、$T\ge0$。前者的零点表示可能转向，后者的零点表示可能松绳；应比较沿上升过程先遇到哪一个。图\ref{sup2:fig:d2-e3-s}只画各条绷紧运动实际能够到达的部分。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.15,0)--(3.7,0)node[right]{$\theta$};\draw[axis](0,-.2)--(0,2.65)node[above]{$T/(mg)$};
+\draw[curve,domain=0:60,samples=60]plot({\x/55},{.35*(-1+3*cos(\x))});
+\draw[curve,domain=0:109.47122,samples=70]plot({\x/55},{.35*(1+3*cos(\x))});
+\draw[curve,domain=0:180,samples=100]plot({\x/55},{.35*(3+3*cos(\x))});
+\node[left]at(0,.7){$k=1$};\node[left]at(0,1.4){$k=3$};\node[left]at(0,2.1){$k=5$};
+\fill({60/55},.175)circle(1.4pt);\draw[guide]({60/55},.175)--(.6,-.25);\node at(.55,-.6){转向};
+\fill({109.47122/55},0)circle(1.4pt)node[below]{松绳};
+\fill({180/55},0)circle(1.4pt)node[below]{$\pi$};
+\node at(3,1.4){$k=5$ 在顶点触零};
+\end{tikzpicture}
+\caption{张力曲线与运动终点。速度为零和张力为零须按各自的物理意义处理。}\label{sup2:fig:d2-e3-s}
+\end{figure}
+
+当 $0<k<2$，转向点满足 $\cos\theta_t=1-k/2>0$。在该点
+\[
+T_t=mg\cos\theta_t>0.
+\]
+所以质点先在水平半径以下转向，绳保持绷紧。$k=0$ 则始终停在最低点。
+
+当 $k=2$，质点到水平半径处同时有 $v=0,T=0$。随后质点在重力作用下沿圆弧返回，张力 $T$ 重新为正。若假设自由落体，短时间后到 O 的距离反而超过 R，不符合绳长限制，故这一瞬时零张力并不导致松绳。
+
+当 $2<k<5$，先到达
+\[
+\cos\theta_s=\frac{2-k}{3},\qquad
+v_s^2=\frac{k-2}{3}gR>0.
+\]
+这一点位于上半圆，继续上行会要求负张力，因而从此进入松绳抛体运动。到达速度零点所需的余弦为 $(2-k)/2$，比上述余弦更小，证实松绳先于转向发生。
+
+当 $k\ge5$，整周中 T 在顶点最小，$T_{\rm top}=mg(k-5)$。$k=5$ 时顶点速度仍为 $\sqrt{gR}>0$，T 只触及零后回升，可以完成周转；$k>5$ 时整周张力为正。因此完整绷紧周转的条件为 $u^2\ge5gR$。
+
+轻杆允许轴向力为负，只有能量条件限制能否上到顶端。杆摆在顶点的速率平方为 $gR(k-4)$。$k>4$ 时以非零速度越过；$k=4$ 时，令 $\delta=\pi-\theta$，有 $v\sim\sqrt{gR}\,\delta$，因而 $\dot\delta\sim-\sqrt{g/R}\,\delta$。在顶点附近，
+\[
+t-t_1\sim\sqrt{\frac Rg}\int_{\delta(t)}^{\delta(t_1)}\frac{\dd\xi}{\xi}
+=\sqrt{\frac Rg}[\ln\xi]_{\delta(t)}^{\delta(t_1)}
+=\sqrt{\frac Rg}\ln\frac{\delta(t_1)}{\delta(t)}.
+\]
+当 $\delta\to0$ 时，时间发散。故轻杆真正越过顶点要求 $u^2>4gR$，等号只是渐近倒立位置。
+
+\end{solution}
+
+
+
+\section{刚体支承、滑动与内部受力}
+
+刚体可能先滑动或失去支承，也可能先在内部达到强度极限。运动由整体受力确定，内力由截取部分求出，各种临界条件应沿同一运动过程比较。
+
+
+
+\subsection{刚体支承与内部受力}
+\subsubsection{同时存在多个约束时的事件顺序}
+杆沿墙和地面运动时，墙面支持力、地面支持力与摩擦条件都须检查。某一反力先达到边界后，原来的全部几何约束就不再同时成立。分离瞬间通常保留位置和速度连续，再用剩余约束重建动能、动量方程或牛顿方程。
+
+约束力还可以由某个动量分量的变化率求得。例如只有墙面力提供水平外力时，墙面支持力等于总水平动量的导数。动量达到极值是反力为零的另一种表达；极值对应哪个方向的动量，必须由外力方向确定。
+
+\subsubsection{截取刚体的一部分}
+刚体内部也要传递力和力偶。截取杆的一段后，切面上一般同时出现轴向力、剪力与弯矩。对子段质心应用平动方程，再对该质心列转动方程，可以避免把加速中的切口误当作固定转轴。
+
+下文的内力符号均由图中箭头定义。强度限制若针对力的大小，应对整个运动范围内的绝对值求最大值；仅求正向峰值会漏掉反向载荷。支承铰链可承受两个方向的力，与地面对杆端的单侧支持不同。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[粗糙地面上的刚性棒]\label{ex:hw2-3}
+
+刚性棒总质量$m$，质心到下端$O$的距离为$l$，关于下端的转动惯量为$I_O=\lambda ml^2$。棒从竖直附近由静止释放，底端与地面间摩擦足够大。求何时离地。角度$\theta$从向下倾倒前的竖直位置量起。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-.7,0)--(2.5,0);\draw[curve](0,0)--(1.4,2.4);\fill(.7,1.2)circle(2pt)node[left]{$C$};\node[below]at(0,0){$O$};\draw[guide](0,0)--(0,2.7);\node at(.2,1){$\theta$};
+\end{tikzpicture}
+\caption{粗糙地面上以底端为支点的棒}\label{fig:hw2-3-q}
+\end{figure}
+
+\begin{solution}
+在离地前下端不动，图\ref{fig:hw2-3-s}中质心$C=(l\sin\theta,l\cos\theta)$。平行轴定理要求$\lambda\ge1$。由能量及绕$O$的力矩方程，
+\[
+ \dot\theta^2=\frac{2g}{\lambda l}(1-\cos\theta),\quad
+ \ddot\theta=\frac g{\lambda l}\sin\theta.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(1.4,2.4);\fill(.7,1.2)circle(2pt)node[left]{$C$};\draw[axis](0,0)--(0,.8)node[left]{$N$};\draw[axis](.7,1.2)--(.7,.4)node[right]{$mg$};\draw[axis](0,0)--(.8,0)node[below]{$f_x$};\node at(3,1.4){$I_O=I_C+ml^2$};
+\end{tikzpicture}
+\caption{水平反力按向右为正，其实际方向由解出的符号决定}\label{fig:hw2-3-s}
+\end{figure}
+
+由$y_C=l\cos\theta$逐次求导，
+\[
+\dot y_C=-l\sin\theta\,\dot\theta,\qquad
+\ddot y_C=-l\bigl(\cos\theta\,\dot\theta^2+\sin\theta\,\ddot\theta\bigr)
+=-\frac g\lambda(1+2c-3c^2),\quad c=\cos\theta.
+\]
+竖直方向合力为$N-mg=m\ddot y_C$，代入上式得
+\[
+ N=\frac{mg}{\lambda}[\lambda-1+3c^2-2c],\quad c=\cos\theta.
+\]
+令方括号为 $p(c)=\lambda-1+3c^2-2c$，有 $p'=6c-2$、$p''=6>0$。所以 $p$ 在 $c=1/3$ 处最小，最小值为 $\lambda-4/3$。因此
+\[
+ \boxed{1\le\lambda<\tfrac43:\quad
+ \cos\theta_c=\frac{1+\sqrt{4-3\lambda}}3}.
+\]
+若$\lambda>4/3$，支持力始终为正。若$\lambda=4/3$，$N$在临界角处触零后仍为非负，约束运动可以继续，因而这里不发生分离。
+
+若改用质心惯量$I_C=\kappa ml^2$表示，则$\lambda=\kappa+1$，相应分界为$\kappa=1/3$。这一参数平移来自平行轴定理，比较分离条件时应先统一取轴。
+
+上述判据以底端不滑动为约束假设。实际地面若有有限静摩擦因数$\mu_s$，还须满足
+\[
+ |f|\le\mu_sN,\qquad
+ f=m\ddot x_C=ml(\cos\theta\,\ddot\theta-\sin\theta\,\dot\theta^2)
+ =\frac{mg}{\lambda}\sin\theta(3\cos\theta-2).
+\]
+接近分离根时，$N\to0$，而$f$通常仍不为零，因此有限静摩擦会先达到极限。滑动发生后，实际离地角须结合摩擦条件重新计算。这里的离地角适用于题设采用的理想不滑动约束。
+
+
+\end{solution}
+
+
+
+\begin{example}[倒杆各截面的强度]\label{ex:hw2-4}
+
+均匀刚性棒质量$m$、长度$L$，下端无摩擦铰接于固定点$O$，由近乎竖直的状态静止释放。各截面承受的轴向力、横向剪力及弯矩的绝对值上限分别为$N_0,f_0,M_0$。求保证棒倒地前不破坏所需的最小上限。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(3.1,1.8);\fill(0,0)circle(2pt)node[below]{$O$};\draw[guide](0,0)--(0,2.4);\draw[guide](1.4,.81)--(1.8,.12);\node[above]at(1.4,.81){$s$};\node[right]at(3.1,1.8){$L$};\node at(.4,1){$\theta$};
+\end{tikzpicture}
+\caption{倒杆上距固定端为$s$的截面}\label{fig:hw2-4-q}
+\end{figure}
+
+\begin{solution}
+取截面距$O$为$s$，置$z=s/L\in[0,1]$。图\ref{fig:hw2-4-s}单独取截面以外的上段为研究对象，其每一微元距$O$为$r$。均匀杆有
+\[
+ \omega^2=\frac{3g}{L}(1-\cos\theta),\qquad
+ \alpha=\frac{3g}{2L}\sin\theta.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}
+\draw[curve](0,0)--(2.6,1.5);\fill(0,0)circle(2pt)node[below]{$O$};
+\draw[guide](0,0)--(0,2);\draw[guide](1.15,.6635)--(1.4,.23);
+\node[above]at(1.15,.6635){$s$};\node[right]at(2.6,1.5){$L$};\node at(.35,.9){$\theta$};
+\end{scope}
+\begin{scope}[shift={(4.5,.2)}]
+\draw[curve](0,0)--(2.6,1.5);\fill(0,0)circle(1pt)node[below right]{$s$};
+\node[right]at(2.6,1.5){$L$};
+\draw[axis](0,0)--(.78,.45)node[above]{$N$};\draw[axis](0,0)--(.45,-.78)node[right]{$f$};
+\draw[axis](0,.5)arc(90:-170:.5);\node[left]at(-.55,.25){$M$};
+\draw[axis](1.55,.894)--(1.55,-.1)node[right]{$g\dd m$};
+\node at(1.2,2.05){截面以外的一段};\node at(1.3,-1.2){$a_r=-r\omega^2,\quad a_t=r\alpha$};
+\end{scope}
+\end{tikzpicture}
+\caption{隔离截面上段，分别列轴向、切向及力矩方程}\label{fig:hw2-4-s}
+\end{figure}
+
+截面以外一段的质量为$m(1-z)$。重力沿杆向内的分量为$-(m/L)g\cos\theta\dd r$，沿倒下切向的分量为$(m/L)g\sin\theta\dd r$。相应的微元平衡式为
+\[
+ N=\int_s^L\frac mL(g\cos\theta-r\omega^2)\dd r,
+ \qquad f=\int_s^L\frac mL(r\alpha-g\sin\theta)\dd r.
+\]
+轴力正负对应截面对上段沿杆向外或向内作用，强度条件取其绝对值。
+
+设截面对上段的轴力沿杆向外为正，剪力沿倒下的切向为正。把两个积分分别算出：
+\[
+\begin{aligned}
+N&=\frac mL\left[g\cos\theta\,r-\frac{\omega^2r^2}{2}\right]_s^L
+=mg\cos\theta(1-z)-\frac{mL\omega^2}{2}(1-z^2),\\
+f&=\frac mL\left[\frac{\alpha r^2}{2}-g\sin\theta\,r\right]_s^L
+=\frac{mL\alpha}{2}(1-z^2)-mg\sin\theta(1-z).
+\end{aligned}
+\]
+弯矩取与剪力约定相容的符号，对上段各微元的切向惯性项与重力取矩，
+\[
+\begin{aligned}
+M&=\frac mL\int_s^L(r-s)(r\alpha-g\sin\theta)\,\dd r\\
+&=\frac mL\left[\alpha\left(\frac{r^3}{3}-\frac{sr^2}{2}\right)
+-g\sin\theta\left(\frac{r^2}{2}-sr\right)\right]_s^L\\
+&=\frac mL\left[\alpha\left(\frac{L^3}{3}-\frac{sL^2}{2}+\frac{s^3}{6}\right)
+-\frac{g\sin\theta}{2}(L-s)^2\right].
+\end{aligned}
+\]
+代入已求出的$\omega^2,\alpha$并用$s=zL$整理，得到
+\begin{align*}
+ N(s,\theta)&=\frac{mg}{2}(1-z)[(5+3z)\cos\theta-3(1+z)],\\
+ f(s,\theta)&=\frac{mg}{4}\sin\theta(1-z)(3z-1),\\
+ M(s,\theta)&=\frac{mgL}{4}\sin\theta\,z(1-z)^2.
+\end{align*}
+轴力随 $\cos\theta$ 线性变化，绝对值最大值在竖直或水平极限取到。竖直时 $N=mg(1-z)$，最大绝对值为 $mg$；水平时 $N=-3mg(1-z^2)/2$，最大绝对值为 $3mg/2$。剪力的角度因子 $\sin\theta$ 在水平极限为 1，再令
+\[
+p(z)=(1-z)(3z-1)=-3z^2+4z-1,\qquad p'(z)=4-6z.
+\]
+比较 $p(0)=-1$、$p(1)=0$、$p(2/3)=1/3$，得剪力绝对值最大为 $mg/4$。弯矩同样在水平时最大，其位置因子满足
+\[
+\frac{\dd}{\dd z}[z(1-z)^2]
+=(1-z)^2-2z(1-z)=(1-z)(1-3z).
+\]
+端点值均为零，内点 $z=1/3$ 处取最大值 $4/27$。因此
+\[
+ \boxed{N_{0,\min}=\frac32mg,\quad f_{0,\min}=\frac14mg,
+ \quad M_{0,\min}=\frac{mgL}{27}}.
+\]
+这些上限针对杆落地前的连续运动。落地碰撞中的冲击载荷须另作计算。
+
+
+\end{solution}
+
+
+
+\begin{example}[固定杆端假设与先滑动的边界]\label{deep2:problem-example-6}\label{deep2:example:d2-e6}
+
+刚体质量为 m，质心 C 到底端 O 的距离为 $\ell$，绕 O 的转动惯量为 $I_O=\lambda m\ell^2$，$\lambda\ge1$。刚体从竖直附近静止向右倒下，底端接触粗糙水平地面，见图\ref{deep2:fig:d2-e6-q}。先假定底端不动，求支持力与摩擦力，再讨论 N=0 的候选条件。对均匀细杆，若 $\mu=3\sqrt3$，求首次滑动角。
+
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,0);\coordinate(C)at({2*sin(35)},{2*cos(35)});
+\draw[thick](-.6,0)--(3.5,0);\draw[line width=2pt](O)--({3.3*sin(35)},{3.3*cos(35)});
+\draw[guide](O)--(0,3);\draw(0,.7)arc(90:55:.7);\node at(.35,.9){$\theta$};
+\fill(O)circle(1.5pt)node[below]{$O$};\fill(C)circle(1.5pt)node[left]{$C$};\node[anchor=west]at(2.6,3.1){$OC=\ell$};
+\node[anchor=west]at(2.6,2){$I_O=\lambda m\ell^2$};
+\end{tikzpicture}
+\caption{底端尚未滑动时的刚体构形。惯量参数相对于底端定义。}\label{deep2:fig:d2-e6-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+在底端保持不动的阶段，重力势能的减少等于绕 O 的转动动能。令 $c=\cos\theta$、$s=\sin\theta$，得到
+\[
+\dot\theta^2=\frac{2g}{\lambda\ell}(1-c),\qquad
+\ddot\theta=\frac g{\lambda\ell}s.
+\]
+质心坐标为 $(\ell s,\ell c)$。对坐标求两次导数，
+\[
+a_{Cx}=\ell(c\ddot\theta-s\dot\theta^2)
+=\frac g\lambda s(3c-2),
+\]
+\[
+a_{Cy}=-\ell(s\ddot\theta+c\dot\theta^2)
+=-\frac g\lambda(1+2c-3c^2).
+\]
+图\ref{deep2:fig:d2-e6-s}规定 f 向右为正、N 向上为正。由质心平动方程，
+\[
+f=\frac{mg}{\lambda}s(3c-2),\qquad
+N=\frac{mg}{\lambda}(\lambda-1-2c+3c^2).
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,0);\coordinate(C)at({2*sin(35)},{2*cos(35)});
+\draw[thick](-.6,0)--(3.5,0);\draw[line width=2pt](O)--({3.3*sin(35)},{3.3*cos(35)});
+\draw[guide](O)--(0,3);\draw(0,.7)arc(90:55:.7);\node at(.35,.9){$\theta$};
+\fill(O)circle(1.5pt)node[below]{$O$};\fill(C)circle(1.5pt)node[left]{$C$};\node[anchor=west]at(2.6,3.1){$OC=\ell$};
+\node[anchor=west]at(2.6,2){$I_O=\lambda m\ell^2$};
+
+\draw[axis](O)--(0,1.15)node[left]{$N$};\draw[axis](O)--(.95,0)node[below]{$f$};
+\draw[axis](C)--++(0,-1)node[right]{$mg$};
+\node at(4,1){$|f|\le\mu N$};
+\end{tikzpicture}
+\caption{固定端阶段的实际外力。摩擦方向由 f 的符号确定，图上正向只用于列式。}\label{deep2:fig:d2-e6-s}
+\end{figure}
+
+在 $0\le c\le1$ 内，N 在 $c=1/3$ 处最小，$N_{\min}=mg[1-4/(3\lambda)]$。若 $\lambda>4/3$，固定端模型的 N 始终为正。若 $\lambda=4/3$，只在 $c=1/3$ 触零。若 $1\le\lambda<4/3$，从 c=1 开始首先遇到的零点为
+\[
+c_N=\frac{1+\sqrt{4-3\lambda}}3.
+\]
+这只是“底端不动”模型的候选边界。对 $1<\lambda\le4/3$，在该候选点附近 f 不为零而 N 趋于零，$|f|/N$ 发散。任何有限静摩擦因数都不能将底端一直固定到那里，实际应先滑动。
+
+对均匀杆，$\ell=L/2$、$I_O=mL^2/3$，所以 $\lambda=4/3$，
+\[
+N=\frac{mg}{4}(3c-1)^2,\qquad
+\frac{|f|}{N}=\frac{3\sqrt{1-c^2}|3c-2|}{(3c-1)^2}.
+\]
+在 $2/3\le c\le1$，分母至少为 1、分子不超过 3，故比值小于给定的 $3\sqrt3$，这一阶段静摩擦尚未达到极限。
+
+在 $1/3<c<2/3$，$f$ 已向左。比值为 $R(c)=3\sqrt{1-c^2}(2-3c)/(3c-1)^2$，取对数，
+\[
+\ln R=\ln3+\tfrac12\ln(1-c^2)+\ln(2-3c)-2\ln(3c-1).
+\]
+逐项使用链式法则，得到
+\[
+\frac{R'}R=-\frac c{1-c^2}-\frac3{2-3c}-\frac6{3c-1}<0.
+\]
+真实运动中 c 减小，R 因而严格增大。在 c=1/2 时
+\[
+N=\frac{mg}{16},\qquad |f|=\frac{3\sqrt3}{16}mg=\mu N.
+\]
+所以首次滑动角是 $\theta=60^\circ$，早于候选 N=0 的角度 $\arccos(1/3)$。滑动后 O 的位置也成为未知量，不能继续用固定端的能量与反力公式。
+
+\end{solution}
+
+
+
+\section{约束极值、虚功与二阶变化}
+
+平衡要求势能在允许方向上的一阶变化为零，稳定性则由更高阶变化决定。几何约束可用独立坐标消去，也可用乘数保留；两种方法都须检查可行边界和扰动方向。
+
+
+
+\subsection{条件极值与约束平衡}
+\subsubsection{可行方向与拉格朗日乘数}
+约束 $G(q_1,\ldots,q_n)=0$ 限制允许位移满足 $\nabla G\cdot\delta\vct q=0$。在约束流形的正则点，若 f 对全部可行方向的一阶变化均为零，其梯度必须与约束梯度平行，即
+\[
+\nabla f=\lambda\nabla G.
+\]
+若有若干个梯度线性无关的约束，则 $\nabla f$ 是这些梯度的线性组合。将约束一起代入，才能确定候选点。
+
+乘数方程给出驻值点。确定全局极值时，还须考察可行集的范围、边界及退化构形。推导中若除以某个坐标或三角函数，必须把其为零的情形另列出来。正则性失效的点也不能仅凭乘数方程排除。
+
+对保守静力系统，固定理想约束不对可行虚位移做功，平衡条件为 $\delta U=0$。若所选坐标独立，应令各偏导为零；若坐标仍受固定几何关系约束，则应先消元或引入乘数。稳定性由沿可行方向的二阶变化决定。接触为单侧时，位于边界的平衡还须保留相应反力的非负条件。
+
+\subsubsection{变分方程的初步}
+有限维条件极值中改变的是若干坐标；若要改变整条曲线 $y(x)$，可研究泛函
+\[
+J[y]=\int_{x_0}^{x_1}\mathcal L(x,y,y')\dd x.
+\]
+令 $y\mapsto y+\epsilon\eta$，且端点固定，$\eta(x_0)=\eta(x_1)=0$。在 $\epsilon=0$ 处对泛函求导，
+\[
+\delta J=\int_{x_0}^{x_1}(\mathcal L_y\eta+\mathcal L_{y'}\eta')\dd x.
+\]
+第二项分部积分，
+\[
+\int_{x_0}^{x_1}\mathcal L_{y'}\eta'\dd x
+=[\mathcal L_{y'}\eta]_{x_0}^{x_1}
+-\int_{x_0}^{x_1}\frac{\dd\mathcal L_{y'}}{\dd x}\eta\dd x.
+\]
+边界项因端点变化为零而消失，得到
+\[
+\delta J=\int_{x_0}^{x_1}
+\left(\frac{\partial\mathcal L}{\partial y}
+-\frac\dd{\dd x}\frac{\partial\mathcal L}{\partial y'}\right)\eta\dd x.
+\]
+若对任意允许的 $\eta$ 均为零，曲线内部须满足欧拉—拉格朗日方程
+\[
+\frac{\partial\mathcal L}{\partial y}
+-\frac\dd{\dd x}\frac{\partial\mathcal L}{\partial y'}=0.
+\]
+当 $\mathcal L$ 不显含 x 时，可得到第一积分 $\mathcal L-y'\mathcal L_{y'}=\text{常量}$。第\ref{sec:complete2-variation}节将展开沿曲线求导的乘积项，并用欧拉方程使它们相消。第一积分仍是驻值的必要条件；是否为极小、能否处理端点奇性，需要结合具体问题。
+
+
+\subsection{受约束的二阶变化}
+\label{sec:complete2}
+设驻值点满足$\nabla f=\sum_a\lambda_a\nabla g_a$，各约束写成$g_a=0$。在该点取切向变化$\vct\xi$，满足$\nabla g_a\cdot\vct\xi=0$。为保留约束曲率，取实际落在约束面上的曲线$\vct q(\varepsilon)$，令$\vct q'(0)=\vct\xi$、$\vct q''(0)=\vct\eta$。对$g_a(\vct q(\varepsilon))=0$连续求导，
+\[\nabla g_a\cdot\vct\xi=0,\qquad
+\vct\xi^{\mathsf T}\nabla^2g_a\vct\xi+\nabla g_a\cdot\vct\eta=0.
+\]
+目标函数沿该曲线的二阶导数为
+\[\frac{\dd^2f}{\dd\varepsilon^2}
+=\vct\xi^{\mathsf T}\nabla^2f\vct\xi+\nabla f\cdot\vct\eta.
+\]
+把驻值条件$\nabla f=\sum_a\lambda_a\nabla g_a$代入第二项，再由约束的二阶关系消去$\vct\eta$，得到
+\[
+ \delta^2 f=\vct\xi^{\mathsf T}
+ \left[\nabla^2 f-\sum_a\lambda_a\nabla^2g_a\right]\vct\xi.
+\]
+局部极值由允许切空间内的二次型决定。若直接在整个坐标空间中考察$f$的二阶导数，就会混入不满足约束的变化。若二阶变化退化，应继续计算高阶项；若约束含不等式，还要检验边界上的单侧变化。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[竖直导杆上的滑环]\label{ex:hw2-5}
+
+长$3l$的轻杆在$A$端固定质量$m$的小球，距$A$为$l$处固定轻环$C$，环套在固定光滑竖直导杆上；另一端$B$接触光滑地面。杆从近乎竖直状态由静止释放，求何时离开地面。图\ref{fig:hw2-5-q}中$AC=l$、$CB=2l$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-.5,0)--(3,0);\draw[thick](.676189,.05)--(.676189,2.85);
+\coordinate(B)at(0,0);\coordinate(C)at(.676189,1.450092);\coordinate(A)at(1.014284,2.175138);
+\draw[curve](B)--(A);\draw(C)circle(.1);\fill(A)circle(2pt)node[right]{$A,m$};
+\node[left]at(C){$C$};\node[below]at(B){$B$};\node[left]at(.33,1.15){$2l$};\node[right]at(.88,1.75){$l$};
+\draw[guide](C)--(.676189,2.2);\draw(.676189,1.950092)arc(90:65:.5)node[midway,above]{$\theta$};
+\end{tikzpicture}
+\caption{竖直导杆约束下的滑环与轻杆}\label{fig:hw2-5-q}
+\end{figure}
+
+\begin{solution}
+取导杆为$y$轴，$x$轴沿地面向右，杆与竖直方向夹角为$\theta$。图\ref{fig:hw2-5-q}中$AC=l$、$CB=2l$，接触地面期间有
+\[
+ A=(l\sin\theta,3l\cos\theta),\qquad
+ B=(-2l\sin\theta,0).
+\]
+令$c=\cos\theta$、$D=9-8c^2$。由$A$的速度平方，
+\[
+ T=\frac12ml^2(c^2+9\sin^2\theta)\dot\theta^2
+ =\frac12ml^2D\dot\theta^2,\qquad V=3mglc.
+\]
+以近乎竖直、从静止释放的极限取总能量$3mgl$，于是
+\[
+ \dot\theta^2=\frac{6g(1-c)}{lD},\qquad
+ v_{Ax}^2=l^2c^2\dot\theta^2
+ =6gl\,\frac{c^2(1-c)}{D}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-.5,0)--(3,0);\draw[thick](.676189,.05)--(.676189,2.85);
+\coordinate(B)at(0,0);\coordinate(C)at(.676189,1.450092);\coordinate(A)at(1.014284,2.175138);
+\draw[curve](B)--(A);\draw(C)circle(.1);\fill(A)circle(2pt)node[right]{$A,m$};
+\node[left]at(C){$C$};\node[below]at(B){$B$};\node[left]at(.33,1.15){$2l$};\node[right]at(.88,1.75){$l$};
+\draw[guide](C)--(.676189,2.2);\draw(.676189,1.950092)arc(90:65:.5)node[midway,above]{$\theta$};\draw[axis](B)--(0,.8)node[left]{$N$};\draw[axis](C)--(1.6,1.450092)node[below]{$H$};
+\end{tikzpicture}
+\caption{地面支持力和导杆水平反力}\label{fig:hw2-5-s}
+\end{figure}
+图\ref{fig:hw2-5-s}中的$H$向右为正，$N$向上为正。对整个系统列平动方程：
+\[
+ H=m\ddot x_A,\qquad N-mg=m\ddot y_A.
+\]
+轻杆、轻环没有惯性，对它们绕$A$取矩。$B$点的竖直支持力到$A$的水平力臂为$AB\sin\theta=3l\sin\theta$；$C$点的水平反力到$A$的竖直力臂为$AC\cos\theta=l\cos\theta$。两力矩方向相反，故
+$3l\sin\theta\,N=l\cos\theta\,H$。
+因此在$0<\theta<\pi/2$内，$N,H$同时为零。此时$v_{Ax}>0$，且$c$随时间严格减小，由
+$2v_{Ax}\ddot x_A=(\dd v_{Ax}^2/\dd c)\dot c$，可用速度平方的驻值求临界位置：
+\[
+ \frac{\dd}{\dd c}\frac{c^2(1-c)}D
+ =\frac{(2c-3c^2)D+16c(c^2-c^3)}{D^2}
+ =\frac{c(8c^3-27c+18)}{D^2}.
+\]
+排除不在该开区间内的$c=0$，得到临界候选条件
+\[
+ \boxed{8c_*^3-27c_*+18=0,\qquad 0<c_*<1}.
+\]
+为确定离地前的接触区间，由$\dot c=-\sin\theta\,\dot\theta$计算支持力：
+\[
+ \dot c^2=\frac{6g}{l}\frac{(1-c)^2(1+c)}D.
+\]
+在$\dot c\ne0$的运动阶段求导并约去$2\dot c$，得
+\[
+ \ddot c=\frac{3g}{l}
+ \frac{(3c^2-2c-1)D+16c(1-c)^2(1+c)}{D^2}.
+\]
+将$y_A=3lc$代入竖直动力学方程，合并分子后为
+\[
+ N=mg+3ml\ddot c
+ =-\frac{mgc(8c^3-27c+18)}{D^2}.
+\]
+多项式$p(c)=8c^3-27c+18$在$(0,1)$内有
+$p'(c)=24c^2-27<0$，且$p(0)=18$、$p(1)=-1$，故根唯一。
+释放后$c$从接近$1$向下减小，在$c_*<c<1$时$p(c)<0$，所以$N>0$；越过$c_*$，接触解将要求$N<0$，地面不能提供这样的拉力。因而
+\[
+ \boxed{c_*\simeq0.846200,\qquad\theta_c=\arccos c_*\simeq32.20^\circ}.
+\]
+严格竖直且没有扰动的构形可静止不动；这里取微小倾角释放再令初始倾角趋零。离地后应撤去$y_B=0$，不能延用本阶段的几何关系。
+\end{solution}
+
+
+
+\begin{example}[定表面积开口圆筒的容量]\label{ex:hw2-6}
+
+开口圆筒底面半径$r>0$、高度$h>0$，材料总面积固定为$S_0=\pi r^2+2\pi rh$。求最大容积。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(1.1 and .3);\draw(-1.1,0)--(-1.1,2);\draw(1.1,0)--(1.1,2);\draw(0,2)ellipse(1.1 and .3);\draw[<->](1.6,0)--(1.6,2)node[midway,right]{$h$};\draw[axis](0,0)--(1.1,0)node[midway,below]{$r$};
+\end{tikzpicture}
+\caption{定材料面积的开口圆筒}\label{fig:hw2-6-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw2-6-s}的底面与侧面分别贡献$\pi r^2$和$2\pi rh$。先由约束消去$h$：
+\[
+ h=\frac{S_0-\pi r^2}{2\pi r},\quad
+ 0<r<\sqrt{S_0/\pi},\quad V=\frac12(S_0r-\pi r^3).
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(1.1 and .3);\draw(-1.1,0)--(-1.1,1.1);\draw(1.1,0)--(1.1,1.1);
+\draw(0,1.1)ellipse(1.1 and .3);\draw[<->](1.6,0)--(1.6,1.1)node[midway,right]{$h=r$};
+\draw[axis](0,0)--(1.1,0)node[midway,below]{$r$};
+\node at(4,1){$S_{\text{底}}=S_0/3$};\node at(4,.3){$S_{\text{侧}}=2S_0/3$};
+\end{tikzpicture}
+\caption{最优圆筒的底面与侧面面积分配}\label{fig:hw2-6-s}
+\end{figure}
+
+在允许区间内
+\[
+ V'=\frac12(S_0-3\pi r^2)=0
+ \quad\Longrightarrow\quad r_*^2=\frac{S_0}{3\pi},\quad h_*=r_*.
+\]
+$V''=-3\pi r<0$，且两个端点极限的容积都为零，因此该驻点给出全局最大值：
+\[
+ \boxed{V_{\max}=\pi\left(\frac{S_0}{3\pi}\right)^{3/2}}.
+\]
+
+
+也可用乘数法求最优面积分配。记
+\[
+ \mathcal L=\pi r^2h-\lambda(\pi r^2+2\pi rh-S_0).
+\]
+对$h,r$分别求偏导，有
+\[
+ \pi r^2-2\pi\lambda r=0,\qquad
+ 2\pi rh-2\pi\lambda(r+h)=0.
+\]
+由$r>0$知$\lambda=r/2$，第二式随即化为$2h=r+h$，故$h=r$。代回面积约束，底面积占$S_0/3$，侧面积占$2S_0/3$。这种比例适用于有底、无盖的圆筒；若另加上盖，约束式改变，最优高径比也随之改变。
+
+\end{solution}
+
+
+
+\begin{example}[球面与交圆上的乘积极值]\label{ex:hw2-7}
+
+求$f=xyz$在以下条件下的最大值和最小值：(1)$x^2+y^2+z^2=1$；(2)在前一条件外另有$x+y+z=0$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.4);\draw[guide](0,0)ellipse(1.4 and .4);\draw[axis](0,0)--(2,0)node[right]{$x$};\draw[axis](0,0)--(0,1.9)node[above]{$z$};\draw[axis](0,0)--(-1,-.8)node[left]{$y$};\node at(3,1){$x^2+y^2+z^2=1$};
+\end{tikzpicture}
+\caption{球面上的三坐标约束}\label{fig:hw2-7-q}
+\end{figure}
+
+\begin{solution}
+只有球面约束时，对$x^2,y^2,z^2$应用均值不等式，有$|xyz|\le1/(3\sqrt3)$。等号要求三个坐标的绝对值均为$1/\sqrt3$，选择符号得到
+\[
+ \boxed{f_{\max}=\frac1{3\sqrt3},\qquad f_{\min}=-\frac1{3\sqrt3}}.
+\]
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2.05,0)--(2.05,0)node[right]{$\xi$};\draw[axis](0,-2.05)--(0,2.05)node[above]{$\eta$};\draw[curve](0,0)circle(1.65);
+\foreach \ang/\sgn in {30/+,90/-,150/+,210/-,270/+,330/-}{\fill({1.65*cos(\ang)},{1.65*sin(\ang)})circle(1.8pt);\ifnum\ang=90\node[right,fill=white,inner sep=1pt]at(.12,1.78){$\sgn$};\else\ifnum\ang=270\node[right,fill=white,inner sep=1pt]at(.12,-1.78){$\sgn$};\else\node at({1.96*cos(\ang)},{1.96*sin(\ang)}){$\sgn$};\fi\fi}
+\node[right,align=left]at(2.5,.65){$\xi^2+\eta^2=1$\\[4pt]$x+y+z=0$\\[4pt]$+$：极大值点\\$-$：极小值点};
+\node[below]at(0,-2.45){交圆所在平面内的正交坐标};
+\end{tikzpicture}
+\caption{交圆的准确平面图；六个驻点的函数值正负交替}\label{fig:hw2-7-s}
+\end{figure}
+
+
+若改用乘数法处理第一问，$yz=2\lambda x$等方程在$xyz\ne0$时给出$x^2=y^2=z^2$；若有零坐标，函数值为零。两类候选点共同覆盖球面上的驻值情形。
+
+加入平面后，可行集是图\ref{fig:hw2-7-s}中的交圆。两个约束的梯度在交圆上处处线性无关，因此全部极值均满足
+\[
+ yz=2\lambda x+\mu,\quad zx=2\lambda y+\mu,\quad xy=2\lambda z+\mu.
+\]
+两两相减，得$(x-y)(z+2\lambda)=0$及其循环式。若三个坐标互不相同，会推出三者都等于$-2\lambda$，矛盾，故至少两坐标相等。令$y=z=t$，则$x=-2t$、$6t^2=1$，产生六个排列候选点，函数值为$\pm2/(6\sqrt6)$。
+\[
+ \boxed{f_{\max}=\frac1{3\sqrt6},\qquad f_{\min}=-\frac1{3\sqrt6}}.
+\]
+含零坐标的可行点函数值为零，不超过上述上下界。交圆紧致且候选点已经穷尽，故两界均为全局极值。
+
+
+为把六个点与图\ref{fig:hw2-7-s}对应，取交圆平面内的单位正交基
+\[
+ \vct e_1=\frac{(1,-1,0)}{\sqrt2},\qquad
+ \vct e_2=\frac{(1,1,-2)}{\sqrt6},\qquad
+ (x,y,z)=\xi\vct e_1+\eta\vct e_2.
+\]
+此时$\xi^2+\eta^2=1$。再置$\xi=\cos\phi,\eta=\sin\phi$，则
+\[
+ xyz=\frac{\sin\phi(3\cos^2\phi-\sin^2\phi)}{3\sqrt6}
+ =\frac{3\sin\phi-4\sin^3\phi}{3\sqrt6}
+ =\frac{\sin3\phi}{3\sqrt6}.
+\]
+对圆周参数求导，$\dd(xyz)/\dd\phi=\cos3\phi/\sqrt6=0$，因此六个驻点恰在 $\phi=\pi/6+j\pi/3$，$j=0,\ldots,5$，沿圆周依次取极大、极小值。它们正是 $(2,-1,-1)/\sqrt6$ 的三个排列及其相反数；参数法给出的六个极值点与乘数法一致。
+
+\end{solution}
+
+
+
+\begin{example}[固定悬点与弹簧连接悬点的四杆链]\label{ex:hw2-8}
+
+四根长$l$的轻杆依次铰接，三个中间结点的质量依次为$m,2m,m$，构形左右对称，上、下层杆与水平夹角分别为$\alpha,\beta\in(0,\pi/2)$。(1)两个上悬点固定且相距$3l$；(2)上悬点改成在光滑水平杆上滑动的轻环，两环用原长$4l$、劲度系数$k=mg/l$的弹簧连接。分别求平衡角。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-2.3999999999999995,0);\coordinate(B)at(2.3999999999999995,0);\coordinate(C)at(-1.373381785857214,-1.2272143424806758);\coordinate(D)at(0,-2.0480812441618497);\coordinate(E)at(1.373381785857214,-1.2272143424806758);\draw[thick](-3,0)--(3,0);\draw[curve](A)--(C)--(D)--(E)--(B);\foreach \p/\m in {C/m,D/2m,E/m}{\fill(\p)circle(2pt)node[below]{$\m$};}\node[above left]at(A){$A$};\node[above right]at(B){$B$};\draw[guide](C)--++(.8,0);\draw(-1.8999999999999995,0)arc(0:-50.08605097462309:.5)node[midway,right]{$\alpha$};\draw(-0.8733817858572139,-1.2272143424806758)arc(0:-30.866656674099772:.5)node[midway,right]{$\beta$};\draw[<->](-2.3999999999999995,.65)--(2.3999999999999995,.65)node[midway,above]{$3l$};
+\end{tikzpicture}
+\caption{悬点相距三倍杆长的四杆链}\label{fig:hw2-8-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw2-8-s}中两侧球下降$l\sin\alpha$，中央球下降$l(\sin\alpha+\sin\beta)$，故重力势能为$U_g=-2mgl(2\sin\alpha+\sin\beta)$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-2.150266565775473,0);\coordinate(B)at(2.150266565775473,0);\coordinate(C)at(-1.2725720522998616,-1.337778883453768);\coordinate(D)at(0,-2.307603801521622);\coordinate(E)at(1.2725720522998616,-1.337778883453768);\draw[thick](-3,0)--(3,0);\draw[curve](A)--(C)--(D)--(E)--(B);\foreach \p/\m in {C/m,D/2m,E/m}{\fill(\p)circle(2pt)node[below]{$\m$};}\node[above left]at(A){$A$};\node[above right]at(B){$B$};\draw[guide](C)--++(.8,0);\draw(-1.650266565775473,0)arc(0:-56.73178472991683:.5)node[midway,right]{$\alpha$};\draw(-0.7725720522998616,-1.337778883453768)arc(0:-37.3109614418283:.5)node[midway,right]{$\beta$};\draw(A)circle(.08);\draw(B)circle(.08);\draw[spring](-2.150266565775473,.6)--(2.150266565775473,.6);\draw[thin](A)--(-2.150266565775473,.6);\draw[thin](B)--(2.150266565775473,.6);\node at(0,1){$d=2l(\cos\alpha+\cos\beta)$};
+\end{tikzpicture}
+\caption{滑环间距随弹簧压缩量改变}\label{fig:hw2-8-s}
+\end{figure}
+
+固定悬点时$c_\alpha+c_\beta=3/2$。令
+\[
+\mathcal L=\frac{U_g}{mgl}+\Lambda(c_\alpha+c_\beta-3/2).
+\]
+对两角求偏导，得到
+\[
+-4c_\alpha-\Lambda s_\alpha=0,\qquad
+-2c_\beta-\Lambda s_\beta=0.
+\]
+两式分别除以非零的正弦，消去$\Lambda$，即$4\cot\alpha=2\cot\beta$，故$\tan\alpha=2\tan\beta$。令$t=\tan\beta>0$，平衡由
+\[
+ \frac1{\sqrt{1+4t^2}}+\frac1{\sqrt{1+t^2}}=\frac32,
+ \quad\alpha=\arctan(2t),\ \beta=\arctan t
+\]
+唯一确定。左端随$t$严格递减，从$t=0$时的2趋向零，故恰有一个正根。数值求得$t\simeq0.597698$，即$\alpha\simeq50.09^\circ$、$\beta\simeq30.87^\circ$。由结点平衡，上杆竖直载荷为$2mg$、下杆竖直载荷为$mg$；两杆水平分力相等，也给出相同的角度关系。
+
+滑环可动时，弹簧长度$d=2l(c_\alpha+c_\beta)$，总势能为
+\[
+ U=-2mgl(2s_\alpha+s_\beta)+2mgl(c_\alpha+c_\beta-2)^2.
+\]
+记$C=c_\alpha+c_\beta$。分别对两个独立角求导，得
+\[
+\frac{U_\alpha}{mgl}=-4c_\alpha+4(2-C)s_\alpha=0,
+\qquad
+\frac{U_\beta}{mgl}=-2c_\beta+4(2-C)s_\beta=0.
+\]
+除以各自的正弦并整理，得到
+\[
+ \cot\alpha=2-c_\alpha-c_\beta,\qquad
+ \cot\beta=2(2-c_\alpha-c_\beta).
+\]
+仍有$\tan\alpha=2\tan\beta$，但固定间距条件已被弹簧方程替代。置$d_*=2-c_\alpha-c_\beta>0$，则
+\[
+ \boxed{d_*=2-\frac{d_*}{\sqrt{1+d_*^2}}
+ -\frac{2d_*}{\sqrt{1+4d_*^2}},\quad
+ \alpha=\arctan(1/d_*),\quad\beta=\arctan[1/(2d_*)]}.
+\]
+右端随$d_*$严格递减，左端严格递增；在$d_*=0$时右端大于左端，而在$d_*=2$时右端小于左端，因此正根唯一。数值为$d_*\simeq0.656083$，于是$\alpha\simeq56.73^\circ$、$\beta\simeq37.31^\circ$。
+
+两个平衡点的稳定性可由势能的二阶变化判定。第一问对间距约束求变分，$-s_\alpha\delta\alpha-s_\beta\delta\beta=0$，故 $\delta\beta=-(s_\alpha/s_\beta)\delta\alpha$。乘数函数的二阶偏导为
+\[
+\mathcal L_{\alpha\alpha}=4s_\alpha-\Lambda c_\alpha
+=4s_\alpha+\frac{4c_\alpha^2}{s_\alpha}=\frac4{s_\alpha},
+\qquad
+\mathcal L_{\beta\beta}=2s_\beta-\Lambda c_\beta=\frac2{s_\beta},
+\]
+其中分别代入了平衡式 $\Lambda=-4c_\alpha/s_\alpha=-2c_\beta/s_\beta$；混合偏导为零。因此约束下的二阶变化为
+\[
+ \frac{\delta^2U_{\rm constrained}}{mgl}
+ =\frac4{\sin\alpha}(\delta\alpha)^2+
+ \frac2{\sin\beta}(\delta\beta)^2>0.
+\]
+第二问有 $C_\alpha=-s_\alpha$、$C_\beta=-s_\beta$。在势能的一阶偏导上继续求导，
+\[
+\begin{aligned}
+\frac{U_{\alpha\alpha}}{mgl}&=4s_\alpha+4s_\alpha^2+4(2-C)c_\alpha,\\
+\frac{U_{\beta\beta}}{mgl}&=2s_\beta+4s_\beta^2+4(2-C)c_\beta,\\
+\frac{U_{\alpha\beta}}{mgl}&=4s_\alpha s_\beta.
+\end{aligned}
+\]
+将平方项和交叉项合并，平衡点的二次型为
+\[
+ \frac{\delta^2U}{mgl}=
+ 4\bigl[(2-C)c_\alpha+ s_\alpha\bigr](\delta\alpha)^2
+ +4\bigl[(2-C)c_\beta+\tfrac12s_\beta\bigr](\delta\beta)^2
+ +4(s_\alpha\delta\alpha+s_\beta\delta\beta)^2.
+\]
+在题设的向下对称分支上各系数均为正，因此平衡是局部势能极小。
+
+滑环间距由弹簧变形决定，已不再满足固定悬点题中的$d=3l$。
+
+
+\end{solution}
+
+
+
+\section{曲线约束与最速下降}
+
+轨道形状待定时，未知量是一条曲线。运动时间成为曲线的泛函，其第一积分给出候选轨道；端点和可行区域仍决定哪些候选符合题意。
+
+
+
+\subsection{最速下降曲线的第一积分}
+\label{sec:complete2-variation}
+在竖直平面内以向下为$y$正向。质点从$O=(0,0)$静止出发，沿固定光滑轨道到达$B=(x_B,y_B)$，其中$x_B,y_B>0$。任意下降轨道上的速率由能量给出$v=\sqrt{2gy}$，时间泛函为
+\[
+ t[y]=\int_0^{x_B}\sqrt{\frac{1+y'^2}{2gy}}\,\dd x.
+\]
+图\ref{fig:hw2-variation}标出端点和坐标。端点固定的驻值曲线在内部满足欧拉--拉格朗日方程。起点速率为零，其邻域用参数曲线处理。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth]
+\draw[axis](0,0)--(4.3,0)node[right]{$x$};
+\draw[axis](0,0)--(0,-3.4)node[below]{$y$};
+\draw[curve,domain=0:145,samples=90]plot({1.5*(\x*pi/180-sin(\x))},{-1.5*(1-cos(\x))});
+\draw[guide](0,0)--(2.936,-2.729);
+\fill(0,0)circle(1.4pt)node[above left]{$O$};
+\fill(2.936,-2.729)circle(1.4pt)node[right]{$B$};
+\end{tikzpicture}
+\caption{固定端点之间的下降轨道，虚线为直线连接}\label{fig:hw2-variation}
+\end{figure}
+对不显含$x$的积分核$\mathcal L$，直接微分得
+\[
+ \begin{aligned}
+ \frac\dd{\dd x}(\mathcal L-y'\mathcal L_{y'})
+ &=\mathcal L_y y'+\mathcal L_{y'}y''-y''\mathcal L_{y'}
+ -y'\frac\dd{\dd x}\mathcal L_{y'}\\
+ &=y'\left(\mathcal L_y-\frac\dd{\dd x}\mathcal L_{y'}\right)=0.
+ \end{aligned}
+\]
+将本题积分核代入，得到
+\[
+ \frac1{\sqrt{2gy}\sqrt{1+y'^2}}=C,
+ \qquad y(1+y'^2)=2a,
+\]
+其中$a>0$为常数。令$y=a(1-\cos\psi)$，第一下降段满足$y'=\cot(\psi/2)$，于是
+\[
+ \frac{\dd x}{\dd\psi}
+ =\frac{a\sin\psi}{\cot(\psi/2)}=a(1-\cos\psi).
+\]
+由 $x(0)=0$ 积分，
+\[
+x=a\int_0^\psi(1-\cos u)\dd u
+=a[u-\sin u]_0^\psi=a(\psi-\sin\psi).
+\]
+图\ref{fig:complete2-cycloid}中的参数曲线为摆线。由端点求$a,\psi_B$：
+\[
+ \frac{x_B}{y_B}=\frac{\psi_B-\sin\psi_B}{1-\cos\psi_B},\qquad
+ a=\frac{y_B}{1-\cos\psi_B}.
+\]
+选取$0<\psi_B<2\pi$的第一摆线弧时，曲线可以先降至$\psi=\pi$，再上升至终点；不能预先强加全程$y'>0$。沿参数曲线，$\dd s=2a\sin(\psi/2)\dd\psi$、$v=2\sqrt{ga}\sin(\psi/2)$，故
+\[
+ t_B=\sqrt{a/g}\int_0^{\psi_B}\dd\psi
+ =\sqrt{a/g}[\psi]_0^{\psi_B}=\sqrt{a/g}\,\psi_B.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,scale=.9]
+\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,0)--(0,-3)node[below]{$y$};
+\draw[curve,domain=0:155,samples=90]plot({1.2*(\x*pi/180-sin(\x))},{-1.2*(1-cos(\x))});
+\coordinate(P)at({1.2*(100*pi/180-sin(100))},{-1.2*(1-cos(100))});
+\fill(P)circle(1.5pt)node[above right]{$P(\psi)$};
+\draw[axis](P)--++(.75,-.63)node[right]{$\vct v$};
+\draw[guide](P)--(0,{-1.2*(1-cos(100))});
+\node[left]at(0,{-1.2*(1-cos(100))}){$y$};
+\node[above left]at(0,0){$O$};
+\end{tikzpicture}
+\caption{摆线上的切向速度及高度；时间积分中的弧长与速率含相同的正弦因子}\label{fig:complete2-cycloid}
+\end{figure}
+图\ref{fig:complete2-cycloid}在起点有竖直切线，$y'$在该处发散，而$\dd t/\dd\psi=\sqrt{a/g}$有限。欧拉--拉格朗日方程给出内部驻值条件；最速下降问题采用端点间的第一摆线弧，经过后续尖点的多弧延拓不属于同一最短时间分支。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[下降导轨的变分候选（选做）]\label{sup2:problem-exercise-11}\label{sup2:exercise:d2-h11}
+
+取 y 轴竖直向下，质点从 O=(0,0) 静止沿固定光滑双侧导轨下滑，终点 $B=(\pi a,2a)$，$a>0$。见图\ref{sup2:fig:d2-h11-q}。在曲线内部 $y>0$ 的条件下，写出行程时间泛函，求满足变分驻值方程的一支单调下降轨线，并与直线 OB 的时间比较。此题不要求证明全体允许曲线中的全局最小性。
+
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.2,0)--(4.1,0)node[right]{$x$};\draw[axis](0,.2)--(0,-2.8)node[below]{$y$（向下）};
+\coordinate(B)at(pi,-2);\draw[guide](0,0)--(B);\fill(0,0)circle(1.4pt)node[above left]{$O$};\fill(B)circle(1.5pt)node[right]{$B=(\pi a,2a)$};
+\end{tikzpicture}
+\caption{两端点固定。虚线表示作为比较的直线导轨，y 正向朝下。}\label{sup2:fig:d2-h11-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+由能量守恒，质点在深度 y 处的速率为 $v=\sqrt{2gy}$，弧长微元为 $\sqrt{1+y'^2}\dd x$。因此时间泛函为
+\[
+T[y]=\frac1{\sqrt{2g}}\int_0^{\pi a}
+\sqrt{\frac{1+y'^2}{y}}\,\dd x.
+\]
+取 $\mathcal L=\sqrt{(1+y'^2)/y}$，它不显含 x。第一积分给出
+\[
+\mathcal L-y'\mathcal L_{y'}
+=\frac1{\sqrt{y(1+y'^2)}}=\text{常量}.
+\]
+这里沿用第\ref{sec:complete2-variation}节已逐项证明的第一积分。本题对斜率求偏导，有
+\[
+\mathcal L_{y'}=\frac{y'}{\sqrt y\sqrt{1+y'^2}},\qquad
+\mathcal L-y'\mathcal L_{y'}
+=\frac{1+y'^2-y'^2}{\sqrt y\sqrt{1+y'^2}}
+=\frac1{\sqrt{y(1+y'^2)}}.
+\]
+代入后即得到上面的常量关系。
+
+把常量写成 $1/\sqrt{2a}$，得到 $y(1+y'^2)=2a$。对下降支取参数 $\varphi$，使
+\[
+y=a(1-\cos\varphi),\qquad y'=\cot\frac\varphi2.
+\]
+由 $\dd y/\dd\varphi=a\sin\varphi$，再除以 $y'$，得到
+\[
+\frac{\dd x}{\dd\varphi}=a\sin\varphi\tan\frac\varphi2
+=a(1-\cos\varphi).
+\]
+沿用前文已计算的原函数，并取 $x(0)=0$，得 $x=a(\varphi-\sin\varphi)$。
+在 $0\le\varphi\le\pi$ 内，这支摆线从 O 到 B，且深度单调增加，见图\ref{sup2:fig:d2-h11-s}。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.2,0)--(4.1,0)node[right]{$x$};\draw[axis](0,.2)--(0,-2.8)node[below]{$y$（向下）};
+\coordinate(B)at(pi,-2);\draw[guide](0,0)--(B);\fill(0,0)circle(1.4pt)node[above left]{$O$};\fill(B)circle(1.5pt)node[right]{$B=(\pi a,2a)$};
+
+\draw[curve,domain=0:180,samples=140]plot({\x*pi/180-sin(\x)},{cos(\x)-1});
+\draw[axis]({60*pi/180-sin(60)},{cos(60)-1})--({75*pi/180-sin(75)},{cos(75)-1});
+\node at(1.1,-2.15){摆线候选};\node at(2.6,-.65){直线};
+\end{tikzpicture}
+\caption{摆线候选与直线的几何比较。摆线起始下降更陡，随后趋于水平。}\label{sup2:fig:d2-h11-s}
+\end{figure}
+
+沿摆线有 $\dd s=2a\sin(\varphi/2)\dd\varphi$，而速率为 $2\sqrt{ga}\sin(\varphi/2)$，所以
+\[
+\dd t=\sqrt{\frac ag}\dd\varphi,
+\qquad T_{\rm cycloid}=\sqrt{\frac ag}\int_0^\pi\dd\varphi
+=\sqrt{\frac ag}[\varphi]_0^\pi=\pi\sqrt{\frac ag}.
+\]
+
+直线长为 $L=a\sqrt{\pi^2+4}$，沿线的重力加速度为 $a_\parallel=2g/\sqrt{\pi^2+4}$。从静止开始，沿线速度为 $v(t)=\int_0^t a_\parallel\dd u=a_\parallel t$，路程为 $s(t)=\int_0^t a_\parallel u\dd u=a_\parallel t^2/2$。令 $s(T_{\rm line})=L$，得
+\[
+T_{\rm line}=\sqrt{\frac ag}\sqrt{\pi^2+4}
+>\pi\sqrt{\frac ag}.
+\]
+因此，这支摆线比直线所需时间短。两条轨线的比较尚不能证明对所有允许曲线的全局最小性。本题的双侧导轨允许反力改变方向，轨线不另受单侧接触条件限制。
+
+为判断起点附近的时间积分是否收敛，将图\ref{sup2:fig:d2-h11-s}中的参数式在 $\varphi\to0^+$ 处展开：
+\[
+x\sim\frac a6\varphi^3,\quad y\sim\frac a2\varphi^2,
+\quad\dd s\sim a\varphi\dd\varphi,\quad v\sim\sqrt{ga}\,\varphi.
+\]
+于是 $\dd s/v\sim\sqrt{a/g}\dd\varphi$，虽速度在起点为零，时间积分却不发散。求时间时应比较弧长与速率的共同趋零阶数。
+
+\end{solution}
+
+
+
+\input{lecture2_depth}
+\section{习题与解答}
+
+\begin{exercise}[顶端有初速的圆弧分离]\label{sup2:problem-exercise-1}\label{sup2:exercise:d2-h1}
+
+沿用例\ref{ex:hw2-1}的圆弧，从顶端以 $u_0=\sqrt{gR}/2$ 向右发射。求分离角、分离速率和分离后的水平、竖直初速度，并判断分离发生在顶端近静止释放的分离点之前还是之后。题设几何见图\ref{sup2:fig:d2-h1-q}。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.3,0)--(3.1,0)node[right]{$x$};\draw[axis](0,-.2)--(0,2.7)node[above]{$y$};
+\draw[curve](2,0)arc(0:100:2);\coordinate(P)at(1.3382612127177165,1.4862896509547885);
+\draw[guide](0,0)--(P);\draw(0,.65)arc(90:48:.65);
+\node at(.35,.8){$\theta$};\node[below left]at(0,0){$O$};
+\fill(P)circle(1.6pt)node[above right]{$P$};\node at(.95,.55){$R$};
+\fill(0,2)circle(1.2pt)node[above left]{$A$};\draw[axis](.45,2.35)--(1.2,2.35)node[midway,above]{$u_0$};
+\end{tikzpicture}
+\caption{顶端以非零切向速度发射，圆心与角度定义保持不变。}\label{sup2:fig:d2-h1-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+这里初态已在顶端运动，不涉及无扰动静止平衡。初始支持力为 $mg-mu_0^2/R=3mg/4>0$，所以先有一段接触运动。能量及反力分别为
+\[
+v^2=gR\left(\frac94-2\cos\theta\right),\qquad
+N=mg\left(3\cos\theta-\frac94\right).
+\]
+随着角度增大，N 由正减到零，得到
+\[
+\cos\theta_s=\frac34,\qquad
+\sin\theta_s=\frac{\sqrt7}4,\qquad
+v_s=\frac{\sqrt3}{2}\sqrt{gR}.
+\]
+图\ref{sup2:fig:d2-h1-s}中的 S 位于右上方，速度沿圆弧切线向右下。分离位置和速度分量为
+\[
+(x_s,y_s)=\left(\frac{\sqrt7}{4}R,\frac34R\right),
+\]
+\[
+v_{xs}=\frac{3\sqrt3}{8}\sqrt{gR},\qquad
+v_{ys}=-\frac{\sqrt{21}}8\sqrt{gR}.
+\]
+二者平方之和为 $3gR/4$，与分离速率一致。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.2,0)--(3.7,0)node[right]{$x$};\draw[axis](0,-.2)--(0,2.6)node[above]{$y$};
+\draw[curve](2,0)arc(0:90:2);\coordinate(S)at({sqrt(7)/2},1.5);
+\fill(S)circle(1.5pt)node[above right]{$S$};\draw[guide](0,0)--(S);
+\draw[axis](S)--++(.65,{- .65*sqrt(7)/3})node[right]{$\vct v_s$};
+\draw[guide,domain=0:.9,samples=60]plot({sqrt(7)/2+3*sqrt(6)*\x/8},{1.5-sqrt(42)*\x/8-.5*\x*\x});
+\node at(2.8,2.35){$\cos\theta_s=3/4$};
+\end{tikzpicture}
+\caption{分离点和切向抛出方向。虚线是分离后的自由轨迹局部段。}\label{sup2:fig:d2-h1-s}
+\end{figure}
+
+若取分离时刻为 $\tau=0$，自由运动满足 $\dot v_x=0$、$\dot v_y=-g$。先积分得 $v_x=v_{xs}$、$v_y=v_{ys}-g\tau$，再用分离位置作初值，
+\[
+x-x_s=\int_0^\tau v_{xs}\dd u=[v_{xs}u]_0^\tau=v_{xs}\tau,
+\]
+\[
+y-y_s=\int_0^\tau(v_{ys}-gu)\dd u
+=[v_{ys}u-gu^2/2]_0^\tau=v_{ys}\tau-\frac12g\tau^2.
+\]
+分离点处径向加速度在两模型中连续，但其后的圆弧约束已不再成立。
+
+近静止释放的临界余弦为 $2/3$，而本题为 $3/4>2/3$。在 $0<\theta<\pi/2$ 内，$\cos\theta$ 随 $\theta$ 增大而减小，因此本题分离角较小，沿圆弧更早分离。增加初速提高了同一位置所需的向心加速度，使向外支持力更早降到零。
+
+\end{solution}
+
+
+\begin{exercise}[曲率改变的双曲余弦轨道]\label{sup2:problem-exercise-3}\label{sup2:exercise:d2-h3}
+
+光滑凸轨道为 $y=H-a\cosh(x/a)$，$a>0$，小球从顶端附近向右静止释放，采用初始偏角趋零的极限。求首次分离点及速率，见图\ref{sup2:fig:d2-h3-q}。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.25,0)--(3.2,0)node[right]{$x$};\draw[axis](0,-2.2)--(0,.7)node[above]{$y-H+a$};
+\draw[curve,domain=0:1.65,samples=90]plot({1.5*\x},{1.1*(1-cosh(\x))});
+\fill(0,0)circle(1.5pt)node[above left]{$A$};\node[anchor=west]at(3,-.6){$y=H-a\cosh(x/a)$};
+\end{tikzpicture}
+\caption{双曲余弦轨道的右支。图中竖直坐标减去顶端高度，只用于显示形状。}\label{sup2:fig:d2-h3-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+记 $q=x/a$。轨道导数为 $y'=-\sinh q$、$y''=-\cosh q/a$，因而
+\[
+\sqrt{1+y'^2}=\cosh q,\qquad
+\rho=\frac{(1+y'^2)^{3/2}}{|y''|}=a\cosh^2q.
+\]
+小球从顶端下降的高度为 $a(\cosh q-1)$，故 $v^2=2ga(\cosh q-1)$。重力在向曲率中心的法线上投影为 $mg/\cosh q$，支持力方向相反，所以
+\[
+N=\frac{mg}{\cosh q}-\frac{mv^2}{a\cosh^2q}
+=mg\frac{2-\cosh q}{\cosh^2q}.
+\]
+图\ref{sup2:fig:d2-h3-s}按这一表达式画出反力变化。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.2,0)--(3.4,0)node[right]{$q=x/a$};\draw[axis](0,-.7)--(0,1.5)node[above]{$N/(mg)$};
+\draw[curve,domain=0:1.6,samples=100]plot({1.8*\x},{(2-cosh(\x))/(cosh(\x)*cosh(\x))});
+\fill({1.8*ln(2+sqrt(3))},0)circle(1.3pt)node[below]{$\operatorname{arcosh}2$};
+\node[left]at(0,1){$1$};\node[anchor=west]at(1,1.7){$N=mg(2-\cosh q)/\cosh^2q$};
+\end{tikzpicture}
+\caption{按约束延拓计算的支持力。零点之后的负值仅表示原接触模型失效。}\label{sup2:fig:d2-h3-s}
+\end{figure}
+
+在右支 $q>0$，$\cosh q$ 严格增大。N 从 mg 开始，首次在 $\cosh q_s=2$ 处为零；继续运动所需的 N 随即变负，确实发生分离。因此
+\[
+x_s=a\operatorname{arcosh}2=a\ln(2+\sqrt3),\qquad
+y_s=H-2a,\qquad v_s=\sqrt{2ga}.
+\]
+分离点的斜率为 $-\sinh q_s=-\sqrt3$，切线与水平线向下成 $60^\circ$。若需继续求抛体运动，其初速度为
+\[
+v_{xs}=\frac{v_s}{2},\qquad
+v_{ys}=-\frac{\sqrt3}{2}v_s.
+\]
+分离条件同时用到了当前曲率半径和已下降的高度；只比较轨道斜率与某个固定角度不能得到这一结果。
+
+\end{solution}
+
+
+\begin{exercise}[由高度控制的内环通行]\label{sup2:problem-exercise-4}\label{sup2:exercise:d2-h4}
+
+质点从高于内环最低点 B 的高度 H 静止释放，经过光滑引导段从 B 沿切线进入半径 R 的竖直圆环内侧，见图\ref{sup2:fig:d2-h4-q}。假定引导段已保证顺利进入。按 H 分类讨论能否保持接触完成一周，并给出中途分离的角度。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(2,1.6);\draw[curve](O)circle(1.6);\draw[thick](-1.6,0)--(2,0);
+\draw[curve](-1.4,2.8)..controls(-1.2,.7)and(-.5,0)..(1,0);
+\fill(-1.4,2.8)circle(1.5pt)node[left]{$A$};\fill(2,0)circle(1.4pt)node[below]{$B$};\fill(O)circle(1.3pt)node[left]{$O$};
+\draw[guide](-1.7,2.8)--(-2.1,2.8);\draw[|-|](-2,0)--(-2,2.8)node[midway,left]{$H$};
+\draw[guide](O)--(2,3.2)node[midway,right]{$R$};
+\end{tikzpicture}
+\caption{引导段只用于建立入环速度。高度 H 与圆环半径 R 分别标出。}\label{sup2:fig:d2-h4-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+由能量守恒，进入 B 时 $u_B^2=2gH$。进入内环后，用从最低半径起算的角度 $\theta$，
+\[
+v^2=2g[H-R(1-\cos\theta)],\qquad
+N=\frac{mv^2}{R}+mg\cos\theta
+=mg\left(\frac{2H}{R}-2+3\cos\theta\right).
+\]
+内环支持力朝向圆心，其允许条件与绳摆的张力条件相同。因此可直接比较 $v^2=0$、$N=0$ 的先后，但须保留本题的入环高度含义。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.15,0)--(7,0)node[right]{$H/R$};\draw[thick](0,.35)--(6.5,.35);
+\draw(1.7,.2)--(1.7,.5);\draw(4.25,.2)--(4.25,.5);\node[below]at(1.7,.2){$1$};\node[below]at(4.25,.2){$5/2$};
+\node at(.8,1){转回};\node at(2.95,1){中途分离};\node at(5.5,1){完整周转};
+\node at(3.2,-.8){边界 $H/R=1$：速度与支持力同时为零};
+\end{tikzpicture}
+\caption{入环高度决定的三种运动。完成周转的临界高度包含等号。}\label{sup2:fig:d2-h4-s}
+\end{figure}
+
+当 $0<H<R$，在 $\cos\theta_t=1-H/R>0$ 处先转向，且 $N_t=mg\cos\theta_t>0$。H=R 时在水平半径处同时有 $v=N=0$；随后沿环返回，支持力重新为正。水平点是这一运动的转向点。
+
+当 $R<H<5R/2$，支持力先在
+\[
+\cos\theta_s=\frac{2-2H/R}{3}
+\]
+处为零，且 $v_s^2=-gR\cos\theta_s>0$。继续上行要求轨道向外拉质点，故在该处进入圆环内部的自由抛体运动。这里 $\cos\theta_s<0$，分离点在上半圆。
+
+当 $H\ge5R/2$，环顶速度满足 $v_{\rm top}^2=2g(H-2R)\ge gR$，最小支持力 $N_{\rm top}=mg(2H/R-5)\ge0$，可以完成一周。等号 H=5R/2 时顶点速率非零、N 只瞬时触零，仍能通过。图\ref{sup2:fig:d2-h4-s}将三个高度区间及边界分开。H=0 的质点则停在最低点。
+
+对图\ref{sup2:fig:d2-h4-s}中的两个触零边界，可考察解除约束后的自由运动。在 $H=R$ 的水平转向点，若质点自由下落，经过短时间 $\tau$ 后，到圆心的距离满足
+\[
+r^2=R^2+\frac14g^2\tau^4>R^2.
+\]
+在 $H=5R/2$ 的环顶，初始切向速率为 $\sqrt{gR}$；自由抛体同样给出
+\[
+r^2=gR\tau^2+(R-g\tau^2/2)^2
+=R^2+\frac14g^2\tau^4.
+\]
+内环允许质点处于圆内，不能穿到圆外。因此这两个边界都需轨道继续约束，支持力在触零后重新变正；不能仅由瞬间 $N=0$ 判为分离。
+
+\end{solution}
+
+
+\begin{exercise}[不等端点质量的离墙角]\label{sup2:problem-exercise-5}\label{sup2:exercise:d2-h5}
+
+沿用例\ref{ex:hw2-1}的装置，但上端 A 的质量为 m，下端 B 的质量为 5m。仍从竖直附近静止倒下，见图\ref{sup2:fig:d2-h5-q}。求保持双接触时的角速度和墙面反力，确定首次离墙角，并求该时刻的地面反力。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,0);\coordinate(A)at(0,2.7);\coordinate(B)at(2.1,0);
+\draw[thick](0,-.3)--(0,3.4);\draw[thick](-.3,0)--(3.5,0);\draw[curve](A)--(B);
+\fill(A)circle(2pt)node[left]{$A,m$};\fill(B)circle(2pt)node[below]{$B$};\node[below left]at(0,0){$O$};
+\draw(0,2.05)arc(-90:-52.125:.65);\node at(.28,1.8){$\theta$};
+\node at(1.85,2.05){$AB=L$};
+\node[right]at(2.25,.2){$5m$};
+\end{tikzpicture}
+\caption{下端质量增大后，动能中的角度系数随构形变化。}\label{sup2:fig:d2-h5-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+取 $c=\cos\theta$、$s=\sin\theta$。两端速度关联不变，但质量不同，故
+\[
+K=\frac12mL^2(s^2+5c^2)\dot\theta^2
+=\frac12mL^2(1+4c^2)\dot\theta^2.
+\]
+势能仍只有上球贡献，记 $A(c)=1+4c^2$，由能量守恒及求导得
+\[
+\dot\theta^2=\frac{2g}{L}\frac{1-c}{A},\qquad
+\ddot\theta=\frac gL\frac{s(1+8c-4c^2)}{A^2}.
+\]
+求角加速度时，因 $\dot c=-s\dot\theta$，有
+\[
+\ddot\theta=-\frac s2\frac{\dd(\dot\theta^2)}{\dd c},\qquad
+\frac{\dd}{\dd c}\frac{1-c}{A(c)}
+=\frac{-A(c)-8c(1-c)}{A(c)^2}
+=-\frac{1+8c-4c^2}{A(c)^2}.
+\]
+分母 $A(c)$ 的导数贡献了上式中的 $8c(1-c)$ 项。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,0);\coordinate(A)at(0,2.7);\coordinate(B)at(2.1,0);
+\draw[thick](0,-.3)--(0,3.4);\draw[thick](-.3,0)--(3.5,0);\draw[curve](A)--(B);
+\fill(A)circle(2pt)node[left]{$A$};\fill(B)circle(2pt)node[below]{$B$};\node[below left]at(0,0){$O$};
+\draw(0,2.05)arc(-90:-52.125:.65);\node at(.28,1.8){$\theta$};
+\node at(1.85,2.05){$AB=L$};
+
+\draw[axis](A)--(1.05,2.7)node[above]{$N_w$};\draw[axis](B)--(2.1,1.15)node[right]{$N_f$};
+\draw[axis](A)--++(0,-.8)node[left]{$mg$};\draw[axis](B)--++(0,-.8)node[below]{$5mg$};
+\end{tikzpicture}
+\caption{两种反力均由整体动量方程求出，墙面分离时地面反力仍为正。}\label{sup2:fig:d2-h5-s}
+\end{figure}
+
+图\ref{sup2:fig:d2-h5-s}中总水平动量为 $5mL c\dot\theta$，因此
+\[
+N_w=5mL(c\ddot\theta-s\dot\theta^2)
+=\frac{5mg\,s}{A^2}(4c^3+3c-2).
+\]
+把角速度、角加速度代入水平动量导数时，分子的整理过程是
+\[
+c(1+8c-4c^2)-2(1-c)(1+4c^2)=4c^3+3c-2.
+\]
+图\ref{sup2:fig:d2-h5-s}中反力表达式的其余因子满足 $s>0$、$A^2>0$。因此，首次离墙的位置由这一多项式首次变号确定，角加速度变号不构成离墙条件。
+
+括号在 $[0,1]$ 严格递增，且在 c=1/2 为零。真实运动中 c 从 1 向下减小，所以墙面力第一次从正到负发生在
+\[
+\cos\theta_s=\frac12,\quad \theta_s=60^\circ,
+\quad \dot\theta_s^2=\frac g{2L},\quad
+\ddot\theta_s=\frac{\sqrt3g}{2L}.
+\]
+此时上端竖直加速度为
+\[
+a_{Ay}=-L(s\ddot\theta+c\dot\theta^2)=-g.
+\]
+由整体竖直方程 $N_f-6mg=m a_{Ay}$，得到 $N_f=5mg>0$。
+
+还须确认地面不会在此前先分离。对本题可将地面反力化简为
+\[
+N_f=5mg\frac{(1-c)^2+10c^2+20c^4}{(1+4c^2)^2}>0
+\qquad(0\le c\le1).
+\]
+因此离墙确实是首个接触改变事件。相同的几何关联下，质量分布改变了动能系数和离墙角，不能直接沿用等质量时的 $\cos\theta_s=2/3$。
+
+\end{solution}
+
+
+\begin{exercise}[滑动与倾覆的先后]\label{sup2:problem-exercise-8}\label{sup2:exercise:d2-h8}
+
+均匀长方体随水平车厢一起向右加速，保持无相对滑动和无转动。长方体在运动平面内的底面宽为 $2b$、高为 $2h$，静摩擦因数为 $\mu$，见图\ref{sup2:fig:d2-h8-q}。求允许的加速度范围，并比较滑动、倾覆的先后。取 $b=h/2,\mu=3/4$ 时，哪个边界先到达？
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[thick](-1,0)--(4.4,0);\draw[curve](0,0)rectangle(2,3);
+\coordinate(C)at(1,1.5);\fill(C)circle(1.5pt)node[right]{$C$};\draw[guide](C)--(1,0);
+\draw[|-|](0,-.45)--(2,-.45)node[midway,below]{$2b$};\draw[|-|](-.5,0)--(-.5,3)node[midway,left]{$2h$};
+\draw[axis](2.6,.4)--(4,.4)node[midway,above]{$a$};\node at(3.4,2){车厢地板};
+\end{tikzpicture}
+\caption{长方体质心位于底面上方 h。加速度沿水平向右。}\label{sup2:fig:d2-h8-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+质心平动方程要求 $f=ma$、$N=mg$。取底面中心为水平原点，支持力作用点横坐标为 $x_N$，向右为正。图\ref{sup2:fig:d2-h8-s}中摩擦作用在质心下方，对质心产生转动力矩；支持力必须移向后方才能抵消。
+\[
+Nx_N+hf=0,\qquad x_N=-\frac{ha}{g}.
+\]
+接触压力不能为负，因此合力作用点必须位于底面内，$-b\le x_N\le b$。这给出 $a\le gb/h$，而静摩擦给出 $a\le\mu g$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[curve](0,0)rectangle(2,3);\coordinate(C)at(1,1.5);\fill(C)circle(1.4pt)node[right]{$C$};
+\draw[axis](C)--(1,.5)node[right]{$mg$};\draw[axis](.5,0)--(.5,1.2)node[left]{$N$};
+\draw[axis](.5,0)--(1.55,0)node[below]{$f$};\draw[guide](1,1.5)--(1,0);
+\draw[|-|](.5,-.5)--(1,-.5)node[midway,below]{$ha/g$};
+\node[anchor=west]at(2.8,2.6){$N_L+N_R=mg$};\node[anchor=west,align=left]at(2.8,1.35){$N_R\to0$ 时\\绕左边缘倾覆};
+\end{tikzpicture}
+\caption{支持力向左移位以平衡摩擦力矩。接触合力到达左边缘时开始失去整面接触。}\label{sup2:fig:d2-h8-s}
+\end{figure}
+
+也可把支持合力等效分到左、右边缘，写为
+\[
+N_L+N_R=mg,\qquad b(N_R-N_L)+hma=0.
+\]
+因此
+\[
+N_L=\frac{mg}{2}\left(1+\frac{ha}{bg}\right),\qquad
+N_R=\frac{mg}{2}\left(1-\frac{ha}{bg}\right).
+\]
+加速度增大时右边缘载荷先减到零，物体开始绕左侧后缘倾覆，而总支持力仍为 mg。这是接触区域缩到边缘的临界，不是总反力 N=0。
+
+综合两项限制，保持原运动的范围为
+\[
+0\le a\le g\min\left(\mu,\frac bh\right).
+\]
+若 $\mu<b/h$，先滑动；若 $\mu>b/h$，先倾覆；两者相等时两个候选边界同时出现，后续运动须联合分析。对给定特例，$b/h=1/2<\mu=3/4$，在 $a=g/2$ 先达到倾覆边界。此时所需摩擦为 mg/2，仍小于 $3mg/4$，证实尚未达到滑动极限。
+
+\end{solution}
+
+
+\begin{exercise}[固定初速的斜面最大射程]\label{sup2:problem-exercise-9}\label{sup2:exercise:d2-h9}
+
+从倾角 $\alpha\in(0,\pi/2)$ 的斜面上 O 点以固定速率 $v_0$ 向右上方抛出质点，忽略空气阻力。发射角 $\theta$ 从水平线起算，限定 $\alpha<\theta<\pi/2$，见图\ref{sup2:fig:d2-h9-q}。用速度分量的条件极值求沿斜面的最大射程及对应发射角，并检查允许区间的端点。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.2,0)--(4.1,0)node[right]{$x$};\draw[axis](0,-.2)--(0,2.4)node[above]{$y$};
+\pgfmathsetmacro{\flightend}{4*cos(20)/(1+sin(20))}
+\draw[thick](0,0)--(3.6,{3.6*tan(20)});\draw[curve,domain=0:\flightend,samples=80]plot(\x,{tan(55)*\x-(\x)^2/(8*cos(55)*cos(55))});
+\draw[axis](0,0)--({1.1*cos(55)},{1.1*sin(55)})node[above]{$v_0$};
+\draw[domain=0:20]plot({.6*cos(\x)},{.6*sin(\x)});\node at(.8,.13){$\alpha$};
+\draw[domain=0:55]plot({1*cos(\x)},{1*sin(\x)});\node at(.97,.53){$\theta$};
+\fill(\flightend,{\flightend*tan(20)})circle(1.2pt)node[right]{$B$};\node[below left]at(0,0){$O$};
+\end{tikzpicture}
+\caption{斜面上的抛射。射程沿 OB 度量，两个角均以水平线为基准。}\label{sup2:fig:d2-h9-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+取初速度分量 $v_x>0$、$v_y>v_x\tan\alpha$。按习题\ref{sup2:exercise:d2-h1}中已积分得到的自由轨迹，令起点坐标为零，即有 $x=v_xt,y=v_yt-gt^2/2$。着落斜面要求 $y=x\tan\alpha$，除去 $t=0$，飞行时间为
+\[
+t_B=\frac{2(v_y-v_x\tan\alpha)}g.
+\]
+沿斜面射程是 $R=x_B/\cos\alpha$，故
+\[
+R=\frac{2}{g\cos\alpha}
+(v_xv_y-v_x^2\tan\alpha),\qquad v_x^2+v_y^2=v_0^2.
+\]
+图\ref{sup2:fig:d2-h9-s}中的圆弧就是速度可行集的一部分。只需极大化 $F=v_xv_y-v_x^2\tan\alpha$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.15,0)--(3.5,0)node[right]{$v_x$};\draw[axis](0,-.15)--(0,3)node[above]{$v_y$};
+\draw[curve](2,0)arc(0:90:2);\coordinate(P)at({2*cos(55)},{2*sin(55)});\draw[guide](0,0)--(P);
+\fill(P)circle(1.5pt)node[above left]{$P_*$};
+\draw[axis](P)--++({.8*cos(55)},{.8*sin(55)})node[above]{$\nabla F$};
+\draw[guide]($(P)+({-.7*sin(55)},{.7*cos(55)})$)--($(P)+({.7*sin(55)},{-.7*cos(55)})$);
+\node at(3,1){$v_x^2+v_y^2=v_0^2$};
+\end{tikzpicture}
+\caption{速度圆上的驻值条件。极值点处目标函数梯度与圆的法线平行，沿可行切线的一阶变化为零。}\label{sup2:fig:d2-h9-s}
+\end{figure}
+
+令 $\nabla F=\lambda\nabla(v_x^2+v_y^2)$，得到
+\[
+v_y-2v_x\tan\alpha=2\lambda v_x,
+\qquad v_x=2\lambda v_y.
+\]
+由于 $v_x,v_y>0$，可消去 $\lambda$，得到
+\[
+v_y^2-2v_xv_y\tan\alpha-v_x^2=0.
+\]
+取正根，
+\[
+\tan\theta_* =\frac{v_y}{v_x}
+=\tan\alpha+\sec\alpha
+=\tan\left(\frac\pi4+\frac\alpha2\right).
+\]
+因此 $\theta_* =\pi/4+\alpha/2$，确在允许区间内。将速度分量写回 $v_x=v_0\cos\theta$、$v_y=v_0\sin\theta$，
+\[
+R(\theta)=\frac{2v_0^2}{g\cos^2\alpha}
+\cos\theta\sin(\theta-\alpha).
+\]
+其中 $2\cos\theta\sin(\theta-\alpha)=\sin(2\theta-\alpha)-\sin\alpha$。对射程求导，
+\[
+R'(\theta)=\frac{2v_0^2}{g\cos^2\alpha}\cos(2\theta-\alpha),
+\qquad
+R''(\theta)=-\frac{4v_0^2}{g\cos^2\alpha}\sin(2\theta-\alpha).
+\]
+允许区间内只有 $2\theta-\alpha=\pi/2$ 这一个驻点，且二阶导数为负。在最优角处，$\sin(2\theta_* -\alpha)=1$，故
+\[
+R_{\max}=\frac{v_0^2(1-\sin\alpha)}{g\cos^2\alpha}.
+\]
+利用 $\cos^2\alpha=(1-\sin\alpha)(1+\sin\alpha)$，可约去分子中的因子。题设 $\alpha<\pi/2$ 保证此因子非零。
+
+因此
+\[
+\boxed{R_{\max}=\frac{v_0^2}{g(1+\sin\alpha)}.}
+\]
+当 $\theta$ 趋于 $\alpha$ 时飞行时间趋零，当 $\theta$ 趋于 $\pi/2$ 时水平射程趋零，两个端点都不优于内部解。若 $\alpha\to0$，结果恢复水平地面的 $45^\circ$ 发射和 $v_0^2/g$ 射程。
+
+\end{solution}
+
+
+\begin{exercise}[松绳后的下落与再次绷紧]\label{deep2:problem-exercise-2}\label{deep2:exercise:d2-h2}
+
+绳摆在右上方 $\theta_0=120^\circ$ 处由静止释放，角度从向下半径起算，绳长 R，见图\ref{deep2:fig:d2-h2-q}。求再次绷紧的位置与时间。规定绳绷紧瞬间消去沿绳向外的速度，切向速度连续；求约束冲量、损失动能和绷紧后的张力。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,1.8);\draw[guide](O)circle(1.5);
+\coordinate(A)at({1.5*sqrt(3)/2},2.55);\coordinate(B)at({1.5*sqrt(3)/2},1.05);
+\draw[thick](O)--(A);\draw[guide](A)--(B);\fill(O)circle(1.4pt)node[left]{$O$};
+\fill(A)circle(1.5pt)node[above right]{$A$};\fill(B)circle(1.3pt)node[right]{$B$};
+\node at(2.8,2.7){$\theta_0=120^\circ$};\node at(2.7,1.9){$OA=R$};
+\end{tikzpicture}
+\caption{初始位于上半圆的静止质点。虚线 AB 是松绳后保持水平位置不变的下落路径。}\label{deep2:fig:d2-h2-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+若初始仍沿圆轨道运动，所需张力为 $T=mg\cos120^\circ=-mg/2$，不允许。因此绳立即松弛。以 O 为原点、向上为 $y$ 正向，释放点为 $(\sqrt3R/2,R/2)$。在习题\ref{sup2:exercise:d2-h1}已积分的自由轨迹中取初速度为零，松绳后
+\[
+x=\frac{\sqrt3}2R,\qquad y=\frac R2-\frac12gt^2.
+\]
+再次达到绳长要求 $x^2+y^2=R^2$。除去 $t=0$，另一根为
+\[
+t_B=\sqrt{\frac{2R}g},\qquad y_B=-\frac R2,
+\qquad\theta_B=60^\circ.
+\]
+在 $0<t<t_B$ 内 $x^2+y^2<R^2$，确实是松绳阶段，没有遗漏更早的绷紧。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,1.8);\coordinate(B)at({1.5*sqrt(3)/2},1.05);
+\draw[guide](O)circle(1.5);\draw[thick](O)--(B);\fill(O)circle(1.3pt)node[left]{$O$};\fill(B)circle(1.5pt)node[right]{$B$};
+\draw[axis](B)--++(0,-1.25)node[below]{$\vct v^-$};
+\draw[axis](B)--++(-.65,.375)node[midway,above right]{$\vct J$};
+\draw[axis,thick](B)--++(-.54,-.935)node[left]{$\vct v^+$};
+\node at(3,2.4){$\vct v^+=v_t^-\vct e_t$};
+\end{tikzpicture}
+\caption{绷紧瞬间的速度投影。冲量沿 BO，消去向外径向速度，保留切向分量。}\label{deep2:fig:d2-h2-s}
+\end{figure}
+
+图\ref{deep2:fig:d2-h2-s}中的绷紧前速度为 $\vct v^-=(0,-\sqrt{2gR})$。在 B 点取
+\[
+\vct e_r=(\sqrt3/2,-1/2),\qquad
+\vct e_t=(1/2,\sqrt3/2),
+\]
+其中径向向外，切向沿角度增大。投影得
+\[
+v_r^- =\sqrt{\frac{gR}{2}}>0,\qquad
+v_t^-=-\sqrt{\frac{3gR}{2}}.
+\]
+根据题设的绷紧模型，$v_r^+=0$、$v_t^+=v_t^-$，于是
+\[
+\vct J=-m\sqrt{\frac{gR}{2}}\,\vct e_r,\qquad
+\Delta K_{\rm loss}=\frac12m(v_r^-)^2=\frac14mgR.
+\]
+把投影结果换回图\ref{deep2:fig:d2-h2-s}的地面坐标，绷紧后有
+\[
+\vct v^+=v_t^-\vct e_t
+=\left(-\sqrt{\frac{3gR}{8}},-3\sqrt{\frac{gR}{8}}\right).
+\]
+沿绳向内的冲量使水平速度从零变为负值，同时减小竖直速度的大小。碰前动能为 $mgR$，碰后为 $3mgR/4$，损失为 $mgR/4$。冲量消去了径向速度，切向速度则保持不变。
+
+机械能在自由下落阶段守恒，在绳绷紧的冲量阶段减少。
+
+绷紧后的速率平方为 $3gR/2$。沿绳向内列式，
+\[
+T^+-mg\cos60^\circ=\frac{m(v_t^+)^2}{R},
+\qquad T^+=2mg>0.
+\]
+所以绷紧后的局部圆弧运动满足非负张力条件。冲量给出的速度跳变和之后有限张力维持的圆弧运动，是两个不同阶段。
+
+\end{solution}
+
+
+\begin{exercise}[端部加重后的危险截面（选做）]\label{deep2:problem-exercise-7}\label{deep2:exercise:d2-h7}
+
+例\ref{ex:hw2-4}的均匀杆顶端另固定一个质量 m 的质点，杆本身质量仍为 m、长度 L，见图\ref{deep2:fig:d2-h7-q}。从竖直附近静止倒下。求截面剪力、弯矩及全过程最大弯矩的位置，比较它与无端部质量时的位置。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(O)at(0,0);\coordinate(A)at({3.4*sin(32)},{3.4*cos(32)});
+\draw[thick](-.5,0)--(3.4,0);\draw[fill=white](-.14,0)--(.14,0)--(0,.22)--cycle;
+\draw[line width=2pt](O)--(A);\draw[guide](0,0)--(0,3.2);
+\fill(O)circle(1.3pt)node[below]{$O$};\node[right]at(A){$A$};
+\coordinate(S)at({1.2*sin(32)},{1.2*cos(32)});\draw[thick]($(S)+(-.22,.14)$)--($(S)+(.22,-.14)$);\node[left,xshift=-4pt]at(S){截面};\node[above right,xshift=3pt]at(S){$S$};
+\node at(3.3,3.15){$OA=L$};\node at(3.3,2.2){$OS=\xi L$};\draw(0,.7)arc(90:58:.7);\node at(.18,.53){$\theta$};
+\fill(A)circle(3pt)node[above right]{$m$};\node at(3,1.1){杆质量 $m$};
+\end{tikzpicture}
+\caption{顶端质点与杆刚性连接，改变角加速度及各截面所需传递的惯性载荷。}\label{deep2:fig:d2-h7-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+总转动惯量为 $I_O=mL^2/3+mL^2=4mL^2/3$。重力矩为 $(mgL/2+mgL)\sin\theta$，所以
+\[
+\ddot\theta=\frac{9g}{8L}\sin\theta.
+\]
+取切口到固定端的距离为$s=\xi L$，其中$0\le\xi\le1$。截取切口以上的杆段并包含端部质点。其总切向惯性力按各部分的质心距离相加，故切面力在 $\vct e_t$ 方向的分量为
+\begin{align*}
+F_t={}&\ddot\theta\left[m(1-\xi)\frac{L(1+\xi)}2+mL\right]
+-mg(2-\xi)\sin\theta\\
+={}&\frac{mg\sin\theta}{16}(-5+16\xi-9\xi^2).
+\end{align*}
+对上段杆的切向惯性项，可从质量分布直接积分：
+\[
+\int_{\xi L}^{L}s\ddot\theta\,\frac mL\dd s
+=\frac{m\ddot\theta}L\left[\frac{s^2}2\right]_{\xi L}^{L}
+=\frac{mL}{2}(1-\xi^2)\ddot\theta.
+\]
+加上端部小球的 $mL\ddot\theta$，就是方括号乘角加速度。向心加速度沿杆轴线，不进入此切向方程；这也是剪力式中没有单独出现 $\dot\theta^2$ 的原因。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.1,0)--(4,0)node[right]{$\xi$};\draw[axis](0,-.15)--(0,1.7)node[above]{$M/(mgL\sin\theta)$};
+\draw[curve,domain=0:1,samples=100]plot({3.4*\x},{10*\x*(1-\x)*(5-3*\x)/16});
+\draw[guide]({3.4*(8-sqrt(19))/9},0)--({3.4*(8-sqrt(19))/9},{10*((8-sqrt(19))/9)*(1-(8-sqrt(19))/9)*(5-3*(8-sqrt(19))/9)/16});
+\node[below]at({3.4*(8-sqrt(19))/9},0){$\xi_*$};\node[below]at(3.4,0){$1$};
+\draw(-.07,.5)--(.07,.5)node[left,xshift=-3pt]{$1/20$};
+\node at(2.4,1.45){$\xi_*=(8-\sqrt{19})/9$};
+\end{tikzpicture}
+\caption{弯矩分布的形状及内部最大值位置。两端弯矩均为零。}\label{deep2:fig:d2-h7-s}
+\end{figure}
+
+按例\ref{ex:hw2-4}相同的符号，以沿杆的长度坐标 $s=\xi L$ 求导，截面平衡给出 $\dd M/\dd s=-F_t$。端点的集中质点可传递力但不传递额外力偶，故 $M(\xi=1)=0$。积分得
+\[
+M(\xi)=L\int_\xi^1F_t(u)\dd u
+=\frac{mgL\sin\theta}{16}\xi(1-\xi)(5-3\xi).
+\]
+积分的多项式可写成
+\[
+\int_\xi^1(-5+16u-9u^2)\dd u
+=[-5u+8u^2-3u^3]_\xi^1
+=\xi(1-\xi)(5-3\xi).
+\]
+它在两端为零、在内部为正，和图中弯矩曲线的端点及符号相符。
+
+图\ref{deep2:fig:d2-h7-s}给出 $M/(mgL\sin\theta)$ 随截面位置的变化。
+
+M 在杆两端为零，内部极值由剪力为零确定，
+\[
+9\xi^2-16\xi+5=0.
+\]
+两根中只有
+\[
+\xi_* =\frac{8-\sqrt{19}}9\approx0.405
+\]
+位于 $[0,1]$，另一根大于 1。该点的导数由正变负，故为最大弯矩截面。时间上的最大值在杆水平时取得，数值为
+\[
+M_{\max}=\frac{mgL}{16}\xi_*(1-\xi_*)(5-3\xi_*)
+=\frac{28+19\sqrt{19}}{1944}mgL.
+\]
+相比无端部质量的 $L/3$，危险截面向顶端移动。端部载荷同时改变重力矩和转动惯量，因此不能只在原弯矩公式上叠加一个静态端部重力矩。
+
+\end{solution}
+
+
+\begin{exercise}[悬点可移动后的两个自由度（选做）]\label{deep2:problem-exercise-12}\label{deep2:exercise:d2-h12}
+
+将例\ref{ex:hw2-8}的 A、B 改为套在水平杆上的光滑轻环，两环之间连接劲度系数 $k=mg/L$、原长 $D_{\rm rest}=(1+3\sqrt3/2)L$ 的轻弹簧。其余三球质量均为 m，杆长均为 L，只讨论左右对称、$0<\alpha,\beta<\pi/2$ 的构形，见图\ref{deep2:fig:d2-h12-q}。求平衡角、弹簧状态及对称构形内的稳定性，说明为何此时两个角可独立求偏导。
+
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(A)at(-2.732,0);\coordinate(B)at(2.732,0);\coordinate(C)at(-1.732,-1.732);\coordinate(D)at(1.732,-1.732);\coordinate(E)at(0,-2.732);
+\draw[thick](-3.1,0)--(3.1,0);\draw[curve](A)--(C)--(E)--(D)--(B);
+\foreach \p in {A,B,C,D,E}{\fill(\p)circle(1.5pt);}
+\node[above]at(A){$A$};\node[above]at(B){$B$};\node[left]at(C){$C,m$};\node[right]at(D){$D,m$};\node[below]at(E){$E,m$};
+\draw[guide](C)--++(1,0);\draw[domain=0:30]plot({-1.732+.65*cos(\x)},{-1.732-.65*sin(\x)});\node at(-.85,-1.93){$\beta$};
+\draw[domain=0:60]plot({-2.732+.7*cos(\x)},{-.7*sin(\x)});\node at(-1.9,-.5){$\alpha$};
+\draw[|-|](-2.732,.55)--(2.732,.55)node[midway,above]{$D=2L(\cos\alpha+\cos\beta)$};
+
+\draw[fill=white](A)circle(.11);\draw[fill=white](B)circle(.11);
+\draw(-2.6,.18)--(-2.3,.18)--(-2.1,.34)--(-1.7,.02)--(-1.3,.34)--(-.9,.02)--(-.5,.34)--(-.1,.02)--(.3,.34)--(.7,.02)--(1.1,.34)--(1.5,.02)--(1.9,.34)--(2.3,.18)--(2.6,.18);
+\end{tikzpicture}
+\caption{两悬点可以沿水平杆移动，间距 D 随两角改变，弹簧提供水平约束力。}\label{deep2:fig:d2-h12-q}
+\end{figure}
+\par\medskip
+
+\begin{solution}
+悬点间距不再固定，$D=2L(\cos\alpha+\cos\beta)$ 只是由两角计算弹簧长度的几何关系。整体水平平移不改变势能；固定整体位置后，$\alpha,\beta$ 是两个独立的形状坐标。总势能为
+\[
+U=-mgL(3\sin\alpha+\sin\beta)
++\frac12k(D-D_{\rm rest})^2.
+\]
+记压缩弹簧向外推两环的力为 $H=k(D_{\rm rest}-D)$。分别对两个独立角度求偏导，
+\[
+U_\alpha=-3mgL\cos\alpha+2HL\sin\alpha=0,
+\]
+\[
+U_\beta=-mgL\cos\beta+2HL\sin\beta=0.
+\]
+由于角度在第一象限，两式要求 H>0，所以平衡时弹簧必为压缩状态。消去 H 后仍有 $\tan\alpha=3\tan\beta$，但另一条方程现在来自弹簧力，不再是固定间距条件。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\coordinate(C)at(0,0);\coordinate(E)at(4.3,-.4);
+\fill(C)circle(1.7pt)node[left]{$C$};\draw[axis](C)--(-.65,1.126)node[above]{$T_u$};\draw[axis](C)--(1.126,-.65)node[right]{$T_l$};\draw[axis](C)--(0,-1.15)node[below]{$mg$};
+\fill(E)circle(1.7pt)node[below]{$E$};\draw[axis](E)--++(-1.126,.65)node[left]{$T_l$};\draw[axis](E)--++(1.126,.65)node[right]{$T_l$};\draw[axis](E)--++(0,-1.05)node[below]{$mg$};
+\node at(2.1,1.6){$T_u\cos\alpha=T_l\cos\beta=H$};
+\node at(2,-2.75){$H=k(D_{\rm rest}-D)>0$};
+\end{tikzpicture}
+\caption{杆力的水平分量由压缩弹簧平衡。中央球与侧球的竖直平衡仍分别成立。}\label{deep2:fig:d2-h12-s}
+\end{figure}
+
+图\ref{deep2:fig:d2-h12-s}中各杆传递相同的水平分力 H。代入
+\[
+\alpha=60^\circ,\qquad\beta=30^\circ
+\]
+可得 $D=(1+\sqrt3)L$，因此弹簧压缩量为 $\sqrt3L/2$，
+\[
+H=\frac{mg}{L}\frac{\sqrt3L}{2}=\frac{\sqrt3}{2}mg,
+\]
+满足两个平衡方程。相应杆力仍为 $T_l=mg,T_u=\sqrt3mg$。
+
+唯一性可由 $\beta$ 检查：由 $\alpha=\arctan(3\tan\beta)$，$\beta$ 增大时 D 严格减小，弹簧压缩力 H 严格增大；平衡所需的 $mg\cot\beta/2$ 严格减小。两者仅有一个交点。
+
+由 $D_\alpha=-2L\sin\alpha$、$D_\beta=-2L\sin\beta$，有 $H_\alpha=2kL\sin\alpha$、$H_\beta=2kL\sin\beta$。继续对势能的一阶偏导求导，
+\[
+\begin{aligned}
+U_{\alpha\alpha}&=3mgL\sin\alpha+2HL\cos\alpha+4kL^2\sin^2\alpha,\\
+U_{\beta\beta}&=mgL\sin\beta+2HL\cos\beta+4kL^2\sin^2\beta,\\
+U_{\alpha\beta}&=4kL^2\sin\alpha\sin\beta.
+\end{aligned}
+\]
+将三项组成二次型并配方，在平衡点处，总势能的二阶变化为
+\begin{align*}
+\delta^2U={}&(3mgL\sin\alpha+2HL\cos\alpha)(\delta\alpha)^2\\
+&+(mgL\sin\beta+2HL\cos\beta)(\delta\beta)^2\\
+&+4kL^2(\sin\alpha\,\delta\alpha+\sin\beta\,\delta\beta)^2.
+\end{align*}
+前两项的系数都为正，最后一项非负，所以任意非零形状扰动都有 $\delta^2U>0$。平衡在题设的对称构形内稳定。整体水平平移只是中性自由度，不影响这一形状稳定性的判断。
+
+固定悬点时，两角的虚位移受间距条件约束。悬点可移动后，弹簧形变计入势能，两角仍可独立变化，所以应分别令总势能对两角的偏导数为零。
+
+\end{solution}
+

@@ -1,0 +1,41 @@
+\begin{exercise}\label{ex:m1anisotropicsource}
+光源静止系单位固有时、单位立体角辐射能为$I'(\theta')=I_0(1+a\cos\theta')$，$|a|\leq1$。源沿对称轴以$V$运动。求实验室发射时间角功率和总功率，讨论何时总功率大于静止系值。
+\Diagram{fig:m1anisotropicq}{源系辐射含沿运动轴的一阶不对称项}{\draw[axis](-2,0)--(3.1,0)node[right]{$x',V$};\draw[curve,domain=0:360,samples=100]plot({1.2*(1+.6*cos(\x))*cos(\x)},{1.2*(1+.6*cos(\x))*sin(\x)});\node[above]at(0,1.8){图取$a>0$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1anisotropicq}总静止功率仍为$P_0=4\pi I_0$，因为$\cos\theta'$全空间积分为零。对同一批光子使用能量、时间与立体角三因子，
+\[
+ I(\theta)=\frac{\delta^3}{\gamma}I_0
+ \left[1+a\frac{\cos\theta-\beta}{1-\beta\cos\theta}\right].
+\]
+要积分总功率，改在源系按$\mu'=\cos\theta'$积分更直接。每束的实验室能量乘$\gamma(1+\beta\mu')$，除发射时间$\gamma\dd\tau$，所以
+\begin{align*}
+ P&=2\pi I_0\int_{-1}^1(1+a\mu')(1+\beta\mu')\dd\mu'\\
+ &=2\pi I_0\int_{-1}^1[1+(a+\beta)\mu'+a\beta\mu'^2]\dd\mu'\\
+ &=2\pi I_0\left[\mu'+\frac{a+\beta}{2}\mu'^2+
+ \frac{a\beta}{3}\mu'^3\right]_{-1}^{1}
+ =4\pi I_0(1+a\beta/3).
+\end{align*}
+\Diagram{fig:m1anisotropica}{总功率的额外项来自源系净辐射动量}{\draw[curve](0,0)rectangle(2.7,1);\node at(1.35,.5){$P_0$};\draw[->](2.9,.5)--(3.7,.5);\node[right]at(3.9,.5){$P=P_0+\beta c\dot p'_x$};\node[below]at(2,-.7){$\dot p'_x=aP_0/(3c)$};}
+图\ref{fig:m1anisotropica}中，总功率的修正项由源系净辐射动量决定。$a\beta>0$时实验室功率更大，反号时更小，$a=0$才恢复各向同性源的总功率不变。给定发射机制若长期维持不对称辐射，光源会有反冲；本题假定外部装置维持其匀速运动，或只研究一个瞬时发射小过程。
+\end{solution}
+
+\begin{exercise}[选做]\label{ex:m1antitelephone}
+假设存在在任意发射者静止系均可沿任意方向以同一速率$u>c$发送的信号。地球$A$固定在$x=0$，飞船$B$满足$x=L+Vt$。$A$在$t=0$发信号，$B$收到后立即在自身系以$-u$回复。求回复到达地球时刻，讨论因果矛盾的条件。
+\Diagram{fig:m1antiq}{假设的超光速信号是类空路径；此图不表示真实光线}{\draw[axis](-.3,0)--(3.7,0)node[right]{$x/L$};\draw[axis](0,-1.2)--(0,3.4)node[above]{$ct/L$};\draw[curve](1,0)--(3.7,3);\draw[->,very thick](0,0)--(1.818182,.909091);\draw[->,very thick](1.818182,.909091)--(0,-.413223);\node[right]at(1.818182,.909091){$R$};\node[left]at(0,-.413223){$C$};}
+\end{exercise}
+\begin{solution}
+出发信号$x=ut$与飞船相交，图\ref{fig:m1antiq}的接收事件为$t_R=L/(u-V)$、$x_R=uL/(u-V)$。以飞船系中从回复发出起经过的坐标时间$s>0$作参数，回复有$\Delta t'=s$、$\Delta x'=-us$。逆变换逐项给
+\[
+ \Delta t=\gamma(1-Vu/c^2)s,\qquad
+ \Delta x=\gamma(V-u)s.
+\]
+回复到达地球要求$x_R+\Delta x=0$，所以$s=x_R/[\gamma(u-V)]>0$。代入时间增量，
+\[
+ t_C=t_R+\frac{(1-Vu/c^2)x_R}{u-V}
+ =\frac{L[2u-V(1+u^2/c^2)]}{(u-V)^2}.
+\]
+当$Vu=c^2$，回复路径在实验室的时间增量为零，仍由以上参数式处理；直接以$\Delta x/\Delta t$表示斜率则会出现零分母。当$Vu>c^2$，沿回复路径的实验室时间增量为负，不能再用面向未来的普通速度图像解释其方向。
+\Diagram{fig:m1antia}{若回复早于出发，地球可在发送之前收到由该发送触发的回信}{\draw[axis](0,-1.4)--(0,2)node[above]{地球钟};\fill(0,0)circle(1.5pt)node[right]{$A:t=0$发送};\fill(0,-.9)circle(1.5pt)node[right]{$C:t_C<0$收到回复};\draw[->,thick](-.5,-.8)--(-.5,-.1);}
+因此$V>2u/(1+u^2/c^2)$时$t_C<0$。对$u>c$，这个门槛小于$c$，可由亚光速飞船达到。图\ref{fig:m1antiq}取$u=2c,V=.9c$作示意，回复位于地球出发事件的过去。图\ref{fig:m1antia}所示矛盾依赖“每个惯性系都能双向按同一超光速规则发信号”的假设；视超光速图样不具有这种信号能力，不能用它构造本装置。
+\end{solution}

@@ -1,0 +1,1249 @@
+\chapter{电介质与静磁场}\label{ch:es4}
+电介质中既有自由电荷，也有极化产生的束缚电荷。电位移的通量只计自由电荷，电场仍由两者共同决定。静磁场中则将自由电流与磁化电流分开：磁场强度的环量由前者确定，磁感应强度包含两者的贡献。
+
+极化电荷的体积与表面贡献决定介质边界条件，平板、球和分区电容各有不同的接续方式。求机械力时，还须说明自由电量与外加电压中哪一个由外界保持。静磁部分用电流的叠加和环量求场，并由磁化电流解释磁偶极的角分布。
+
+
+\section{极化强度、电位移与束缚电荷}\label{sec:es4-polarization}
+介质的极化把微观偶极分布写成连续场。先由极化强度确定体内及表面的束缚电荷，再引入电位移，把自由源与材料响应分开。
+
+\subsection{从微观偶极到连续极化}
+单位体积内各微观电偶极矩的矢量和定义为$\vct P=\lim_{\Delta V}\sum\vct p/\Delta V$，粗粒化体积须大于微观尺度又小于宏观场变化尺度。线性、局部、各向同性介质中
+\[\vct P=\epsilon_0\chi_e\vct E,\quad
+\vct D=\epsilon_0\vct E+\vct P=\epsilon\vct E,\quad
+\epsilon=\epsilon_0\epsilon_r,\ \epsilon_r=1+\chi_e.
+\]
+极化是矢量关系，不同方向的介电响应若不相同，应使用张量而不能套标量$\epsilon_r$。此处限于正介电常数的静态线性材料。
+
+将小偶极的正负端计入任意体积，体内相邻端点抵消，边界留下与$\vct P\cdot\vct n$相关的电量。因此
+\[\rho_b=-\nabla\cdot\vct P,\qquad \sigma_b=\vct P\cdot\vct n\quad\text{（介质对真空）}.
+\]
+这两个源项也可从偶极势直接推出。设极化体占区域$V$，先取体外观察点，记$R=|\vct r-\vct r'|$；每一体积元的偶极矩为$\vct P(\vct r')\dd V'$。由于$\nabla'(1/R)=(\vct r-\vct r')/R^3$，
+\[\begin{aligned}
+\varphi_b(\vct r)&=\ke\int_V\vct P\cdot\nabla'\frac1R\dd V'\\
+&=\ke\int_V\left[\nabla'\cdot\left(\frac{\vct P}R\right)
+-\frac{\nabla'\cdot\vct P}R\right]\dd V'\\
+&=\ke\oint_{\partial V}\frac{\vct P\cdot\vct n}R\dd S'
+-\ke\int_V\frac{\nabla'\cdot\vct P}R\dd V'.
+\end{aligned}\]
+末式分别是面电荷与体电荷的库仑势，因而确定上述两个密度的正负号。对体内观察点，可先将核的奇点挖去小球，再取小球半径趋零；对于有界、分段光滑的极化分布，同一源表达仍成立。
+界面法向$\vct n_{12}$从介质1指向介质2时，界面总束缚面电量为$(\vct P_1-\vct P_2)\cdot\vct n_{12}$。均匀极化的体内可无束缚体电荷，却仍有表面电荷。
+
+Gauss定律原本包含全部电荷：$\nabla\cdot\vct E=(\rho_f+\rho_b)/\epsilon_0$。代入$\rho_b$后才得到$\nabla\cdot\vct D=\rho_f$。所以$\vct D$不是另一种实际作用力场，试探电荷的力仍为$q\vct E$。
+
+\begin{example}[均匀极化球的电荷与内场]\label{ex:es4-e1}
+半径$a$的球体具有给定均匀极化$\vct P=P\vct e_z$，周围真空，无额外自由电荷。求束缚电荷、总束缚电量、偶极矩和球内极化场。 见图~\ref{fig:es4-e1-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.4);\draw[axis](0,-1.8)--(0,1.9)node[above]{$z$};\draw[axis](.5,-.6)--(.5,.6)node[right]{$\vct P$};\draw[guide](0,0)--(-1.12,.84)node[midway,above]{$a$};\node[right]at(1.6,-.6){真空};
+\end{tikzpicture}
+\caption{这里先把极化作为给定源，不预先使用线性响应关系。}\label{fig:es4-e1-q}
+\end{figure}
+\begin{solution}
+均匀$\vct P$的散度为零，故$\rho_b=0$。球面外法向为$\vct e_r$，$\sigma_b=P\cos\theta$，上半球正、下半球负，总积分为零。偶极矩可由$\int\vct P\dd V$求得，$\vct p=(4\pi a^3/3)\vct P$。
+
+求场时可把球面电荷展开成$l=1$球谐。球内正则势写$Ar\cos\theta$，球外衰减势写$B\cos\theta/r^2$。势连续给$B=Aa^3$，径向电场跳变$E_{r,\rm out}-E_{r,\rm in}=P\cos\theta/\epsilon_0$给$3A=P/\epsilon_0$。因此
+\[\varphi_{\rm in}=Pz/(3\epsilon_0),\quad \boxed{\vct E_{\rm pol}=-\vct P/(3\epsilon_0)}.
+\]
+图~\ref{fig:es4-e1-s}中内部场从正面指向负面，与极化反向。球外势正是该总偶极矩的势，不需要远区近似，因为面源只含$l=1$模；这与一般有限偶极源只有远区才等效为点偶极有所不同。
+
+若球的极化由外场诱导，就应把这个退极化场与外加场相加，再用$P=\epsilon_0\chi_eE_{\rm in}$自洽求解。不能直接令球内场等于外场除以$\epsilon_r$，那是另一种形状下的结果。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt);\node at(0,1){$+$};\node at(0,-1){$-$};\draw[axis](.4,-.6)--(.4,.6)node[right]{$\vct P$};\draw[axis](-.4,.6)--(-.4,-.6)node[left]{$\vct E_{\rm pol}$};
+
+\end{tikzpicture}
+\caption{均匀极化球内的退极化场与极化方向相反，系数由球面边界确定。}\label{fig:es4-e1-s}
+\end{figure}
+
+
+偶极矩的直接面积积分为
+\[\begin{aligned}
+p_z&=\int(a\cos\theta)\sigma_b\dd S
+=2\pi Pa^3\int_0^\pi\cos^2\theta\sin\theta\dd\theta\\
+&=2\pi Pa^3\int_{-1}^1u^2\dd u
+=2\pi Pa^3[u^3/3]_{-1}^1=\frac{4\pi Pa^3}3.
+\end{aligned}\]
+其中$u=\cos\theta$；横向分量由方位对称抵消。内外势在$r=a$都为$Pa\cos\theta/(3\epsilon_0)$，径向场两侧分别为$-P\cos\theta/(3\epsilon_0)$与$2P\cos\theta/(3\epsilon_0)$，跳变为$P\cos\theta/\epsilon_0$。
+\end{solution}
+
+\subsection{自由电荷与束缚电荷分别进入哪条方程}\label{sec:es-charge-accounting}
+在任意固定体积内，对极化体密度积分，
+\[Q_{b,V}=-\int_V\nabla\cdot\vct P\dd V
+=-\oint_{\partial V}\vct P\cdot\vct n\dd S.
+\]
+若这个边界就是介质真实表面，表面还带有$\sigma_b=\vct P\cdot\vct n$。将体电量与真实表面电量合计，孤立极化体的总束缚电量为零。总束缚电量为零允许局部存在电荷。均匀极化体的束缚电荷全在边界，非均匀极化体通常还含体电荷。
+
+对两种介质的界面，取同一法向$\vct n_{12}$从1指向2。第一种介质端面的电量为$\vct P_1\cdot\vct n_{12}$，第二种的外法向相反，贡献$-\vct P_2\cdot\vct n_{12}$，故同一几何界面的合密度为
+\[\sigma_b=(\vct P_1-\vct P_2)\cdot\vct n_{12}.
+\]
+于是对电场和电位移分别有
+\[\epsilon_0(E_{2n}-E_{1n})=\sigma_f+\sigma_b,
+\qquad D_{2n}-D_{1n}=\sigma_f.
+\]
+把$D_{in}=\epsilon_0E_{in}+P_{in}$代入第二式，立刻恢复第一式。两条式子描述同一边界，右端计入的源不同。没有自由面电荷时应令$D_n$连续，而不是令$E_n$连续；只有两侧极化法向分量也相等，$E_n$才一起连续。
+
+$\vct D$的引入简化了自由通量关系，但不使它在所有情形都成为无旋场。对$\vct D=\epsilon(\vct r)\vct E$，静电条件给
+\[\nabla\times\vct D=\nabla\epsilon\times\vct E.
+\]
+介电常数沿等势面变化时，右端一般非零。因此应先对$\vct E$建立单值电势，再按本构关系计算$\vct D$。把两者在边界处的法向、切向条件互换，会破坏解的存在条件。
+
+
+
+\section{界面边界条件}\label{sec:es4-boundary}
+法向和切向分量分别受不同的积分关系限制。统一界面法向后，自由面电荷、束缚电荷与材料参数突变各自进入对应的边界条件。
+
+跨界面取薄柱，$\vct D$的通量给
+\[(\vct D_2-\vct D_1)\cdot\vct n_{12}=\sigma_f.
+\]
+跨界面取窄矩形静电回路，得到$\vct n_{12}\times(\vct E_2-\vct E_1)=0$，即切向电场连续。普通介质界面电势连续；若模型含理想偶极面，则应另外写明势跳跃。
+
+无自由面电荷时$\epsilon_1E_{1n}=\epsilon_2E_{2n}$而$E_{1t}=E_{2t}$。角度从同一法向的延长方向量起并比较绝对分量，则$\tan\theta_2/\tan\theta_1=\epsilon_2/\epsilon_1$。这里使用的是电场线的折向，不能把光学折射率的公式移来。
+
+
+\subsection{平面边界条件的局部推导}
+薄柱的上下面面积取$\Delta S$，高度趋零时侧面通量按高度消失，因此总位移通量只剩$(D_{2n}-D_{1n})\Delta S$；其中包围的自由面电量为$\sigma_f\Delta S$。如果使用$\vct E$而不是$\vct D$，右端就必须包含束缚面电量。两种写法应同时满足，但不能把一个式子的源放到另一个式子中重复计数。
+
+窄矩形回路的两长边分别贴近界面两侧，短边长度趋零，静电环量剩$(E_{1t}-E_{2t})\Delta l=0$。由此得到的是切向$E$连续，而不是$D$的切向连续。对各向同性介质，若场严格沿法向，介电常数大的区域场较弱；若严格沿切向，场相同而位移更大；一般斜向场应把这两个分量分别处理。
+
+束缚界面电量的方向也可用一薄柱逐侧计数。介质1的外法向为$\vct n_{12}$，介质2的外法向为$-\vct n_{12}$，两表面电量相加得到$(\vct P_1-\vct P_2)\cdot\vct n_{12}$。即使几何上只有一张界面，也不能只计一侧的偶极端面。
+
+\begin{example}[无限介质平板中的法向场]\label{ex:es4-e2}
+无限大平行自由电荷面分别为$\pm\sigma_f$，中间放置厚度$t$、相对介电常数$\epsilon_r$的无限平板，板面与电荷面平行。求真空隙、介质内的场、束缚电荷及两电荷面间电压。两自由面间距为$d>t$。 见图~\ref{fig:es4-e2-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[very thick](-2.5,-1.2)--(2.5,-1.2) (-2.5,1.2)--(2.5,1.2);\fill[gray!12](-2.5,-.7)rectangle(2.5,.7);\draw[curve](-2.5,-.7)--(2.5,-.7) (-2.5,.7)--(2.5,.7);\draw[axis](0,1.8)--(0,-1.8)node[below]{$z$};\node[right]at(2.5,1.2){$+\sigma_f$};\node[right]at(2.5,-1.2){$-\sigma_f$};
+\end{tikzpicture}
+\caption{自由电荷面密度固定，忽略边缘，场垂直各平面。}\label{fig:es4-e2-q}
+\end{figure}
+\begin{solution}
+对整个分层结构，法向$D$在没有自由界面电荷的地方相同，大小为$\sigma_f$。因此真空隙$E_v=\sigma_f/\epsilon_0=E_0$，介质内$E_d=\sigma_f/\epsilon=E_0/\epsilon_r$。
+
+极化沿场，大小$P=\epsilon_0(\epsilon_r-1)E_d=\sigma_f(1-1/\epsilon_r)$。图~\ref{fig:es4-e2-s}中的上表面外法向向上而场向下，所以该面束缚电荷为$-P$，下表面为$+P$。这些束缚电荷的场削弱介质内部外加场，却不改变两真空隙的场。
+
+电压为$V=E_0(d-t)+E_dt=\sigma_f[(d-t)/\epsilon_0+t/\epsilon]$。若改为外加电压固定，插板后$\sigma_f$一般增加，不能继续取原来的$E_0$不变。无限介质板的法向场结论来自平面边界与固定自由电荷，不是任意形状介质中的通式。沿板面外场时切向场连续，理想无限板内的场反而等于外场。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[very thick](-2.5,-1.2)--(2.5,-1.2) (-2.5,1.2)--(2.5,1.2);\fill[gray!12](-2.5,-.7)rectangle(2.5,.7);\draw[curve](-2.5,-.7)--(2.5,-.7) (-2.5,.7)--(2.5,.7);\draw[axis](0,1.8)--(0,-1.8)node[below]{$z$};\node[right]at(2.5,1.2){$+\sigma_f$};\node[right]at(2.5,-1.2){$-\sigma_f$};\node at(1.3,.55){$-P$};\node at(1.3,-.55){$+P$};\node at(-1.1,0){$E_0/\epsilon_r$};\node at(-1.1,.95){$E_0$};
+\end{tikzpicture}
+\caption{法向电位移不变，束缚电荷分别位于介质两表面。}\label{fig:es4-e2-s}
+\end{figure}
+
+
+若板间完全充满介质，$t=d$，容量每面积为$\epsilon/d$；若$t=0$恢复真空容量$\epsilon_0/d$。部分填充时$c_A^{-1}=(d-t)/\epsilon_0+t/\epsilon$，真空隙即使很薄也可能控制电压分配，尤其当$\epsilon\gg\epsilon_0$时。按厚度直接平均介电常数会错过这个串层效应。
+\end{solution}
+
+\begin{example}[介质球在匀强场中的自洽极化]\label{ex:es4-e3}
+半径$a$、介电常数$\epsilon_i$的均匀介质球置于介电常数$\epsilon_m$的无限介质中，远场$E_0\vct e_z$。求内场、外部偶极矩及真空外介质时的极化强度。 见图~\ref{fig:es4-e3-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.8)--(0,2)node[above]{$z$};\node at(.6,.5){$\epsilon_i$};\node[right]at(1.6,-.7){$\epsilon_m$};\draw[axis](-2.1,-1.1)--(-2.1,.1)node[above]{$E_0$};
+\end{tikzpicture}
+\caption{球面无自由电荷，势与法向电位移连续。}\label{fig:es4-e3-q}
+\end{figure}
+\begin{solution}
+取球心为原点、$\vct E_0$沿正$z$轴。内外均为无自由源的均匀线性介质，满足中心正则性及远处匀强场条件的轴对称势可写为
+\[
+ \varphi_i=-Cr\cos\theta,\qquad
+ \varphi_m=-E_0r\cos\theta+\frac{B\cos\theta}{r^2}.
+\]
+在$r=a$处，电势连续、法向$D$连续，分别给出
+\[
+ C=E_0-\frac B{a^3},\qquad
+ \epsilon_iC=\epsilon_m\left(E_0+\frac{2B}{a^3}\right).
+\]
+消去$C$并合并$B$项：
+\[
+ (\epsilon_i-\epsilon_m)E_0
+ =(\epsilon_i+2\epsilon_m)\frac B{a^3}.
+\]
+因此
+\[
+ \boxed{B=a^3E_0\frac{\epsilon_i-\epsilon_m}{\epsilon_i+2\epsilon_m}},
+ \qquad
+ \boxed{E_{\rm in}=C=
+ \left(1-\frac{\epsilon_i-\epsilon_m}{\epsilon_i+2\epsilon_m}\right)E_0
+ =\frac{3\epsilon_m}{\epsilon_i+2\epsilon_m}E_0}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.8)--(0,2)node[above]{$z$};\node at(-.7,1){$\epsilon_i$};\node[right]at(1.6,-.7){$\epsilon_m$};\draw[axis](-2.1,-1.1)--(-2.1,.1)node[above]{$E_0$};\draw[axis](.45,-.6)--(.45,.6)node[right]{$\vct p$};\draw[axis](-.45,-.5)--(-.45,.5)node[left]{$E_{\rm in}$};
+
+\end{tikzpicture}
+\caption{图中取$\epsilon_i>\epsilon_m$；内场为均匀场，外部附加项为沿外场或反向的偶极。}\label{fig:es4-e3-s}
+\end{figure}
+图~\ref{fig:es4-e3-s}中的外偶极扰动，按所在介质中的势
+$\varphi_{\rm dip}=\vct p\cdot\vct e_r/(4\pi\epsilon_mr^2)$定义，故
+\[
+ \boxed{\vct p=4\pi\epsilon_ma^3
+ \frac{\epsilon_i-\epsilon_m}{\epsilon_i+2\epsilon_m}\vct E_0}.
+\]
+当$\epsilon_i>\epsilon_m$时它与外场同向，反之反向；两介电常数相等时扰动消失。该$\vct p$表示替换背景后造成的净扰动。背景可极化时，还须扣除被替换部分的极化。
+
+真空外部$\epsilon_m=\epsilon_0$时，令$\epsilon_i=\epsilon_0\epsilon_r$，得到
+$\vct P=3\epsilon_0(\epsilon_r-1)\vct E_0/(\epsilon_r+2)$。
+也可用均匀极化球的退极化场建立自洽式
+$E_{\rm in}=E_0-P/(3\epsilon_0)$，代入
+$P=\epsilon_0(\epsilon_r-1)E_{\rm in}$，便得到相同内场。
+$\epsilon_r\to1$时内场恢复$E_0$；$\epsilon_r\to\infty$时内场趋零，外场趋于中性导体球的结果。
+
+匹配式中的系数$2$来自三维外偶极势$r^{-2}$的径向导数。二维介质圆柱的外偶极势按$r^{-1}$变化，相应分母为$\epsilon_i+\epsilon_m$，不能直接套用球的极化系数。
+\end{solution}
+
+\begin{example}[稀疏小球构成的有效介质]\label{ex:es4-e4}
+真空中随机稀疏分布半径$a$、相对介电常数$\epsilon_r$的小球，数密度$n$，体积分数$f=4\pi a^3n/3\ll1$。求宏观有效介电常数的首项，并说明局部场近似的阶数。 见图~\ref{fig:es4-e4-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1.4)rectangle(2,1.4);\foreach\x/\y in{-.9/.5,.7/.7,0/-.6}{\draw[curve](\x,\y)circle(.3);\draw[axis](\x,{\y-.16})--(\x,{\y+.16});}\draw[axis](-2.6,-.8)--(-2.6,.3)node[above]{$E$};
+\end{tikzpicture}
+\caption{各小球的间距远大于半径，首阶忽略邻球的偶极场。}\label{fig:es4-e4-q}
+\end{figure}
+\begin{solution}
+单球极化率$\alpha=4\pi\epsilon_0a^3(\epsilon_r-1)/(\epsilon_r+2)$。稀疏极限中每球所受局部场等于宏观场到$O(f)$精度，故$\vct P=n\alpha\vct E+O(f^2\epsilon_0E)$，得到
+\[\boxed{\epsilon_{r,\rm eff}=1+4\pi a^3n\frac{\epsilon_r-1}{\epsilon_r+2}+O(f^2)
+=1+3f\frac{\epsilon_r-1}{\epsilon_r+2}+O(f^2)}.
+\]
+图~\ref{fig:es4-e4-s}中的每个偶极由该小球的局部场决定。邻球带来的场修正本身为$O(fE)$，再乘$n\alpha=O(f)$才进入宏观极化，所以它影响的是二阶及以后。
+
+若进一步采用Lorentz球形空腔局部场$E_{\rm loc}=E+P/(3\epsilon_0)$，记$t=n\alpha/(3\epsilon_0)=f(\epsilon_r-1)/(\epsilon_r+2)$，则
+\[P=n\alpha\left(E+\frac{P}{3\epsilon_0}\right),\qquad
+(1-t)P=3\epsilon_0tE.
+\]
+由$P=\epsilon_0(\epsilon_{r,\rm eff}-1)E$，得到
+\[\epsilon_{r,\rm eff}-1=\frac{3t}{1-t},\qquad
+\epsilon_{r,\rm eff}+2=\frac3{1-t}.
+\]
+两式相除即得$(\epsilon_{r,\rm eff}-1)/(\epsilon_{r,\rm eff}+2)=f(\epsilon_r-1)/(\epsilon_r+2)$。这是一种自洽延拓，不是任意密度随机结构的精确公式；粒子相关、相接或形状改变时不能只把$f$代大。原稀疏首项不依赖这种高阶近似选择。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide](0,0)circle(1.6);\draw[curve](0,0)circle(.45);\draw[axis](.1,-.3)--(.1,.3);\node[right]at(.6,-.5){$p=\alpha E_{\rm loc}$};\node[right]at(1.7,.5){邻球场：高阶修正};
+
+\end{tikzpicture}
+\caption{单球响应与宏观平均分开，局部场修正不应在首阶重复计入。}\label{fig:es4-e4-s}
+\end{figure}
+
+
+用体积分数表示后，$\epsilon_r\to\infty$的导体颗粒极限给$\epsilon_{r,\rm eff}=1+3f+O(f^2)$，而$\epsilon_r=1$时首项为1。若颗粒介电常数只略高于真空，$\epsilon_r=1+\delta$，则$3(\epsilon_r-1)/(\epsilon_r+2)=3\delta/(3+\delta)=\delta+O(\delta^2)$，恢复按体积混合的弱反差结果。强反差时的系数饱和来自每颗球的退极化场。
+\end{solution}
+
+\begin{example}[分界面上的带电导体球]\label{ex:es4-e5}
+半径$R$的导体球球心在两个介质半空间的平面分界上，上方介电常数$\epsilon_1$，下方$\epsilon_2$。球总自由电量$Q$，无穷远零势。求球外场、两半球电量和对地电容。 见图~\ref{fig:es4-e5-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\node at(.5,.5){$Q$};
+\end{tikzpicture}
+\caption{分界平面经过球心，与径向场处处相切。}\label{fig:es4-e5-q}
+\end{figure}
+\begin{solution}
+尝试共同势$\varphi=A/r$。它在球面为常数，在平面两侧势和切向场相同；法向电场在平面上为零，故法向位移条件也满足。Gauss面取整球，
+\[Q=2\pi R^2\epsilon_1(A/R^2)+2\pi R^2\epsilon_2(A/R^2),
+\]
+所以$A=Q/[2\pi(\epsilon_1+\epsilon_2)]$，$\vct E=A\vct e_r/r^2$。
+
+图~\ref{fig:es4-e5-s}中的同一径向场在上下半球对应不同自由面密度，$\sigma_{f,1}=\epsilon_1A/R^2$，$\sigma_{f,2}=\epsilon_2A/R^2$，于是
+\[Q_1=\frac{\epsilon_1}{\epsilon_1+\epsilon_2}Q,\quad
+Q_2=\frac{\epsilon_2}{\epsilon_1+\epsilon_2}Q,\quad
+\boxed{C=2\pi R(\epsilon_1+\epsilon_2)}.
+\]
+平均介电常数在这个特殊几何中有效，是因为两半空间共享同一电势差、径向通量区域并列，且分界面恰过球心。若界面偏离球心，径向场不再与界面相切，上述试探解失效，不能继续直接取算术平均。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](.6,.8)--(.9,1.2)node[right]{$D_1$};\draw[axis](.6,-.8)--(.9,-1.2)node[right]{$D_2$};\node[left]at(-1.5,.4){$Q_1$};\node[left]at(-1.5,-.4){$Q_2$};
+\end{tikzpicture}
+\caption{共同径向电场下，半球自由电荷按介电常数分配。}\label{fig:es4-e5-s}
+\end{figure}
+
+
+在介质平面上，径向场没有法向分量，所以该平面远离球的部分没有由本解引起的束缚面电荷；极化电荷主要分布在球与介质的接触半球表面。自由电荷密度指导体上的自由源，不能与介质紧邻表面的束缚电荷合成后再用于$D_n=\sigma_f$。完整电场Gauss式会同时计入两种源，位移Gauss式只计自由源。
+\end{solution}
+
+\section{电容中的分区与能量}\label{sec:es4-capacitors}
+介质分区应由电场方向和界面条件决定，串并联等效只是部分几何构形的结果。求力时还要保留固定电荷或固定电势的外部控制条件。
+
+线性静电体系的场能为$W=\tfrac12\int\vct E\cdot\vct D\dd V$，两端电容满足$W=Q^2/(2C)=CV^2/2$。把介质分区看成串联或并联前，应先说明各区为何共享电量或电压，并验证界面条件。连接图的形式相似，并不足以证明场可分成互不影响的单元。
+
+在固定电压的Dirichlet变分中，满足电极电势的连续试探势给出的能量不小于真实能量，因此给出电容上界。固定电量时，散度自由且满足端部总通量的试探$\vct D$给出能量上界，从而给出电容下界。用这两种界，可以把有价值的网络估算保留下来，同时说明其精度限制。
+
+
+\subsection{电容的两种变分式}
+固定两端势为$0,V$，令$\varphi=\varphi_*+u$，$u$在电极为零，其他绝缘边界满足自然条件。展开能量，交叉项
+\[\int\epsilon\nabla\varphi_*\cdot\nabla u\dd V
+=\iint u\epsilon\partial_n\varphi_*\dd S-\int u\nabla\cdot(\epsilon\nabla\varphi_*)\dd V=0.
+\]
+所以$W[\varphi]=W[\varphi_*]+\tfrac12\int\epsilon|\nabla u|^2\dd V$。容许电势只需连续并满足电极值，未必逐处满足介质通量边界；其能量给$C\le2W[\varphi]/V^2$。
+
+固定电极总电量$\pm Q$时，令容许位移$\vct D=\vct D_*+\vct d$，满足无自由体电荷的散度条件、绝缘侧壁无通量及电极总通量固定。因此$\nabla\cdot\vct d=0$；对每个电极面$S_i$，有$\int_{S_i}\vct d\cdot\vct n\dd S=0$，但不要求该面的每一点都满足$\vct d\cdot\vct n=0$。展开能量，
+\[W_D=\int\frac{D^2}{2\epsilon}\dd V
+=W_*+\int\vct E_*\cdot\vct d\dd V
++\frac12\int\frac{d^2}{\epsilon}\dd V.\]
+真实场$\vct E_*=-\nabla\varphi_*$，且每个导体各自等势$V_i^*$。交叉项分部积分为
+\[\begin{aligned}
+\int\vct E_*\cdot\vct d\dd V
+&=-\oint\varphi_*\vct d\cdot\vct n\dd S
++\int\varphi_*\nabla\cdot\vct d\dd V\\
+&=-\sum_iV_i^*\int_{S_i}\vct d\cdot\vct n\dd S=0.
+\end{aligned}\]
+体积分因散度为零而消失，绝缘侧壁的通量逐点为零；各导体的表面项则由其净通量增量为零消去。若介电常数分段变化，内部界面上的反向法向贡献也因势连续、法向$\vct d$连续而抵消。由$\epsilon>0$，
+\[W_D=W_*+\frac12\int\frac{d^2}{\epsilon}\dd V
+\ge\frac{Q^2}{2C},\qquad C\ge\frac{Q^2}{2W_D}.\]
+这类试探$\vct D$可以暂不满足无旋电场条件，正如试探势可以暂不满足通量连续；真实解才同时满足全部条件。
+
+两种构造使用不同的容许变量：给定电压时试探电势，给定电量时试探通量。它们可从两侧约束同一个几何结构的电容，后面的三介质分区题将具体使用这两个界。
+
+\begin{example}[串层与并区平板电容]\label{ex:es4-e6}
+忽略边缘的平板电容器面积$S$。第一种沿场方向叠放两层厚$d_1,d_2$的介质；第二种在相同板距$d$下按面积$S_1,S_2$并列填充。介电常数分别为$\epsilon_1,\epsilon_2$。求两种电容和各区的场。 见图~\ref{fig:es4-e6-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[very thick](-2,-1)--(2,-1) (-2,1)--(2,1);\draw[curve](-2,0)--(2,0);\node at(0,.5){$\epsilon_1,d_1$};\node at(0,-.5){$\epsilon_2,d_2$};
+\end{tikzpicture}
+\caption{图示为法向串层；并区的介质界面与电场平行。}\label{fig:es4-e6-q}
+\end{figure}
+\begin{solution}
+串层无自由界面电荷，法向$D=Q/S$共同，场为$E_i=Q/(\epsilon_iS)$，电压$V=Q(d_1/\epsilon_1+d_2/\epsilon_2)/S$。所以$C_{\rm ser}=S/(d_1/\epsilon_1+d_2/\epsilon_2)$。
+
+并区共享同一电压$V$与板距$d$，因界面沿场方向，切向场一致，$E_1=E_2=V/d$；各区电量$Q_i=\epsilon_iS_iV/d$，故$C_{\rm par}=(\epsilon_1S_1+\epsilon_2S_2)/d$。图~\ref{fig:es4-e6-s}将共同的$D$与共同的$E$并排标出。
+
+这两个精确的理想平面解分别自动满足全部介质界面条件，才可叫作串联与并联。若任意分区的内部电势无法保持这些共同量，就只能求解二维或三维场，或把网络当作有条件的近似。对实际有限板，边缘修正还要求横向尺寸远大于板距。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[xshift=-1.8cm]\draw[thick](-1,-1)--(1,-1) (-1,1)--(1,1);\draw(-1,0)--(1,0);\draw[axis](0,.7)--(0,-.7)node[right]{$D$相同};\end{scope}\begin{scope}[xshift=1.8cm]\draw[thick](-1,-1)--(1,-1) (-1,1)--(1,1);\draw(0,-1)--(0,1);\draw[axis](-.5,.7)--(-.5,-.7);\draw[axis](.5,.7)--(.5,-.7);\node[below]at(0,-1.2){$E$相同};\end{scope}
+\end{tikzpicture}
+\caption{串层比较法向位移，并区比较切向电场；两种共同量不能任意交换。}\label{fig:es4-e6-s}
+\end{figure}
+
+
+串层中每层的电压份额$V_i/V=(d_i/\epsilon_i)/(d_1/\epsilon_1+d_2/\epsilon_2)$，并区中每区的电量份额$Q_i/Q=\epsilon_iS_i/(\epsilon_1S_1+\epsilon_2S_2)$。前者突出薄弱的低介电常数层承担较大场与电压，后者突出高介电常数区域承担较多自由电量。对介质击穿等局部场问题，只算总电容还不够，必须恢复各区场。
+\end{solution}
+
+\begin{example}[错列三介质的网络近似与界]\label{ex:es4-e7}
+平板总面积$2S$、板距$2d$。下半层厚$d$，左右各面积$S$，相对介电常数为$e_1,e_2$；上半层厚$d$，均为$e_3$。先忽略外侧边缘场，以竖直侧面无通量的模型讨论。比较“左右柱分别串联后并联”与“先将下层并联再串上层”两种估算，说明其严格含义。 见图~\ref{fig:es4-e7-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[very thick](-2,-1.3)--(2,-1.3) (-2,1.3)--(2,1.3);\draw[curve](-2,0)--(2,0) (0,-1.3)--(0,0);\node at(-1,-.65){$e_1$};\node at(1,-.65){$e_2$};\node at(0,.65){$e_3$};\node[right]at(2,-.65){$d$};\node[right]at(2,.65){$d$};
+\end{tikzpicture}
+\caption{三种介质交会处的场一般不是分块均匀场。}\label{fig:es4-e7-q}
+\end{figure}
+\begin{solution}
+把下层相对介电常数记为$a=e_1,b=e_2$，上层为$c=e_3$，并取下电极势为$0$、上电极势为$V$。以下界针对忽略外边缘场、侧面无通量的平板模型。真实内部场仍须在三种介质交会处同时满足势连续、切向场连续和法向位移连续。
+
+先按左右两柱分别串联。左柱两层的共同电量为$Q_1$，电压相加给
+\[V=\frac{Q_1d}{\epsilon_0aS}+\frac{Q_1d}{\epsilon_0cS},\qquad
+C_1=\frac{Q_1}{V}=\frac{\epsilon_0S}{d}\frac{ac}{a+c}.
+\]
+右柱同理，$C_2=(\epsilon_0S/d)bc/(b+c)$。并联估算为
+\[C_-=C_1+C_2=\frac{\epsilon_0S}{d}\left(\frac{ac}{a+c}+\frac{bc}{b+c}\right).
+\]
+两柱各自得到的水平中间界面势一般不同：左柱为$u_1=cV/(a+c)$，右柱为$u_2=cV/(b+c)$。当$a\ne b$，把这种分块均匀场直接拼起来会在柱间产生势跳跃，因此它不是精确场解。
+
+另一种估算把整个下层先并联，其容量为$C_b=\epsilon_0S(a+b)/d$；上层容量为$C_t=2\epsilon_0Sc/d$。串联后
+\[C_+=\frac{C_bC_t}{C_b+C_t}
+=\frac{2\epsilon_0S}{d}\frac{c(a+b)}{a+b+2c}.
+\]
+该做法令水平分界整条等势。下层两区电场于是相同而$D$不同，上层若仍为均匀场就不能同时匹配两区的法向位移，所以它也不是一般的精确解。
+
+图~\ref{fig:es4-e7-s}把两种网络分别改作容许试探量。右图给连续试探势：上下两层都只随高度线性变化，水平界面共同势为$u$。把各区$\epsilon E^2/2$乘体积，能量为
+\[W_\varphi(u)=\frac{\epsilon_0S}{2d}
+[(a+b)u^2+2c(V-u)^2].
+\]
+对$u$求导，
+\[\frac{\dd W_\varphi}{\dd u}=\frac{\epsilon_0S}{d}[(a+b)u-2c(V-u)]=0,
+\quad u=\frac{2cV}{a+b+2c}.
+\]
+代回得$W_{\varphi,\min}=C_+V^2/2$。真实势使固定电压能量最小，因此$CV^2/2\le W_{\varphi,\min}$，即$C\le C_+$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[xshift=-2.35cm]
+\draw(-1.25,-1)rectangle(1.25,1);\draw(-1.25,0)--(1.25,0);\draw(0,-1)--(0,0);
+\node at(0,.6){$c$};\node at(-.9,-.55){$a$};\node at(.9,-.55){$b$};
+\draw[->,thick](-.5,.65)--(-.5,-.65)node[midway,left]{$D_1$};
+\draw[->,thick](.5,.65)--(.5,-.65)node[midway,right]{$D_2$};
+\node[above]at(0,1.05){$Q_1+Q_2=Q$};\node[below]at(0,-1.2){通量试探：$C_-$};\end{scope}
+\begin{scope}[xshift=2.35cm]
+\draw(-1.25,-1)rectangle(1.25,1);\draw[thick](-1.25,0)--(1.25,0);\draw(0,-1)--(0,0);
+\node at(0,.6){$c$};\node at(-.8,-.55){$a$};\node at(.8,-.55){$b$};
+\node[above]at(0,1.05){$\varphi=V$};\node[below]at(0,-1){$\varphi=0$};
+\node[right,fill=white,inner sep=1pt]at(1.3,0){$\varphi=u$};
+\node[below]at(0,-1.55){连续势试探：$C_+$};\end{scope}
+\end{tikzpicture}
+\caption{左图规定各柱竖直通量，右图规定共同中间势；两种容许试探分别给电容下界与上界。}\label{fig:es4-e7-s}
+\end{figure}
+左图使用通量试探。两柱内各取竖直的$D_i=Q_i/S$，沿高度不变。它在水平界面上法向连续；在竖直分区上没有法向分量，所以全域散度为零。固定$Q_1+Q_2=Q$时，
+\[W_D(Q_1)=\frac{Q_1^2}{2C_1}+\frac{(Q-Q_1)^2}{2C_2}.
+\]
+求导时$\dd(Q-Q_1)^2/\dd Q_1=-2(Q-Q_1)$，故$W_D'=Q_1/C_1-(Q-Q_1)/C_2=0$。通分后$Q_1(C_1+C_2)=QC_1$，即$Q_i=QC_i/(C_1+C_2)$。代回两项，最小试探能量为$Q^2(C_1+C_2)/[2(C_1+C_2)^2]=Q^2/[2(C_1+C_2)]$。真实固定电量能量不大于此值，
+\[\frac{Q^2}{2C}\le\frac{Q^2}{2(C_1+C_2)},\qquad C\ge C_-=C_1+C_2.
+\]
+由此得到严格的模型容量界$\boxed{C_-\le C\le C_+}$。两界相减并通分，分子为$c^2(a-b)^2$，即
+\[\frac{C_+-C_-}{\epsilon_0S/d}
+=\frac{c^2(a-b)^2}{(a+c)(b+c)(a+b+2c)}\ge0.
+\]
+$a=b$时两界相合，恢复真正的两层串联。
+
+若每区横向尺度$L\sim\sqrt S\gg d$，远离内部交会线的主体区域接近独立柱状场。内部扰动区的相对面积为$O(d/L)$，因此在忽略外边缘的模型中，$C=C_-[1+O(d/L)]$。计入实际有限板的外边缘场时，应把外部空间一并纳入变分区域；前面两个简化网络的界不能不加说明地沿用到那个完整区域。
+\end{solution}
+
+\begin{example}[分区圆柱电容与偏心弦界面]\label{ex:es4-e8}
+同轴圆柱电容内外半径$a,b$。第一种介质按过轴径向界面分成角宽$\alpha$的$\epsilon_1$和余角的$\epsilon_2$；第二种界面为不通过轴的直弦。求第一种单位长度电容，并说明第二种为什么不能直接照用串并联公式。 见图~\ref{fig:es4-e8-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](0,0)circle(.65);\draw[curve](.65,0)--(1.8,0) ({.65*cos(110)},{.65*sin(110)})--({1.8*cos(110)},{1.8*sin(110)});\node at(1.2,.8){$\epsilon_1$};\draw(.9,0)arc(0:110:.9);\node at(.45,.6){$\alpha$};\node[below]at(.5,-.4){$a$};\node[left]at(-1.8,0){$b$};\node at(-.9,-.7){$\epsilon_2$};
+
+\end{tikzpicture}
+\caption{第一种界面沿径向，场在界面内相切。}\label{fig:es4-e8-q}
+\end{figure}
+\begin{solution}
+径向场$E_r=V/[r\ln(b/a)]$使两导体等势。径向界面上切向场两侧相同，法向位移都为零，故这是完整解。内柱电量每长度为$a\int_0^{2\pi}\epsilon(\theta)E_r(a)\dd\theta$，得到
+\[\boxed{c=\frac{\alpha\epsilon_1+(2\pi-\alpha)\epsilon_2}{\ln(b/a)}}.
+\]
+图~\ref{fig:es4-e8-s}右侧的偏心弦界面同时具有径向场的法向与切向分量。若仍假设两侧同一个径向场，法向$D$会在$\epsilon_1\ne\epsilon_2$时跳跃而又没有自由面电荷；若只缩放一侧径向场，则切向$E$又不连续。因此不能分成简单的独立扇区。
+
+正确问题是各子域$\nabla^2\varphi_i=0$，圆导体给定常数势，弦上$\varphi_1=\varphi_2$且$\epsilon_1\partial_n\varphi_1=\epsilon_2\partial_n\varphi_2$。可用边界级数、有限元或变分法求容量。至少有比较界$2\pi\epsilon_{\min}/\ln(b/a)\le c\le2\pi\epsilon_{\max}/\ln(b/a)$；用径向试探势还能得到几何积分上界。偏心弦情形的容量由这组边界条件确定，简单串并联网络不能单独给出解。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](0,0)circle(.65);\draw[curve](.9,-1.55885)--(.9,1.55885);\fill(.9,.8)circle(1.5pt);\draw[axis](.9,.8)--(1.5,1.3333)node[right]{$E_r$试探};\draw[axis](.9,.8)--(1.7,.8)node[above]{$\vct n$};\node[left]at(-1.6,.7){偏心弦界面};
+\end{tikzpicture}
+\caption{偏心界面上径向场通常同时含法向与切向分量，须同时满足两条边界条件。}\label{fig:es4-e8-s}
+\end{figure}
+
+
+径向试探势的上界可以写成$c\le[\ln(b/a)]^{-2}\int_{\rm annulus}\epsilon(x,y)\dd A/r^2$。若介质按角分区，角积分与径向积分分离，恰等于前面的精确扇区结果；若按偏心弦分区，角宽随$r$改变，应保留该几何积分。由此能保留同轴主场作为可控近似，同时明确它在弦界面上不满足真实通量条件。
+\end{solution}
+
+\subsection{电源功与介质力的控制条件}\label{sec:es-energy-control}
+用$x$表示介质插入量或导体的几何位置，电容记为$C(x)$。先固定两端电量$Q$。没有电源交换电荷，场能就是用于机械变化的势能：
+\[W_Q(x)=\frac{Q^2}{2C(x)},\qquad
+F_x=-\left.\frac{\partial W_Q}{\partial x}\right|_Q
+=\frac{Q^2}{2C^2}C'(x).
+\]
+再固定电压$V$。几何改变引起$\dd Q=V\dd C$，电源向场与机械系统做功$\dd W_{\rm src}=V\dd Q=V^2\dd C$；场能只增加$\dd W_f=V^2\dd C/2$。能量守恒给
+\[F_x\dd x=\dd W_{\rm src}-\dd W_f
+=\frac{V^2}{2}\dd C,
+\qquad F_x=\frac{V^2}{2}C'(x).
+\]
+这个力在相同瞬时$V=Q/C$下与固定电量公式一致，但整个运动过程中$V(x)$是否改变，仍取决于供电条件。
+
+也可将电源项并入机械势。对固定$V$的过程作Legendre变换，
+\[\mathcal F_V=W_f-VQ=-\frac12C(x)V^2,
+\qquad F_x=-\left.\partial_x\mathcal F_V\right|_V.
+\]
+负号来自电源的能量变化，不表示实际电场能密度为负。使用$\int\epsilon E^2\dd V/2$计算场能时，它仍为正；只有在求固定电压的机械力时才使用$\mathcal F_V$。
+
+小球的诱导能量也须包含响应的建立过程。设外场不受小球强烈反馈、极化率为常数$\alpha$，由$\vct p=\alpha\vct E$可得
+\[U_{\rm ind}=-\int_0^{\vct E}\vct p(\vct E')\cdot\dd\vct E'
+=-\frac12\alpha E^2,
+\qquad \vct F=\frac\alpha2\nabla E^2.
+\]
+这里的$\vct E$是移去小球后的背景场。若球靠近电极或介质界面，自身诱导场再经边界返回，$\alpha$不再足以概括全部反馈，应回到完整边值问题。后面的点电荷—介质球变式以$a/d\ll1$控制这种远区近似。
+
+
+
+\section{介质边界中的电像与多极解}\label{sec:es4-images}
+介质界面通常同时要求电势连续和法向电位移满足跳跃条件。先列两侧各自的候选势，再由同一组边界方程求系数，不能沿用接地金属的像电荷。
+
+平面界面的反射系数与透射系数由势连续和位移条件共同决定。有限介电球的各角阶系数不同，一般不能由单个像源同时满足。导体极限只是特例，且还须区分孤立中性与接地条件。
+
+\begin{example}[介质平面上的点电荷]\label{ex:es4-e9}
+介电常数$\epsilon_1$的上半空间中，电荷$q$位于$z=h$；下半空间介电常数$\epsilon_2$，界面无自由面电荷。求两侧势、点电荷受力与相互作用能。若上方真空，求界面束缚电荷密度。 见图~\ref{fig:es4-e9-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\fill(0,1.3)circle(1.8pt)node[right]{$q,h$};
+\end{tikzpicture}
+\caption{真电荷位于介质1中，界面本身没有自由面电荷。}\label{fig:es4-e9-q}
+\end{figure}
+\begin{solution}
+上方势取真实源加镜像$q'$，下方势取位于真实源位置的等效透射电量$q''$，但分别使用各自的库仑系数。取平面上一点，$L=\sqrt{s^2+h^2}$。两势值分别为$(q+q')/(4\pi\epsilon_1L)$和$q''/(4\pi\epsilon_2L)$；法向场分别为$h(q'-q)/(4\pi\epsilon_1L^3)$和$-hq''/(4\pi\epsilon_2L^3)$。势连续与$D_z$连续因此给
+\[(q+q')/\epsilon_1=q''/\epsilon_2,\qquad q-q'=q'',
+\]
+解得$q'=q(\epsilon_1-\epsilon_2)/(\epsilon_1+\epsilon_2)$，$q''=2\epsilon_2q/(\epsilon_1+\epsilon_2)$。因此
+\[\varphi_1=\frac1{4\pi\epsilon_1}\left(\frac q{r_+}+\frac{q'}{r_-}\right),\quad
+\varphi_2=\frac1{4\pi\epsilon_2}\frac{q''}{r_+}.
+\]
+图~\ref{fig:es4-e9-s}中的像只在上方解中使用，下方的透射源则位于其物理区域之外。真实电荷受到
+\[F_z=\frac{qq'}{16\pi\epsilon_1h^2},\qquad
+W=\frac{qq'}{16\pi\epsilon_1h}.
+\]
+较大介电常数的一侧吸引源，较小的一侧排斥源；相等时像消失。
+
+上方真空时$\vct P_1=0$，界面束缚电荷为下方极化沿向上外法向的分量。以$s$为界面到轴的距离，得$\sigma_b=q'h/[2\pi(s^2+h^2)^{3/2}]$，总束缚电量为$q'$。这里$q'$可以是负数，密度式自带符号。导体极限$\epsilon_2\to\infty$恢复$q'=-q$；有限介质的面电荷通常小于该极限。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\fill(0,1.25)circle(1.8pt)node[right]{$q$};\fill(0,-1.25)circle(1.7pt)node[right]{$q^{\prime}$（上域像）};\draw[axis](.2,1.25)--(.2,.6)node[right]{$F\ (\epsilon_2>\epsilon_1)$};\node[left]at(-1.5,-1.2){下域用$q^{\prime\prime}$透射势};
+\end{tikzpicture}
+\caption{反射源与透射源分别用于各自区域，库仑系数也随介质改变。}\label{fig:es4-e9-s}
+\end{figure}
+
+
+受力能量的导数不应把$q'$看作与$h$一起移动的独立真实源。介质常数固定时$q'/q$是常数，感应能$qq'/(16\pi\epsilon_1h)$求负导数给$F_z$，已经包含界面响应。若先取两点库仑能$qq'/(8\pi\epsilon_1h)$，再对$h$求导仍会多一倍。反射系数的正负决定吸斥，而能量中半因子来自线性响应，两者是不同来源。
+\end{solution}
+
+\begin{example}[介质球为什么一般没有单点像]\label{ex:es4-e10}
+半径$a$、介电常数$\epsilon_2$的无自由电荷球置于介电常数$\epsilon_1$的介质中，外部点电荷$q$距心$d>a$。给出诱导势的Legendre级数，说明单点像为何通常不够，以及$\epsilon_2\to\infty$对应何种导体条件。 见图~\ref{fig:es4-e10-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.3);\draw[axis](0,-1.7)--(0,3.1)node[above]{$z$};\fill(0,2.5)circle(1.8pt)node[right]{$q,d$};\draw[guide](0,0)--(1.04,.78)node[midway,above]{$a$};\node at(-.65,.6){$\epsilon_2$};\node[right]at(1.6,-.6){$\epsilon_1$};
+\end{tikzpicture}
+\caption{介质球内无净自由电荷，不能把它直接当作接地导体球。}\label{fig:es4-e10-q}
+\end{figure}
+\begin{solution}
+以球心为原点，极轴朝向外点电荷。真实源势始终单独保留为$q/(4\pi\epsilon_1|\vct r-d\vct e_z|)$。由于匹配球面位于$a<d$，在该球面附近可展开
+\[\frac q{|\vct r-d\vct e_z|}
+=\sum_{l=0}^\infty a_l r^lP_l(\cos\theta),\qquad a_l=\frac q{d^{l+1}}.
+\]
+外部感应势只含衰减项，内部势在原点正则。为了统一系数记法，两式都暂取共同前因子$1/(4\pi\epsilon_1)$：
+\[\varphi_o=\frac1{4\pi\epsilon_1}\left[\frac q{|\vct r-d\vct e_z|}
++\sum_{l=0}^\infty\frac{A_lP_l(\cos\theta)}{r^{l+1}}\right],
+\]
+\[\varphi_i=\frac1{4\pi\epsilon_1}\sum_{l=0}^\infty B_lr^lP_l(\cos\theta).
+\]
+这里内部采用同一前因子只是系数定义，并未把球内介电常数改成$\epsilon_1$；真正的$\epsilon_2$在边界条件中出现。
+
+每一阶$P_l$独立匹配。球面电势连续给
+\[a_la^l+A_la^{-l-1}=B_la^l,
+\quad B_l=a_l+\frac{A_l}{a^{2l+1}}.
+\]
+球面无自由电荷，$\epsilon_1E_{or}=\epsilon_2E_{ir}$。对势求径向导数并消去公共因子，
+\[\epsilon_1[la_l-(l+1)A_l/a^{2l+1}]=\epsilon_2lB_l.
+\]
+代入上一式，将含$A_l$的项移到一侧，
+\[-[\epsilon_1(l+1)+\epsilon_2l]\frac{A_l}{a^{2l+1}}
+=l(\epsilon_2-\epsilon_1)a_l.
+\]
+因此
+\[\boxed{A_l=-q\frac{(\epsilon_2-\epsilon_1)l}{\epsilon_2l+\epsilon_1(l+1)}
+\frac{a^{2l+1}}{d^{l+1}}},\quad l\ge1.
+\]
+$l=0$的位移条件单独给$A_0=0$，再由势连续得$B_0=q/d$。这与球内无净自由电荷的条件相符。
+
+若用一个点像$q_s$放在$b$处，展开系数应为$A_l=q_sb^l$，所以$A_{l+1}/A_l$必须与$l$无关。真实解却有
+\[\frac{A_{l+1}}{A_l}=\frac{a^2}{d}\frac{l+1}{l}
+\frac{\epsilon_2l+\epsilon_1(l+1)}{\epsilon_2(l+1)+\epsilon_1(l+2)}.
+\]
+有限介电常数反差下，它一般依赖$l$。记反射幅值$\mathcal R_l=(\epsilon_2-\epsilon_1)l/[\epsilon_2l+\epsilon_1(l+1)]$。图~\ref{fig:es4-e10-s}取$\epsilon_2=2\epsilon_1$，画出归一化量$\mathcal R_l/\mathcal R_1=4l/(3l+1)$；只有特殊极限或零反差的平凡解才可能进一步简化。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.6,0)node[right]{$l$};\draw[axis](0,0)--(0,1.8)node[above]{$\mathcal R_l/\mathcal R_1$};
+\foreach\x in{1,2,3,4,5}{\draw(\x,0)--(\x,-.06)node[below]{$\x$};}
+\draw[guide](0,1)--(5.2,1);\node[left]at(0,1){$1$};
+\draw[guide](0,1.3333)--(5.2,1.3333);\node[left]at(0,1.3333){$4/3$};
+\foreach\x in{1,2,3,4,5}{\fill(\x,{4*\x/(3*\x+1)})circle(1.7pt);}
+\node[align=left]at(3,.5){$\epsilon_2=2\epsilon_1$\\$\mathcal R_l=l/(3l+1)$};
+\end{tikzpicture}
+\caption{归一化反射幅值$\mathcal R_l/\mathcal R_1$随角阶$l$变化，离散点按实际系数绘制。}\label{fig:es4-e10-s}
+\end{figure}
+令$\epsilon_2\to\infty$，对$l\ge1$，$A_l\to-qa^{2l+1}/d^{l+1}$。这可由$q'=-qa/d$放在$b=a^2/d$产生，因为$q'b^l=-qa^{2l+1}/d^{l+1}$。但该像还带来$l=0$的$q'$，与$A_0=0$不符，必须再在球心补$q_0=+qa/d$。所以极限为孤立中性导体球，而不是接地球。其球面势为常数$q/(4\pi\epsilon_1d)$，球内场趋零。
+
+源的正幂展开仅在$r<d$使用，足够完成$r=a$处的匹配。最终外势则保留真实源的精确项；感应级数的有效奇性尺度在球内，因而可用于全部$r>a$的外域，真实点电荷本身除外。这样便没有把源的局部级数越过收敛边界使用。
+\end{solution}
+
+
+\begin{example}[点电荷与介质球的远区作用力]\label{ex:es4-e-sphere-force}
+半径$a$、介电常数$\epsilon_i$的中性线性介质球位于无限均匀介质$\epsilon_m$中。点电荷$q$到球心距离为$d\gg a$，两介电常数均为正。用均匀场极化率求电荷所受首阶力，再由逐阶球谐解求下一项的相对阶数，并说明能量中的半因子。 见图~\ref{fig:es4-e-sphere-force-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1);\fill(0,0)circle(1.4pt)node[below left]{$O$};
+\draw[axis](-1.3,0)--(3.3,0)node[right]{$z$};\fill(2.7,0)circle(1.8pt)node[above]{$P:q$};
+\draw[<->](0,-1.35)--(2.7,-1.35)node[midway,below]{$d\gg a$};
+\draw[->](0,0)--(130:1)node[midway,left]{$a$};\node at(.3,.45){$\epsilon_i$};\node[right]at(1.25,.85){$\epsilon_m$};
+\end{tikzpicture}
+\caption{距离$d$从球心量起，背景介质贯穿球外区域。}\label{fig:es4-e-sphere-force-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:es4-e-sphere-force-q}的球心$O$位于电荷$P$的负$z$侧。记$k_m=1/(4\pi\epsilon_m)$。电荷在$O$产生的背景场为
+\[\vct E_0=-\frac{k_mq}{d^2}\vct e_z.
+\]
+当$a/d\ll1$时，球体范围内的外场首阶可取均匀。前面介质球边界解给出相对背景的极化率
+\[\alpha_m=4\pi\epsilon_ma^3\gamma_1,
+\qquad \gamma_1=\frac{\epsilon_i-\epsilon_m}{\epsilon_i+2\epsilon_m}.
+\]
+所以球的等效偶极矩为$\vct p=\alpha_m\vct E_0$。在$\epsilon_i>\epsilon_m$、$q>0$时，它沿负$z$，如图~\ref{fig:es4-e-sphere-force-s}所示。电荷位于该偶极的正轴上，偶极场为$\vct E_p=2k_mp_z\vct e_z/d^3$，因此
+\[\boxed{F_{q,z}=qE_{p,z}
+=-\frac{2\alpha_mk_m^2q^2}{d^5}
+=-\frac{2k_mq^2a^3}{d^5}\gamma_1}.
+\]
+力的符号由介电反差决定，与$q$的正负无关。球介电常数较大时吸引源，较小时排斥源；反差为零时扰动消失。式中的两个$q$分别来自电荷产生的外场，以及诱导场对该电荷的作用力。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1);\draw[axis](-1.5,0)--(3.4,0)node[right]{$z$};
+\fill(0,0)circle(1.4pt)node[below]{$O$};\fill(2.7,0)circle(1.8pt)node[above]{$P:q$};
+\draw[->,thick](.35,.35)--(-.6,.35)node[above]{$\vct p$};
+\draw[->,thick](2.65,-.4)--(1.85,-.4)node[midway,below]{$\vct F_q$};
+\draw[->](.4,-.55)--(-.5,-.55)node[below]{$\vct E_0$};
+\node[below]at(.2,-1.3){图中取$q>0,\ \epsilon_i>\epsilon_m$};
+\end{tikzpicture}
+\caption{球的诱导矩与背景场同向；高介电常数球对外点电荷的首阶力朝向球心。}\label{fig:es4-e-sphere-force-s}
+\end{figure}
+
+能量法使用诱导过程的半因子，
+\[U(d)=-\frac12\alpha_mE_0^2
+=-\frac{\alpha_mk_m^2q^2}{2d^4}.
+\]
+对$d$求负导数，
+\[-\frac{\dd U}{\dd d}=\frac{\alpha_mk_m^2q^2}{2}\frac{\dd(d^{-4})}{\dd d}
+=\frac{\alpha_mk_m^2q^2}{2}(-4d^{-5})
+=-\frac{2\alpha_mk_m^2q^2}{d^5},
+\]
+与直接求场的力一致。球心处的外场不是电荷位置的诱导场，两个场分别用于求$p$和求$qE_p$，图中的$O,P$不能互换。
+
+还可从逐阶解确定误差。上一例的感应系数写为
+\[A_l=-q\gamma_l\frac{a^{2l+1}}{d^{l+1}},\qquad
+\gamma_l=\frac{(\epsilon_i-\epsilon_m)l}{\epsilon_il+\epsilon_m(l+1)}.
+\]
+在求场时先把源坐标$d$保持不变，对观察坐标$r$求导，再令$r=d$，有
+\[F_{q,z}=k_mq\sum_{l\ge1}(l+1)\frac{A_l}{d^{l+2}}
+=-k_mq^2\sum_{l\ge1}(l+1)\gamma_l\frac{a^{2l+1}}{d^{2l+3}}.
+\]
+首项$l=1$恢复偶极力，下一项$l=2$与首项之比为$3\gamma_2(a/d)^2/(2\gamma_1)$。对非零的固定正介电常数反差，偶极近似的相对修正因此为$O(a^2/d^2)$；零反差时所有项都消失，应直接取零，不能再用首项作分母。
+
+若从总诱导能逐项求力，则
+\[U=-\frac{k_mq^2}{2}\sum_{l\ge1}\gamma_l
+\frac{a^{2l+1}}{d^{2l+2}},
+\]
+对$d$求导同样给出$(l+1)$系数。这里既包含像系数随$d$变化，也包含观察点位置变化，能量的$1/2$恰好补偿两者。$d$接近$a$时，高阶项不再小，应使用完整级数或重新处理近接场，不能继续只保留偶极项。
+
+\end{solution}
+
+
+\begin{example}[半充介质的接地球腔]\label{ex:es4-e11}
+接地导体球腔半径$R$，下半球充相对介电常数$e>1$的均匀介质，上半球真空。点电荷$Q$位于正轴$h=R/3$。求上半球内的像组和电荷受力，并求受力为零时的$e$。 见图~\ref{fig:es4-e11-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_0$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\draw[curve](0,0)circle(1.5);\fill(0,0)circle(1.4pt)node[below left]{$O$};\fill(0,.5)circle(1.8pt)node[right]{$Q,R/3$};\node at(.6,-.6){$e\epsilon_0$};
+
+\end{tikzpicture}
+\caption{球面接地，赤道平面是介质界面，真实源在真空半球内。}\label{fig:es4-e11-q}
+\end{figure}
+\begin{solution}
+先保持源高度为一般的$0<h<R$，最后再代$h=R/3$。记$\chi=(e-1)/(e+1)$。对接地球面，真实源$Q$在$z=h$的反演像是
+\[q_1=-\frac RhQ,\qquad z_1=\frac{R^2}{h}.
+\]
+这一对源在整张球面上的势逐点相消。再把它们分别关于介质平面反射，反射系数为$-\chi$，得到
+\[q_2=-\chi Q,\quad z_2=-h;\qquad
+q_3=+\chi\frac RhQ,\quad z_3=-\frac{R^2}{h}.
+\]
+反射后的两源仍是一对球反演源，因此也在球面给零势。图~\ref{fig:es4-e11-s}中的四源叠加同时保留接地球边界和上半空间真实源奇性。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.1);\draw[curve](-1.5,0)--(1.5,0);\draw[axis](0,-3.6)--(0,3.6)node[above]{$z/R$};\foreach\y/\lab in{.366667/Q,-.366667/{-\chi Q},3.3/{-3Q},-3.3/{+3\chi Q}}{\fill(0,\y)circle(1.6pt)node[right]{$\lab$};}\node[left]at(-.2,1.1){$1$};\node[left]at(-.2,-1.1){$-1$};
+\end{tikzpicture}
+\caption{上域物理区只有$Q$是真实源；另三个像分别承担球边界与介质反射。}\label{fig:es4-e11-s}
+\end{figure}
+还须验证介质界面，不能只验证球面。记$G(\vct r)=Q/|\vct r-h\vct e_z|+q_1/|\vct r-z_1\vct e_z|$，以$G^*$表示把这两源同时反射后的同电量势核。上、下域的势可写为
+\[\varphi_+=\ke(G-\chi G^*),\qquad
+\varphi_-=\ke(1-\chi)G.
+\]
+在$z=0$上$G=G^*$，故势连续；同平面上$\partial_zG^*=-\partial_zG$，所以
+\[\epsilon_0\partial_z\varphi_+=\epsilon_0\ke(1+\chi)\partial_zG,
+\qquad e\epsilon_0\partial_z\varphi_-=e\epsilon_0\ke(1-\chi)\partial_zG.
+\]
+由 $1+\chi=e(1-\chi)$，两者相等。下域所用的源 $Q,q_1$ 均在下域之外，$\varphi_-$ 也在球面为零。因此，两域的势均满足各自的源条件、接地边界和介质接续条件。
+
+真实电荷所受力只计算另外三源的场。上像$q_1$与真实源异号且位于上方，给向上力；下方$q_2$给向下吸引；下方$q_3$给向上排斥。各距离为
+\[L_1=\frac{R^2-h^2}{h},\qquad L_2=2h,\qquad
+L_3=\frac{R^2+h^2}{h}.
+\]
+按正$z$为正，逐项写出
+\[\begin{aligned}
+F_1&=+\ke\frac{Q(RQ/h)}{L_1^2}
+=\ke Q^2\frac{Rh}{(R^2-h^2)^2},\\
+F_2&=-\ke\frac{\chi Q^2}{(2h)^2},\\
+F_3&=+\ke\frac{Q(\chi RQ/h)}{L_3^2}
+=\ke Q^2\frac{\chi Rh}{(R^2+h^2)^2}.
+\end{aligned}\]
+代$h=R/3$时，三个距离分别为$8R/3,\allowbreak2R/3,\allowbreak10R/3$，电量分别为$-3Q,\allowbreak-\chi Q,\allowbreak+3\chi Q$，故
+\[F_z=\frac{\ke Q^2}{R^2}\left(\frac{27}{64}-\frac94\chi+\frac{27}{100}\chi\right)
+=\frac{\ke Q^2}{R^2}\left(\frac{27}{64}-\frac{99}{50}\chi\right).
+\]
+令其为零，
+\[\chi=\frac{27}{64}\frac{50}{99}=\frac{75}{352},\qquad
+e=\frac{1+\chi}{1-\chi}=\frac{352+75}{352-75}
+=\boxed{\frac{427}{277}\simeq1.5415}.
+\]
+该解满足$e>1$。若仅保留最近两个吸引像，会漏掉第三像的向上力，求出的介电常数随之改变。
+
+判定轴向稳定性时保持介电常数不变，即固定 $\chi$。对一般高度的三项力逐一求导，
+\[\begin{aligned}
+\frac{F_1'}{\ke Q^2}
+&=\frac{R}{(R^2-h^2)^2}
++Rh\frac{-2(-2h)}{(R^2-h^2)^3}
+=\frac{R(R^2+3h^2)}{(R^2-h^2)^3},\\
+\frac{F_2'}{\ke Q^2}
+&=-\frac\chi4(-2h^{-3})=\frac{\chi}{2h^3},\\
+\frac{F_3'}{\ke Q^2}
+&=\frac{\chi R}{(R^2+h^2)^2}
++\chi Rh\frac{-2(2h)}{(R^2+h^2)^3}
+=\frac{\chi R(R^2-3h^2)}{(R^2+h^2)^3}.
+\end{aligned}
+\]
+在 $h=R/3$、$\chi>0$ 时，三个导数均为正，故 $F_z'>0$。小的向上位移会产生向上的力，平衡沿轴不稳定。
+\end{solution}
+
+\section{静磁场、磁化与边界}\label{sec:es4-magnetism}
+电流和磁化共同决定静磁场，辅助场的定义并不改变实际洛伦兹力。先区分自由电流与束缚电流，再用边界条件连接不同材料中的场。
+
+\subsection{电流源与基本方程}
+稳恒电流满足$\nabla\cdot\vct j=0$。真空Biot--Savart定律与Ampere环量为
+\[\vct B(\vct r)=\frac{\mu_0}{4\pi}\int\frac{\vct j(\vct r')\times(\vct r-\vct r')}{|\vct r-\vct r'|^3}\dd V',\quad
+\oint\vct B\cdot\dd\vct l=\mu_0I_{\rm through}.
+\]
+环路与穿过面法向按右手关系配对。由环量只能直接求场的情形同样需要对称性；对有限电流回路，一般仍须积分。无磁单极源使$\nabla\cdot\vct B=0$，磁力线连续闭合或伸向无穷远，不在磁偶极处像电场线那样终止于真实磁荷。
+
+\subsection{磁化电流与磁场强度}
+单位体积的磁偶极矩定义为$\vct M$。相邻微观电流回路在内部抵消，留下
+\[\vct J_b=\nabla\times\vct M,\qquad \vct K_b=\vct M\times\vct n.
+\]
+这里$\vct n$为磁化体向外的法向，叉乘次序决定实际绕行方向。定义$\vct H=\vct B/\mu_0-\vct M$，静磁方程成为
+\[\nabla\cdot\vct B=0,\qquad\nabla\times\vct H=\vct j_f.
+\]
+界面上$B_{2n}=B_{1n}$，$\vct n_{12}\times(\vct H_2-\vct H_1)=\vct K_f$。没有自由面电流时$H_t$连续。线性各向同性材料还可用$\vct B=\mu\vct H$，但永久磁体的给定磁化问题不应再未经说明地把$\vct M$当作独立的$\chi_m\vct H$。
+
+无自由电流且单连通的子域中可令$\vct H=-\nabla\psi_m$，利用边界求磁标势；这只是场计算方法，并未引入真实磁单极。包围穿孔电流的多连通区域中$\oint\vct H\cdot\dd\vct l$可非零，不能全域使用单值磁标势。
+
+
+\subsection{磁偶极近似的源条件}
+局域闭合稳恒电流满足$\nabla'\cdot\vct j=0$，且可取包围整个源的闭面使其上$\vct j=0$。矢势的远区展开为
+\[A_i=\frac{\mu_0}{4\pi}\left[\frac1r\int j_i\dd V'
++\frac{n_j}{r^2}\int r'_jj_i\dd V'+\cdots\right].
+\]
+先对$\partial'_k(r'_ij_k)=j_i+r'_i\partial'_kj_k=j_i$积分，边界项为零，所以$\int j_i\dd V'=0$，没有$1/r$矢势项。再对$\partial'_k(r'_ir'_jj_k)=r'_jj_i+r'_ij_j$积分，得到
+\[T_{ij}+T_{ji}=0,\qquad T_{ij}=\int r'_jj_i\dd V'.\]
+这里$T_{ij}$是电流分布关于位置的一阶矩张量，有两个指标，属于秩二张量；其对称部分为零。定义
+\[m_k=\frac12\varepsilon_{kab}\int r'_aj_b\dd V'.\]
+这里$\varepsilon_{ijk}$为三维置换符号，重复指标求和。用$\varepsilon_{ijk}\varepsilon_{kab}=\delta_{ia}\delta_{jb}-\delta_{ib}\delta_{ja}$收缩，
+\[\begin{aligned}
+-\varepsilon_{ijk}m_k
+&=-\frac12\int(r_i'j_j-r_j'j_i)\dd V'\\
+&=\frac12(T_{ij}-T_{ji})=T_{ij}.
+\end{aligned}\]
+所以$n_jT_{ij}=-\varepsilon_{ijk}n_jm_k=(\vct m\times\vct n)_i$。代回矢势，得到
+\[\boxed{\vct A=\frac{\mu_0}{4\pi r^2}\vct m\times\vct n
+=\frac{\mu_0\vct m\times\vct r}{4\pi r^3}}.\]
+对细线环，$\vct j\dd V'=I\dd\vct l'$，于是$\vct m=(I/2)\oint\vct r'\times\dd\vct l'=I\vct S$，其中$\vct S$为按电流右手方向规定的有向面积。展开要求观察距离远大于整个回路尺寸，不只远离其中一段导线。
+
+\subsection{磁化面电流的右手方向}
+把一小块均匀磁化体看成密集同向电流环，内部相邻支路抵消，外边缘支路留下表面电流。取$\vct M$向上、侧面法向向右，右侧电流应流入纸面；与左侧流出纸面的电流合起来，按右手规则产生向上的磁矩。这直接给$\vct K_b=\vct M\times\vct n$，与外法向叉在前面的反向式不同。
+
+磁化强度的单位为$\mathrm{A/m}$，面电流密度同样为$\mathrm{A/m}$，体束缚电流$\nabla\times\vct M$为$\mathrm{A/m^2}$。磁矩单位为$\mathrm{A\,m^2}$，磁偶极势能$mB$为焦耳。电偶极的$pE$与磁偶极的$mB$可以比较角度规律，但不能把$P,M$或$E,B,H$仅按字母替换而忽略量纲。
+
+\begin{example}[均匀磁化圆柱的面电流方向]\label{ex:es4-e12}
+长圆柱具有给定均匀磁化$\vct M=M\vct e_z$，无自由电流。求束缚体、面电流，并在忽略端部的极限求柱内外$\vct B,\vct H$。 见图~\ref{fig:es4-e12-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1,-1.6)rectangle(1,1.6);\draw[axis](0,-1.3)--(0,1.3)node[right]{$\vct M$};\node[right]at(1,.5){侧面};
+\end{tikzpicture}
+\caption{磁化沿柱轴，长柱极限不计端部漏磁。}\label{fig:es4-e12-q}
+\end{figure}
+\begin{solution}
+均匀磁化有$\nabla\times\vct M=0$，故体束缚电流为零。侧面$\vct n=\vct e_s$，所以$\vct K_b=M\vct e_z\times\vct e_s=M\vct e_\phi$；端面法向平行或反平行$\vct M$，面电流为零。图~\ref{fig:es4-e12-s}在右侧壁用入纸面方向表示绕行，按右手定则产生向上的内场。
+
+这相当于表面电流密度$K=M$的无限长螺线管，故柱内$\vct B=\mu_0M\vct e_z$，外部$\vct B=0$。柱内$\vct H=\vct B/\mu_0-\vct M=0$，柱外也为零。非零$B$与零$H$并不矛盾，因为磁化已经单独计入源。
+
+若把面电流错误地写成$\vct n\times\vct M$，绕行与内场都会反向，从而违背定义$\vct m=I\vct S$的右手方向。有限长柱的端部退磁场使$H$不再为零，只有在远离端部且长径比很大时才近似上述结果。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1,-1.5)rectangle(1,1.5);\node at(1,0){$\otimes$};\node at(-1,0){$\odot$};\draw[axis](0,-.9)--(0,.9)node[right]{$\vct B$};\node[right]at(1.3,.6){右壁$K_b$入纸面};\node[right]at(1.3,-.5){外部$B\simeq0$};
+\end{tikzpicture}
+\caption{取$x$向右、$z$向上，右侧壁的正方位电流入纸面，产生向上的轴向场。}\label{fig:es4-e12-s}
+\end{figure}
+
+
+无限长螺线管的环路可取一条长边在柱内、另一条在柱外的矩形。由平移与圆柱对称，$B$只沿轴且分区常量；矩形跨侧面包围电流$K_bL$，给$(B_{\rm in}-B_{\rm out})L=\mu_0K_bL$。远离柱面取外场为零，得内场$\mu_0M$。若直接对$H$使用自由电流环量，则只得内外$H$相同，还须结合$B=\mu_0(H+M)$与外场条件才能确定各自值。
+\end{solution}
+
+\subsection{磁标势与给定磁化的边界源}
+在无自由电流的单连通区域，$\nabla\times\vct H=0$，令$\vct H=-\nabla\psi_m$。由$\nabla\cdot\vct B=0$及$\vct B=\mu_0(\vct H+\vct M)$，
+\[\nabla\cdot\vct H=-\nabla\cdot\vct M,
+\qquad \nabla^2\psi_m=\nabla\cdot\vct M.
+\]
+定义辅助源密度$\rho_m=-\nabla\cdot\vct M$、$\sigma_m=\vct M\cdot\vct n$后，给定磁化体的标势可写为
+\[\psi_m(\vct r)=\frac1{4\pi}\left[
+\int_V\frac{\rho_m(\vct r')}{|\vct r-\vct r'|}\dd V'
++\oint_{\partial V}\frac{\sigma_m(\vct r')}{|\vct r-\vct r'|}\dd S'\right].
+\]
+这些密度是求$H$的数学表示。真实磁场仍由闭合电流产生，$\nabla\cdot\vct B=0$始终成立。使用此表示后，磁化体内部还须加回$\mu_0\vct M$，才能由$H$得到$B$。
+
+均匀磁化球的$\rho_m=0$、$\sigma_m=M\cos\theta$，其角分布与均匀极化球对应，因此内部$\vct H=-\vct M/3$；再由本构定义得$\vct B=2\mu_0\vct M/3$。这两个方向相反的矢量在图~\ref{fig:es4-h12-s}中分别画出。长圆柱沿轴磁化时，大侧面上的$\sigma_m$为零，端部的辅助源在长柱中部产生的退磁场趋小，所以中部$H$趋零。球与长柱的差别来自边界形状，而不是磁化强度的定义不同。
+
+若磁化不是预先给定，而服从$\vct M=\chi_m\vct H$，还应把外加场和由磁化产生的退磁场相加，再解这个线性自洽关系。给定永久磁化与给定外场下的线性材料，是两个不同的源条件，求解时不能同时把$M$与$H$都当作互不相关的已知量。
+
+
+
+\input{lecture4_depth}
+\section{习题与解答}
+电介质题优先检查自由电荷与束缚电荷的区分；静磁题优先确定穿过面、环路和电流的右手方向。下列解答均保留图中所用的法向约定。
+
+\begin{exercise}[非均匀极化球的体面电荷]\label{ex:es4-h1}
+半径$a$球内给定$\vct P=\beta\vct r$，球外极化为零。全空间没有自由电荷，也没有外加场，且电场在无穷远趋零。求体、面束缚电荷和全空间场。 见图~\ref{fig:es4-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.4);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,0)--(1,.6)node[right]{$\vct P=\beta\vct r$};
+\end{tikzpicture}
+\caption{随位置线性变化的径向极化}\label{fig:es4-h1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:es4-h1-q}中，$\vct P=\beta\vct r$仅在$r<a$内非零。体束缚电荷为
+\[
+ \rho_b=-\nabla\cdot\vct P
+ =-\beta(\partial_x x+\partial_y y+\partial_z z)=-3\beta,
+\]
+球面取由内向外的法向$\vct n=\vct e_r$，面束缚电荷为
+$\sigma_b=\vct P(a^-)\cdot\vct n=\beta a$。
+体电量按球壳积分，表面电量由均匀面密度乘球面积求出：
+\[
+ \begin{aligned}
+ Q_{\rm vol}&=-12\pi\beta\int_0^as^2\dd s
+ =-12\pi\beta[s^3/3]_0^a=-4\pi\beta a^3,\\
+ Q_{\rm surf}&=\beta a\,4\pi a^2=4\pi\beta a^3.
+ \end{aligned}
+\]
+全空间没有自由电荷、没有外加场，给定源分布又具有球对称性，电场可由同心Gauss球面求出：
+\[
+ 4\pi r^2E_r=
+ \begin{cases}
+ -4\pi\beta r^3/\epsilon_0,&r<a,\\
+ (Q_{\rm vol}+Q_{\rm surf})/\epsilon_0=0,&r>a.
+ \end{cases}
+\]
+故$\boxed{\vct E_{\rm in}=-\beta\vct r/\epsilon_0,\quad
+ \vct E_{\rm out}=0}$，并且两区域都满足$\vct D=\epsilon_0\vct E+\vct P=0$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1cm,y=1cm]\draw[axis](0,0)--(2.25,0)node[right]{$r/a$};\draw[axis](0,-1.3)--(0,0.4)node[above]{$\epsilon_0E_r/(\beta a)$};\draw[curve,domain=0:1,samples=101]plot(\x,{-\x});\draw[curve](1,0)--(2,0);\draw[guide](1,-1)--(1,0);\end{scope}
+\end{tikzpicture}
+\caption{球内线性场与球外零场}\label{fig:es4-h1-s}
+\end{figure}
+图~\ref{fig:es4-h1-s}中的球面跳跃为
+$E_r(a^+)-E_r(a^-)=\beta a/\epsilon_0=\sigma_b/\epsilon_0$，
+符合面电荷的边界条件。球外零场并不要求两个法向场极限相同。
+
+取无穷远电势为零，球外势恒为零。球内从球面积分：
+\[
+ \varphi(r)=\varphi(a)+\int_r^a E_r(s)\dd s
+ =-\frac{\beta}{\epsilon_0}\left[\frac{s^2}{2}\right]_r^a
+ =\boxed{\frac{\beta(r^2-a^2)}{2\epsilon_0}}.
+\]
+该势在球面连续，且$-\nabla\varphi$恢复上述内场。对$\beta>0$，均匀负体电荷产生向心线性场，均匀正面电荷在球内只贡献常数势；二者的总电量抵消，使球外场为零。这里的电场由束缚电荷产生，全域仍没有自由电荷。
+\end{solution}
+
+\begin{exercise}[电场线穿过介质界面]\label{ex:es4-h2}
+两介质间无自由面电荷，$\epsilon_2=4\epsilon_1$，介质1内场与法线成$30^\circ$。求介质2的方向与场强比。 见图~\ref{fig:es4-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\draw[axis](-1,1.732)--(0,0);
+\draw(0,.8)arc(90:120:.8);\node at(-.32,1.15){$30^\circ$};
+\end{tikzpicture}
+\caption{斜向场入射介质界面}\label{fig:es4-h2-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:es4-h2-q}中的公共法向为角度基准。介质1内的法向、切向分量分别为
+\[
+ E_{1n}=E_1\cos30^\circ=\frac{\sqrt3}{2}E_1,\qquad
+ E_{1t}=E_1\sin30^\circ=\frac12E_1.
+\]
+界面无自由面电荷，故$\epsilon_1E_{1n}=\epsilon_2E_{2n}$；
+静电切向场连续，故$E_{2t}=E_{1t}$。代入$\epsilon_2=4\epsilon_1$，
+\[
+ E_{2n}=\frac{\sqrt3}{8}E_1,\qquad E_{2t}=\frac12E_1.
+\]
+于是
+\[
+ \boxed{\theta_2=\arctan\frac{E_{2t}}{E_{2n}}
+ =\arctan\frac4{\sqrt3}\simeq66.59^\circ},\qquad
+ \boxed{\frac{E_2}{E_1}
+ =\sqrt{\frac3{64}+\frac14}=\frac{\sqrt{19}}8}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\draw[axis](-.65,1.12583)--(0,0);\draw[axis](0,0)--(1.4,-.60622);\draw[guide](0,0)--(0,-1.2);\node[right]at(.65,-.8){$66.59^\circ$};
+\end{tikzpicture}
+\caption{法向与切向分量确定折向}\label{fig:es4-h2-s}
+\end{figure}
+图~\ref{fig:es4-h2-s}中的下方场更贴近界面：介电常数增大使法向电场减小，切向电场保持不变。只有法向入射时，才能把整个场强按介电常数反比缩放。
+这里法向$D$连续，切向$D$一般跳变，并不违反电场的静电环路条件。若将角度改从界面量起，应取这里角度的余角，正切关系也随之倒置。
+\end{solution}
+
+\begin{exercise}[串层电容的自由与束缚界面电荷]\label{ex:es4-h3}
+平板间两层线性介质串联，$\epsilon_1=2\epsilon_0,\epsilon_2=5\epsilon_0$，自由面密度为$\pm\sigma_f$。求两层极化及内部界面的束缚面电荷，法向从1沿场指向2。 见图~\ref{fig:es4-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[very thick](-2,-1)--(2,-1) (-2,1)--(2,1);\draw[curve](-2,0)--(2,0);\node at(0,.5){$\epsilon_1,d_1$};\node at(0,-.5){$\epsilon_2,d_2$};\draw[axis](1,.8)--(1,-.8)node[right]{$\vct n_{12}$};
+\end{tikzpicture}
+\caption{沿场串联的两介质层}\label{fig:es4-h3-q}
+\end{figure}
+\begin{solution}
+共同位移为$D=\sigma_f$，$E_1=\sigma_f/(2\epsilon_0)$、$E_2=\sigma_f/(5\epsilon_0)$。极化大小$P_i=(1-\epsilon_0/\epsilon_i)D$，故$P_1=\sigma_f/2$、$P_2=4\sigma_f/5$。内部界面的总束缚面电荷为$(P_1-P_2)=-3\sigma_f/10$。
+
+图~\ref{fig:es4-h3-s}将两侧极化端面先分别记录，再相加，避免只计其中一侧。$E_{2n}-E_{1n}=-3\sigma_f/(10\epsilon_0)$正等于该总面电荷除以$\epsilon_0$；与此同时$D$连续，因为界面无自由面电荷。用总电荷计算$E$的通量，与只用自由电荷计算$D$的通量，结果相容。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(2,0);\draw[axis](-.6,1)--(-.6,.2)node[right]{$\vct P_1$};\draw[axis](.6,-.2)--(.6,-1.2)node[right]{$P_2$};\node at(-1.5,.3){$+P_1$};\node at(1.5,-.3){$-P_2$};
+
+\end{tikzpicture}
+\caption{两侧极化端面电量在界面相加}\label{fig:es4-h3-s}
+\end{figure}
+
+
+内部界面两侧的束缚电荷分别为$+P_1$和$-P_2$，它们作为极薄层的合量是负值。外侧两面还各有其极化端面电荷，整块两层介质的全部束缚电量仍为零。只对内部界面求和得到非零量，并不意味着整个介质凭空产生净电荷；束缚电荷来自偶极端点的重新分布。
+\end{solution}
+
+\begin{exercise}[介质插入平板的横向力]\label{ex:es4-h4}
+板宽$b$、间距$d$的平板电容，一片介电常数$\epsilon$的介质完全填满间距，并从侧边插入长度$x$。忽略边缘，求固定电压$V$时吸入方向的力，并解释电源的功。 见图~\ref{fig:es4-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-2,-.6)--(2,-.6) (-2,.6)--(2,.6);\fill[gray!15](-2,-.6)rectangle(.5,.6);\draw[curve](.5,-.6)--(.5,.6);\draw[axis](-1,-1.1)--(.5,-1.1)node[midway,below]{$x$};
+\end{tikzpicture}
+\caption{介质片从电容侧边插入}\label{fig:es4-h4-q}
+\end{figure}
+\begin{solution}
+面积并区给$C(x)=C(0)+(\epsilon-\epsilon_0)bx/d$，所以$F_x=\tfrac12V^2C'(x)=(\epsilon-\epsilon_0)bV^2/(2d)$，高介电常数介质被吸入。图~\ref{fig:es4-h4-s}中$x$增大使电容增大。
+
+场能增量为$\dd W_f=\tfrac12V^2\dd C$，电源送入电荷$\dd Q=V\dd C$并做功$V\dd Q=V^2\dd C$，另一半成为机械功$F_x\dd x$。若只对场能取负导数而忽略电源，会错得排出方向。理想主体场计算电容，真实横向力由插入边缘附近的非均匀场传递；忽略边缘修正不等于局部边缘场不存在。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1cm,y=1cm]\draw[axis](0,0)--(3.18,0)node[right]{$x$};\draw[axis](0,0)--(0,2.8)node[above]{$C$};\draw[curve,domain=0:3,samples=101]plot(\x,{1+.5*\x});\draw[axis](1.4,.4)--(2.3,.4)node[above]{$F_x$};\end{scope}
+\end{tikzpicture}
+\caption{固定电压下电容随插入长度增加}\label{fig:es4-h4-s}
+\end{figure}
+
+
+若固定的是总自由电量$Q$，势能$W=Q^2/[2C(x)]$，故$F_x=Q^2C'(x)/(2C^2)=V(x)^2C'/2$。它仍朝吸入方向，但随着电容增大，$V(x)=Q/C(x)$下降，力不再为常量。固定电压与固定电量的力在同一瞬时电压下相同，在整段插入过程的$x$依赖却不同。
+\end{solution}
+
+\begin{exercise}[三介质容量界的比较]\label{ex:es4-h5}
+例\ref{ex:es4-e7}取$e_1=1,e_2=9,e_3=3$。求两界的无量纲数值，说明两者相差较大时可否把它们的平均当作精确容量。 见图~\ref{fig:es4-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-2,-1)--(2,-1) (-2,1)--(2,1);\draw(-2,0)--(2,0) (0,-1)--(0,0);\node at(-1,-.5){$1$};\node at(1,-.5){$9$};\node at(0,.5){$3$};
+\end{tikzpicture}
+\caption{三介质错列分区的给定数值}\label{fig:es4-h5-q}
+\end{figure}
+\begin{solution}
+以$C_0=\epsilon_0S/d$为单位，$C_-/C_0=3/4+27/12=3$，$C_+/C_0=2\cdot3\cdot10/16=15/4$。所以$3C_0\le C\le3.75C_0$。
+
+图~\ref{fig:es4-h5-s}中的区间包含真实值，却未指定其中的位置。取平均$3.375C_0$只能算一种数值猜测，误差虽被区间限制，却没有理由称为精确解。若横向尺寸远大于板距，应趋近逐柱结果$3C_0$，而不趋近两界的平均；若要提高精度，应求内部交会区的场或构造更好的试探函数。容量界确定真实值的范围；区间内的位置仍由实际场决定。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$C/C_0$};\draw[very thick](1,0)--(4,0);\draw(1,-.15)--(1,.15)node[above]{$3$};\draw(4,-.15)--(4,.15)node[above]{$3.75$};\node[below]at(2.5,-.3){真实值在区间内};
+\end{tikzpicture}
+\caption{真实容量所在的上下界区间}\label{fig:es4-h5-s}
+\end{figure}
+
+
+若把下两介质替换成同一个$e=5$，其下层并联容量仍与原下层相同，但原三介质的真实容量一般不等于替换后的$3.75C_0$。这个替换强制整条中间界面等势，改变了局部场。总等效容量相同的子系统，只有其连接端真的是等势导体节点时才可无条件互换；介质分界不是天然电路节点。
+\end{solution}
+
+\begin{exercise}[与场平行的无限介质板]\label{ex:es4-h6}
+无限介质平板的表面法向沿$z$，给定外部匀强场$E_0\vct e_x$平行板面。求板内场和束缚面电荷，比较法向外场。 见图~\ref{fig:es4-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.5,-.7)--(2.5,-.7) (-2.5,.7)--(2.5,.7);\draw[axis](-1.8,0)--(1.8,0)node[right]{$E_0$};\node at(0,1.2){真空};
+\end{tikzpicture}
+\caption{平行于无限介质板的外场}\label{fig:es4-h6-q}
+\end{figure}
+\begin{solution}
+平移对称允许共同势$\varphi=-E_0x$，两侧切向场连续，法向场均为零，因此板内场仍为$E_0\vct e_x$。极化平行表面，$\sigma_b=\vct P\cdot\vct n=0$，体内均匀极化也无体束缚电荷。
+
+图~\ref{fig:es4-h6-s}中表面法向与极化垂直，没有产生削弱切向场的端面电荷。法向外场时则在两大表面留下相反电荷，才有$E_0/\epsilon_r$。有限板的侧缘仍会有极化电荷，当前模型把边缘移到无穷远，所以结果依赖形状和所考察位置。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-.7)rectangle(2,.7);\draw[axis](0,0)--(1.2,0)node[right]{$\vct P$};\draw[axis](0,.7)--(0,1.5)node[above]{$\vct n$};\node[below]at(0,-.9){$\vct P\cdot\vct n=0$};
+\end{tikzpicture}
+\caption{极化与板面法向垂直}\label{fig:es4-h6-s}
+\end{figure}
+
+
+若外场含法向和切向两部分，可按线性分别叠加。记板的相对介电常数为$\epsilon_r$，固定外自由源对应$E_{\rm in,t}=E_{0t}$、$E_{\rm in,n}=E_{0n}/\epsilon_r$，所以内部方向也随分量比例变化。无限平板只有法向退极化分量；球体则在三个方向都有$1/3$的退极化系数。
+\end{solution}
+
+\begin{exercise}[小介质球在缓变场中的力]\label{ex:es4-h7}
+真空中半径$a$的介质球相对介电常数为$e$，外场在球尺度上变化很慢。求诱导能量与力的首项，场指由外部源单独产生的场。 见图~\ref{fig:es4-h7-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.65);\draw[guide](0,0)--(-.52,.39)node[midway,above]{$a$};\node at(.2,-.3){$e$};\draw[axis](-2,1.2)--(-1.4,1.2);\draw[axis](-.8,1.2)--(.1,1.2);\draw[axis](.8,1.2)--(2,1.2);\node[right]at(1,-1){$\vct E_{\rm out}(\vct r)$缓变};\node[left]at(-1.1,-.8){真空};
+\end{tikzpicture}
+\caption{小介质球所处的缓变外场}\label{fig:es4-h7-q}
+\end{figure}
+\begin{solution}
+球的极化率$\alpha=4\pi\epsilon_0a^3(e-1)/(e+2)$，局部首阶偶极矩为$\vct p=\alpha\vct E$。形成诱导偶极需要极化能，故总诱导作用能为$W=-\alpha E^2/2$，力$\vct F=\alpha\nabla E^2/2$。
+
+图~\ref{fig:es4-h7-s}中$e>1$的小球被拉向强场区。若先用固定偶极能$-pE$，再直接代$p=\alpha E$求导，会多一倍；也可先以瞬时$p$用$F_i=p_j\partial_iE_j$，再代入线性关系，利用静电场无旋得同样的半梯度式。条件是$a|\nabla E|\ll E$且边界足够远；若球近电极产生强反馈，外场与诱导场的相互作用需更完整处理。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[curve](1.5,.6)circle(.4);\draw[axis](1.5,.6)--(2.5,.6)node[above]{$F$};\foreach\x in{.5,1.5,2.5,3.5}{\draw[axis](\x,1.5)--({\x+.15+.15*\x},1.5);}\node[below]at(3.5,-.2){场强向右增大};
+\end{tikzpicture}
+\caption{正极化率小球向强场区受力}\label{fig:es4-h7-s}
+\end{figure}
+
+
+若外场沿轴变化且已对齐，力大小为$\alpha E\,\dd E/\dd z$。永久偶极的同向力为$p\,\dd E/\dd z$；只有把$p$作为该瞬时值时二者力表达相似，能量对场强的依赖分别是线性与二次。若要讨论弱场趋向，可把球置于介电常数$\epsilon_m$较大的绝缘液体中，令球的介电常数为$\epsilon_i<\epsilon_m$。前述边界解给相对背景的极化率
+\[\alpha_m=4\pi\epsilon_ma^3\frac{\epsilon_i-\epsilon_m}{\epsilon_i+2\epsilon_m}<0.
+\]
+在背景场缓慢变化、介质可视为线性且液体机械条件允许的模型中，$\vct F=\alpha_m\nabla E^2/2$指向弱场区。这一变式用两种普通正介电常数材料即可实现；真空中本题$e>1$的球仍向强场区运动。
+\end{solution}
+
+\begin{exercise}[分界球的自由电荷与电容极限]\label{ex:es4-h8}
+例\ref{ex:es4-e5}取$\epsilon_2=k\epsilon_1$。求两半球自由电量比，并讨论$k\to\infty$时场和电容，球总电量保持$Q$。 见图~\ref{fig:es4-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[left]at(-1.6,.8){$\epsilon_1$};\node[left]at(-1.6,-.8){$\epsilon_2$};\draw[axis](0,-1.6)--(0,1.9)node[above]{$z$};\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};
+\end{tikzpicture}
+\caption{介质分界上的导体球}\label{fig:es4-h8-q}
+\end{figure}
+\begin{solution}
+两半球自由面密度比和总电量比均为$Q_2/Q_1=k$。固定$Q$时共同电势为$Q/[2\pi R\epsilon_1(1+k)]$，场为$Q/[2\pi\epsilon_1(1+k)r^2]$，所以$k\to\infty$时场和势趋零，电容$2\pi R\epsilon_1(1+k)$发散。
+
+图~\ref{fig:es4-h8-s}中几乎全部自由电荷分布在高介电常数半球，有限电量可以由趋零的场配合趋大的$\epsilon_2$给出有限通量。若固定的是球电压，电量则随$k$增大，而场不按上面的固定$Q$极限趋零；控制条件不同，不能同时保留两种说法。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1cm,y=1cm]\draw[axis](0,0)--(5.18,0)node[right]{$k$};\draw[axis](0,0)--(0,1.3)node[above]{$Q_2/Q$};\draw[curve,domain=0:5,samples=101]plot(\x,{\x/(1+\x)});\draw[guide](0,1)--(5,1);\end{scope}
+\end{tikzpicture}
+\caption{高介电常数半球的自由电量份额}\label{fig:es4-h8-s}
+\end{figure}
+
+
+上下半球的位移通量分别为$Q/(1+k)$与$kQ/(1+k)$。固定$Q$取$k\to\infty$时，上半球通量趋零、下半球趋$Q$，但下方$D$仍可有限。$D$记录自由电荷的通量；试探电荷受力由$E$决定。在这个极限中，有限的$D$可以对应趋零的$E$。高介电常数极限还须保留线性响应未饱和的材料假设。
+\end{solution}
+
+\begin{exercise}[无限直导线的环量方向]\label{ex:es4-h9}
+无限直导线沿正$z$方向通电流$I$，真空中求磁场和圆环环量。若区域去掉导线轴，能否在整个剩余区域定义单值磁标势？ 见图~\ref{fig:es4-h9-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.4);\node at(0,0){$\odot I$};\draw[axis](1.4,0)--(1.4,.8)node[right]{$\vct B$};
+\end{tikzpicture}
+\caption{出纸面电流与右手方向的磁场}\label{fig:es4-h9-q}
+\end{figure}
+\begin{solution}
+圆柱对称给$\vct B=B_\phi(s)\vct e_\phi$，按从正$z$看逆时针的回路，$2\pi sB_\phi=\mu_0I$，故$\vct B=\mu_0I\vct e_\phi/(2\pi s)$。图~\ref{fig:es4-h9-s}中右侧场向上，符合右手拇指沿电流的绕行方向。
+
+轴外虽$\nabla\times\vct H=0$，绕轴闭合环量仍为$I$，所以全域不存在单值$\psi_m$使$\vct H=-\nabla\psi_m$。局部可写$\psi_m=-I\phi/(2\pi)$，绕一周改变$-I$，它是带分支的局部标势。无旋与全域保守的区别来自区域非单连通，而不是Ampere定律失效。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.5);\draw[axis](1.5,0)arc(0:60:1.5);\draw[guide](0,0)--(2,0)node[right]{可选分支切口};\node at(0,0){$\odot I$};
+\end{tikzpicture}
+\caption{绕轴回路与磁标势的分支}\label{fig:es4-h9-s}
+\end{figure}
+
+
+圆周包围的电流与所选跨面有关的表面形式，最终应由稳恒连续性保证一致。两张同边界曲面围成闭合面，净电流通量为$\int\nabla\cdot\vct j\dd V=0$，因此穿过电流相同。若只画一条开口导线却没有回路或无穷远返回电流，需把它作为无限理想化理解，不能把有限孤立电流段当成严格稳恒源。
+\end{solution}
+
+\begin{exercise}[小电流环的远处磁场]\label{ex:es4-h10}
+半径$a$的圆环通电流$I$，磁矩$\vct m=I\pi a^2\vct e_z$。给出$r\gg a$的矢势和磁场，说明径向分量系数2及轴向精确式的对应。 见图~\ref{fig:es4-h10-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(1.5 and .45);\draw[axis](0,-.7)--(0,2)node[above]{$\vct m$};\draw[axis](1.5,0)arc(0:40:1.5 and .45);
+\end{tikzpicture}
+\caption{圆电流环的磁矩方向}\label{fig:es4-h10-q}
+\end{figure}
+\begin{solution}
+局域闭合电流的远区矢势为
+\[\vct A=\frac{\mu_0\vct m\times\vct r}{4\pi r^3},\qquad A_\phi=\frac{\mu_0m\sin\theta}{4\pi r^2}.\]
+取旋度时，径向分量先对$\sin^2\theta$求导，角向分量先对$r^{-1}$求导：
+\[\begin{aligned}
+B_r&=\frac1{r\sin\theta}\partial_\theta\frac{\mu_0m\sin^2\theta}{4\pi r^2}
+=\frac{\mu_0m}{4\pi r^3\sin\theta}(2\sin\theta\cos\theta)
+=\frac{2\mu_0m\cos\theta}{4\pi r^3},\\
+B_\theta&=-\frac1r\partial_r\frac{\mu_0m\sin\theta}{4\pi r}
+=-\frac{\mu_0m\sin\theta}{4\pi r}(-r^{-2})
+=\frac{\mu_0m\sin\theta}{4\pi r^3}.
+\end{aligned}\]
+
+图~\ref{fig:es4-h10-s}中北轴场沿正轴，赤道场沿负轴，角分布与电偶极场一致。轴上精确场可从图~\ref{fig:es4-h10-q}的环元直接积分。令环元位置为$(a\cos\phi,a\sin\phi,0)$，观察点为$(0,0,z)$，则
+\[\dd\vct l=a(-\sin\phi,\cos\phi,0)\dd\phi,
+\qquad \vct R=(-a\cos\phi,-a\sin\phi,z).\]
+各元的$R=\sqrt{a^2+z^2}$相同，叉积的轴向分量为$(\dd\vct l\times\vct R)_z=a^2\dd\phi$；横向分量一周积分相消。因此
+\[\begin{aligned}
+B_z&=\frac{\mu_0Ia^2}{4\pi(a^2+z^2)^{3/2}}
+\int_0^{2\pi}\dd\phi\\
+&=\frac{\mu_0Ia^2}{4\pi(a^2+z^2)^{3/2}}[\phi]_0^{2\pi}
+=\frac{\mu_0Ia^2}{2(a^2+z^2)^{3/2}}.
+\end{aligned}\]
+在$z\gg a$的正轴上，提出$z^3$，并用$(1+a^2/z^2)^{-3/2}=1-3a^2/(2z^2)+O(a^4/z^4)$，得
+\[B_z=\frac{\mu_0m}{2\pi z^3}
+\left[1-\frac{3a^2}{2z^2}+O(a^4/z^4)\right].\]
+首项与$\theta=0$处的$B_r$一致，系数确为2。近环处须恢复真实电流环；磁力线在源区连续闭合。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2.45,0)--(2.6,0)node[right]{$x$};\draw[axis](0,-2.05)--(0,2.2)node[above]{$z$};\draw[curve,domain=1:179,samples=140,smooth]plot ({-1*(sin(\x))^3},{1*(sin(\x))^2*cos(\x)});\draw[->](-0.37222,0.35945)--(-0.52951,0.38471);\draw[->](-0.52951,-0.38471)--(-0.37222,-0.35945);\draw[curve,domain=1:179,samples=140,smooth]plot ({1*(sin(\x))^3},{1*(sin(\x))^2*cos(\x)});\draw[->](0.37222,0.35945)--(0.52951,0.38471);\draw[->](0.52951,-0.38471)--(0.37222,-0.35945);\draw[curve,domain=1:179,samples=140,smooth]plot ({-1.6*(sin(\x))^3},{1.6*(sin(\x))^2*cos(\x)});\draw[->](-0.59556,0.57512)--(-0.84721,0.61554);\draw[->](-0.84721,-0.61554)--(-0.59556,-0.57512);\draw[curve,domain=1:179,samples=140,smooth]plot ({1.6*(sin(\x))^3},{1.6*(sin(\x))^2*cos(\x)});\draw[->](0.59556,0.57512)--(0.84721,0.61554);\draw[->](0.84721,-0.61554)--(0.59556,-0.57512);\draw[curve,domain=1:179,samples=140,smooth]plot ({-2.2*(sin(\x))^3},{2.2*(sin(\x))^2*cos(\x)});\draw[->](-0.81889,0.79079)--(-1.16492,0.84636);\draw[->](-1.16492,-0.84636)--(-0.81889,-0.79079);\draw[curve,domain=1:179,samples=140,smooth]plot ({2.2*(sin(\x))^3},{2.2*(sin(\x))^2*cos(\x)});\draw[->](0.81889,0.79079)--(1.16492,0.84636);\draw[->](1.16492,-0.84636)--(0.81889,-0.79079);\fill(0,0)circle(1.4pt);\draw[->,thick](0,1.05)--(0,1.65)node[right]{$\vct m$};
+
+\end{tikzpicture}
+\caption{磁偶极的远区子午场线及磁场方向；源区附近须恢复真实电流环。}\label{fig:es4-h10-s}
+\end{figure}
+
+
+场线斜率为$\dd r/(r\dd\theta)=B_r/B_\theta=2\cot\theta$，所以远区仍为$r=C\sin^2\theta$。相同曲线形状来自两个场在无源远区都满足同一偶极角分布，不代表电偶极与电流环的近源拓扑相同。电场线连接正负电荷，磁场线则穿过环附近并闭合；图中的点偶极源区只是对远区计算的压缩表示。
+\end{solution}
+
+\begin{exercise}[永久磁偶极的力矩与梯度力]\label{ex:es4-h11}
+大小固定的永久磁偶极$\vct m$置于缓变外磁场。求能量、力矩和力；在匀强场中计算小角摆动频率，转动惯量为$J$。 见图~\ref{fig:es4-h11-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-1.8,0)--(2,0)node[right]{$\vct B$};\draw[axis](0,0)--(1.3,1.1)node[above]{$\vct m$};\draw(.7,0)arc(0:40.24:.7);\node at(.9,.3){$\theta$};
+\end{tikzpicture}
+\caption{永久磁矩与外磁场的夹角}\label{fig:es4-h11-q}
+\end{figure}
+\begin{solution}
+固定永久磁矩的势能$U=-\vct m\cdot\vct B=-mB\cos\theta$，故$\vct\tau=\vct m\times\vct B$，$\vct F=\nabla(\vct m\cdot\vct B)$，求梯度时保持磁矩分量固定。匀强场中力为零，力矩使磁矩朝场排列。
+
+图~\ref{fig:es4-h11-s}中$\theta=0$附近$U=-mB+(mB/2)\theta^2+\cdots$，转动方程$J\ddot\theta=-mB\theta$，所以$\omega=\sqrt{mB/J}$；反向排列则不稳定。若磁矩由场诱导，或电流环由电源固定电流，能量计算需包含建立磁矩和电源所做的功，不能未经说明把此永久偶极势能套给全部情形。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1cm,y=1cm]\draw[axis](-2,0)--(2.18,0)node[right]{$\theta$};\draw[axis](0,0)--(0,1.8)node[above]{$(U+mB)/(mB)$};\draw[curve,domain=-2:2,samples=101]plot(\x,{1-cos(\x r)});\draw[guide,domain=-1.3:1.3]plot(\x,{.5*(\x)^2});\end{scope}
+\end{tikzpicture}
+\caption{顺场方向附近的势能及二次近似}\label{fig:es4-h11-s}
+\end{figure}
+
+
+若外场沿固定方向随$z$变化，磁矩已顺场时$F_z=m\,\dd B/\dd z$，反场时符号反转。小角转动的回复斜率$mB$与平移的场梯度是两个独立量：均匀场可以有转动振荡而无平移力；非均匀场即使力矩为零也可产生平移。对初始位置的完整稳定性，须同时比较平移、转动及约束条件。
+\end{solution}
+
+\begin{exercise}[均匀磁化球的退磁场]\label{ex:es4-h12}
+真空中半径$a$的球具有给定均匀磁化$\vct M=M\vct e_z$，无自由电流。求内外$H,B$及总磁偶极矩。 见图~\ref{fig:es4-h12-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-.7)--(0,.7)node[right]{$\vct M$};
+\end{tikzpicture}
+\caption{给定均匀磁化的球体}\label{fig:es4-h12-q}
+\end{figure}
+\begin{solution}
+无自由电流可在内外用磁标势。写$\psi_{\rm in}=Ar\cos\theta$、$\psi_{\rm out}=B\cos\theta/r^2$。先由$\vct H=-\nabla\psi$分别求分量：
+\[H_{ir}=-A\cos\theta,\quad H_{i\theta}=A\sin\theta;
+\qquad H_{or}=\frac{2B\cos\theta}{r^3},\quad
+H_{o\theta}=\frac{B\sin\theta}{r^3}.
+\]
+$H_t$连续给$A=B/a^3$。内侧$B_{ir}=\mu_0(H_{ir}+M\cos\theta)$，外侧$B_{or}=\mu_0H_{or}$，因此$B_n$连续给$-A+M=2B/a^3$。代入$B=Aa^3$，得$3A=M$，所以$A=M/3$。
+
+于是球内$\vct H=-\vct M/3$，$\vct B=2\mu_0\vct M/3$。球外为磁矩$\vct m=(4\pi a^3/3)\vct M$的偶极场。图~\ref{fig:es4-h12-s}中的内$H$反向、内$B$同向，不能把二者混同。球面束缚电流$K_\phi=M\sin\theta$，赤道最大；它和长圆柱均匀侧面电流的几何不同，所以退磁系数从0变成$1/3$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt);\draw[axis](.45,-.6)--(.45,.6)node[right]{$\vct B$};\draw[axis](-.45,.6)--(-.45,-.6)node[left]{$\vct H$};\node[right]at(1.4,0){$K_\phi=M\sin\theta$};
+
+\end{tikzpicture}
+\caption{反向退磁场与同向磁感应强度}\label{fig:es4-h12-s}
+\end{figure}
+
+
+总磁矩也可从面电流验证：$\vct m=\tfrac12\int\vct r\times\vct K_b\dd S$。球面$K_\phi=M\sin\theta$，且$(\vct e_r\times\vct e_\phi)\cdot\vct e_z=\sin\theta$，故
+\[m_z=\pi Ma^3\int_0^\pi\sin^3\theta\dd\theta
+=\pi Ma^3\int_{-1}^1(1-u^2)\dd u
+=\pi Ma^3\left[u-\frac{u^3}3\right]_{-1}^1
+=\frac{4\pi Ma^3}3.\]
+这里$u=\cos\theta$、$\dd u=-\sin\theta\dd\theta$。结果与$\int\vct M\dd V$相等。
+\end{solution}
+
+\begin{exercise}[线性磁介质球在匀强场中]\label{ex:es4-h13}
+磁导率$\mu_i$的球置于磁导率$\mu_m$的介质中，远处$\vct H_0=H_0\vct e_z$，界面无自由电流。求球内$H$及外部偶极势系数。 见图~\ref{fig:es4-h13-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.8)--(0,2)node[above]{$z$};\node at(.6,.5){$\mu_i$};\node[right]at(1.6,-.7){$\mu_m$};\draw[axis](-2.1,-1.1)--(-2.1,.1)node[above]{$H_0$};
+\end{tikzpicture}
+\caption{线性磁介质球与外磁场}\label{fig:es4-h13-q}
+\end{figure}
+\begin{solution}
+无自由电流区域用$\vct H=-\nabla\psi$。外势$\psi_m=-H_0r\cos\theta+B\cos\theta/r^2$，内势$\psi_i=-Cr\cos\theta$。切向$H$连续给$C=H_0-B/a^3$，法向$B$连续给$\mu_iC=\mu_m(H_0+2B/a^3)$，得
+\[H_{\rm in}=\frac{3\mu_m}{\mu_i+2\mu_m}H_0,\quad B=a^3H_0\frac{\mu_i-\mu_m}{\mu_i+2\mu_m}.
+\]
+图~\ref{fig:es4-h13-s}画出边界上应连续的分量。$\mu_i\to\infty$时内$H$趋零，但内磁感应强度$\mu_iH_{\rm in}\to3\mu_mH_0$，不趋零。把$H$的极限直接说成$B$被排斥会出错；理想抗磁极限$\mu_i\to0$才给内部$B\to0$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.35);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.8)--(0,2)node[above]{$z$};\node at(.6,.5){$\mu_i$};\node[right]at(1.6,-.7){$\mu_m$};\draw[axis](-2.1,-1.1)--(-2.1,.1)node[above]{$H_0$};\node[right]at(1.6,1.2){$B_n$连续，$H_t$连续};
+
+\end{tikzpicture}
+\caption{连续的法向磁感应强度与切向磁场强度}\label{fig:es4-h13-s}
+\end{figure}
+
+
+真空背景中，若球的线性磁化率为$\chi_m$，内部退磁关系$H_{\rm in}=H_0-M/3$，再代$M=\chi_mH_{\rm in}$，得$H_{\rm in}=3H_0/(\chi_m+3)$。使用$\mu_i=\mu_0(1+\chi_m)$后与边界解一致。给定永久$M$与线性诱导$M$的两道球题因此相接，但应先写自洽关系，不能把给定磁化的结果直接当成给定外场的全部答案。
+\end{solution}
+
+\begin{exercise}[矩形截面环形磁芯的电感]\label{ex:es4-h14}
+环形线圈匝数$N$、电流$I$，磁芯内外半径$a,b$、轴向高度$h$，线性磁导率$\mu$。忽略漏磁，求场、磁通、电感和场能。 见图~\ref{fig:es4-h14-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](0,0)circle(.9);\node at(1.3,0){$\mu$};\draw[axis](0,1.3)--(-.7,1.3)node[above]{$H_\phi$};
+\node[below]at(.9,0){$a$};\node[below]at(1.8,0){$b$};\draw[curve](3,-.7)rectangle(4.1,.7);\draw[<->](4.35,-.7)--(4.35,.7)node[midway,right]{$h$};\node[below]at(3.55,-.9){径向截面};
+\end{tikzpicture}
+\caption{环形磁芯与径向截面}\label{fig:es4-h14-q}
+\end{figure}
+\begin{solution}
+圆周Ampere环路给$H_\phi(r)=NI/(2\pi r)$，故$B_\phi=\mu NI/(2\pi r)$。每匝磁通穿过矩形径向截面，
+\[\Phi=h\int_a^bB_\phi\dd r
+=\frac{\mu NIh}{2\pi}\int_a^b\frac{\dd r}r
+=\frac{\mu NIh}{2\pi}[\ln r]_a^b
+=\frac{\mu NIh}{2\pi}\ln\frac ba.\]
+总磁链$N\Phi=LI$，因此
+\[L=\frac{\mu N^2h}{2\pi}\ln(b/a).
+\]
+图~\ref{fig:es4-h14-s}中的面积元是$h\dd r$，不是环形平面面积$2\pi r\dd r$。场能也可独立积分。环体中的体积元为$2\pi rh\dd r$，代入$H=NI/(2\pi r)$、$B=\mu H$，
+\[\begin{aligned}
+W&=\frac12\int_a^bBH\,2\pi rh\dd r\\
+&=\frac{\mu N^2I^2h}{4\pi}\int_a^b\frac{\dd r}{r}\\
+&=\frac{\mu N^2I^2h}{4\pi}[\ln r]_a^b\\
+&=\frac{\mu N^2I^2h}{4\pi}\ln\frac ba=\frac12LI^2.
+\end{aligned}\]
+场能积分与磁通积分使用图~\ref{fig:es4-h14-s}中的不同几何区域，最终满足$W=LI^2/2$。此处材料线性、无磁滞，才能使用能量密度$BH/2$；一般铁磁回线须按实际建立过程计算。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](0,0)circle(.9);\draw[very thick](.9,0)--(1.8,0);\node[above]at(3.55,1.05){$\dd S=h\dd r$};\draw[axis](1.3,0)arc(0:70:1.3);\node[below]at(0,-2){环量沿圆周，磁通穿过截面};
+\node[below]at(.9,0){$a$};\node[below]at(1.8,0){$b$};\draw[curve](3,-.7)rectangle(4.1,.7);\draw[<->](4.35,-.7)--(4.35,.7)node[midway,right]{$h$};\node[below]at(3.55,-.9){径向截面};
+\end{tikzpicture}
+\caption{圆周环量路径和磁通积分截面}\label{fig:es4-h14-s}
+\end{figure}
+
+
+薄环截面$b-a\ll a$时，$\ln(b/a)\simeq(b-a)/a$，电感近似$L\simeq\mu N^2h(b-a)/(2\pi a)$，即$\mu N^2S/\ell$，$S=h(b-a)$、$\ell\simeq2\pi a$。这就是均匀磁路近似的来源；厚环中$B$随$r$明显变化，不能只取某个任意平均半径而称精确。若有空气隙，还要把不同磁导率区域的磁势降逐段相加。
+\end{solution}

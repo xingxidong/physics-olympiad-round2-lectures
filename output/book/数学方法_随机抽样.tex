@@ -1,0 +1,192 @@
+\section{随机抽样的误差与物理测度}
+\subsection{随机点代表面积、体积还是粒子数}
+用AI编写复杂边界积分的抽样程序，首先要给出积分测度。平面圆盘的面积元为$r\dd r\dd\theta$，均匀面积分布对应的半径概率密度是$2r/R^2$；直接均匀抽取$r$会使圆心附近的点过密。若$U,V$在$[0,1]$独立均匀，则
+\[
+ r=R\sqrt U,\qquad\theta=2\pi V
+\]
+给出均匀面积点。这一平方根来自半径的累积概率
+\[P(r\le s)=\int_0^s\frac{2r}{R^2}\dd r
+=\left[\frac{r^2}{R^2}\right]_0^s=\frac{s^2}{R^2}.\]
+球内均匀体积的半径累积概率则为
+\[P(r\le s)=\int_0^s\frac{3r^2}{R^3}\dd r
+=\left[\frac{r^3}{R^3}\right]_0^s=\frac{s^3}{R^3},\]
+故反演需$r=RU^{1/3}$。角向概率元为$\sin\theta\dd\theta\dd\phi/(4\pi)$；令$c=\cos\theta$，$\dd c=-\sin\theta\dd\theta$，可见$c$在$[-1,1]$均匀、$\phi$在$[0,2\pi)$均匀。因此球内采样可另取独立均匀数$V,W$，令$\cos\theta=2V-1$、$\phi=2\pi W$。
+
+积分$I=\int f(x)p(x)\dd x$用按$p$抽取的独立同分布点估计为
+\[
+\widehat I=\frac1N\sum_{i=1}^N f(X_i).
+\]
+每项均值都是$I$，故$\langle\widehat I\rangle=I$。若单点方差$\sigma_f^2$有限，均值的方差为
+\[
+\begin{aligned}
+\operatorname{Var}(\widehat I)
+&=\frac1{N^2}\sum_{i,j}\operatorname{Cov}(f(X_i),f(X_j))\\
+&=\frac1{N^2}\sum_{i=1}^N\sigma_f^2
+=\frac{\sigma_f^2}{N}.
+\end{aligned}
+\]
+第二步用独立性消去了$i\ne j$的协方差。标准误差是方差的平方根，因此按$N^{-1/2}$下降；样本数增加四倍只使它减半，这与确定性二阶积分的步长规律不同。
+
+样本方差$s_f^2=\sum(f_i-\bar f)^2/(N-1)$可估计$\operatorname{Var}_p(f)$，但前提是样本近乎独立、二阶矩有限。连续轨迹上相邻时间点往往高度相关，不能仅因文件里有很多行便把它们当作大量独立样本。固定随机种子便于复现同一次计算，多次使用同一条序列也不会产生新的独立证据。
+
+\begin{example}非均匀圆盘的惯量及比值误差
+半径$R$的薄圆盘面密度为$\rho(r)=\rho_0(1+2r^2/R^2)$。用均匀面积抽样求总质量$M$和绕中心垂直轴的转动惯量$I$，写出同一批点估计$I/M$时的一阶标准误差。给出可用来核对程序的解析值。
+\ExpansionDiagram{fig:dep-ai-disk-q}{同心环带面积随半径增加，均匀半径不能代替均匀面积}{
+\draw[thick](0,0)circle(1.8);\draw[dashed](0,0)circle(.6);\draw[dashed](0,0)circle(1.2);\draw[->](0,0)--(1.8,0)node[right]{$R$};\draw[->](.6,.2)--(1.2,.2)node[midway,above]{环带};\node[right]at(2.5,.8){$r=R\sqrt U$};\node[right]at(2.5,.1){$\rho=\rho_0(1+2U)$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-ai-disk-q}中$Z=r^2/R^2$在$[0,1]$上均匀。若各点为$Z_i$，面积为$\pi R^2$，所以
+\[
+ \widehat M=\pi R^2\rho_0\overline{(1+2Z)},\qquad
+ \widehat I=\pi R^4\rho_0\overline{(Z+2Z^2)}.
+\]
+均匀$Z$的矩由幂积分给出：
+\[\langle Z^n\rangle=\int_0^1z^n\dd z
+=\left[\frac{z^{n+1}}{n+1}\right]_0^1=\frac1{n+1}\quad(n\ge0).\]
+取$n=1,2$分别得$1/2,1/3$，故
+\[M=\pi R^2\rho_0(1+2/2)=2\pi\rho_0R^2,\]
+\[I=\pi R^4\rho_0(1/2+2/3)=\frac{7\pi\rho_0R^4}{6},\qquad
+K=\frac IM=\frac{7R^2}{12}.\]
+\ExpansionDiagram{fig:dep-ai-disk-a}{质量与惯量来自同一批点，误差具有相关性}{
+\node[draw]at(0,0){$Z_i$};\node[draw]at(3,1){$b_i=\rho_i$};\node[draw]at(3,-1){$a_i=\rho_ir_i^2$};\draw[->](.4,0)--(1.8,1);\draw[->](.4,0)--(1.7,-1);\node[draw]at(6,0){$\widehat K=\bar a/\bar b$};\draw[->](4,1)--(5.1,.3);\draw[->](4,-1)--(5.1,-.3);}
+按图\ref{fig:dep-ai-disk-a}，记单点贡献为$a=\rho r^2=\rho_0R^2(Z+2Z^2)$、$b=\rho=\rho_0(1+2Z)$，则$\widehat I=\pi R^2\bar a$、$\widehat M=\pi R^2\bar b$，比值为$\widehat K=\bar a/\bar b$。在两样本均值各自的期望附近作一阶展开，
+\[
+ \widehat K-K\simeq\frac{(\bar a-\langle a\rangle)
+ -K(\bar b-\langle b\rangle)}{\langle b\rangle},
+ \quad\operatorname{Var}(\widehat K)\simeq
+ \frac{\operatorname{Var}(a-Kb)}{N\langle b\rangle^2}.
+\]
+把质量、惯量误差当作独立量相加会遗漏协方差。这里
+\[
+ a-Kb=\rho_0R^2\left(2Z^2-\frac Z6-\frac7{12}\right),\quad
+ \langle b\rangle=2\rho_0,
+\]
+括号中多项式的均值为零，其平方的均值为
+\begin{align*}
+\int_0^1\left(2z^2-\frac z6-\frac7{12}\right)^2\dd z
+&=\int_0^1\left(4z^4-\frac23z^3-\frac{83}{36}z^2
++\frac7{36}z+\frac{49}{144}\right)\dd z\\
+&=\left[\frac45z^5-\frac16z^4-\frac{83}{108}z^3
++\frac7{72}z^2+\frac{49}{144}z\right]_0^1\\
+&=\frac45-\frac16-\frac{83}{108}+\frac7{72}+\frac{49}{144}
+=\frac{653}{2160}.
+\end{align*}
+乘回$\rho_0^2R^4$，再除以$N\langle b\rangle^2=4N\rho_0^2$，便得$\operatorname{Var}(\widehat K)\simeq653R^4/(8640N)$，所以标准误差约为$0.2749R^2/\sqrt N$。有限$N$下比值本身还可能有$O(1/N)$偏差；上述式子描述其主导随机误差。
+
+若按质量分布生成粒子点，$Z$的概率密度为$(1+2z)/2$，累积函数为
+\[P(Z\le z)=\int_0^z\frac{1+2u}{2}\dd u
+=\left[\frac{u+u^2}{2}\right]_0^z=\frac{z+z^2}{2}.\]
+令其等于均匀随机数$U$，得到$Z^2+Z-2U=0$；取$[0,1]$内的根，$Z=(-1+\sqrt{1+8U})/2$。此时点已经按质量加权，求$I/M$直接平均$r^2$；若再乘一次$\rho$，会重复加权。给AI的任务中应写清抽样测度和每点权重。
+\end{solution}
+
+\subsection{成对抽样可以减少误差，但要按相同成本比较}
+若一次随机取$U$后同时计算$f(U)$和$f(1-U)$，两值负相关时可降低均值方差，这称为对偶抽样。记单点方差为$\sigma_f^2$、同对协方差为$c_f$，一对平均$G=[f(U)+f(1-U)]/2$的方差为
+\[\operatorname{Var}(G)=\frac14(\sigma_f^2+\sigma_f^2+2c_f)
+=\frac{\sigma_f^2+c_f}{2}.\]
+若总共作$N$次函数求值，即有$N/2$个独立配对，最终均值方差为
+\[\frac{\operatorname{Var}(G)}{N/2}=\frac{\sigma_f^2+c_f}{N}.\]
+普通$N$点均值的方差为$\sigma_f^2/N$，故$c_f<0$时配对才有益。两法必须按同样的函数求值次数比较。
+
+\begin{example}杆的惯量积分中的对偶抽样
+均匀细杆一端为转轴，长度、总质量均已归一化，惯量积分为$I=\int_0^1x^2\dd x$。比较$N$次普通均匀抽样与$N/2$组成对抽样的方差，$N$为偶数。
+\ExpansionDiagram{fig:dep-ai-pair-q}{同一对点关于杆中点对称，求值次数仍计为两次}{
+\draw[very thick](0,0)--(6,0);\fill(0,0)circle(2pt)node[below]{转轴};\fill(1.5,0)circle(2pt)node[above]{$U$};\fill(4.5,0)circle(2pt)node[above]{$1-U$};\draw[dashed](3,-.5)--(3,.7);\node[below]at(6,0){1};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-ai-pair-q}中$U$在$[0,1]$上均匀。由
+\[\langle U^n\rangle=\int_0^1u^n\dd u
+=\left[\frac{u^{n+1}}{n+1}\right]_0^1=\frac1{n+1},\]
+单点函数$f(U)=U^2$的均值为$1/3$，二阶矩为$\langle U^4\rangle=1/5$，方差为$1/5-1/9=4/45$。普通$N$点平均的方差为$4/(45N)$。
+
+一对的平均值为$G=[U^2+(1-U)^2]/2=U^2-U+1/2$，其均值仍为$1/3$。展开平方后，
+\[
+\begin{aligned}
+\langle G^2\rangle&=\int_0^1\left(u^4-2u^3+2u^2-u+\frac14\right)\dd u\\
+&=\left[\frac{u^5}{5}-\frac{u^4}{2}+\frac{2u^3}{3}-\frac{u^2}{2}+\frac u4\right]_0^1\\
+&=\frac15-\frac12+\frac23-\frac12+\frac14=\frac7{60}.
+\end{aligned}
+\]
+因此$\operatorname{Var}(G)=7/60-(1/3)^2=1/180$。独立的成对样本共有$N/2$组，所以
+\[
+ \operatorname{Var}(\widehat I_{\rm pair})=\frac{1/180}{N/2}
+ =\frac1{90N}.
+\]
+\ExpansionDiagram{fig:dep-ai-pair-a}{单点函数变化范围较大，成对平均后波动缩小}{
+\draw[->](0,0)--(5,0)node[right]{$U$};\draw[->](0,0)--(0,3)node[above]{函数值};\draw[dashed,domain=0:4.5,samples=80]plot(\x,{2.5*(\x/4.5)^2});\draw[thick,domain=0:4.5,samples=80]plot(\x,{2.5*((\x/4.5)^2-\x/4.5+.5)});\node[right]at(3.3,2.2){$U^2$};\node[right]at(3.4,.35){$G$};\node[below]at(4.5,0){1};}
+图\ref{fig:dep-ai-pair-a}中成对平均的波动较小。在相同$N$次函数求值下，方差降为普通法的$1/8$，标准误差降为$1/\sqrt8$。这一收益来自本题函数的相关结构；若$f(U)$与$f(1-U)$正相关，配对未必有利。程序应输出成对平均值的样本方差，不能把同组的两个点误当成独立点计算误差条。
+\end{solution}
+
+\section{稀有事件的加权抽样}
+\subsection{改变抽样分布以后必须保留密度比}
+若目标概率密度为$p(x)$，希望求$I=\int f(x)p(x)\dd x$，可改按便于抽样的$q(x)$生成点，但每点需乘权重$p/q$：
+\[
+ I=\int f(x)\frac{p(x)}{q(x)}q(x)\dd x.
+\]
+要求在$f(x)p(x)$非零的区域，$q(x)$也非零。只把粒子“抽得更热”而不重新加权，得到的是另一个物理系统，不是原来低概率事件的准确估计。
+
+令单点加权贡献为$Y=f(X)p(X)/q(X)$，其中$X$按$q$抽取。其均值为$I$，二阶矩为
+\[
+\langle Y^2\rangle_q
+=\int\left(\frac{fp}{q}\right)^2q\dd x
+=\int\frac{f^2p^2}{q}\dd x.
+\]
+若此积分有限，$N$个独立加权样本的均值方差为
+\[
+\operatorname{Var}(\widehat I_q)
+=\frac1N\left(\int\frac{f^2p^2}{q}\dd x-I^2\right).
+\]
+使稀有区域出现更多样本可能降低方差，也可能因少数极大权重而恶化。输出时应同时保留权重、加权样本值及其二阶矩；用未加权直方图代替加权结果，会改变归一化和尾部概率。
+
+\begin{example}二维热粒子的高能尾概率
+二维经典平动粒子以$\kb T$为能量单位，$X=E/(\kb T)$的概率密度为$p(x)=\ee^{-x}$，$x\geq0$。求$P(X>8)$。比较直接抽样与按$q_\lambda(x)=\lambda\ee^{-\lambda x}$抽样时的相对方差，并取$\lambda=1/8$估算达到10\%相对标准误差所需的样本数。
+\ExpansionDiagram{fig:dep-ai-tail-q}{较宽的抽样分布增加高能区样本，但每个样本需重新加权}{
+\draw[->](0,0)--(7,0)node[right]{$x$};\draw[->](0,0)--(0,2.6)node[above]{概率密度};\draw[thick,domain=0:16,samples=120]plot({.4*\x},{2.2*exp(-\x)});\draw[dashed,domain=0:16,samples=120]plot({.4*\x},{2.2*.125*exp(-.125*\x)});\draw[dotted](3.2,0)--(3.2,1.4)node[above]{$x=8$};\node[right]at(.6,1.2){$p$};\node[right]at(4,.5){$q_{1/8}$};}
+\end{example}
+\begin{solution}
+目标概率为
+\[P=\int_8^\infty\ee^{-x}\dd x
+=[-\ee^{-x}]_8^\infty=\ee^{-8}\simeq3.3546\times10^{-4}.\]
+普通抽样把每点记为0或1，单点方差为$P(1-P)$，所以平均估计的相对方差为$(1-P)/(NP)$。要求相对标准误差不超过0.1，需要$N\geq(\ee^8-1)/0.01\simeq2.98\times10^5$。
+
+按图\ref{fig:dep-ai-tail-q}的较宽分布抽样，单点加权值是
+\[
+ Y=\frac1\lambda\ee^{-(1-\lambda)X}\,\boldsymbol1_{X>8}.
+\]
+其均值为
+\[\langle Y\rangle_q=\int_8^\infty
+\frac{\ee^{-(1-\lambda)x}}\lambda\,
+\lambda\ee^{-\lambda x}\dd x
+=\int_8^\infty\ee^{-x}\dd x=P.\]
+二阶矩在$0<\lambda<2$时有限：
+\[
+ \langle Y^2\rangle_q=\frac1\lambda\int_8^\infty
+ \ee^{-(2-\lambda)x}\dd x
+ =\frac1\lambda\left[-\frac{\ee^{-(2-\lambda)x}}{2-\lambda}\right]_8^\infty
+ =\frac{\ee^{-8(2-\lambda)}}{\lambda(2-\lambda)}.
+\]
+因此$N$点平均的相对方差为
+\[
+ \frac1N\left[\frac{\ee^{8\lambda}}{\lambda(2-\lambda)}-1\right].
+\]
+取$\lambda=1/8$，括号约为10.5980，故所需样本数约为1060。该样本数是标准误差条件，不是对每次随机结果都保证10\%误差的确定性上界。
+\ExpansionDiagram{fig:dep-ai-tail-a}{改变抽样概率后，按$p/q$把每点贡献还原到原来的热分布}{
+\node[draw]at(0,0){$q_\lambda$样本};\node[draw]at(3,0){乘$p/q_\lambda$};\node[draw]at(6,0){原分布积分};\draw[->](1,0)--(1.8,0);\draw[->](4.1,0)--(4.9,0);\node[below]at(3,-.6){较多尾部样本不等于改变物理温度};}
+图\ref{fig:dep-ai-tail-a}区分抽样分布与目标热分布。对一般阈值$A>0$，相对二阶矩为$Q(\lambda)=\ee^{A\lambda}/[\lambda(2-\lambda)]$。取对数再求导，
+\[\frac{\dd}{\dd\lambda}\ln Q
+=A-\frac1\lambda+\frac1{2-\lambda}=0.\]
+乘$\lambda(2-\lambda)$并移项，得到
+\[A\lambda^2-2(A+1)\lambda+2=0,\qquad
+\lambda=\frac{A+1\pm\sqrt{A^2+1}}{A}.\]
+加号根大于$2$，只有减号根属于允许区间。又有
+$(\ln Q)''=1/\lambda^2+1/(2-\lambda)^2>0$，所以它是唯一极小点：
+\[\lambda_* =\frac{A+1-\sqrt{A^2+1}}{A}
+=\frac2{A+1+\sqrt{A^2+1}}.\]
+当$A$很大时$\lambda_*\sim1/A$，因而本题取$1/8$。
+\end{solution}
+
+\subsection{让AI生成可复算的抽样实验}
+提交给AI的计算任务应包含目标密度、抽样密度、变量变换、单位及误差定义。例如本节尾概率实验应要求：分别运行直接法和加权法，保存每次独立运行的样本数、随机种子、估计均值、样本方差和标准误差，并与$\ee^{-8}$比较。重跑时改变独立随机序列，才可观察估计量的运行间分布。
+
+比较两套物理参数时，若使用同一批基础均匀随机数，两输出差值的方差为$\operatorname{Var}(A-B)=\operatorname{Var}(A)+\operatorname{Var}(B)-2\operatorname{Cov}(A,B)$。正相关能使差值更稳定，但也意味着两次结果并不独立。对同一轨迹长时间取样，相关时间又会减少有效样本数；仅增加输出频率不会创造新的独立轨迹。
+
+报告中宜把单次估计、运行间散布和理论标准误差分开。解析基准用于核对模型与抽样过程；误差条说明有限样本造成的波动。它们回答的问题不同。若平均值长期偏离基准，优先检查密度比、Jacobian和边界筛选，再增加样本量；系统性的测度错误不会随$N$增大而自动消失。

@@ -1,0 +1,75 @@
+\section{连续导热中的温度场与熵产生}
+\subsection{能量流守恒而可用功能沿途损失}
+在稳态一维导热中，若无体热源，单位时间通过各截面的热量$J_Q$相同。截面积为$A$、导热系数为$\kappa(T)$时，傅里叶定律给
+\[
+ J_Q=-A\kappa(T)\frac{\dd T}{\dd x}.
+\]
+热量传递方向取$+x$，温度沿该方向下降。随热流携带的熵流为$J_Q/T$，其空间导数为
+\[
+ \frac{\dd}{\dd x}\frac{J_Q}{T}
+ =J_Q\frac{\dd(1/T)}{\dd x}
+ =\frac{A\kappa(T)}{T^2}\left(\frac{\dd T}{\dd x}\right)^2\geq0.
+\]
+右侧是每单位长度、每单位时间的熵产生。它不是额外的能量产生：热流在各处相同，但低温端同一热量对应的熵更多。整体积分给$\dot S_{\rm gen}=J_Q(1/T_c-1/T_h)$，与两热源熵变相同。
+
+若环境温度为$T_e$，可逆热机从温度$T$处取得一小份热量$\delta Q$时，最多输出$(1-T_e/T)\delta Q$功。导热把热量从$T_h$降到$T_c$而没有输出这部分功，损失的最大做功机会为$T_e\dot S_{\rm gen}$。因此稳恒能量流的守恒与可用功的减少可以同时成立。
+\ExpansionDiagram{fig:dep-th3-entropyflow}{同一热流在低温处携带更大的熵流}{
+\draw(0,0)rectangle(5,1.2);\node[left]at(0,.6){$T_h$};\node[right]at(5,.6){$T_c$};\draw[->,thick](.5,.6)--(4.5,.6)node[midway,above]{$J_Q$};\draw[->](.5,-.5)--(1.7,-.5)node[midway,below]{$J_Q/T_h$};\draw[->](3,-.5)--(5,-.5)node[midway,below]{$J_Q/T_c$};}
+图\ref{fig:dep-th3-entropyflow}的两条熵流箭头长度只示意大小变化。局部熵产生的位置取决于真实温度场和材料性质，不能仅按杆长平均分配。
+
+\subsection{温变导热系数应在温度上积分}
+当$\kappa$不是常数，稳态方程分离为$J_Q\dd x=-A\kappa(T)\dd T$。对全长积分，
+\[
+ J_Q=\frac A L\int_{T_c}^{T_h}\kappa(T)\dd T.
+\]
+所以可以定义区间平均导热系数，但它由积分决定，不一般等于中点温度处的值。若材料分层，各层热流相同、界面温度待求，应按各层各自的积分关系接续；总温差不能先按几何长度平分。
+
+\begin{example}[两层温变导体的界面温度]
+两段导体串联，总长$L$、截面积$A$，各长$L/2$。第一段位于热端，$\kappa_1(T)=k_1T/T_r$；第二段位于冷端，$\kappa_2(T)=k_2T/T_r$，其中$T_r$为固定参考温度。两端维持$T_h>T_c>0$，界面理想接触。求界面温度、稳态热流、各段熵产生及温度分布。
+\ExpansionDiagram{fig:dep-th3-layers-q}{两层热流相同，界面温度由材料参数共同决定}{
+\draw(0,0)rectangle(3,1.2);\fill[gray!15](3,0)rectangle(6,1.2);\draw(3,0)rectangle(6,1.2);\node at(1.5,.6){$k_1T/T_r$};\node at(4.5,.6){$k_2T/T_r$};\node[left]at(0,.6){$T_h$};\node[right]at(6,.6){$T_c$};\node[above]at(3,1.2){$T_m$};\draw[->](1,-.6)--(5,-.6)node[midway,below]{$J_Q$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-th3-layers-q}中第一段从$T_h$降至$T_m$。将傅里叶定律分离为
+\[
+ J_Q\dd x=-(Ak_1/T_r)T\dd T,
+\]
+从$x=0$到$L/2$积分，得$J_QL/2=-(Ak_1/T_r)[T^2/2]_{T_h}^{T_m}$，整理为
+\[
+ J_Q=\frac{Ak_1}{LT_r}(T_h^2-T_m^2).
+\]
+第二段同理为$J_Q=Ak_2(T_m^2-T_c^2)/(LT_r)$。令两式相等，得
+\[
+ T_m^2=\frac{k_1T_h^2+k_2T_c^2}{k_1+k_2},\qquad
+ J_Q=\frac{Ak_1k_2}{LT_r(k_1+k_2)}(T_h^2-T_c^2).
+\]
+注意是$T^2$按系数加权。第一段从热端积分至任意$x$，有$J_Qx=-(Ak_1/2T_r)[T^2(x)-T_h^2]$，解出
+\[
+ T^2(x)=T_h^2-\frac{2T_rJ_Q}{Ak_1}x,
+ \quad 0<x<L/2;
+\]
+第二段以界面为起点，
+\[
+ T^2(x)=T_m^2-\frac{2T_rJ_Q}{Ak_2}(x-L/2),
+ \quad L/2<x<L.
+\]
+\ExpansionDiagram{fig:dep-th3-layers-a}{温度平方在各层中为直线，界面处斜率可以改变}{
+\draw[->](0,0)--(6,0)node[right]{$x$};\draw[->](0,0)--(0,3.5)node[above]{$T^2$};\draw[thick](0,3)--(2.5,2.3)--(5,.6);\draw[dashed](2.5,0)--(2.5,2.3);\node[below]at(2.5,0){$L/2$};\node[below]at(5,0){$L$};\node[above right]at(2.5,2.3){$T_m^2$};}
+图\ref{fig:dep-th3-layers-a}画$T^2$而非$T$，以显示分段线性结构；界面温度连续，热流连续，而温度梯度一般不连续。
+
+两段的熵产生分别为
+\[
+ \dot S_1=J_Q(1/T_m-1/T_h),\quad
+ \dot S_2=J_Q(1/T_c-1/T_m).
+\]
+相加后界面项抵消，得到$J_Q(1/T_c-1/T_h)$。若$k_1=k_2,T_h=400\,\mathrm K,T_c=300\,\mathrm K$，则$T_m=\sqrt{125000}\,\mathrm K\simeq353.55\,\mathrm K$，冷半段约贡献总熵产生的60.6\%。即使两层材料相同、长度相同，局部温度不同仍使熵产生不均匀。
+\end{solution}
+
+\subsection{有限接触热阻的熵产生不能漏计}
+若两段接触处有温度跃变，热侧界面温度为$T_{m+}$、冷侧为$T_{m-}$，且热流为$J_Q$，界面熵产生是
+\[
+ \dot S_{\rm contact}=J_Q(1/T_{m-}-1/T_{m+})>0.
+\]
+此时应分别对两段内部积分，再加上这个界面项。若只积分两段光滑温度梯度，会遗漏温度跳跃处的贡献。若把接触层视为很薄但导热系数也很小的连续层，积分式在薄层极限恰给出同一个结果。
+
+热源的熵变、导体内部及接触界面的熵产生，应分别在相应位置计算。导体处于稳态时，流出的熵比流入的熵多，恰好带走内部产生的部分，所以导体总熵保持不变。整体熵平衡须同时计入流入、流出和产生项。

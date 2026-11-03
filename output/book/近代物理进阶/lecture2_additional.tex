@@ -1,0 +1,39 @@
+\begin{exercise}\label{ex:m2horizon}
+飞船从地球由静止出发，持续保持正向固有加速度$\alpha$。地球在$t_e>0$发出追赶飞船的光。求飞船接收该信号的固有时，并判断地球所有未来信号是否都能追上。
+\Diagram{fig:m2horizonq}{恒固有加速世界线及追赶它的光线}{\draw[axis](-.2,0)--(4.5,0)node[right]{$\alpha x/c^2$};\draw[axis](0,0)--(0,4.6)node[above]{$\alpha t/c$};\draw[curve,domain=0:2,samples=90]plot({cosh(\x)-1},{sinh(\x)});\draw[->](0,.5)--(.25,.75);\draw[guide](0,1)--(3.4,4.4);\node[left]at(0,1){$1$};}
+\end{exercise}
+\begin{solution}
+飞船世界线$ct=L_\alpha\sinh\chi$、$x=L_\alpha(\cosh\chi-1)$，$\chi=\alpha\tau/c$。图\ref{fig:m2horizonq}的信号满足$x=c(t-t_e)$，代入后
+\[
+ \frac{\alpha t_e}c=\sinh\chi-\cosh\chi+1=1-\ee^{-\chi}.
+\]
+所以仅当$0<t_e<c/\alpha$有有限接收固有时
+\[
+ \tau_R=-\frac c\alpha\ln(1-\alpha t_e/c).
+\]
+\Diagram{fig:m2horizona}{发射时刻逼近$c/\alpha$时，接收固有时发散}{\draw[axis](0,0)--(4.5,0)node[right]{$\alpha t_e/c$};\draw[axis](0,0)--(0,3.8)node[above]{$\alpha\tau_R/c$};\draw[curve,domain=0:.96,samples=90]plot({3.5*\x},{-ln(1-\x)});\draw[guide](3.5,0)--(3.5,3.5);\node[below]at(3.5,0){$1$};}
+图\ref{fig:m2horizona}在边界发散。$t_e\geq c/\alpha$的信号永不追上持续加速的飞船，虽然飞船在每个有限时刻速度都小于$c$。这来自其未来世界线不断趋近一条光状渐近线。若飞船后来停机或转向，未来轨迹改变，不能继续使用永久加速的信号边界。
+\end{solution}
+
+\begin{exercise}\label{ex:m2labconstant}
+光子火箭从静止出发，按初始实验室时间计算的后向光功率恒为$P$。求火箭剩余静质量和速度随实验室时间的变化，并与恒固有功率模型区分。初始质量$M_0$。
+\Diagram{fig:m2labconstantq}{功率固定在同一实验室中定义}{\draw[curve](2,0)rectangle(4,1);\draw[->](1.8,.5)--(.1,.5)node[above]{$P$实验室};\draw[->](4.2,.5)--(5.7,.5)node[above]{$v(t)$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2labconstantq}截至时间$t$发出的总光能$Pt$、总后向动量$-Pt/c$。全系统守恒给飞船总能量$E=M_0c^2-Pt$、动量$p=Pt/c$。令$s=Pt/(M_0c^2)$，质壳关系得到
+\[
+ m=M_0\sqrt{1-2s},\qquad \beta=\frac{pc}E=\frac s{1-s},\quad 0\leq s<1/2.
+\]
+实际还须在$m$达到干质量时停机，不能把$m=0$极限当有质量飞船状态。
+\Diagram{fig:m2labconstanta}{实验室定功率与固有定功率对应不同质量时间关系}{\draw[axis](0,0)--(4.4,0)node[right]{$s$};\draw[axis](0,0)--(0,2.8)node[above]{$m/M_0$};\draw[curve,domain=0:.499,samples=90]plot({7*\x},{2.3*sqrt(1-2*\x)});\node[below]at(3.5,0){$1/2$};\node[left]at(0,2.3){$1$};}
+图\ref{fig:m2labconstanta}的质量不是实验室时间的线性函数。由$P=P_*(1-\beta)$，所需固有功率$P_*=P(1-s)/(1-2s)$会增大。固有时间满足$\dd\tau=\sqrt{1-2s}\dd t/(1-s)$。令$K=M_0c^2/P$、$w=\sqrt{1-2s}$，则$\dd t=K\dd s=-Kw\dd w$、$1-s=(1+w^2)/2$，所以
+\[
+ \tau=-2K\int_1^w\frac{q^2}{1+q^2}\dd q
+ =-2K[q-\arctan q]_1^w.
+\]
+代入上下限，得到
+\[
+ \tau=\frac{2M_0c^2}P\left[1-w+\arctan w-\frac\pi4\right].
+\]
+在$t=0$有$w=1,\tau=0$。可见恒功率条件随参考系而变。固有功率恒定时采用$m=M_0-P_*\tau/c^2$，对应另一种推进程序。
+\end{solution}

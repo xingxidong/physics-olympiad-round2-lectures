@@ -1,0 +1,91 @@
+\section{谱线形状、相位扩散与色散包络}
+\subsection{相位扩散对应Lorentz线形}
+在$D\ll\omega_0$的窄带近似下，用$E(t)=E_0\exp[-\mathrm i\omega_0t+\mathrm i\varphi(t)]$表示幅度近乎恒定、相位缓慢扩散的场。设相位增量为均值零的高斯变量，$\langle[\varphi(t+\tau)-\varphi(t)]^2\rangle=2D|\tau|$，初相位在整周均匀分布。高斯平均给
+\[
+ \langle\ee^{\mathrm i[\varphi(t+\tau)-\varphi(t)]}\rangle
+ =\ee^{-D|\tau|}.
+\]
+高斯平均可由习题\ref{ex:o2phaseerror}的特征函数推导核对：在其中取方差$s^2=2D|\tau|$、$k=1$。于是归一化场相关函数含$\ee^{-D|\tau|}\ee^{-\mathrm i\omega_0\tau}$。令$\Omega=\omega-\omega_0$，其傅里叶积分按正负时间分开：
+\begin{align*}
+ S(\omega)&=\frac1{2\pi}\left[
+ \int_{-\infty}^0\ee^{(D+\mathrm i\Omega)\tau}\dd\tau
+ +\int_0^\infty\ee^{(-D+\mathrm i\Omega)\tau}\dd\tau\right]\\
+ &=\frac1{2\pi}\left[
+ \frac{\ee^{(D+\mathrm i\Omega)\tau}}{D+\mathrm i\Omega}\right]_{-\infty}^0
+ +\frac1{2\pi}\left[
+ \frac{\ee^{(-D+\mathrm i\Omega)\tau}}{-D+\mathrm i\Omega}\right]_0^\infty\\
+ &=\frac1{2\pi}\left(\frac1{D+\mathrm i\Omega}
+ +\frac1{D-\mathrm i\Omega}\right).
+\end{align*}
+通分后得到归一化角频率谱
+\[
+ S(\omega)=\frac{D}{\pi[(\omega-\omega_0)^2+D^2]}.
+\]
+角频率半高全宽为$2D$，普通频率半高全宽为$\Delta\nu=D/\pi$。等强两臂的可见度为$\ee^{-D|\tau|}$，不存在矩形谱那样的有限首零点。若将相干长度定义为可见度降至$1/\ee$的光程差，则$L_c=c/D=c/(\pi\Delta\nu)$。定义换为半高宽时常数会改变，应连同定义一起报告。
+
+\begin{example}光源线宽与扫描曝光共同降低可见度
+等强双臂干涉仪采用上述相位扩散光源，中心波长$600\,\mathrm{nm}$，谱线全宽$\Delta\nu=3.0\,\mathrm{MHz}$。两臂光程差$10\,\mathrm m$。扫描镜以$30\,\mu\mathrm{m/s}$匀速运动，使往返光程差以$2v$改变，曝光时间为$5.0\,\mathrm{ms}$。在曝光期间相关包络近似不变，求记录的条纹可见度。
+\ExpansionDiagram{fig:dep-o2-diffusion-q}{扫描镜改变载波相位，光源线宽另行决定延迟相关包络}{
+\draw[->](-1.8,0)--(-.25,0);\draw[thick](-.2,-.2)--(.2,.2);\draw[->](0,.2)--(0,2);\draw[->](.12,2)--(.12,.2);\draw[very thick](-.4,2)--(.5,2)node[right]{固定镜};\draw[->](.25,0)--(4,0);\draw[->](4,-.12)--(.2,-.12);\draw[very thick](4,-.6)--(4,.6);\draw[->](4,.9)--(5.2,.9)node[right]{$v$};\draw[->](0,-.3)--(0,-1.5)node[below]{记录点};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o2-diffusion-q}中静止光程差给$\tau=10/c$，所以包络因子为$\exp[-\pi\Delta\nu\,10/c]=\exp(-\pi/10)\simeq0.7304$，取$c=3.0\times10^8\,\mathrm{m/s}$。
+
+镜面移动使相位角速度$\Omega_s=4\pi v/\lambda$。在以曝光中点为原点的时间区间内平均余弦，
+\[
+ \frac1{T_e}\int_{-T_e/2}^{T_e/2}\cos(\phi_0+\Omega_st)\dd t
+ =\left[\frac{\sin(\phi_0+\Omega_st)}{\Omega_sT_e}\right]_{-T_e/2}^{T_e/2}
+ =\operatorname{sinc}(\Omega_sT_e/2)\cos\phi_0.
+\]
+本题$\Omega_sT_e/2=2\pi vT_e/\lambda=\pi/2$，所以记录可见度为
+\[
+ \mathcal V=\ee^{-\pi/10}\frac2\pi\simeq0.4650.
+\]
+\ExpansionDiagram{fig:dep-o2-diffusion-a}{可见度的两个独立因子：延迟包络与曝光平均}{
+\node[draw]at(0,0){$0.7304$};\node at(1.5,0){$\times$};\node[draw]at(3,0){$2/\pi$};\node at(4.5,0){$=$};\node[draw]at(6,0){$0.4650$};\node[below]at(0,-.4){谱线宽度};\node[below]at(3,-.4){扫描曝光};}
+图\ref{fig:dep-o2-diffusion-a}中的两项分别来自不同平均。本题曝光内包络变化参数$D(2vT_e/c)$远小于1，可以近似相乘；若这个量不可略，应把随时间改变的相关包络一并放入曝光积分。减小曝光时间只能改善后一项，不能恢复已经因长光程差而失去的时间相干性。
+\end{solution}
+
+\subsection{群光程决定包络，中心相位决定细条纹}
+白光或短脉冲干涉中，两臂相位差通常依赖频率。设中心频率附近$\Omega=\omega-\omega_0$，相位展开为
+\[
+ \phi(\omega)=\phi_0+\tau_g\Omega+\tfrac12D_2\Omega^2,
+\]
+入射功率谱的归一化形状为$\exp[-\Omega^2/(2\sigma_\omega^2)]/(\sqrt{2\pi}\sigma_\omega)$。取$\sigma_\omega\ll\omega_0$，将偏移频率积分延伸到整个实轴。复干涉项是$\langle\ee^{\mathrm i\phi(\omega)}\rangle$。记$a=(1-\mathrm iD_2\sigma_\omega^2)/(2\sigma_\omega^2)$、$b=\mathrm i\tau_g$，则$\operatorname{Re}a>0$，并有
+\[
+ \Gamma=\frac{\ee^{\mathrm i\phi_0}}{\sqrt{2\pi}\sigma_\omega}
+ \int_{-\infty}^{\infty}\ee^{-a\Omega^2+b\Omega}\dd\Omega
+ =\frac{\ee^{\mathrm i\phi_0}}{\sqrt{2\pi}\sigma_\omega}
+ \sqrt{\frac\pi a}\ee^{b^2/(4a)}.
+\]
+最后一步使用式\eqref{eq:o1gaussintegral}已推导的积分。代入$a,b$，得
+\[
+ \Gamma=\frac{\ee^{\mathrm i\phi_0}}{\sqrt{1-\mathrm iD_2\sigma_\omega^2}}
+ \exp\!\left[-\frac{\sigma_\omega^2\tau_g^2}
+ {2(1-\mathrm iD_2\sigma_\omega^2)}\right].
+\]
+平方根取在$D_2=0$处连续为1的分支。模为
+\[
+ |\Gamma|=[1+(D_2\sigma_\omega^2)^2]^{-1/4}
+ \exp\!\left[-\frac{\sigma_\omega^2\tau_g^2}
+ {2[1+(D_2\sigma_\omega^2)^2]}\right].
+\]
+二阶色散使包络展宽、峰值降低。包络最大值位于$\tau_g=0$，细条纹相位却还含有$\phi_0$和积分产生的附加相位，因此包络峰的位置一般不等于中心频率的零程差位置。
+
+\begin{example}插入色散片后应补偿哪一种光程
+单程双臂干涉仪在一臂垂直插入厚度$l$、折射率$n(\omega)$的透明片，另一臂增加空气光程$x$。忽略反射，近中心频率相位差为$\phi(\omega)=\omega[l(n(\omega)-1)-x]/c$。求使相关包络最大的一阶补偿量，与使中心相位为零的补偿量比较。
+\ExpansionDiagram{fig:dep-o2-group-q}{一臂色散片、另一臂空气光程补偿}{
+\draw(0,0)--(1,1.2)--(4,1.2)--(5,0);\draw(0,0)--(1,-1.2)--(4,-1.2)--(5,0);\draw[fill=gray!15](2.2,.9)rectangle(2.6,1.5);\node[above]at(2.4,1.6){$l,n(\omega)$};\node[below]at(2.5,-1.3){空气补偿$x$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o2-group-q}的中心相位为$\phi_0=\omega_0[l(n_0-1)-x]/c$。对完整的$\omega n(\omega)$求导，
+\[
+ \tau_g=\left.\frac{\dd\phi}{\dd\omega}\right|_{\omega_0}
+ =\left.\frac{l[n(\omega)-1]-x+\omega l n'(\omega)}c\right|_{\omega_0}
+ =\frac{l[n_0+\omega_0n'_0-1]-x}{c}.
+\]
+因此包络最大要求$x_g=l(n_g-1)$，其中$n_g=n_0+\omega_0n'_0$；中心频率相位恰为零则要求$x_p=l(n_0-1)$。两者差为$x_g-x_p=l\omega_0n'_0$。
+\ExpansionDiagram{fig:dep-o2-group-a}{细条纹位于相关包络之内，零载波相位不必位于包络中心}{
+\draw[->](0,0)--(7,0)node[right]{$x$};\draw[thick,domain=.1:6.6,samples=130]plot(\x,{1.2*exp(-.35*(\x-3.8)^2)});\draw[dashed,domain=.1:6.6,samples=200]plot(\x,{1.2*exp(-.35*(\x-3.8)^2)*cos(600*(\x-2.5))});\draw[dotted](2.5,-1.2)--(2.5,1.6)node[above]{$x_p$};\draw[dotted](3.8,-1.2)--(3.8,1.6)node[above]{$x_g$};}
+图\ref{fig:dep-o2-group-a}示意两种中心的位置，细条纹的精确位置还由谱积分相位决定。忽略色散$n'_0=0$时，两种补偿相同。二阶色散显著时，改变$x$只调整常数项和一次频率项，$D_2$仍然保留；恢复原有峰值需要另一种材料或其他色散补偿，增加采样密度对这一展宽没有作用。
+\end{solution}

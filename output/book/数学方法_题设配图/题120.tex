@@ -1,0 +1,4 @@
+% 题设配图；与紧随其后的解答分别编号。
+\ExpansionDiagram{fig:audit-m-q-120}{70 Hz正弦的两种采样记录：实心点100 Hz，空心点120 Hz}{
+\draw[->](-.4,0)--(6.8,0)node[right]{$ t/(10\,{\rm ms}) $};\draw[->](0,-1.8)--(0,1.8)node[above]{$ s $};\draw[thick,domain=0:6,samples=300]plot(\x,{sin(252*\x)});\foreach \x in {0,1,2,3,4,5,6}{\fill(\x,{sin(252*\x)})circle(1.8pt);}\foreach \x in {0,.833333,1.666667,2.5,3.333333,4.166667,5,5.833333}{\draw[fill=white](\x,{sin(252*\x)})circle(2.7pt);}\foreach \x in {1,2,3,4,5,6}{\draw(\x,-.1)--(\x,.1)node[below]{$\x$};}
+}

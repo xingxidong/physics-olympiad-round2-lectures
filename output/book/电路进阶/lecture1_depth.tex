@@ -1,0 +1,77 @@
+\providecommand{\ExpansionDiagram}[3]{\begin{figure}[H]\centering\begin{tikzpicture}#3\end{tikzpicture}\caption{#2}\label{#1}\end{figure}}
+\section{横向电场与张量形式的欧姆定律}
+\subsection{稳恒电流的方向由边界共同决定}
+标量关系$\vct j=\sigma\vct E$适合各向同性、无磁场的简单导体。在磁场中，横向边界会积累电荷，使稳恒横向电流为零；电场却一般不再与电流平行。设单一载流子电量为有符号的$q$、数密度$n$、平均漂移速度$\vct v$，弛豫时间$\tau$。稳恒Drude方程为
+\[
+ 0=q(\vct E+\vct v\times\vct B)-m\vct v/\tau.
+\]
+用$\vct j=nq\vct v$消去速度，得到电阻率形式
+\[
+ \vct E=\rho_0\vct j+R_H\vct B\times\vct j,
+ \qquad \rho_0=\frac{m}{nq^2\tau}>0,\quad R_H=\frac1{nq}.
+\]
+若$\vct B=B\hat{\vct z}$，则
+\[
+ \begin{pmatrix}E_x\\E_y\end{pmatrix}
+ =\begin{pmatrix}\rho_0&-R_HB\\R_HB&\rho_0\end{pmatrix}
+ \begin{pmatrix}j_x\\j_y\end{pmatrix}.
+\]
+侧面绝缘给$j_y=0$，而不是$E_y=0$。因此$E_x=\rho_0j_x$、$E_y=R_HBj_x$。点乘$\vct j$后反对称项消失，$\vct j\cdot\vct E=\rho_0j^2$；霍尔场不增加该模型的焦耳发热，但会改变电位分布。多种载流子同时存在时，$R_H=1/(nq)$一般失效，必须先把各载流子的电流贡献相加。
+
+\begin{example}[用带符号的横向电压识别载流子]
+长条样品长$L=0.10\,\mathrm m$、宽$w=0.010\,\mathrm m$、厚$t=0.0010\,\mathrm m$。电流$I=2.0\,\mathrm A$沿$+x$，磁场$B=0.50\,\mathrm T$沿$+z$。测得纵向电压降$U_L=0.40\,\mathrm{mV}$，横向电压$U_H=\phi(y=w)-\phi(y=0)=+6.25\,\mu\mathrm V$。按单载流子模型求$q$符号、数密度及电阻率。取$|q|=1.60\times10^{-19}\,\mathrm C$。
+\ExpansionDiagram{fig:dep-c1-hall-q}{电流向右、磁场朝纸外，横向电压按上减下定义}{
+\draw(0,0)rectangle(5,1.7);\draw[->,thick](1,.85)--(4,.85)node[midway,above]{$I$};\draw(2.5,2.4)circle(.15);\fill(2.5,2.4)circle(1pt)node[right=6pt]{$B$};\node[left]at(0,1.7){$y=w$};\node[left]at(0,0){$y=0$};\draw[<->](5.5,0)--(5.5,1.7)node[midway,right]{$w$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-c1-hall-q}中$U_H=-E_yw$，而$j_x=I/(wt)$，所以
+\[
+ U_H=-R_H\frac{IB}{t}=-\frac{IB}{nqt}.
+\]
+测得$U_H>0$且$I,B>0$，故$q<0$。数密度为
+\[
+ n=\frac{IB}{|q|tU_H}
+ =\frac{1.0}{(1.60\times10^{-19})(10^{-3})(6.25\times10^{-6})}
+ =1.00\times10^{27}\,\mathrm{m^{-3}}.
+\]
+纵向关系给$\rho_0=U_Lwt/(IL)=2.00\times10^{-8}\,\Omega\,\mathrm m$。再由$E_y=-U_H/w$、$E_x=U_L/L$，得到$E_y/E_x=-0.15625$。
+\ExpansionDiagram{fig:dep-c1-hall-a}{负载流子向左漂移，稳恒横向电场指向下方}{
+\draw(0,0)rectangle(5,1.7);\draw[->](1,1.1)--(3.8,1.1)node[right]{$j_x$};\draw[->](3.8,.6)--(1,.6)node[left]{$v_x$};\draw[->,thick](5.8,1.6)--(5.8,.2)node[right]{$E_y<0$};\node[above]at(2.5,1.7){电势较高};\node[below]at(2.5,0){电势较低};}
+图\ref{fig:dep-c1-hall-a}中电子漂移方向与常规电流相反。稳恒时横向电场力抵消磁力，所以没有持续穿过绝缘侧壁的电流。横向电压的正负只有连同端点定义、磁场方向和电流方向才有意义；若交换电压表引线，推断的符号也必须随之交换。
+\end{solution}
+
+\subsection{各向异性也能产生横向电压}
+无磁场时，若材料主轴电阻率为$\rho_1,\rho_2$，第一主轴与条形样品的$x$轴成$\alpha$角，旋转矩阵给
+\[
+ \rho_{xx}=\rho_1\cos^2\alpha+\rho_2\sin^2\alpha,
+ \quad\rho_{yx}=(\rho_1-\rho_2)\sin\alpha\cos\alpha.
+\]
+在侧壁绝缘、远离接触端的均匀区仍有$j_y=0$，但$E_y=\rho_{yx}j_x$可以非零。这个横向电场在反向磁场时不改变符号，霍尔项则随$B$反号。若同一电流下分别测$U_H(B),U_H(-B)$，其差的一半提取奇磁场部分，和的一半保留偶磁场部分。此法还需假定样品在测量期间没有不可逆磁性变化。
+
+\begin{example}[旋转主轴的电阻条]
+一各向异性薄条的主轴电阻率满足$\rho_2=4\rho_1$，第一主轴与条长方向成$45^\circ$，无磁场。取均匀区$j_y=0$，求$E_y/E_x$及单位体积发热率，说明横向电场是否代表侧向漏电。
+\ExpansionDiagram{fig:dep-c1-aniso-q}{主轴斜置于条形边界中，边界限制的是电流法向分量}{
+\draw(0,0)rectangle(5,2);\draw[->](1,.5)--(3,2.5)node[above]{$\rho_1$轴};\draw[->](1,.5)--(4,.5)node[right]{$x$};\draw[->](.5,1.3)--(4.5,1.3)node[right]{$j_x$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-c1-aniso-q}中取两主轴单位矢量为
+$\vct e_1=(\cos\alpha,\sin\alpha)$、$\vct e_2=(-\sin\alpha,\cos\alpha)$。
+因为$\vct j=(j_x,0)$，主轴分量是$j_1=j_x\cos\alpha$、$j_2=-j_x\sin\alpha$。
+先在主轴系使用$E_i=\rho_i j_i$，再投回条形坐标，得到
+\[
+ \begin{aligned}
+ E_x&=\rho_1j_1\cos\alpha-\rho_2j_2\sin\alpha
+ =j_x(\rho_1\cos^2\alpha+\rho_2\sin^2\alpha),\\
+ E_y&=\rho_1j_1\sin\alpha+\rho_2j_2\cos\alpha
+ =j_x(\rho_1-\rho_2)\sin\alpha\cos\alpha.
+ \end{aligned}
+\]
+代入$\sin\alpha=\cos\alpha=1/\sqrt2$、$\rho_2=4\rho_1$，即有$\rho_{xx}=5\rho_1/2$、$\rho_{yx}=-3\rho_1/2$。因此
+\[
+ \frac{E_y}{E_x}=-\frac35,\qquad
+ p=\vct j\cdot\vct E=j_xE_x=\frac52\rho_1j_x^2>0.
+\]
+\ExpansionDiagram{fig:dep-c1-aniso-a}{电场倾斜、电流水平，两者不必平行}{
+\draw[->](0,0)--(4,0)node[right]{$\vct j$};\draw[->,thick](0,0)--(3,-1.8)node[right]{$\vct E$};\draw[dashed](3,0)--(3,-1.8)--(0,-1.8);\node[left]at(0,-1.8){$E_y$};\node[above]at(3,0){$E_x$};}
+图\ref{fig:dep-c1-aniso-a}中的边界电荷建立了斜电场，电流仍沿条长，侧面没有漏电。这里的电阻率张量是对称的，在主轴方向上对应不同的耗散系数，与霍尔效应的反对称项有别。端口电阻须由材料张量和绝缘边界共同确定，先求电位分布，再计算总电流。
+\end{solution}

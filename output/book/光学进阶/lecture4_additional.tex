@@ -1,0 +1,9 @@
+\begin{exercise}\label{ex:o4compensator}
+完全偏振光Jones矢量为$(1,2\ee^{i\pi/3})^{\mathsf T}$。只允许转动一块四分之一波片，求可使出射成为线偏振的轴方向，并给出线偏振输出与椭圆主轴的关系。
+\Diagram{fig:o4compq}{先由椭圆主轴确定补偿波片的本征轴}{\draw[axis](-1.8,0)--(2,0)node[right]{$x$};\draw[axis](0,-2.2)--(0,2.4)node[above]{$y$};\draw[curve,domain=0:360,samples=100]plot({cos(\x)},{2*cos(\x-60)});\node[right]at(1.5,1.7){待补偿};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4compq}有$a=1,b=2,\delta=\pi/3$。主轴角满足$\tan2\psi=-2/3$，用$\operatorname{atan2}(2,-3)$选长轴，$\psi\simeq73.155^\circ$。长短半轴平方为$A^2=(5+\sqrt{13})/2$、$B^2=(5-\sqrt{13})/2$。
+\Diagram{fig:o4compa}{快慢轴对准长短轴后，90度相差被补成0或180度}{\draw[axis](-2,0)--(2.4,0)node[right]{长轴$\xi$};\draw[axis](0,-1.6)--(0,2)node[above]{短轴$\eta$};\draw[curve](0,0)ellipse(1.8 and .725);\draw[very thick](-1.8,.725)--(1.8,-.725);\draw[guide](-1.8,-.725)--(1.8,.725);}
+原态$S_3>0$，在主轴基删公共相位可写$(A,iB)$。若快轴沿长轴、慢轴沿短轴，波片后为$(A,-B)$，输出线方向为$\psi-\arctan(B/A)$；若快慢互换，成为$(iA,iB)$，方向为$\psi+\arctan(B/A)$。图\ref{fig:o4compa}画出两种补偿线。因此波片快轴可沿$73.155^\circ$或其正交方向，输出方向由补偿后的两个非零分量合成，一般偏离原椭圆长轴。
+\end{solution}

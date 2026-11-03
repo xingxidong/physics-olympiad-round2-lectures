@@ -1,0 +1,103 @@
+\section{有限束缚边界与势阱的时间改变}
+\subsection{允许能量、归一化和边界外概率}
+有限势阱的束缚态在禁阻区保留指数尾部。边界处波函数及其导数的连续性决定允许能级，完整波函数的归一化再决定阱内、阱外概率。这两步应使用同一套分段解。
+
+取对称阱$|x|<a/2$内$V=0$，外侧$V=V_0$。束缚态满足$0<E<V_0$，定义$k=\sqrt{2mE}/\hbar$、$\kappa=\sqrt{2m(V_0-E)}/\hbar$。偶态写成
+\[
+ \psi(x)=\begin{cases}
+ A\cos kx,&|x|<a/2,\\
+ A\cos(ka/2)\ee^{-\kappa(|x|-a/2)},&|x|\geq a/2.
+ \end{cases}
+\]
+在右边界令导数连续，得$k\tan(ka/2)=\kappa$。奇态相应给$-k\cot(ka/2)=\kappa$。令$z=ka/2$、$z_0=a\sqrt{2mV_0}/(2\hbar)$，则$\kappa a/2=\sqrt{z_0^2-z^2}$。应在每个正切或余切分支上寻找合法交点，排除$E=V_0$时不能归一化的阈值态。
+
+偶态的归一化包含阱内余弦段和两个尾部。尾部取$s=|x|-a/2$，各自的上下限为$0,\infty$，于是
+\begin{align*}
+ A^{-2}&=\int_{-a/2}^{a/2}\cos^2kx\dd x
+ +2\cos^2(ka/2)\int_0^\infty\ee^{-2\kappa s}\dd s\\
+ &=\left[\frac x2+\frac{\sin2kx}{4k}\right]_{-a/2}^{a/2}
+ +2\cos^2(ka/2)\left[-\frac{\ee^{-2\kappa s}}{2\kappa}\right]_0^\infty\\
+ &=\frac a2+\frac{\sin ka}{2k}+\frac{\cos^2(ka/2)}\kappa.
+\end{align*}
+最后一项正是禁阻区概率的未归一化权重。$V_0$很大时$\kappa$很大，尾部减小；靠近上沿的束缚态$\kappa$很小，延伸长度$1/\kappa$可能很长，不能仅用阱内几何宽度估计波函数范围。
+
+\begin{example}一个能精确计算尾部概率的有限阱
+上述对称阱的基态满足$k=\kappa$。求所需$V_0$、基态能量、归一化常数及粒子处于阱外的概率。
+\ExpansionDiagram{fig:dep-m4-well-q}{有限方势阱的宽度与基态能级，阱内势取零}{
+\draw[->](-3,0)--(3.2,0)node[right]{$x$};\draw[thick](-3,2)--(-1,2)--(-1,0)--(1,0)--(1,2)--(3,2);\draw[dashed](-2.8,1)--(2.8,1)node[right]{$E$};\node[above]at(2,2){$V_0$};\node[below]at(-1,0){$-a/2$};\node[below]at(1,0){$a/2$};}
+\end{example}
+\begin{solution}
+基态没有内部节点，$0<ka/2<\pi/2$。由$k\tan(ka/2)=\kappa=k$，得$ka/2=\pi/4$，所以$k=\kappa=\pi/(2a)$。于是
+\[
+ E=\frac{\pi^2\hbar^2}{8ma^2},\qquad
+ V_0-E=E,\qquad V_0=\frac{\pi^2\hbar^2}{4ma^2}.
+\]
+图\ref{fig:dep-m4-well-q}中的能级恰在阱深一半，但不能由这个条件直接猜测阱外概率也为一半。代入归一化公式，$\sin ka=1$、$\cos^2(ka/2)=1/2$，得
+\[
+ A^{-2}=\frac a2+\frac a\pi+\frac a\pi
+ =\frac{a(\pi+4)}{2\pi},\qquad
+ A=\sqrt{\frac{2\pi}{a(\pi+4)}}.
+\]
+\ExpansionDiagram{fig:dep-m4-well-a}{波函数的余弦段与指数尾部在边界平滑接续}{
+\draw[->](-3,0)--(3.2,0)node[right]{$x/(a/2)$};\draw[thick,domain=-1:1,samples=80]plot(\x,{1.8*cos(45*\x)});\draw[thick,domain=1:3,samples=60]plot(\x,{1.8/sqrt(2)*exp(-pi*(\x-1)/4)});\draw[thick,domain=-3:-1,samples=60]plot(\x,{1.8/sqrt(2)*exp(pi*(\x+1)/4)});\draw[dashed](-1,0)--(-1,2);\draw[dashed](1,0)--(1,2);\draw[->](-3,0)--(-3,2.4)node[above]{$\psi/A$};\draw(-3.06,1.8)--(-2.94,1.8);\node[left]at(-3,1.8){$1$};\foreach \x in{-1,0,1}{\draw(\x,-.04)--(\x,.04);\node[below]at(\x,0){$\x$};}}
+由图\ref{fig:dep-m4-well-a}两侧尾部积分，
+\[
+ P_{\rm out}=A^2\frac{\cos^2(ka/2)}\kappa
+ =\frac{2}{\pi+4}\simeq0.2800.
+\]
+所以约28\%概率位于经典禁阻区。这里“禁阻”指经典动能$E-V_0<0$，并不要求量子波函数严格为零。若只在阱内归一化，会把所有局部概率密度都高估。
+\end{solution}
+
+\subsection{突然改变与缓慢改变使用不同的接续条件}
+势阱宽度缓慢改变时，满足绝热条件的非简并本征态沿同一能级分支演化；突然改变时，波函数来不及改变，应把原波函数投影到新本征态。两者都需要初态和改变方式，不能只因初末几何宽度相同便使用同一能量公式。
+
+\begin{example}无限深阱突然加宽为两倍
+粒子最初处于$0<x<L$无限深阱基态。右壁瞬间移到$2L$，左壁不动。求改变后各能级的概率、能量期望，并与缓慢加宽的结果比较。取瞬间改变为理想极限，外部势在新增区间中直接降为零。
+\ExpansionDiagram{fig:dep-m4-sudden-q}{右壁移开的一瞬间，原波函数在新增区间仍为零}{
+\draw[->](0,0)--(6,0)node[right]{$x$};\draw[very thick](.5,0)--(.5,2);\draw[dashed,very thick](3,0)--(3,2);\draw[very thick](5.5,0)--(5.5,2);\draw[thick,domain=.5:3,samples=70]plot(\x,{1.5*sin(180*(\x-.5)/2.5)});\draw[thick](3,0)--(5.5,0);\node[below]at(3,0){$L$};\node[below]at(5.5,0){$2L$};\draw[->](3,2.3)--(5.5,2.3);}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-m4-sudden-q}给定瞬间波函数：$\psi=\sqrt{2/L}\sin(\pi x/L)$于$0<x<L$，在$L<x<2L$为零。新阱归一化本征函数为$\phi_k=L^{-1/2}\sin(k\pi x/(2L))$，能级为$E_k'=k^2\pi^2\hbar^2/(8mL^2)$。系数
+\[
+ c_k=\frac{\sqrt2}{L}\int_0^L\sin\frac{\pi x}{L}
+ \sin\frac{k\pi x}{2L}\dd x.
+\]
+对$k\ne2$，先使用$\sin a\sin b=[\cos(a-b)-\cos(a+b)]/2$，再分别积分：
+\begin{align*}
+ c_k&=\frac{\sqrt2}{2L}\int_0^L
+ \left[\cos\frac{(2-k)\pi x}{2L}-\cos\frac{(2+k)\pi x}{2L}\right]\dd x\\
+ &=\frac{\sqrt2}{\pi}
+ \left[\frac{\sin((2-k)\pi x/(2L))}{2-k}
+ -\frac{\sin((2+k)\pi x/(2L))}{2+k}\right]_0^L\\
+ &=\frac{\sqrt2}{\pi}\sin\frac{k\pi}{2}
+ \left(\frac1{2-k}+\frac1{2+k}\right).
+\end{align*}
+这里用了$\sin(\pi-k\pi/2)=\sin(k\pi/2)$、$\sin(\pi+k\pi/2)=-\sin(k\pi/2)$，下端点两项均为零。因此
+\[
+ c_k=\frac{4\sqrt2\sin(k\pi/2)}{\pi(4-k^2)}.
+\]
+$k=2$时应直接积分两个相同的正弦函数：
+\[
+ c_2=\frac{\sqrt2}{L}\int_0^L\sin^2\frac{\pi x}{L}\dd x
+ =\frac{\sqrt2}{L}\left[\frac x2-\frac{L}{4\pi}\sin\frac{2\pi x}{L}\right]_0^L
+ =\frac1{\sqrt2}.
+\]
+其余偶数$k$的系数为零，奇数$k$则
+\[
+ P_k=|c_k|^2=\frac{32}{\pi^2(4-k^2)^2},
+ \qquad P_2=\frac12.
+\]
+\ExpansionDiagram{fig:dep-m4-sudden-a}{突然加宽后能量测量分布在多个新能级上}{
+\draw[->](0,0)--(7,0)node[right]{$k$};\draw[->](0,0)--(0,3.5)node[above]{$P_k$};\draw[very thick](1,0)--(1,2.16);\draw[very thick](2,0)--(2,3);\draw[very thick](3,0)--(3,.78);\draw[very thick](5,0)--(5,.044);\draw[dashed](0,3)--(2,3);\node[left]at(0,3){$1/2$};\node[below]at(1,0){1};\node[below]at(2,0){2};\node[below]at(3,0){3};\node[below]at(5,0){5};}
+图\ref{fig:dep-m4-sudden-a}以同一纵向比例画前几个概率，其中$P_1=32/(9\pi^2)\simeq0.3603$、$P_3=32/(25\pi^2)\simeq0.1297$。其总和为1，由新本征函数的完备性和初态归一化保证。
+
+能量期望可直接用动能二次型，无需逐项硬求级数：
+\begin{align*}
+ \langle E'\rangle&=\frac{\hbar^2}{2m}\int_0^{2L}|\psi'(x)|^2\dd x
+ =\frac{\pi^2\hbar^2}{mL^3}\int_0^L\cos^2\frac{\pi x}{L}\dd x\\
+ &=\frac{\pi^2\hbar^2}{mL^3}
+ \left[\frac x2+\frac{L}{4\pi}\sin\frac{2\pi x}{L}\right]_0^L\\
+ &=\frac{\pi^2\hbar^2}{2mL^2}=E_{1,\rm old}.
+\end{align*}
+瞬间移去远侧势垒没有改变原波函数的动能期望；之后波包由多个新定态叠加演化。若缓慢加宽且保持基态分支，末态只有$k=1$，能量为原来的$1/4$，能量差由移动壁面的做功带走。突然加宽后的测量结果虽然包含低能级，也包含更高能级，不能只取最可能能级代替平均能量。
+\end{solution}

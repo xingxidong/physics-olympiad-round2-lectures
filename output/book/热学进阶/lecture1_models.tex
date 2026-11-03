@@ -1,0 +1,259 @@
+\section{碰撞抽样与运动边界的进一步应用}
+同一气体的体内样本、穿孔样本和碰撞样本具有不同的速率权重。体内样本按粒子数计数；穿孔和碰撞则按单位时间发生的事件计数，要在体内密度上乘相应的相对通量，再归一化。
+
+当微观速度与宏观边界速度相差很大时，平衡压强可作为边界受力的首项；当二者可比时，要保留相对速度、入射阈值和反射规律。下面将这些条件分别展开。
+
+\begin{example}[由球坐标变换核算方向概率]
+三维速度分布各向同性，矢量密度为 $f(v)$。从球坐标的雅可比出发求 $(v,\theta,\phi)$ 的联合概率密度，证明速率与方向独立，并求 $v_z/v$ 的密度。
+\Diagram{fig:angularjacq}{球坐标中的极角、方位角和速度分量}{
+ \begin{scope}[x={(1cm,0)},y={(-.55cm,-.4cm)},z={(0,1cm)}]
+ \draw[axis](0,0,0)--(2.5,0,0)node[right]{$v_x$};\draw[axis](0,0,0)--(0,2.3,0)node[below left]{$v_y$};\draw[axis](0,0,0)--(0,0,2.7)node[above]{$v_z$};
+ \draw[axis](0,0,0)--(1.448,1.014,1.768)node[above right]{$\vct v$};
+ \draw[guide](1.448,1.014,1.768)--(1.448,1.014,0);\draw[guide](0,0,0)--(1.448,1.014,0);
+ \draw[curve]plot[domain=0:45]({.75*sin(\x)*cos(35)},{.75*sin(\x)*sin(35)},{.75*cos(\x)});
+ \node at(.5,.15,.9){$\theta$};
+ \draw[curve]plot[domain=0:35]({.8*cos(\x)},{.8*sin(\x)},0);\node at(.95,.35,0){$\phi$};
+ \end{scope}
+}
+\end{example}
+\begin{solution}
+图\ref{fig:angularjacq}的坐标变换为 $v_x=v\sin\theta\cos\phi$、$v_y=v\sin\theta\sin\phi$、$v_z=v\cos\theta$。三个坐标微元方向彼此正交，其长度分别为 $\dd v$、$v\dd\theta$、$v\sin\theta\dd\phi$，故体积元为 $v^2\sin\theta\dd v\dd\theta\dd\phi$。于是
+\[
+ \dd P=f(v)v^2\dd v\sin\theta\dd\theta\dd\phi
+ =g(v)\dd v\frac{\sin\theta\dd\theta\dd\phi}{4\pi}.
+\]
+右侧两个因子分别归一化，故速率与方向独立。方位角均匀分布；极角则按球带面积取权，密度为 $q(\theta)=\sin\theta/2$。
+方向分布的归一化由$[\phi]_0^{2\pi}=2\pi$和$[-\cos\theta]_0^\pi=2$给出。令$\mu_z=\cos\theta=v_z/v$，则$|\dd\mu_z|=\sin\theta\dd\theta$，所以$\mu_z$在$[-1,1]$上有均匀密度$q_\mu=1/2$。其前两个矩为
+\[
+ \langle\mu_z\rangle=\frac12\left[\frac{\mu_z^2}{2}\right]_{-1}^1=0,
+ \qquad \langle\mu_z^2\rangle=\frac12\left[\frac{\mu_z^3}{3}\right]_{-1}^1=\frac13.
+\]
+一阶矩为零说明没有优选方向；二阶矩$1/3$使速度平方的平均值均分到三个坐标方向。
+
+\Diagram{fig:angularjaca}{相等极角宽度的球带面积不同}{
+ \draw[curve](0,0)circle(1.6);\draw[curve](-1.6,0)--(1.6,0);\draw[guide](-1.38,.8)--(1.38,.8);\draw[guide](-.7,1.44)--(.7,1.44);\node[right]at(2,1){球带面积 $2\pi v^2\sin\theta\dd\theta$};
+}
+图\ref{fig:angularjaca}的球带面积随$\theta$变化。各向同性对应等立体角等概率；若把极角本身误设为均匀分布，便会得到错误的$\langle\cos^2\theta\rangle=1/2$。
+\end{solution}
+
+\begin{example}[固定速度粒子的相对碰撞频率]
+背景气体分子速度大小均为 $w$，方向各向同性，数密度 $n$。一个试探粒子以固定速度大小 $v$ 运动，与背景粒子的硬球截面为常量 $\sigma$。求角度平均相对速率和试探粒子碰撞频率；分别讨论 $v>w$、$v<w$。
+\Diagram{fig:fixedrelativeq}{固定试探速度与背景方向之间的夹角}{
+ \draw[axis](0,0)--(3.2,0)node[right]{$\vct v$};\draw[axis](0,0)--(1.4,1.8)node[above]{$\vct w$};\draw[axis](1.4,1.8)--(3.2,0)node[midway,right]{$\vct v-\vct w$};\node at(.8,.35){$\theta$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:fixedrelativeq}中 $u=\sqrt{v^2+w^2-2vw\cos\theta}$。由于 $\cos\theta$ 在 $[-1,1]$ 上均匀，
+\[
+ \bar u(v,w)=\frac12\int_{-1}^1\sqrt{v^2+w^2-2vw\mu}\dd\mu.
+\]
+代换 $z=v^2+w^2-2vw\mu$，$\dd\mu=-\dd z/(2vw)$，积分端点为 $(v-w)^2$ 与 $(v+w)^2$，所以
+\[
+\begin{aligned}
+\bar u(v,w)&=\frac1{4vw}\int_{(v-w)^2}^{(v+w)^2}\sqrt z\dd z
+=\frac1{4vw}\left[\frac23z^{3/2}\right]_{(v-w)^2}^{(v+w)^2}\\
+&=\frac{(v+w)^3-|v-w|^3}{6vw}.
+\end{aligned}
+\]
+当$v>w>0$时，分子为$(v+w)^3-(v-w)^3=6v^2w+2w^3$；当$w>v>0$时，交换$v,w$即可。因此
+\[\bar u(v,w)=\begin{cases}
+v+w^2/(3v),&v\ge w>0,\\
+w+v^2/(3w),&w\ge v>0.
+\end{cases}\]
+某一速率为零时取连续极限，分别为$\bar u(v,0)=v$和$\bar u(0,w)=w$；两者都为零时碰撞率为零。
+同一变量变换也给出相对速率的允许区间：两速度平行时相对速率最小，反平行时最大，即 $|v-w|\le u\le v+w$。由 $2u\dd u=-2vw\dd\mu$，得到方向样本的密度 $q(u)=u/(2vw)$。积分区间的两端平方相差 $4vw$，因而该密度归一化。碰撞率还要再乘一个 $u$，所以即使背景速度大小固定，接近反向运动的粒子对也会在碰撞事件中占更高权重。
+
+\Diagram{fig:fixedrelativea}{两种速度大小次序给出分段表达}{
+ \node[draw,align=center]at(0,0){$v\ge w$\\$v+w^2/(3v)$};\node[draw,align=center]at(4.6,0){$w\ge v$\\$w+v^2/(3w)$};\node at(2.3,-1){$z(v)=n\sigma\bar u(v,w)$};
+}
+展开立方即得图\ref{fig:fixedrelativea}的分段式。在 $v=w$ 时两式均为 $4v/3$，连续衔接；$v\to0$ 时结果为 $w$，快速试探粒子 $v\gg w$ 时趋于 $v$。碰撞频率 $z(v)=n\sigma\bar u(v,w)$ 随试探粒子的速度而变。对 Maxwell 背景，还须用背景速率密度对 $w$ 再作一次平均。
+\end{solution}
+
+\begin{example}[按碰撞事件抽样的相对能量]
+两个同温平衡组分相互独立，相对速度对应约化质量 $\mu$。碰撞截面为与速率无关的常量。求随机抽取一次碰撞时的相对速率密度、平均相对平动能，以及相对能量超过阈值 $E_a$ 的碰撞比例。
+\Diagram{fig:collisionenergyq}{一次事件的权重含有相对扫掠速度}{
+ \draw[curve](0,0)ellipse(.25 and .6);\draw[curve](0,.6)--(3,.6);\draw[curve](0,-.6)--(3,-.6);\draw[axis](.3,0)--(2.7,0)node[midway,above]{$u$};\node at(1.5,-1.1){事件率 $\propto u\sigma$};
+}
+\end{example}
+\begin{solution}
+相对速率的体样本密度为 $g_u(u)\propto u^2\ee^{-\alpha_u u^2}$，$\alpha_u=\mu/(2\kb T)$。图\ref{fig:collisionenergyq}中单位时间碰撞次数还乘 $u\sigma$，故事件样本密度为
+\[
+ g_{\rm coll}(u)=\frac{ug_u(u)}{\bar u}=2\alpha_u^2u^3\ee^{-\alpha_uu^2}.
+\]
+这与小孔泄流的速率加权结构相同，平均相对能量为 $\mu\langle u^2\rangle_{\rm coll}/2=2\kb T$。
+把速率密度变为能量密度时，$\dd E=\mu u\dd u$。因此 $u^3\dd u=u^2\dd E/\mu$，速率三次因子在能量变量中变成一次因子。尾概率的积分可用
+\[
+ \int x\ee^{-x}\dd x=-(x+1)\ee^{-x}
+\]
+计算，下限贡献 $(x_a+1)\ee^{-x_a}$，上限为零。这里是碰撞发生以后再问其中多少超过阈值，分母已经是全部碰撞次数；若从瞬时任意粒子对中抽样，则应使用未经速率加权的相对能量分布。
+
+\Diagram{fig:collisionenergya}{碰撞相对能量的归一化密度}{
+ \draw[axis](0,0)--(5,0)node[right]{$E/(\kb T)$};\draw[axis](0,0)--(0,1.5)node[above]{$\kb T h_{\rm coll}$};\draw[curve]plot[domain=0:4.6](\x,{\x*exp(-\x)});\draw[guide](2.2,0)--(2.2,.8);\node[below]at(2.2,0){$E_a/(\kb T)$};
+}
+令 $E=\mu u^2/2$，变换密度得 $h_{\rm coll}(E)=E\ee^{-E/(\kb T)}/(\kb T)^2$。图\ref{fig:collisionenergya}阈值右侧积分，令 $x=E/(\kb T)$，
+\[
+ P(E>E_a)=\int_{x_a}^\infty x\ee^{-x}\dd x=(1+x_a)\ee^{-x_a},\quad x_a=E_a/(\kb T).
+\]
+所得比例对应“总相对动能超过阈值”的判据。若反应要求沿连心线的能量超过阈值，允许的碰撞参数范围也随能量变化，须进一步对反应截面取平均，下一例讨论这一情形。
+\end{solution}
+
+\begin{example}[带能量阈值的硬球反应截面]
+两组分碰撞时，只有接触前沿两球连心线的相对动能超过 $E_a$ 才反应。硬球接触中心距为 $d$，相对速率为 $u$，碰撞参数为 $b$。求反应截面 $\sigma_r(u)$，再求同温 Maxwell 相对运动下的速率系数 $\langle\sigma_ru\rangle$。
+\Diagram{fig:lineofcentersq}{接触点\(P\)处的法向分量与碰撞参数}{
+ \draw[curve](3,0)circle(1);\draw[axis](0,.6)--(2.2,.6)node[midway,above]{$u$};
+ \draw[guide](0,0)--(3,0);\draw[<->](.4,0)--(.4,.6)node[midway,left]{$b$};
+ \draw[curve](3,0)--(2.2,.6)node[midway,below left]{$d$};\fill(2.2,.6)circle(1.1pt)node[above left]{$P$};
+ \draw[guide](2.2,.6)--(3,.6);\draw[curve](2.75,.6)arc(0:-36.87:.55);\node at(2.94,.38){$\theta$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:lineofcentersq}接触时，入射方向与连心线夹角满足 $\sin\theta=b/d$，所以法向相对能量为 $E_n=\mu u^2\cos^2\theta/2=E(1-b^2/d^2)$。反应要求 $b^2<d^2(1-E_a/E)$，且先要有 $E\ge E_a$。因此
+\[
+ \sigma_r(E)=\pi d^2\left(1-\frac{E_a}E\right),\quad E\ge E_a;
+ \qquad \sigma_r=0,\ E<E_a.
+\]
+入射中心的落点在截面平面上按面积计数，碰撞参数位于$b$到$b+\dd b$的环带面积为$2\pi b\dd b$。因此允许的截面为$\int_0^{b_{\max}}2\pi b\dd b=[\pi b^2]_0^{b_{\max}}=\pi b_{\max}^2$。阈值恰被达到时，只允许正碰这一零面积集合，截面从零连续开始；能量远大于阈值时，允许圆盘趋于整个硬球截面。下面将这个面积因子与各相对能量处的事件密度相乘。
+
+\Diagram{fig:lineofcentersa}{允许反应的碰撞参数圆盘随能量增大}{
+ \draw[curve](0,0)circle(1.4);\fill[gray!20](0,0)circle(.9);\draw[curve](0,0)circle(.9);\draw[axis](0,0)--(.9,0)node[midway,above]{$b_{\max}$};\node[right]at(1.7,0){全碰撞半径 $d$};
+}
+图\ref{fig:lineofcentersa}的有效截面已经包含碰撞几何筛选。将其乘 $u$ 后对体样本平均，也可利用上一例的事件能量密度：
+\begin{align*}
+ \langle\sigma_ru\rangle
+ &=\pi d^2\bar u\int_{E_a}^\infty
+ \left(1-\frac{E_a}E\right)\frac{E}{(\kb T)^2}\ee^{-E/(\kb T)}\dd E\\
+ &=\pi d^2\bar u\int_{x_a}^\infty(x-x_a)\ee^{-x}\dd x\\
+ &=\pi d^2\bar u[-(x+1-x_a)e^{-x}]_{x_a}^\infty
+ =\pi d^2\bar u\ee^{-x_a}.
+\end{align*}
+这里指数因子与上一例的 $(1+x_a)\ee^{-x_a}$ 不同，差别来自允许反应的碰撞参数面积随能量而变化。反应体积率为 $n_1n_2\langle\sigma_ru\rangle$，同种反应的无序对计数还须除二。
+\end{solution}
+
+\begin{example}[撞壁样本的法向与切向能量]
+壁面静止，气体处于温度 $T$ 的平衡。按撞上壁面的事件随机选一个分子，求其入射法向速度 $v_n>0$ 的密度，以及法向动能和两个切向动能的平均值。
+\Diagram{fig:wallcomponentsq}{碰撞抽样只对法向速度加权}{
+ \draw[line width=1.2pt](3,-1)--(3,1.8);\draw[axis](0,0)--(3,1.2)node[midway,above]{$\vct v$};\draw[axis](0,0)--(3,0)node[midway,below]{$v_n$};\draw[axis](3,0)--(3,1.2)node[right]{$v_t$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:wallcomponentsq}的壁面每秒截获厚度 $v_n\dd t$ 内的粒子，所以在原高斯因子上乘 $v_n$。归一化分母为 $\int_0^\infty v_nf_n(v_n)\dd v_n=1/(2\sqrt{\pi\alpha})$，得到
+\[
+ q_n(v_n)=2\alpha v_n\ee^{-\alpha v_n^2},\quad v_n\ge0.
+\]
+法向二阶矩为$\int_0^\infty v_n^2q_n(v_n)\dd v_n=2\alpha I_3=1/\alpha=2\kb T/m$，故平均法向动能为$\kb T$。联合事件密度仍分离为$q_n(v_n)f_y(v_y)f_z(v_z)$，归一化权重只含法向变量，两个切向高斯因子各自积分为1，平均动能仍各为$\kb T/2$。三方向相加为$2\kb T$；法向能量偏高来自事件筛选，未经过碰撞的体内分布并没有被壁面加热。
+
+\Diagram{fig:wallcomponentsa}{逸出平均平动能按壁面方向分解}{
+ \node[draw,align=center]at(0,0){法向\\$\kb T$};\node[draw,align=center]at(3,0){切向1\\$\kb T/2$};\node[draw,align=center]at(6,0){切向2\\$\kb T/2$};\node at(3,-1){总和 $2\kb T$};
+}
+图\ref{fig:wallcomponentsa}给出了逸出能量 $2\kb T$ 的另一路线。法向速度的平均值为 $2\alpha I_2=\sqrt\pi/(2\sqrt\alpha)$；它不同于从体内只筛选 $v_n>0$ 得到的条件平均，也不同于三维速率平均。
+\end{solution}
+
+\begin{example}[运动镜面的单次碰撞能量交换]
+质量 $m$ 的粒子沿 $+x$ 方向以速度 $v$ 追上以速度 $U<v$ 退让的重壁，碰撞弹性，壁速度不变。求反射后的粒子速度、粒子能量减少与壁获得的功，并将结果与壁面受力积分相联系。
+\Diagram{fig:singlewallq}{在实验室系与壁面系中比较碰撞}{
+ \draw[line width=1.4pt](3,-.4)--(3,1.5);\draw[axis](0,.5)--(1.7,.5)node[midway,above]{$v$};\draw[axis](3,1.2)--(4.3,1.2)node[right]{$U$};\node at(1.5,-.6){壁面系入射速度 $v-U$};
+}
+\end{example}
+\begin{solution}
+先转到图\ref{fig:singlewallq}的壁面系，碰撞前相对速度 $v-U$，碰后变为 $-(v-U)$。变回实验室系，$v'=U-(v-U)=2U-v$。壁面获得的冲量为 $\Delta p_w=m(v-v')=2m(v-U)$，对应功 $\Delta W_w=U\Delta p_w$。
+本题的壁速在碰撞前后保持不变，可由大质量壁面或外界驱动实现。若换成有限质量的自由活塞，就须联立两物体的动量、动能守恒方程，求碰后的粒子速度和活塞速度。
+
+\Diagram{fig:singlewalla}{壁面系反射后变回实验室系}{
+ \node[draw]at(0,0){$v-U$};\draw[axis](.8,0)--(2.2,0)node[midway,above]{反射};\node[draw]at(3.4,0){$-(v-U)$};\draw[axis](4.6,0)--(5.8,0)node[midway,above]{$+U$};\node[draw]at(6.5,0){$v'$};
+}
+直接算粒子能量减少，
+\[
+ \frac m2[v^2-(2U-v)^2]
+ =\frac m2(4Uv-4U^2)=2mU(v-U)=\Delta W_w.
+\]
+该式保留$U^2$项，对满足追赶条件$v>U$的碰撞没有使用慢壁近似。$U>0$时分子失能，迎面运动的$U<0$情形则使分子增能。碰后$v'$可以仍为正：粒子在实验室系中继续向前，但速度小于壁速，因而与壁面分离。
+
+将图\ref{fig:singlewalla}的单次能量交换乘事件率 $n(v-U)f_x(v)\dd v$，并在 $v>U$ 上积分，得到能量传递率 $Up_w(U)$。它与压强积分对应，反映了同一批碰撞中动量和能量的交换。
+\end{solution}
+
+\begin{example}[一维无碰撞气体的缓慢活塞膨胀]
+粒子被限制在左端固定、右端缓慢退让的长为 $L(t)$ 的一维盒中。粒子间不碰撞，活塞速度 $U=\dot L$ 远小于粒子往返速度，左壁弹性反射。求单粒子速度大小随 $L$ 的变化，进而求均匀初始相位样本的轴向能量标度。与三维平衡气体绝热关系比较。
+\Diagram{fig:ballisticpistonq}{粒子在两壁之间往返，仅运动壁改变能量}{
+ \draw[line width=1.4pt](0,-.6)--(0,1);\draw[line width=1.4pt](4,-.6)--(4,1);\draw[<->](.3,.2)--(3.7,.2)node[midway,above]{$v$};\draw[axis](4,.8)--(5,.8)node[right]{$U$};\draw[<->](0,-1)--(4,-1)node[midway,below]{$L(t)$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:ballisticpistonq}中粒子每与退让活塞碰撞一次，速率由 $v$ 减为 $v-2U$，忽略 $U/v$ 的高阶修正。相邻两次撞活塞的间隔约为 $2L/v$，所以平均变化率
+\[
+ \frac{\dd v}{\dd t}\simeq\frac{-2U}{2L/v}=-\frac{\dot L}L v.
+\]
+设$L=L_0$时该粒子的速率为$v_0>0$，分离变量并积分，
+\[\int_{v_0}^{v(L)}\frac{\dd s}{s}=-\int_{L_0}^{L}\frac{\dd\ell}{\ell},
+\qquad[\ln s]_{v_0}^{v(L)}=-[\ln\ell]_{L_0}^{L}.\]
+故$\ln[v(L)/v_0]=-\ln(L/L_0)$，即$v(L)=v_0L_0/L$。因此$vL$为缓慢变化下的不变量，单粒子轴向能量为$mv_0^2(L_0/L)^2/2$。
+若初态为各向同性温度 $T_0$，而随后只有 $x$ 方向长度由 $L_0$ 改为 $L$，可把三方向二阶矩分别记为 $m\langle v_i^2\rangle=\kb T_i$。于是
+\[
+ T_x=T_0(L_0/L)^2,\qquad T_y=T_z=T_0,
+\]
+\[
+ U_{\rm tr}=\frac{N\kb T_0}{2}\bigl[(L_0/L)^2+2\bigr].
+\]
+这些 $T_i$ 只是分方向能量参数。它们不同，表明分布已偏离单温度 Maxwell 平衡态；横向能量不会自动补给不断损失轴向能量的分子。
+
+\Diagram{fig:ballisticpistona}{缓慢循环碰撞给出轴向能量的平方反比律}{
+ \draw[axis](0,0)--(5,0)node[right]{$L/L_0$};\draw[axis](0,0)--(0,2.8)node[above]{$E_x/E_{x0}$};\draw[curve]plot[domain=1:4.5](\x,{2.4/\x^2});\node[below]at(1,0){$1$};\node[left]at(0,2.4){$1$};
+}
+图\ref{fig:ballisticpistona}的标度也适用于对初始相位平均的独立粒子样本，但要求变化慢于各粒子的往返时间。非常慢的尾部粒子可能违反这一条件，不能把近似无限外推。
+
+三维无碰撞盒只沿 $x$ 膨胀时，$E_x\propto L^{-2}$，横向 $E_y,E_z$ 不变，分布因而具有各向异性，需要分别描述三个方向的能量尺度。若碰撞能及时重新分配能量，气体才恢复单一平衡温度，并满足单原子气体的 $TV^{2/3}=\text{常量}$。边界运动缓慢与内部达到热平衡须分别判断。
+\end{solution}
+
+\begin{example}[时间飞行测温中的两种探测权重]
+一个小孔发出的短脉冲分子束沿法线传播，速度分布取逸出速率密度 $g_e(v)$。探测器在距离 $L$ 处，接受极窄角度，对到达的每个粒子等效计数，忽略碰撞。求到达时间密度及峰值；若探测器测量固定时刻某薄层中的粒子数，权重有何变化？另比较同一速率谱的稳态束流在薄层中的瞬时计数。
+\Diagram{fig:tofthermq}{短脉冲穿过固定飞行距离后到达计数器}{
+ \draw[line width=1.2pt](0,-.6)--(0,1);\draw[line width=1.2pt](5,-.6)--(5,1);\draw[axis](.2,.2)--(4.7,.2)node[midway,above]{$v=L/t$};\draw[<->](0,-1)--(5,-1)node[midway,below]{$L$};\node at(0,1.4){孔};\node at(5,1.4){计数器};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:tofthermq}中速度与时间一一对应，$v=L/t$、$|\dd v/\dd t|=L/t^2$。窄角度筛选不改变速率分布，因此到达时间密度
+\[
+ q_t(t)=g_e(L/t)\frac L{t^2}
+ =2\alpha^2L^4t^{-5}\exp(-\alpha L^2/t^2),\quad t>0.
+\]
+对数求导，$\dd\ln q_t/\dd t=-5/t+2\alpha L^2/t^3$，峰值满足 $t_p^2=2\alpha L^2/5$，所以 $t_p=L\sqrt{m/(5\kb T)}$。到达时间密度的峰值还受雅可比 $L/t^2$ 影响，因此应直接对 $q_t$ 求极值，而不能把速率峰值简单取倒数。
+到达时间密度的归一化可直接用 $v=L/t$ 验证：当 $t$ 从0增至无穷大，$v$ 从无穷大降至0，雅可比的绝对值抵消积分方向的反转，故总概率仍为1。长时间尾部有 $q_t\propto t^{-5}$，来自束流中很慢的分子；极短时间则被指数因子强烈抑制。仪器若按粒子到达事件计数，每个粒子只记一次；这与在固定薄层内持续观察、因停留时间而多看见慢粒子的情形不同。
+
+\Diagram{fig:toftherma}{时间分布的峰值由雅可比与指数共同决定}{
+ \draw[axis](0,0)--(5.4,0)node[right]{$t$};\draw[axis](0,0)--(0,2.8)node[above]{$q_t$};\draw[curve]plot[domain=.25:4.8,samples=90](\x,{2*exp(-1/(\x*\x))/\x^5});\node at(3.7,2.4){事件计数};
+}
+图\ref{fig:toftherma}是脉冲的到达时间密度。固定时刻的空间计数须另用$x=vt$作变量变换。把短脉冲的发射历时近似为零，接受方向内共含$N_p$个粒子；固定$t>0$时，$\dd x=t\dd v$，因此
+\[
+ \dd N=N_pg_e(v)\dd v
+ =\frac{N_p}{t}g_e(x/t)\dd x.
+\]
+对图\ref{fig:toftherm-layer-a}中以$L$为中心、厚度为$\Delta\ell$的薄层，瞬时粒子数为
+\[
+ N_{\rm layer}(t)
+ =N_p\int_{(L-\Delta\ell/2)/t}^{(L+\Delta\ell/2)/t}g_e(v)\dd v
+ \simeq\frac{N_p\Delta\ell}{t}g_e(L/t).
+\]
+末式要求该窄速度区间内$g_e$变化很小。固定$t$和$L$已把速率限制在$L/t$附近，不能把整个脉冲的速率密度直接乘$1/v$来表示这一快照。
+
+\Diagram{fig:toftherm-layer-a}{脉冲快照按位置筛选；稳态薄层计数另含停留时间}{
+ \node[anchor=west]at(0,2.9){脉冲：固定$t$};
+ \draw[axis](0,1.7)--(6.3,1.7)node[right]{$x$};
+ \fill[black!8](3.4,1.8)rectangle(4.4,2.5);
+ \draw[dashed](3.4,1.6)--(3.4,2.55);\draw[dashed](4.4,1.6)--(4.4,2.55);
+ \foreach \x in{1.1,2.2,3.9,5.2}\fill(\x,2.15)circle(1.5pt);
+ \draw[<->](3.4,2.7)--(4.4,2.7)node[midway,above]{$\Delta\ell$};
+ \node[below]at(3.9,1.7){$L$};\node[above]at(1.6,2.15){$x=vt$};
+ \node[anchor=west]at(0,.65){稳态：连续发射};
+ \draw[axis](0,-.15)--(6.3,-.15)node[right]{$x$};
+ \fill[black!8](3.4,-.05)rectangle(4.4,.45);
+ \draw[axis](2.3,.2)--(4.9,.2)node[right]{$v$};
+ \node[below]at(3.9,-.4){停留时间$\Delta\ell/v$};
+}
+稳态束流连续补充各速率的粒子。若总发射率为$J$，速率区间内的到达率为$Jg_e(v)\dd v$，每个粒子在薄层中停留$\Delta\ell/v$，故
+\[
+ \dd N_{\rm steady}=Jg_e(v)\dd v\frac{\Delta\ell}{v},\qquad
+ q_{\rm space}(v)=\frac{g_e(v)/v}{\int_0^\infty g_e(w)\dd w/w}=g(v).
+\]
+最后用了$g_e(v)=vg(v)/\bar v$及$\int_0^\infty g(v)\dd v=1$。这里的$1/v$来自稳态停留时间；若对一个脉冲在薄层中的占据数作全时间累计，也会得到相同的停留时间权重。实际测温还须按装置条件计入角接受范围、孔道传输和仪器响应。
+\end{solution}
+
+这些计算中的权重，都能追溯到图中的扫掠体积或变量变换。先按面元和相对速度写出事件数，再对实际允许的速度区域积分，便能确定相应的平均量。

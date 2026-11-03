@@ -1,0 +1,86 @@
+\section{弹性碰撞的能量转移与交叉场轨迹}
+\subsection{固定靶碰撞中的最大反冲能量}
+设入射粒子静质量$M$、实验室能量$E=\gamma Mc^2$、动量$p$，静止靶粒子质量$m$，碰撞前后两粒子的静质量不变。用$s$记总四动量平方乘$c^2$，则
+\[
+ s=M^2c^4+m^2c^4+2mc^2E,
+ \qquad V_* =\frac{pc^2}{E+mc^2},\quad
+ \gamma_* =\frac{E+mc^2}{\sqrt s}.
+\]
+质心系中两粒子动量大小为$p_*$。把两体公式的根号因式展开，利用$E^2-p^2c^2=M^2c^4$，得到
+\[
+ p_*^2c^2=\frac{m^2c^4(E^2-M^2c^4)}s,
+ \qquad p_* =\frac{mc^2p}{\sqrt s}.
+\]
+靶粒子在质心系中的能量固定，实验室能量随其质心系出射角$\vartheta_*$变化：$E_m=\gamma_*(E_{m*}+V_*p_*\cos\vartheta_*)$。初态靶在该系向后运动，实验室能量为$mc^2=\gamma_*(E_{m*}-V_*p_*)$。两式相减，直接得到反冲动能
+\[
+ T=\gamma_*V_*p_*(1+\cos\vartheta_*).
+\]
+最大值对应靶沿质心系正前方射出，而不是任意把实验室两粒子都假定为向前且等速。代入各参数有
+\[
+ T_{\max}=\frac{2m c^2(\gamma^2-1)}
+ {1+2\gamma m/M+(m/M)^2}.
+\]
+这是纯运动学上界；相互作用的微分截面可能使达到上界的事件很少，但不改变该上界的位置。
+
+\begin{example}重粒子对轻靶的最大能量转移
+入射粒子质量为$M=100m$，洛伦兹因子为2，靶粒子初始静止。求最大反冲能量占入射动能的比例；再检查同质量碰撞和非相对论极限。
+\ExpansionDiagram{fig:dep-m3-transfer-q}{实验室固定靶与质心系反冲端点}{
+\draw[->,thick](0,0)--(2,0)node[midway,above]{$p$};\fill(2.4,0)circle(2pt)node[below]{$M$};\fill(4.5,0)circle(2pt)node[below]{$m$静止};\draw[dashed](5.6,-.6)--(5.6,1.2);\draw[->](6.2,0)--(8,0)node[midway,above]{$p_*$};\node[below]at(7,-.4){质心系靶正向};}
+\end{example}
+\begin{solution}
+由图\ref{fig:dep-m3-transfer-q}的正向质心系端点，
+\[
+ T_{\max}=\frac{6mc^2}{1+0.04+0.0001}
+ \simeq5.7687mc^2.
+\]
+入射动能$K=(\gamma-1)Mc^2=100mc^2$，最大转移比例约为$5.77\%$。尽管入射动能很大，质量相差悬殊仍使反冲受限；能量和动量必须由同一组末态同时满足。
+\ExpansionDiagram{fig:dep-m3-transfer-a}{反冲能量对质心系角度的依赖}{
+\draw[->](0,0)--(5,0)node[right]{$\cos\vartheta_*$};\draw[->](0,0)--(0,2.6)node[above]{$T/T_{\max}$};\draw[thick](.5,0)--(4.5,2);\node[below]at(.5,0){$-1$};\node[below]at(2.5,0){$0$};\node[below]at(4.5,0){1};\node[left]at(0,2){1};}
+图\ref{fig:dep-m3-transfer-a}的直线关系为$T/T_{\max}=(1+\cos\vartheta_*)/2$，只描述允许能量与角度的对应，不表示各角度等概率。
+
+若$M=m$，分母为$2(1+\gamma)$，所以$T_{\max}=mc^2(\gamma-1)=K$，同质量的一维弹性碰撞可以交换运动状态。若入射速度很小，$\gamma^2-1\simeq v^2/c^2$，得到$T_{\max}\simeq2mM^2v^2/(M+m)^2$；再除以$Mv^2/2$，恢复经典比例$4mM/(M+m)^2$。这两个极限分别检查相同质量和低速度的退化情形。
+\end{solution}
+
+\subsection{消去电场后仍须变换整条世界线}
+磁占优的正交场可以找到纯磁参考系，但这不意味着实验室中粒子必作匀速直线运动。只有粒子在那个参考系恰好静止时，才对应无偏转速度。一般初态仍有回旋运动，变回实验室后既有漂移又有速率变化。
+
+\begin{example}由静止释放的粒子在正交场中运动
+实验室有$\vct E=E\hat{\vct y}$、$\vct B=B\hat{\vct z}$，其中$0<E<cB$。质量$m$、电量$q>0$的粒子在原点由静止释放。忽略辐射，求参数轨迹、平均漂移速度和最大动能。
+\ExpansionDiagram{fig:dep-m3-cross-q}{磁场朝纸外，电场向上，无偏转漂移方向向右}{
+\draw[->](0,0)--(5,0)node[right]{$x$};\draw[->](0,0)--(0,2.7)node[above]{$y$};\draw[->,thick](1,1)--(1,2)node[above]{$E$};\draw(3,1.5)circle(.18);\fill(3,1.5)circle(1.4pt)node[right=7pt]{$B$};\fill(0,0)circle(2pt)node[below left]{$q$};\draw[->](1,-.6)--(3,-.6)node[midway,below]{$V=E/B$};}
+\end{example}
+\begin{solution}
+按图\ref{fig:dep-m3-cross-q}取$S'$相对实验室以$V=E/B$沿$+x$运动，记$\beta=V/c$、$\Gamma=(1-\beta^2)^{-1/2}$。场变换给$E'=0$、$B'=B/\Gamma$。粒子初始在$S'$的速度为$-V\hat{\vct x}$，所以其恒定洛伦兹因子是$\Gamma$，回旋角频率为
+\[
+ \Omega=\frac{qB'}{\Gamma m}=\frac{qB}{\Gamma^2m}.
+\]
+洛伦兹力分量为$\dot v'_x=\Omega v'_y$、$\dot v'_y=-\Omega v'_x$。将第一式再求导并代入第二式，得$\ddot v'_x+\Omega^2v'_x=0$，通解为$A\cos\Omega t'+B\sin\Omega t'$。初值$v'_x(0)=-V$、$\dot v'_x(0)=\Omega v'_y(0)=0$分别给$A=-V,B=0$；再由$v'_y=\dot v'_x/\Omega$得$v'_y=V\sin\Omega t'$。令$s=\Omega t'$，从原点积分：
+\begin{align*}
+ x'&=\int_0^{t'}-V\cos(\Omega q)\dd q
+ =\left[-\frac V\Omega\sin(\Omega q)\right]_0^{t'},\\
+ y'&=\int_0^{t'}V\sin(\Omega q)\dd q
+ =\left[-\frac V\Omega\cos(\Omega q)\right]_0^{t'}.
+\end{align*}
+代入两端后，
+\[
+ x'=-\frac V\Omega\sin s,\quad
+ y'=\frac V\Omega(1-\cos s),\quad t'=s/\Omega.
+\]
+逆变换必须同时作用于时间和位置，得到
+\[
+ x=\frac{\Gamma V}{\Omega}(s-\sin s),\qquad
+ y=\frac V\Omega(1-\cos s),\qquad
+ t=\frac\Gamma\Omega(s-\beta^2\sin s).
+\]
+\ExpansionDiagram{fig:dep-m3-cross-a}{实验室轨迹的无量纲摆线；每个尖点处粒子瞬时静止}{
+\draw[->](0,0)--(7,0)node[right]{$x\Omega/(\Gamma V)$};\draw[->](0,0)--(0,2.7)node[above]{$y\Omega/V$};\draw[thick,domain=0:6.283185,samples=180]plot({\x-sin(\x r)},{1-cos(\x r)});\fill(0,0)circle(1.4pt);\fill(6.283185,0)circle(1.4pt);\node[below]at(6.283185,0){$2\pi$};}
+图\ref{fig:dep-m3-cross-a}中横纵轴使用不同长度单位，轨迹形状对应上述参数式。因为$\dd t/\dd s=\Gamma(1-\beta^2\cos s)/\Omega>0$，参数没有倒转时间。在一周$s:0\to2\pi$内，$\Delta x=2\pi\Gamma V/\Omega$、$\Delta t=2\pi\Gamma/\Omega$，所以平均漂移为$V=E/B$。
+
+磁力不做功，实验室动能等于$qEy$，于是
+\[
+ K(s)=\frac{qEV}{\Omega}(1-\cos s)
+ =\Gamma^2mV^2(1-\cos s),\quad
+ K_{\max}=2\Gamma^2mV^2.
+\]
+也可变换四动量得粒子能量$\Gamma^2mc^2(1-\beta^2\cos s)$，减去$mc^2$得到同一结果。一周后高度回零，动能也回零，但位置已漂移；这与“在纯磁系能量恒定”相容，两个系的能量定义不同。
+\end{solution}

@@ -1,0 +1,87 @@
+\section{纯RC网络的衰减谱与非单调节点电压}
+\subsection{实衰减率并不要求每个电压都单调}
+在独立电容坐标已经选定、理想电压源的固定节点已经消去后，线性无源RC网络可写
+\[
+ \mathsf C\dot{\vct u}+\mathsf G\vct u=0.
+\]
+$\mathsf C$对称正定，$\mathsf G$是对称非负的电导矩阵。不能仅因$C^{-1}G$在普通欧氏内积下未必对称，就推断其本征值可能为任意复数。令$\vct z=C^{1/2}\vct u$，有
+\[
+ \dot{\vct z}=-C^{-1/2}GC^{-1/2}\vct z.
+\]
+右侧矩阵对称非负，所以衰减率均为非负实数。若导电通路连通至参考节点，全部相关衰减率为正；若存在浮置的守恒电荷自由度，还可能有零模。
+
+储能为$W=\tfrac12\vct u^{\mathsf T}C\vct u$。矩阵$C$恒定、对称，乘积求导产生的两项互为转置，数值相等，故
+\[\dot W=\frac12\dot{\vct u}^{\mathsf T}C\vct u
++\frac12\vct u^{\mathsf T}C\dot{\vct u}
+=\vct u^{\mathsf T}C\dot{\vct u}
+=-\vct u^{\mathsf T}G\vct u\le0.\]
+总能量因而单调下降。各节点电压由若干衰减模叠加，若两个指数项系数异号，就可能过零或出现反向极值，个别电容的能量也可能暂时增加。这种有限次转折仍由实衰减模造成，与欠阻尼RLC中的振荡不同。
+
+\begin{example}[无电感电路中的反向电压]
+两个节点各以相同电容$C$接地、以相同电阻$R$接地，两节点之间另接一个电阻$R$。无外接电源，初始电压为$u_1(0)=V$、$u_2(0)=-2V$，$V>0$。求节点电压、$u_1$过零及最小值时刻，并求三只电阻的总发热。
+\ExpansionDiagram{fig:dep-c4-rc-q}{两节点均有接地电容和接地电阻，节点间再接电阻}{
+\fill(1,2)circle(1.5pt)node[above]{$u_1$};\fill(5,2)circle(1.5pt)node[above]{$u_2$};\Res{1,2}{5,2}{R}
+\Res{1,2}{1,0}{R}\Res{5,2}{5,0}{R}\draw(1,2)--(2.1,2);\CircuitCap{2.1,2}{2.1,0}{C}\draw(5,2)--(6.1,2);\CircuitCap{6.1,2}{6.1,0}{C}\draw(.5,0)--(6.5,0);\node[below]at(3.5,0){参考地};}
+\end{example}
+\begin{solution}
+按图\ref{fig:dep-c4-rc-q}对两个上端节点列电流守恒：
+\[
+ C\dot u_1=-\frac{u_1}{R}-\frac{u_1-u_2}{R},\qquad
+ C\dot u_2=-\frac{u_2}{R}-\frac{u_2-u_1}{R}.
+\]
+定义共模$s=(u_1+u_2)/2$、差模$d=(u_1-u_2)/2$，两式相加、相减分别给$\dot s=-s/(RC)$、$\dot d=-3d/(RC)$。初值为$s_0=-V/2$、$d_0=3V/2$。令$\tau=RC$，乘相应积分因子后，
+\[
+ \frac{\dd}{\dd t}(s\ee^{t/\tau})=0,\quad
+ \frac{\dd}{\dd t}(d\ee^{3t/\tau})=0,
+ \quad s\ee^{t/\tau}=s_0,\quad d\ee^{3t/\tau}=d_0.
+\]
+用$u_1=s+d$、$u_2=s-d$还原，得到
+\[
+ u_1=-\frac V2\ee^{-t/\tau}+\frac{3V}{2}\ee^{-3t/\tau},\quad
+ u_2=-\frac V2\ee^{-t/\tau}-\frac{3V}{2}\ee^{-3t/\tau}.
+\]
+先求过零：$3\ee^{-3t/\tau}=\ee^{-t/\tau}$，约去正指数因子得到$\ee^{2t/\tau}=3$，故$t_0=\tfrac12\tau\ln3$。
+对$u_1$求导，两个指数分别带出$-1/\tau$与$-3/\tau$，所以
+\[
+ \dot u_1=\frac{V}{2\tau}\left(\ee^{-t/\tau}-9\ee^{-3t/\tau}\right).
+\]
+令其为零，得到$\ee^{2t/\tau}=9$，故$t_{\min}=\tau\ln3$。
+此时两个指数分别为$1/3$、$1/27$，于是$u_{1,\min}=-V/6+V/18=-V/9$。
+\ExpansionDiagram{fig:dep-c4-rc-a}{第一节点先过零再出现负极小，两条曲线最终都趋零}{
+\draw[->](0,0)--(6,0)node[right]{$t/\tau$};\draw[->](0,-2.3)--(0,1.5)node[above]{$u/V$};\draw[thick,domain=0:5.5,samples=120]plot(\x,{-.5*exp(-\x)+1.5*exp(-3*\x)});\draw[dashed,domain=0:5.5,samples=120]plot(\x,{-.5*exp(-\x)-1.5*exp(-3*\x)});\node[right]at(3,.35){$u_1$};\node[right]at(1.8,-.7){$u_2$};\fill(1.098612,-.111111)circle(1.3pt);}
+图\ref{fig:dep-c4-rc-a}的负极小来自快差模衰减后慢共模占优，不需要电感储能。总储能却一直下降：
+\[
+ W=C(s^2+d^2)=\frac{CV^2}{4}\ee^{-2t/\tau}
+ +\frac{9CV^2}{4}\ee^{-6t/\tau}.
+\]
+初始为$5CV^2/2$，最终为零，所以总发热相同。若进一步分支路计算，用$z=t/\tau$及$\dd t/R=C\dd z$。
+每个指数项的原函数和端点为
+\[
+ \int_0^\infty\ee^{-kz}\dd z
+ =\lim_{Z\to\infty}[-\ee^{-kz}/k]_0^Z=\frac1k,\qquad k>0.
+\]
+逐项使用$k=2,4,6$，得到
+\begin{align*}
+ Q_1&=CV^2\int_0^\infty
+ (\tfrac14\ee^{-2z}-\tfrac32\ee^{-4z}+\tfrac94\ee^{-6z})\dd z
+ =\frac18CV^2,\\
+ Q_2&=CV^2\int_0^\infty
+ (\tfrac14\ee^{-2z}+\tfrac32\ee^{-4z}+\tfrac94\ee^{-6z})\dd z
+ =\frac78CV^2,\\
+ Q_{12}&=CV^2\int_0^\infty9\ee^{-6z}\dd z=\frac32CV^2.
+\end{align*}
+三者相加为$5CV^2/2$。节点1的电容先释放能量又获得少量反向能量，不能仅以它自身初末储能差确定接地电阻1的热量；节点之间的能量转移也要计入。
+\end{solution}
+
+\subsection{初始状态怎样进入一般模态解}
+设$C^{-1/2}GC^{-1/2}$的归一化本征矢为$\vct e_j$，本征值为$\lambda_j$。将$\vct z=C^{1/2}\vct u$展开为$\vct z=\sum_j c_j\vct e_j$，代入$\dot{\vct z}=-C^{-1/2}GC^{-1/2}\vct z$。左乘$\vct e_j^{\mathsf T}$并用正交性，得
+\[\dot c_j=-\lambda_jc_j,\qquad
+c_j(0)=\vct e_j^{\mathsf T}C^{1/2}\vct u(0).\]
+非零初值的分离变量积分为$\int_{c_j(0)}^{c_j(t)}\dd c/c=-\lambda_j\int_0^t\dd s$，即$[\ln|c|]_{c_j(0)}^{c_j(t)}=-\lambda_jt$。解保持初始符号，故$c_j(t)=c_j(0)e^{-\lambda_jt}$；零初值给恒零解，$\lambda_j=0$则给常数。将各模态相加再乘$C^{-1/2}$，得到
+\[
+ \vct u(t)=C^{-1/2}\sum_j\vct e_j
+ [\vct e_j^{\mathsf T}C^{1/2}\vct u(0)]\ee^{-\lambda_jt}.
+\]
+括号是由初态决定的投影系数。观察某一节点时，还要乘该本征矢在节点方向的分量；两次投影的乘积可正可负。因此一个RC网络即使全部参数为正，也不能仅凭“指数都衰减”就断言所有电压都从初值同号地逼近终值。
+
+若外加恒定电源，把$\vct u$改写为偏离稳态的量$\vct u-\vct u_\infty$即可沿用该解。理想开关若使原电容电压与新的纯电容回路约束冲突，接通时可有冲量；应由浮置节点的电荷守恒及接通后的电压约束确定$\vct u(0^+)$。只有充电电流保持有限的电容，电压才必须连续。得到这一初态后，再计算后续衰减，最终稳态不能代替接通瞬间的条件。

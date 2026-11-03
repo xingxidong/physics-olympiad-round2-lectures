@@ -1,0 +1,4 @@
+% 题设配图；与紧随其后的解答分别编号。
+\ExpansionDiagram{fig:audit-m-q-029}{同向峰的对数比用于测量阻尼}{
+\draw[->](-.4,0)--(7,0)node[right]{$ t $};\draw[->](0,-1.5)--(0,2.5)node[above]{$ x $};\draw[thick,domain=0:7,samples=140]plot(\x,{1.8*exp(-.1*\x/(2*pi))*(cos(\x r)+.1/(2*pi)*sin(\x r))});\draw[dashed](0,1.8)--(6.283,1.8);\fill(0,1.8)circle(1.5pt)node[left]{$x_n$};\fill(6.283,1.6287)circle(1.5pt)node[above]{$x_{n+1}$};\draw[<->](0,-1.8)--(6.283,-1.8)node[midway,below]{$T_d$};
+}

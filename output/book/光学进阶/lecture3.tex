@@ -1,0 +1,184 @@
+\chapter{衍射积分、孔径与光栅分辨率}
+\section{电磁波、复数平均与光强}\label{th:o3wave}
+在均匀、线性、各向同性、无自由电荷电流的介质中，$\vct D=\varepsilon\vct E$、$\vct B=\mu\vct H$，麦克斯韦方程给$\nabla\cdot\vct E=0$。对法拉第定律取旋度，利用$\nabla\times\nabla\times\vct E=\nabla(\nabla\cdot\vct E)-\nabla^2\vct E$，得到
+\[
+ \nabla^2\vct E-\varepsilon\mu\partial_t^2\vct E=0.
+\]
+代入$\vct E=\vct E_0\ee^{i(\vct k\cdot\vct r-\omega t)}$，得到$\vct k\cdot\vct E_0=0$、$k^2=\varepsilon\mu\omega^2$。相速度$v=1/\sqrt{\varepsilon\mu}=c/n$，磁场$\vct B_0=\vct k\times\vct E_0/\omega$，所以$\vct E,\vct H,\vct k$构成定向正交关系。若介质吸收或各向异性，这些实数和共线关系需重新讨论。
+
+\subsection{时间平均中的共轭}\label{th:o3intensity}
+同频复振幅$A,B$的实部乘积平均为$\langle\operatorname{Re}(A\ee^{-i\omega t})\operatorname{Re}(B\ee^{-i\omega t})\rangle=\tfrac12\operatorname{Re}(AB^*)$。可把每个实部写成两个指数之和，乘积中的$\ee^{\pm2i\omega t}$在整周期平均中消失，只留下互为共轭的两项。
+
+因而平均坡印廷矢量$\langle\vct S\rangle=\tfrac12\operatorname{Re}(\vct E_0\times\vct H_0^*)$。无损平面波的光强为$I=E_0^2/(2\mu v)$。非磁性介质$\mu=\mu_0$时，$I=n\varepsilon_0cE_0^2/2$。这个强度沿传播方向定义；穿过倾斜表面的法向能流还要乘余弦。
+
+复振幅叠加先做矢量求和，再作时间平均。若两同偏振场为$A_1\ee^{i\phi_1}$和$A_2\ee^{i\phi_2}$，合相位应由实虚部使用$\operatorname{atan2}$确定，不能把各自相位直接平均。只有振幅相同、相位差在适当支路内，角平分线解释才可直接使用。
+
+\section{从惠更斯积分到远场傅里叶积分}\label{th:o3integral}
+设孔径面为$z=0$，孔内复振幅为$U(Q)$。标量近似下，观察点$P$的场可写为
+\[
+ U(P)\simeq\frac1{i\lambda}\iint_\Sigma
+ U(Q)\frac{\ee^{ikr}}r\frac{\cos\theta+\cos\theta_0}2\dd S,
+\]
+其中$r=|P-Q|$，$\theta,\theta_0$分别描述出射和入射方向与孔面法向的夹角。该式忽略孔边附近的严格矢量边界场，适于孔径远大于波长、观察方向非极端掠射的情形。
+
+观察屏在$z=L$，孔径坐标$(\xi,\eta)$、观察坐标$(x,y)$。近轴距离展开
+\[
+ r\simeq L+\frac{(x-\xi)^2+(y-\eta)^2}{2L}.
+\]
+幅度因子$1/r$可近似$1/L$，但指数中的小距离会乘大波数，不能同时全部省略。于是
+\begin{align}\label{eq:o3fresnel}
+ U(x,y)&\simeq\frac{\ee^{ikL}}{i\lambda L}
+ \ee^{ik(x^2+y^2)/(2L)}\\
+ &\quad\times\iint U(\xi,\eta)
+ \ee^{ik(\xi^2+\eta^2)/(2L)}
+ \ee^{-ik(x\xi+y\eta)/L}\dd\xi\dd\eta.\notag
+\end{align}
+保留孔径二次相位是菲涅耳衍射。若孔径特征半宽$a$满足$a^2/(\lambda L)\ll1$，二次相位变化小，可略去，得到夫琅禾费积分。薄透镜后焦面在近轴模型中也可给出孔径的傅里叶分布，无须真的把屏移到无限远；其相位补偿已纳入透镜传播。
+
+\Diagram{fig:o3integral}{孔径点$Q$到屏上点$P$的路径及坐标}{\draw[curve](0,-1.6)--(0,1.7);\draw[curve](5,-1.6)--(5,2.2);\draw[guide](0,0)--(5,0);\fill(0,.6)circle(1.4pt)node[left]{$Q(\xi,\eta)$};\fill(5,1.4)circle(1.4pt)node[right]{$P(x,y)$};\draw[curve](0,.6)--(5,1.4)node[midway,above]{$r$};\node[below]at(2.5,0){$L$};}
+
+\section{单缝的积分与相量圆弧}\label{th:o3slit}
+均匀照亮宽度$a$的长直缝，先只处理宽度方向。沿$x$方向观察角为$\theta$，孔内坐标$\xi\in[-a/2,a/2]$，忽略共同相位因子，
+\[
+ U(\theta)=C\int_{-a/2}^{a/2}\ee^{-ik\xi\sin\theta}\dd\xi
+ =C\left[\frac{\ee^{-ik\xi\sin\theta}}{-ik\sin\theta}\right]_{-a/2}^{a/2}
+ =Ca\frac{\sin\beta}{\beta},\quad \beta=\frac{\pi a\sin\theta}\lambda.
+\]
+因此$I(\theta)=I(0)(\sin\beta/\beta)^2$。$\beta=0$取极限1，不能因分子为零判作暗纹。暗纹$a\sin\theta_m=m\lambda$，$m=\pm1,\pm2,\ldots$。中央主瓣首零全角宽近轴为$2\lambda/a$。
+
+若把缝坐标改为$[0,a]$，合场多一个$\ee^{-i\beta}$因子，但强度不变；对后续与其他孔径的相干叠加，这个位置相位则不能删掉。场振幅的实值sinc随旁瓣交替变号，强度始终非负。画图时需说明纵轴是场、场模还是强度。
+
+\begin{example}\label{ex:o3phasor}
+把单缝分为无穷多个等宽小元，以相量首尾相接求合场，解释第一个暗纹和第一旁瓣场的反号。
+\Diagram{fig:o3phasorq}{缝上各小元到同一远场方向的相位线性变化}{\draw[curve](0,-1.6)--(0,1.6);\foreach\y in{-1.4,-.7,0,.7,1.4}{\draw[->](0,\y)--(3,{\y+.8});}\node[left]at(0,0){$a$};\node[right]at(3,.8){$\theta$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o3phasorq}中相邻小元振幅相等、相位递增相同，首尾相接形成圆弧。整缝相位变化为$ka\sin\theta=2\beta$，弧长与轴上场$Ca$成正比。若相量圆半径为$R_p$，弧长$2R_p\beta=Ca$，合场弦长为$2R_p\sin\beta=Ca\sin\beta/\beta$。
+\Diagram{fig:o3phasora}{相量圆弧的端点连线是合场；一整圆对应首零}{\draw[curve](0,0)circle(1.4);\draw[->,thick](1.4,0)arc(0:150:1.4);\draw[->,very thick](1.4,0)--(-1.212,.7);\draw[guide](0,0)--(1.4,0);\draw[guide](0,0)--(-1.212,.7);\node[above]at(0,1.7){圆心角$2\beta$};\node[below]at(0,-1.7){整圆时端点重合};}
+图\ref{fig:o3phasora}的一整圆对应$2\beta=2\pi$，相量闭合为零。超过整圆后，合弦相对原公共相位反号，故第一旁瓣的实场sinc为负；模平方仍为正。上下半缝的面元配对可解释首零，圆弧构造还能给出任意角度的振幅与相位。
+\end{solution}
+
+\begin{example}\label{ex:o3rectangle}
+矩形孔径宽$a$、高$H$，均匀平面波正入射。求远场二维强度，并讨论长缝近似的适用方向。
+\Diagram{fig:o3rectangleq}{以孔中心为坐标原点的矩形孔径}{
+\draw[axis](-1.8,0)--(2,0)node[right]{$\xi$};
+\draw[axis](0,-2.1)--(0,2.3)node[above]{$\eta$};
+\draw[curve](-1.1,-1.6)rectangle(1.1,1.6);
+\draw[<->](-1.1,-1.9)--(1.1,-1.9)node[midway,below]{$a$};
+\draw[<->](1.5,-1.6)--(1.5,1.6);\node[right]at(1.5,.7){$H$};
+\node[below left]at(0,0){$O$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:o3rectangleq}中取孔中心为原点，$-a/2<\xi<a/2$、$-H/2<\eta<H/2$。观察方向余弦为$l_x,l_y$，令$q_x=kl_x$、$q_y=kl_y$，场积分为
+\[
+ U=C\int_{-a/2}^{a/2}\ee^{-iq_x\xi}\dd\xi
+ \int_{-H/2}^{H/2}\ee^{-iq_y\eta}\dd\eta.
+\]
+两个积分分别取原函数$\ee^{-iq_x\xi}/(-iq_x)$、$\ee^{-iq_y\eta}/(-iq_y)$，在$\pm a/2$和$\pm H/2$代入，得到$2\sin(q_xa/2)/q_x$和$2\sin(q_yH/2)/q_y$；零横向波矢处直接积分为$a,H$。于是
+\[
+ U=CaH\operatorname{sinc}(\pi a l_x/\lambda)
+ \operatorname{sinc}(\pi H l_y/\lambda),
+\]
+其中$\operatorname{sinc}q=\sin q/q$，零点取连续极限1。
+\Diagram{fig:o3rectanglea}{孔径越长的方向，首零边界越靠近中心}{\draw[axis](-2.4,0)--(2.6,0)node[right]{$l_x$};\draw[axis](0,-1.5)--(0,1.7)node[above]{$l_y$};\draw[curve](-1.8,-.45)rectangle(1.8,.45);\node[above]at(0,1){首零边界};\node[below]at(1.8,-.5){$\lambda/a$};\node[left]at(0,.6){$\lambda/H$};}
+图\ref{fig:o3rectanglea}中$H>a$，所以沿$y$的角分布更窄：首零方向余弦分别为$|l_x|=\lambda/a$和$|l_y|=\lambda/H$。强度为两个sinc平方之积，中央矩形亮斑在宽孔对应方向上较窄。取$l_y=0$切面，第二因子等于1，才恢复一维长缝结果。
+
+轴上场正比孔面积$aH$，轴上强度正比$(aH)^2$；但两方向角尺度分别含$1/a$和$1/H$，对整个远场积分后总功率仍只正比$aH$。若仅增大$H$，$x$切面的归一化形状不变，绝对峰强和$y$方向宽度却都改变。孔高不能在二维问题中被无条件省去。
+\end{solution}
+
+\section{双缝包络与有限宽光栅}\label{th:o3grating}
+两条宽$a$的缝，其中心相隔$b$。利用平移对应相位因子，合场为$U=U_a[1+\ee^{-ikb\sin\theta}]$，所以
+\[
+ I=4I_a(0)\operatorname{sinc}^2\beta\cos^2\alpha,
+ \quad\beta=\pi a\sin\theta/\lambda,\quad
+ \alpha=\pi b\sin\theta/\lambda.
+\]
+对$N$条等宽等间距缝，同理
+\begin{equation}\label{eq:o3grating}
+ I=I_a(0)\operatorname{sinc}^2\beta
+ \left[\frac{\sin N\alpha}{\sin\alpha}\right]^2.
+\end{equation}
+单缝包络决定每一级主峰获得多少光能，多缝因子决定主峰宽度和细结构。改变$a/b$会改变缺级和效率，改变被照亮缝数$N$才直接改变同级主峰宽度。这里所有缝照明振幅相同、相位线性递增；照明不均匀时须改成带权和。
+
+\begin{example}\label{ex:o3missing}
+双缝或光栅的周期$b=3a$。按干涉因子的主极大条件，求单缝中央包络内的级次，指出缺级，并画出主极大与包络的对应位置。另讨论传播条件$|\sin\theta|\le1$对这些级次的限制。
+\Diagram{fig:o3missingq}{有限缝宽$a$和中心周期$b=3a$}{\draw[curve](0,-.5)rectangle(.5,1);\draw[curve](1.5,-.5)rectangle(2,1);\draw[<->](0,-.9)--(.5,-.9)node[midway,below]{$a$};\draw[<->](.25,1.4)--(1.75,1.4)node[midway,above]{$b$};}
+\end{example}
+\begin{solution}
+干涉因子的主极大满足$b\sin\theta=m\lambda$，单缝零点满足$a\sin\theta=p\lambda$，$p\ne0$。图\ref{fig:o3missingq}取$b=3a$，两条件重合时$m=3p$，故在能够传播的级次中，$\pm3,\pm6,\ldots$缺级。
+\Diagram{fig:o3missinga}{以$b\sin\theta/\lambda$为横轴，包络首零在$\pm3$}{\draw[axis](-3.7,0)--(3.9,0)node[right]{$m$};\draw[axis](0,0)--(0,2.7)node[above]{强度};\draw[curve,domain=.01:3.5,samples=70]plot(\x,{2.2*(sin(60*\x)/(pi*\x/3))^2});\draw[curve,domain=-3.5:-.01,samples=70]plot(\x,{2.2*(sin(60*\x)/(pi*\x/3))^2});\foreach\x in{-2,-1,1,2}{\draw[very thick](\x,0)--(\x,{2.2*(sin(60*\x)/(pi*\x/3))^2});}\draw[very thick](0,0)--(0,2.2);\node[below]at(3,0){$3$};\node[below]at(-3,0){$-3$};}
+单缝中央包络严格内部为$|a\sin\theta/\lambda|<1$，代入主极大条件得到$|m|<3$，候选级次为$m=0,\pm1,\pm2$。还须逐个检验传播条件
+\[
+ |\sin\theta_m|=\frac{|m|\lambda}{b}\le1.
+\]
+当$b>2\lambda$时，五个候选级次都在非掠射方向传播；当$\lambda<b<2\lambda$时只剩$0,\pm1$；当$0<b<\lambda$时只剩零级。$b=\lambda$或$2\lambda$时，相应一级或二级位于掠射方向，是否被接收还取决于观察几何。一般应取整数集合$\{m:|m|<3,\ |m|\lambda/b\le1\}$。
+
+图\ref{fig:o3missinga}的横轴是无量纲方向变量$b\sin\theta/\lambda$；图示范围需取$b>3\lambda$，才能同时画出两侧首零。竖线标干涉因子的主极大位置，平滑线标单缝包络；实际有限$N$的峰有有限宽。总强度是两因子的乘积，除对称中心等特殊位置外，其局部峰还可能因包络斜率而略有偏移。
+\end{solution}
+
+\section{分辨判据与孔径宽度}
+\begin{example}\label{ex:o3sodium}
+要在第$m$级分辨波长589.0 nm和589.6 nm两线，按瑞利判据至少需照亮多少条缝？若只照亮200条缝，最低可用级次为何？
+\Diagram{fig:o3sodiumq}{两条谱线在同一级产生相邻主峰}{\draw[axis](0,0)--(5.5,0)node[right]{$\theta$};\draw[curve](1,0)..controls(1.5,2.5)and(1.8,2.5)..(2.4,0);\draw[curve](2,0)..controls(2.5,2.5)and(2.8,2.5)..(3.4,0);\node[above]at(1.7,2){589.0};\node[above]at(2.7,2.7){589.6};}
+\end{example}
+\begin{solution}
+取平均波长$\bar\lambda=589.3$ nm、差$\Delta\lambda=.6$ nm，所需分辨本领约982.17。图\ref{fig:o3sodiumq}按瑞利比较要求$mN\geq982.17$，因此$N_{\min}=\lceil982.17/m\rceil$。
+\Diagram{fig:o3sodiuma}{提高级次缩小所需缝数，但必须有该传播级次}{\draw[axis](0,0)--(4.8,0)node[right]{$m$};\draw[axis](0,0)--(0,3.2)node[above]{$N_{\min}$};\foreach\x/\y/\t in{1/2.95/983,2/1.476/492,3/.984/328,4/.738/246}{\fill(\x,\y)circle(1.5pt);\node[right]at(\x,\y){$\t$};}}
+一级至少983条，二级492条。若$N=200$，则$m\geq\lceil982.17/200\rceil=5$。图\ref{fig:o3sodiuma}的提高级次并非无条件可行，还须$|m\lambda/b|\leq1$、该级不缺级且效率足够。只满足$mN$而传播角不存在时，不能实现分辨。
+\end{solution}
+
+\begin{example}\label{ex:o3sparrow}
+两条等强、互不相干谱线产生相同的窄主峰，单线近似$F(x)=(\sin x/x)^2$。两峰中心为$\pm a$。以总曲线中点由极大转为极小作为双峰边界，推导所需间距，并与瑞利间距比较。
+\Diagram{fig:o3sparrowq}{两条单线的强度相加，峰中心相距$2a$}{\draw[axis](-3,0)--(3.4,0)node[right]{$x$};\draw[curve,domain=-2.7:2.7,samples=90]plot(\x,{1.5*exp(-2*(\x-1)^2)});\draw[guide,domain=-2.7:2.7,samples=90]plot(\x,{1.5*exp(-2*(\x+1)^2)});\node[below]at(-1,0){$-a$};\node[below]at(1,0){$a$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o3sparrowq}只示意两中心位置，定量使用sinc平方。总强度$G(x)=F(x-a)+F(x+a)$为偶函数，$G'(0)=0$、$G''(0)=2F''(a)$。曲率边界为$F''(a)=0$。完整求导给
+\[
+ F'(x)=\frac{\sin2x}{x^2}-\frac{2\sin^2x}{x^3},
+\]
+\[
+ F''(x)=\frac{2\cos2x}{x^2}-\frac{4\sin2x}{x^3}
+ +\frac{6\sin^2x}{x^4}.
+\]
+在$x=a$处通分并用$2\sin^2a=1-\cos2a$，得
+\[
+ F''(a)=\frac{(2a^2-3)\cos2a-4a\sin2a+3}{a^4}.
+\]
+取第一非零正根，数值$a\simeq1.30308171$，所以两中心间距$2a\simeq2.60616$。
+\Diagram{fig:o3sparrowa}{曲率判据的临界中点变平，超过临界后出现中央凹陷}{\draw[axis](-3,0)--(3.3,0)node[right]{$x$};\draw[axis](0,0)--(0,2.6)node[above]{$G$};\draw[curve,domain=-2.8:2.8,samples=120]plot(\x,{(sin((\x-1.30308) r)/(\x-1.30308))^2+(sin((\x+1.30308) r)/(\x+1.30308))^2});\draw[guide](-.6,1.096)--(.6,1.096);}
+瑞利判据的中心间距是单峰中心到首零的$\pi$，故图\ref{fig:o3sparrowa}对应的曲率间距约为瑞利间距的$2.60616/\pi\simeq0.82957$。求导时$x^{-2}$的变化与$\sin^2x$的变化同阶，不能把分母固定后仅对分子求导。此判据还依赖两线等强、无噪声和相同形状；实际能否可靠辨认需结合测量条件。
+\end{solution}
+
+\begin{example}\label{ex:o3width}
+光栅照明总宽度$W$，周期$b$，正常入射。证明任意可传播级次的瑞利分辨本领受$W/\lambda$限制，并解释为何无限缩小周期不能无限提高分辨率。
+\Diagram{fig:o3widthq}{照明宽度决定实际参与的缝数}{\draw[curve](0,-.5)rectangle(5,.7);\foreach\x in{.2,.6,1,1.4,1.8,2.2,2.6,3,3.4,3.8,4.2,4.6}{\draw[curve](\x,-.5)--(\x,.7);}\draw[<->](0,-1)--(5,-1)node[midway,below]{$W\simeq Nb$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o3widthq}中$N\simeq W/b$。主极大$b\sin\theta=m\lambda$要求$|m|\leq b/\lambda$。相乘得到$|m|N\lesssim W/\lambda$。
+\Diagram{fig:o3widtha}{周期越小虽增加缝数，却降低最高可用级次}{\draw[axis](0,0)--(4.6,0)node[right]{$b/\lambda$};\draw[axis](0,0)--(0,3)node[above]{最高$|m|$};\draw[very thick](0,0)--(1,0)--(1,.7)--(2,.7)--(2,1.4)--(3,1.4)--(3,2.1)--(4,2.1);\draw[guide](0,0)--(4,2.8);}
+图\ref{fig:o3widtha}中的级次是整数，实际最大值为$\lfloor b/\lambda\rfloor$。当$b<\lambda$只剩零级，不能靠通常角色散分辨不同波长。上限在掠射方向逼近，近轴角宽公式及实际效率此时需要更细处理；这一上限由实际参与相干叠加的孔径宽度确定。
+\end{solution}
+
+\section{闪耀反射光栅}\label{th:o3blaze}
+反射光栅每周期的小面可视为有限平面镜。设宏观法线沿$+z$，入射光沿$-z$，小面法线向$+x$倾斜$\alpha$，出射方向相对$+z$成$\theta$。小面切向单位矢量为$(\cos\alpha,-\sin\alpha)$，其上坐标$s$的相位梯度为
+\[
+ (\vct k_i-\vct k_o)\cdot\vct t
+ =k[\sin\alpha-\sin(\theta-\alpha)].
+\]
+单小面包络在梯度为零时最强，即$\theta=2\alpha$，正是镜面反射方向。周期阵列的主峰仍由$b\sin\theta_m=m\lambda$确定；使某级落在包络峰上，闪耀波长为$\lambda_B=b\sin2\alpha/m$。阴影遮挡、偏振及真实沟槽形状会影响效率，简单标量面元积分只描述主要相位匹配。
+
+\begin{example}\label{ex:o3blaze}
+正常入射的闪耀光栅周期$b=2\,\mu\mathrm m$，小面倾角$\alpha=15^\circ$。求二级闪耀波长，并比较此处相邻周期相位和单小面内相位各自的作用。
+\Diagram{fig:o3blazeq}{倾斜小面使镜面包络偏向某一衍射级}{\foreach\x in{0,1.5,3,4.5}{\draw[curve](\x,0)--({\x+1.1},-.3)--({\x+1.5},0);}\draw[->](2,2)--(2,-.14);\draw[->](2,-.14)--(3.3,2.11);\node[above]at(2,2){入射};\node[right]at(3.3,2.11){$2\alpha$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o3blazeq}的包络中心$\theta=30^\circ$，二级光栅条件$2\lambda_B=b\sin30^\circ$，所以$\lambda_B=.5\,\mu\mathrm m=500$ nm。
+\Diagram{fig:o3blazea}{相同多缝窄峰乘以偏移包络，强度集中在选定级次}{\draw[axis](0,0)--(5.8,0)node[right]{衍射级次};\draw[curve,domain=0:5,samples=80]plot(\x,{2.5*exp(-1.1*(\x-2)^2)});\foreach\x in{0,1,2,3,4,5}{\draw[very thick](\x,0)--(\x,{2.5*exp(-1.1*(\x-2)^2)});}\node[below]at(2,0){$m=2$};}
+小面内同相叠加使该角度单缝包络大，周期之间相差$4\pi$使二级主峰相长，图\ref{fig:o3blazea}表示两条件同时满足。闪耀主要提高选定级的能量效率；固定$N,m$下，瑞利分辨本领仍是$mN$，不会因包络更高而自动变成更窄的几何峰。
+\end{solution}
+\input{lecture3_derivations}
+\input{lecture3_extensions}
+\input{lecture3_depth}
+\input{lecture3_connections}
+\input{lecture3_exercises}

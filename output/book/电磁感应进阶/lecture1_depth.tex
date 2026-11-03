@@ -1,0 +1,99 @@
+\section{感应电压的测量路径与滑动接触}
+\subsection{非保守电场中的两端电压}
+静电场中，两点间电压只由端点决定。存在变化磁通时，$\oint\vct E\cdot\dd\vct l\ne0$，实际测量还必须给出引线怎样连接。取两条从$A$到$B$的静止路径$\gamma_1,\gamma_2$，定义沿各路径的有向电场积分
+\[
+ U_1=\int_{\gamma_1,A\to B}\vct E\cdot\dd\vct l,\qquad
+ U_2=\int_{\gamma_2,A\to B}\vct E\cdot\dd\vct l.
+\]
+闭合曲线按$\gamma_1$正向、$\gamma_2$反向组成，其磁通正向由右手规则确定。于是
+\[
+ U_1-U_2=-\frac{\dd\Phi_{\gamma_1-\gamma_2}}{\dd t}.
+\]
+理想高内阻电压表通过引线接入时，对原回路的扰动可忽略。在静止、细导线及准静态条件下，读数可用沿实际引线和表内路径的积分表示。改变引线包围的磁通，会改变读数。将两根引线并行靠近或绞合，可减小附加回路面积；仅仅说“表接在$A,B$两端”还不足以确定答案。
+
+\begin{example}[同一对接点的两个电压表读数]
+一静止圆形回路分成上、下两条半圆支路，接点分别为左侧$A$、右侧$B$。上支路电阻为$2R$，下支路电阻为$R$，自感可忽略。穿过圆面的向纸外磁通$\Phi(t)$均匀增加，$\dot\Phi=\mathcal E_0>0$。两个高内阻电压表均以$A$端为正端、$B$端为负端；第一组引线紧贴上支路，第二组紧贴下支路，分别与对应支路包围可忽略的小面积。求两表读数。
+\ExpansionDiagram{fig:dep-i1-meter-q}{两组引线分别沿上、下支路连接同一对接点}{
+\draw[thick](-2,0)arc(180:115:2);\draw[thick](2,0)arc(0:65:2);
+\draw[thick](-.845,1.813)--(-.6,1.65)--(-.3,2.05)--(0,1.65)--(.3,2.05)--(.6,1.65)--(.845,1.813);
+\draw[thick](-2,0)arc(180:245:2);\draw[thick](2,0)arc(360:295:2);
+\draw[thick](-.845,-1.813)--(-.6,-1.65)--(-.3,-2.05)--(0,-1.65)--(.3,-2.05)--(.6,-1.65)--(.845,-1.813);
+\fill(-2,0)circle(2pt)node[left=12pt]{$A$};\fill(2,0)circle(2pt)node[right=12pt]{$B$};
+\node[fill=white]at(0,1.45){$2R$};\node[fill=white]at(0,-1.45){$R$};
+\draw[dashed,->](-2.3,.1)arc(177.5:2.5:2.3);\draw[dashed,->](-2.3,-.1)arc(182.5:357.5:2.3);
+\node[right]at(2.3,1.3){$\gamma_1$};\node[right]at(2.3,-1.3){$\gamma_2$};
+\node at(0,0){$\odot\ \dot\Phi>0$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-i1-meter-q}中的向外磁通增加，感应电流为顺时针。在上半圆，电流由$A$流向$B$；在下半圆，由$B$流向$A$。总电阻$3R$，所以
+\[
+ I=\frac{\mathcal E_0}{3R}.
+\]
+第一组引线与上支路之间磁通变化可忽略，沿两路径的电场积分相同。上支路从$A$到$B$与电流同向，因而
+\[
+ U_1=\int_{A\to B,\text{上}}\vct E\cdot\dd\vct l=2RI
+ =\frac23\mathcal E_0.
+\]
+第二组引线紧贴下支路，从$A$到$B$的积分方向逆着电流，故
+\[
+ U_2=\int_{A\to B,\text{下}}\vct E\cdot\dd\vct l=-RI
+ =-\frac13\mathcal E_0.
+\]
+\ExpansionDiagram{fig:dep-i1-meter-a}{顺时针电流与两条积分路径的符号}{
+\draw[thick](-2,0)arc(180:0:2);\draw[thick](-2,0)arc(180:360:2);
+\draw[->,thick](-1.414,1.414)arc(135:65:2)node[midway,above right]{$I$};
+\draw[->,thick](1.414,-1.414)arc(315:245:2)node[midway,below right]{$I$};
+\node[left]at(-2,0){$A$};\node[right]at(2,0){$B$};
+\draw[->](-1,.6)--(1,.6)node[midway,above]{$U_1=+2RI$};
+\draw[->](-1,-.6)--(1,-.6)node[midway,below]{$U_2=-RI$};}
+按图\ref{fig:dep-i1-meter-a}中的上路$A\to B$再下路$B\to A$构成顺时针闭合曲线，其正法向指向纸内，磁通为$-\Phi$。于是
+$U_1-U_2=-\dd(-\Phi)/\dd t=\mathcal E_0$，与两个读数相符。电压表理想内阻趋于无穷不消除路径差异，只使它对原回路电流的影响趋于零。
+\end{solution}
+
+\subsection{滑动接触回路怎样使用磁通法则}
+运动回路的磁通导数公式以连续随物质运动的闭合曲线为对象。电刷、滑轨等滑动接触会不断更换路径上的物质点；处理这类回路，应按各段的实际导体速度分别计算
+\[
+ \mathcal E=\oint(\vct E+\vct v_{\rm wire}\times\vct B)\cdot\dd\vct l,
+\]
+再说明各段导体速度及接触处连接方式。不能把某个几何上不动的回路面积直接代入$-\dd\Phi/\dd t$，同时漏掉运动导体段的贡献。
+
+\begin{example}[匀强静磁场中的单极发电圆盘]
+半径$a$的导电圆盘在垂直盘面向外的匀强磁场$B$中，以角速度$\omega>0$逆时针转动。静止电刷分别接触圆心$A$和边缘$B_1$，外电阻为$R$，圆盘及接触的总内阻为$r$。忽略接触的局部效应。求开路电压、闭路电流、阻力矩和维持转动所需的功率。
+\ExpansionDiagram{fig:dep-i1-disk-q}{圆心和盘边电刷接入静止外回路}{
+\draw[thick](0,0)circle(1.5);\fill(0,0)circle(2pt)node[below left]{$A$};\fill(1.5,0)circle(2pt)node[above right]{$B_1$};
+\draw[thick](0,0)--(0,-2.2)--(2.8,-2.2);\draw[thick](1.5,0)--(2.8,0)--(2.8,-.7);
+\draw[thick](2.8,-.7)--(2.65,-.9)--(2.95,-1.1)--(2.65,-1.3)--(2.95,-1.5)--(2.8,-1.7)--(2.8,-2.2);
+\node[right]at(3,-1.2){$R$};\node at(-.7,.3){$\odot B$};
+\draw[->](1.1,.8)arc(36:125:1.36);\node[above]at(0,1.7){$\omega$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-i1-disk-q}中盘上距圆心$s$的质点速度为$\omega s\,\vct e_\varphi$。由于$\vct e_\varphi\times\vct e_z=\vct e_s$，磁力将正电荷推向外缘。沿盘上半径从$A$到$B_1$，运动电动势为
+\[
+ \mathcal E_{\rm d}=\int_0^a\omega sB\,\dd s
+ =B\omega[s^2/2]_0^a
+ =\frac12B\omega a^2.
+\]
+开路时，盘内静电场调整为$E_s=-B\omega s$，所以
+\[
+ \boxed{\varphi_{B_1}-\varphi_A=\frac12B\omega a^2}.
+\]
+闭路后电流在盘中由内向外，经过外电阻回到圆心，其大小
+$I=B\omega a^2/[2(R+r)]$。在任意半径$s$，穿过同心圆的总径向电流都是$I$。若盘厚为$h$，则$J_s=I/(2\pi sh)$；薄环体积为$2\pi sh\,\dd s$。由$\vct J\times\vct B$，该环受到的切向力为$-IB\,\dd s$，力矩为
+\[
+ \dd\tau_z=-IBs\,\dd s,\qquad
+ \tau_z=-IB\int_0^as\dd s=-IB[s^2/2]_0^a,\qquad
+ \boxed{\tau_z=-\frac12IBa^2}.
+\]
+\ExpansionDiagram{fig:dep-i1-disk-a}{径向电流、切向磁力及机械能转为电能的方向}{
+\draw[thick](0,0)circle(1.7);\draw[dashed](0,0)circle(1);
+\draw[->,thick](.2,0)--(1.55,0)node[midway,above]{$I$};
+\fill(1,0)circle(2pt);\draw[->,thick](1,0)--(1,-1.15)node[right]{$\dd F_\varphi$};
+\draw[<->](0,-.25)--(1,-.25)node[midway,below]{$s$};
+\node at(-.7,.4){$\odot B$};\node[below]at(0,-2){$\tau_z<0,\quad \omega>0$};}
+图\ref{fig:dep-i1-disk-a}中的磁力矩反向于圆盘转动。保持角速度恒定，外力矩应为$IBa^2/2$，提供的功率为
+\[
+ P_{\rm mech}=\frac12IBa^2\omega=I\mathcal E_{\rm d}
+ =I^2(R+r).
+\]
+其中$I^2R$供给外负载，$I^2r$转为内阻热。整个几何电路处在静止磁场中，几何围成的面积也可不变，电流仍然存在；圆盘段的速度场和滑动电刷使这条路径不是物质回路。
+\end{solution}

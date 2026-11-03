@@ -1,0 +1,69 @@
+\section{相对速率的标量表达与辐射的局部能量}
+\subsection{任意方向的相对速率}
+两粒子的实验室速度分别为$\vct u,\vct v$，四速度为$U=\gamma_u(c,\vct u)$、$V=\gamma_v(c,\vct v)$。在第二粒子静止系，$V'=(c,0,0,0)$，故$U'\cdot V'=\gamma_{\rm rel}c^2$。内积不变立即给
+\[
+ \gamma_{\rm rel}=\gamma_u\gamma_v
+ \left(1-\frac{\vct u\cdot\vct v}{c^2}\right),\qquad
+ w=c\sqrt{1-\gamma_{\rm rel}^{-2}}.
+\]
+这里$w$指任一粒子静止系中测得的另一粒子速率，交换两粒子后数值不变。在第三个参考系中作速度矢量差，得到的是该系等时位置差的变化率；它与上述相对速率采用了不同的测量程序。
+
+若两速度共线同向，公式化为$w=|u-v|/(1-uv/c^2)$；共线反向则分子变为$u+v$、分母为$1+uv/c^2$。非共线时，先算夹角余弦形成的点积通常比逐个变换三个分量更直接。若还需要相对运动方向，才补做速度变换；一个标量速率不足以确定方向。
+
+\begin{example}正交运动的两粒子
+实验室中$A$沿$x$以$0.8c$运动，$B$沿$y$以$0.6c$运动，两者在原点相遇。求它们的相对速率，并在$B$的静止系中用分量变换核对。
+\ExpansionDiagram{fig:dep-m1-relative-q}{相遇事件处的两条实验室速度；虚线表示坐标速度差}{
+\draw[->](0,0)--(4,0)node[right]{$x$};\draw[->](0,0)--(0,3)node[above]{$y$};\draw[->,thick](0,0)--(3.2,0)node[midway,below]{$0.8c$};\draw[->,thick](0,0)--(0,2.4)node[midway,left]{$0.6c$};\draw[dashed,->](0,2.4)--(3.2,0);\node[below left]at(0,0){$O$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-m1-relative-q}中两速度点积为零，$\gamma_A=5/3$、$\gamma_B=5/4$，所以
+\[
+ \gamma_{\rm rel}=\frac{25}{12},\qquad
+ w=\frac{\sqrt{481}}{25}c\simeq0.8773c.
+\]
+变到沿$+y$以$0.6c$运动的系，$A$原来的$u_y=0$，速度变换的公共分母为$1-u_yV/c^2=1$。纵向分量变为$u_y'=-0.6c$，横向为$u_x'=u_x/\gamma_B=0.64c$。
+\ExpansionDiagram{fig:dep-m1-relative-a}{在$B$静止系中，$A$的横向分量也发生变化}{
+\draw[->](0,0)--(3.8,0)node[right]{$x'$};\draw[->](0,-2.8)--(0,1)node[above]{$y'$};\draw[->,thick](0,0)--(2.56,-2.4)node[right]{$\vct u'_A$};\draw[dashed](2.56,0)--(2.56,-2.4)--(0,-2.4);\node[above]at(1.3,0){$0.64c$};\node[left]at(0,-1.4){$-0.6c$};}
+由图\ref{fig:dep-m1-relative-a}，$w^2/c^2=0.64^2+0.6^2=481/625$，与内积法一致。若直接使用原图两速度差，会得到$c$；错误来自把实验室的同时性和时间间隔原封不动地带入$B$系。
+\end{solution}
+
+\subsection{局部能量密度为什么还与压力有关}
+光子束的粒子数四流与单个光子的四动量分别变换。设某源系方向余弦为$\mu$的一小束光在源系能量密度为$\dd u_*$；源系相对实验室沿$+x$运动，速度为$\beta c$。光子能量乘$\gamma(1+\beta\mu)$，同一方向粒子束的数密度也乘这个因子，故
+\[
+ \dd u=\gamma^2(1+\beta\mu)^2\dd u_*.
+\]
+这里仍以源系方向为积分标签，尚未把积分测度换为实验室立体角。用同一标签积分可避免重复引入角度雅可比。该束在实验室的$x$方向余弦为$(\mu+\beta)/(1+\beta\mu)$，于是其能流为$c\dd u$乘这个余弦。
+
+对源系各向同性辐射，角平均的权重是$\dd\mu/2$。所需角度矩为
+\[
+ \langle\mu\rangle=\frac12\int_{-1}^1\mu\dd\mu
+ =\left[\frac{\mu^2}{4}\right]_{-1}^1=0,
+ \qquad
+ \langle\mu^2\rangle=\frac12\int_{-1}^1\mu^2\dd\mu
+ =\left[\frac{\mu^3}{6}\right]_{-1}^1=\frac13.
+\]
+将能量因子平方展开为$1+2\beta\mu+\beta^2\mu^2$，能流的角度因子展开为$(1+\beta\mu)(\mu+\beta)$，逐项取上述平均，得到
+\[
+ u=\gamma^2u_*(1+\beta^2/3),\qquad
+ S_x=\frac43\gamma^2\beta c u_*.
+\]
+再以方向余弦平方求法向动量通量，有$p_x=\gamma^2u_*(1/3+\beta^2)$；横向压力仍为$u_*/3$。辐射运动后不再各向同性，不能继续令所有方向压力都等于实验室$u/3$。
+
+\begin{example}移动辐射腔中的能量与能流
+长方形腔在自身静止系装有各向同性平衡辐射，能量密度$u_*$、体积$\mathcal V_*$。腔相对实验室沿$x$以$0.6c$运动。求辐射在实验室的局部能量密度、能流、纵向压力和等时截面总能量。解释为何最后一个量不等于单独把$u_*\mathcal V_*$乘$\gamma$。
+\ExpansionDiagram{fig:dep-m1-radiation-q}{腔系辐射各向同性；实验室中的等时截面另有方向权重}{
+\draw(0,0)rectangle(4,2);\foreach\a in{0,45,90,135,180,225,270,315}{\draw[->](2,1)--++(\a:.7);}\draw[->,thick](4.4,1)--(6,1)node[right]{$V$};\node[below]at(2,0){腔系体积$\mathcal V_*$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-m1-radiation-q}中的源系角平均给$\gamma=5/4$。代入局部公式，
+\[
+ u=\frac74u_*,\qquad S_x=\frac54cu_*,\qquad
+ p_x=\frac{13}{12}u_*.
+\]
+横向压力为$u_*/3$。能流虽非零，但$S_x/(cu)=5/7<1$；它是不同方向光子贡献的合成，不是说所有光子共同以某个亚光速运动。
+\ExpansionDiagram{fig:dep-m1-radiation-a}{压力和能流共同参与运动辐射的局部描述}{
+\draw(0,0)rectangle(3.2,1.8);\draw[->,thick](1,.9)--(4.8,.9)node[right]{$S_x$};\draw[->](3.2,1.4)--(4.2,1.4)node[right]{$p_x$};\draw[->](1.6,1.8)--(1.6,2.6)node[above]{$u_*/3$};\node[below]at(1.6,0){$u=7u_*/4$};}
+实验室等时体积为$\mathcal V_*/\gamma=4\mathcal V_*/5$，所以辐射总能量$E_{\rm rad}=7u_*\mathcal V_*/5$，而$\gamma u_*\mathcal V_*=5u_*\mathcal V_*/4$。
+
+两者不同并不违反四动量变换。图\ref{fig:dep-m1-radiation-a}中的腔壁持续承受辐射压力，辐射子系统通过壁面交换动量，并非孤立封闭系统。将腔壁的能量、动量和应力一并纳入，封闭整体的总四动量才按四矢量变换。不能把一团受约束辐射的局部密度积分，无条件当作自由粒子的质量能公式。
+\end{solution}

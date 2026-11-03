@@ -1,0 +1,95 @@
+\section{有限带宽、有限光源与曝光时间}
+\begin{example}\label{ex:o2bandwidth}
+双束干涉的功率谱在频率$\nu_0-\Delta\nu/2$到$\nu_0+\Delta\nu/2$内恒定，其他处为零。不同频率互不相干，同频两路完全相干且等强。两臂时间差为$\tau$，求干涉可见度包络及首个零点。
+\Diagram{fig:o2bandq}{矩形功率谱的每个频率分别产生自己的干涉项}{\draw[axis](0,0)--(5,0)node[right]{$\nu$};\draw[axis](0,0)--(0,2.8)node[above]{功率谱};\draw[curve](1.2,0)--(1.2,2)--(3.8,2)--(3.8,0);\node[below]at(2.5,0){$\nu_0$};\node[above]at(2.5,2){$\Delta\nu$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2bandq}总干涉项需对频率积分。先计算长度为$L$的均匀区间平均：当$b\ne0$时，
+\begin{align}
+ \frac1L\int_{-L/2}^{L/2}\cos(a+bs)\dd s
+ &=\left[\frac{\sin(a+bs)}{bL}\right]_{-L/2}^{L/2}\notag\\
+ &=\frac{2\cos a\sin(bL/2)}{bL}
+ =\cos a\operatorname{sinc}(bL/2).\label{eq:o2rectaverage}
+\end{align}
+当$b=0$时直接积分得$\cos a$，与连续极限相同。对正弦作同一计算，得$\sin a\operatorname{sinc}(bL/2)$，因此复指数的平均为$\ee^{ia}\operatorname{sinc}(bL/2)$。本题以$\nu=\nu_0+s$换元，取$L=\Delta\nu,a=2\pi\nu_0\tau,b=2\pi\tau$，得到归一化干涉项$\cos(2\pi\nu_0\tau)\operatorname{sinc}(\pi\Delta\nu\tau)$。
+\Diagram{fig:o2banda}{可见度是谱积分的归一化模，有限带宽使远离零光程差的条纹变弱}{\draw[axis](-3.2,0)--(3.4,0)node[right]{$\Delta\nu\tau$};\draw[axis](0,0)--(0,2.7)node[above]{$\mathcal V$};\draw[curve,domain=.01:3,samples=80]plot(\x,{2.2*abs(sin(180*\x)/(pi*\x))});\draw[curve,domain=-3:-.01,samples=80]plot(\x,{2.2*abs(sin(180*\x)/(pi*\x))});}
+故图\ref{fig:o2banda}的可见度$\mathcal V=|\operatorname{sinc}(\pi\Delta\nu\tau)|$，首零$|\tau|=1/\Delta\nu$，对应光程差尺度$c/\Delta\nu$。这一定义依赖所选的矩形谱及“首零”标准；高斯谱没有有限首零，不能把相干长度当所有光源共有的硬截止距离。
+\end{solution}
+
+\begin{example}\label{ex:o2extendedsource}
+宽$w$的均匀线光源平行于双缝连线，位于缝前距离$a$。源上不同点互不相干，每个点各自照明两缝。双缝距$d$。求近轴干涉可见度及第一消失源宽。
+\Diagram{fig:o2sourceq}{扩展光源各点产生相位不同的条纹，相加强度}{\draw[very thick](0,-1.3)--(0,1.3);\node[left]at(0,0){$w$};\fill(3,.6)circle(1.5pt)node[right]{$S_+$};\fill(3,-.6)circle(1.5pt)node[right]{$S_-$};\draw[guide](0,1)--(3,.6);\draw[guide](0,1)--(3,-.6);\node[below]at(1.5,-1.5){$a$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2sourceq}横坐标$x_s$的源元附加双缝相位$2\pi dx_s/(\lambda a)$。屏上该点的共同相位记为$\delta_0$。在式\eqref{eq:o2rectaverage}已展开的定积分中，取区间长度$w$、相位斜率$2\pi d/(\lambda a)$，均匀源强度平均的交叉项比例为
+\[
+ \frac1w\int_{-w/2}^{w/2}\cos\left(\delta_0+\frac{2\pi dx_s}{\lambda a}\right)\dd x_s
+ =\cos\delta_0\,\operatorname{sinc}\left(\frac{\pi dw}{\lambda a}\right).
+\]
+\Diagram{fig:o2sourcea}{源角宽越大，不同源点的中央纹偏移越难重合}{\draw[axis](0,0)--(5.3,0)node[right]{屏坐标};\draw[curve,domain=0:4.7,samples=100]plot(\x,{1+.5*cos(300*\x)});\draw[guide,domain=0:4.7,samples=100]plot(\x,{1+.5*cos(300*\x+120)});\node[above]at(2.5,2.1){不同源点条纹示意};}
+所以$\mathcal V=|\operatorname{sinc}(\pi dw/(\lambda a))|$，首零$w=\lambda a/d$。图\ref{fig:o2sourcea}表达的是不同条纹强度相加，不能先把独立源点的电场相干相加。源尺寸沿另一方向延伸时，其投影到双缝基线的宽度才进入本式。
+\end{solution}
+
+\begin{example}\label{ex:o2movingfringes}
+两平面波频率分别为$\omega_1,\omega_2$，波矢分别$\vct k_1,\vct k_2$，偏振相同。求等相位差条纹的运动速度，并讨论曝光时间$T$对可见度的影响。
+\Diagram{fig:o2movingq}{两个不同频率和方向的平面波形成移动干涉纹}{\draw[axis](0,0)--(3.2,1.2)node[above]{$\vct k_1$};\draw[axis](0,0)--(3.2,-1.2)node[below]{$\vct k_2$};\foreach\y in{-1,0,1}{\draw[curve](4,\y)--(6,\y);}\draw[axis](6.3,-1)--(6.3,1)node[right]{$\Delta\vct k$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2movingq}交叉相位为$\Delta\vct k\cdot\vct r-\Delta\omega t+\phi$。沿条纹随动点求时间导数，$\Delta\vct k\cdot\vct v_f-\Delta\omega=0$。取速度沿条纹法线，且$\Delta\vct k\ne0$，得到$\vct v_f=(\Delta\omega/|\Delta\vct k|^2)\Delta\vct k$。若$\Delta\vct k=0$，干涉项在空间中均匀；$\Delta\omega\ne0$时只有时间拍动，二者同时为零时则相位差恒定，均无可定义的空间条纹移动速度。纹速描述等相位面的移动，光能和信息仍按各束光的传播规律传递。
+\Diagram{fig:o2movinga}{固定像素在有限曝光内平均正弦变化，长曝光削弱干涉项}{\draw[axis](0,0)--(5.5,0)node[right]{$t$};\draw[axis](0,0)--(0,2.7)node[above]{光强};\draw[curve,domain=0:5,samples=130]plot(\x,{1.3+cos(360*\x)});\draw[guide](1,0)--(1,2.5);\draw[guide](3.5,0)--(3.5,2.5);\node[above]at(2.25,2.5){曝光$T$};}
+取曝光变量$s=t-t_0$，则交叉相位为$a-\Delta\omega s$，其中$a=\Delta\vct k\cdot\vct r-\Delta\omega t_0+\phi$。在式\eqref{eq:o2rectaverage}中取$L=T,b=-\Delta\omega$，交叉项便乘$\operatorname{sinc}(\Delta\omega T/2)$，等强可见度为其绝对值。图\ref{fig:o2movinga}在$T\gg1/|\Delta\omega|$时条纹变弱，短曝光则可记录移动条纹；“不同频率不干涉”包含了长时间平均的条件。
+\end{solution}
+
+\section{多次反射与干涉测量}
+\begin{example}\label{ex:o2fabry}
+无损对称法布里—珀罗平行腔两镜的能量反射率均为$R$，腔内单程相位$\phi$。取镜的振幅系数使腔往返倍率为$R\ee^{2i\phi}$。求透射强度并推导高反射率时的精细度。
+\Diagram{fig:o2fabryq}{腔内每多一次往返，场乘$R\ee^{2i\phi}$}{\draw[very thick](1,-1.3)--(1,1.3);\draw[very thick](4,-1.3)--(4,1.3);\draw[->](0,.8)--(4,.8);\draw[->](4,.5)--(1,.5);\draw[->](1,.2)--(4,.2);\draw[->](4,-.1)--(5.5,-.1);\node[below]at(2.5,-1.4){$\phi$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2fabryq}中，每个无损镜的能量透射率为$1-R$，首束透射场模为$(1-R)A$，包含单程相位$\ee^{i\phi}$。后续每束再乘一次往返倍率$R\ee^{2i\phi}$，几何级数给
+\[
+ A_t=(1-R)A\ee^{i\phi}\sum_{j=0}^\infty R^j\ee^{2ij\phi}
+ =\frac{(1-R)A\ee^{i\phi}}{1-R\ee^{2i\phi}}.
+\]
+分母模平方为$1+R^2-2R\cos2\phi=(1-R)^2+4R\sin^2\phi$，因此
+\[
+ \frac{I_t}{I_i}=\frac1{1+\mathcal A\sin^2\phi},\qquad
+ \mathcal A=\frac{4R}{(1-R)^2}.
+\]
+\Diagram{fig:o2fabrya}{高反射率使透射峰变窄，理想共振峰值仍为1}{\draw[axis](0,0)--(6.7,0)node[right]{$\phi$};\draw[axis](0,0)--(0,2.7)node[above]{$I_t/I_i$};\draw[curve,domain=0:6.283,samples=220]plot(\x,{2.3/(1+80*sin(\x r)^2)});\node[below]at(3.142,0){$\pi$};}
+图\ref{fig:o2fabrya}的峰在$\phi=m\pi$，峰高为1。若$\mathcal A\geq1$，峰两侧半高点满足$\sin^2\delta\phi=1/\mathcal A$，故准确半高全宽为$2\arcsin(1/\sqrt{\mathcal A})$，精细度为
+\[
+ \mathcal F_c=\frac{\pi}{2\arcsin[(1-R)/(2\sqrt R)]}.
+\]
+高反射率时$(1-R)/(2\sqrt R)\ll1$，用$\arcsin x\simeq x$得到$\mathcal F_c\simeq\pi\sqrt R/(1-R)$。若$\mathcal A<1$，整条曲线的最低值仍高于峰的一半，按这个基线为零的半高定义没有半高点，不应使用窄峰线宽近似。腔内各束振幅逐次衰减，属于无限几何级数。无损对称腔在共振处可完全透射，与有限等幅多束的$N^2$峰高采用不同归一化。
+\end{solution}
+
+\begin{example}\label{ex:o2gascell}
+迈克耳孙一臂放入长度$l$的气室，光在其中往返。抽真空后充入折射率$n$的气体，记录中心通过$N$条纹。求$n$；若只改变另一臂镜子的位置补偿，需移动多少？
+\Diagram{fig:o2gasq}{气室在同一干涉臂内被光往返通过}{\draw[axis](0,0)--(6.3,0);\draw[curve](2,-.8)rectangle(4,.8);\draw[very thick](5.5,-1.2)--(5.5,1.2);\node[above]at(3,.8){气室$n,l$};\draw[->](1,.3)--(5.3,.3);\draw[->](5.3,-.3)--(1,-.3);}
+\end{example}
+\begin{solution}
+图\ref{fig:o2gasq}以抽空状态为参考，每一程附加光程为$(n-1)l$，往返总改变量$2(n-1)l=N\lambda_0$，所以$n=1+N\lambda_0/(2l)$。
+\Diagram{fig:o2gasa}{另一臂镜移一段，往返补偿两倍该长度}{\draw[very thick](2,-1)--(2,1);\draw[guide](3.3,-1)--(3.3,1);\draw[<->](2,-1.5)--(3.3,-1.5)node[midway,below]{$\Delta d$};\node[right]at(3.6,0){$2\Delta d=2(n-1)l$};}
+图\ref{fig:o2gasa}需要镜移大小$|\Delta d|=(n-1)l$，方向选为增加另一臂光程来补偿气室臂的增加。若气室窗在充气前后保持不变，窗片的静态相位相消；若充气使窗形变或气室长度变化，测得的不再单是折射率项，需把额外光程纳入。
+\end{solution}
+
+\begin{example}\label{ex:o2ringmotion}
+牛顿环中心原间隙$h_0$，将透镜整体抬高$\Delta h>0$且不改变曲率。跟踪固定级次$m$的反射暗环，求半径平方变化和中心每暗一次所需的抬升量。
+\Diagram{fig:o2ringmotionq}{整体抬高改变所有半径处的共同间隙}{\draw[curve](-2.3,0)--(2.3,0);\draw[curve,domain=-2:2,samples=60]plot(\x,{.2+.15*\x*\x});\draw[guide,domain=-2:2,samples=60]plot(\x,{.7+.15*\x*\x});\draw[->](0,.25)--(0,.65)node[right]{$\Delta h$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2ringmotionq}的暗环$r_m^2=R[m\lambda_0/n-2h_0]$，抬高后$r_m'^2=r_m^2-2R\Delta h$。所以同一级次向内收缩，直到$r_m'=0$后消失。
+\Diagram{fig:o2ringmotiona}{跟踪同一级次时圆环向中心收缩}{\draw[curve](0,0)circle(1.6);\draw[guide](0,0)circle(1.05);\draw[->](1.55,0)--(1.1,0);\draw[->](-1.55,0)--(-1.1,0);\fill(0,0)circle(1pt);}
+中心相位的暗纹条件$2nh_0=m\lambda_0$，相邻暗态间隔$\Delta h=\lambda_0/(2n)$。图\ref{fig:o2ringmotiona}所说向内是固定$m$的跟踪；如果每次都把“从中心数的第一环”重新编号，编号跳变会掩盖运动方向，必须先说明跟踪对象。
+\end{solution}
+
+\begin{example}\label{ex:o2weightedbinomial}
+四束等间距光的振幅依次为$1,3,3,1$倍$A$。求干涉强度，比较它与四束等振幅时的零点和旁瓣，讨论权重改变的代价。
+\Diagram{fig:o2binomialq}{四束相邻相位差为$\delta$，振幅取二项式权重}{\draw[axis](-.3,0)--(4.3,0)node[right]{束序};\foreach\x/\y in{0/1,1/3,2/3,3/1}{\draw[very thick](\x,0)--(\x,{.7*\y});\node[above]at(\x,{.7*\y}){$\y$};}}
+\end{example}
+\begin{solution}
+图\ref{fig:o2binomialq}复振幅$\mathcal E/A=1+3\ee^{i\delta}+3\ee^{2i\delta}+\ee^{3i\delta}=(1+\ee^{i\delta})^3$，所以$I/I_A=64\cos^6(\delta/2)$。
+\Diagram{fig:o2binomiala}{二项式加权消去周期内旁瓣，但主峰更宽}{\draw[axis](0,0)--(6.8,0)node[right]{$\delta$};\draw[axis](0,0)--(0,2.7)node[above]{归一化强度};\draw[curve,domain=0:6.283,samples=100]plot(\x,{2.3*cos((\x/2) r)^6});\node[below]at(3.142,0){$\pi$};}
+图\ref{fig:o2binomiala}一个周期内只有$\delta=\pi$的零点，没有次极大。四束等幅时有三个零点和两个次极大、主峰首零在$\pi/2$。加权减少旁瓣却加宽主峰；若总入射功率固定，还应把权重整体归一化，不能直接拿峰值64与等幅16比较“效率”。
+\end{solution}

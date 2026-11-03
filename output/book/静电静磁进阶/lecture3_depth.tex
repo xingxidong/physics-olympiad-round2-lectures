@@ -1,0 +1,60 @@
+\section{浮置导体的消元与机械功}
+\subsection{给定电量的导体不能直接当作接地端}
+多导体系统可写$\vct Q=\mathsf C\vct V$。以足够明确的参考导体固定零势后，把导体分成电势给定组$a$和电量给定的浮置组$f$，有
+\[
+ Q_f=C_{fa}V_a+C_{ff}V_f.
+\]
+若浮置子块可逆，先解$V_f=C_{ff}^{-1}(Q_f-C_{fa}V_a)$，再代回受控端：
+\[
+ Q_a=(C_{aa}-C_{af}C_{ff}^{-1}C_{fa})V_a
+ +C_{af}C_{ff}^{-1}Q_f.
+\]
+第一项是消去浮置自由度后的电容矩阵，第二项保留它的预存电量。将浮置导体直接置为$V_f=0$，等于额外接入电源，物理问题已经改变。中性浮置导体只满足总电量零，两个表面仍可带相反电荷。
+
+求机械力还要分别处理控制方式。全体电量固定时，取场能$U=\tfrac12\vct V^{\mathsf T}\mathsf C\vct V$并对几何坐标微分；某些电势由理想电源保持时，适合使用$\mathcal G=U-\sum_{a}V_aQ_a$，在固定受控电势及浮置电量下取$F=-\partial\mathcal G/\partial x$。减去的项记录电源交换的能量。
+
+\begin{example}[带电浮置板的电势与失稳]
+两块面积$A$的大平行板位于$x=0,d$，电势分别为0、$V$。中间放一块极薄导体板，位置$x$，总电量固定为$Q$，不接电源。间隙为真空，忽略边缘效应。求中间板电势、电力及其可能的平衡位置，并分别用压力和能量法求力。
+\ExpansionDiagram{fig:dep-es3-floating-q}{两侧固定电势，中间板固定总电量}{
+\draw[thick](0,-1)--(0,1.5)node[above]{$0$};\draw[very thick](2,-1)--(2,1.5)node[above]{$v,Q$};\draw[thick](5,-1)--(5,1.5)node[above]{$V$};\draw[->](-.3,-1.4)--(5.7,-1.4)node[right]{$x$};\draw[<->](0,-.5)--(2,-.5)node[midway,below]{$x$};\draw[<->](2,-.5)--(5,-.5)node[midway,below]{$d-x$};}
+\end{example}
+\begin{solution}
+令$K=\varepsilon_0A$。图\ref{fig:dep-es3-floating-q}中左右间隙分别等效为$C_1=K/x$、$C_2=K/(d-x)$。中间板两面的电量之和为
+\[
+ Q=C_1v+C_2(v-V),\qquad
+ v=\frac{Q+C_2V}{C_1+C_2}
+ =\frac{Vx}{d}+\frac{Qx(d-x)}{Kd}.
+\]
+沿$+x$定义有向电场，左右两段分别为
+\[
+ E_L=-\frac vx=-\frac Vd-\frac{Q(d-x)}{Kd},\qquad
+ E_R=-\frac{V-v}{d-x}=-\frac Vd+\frac{Qx}{Kd}.
+\]
+压力作用在板的两个外法线方向，故净力向右取正：
+\begin{align*}
+ F&=\frac K2(E_R^2-E_L^2)\\
+ &=-\frac{QV}{d}+\frac{Q^2(2x-d)}{2Kd}.
+\end{align*}
+\ExpansionDiagram{fig:dep-es3-floating-a}{两侧电压力相减形成净力；平衡附近的位移会被放大}{
+\draw[very thick](2,-1)--(2,1.2);\draw[->,thick](2,.5)--(.5,.5)node[left]{$KE_L^2/2$};\draw[->,thick](2,-.3)--(3.5,-.3)node[right]{$KE_R^2/2$};\draw[->](4.8,-1)--(7,-1)node[right]{$x-x_e$};\draw[->](5.8,-2.2)--(5.8,1.2)node[above]{$F$};\draw[thick](4.9,-1.9)--(6.8,0);}
+图\ref{fig:dep-es3-floating-a}中的力随$x$线性增加。若$Q\ne0$，平衡点为$x_e=d/2+KV/Q$，只有$0<x_e<d$时才在间隙内。由于$\partial F/\partial x=Q^2/(Kd)>0$，该点不稳定；若$Q=0$，则各处净力均为零，属于忽略边缘效应后的中性平衡。
+
+能量法要保留右侧电源的功。右极板电量为$Q_R=C_2(V-v)=KV/d-Qx/d$。两段场能为
+\[
+ U=\frac12C_1v^2+\frac12C_2(V-v)^2
+ =\frac{KV^2}{2d}+\frac{Q^2x(d-x)}{2Kd}.
+\]
+只微分$U$会遗漏$-QV/d$一项。正确受控势函数为
+\[
+ \mathcal G=U-VQ_R=-\frac{KV^2}{2d}
+ +\frac{QVx}{d}+\frac{Q^2x(d-x)}{2Kd}.
+\]
+在固定$Q,V$下，$\partial_x[x(d-x)]=d-2x$，所以
+\[-\partial_x\mathcal G=-\frac{QV}{d}-\frac{Q^2(d-2x)}{2Kd},\]
+恰为压力法的净力。
+\end{solution}
+
+\subsection{浮置消元怎样保留串联电容的物理含义}
+若上题中间板中性，$Q=0$，有$v=C_2V/(C_1+C_2)$，外部等效电容$C_1C_2/(C_1+C_2)=K/d$。中间极薄板改变两段电压分配，却不改变总容量。若板厚为$t$，有效真空间隙总长为$d-t$，容量改为$K/(d-t)$；若中间板接地，右侧电源只看到$K/(d-x)$。这三种模型分别对应中性浮置、有限厚度浮置和接地，不能仅凭几何图上“多了一块导体”判断容量增加多少。
+
+预存电量$Q\ne0$时，右极板电量对$V$的斜率仍是$K/d$，电荷—电压直线却多出截距$-Qx/d$。容量只给出增量响应；初始电场、机械力和储能还取决于预存电量。多导体系统中的浮置金属件也应保留各自的电量条件。

@@ -1,0 +1,90 @@
+\subsection{局部密度、位置概率与几何测度}
+\label{th:spatialmeasure}
+式\eqref{eq:boltzmannposition}给出的是每单位真实空间体积的概率密度。若装置截面随坐标改变，单独观测某一坐标的分布还须计入这一几何因素。例如轴对称圆筒内，体密度为 $n(r)$ 时，半径在 $r$ 与 $r+\dd r$ 间的粒子数为
+\[
+ \dd N=2\pi rL\,n(r)\dd r.
+\]
+因而径向概率密度正比于 $r n(r)$，即使 $n(r)$ 为常数，径向样本也更多出现在较大的 $r$。采用 $s=r^2/R_c^2$ 时，$2r\dd r=R_c^2\dd s$，几何因子才被吸收到新变量的微分中。这一几何计数与第一讲速度空间的球壳因子相同：等坐标间隔内所包含的体积会随坐标变化。
+
+\Diagram{fig:spatialannulus}{圆筒横截面的环带测度}{
+ \draw[curve](0,0)circle(1.5);
+ \fill[gray!20,even odd rule](0,0)circle(1.15)(0,0)circle(.95);
+ \draw[curve](0,0)circle(.95);\draw[curve](0,0)circle(1.15);
+ \draw[axis](0,0)--(35:.95)node[midway,above]{$r$};
+ \draw[<->](315:.95)--(315:1.15);
+ \node[right]at(1.05,-.9){$\dd r$};
+ \node[right,align=left]at(2.2,.2){体积元 $2\pi rL\dd r$\\径向计数含因子 $r$};
+}
+图\ref{fig:spatialannulus}中的环带是位置计数区域。重力气柱若截面恒定，其高度概率密度与 $n(h)$ 成正比；变截面容器则应乘截面积 $A(h)$。比较不同高度或半径的“粒子多寡”时，须先说明比较的是等体积、等高度厚度还是等半径厚度。
+
+\subsection{位置涨落怎样决定外场热容}
+设外场势能 $\varepsilon(\vct r)$ 不显含温度，容器边界固定。位置配分积分为 $Z_r=\int\ee^{-\beta\varepsilon}\dd^3r$。对 $\beta$ 求导，
+\[
+ \langle\varepsilon\rangle=-\frac{\partial\ln Z_r}{\partial\beta},
+ \qquad
+ \frac{\partial\langle\varepsilon\rangle}{\partial\beta}
+ =-\bigl(\langle\varepsilon^2\rangle-\langle\varepsilon\rangle^2\bigr).
+\]
+这里$Z_r'=-\int\varepsilon\ee^{-\beta\varepsilon}\dd^3r$、$Z_r''=\int\varepsilon^2\ee^{-\beta\varepsilon}\dd^3r$，故$\partial_\beta(-Z_r'/Z_r)=-Z_r''/Z_r+(Z_r'/Z_r)^2=-\langle\varepsilon^2\rangle+\langle\varepsilon\rangle^2$。再用$\dd\beta/\dd T=-1/(\kb T^2)$，得单粒子势能对热容的贡献
+\[
+ \frac{\dd\langle\varepsilon\rangle}{\dd T}
+ =\frac{\operatorname{Var}(\varepsilon)}{\kb T^2}\ge0.
+\]
+因此固定外场中的升温会增加平均势能，增加多少由能量涨落确定。对独立单原子粒子，完整热容为
+$C=3N\kb/2+N\operatorname{Var}(\varepsilon)/(\kb T^2)$。
+若能量函数本身显含温度，或控制参数在过程中改变，则还需计入相应导数项，不能直接沿用这个固定参数公式。
+
+均匀重力场给 $\varepsilon=mgh$，故气柱的附加热容为
+$N(mg)^2\operatorname{Var}(h)/(\kb T^2)$。在有限高度且高温接近均匀分布时，$\operatorname{Var}(h)\to H^2/12$，附加热容趋零；在尺度高度远小于 $H$ 时，高度近似指数分布，其方差为 $(\kb T/(mg))^2$，附加热容趋于 $N\kb$。两个极限也将由后文的有限气柱能量积分得到；方差形式还直接保证附加热容非负。
+
+\subsection{参数变化与可逆绝热降温}
+\begin{example}[谐势阱缓慢减弱时的温度与功]
+\label{ex:trapadiabat}
+$N$ 个经典独立单原子粒子在三维谐势
+$\varepsilon=(\kappa_xx^2+\kappa_yy^2+\kappa_zz^2)/2$
+中保持热平衡，初温为 $T_1$。在与外界不交换热量的条件下，缓慢改变 $\kappa_x$，使其由 $\kappa_{x1}$ 变为 $\kappa_{x2}>0$，其他两个刚度不变。假定内部碰撞能及时建立平衡，粒子不逃逸，求终温、空间宽度和外界对气体所做的功。
+\Diagram{fig:trapadiabatq}{同一谐势方向减弱后的势能曲线}{
+ \draw[axis](-2.4,0)--(2.6,0)node[right]{$x$};
+ \draw[axis](0,0)--(0,3)node[above]{$\varepsilon_x$};
+ \draw[curve]plot[domain=-1.6:1.6](\x,{\x*\x});
+ \draw[curve,dashed]plot[domain=-2.2:2.2](\x,{.35*\x*\x});
+ \node[right]at(2.2,2.7){初始 $\kappa_{x1}$};
+ \node[right]at(2.8,1.2){减弱后 $\kappa_{x2}$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:trapadiabatq}中，势阱减弱改变了可用的位置空间。对动量和位置分别作三个高斯积分，单粒子配分积分的参数依赖为
+$Z_1\propto T^3/(\kappa_x\kappa_y\kappa_z)^{1/2}$。其中三个动量高斯积分各给$T^{1/2}$，三个位置高斯积分各给$(T/\kappa_i)^{1/2}$，归一化使用第一讲已证明的高斯积分。按式\eqref{eq:canonicalentropy}，每粒子的熵为$\kb[\ln Z_1+T\partial_T\ln Z_1]=\kb(\ln Z_1+3)$，再加与本题状态无关的固定粒子数常数。比较两态时常数相消，熵差为
+\[
+ \Delta S=N\kb\left[
+ 3\ln\frac{T_2}{T_1}
+ -\frac12\ln\frac{\kappa_{x2}\kappa_{y2}\kappa_{z2}}
+ {\kappa_{x1}\kappa_{y1}\kappa_{z1}}\right].
+\]
+准静态且内部平衡、无耗散的绝热过程满足 $\Delta S=0$，故记 $a=\kappa_{x2}/\kappa_{x1}$，有
+\[
+ T_2=T_1a^{1/6}.
+\]
+每个动能项和势能项各贡献 $\kb T/2$，总能量为 $U=3N\kb T$。因此外界对系统做功
+\[
+ W_{\rm on}=U_2-U_1=3N\kb T_1(a^{1/6}-1).
+\]
+\Diagram{fig:trapadiabata}{等熵条件把势阱刚度与温度联系起来}{
+ \draw[axis](0,0)--(5,0)node[right]{$\ln(\kappa_x/\kappa_{x1})$};
+ \draw[axis](2,-1.1)--(2,1.8)node[above]{$\ln(T/T_1)$};
+ \draw[curve](.3,-.283)--(4.6,.433);
+ \node[right]at(3.3,1.05){斜率 $1/6$};
+ \draw[->](1.4,-.1)--(.7,-.217);
+ \node[below]at(1,-.55){减弱势阱};
+}
+图\ref{fig:trapadiabata}中向左下移动对应 $a<1$：气体降温，并向控制势阱的装置输出功。还可直接计算广义功验证符号，
+$\delta W_{\rm on}=\langle\sum_i x_i^2/2\rangle\dd\kappa_x
+ =N\kb T\,\dd\kappa_x/(2\kappa_x)$。
+令$z=\kappa_x/\kappa_{x1}$，则$\dd\kappa_x/\kappa_x=\dd z/z$，上下限为$1,a$。代入$T=T_1z^{1/6}$，功为$(N\kb T_1/2)\int_1^a z^{-5/6}\dd z=(N\kb T_1/2)[6z^{1/6}]_1^a=3N\kb(T_2-T_1)$，与内能差相同。
+
+位置二阶矩为 $\langle x^2\rangle=\kb T/\kappa_x$，所以
+$\sqrt{\langle x^2\rangle_2/\langle x^2\rangle_1}=a^{-5/12}$；
+另两方向因刚度固定，宽度之比均为 $a^{1/12}$。
+减弱一个方向的束缚会使该方向显著展宽，同时通过碰撞降温使另两方向收窄。若三个刚度一同乘 $a$，等熵式改给 $T_2/T_1=a^{1/2}$，可见不同参数操作不能共用同一指数。
+\end{solution}
+

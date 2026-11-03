@@ -1,0 +1,155 @@
+\section{事件定位与计算步长}
+\subsection{积分到某个时刻与积分到某个事件不同}
+抛体落地、单摆通过平衡位置和粒子越过界面，停止条件都是一个状态函数$g(t,\vct y)=0$。数值程序通常先在相邻时间节点发现符号变化，再定位中间的事件。即使节点上的状态很准确，直接把第一个负高度节点当作落地时刻，仍会引入量级为步长的时间误差。
+
+事件条件还应包括方向。例如抛体从$y=0$向上发射，初始时刻已经满足$y=0$，但落地事件要求从正高度向负高度穿越，且$v_y<0$。只写“遇到$y=0$便结束”，程序可能在发射瞬间停止。对擦边接触，$g$可在零点两侧同号，单凭符号变化又可能漏掉事件。
+
+记真事件时刻为$t_0$，数值状态使事件函数增加误差$\delta g$，求出的根为$t_0+\delta t$。在$t_0$处展开，并用$g(t_0,\vct y(t_0))=0$，一阶关系为
+\[
+0\simeq g(t_0,\vct y(t_0))+\dot g(t_0)\delta t+\delta g
+=\dot g(t_0)\delta t+\delta g.
+\]
+这里$\dot g$是沿轨迹的总时间导数。若它不为零，便可解出
+\[
+ \delta t\simeq-\frac{\delta g}{\dot g}.
+\]
+因此接近切向穿越时，时间误差会放大。把积分相对误差设得很小，不一定能保证事件时间有同样精度；还要检查$\dot g$的大小与事件定位算法。
+
+\begin{example}线性插值事件的独立误差
+竖直抛体满足$y(t)=v_0t-gt^2/2$，$v_0,g>0$。真正落地时刻为$T=2v_0/g$。程序已精确得到相邻节点$t_-=T-a$、$t_+=T+b$的高度，其中$0<a<T$、$b>0$、$a+b=h$，并用两点直线与$y=0$的交点估计落地时刻$\widehat T$。求事件时间误差。
+\ExpansionDiagram{fig:dep-ai-event-q}{节点高度准确，弦线的零点仍偏离曲线零点}{
+\draw[->](0,0)--(6,0)node[right]{$t$};\draw[->](0,-1.3)--(0,2.4)node[above]{$y$};\draw[thick,domain=.3:5.2,samples=80]plot(\x,{1.8-.11*(\x+.1)^2});\fill(2.5,1.0564)circle(1.5pt)node[above]{$t_-$};\fill(4.8,-.8411)circle(1.5pt)node[below]{$t_+$};\draw[dashed](2.5,1.0564)--(4.8,-.8411);\node[below]at(3.945,0){$T$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-ai-event-q}中曲线下凹，弦线在真正零点处位于横轴下方，所以线性估计会提前。直接代入两节点，
+\[
+ y(t_-)=v_0a-\frac{ga^2}{2},\qquad
+ y(t_+)=-v_0b-\frac{gb^2}{2}.
+\]
+记两节点高度为$y_-,y_+$，弦线斜率及其在$T$处的值分别为
+\[
+s=\frac{y_+-y_-}{a+b}=-v_0-\frac{g(b-a)}2,\qquad
+L(T)=\frac{b y_-+a y_+}{a+b}=-\frac{gab}{2}.
+\]
+由$0=L(T)+s(\widehat T-T)$解出
+\[
+ \widehat T-T=-\frac{gab}{2v_0+g(b-a)}.
+\]
+只要$h\ll v_0/g$，分母保持远离零，首项为$-gab/(2v_0)$。由$ab\leq h^2/4$可见误差为$O(h^2)$，与节点积分器是几阶无关。
+\ExpansionDiagram{fig:dep-ai-event-a}{相同网格宽度内，零点相对网格的位置改变插值误差}{
+\draw[->](0,0)--(5.5,0)node[right]{$a/h$};\draw[->](0,0)--(0,2.7)node[above]{首项误差的绝对值};\draw[thick,domain=0:5,samples=70]plot(\x,{.32*\x*(5-\x)});\node[below]at(0,0){0};\node[below]at(2.5,0){$1/2$};\node[below]at(5,0){1};}
+图\ref{fig:dep-ai-event-a}的形状来自$ab=h^2(a/h)(1-a/h)$。步长减半时零点在新网格中的位置也改变，实际误差比未必恰为4。要区分积分误差和事件插值误差，可以先用解析解提供精确节点值，再单独研究插值方法；然后固定事件算法，比较积分步长。这两组计算分别改变一个因素。
+\end{solution}
+
+线性阻力竖直运动提供另一个基准：$\dot v=-g-\kappa v$、$y(0)=0,v(0)=v_0$。令$w=v+g/\kappa$，方程成为$\dot w+\kappa w=0$；乘$\ee^{\kappa t}$并积分，得
+$\ee^{\kappa t}w=w(0)=v_0+g/\kappa$。所以
+\[v=\left(v_0+\frac g\kappa\right)\ee^{-\kappa t}-\frac g\kappa.\]
+再积分高度，
+\[y=\int_0^tv(s)\dd s
+=\left(v_0+\frac g\kappa\right)
+\left[-\frac{\ee^{-\kappa s}}\kappa\right]_0^t
+-\frac g\kappa[s]_0^t,\]
+即
+\[
+ y(t)=\frac{v_0+g/\kappa}{\kappa}(1-\ee^{-\kappa t})-\frac{gt}{\kappa}.
+\]
+取$v_0=10\,\mathrm{m/s}$、$g=10\,\mathrm{m/s^2}$、$\kappa=0.4\,\mathrm{s^{-1}}$，排除$t=0$的根后，落地时间为$1.7885391259\,\mathrm s$。用精确节点高度作线性事件插值可得：
+\begin{center}\begin{tabular}{ccc}\toprule
+步长／s&插值落地时间／s&时间误差／s\\\midrule
+0.200&1.7874963599&$-1.0428\times10^{-3}$\\
+0.100&1.7880784777&$-4.6065\times10^{-4}$\\
+0.050&1.7883443970&$-1.9473\times10^{-4}$\\
+0.025&1.7884716887&$-6.7437\times10^{-5}$\\\bottomrule
+\end{tabular}\end{center}
+\ExpansionDiagram{fig:dep-ai-drag}{线性阻力模型的高度与落地根；横轴为秒，高度以米计}{
+\draw[->](0,0)--(5.6,0)node[right]{$t/\mathrm s$};\draw[->](0,-.7)--(0,3.3)node[above]{$y/\mathrm m$};\draw(2.5,-.06)--(2.5,.06)node[below=3pt]{1};\draw(5,-.06)--(5,.06)node[below=3pt]{2};\draw[thick,domain=0:1.87,samples=100]plot({2.5*\x},{.6*(87.5*(1-exp(-.4*\x))-25*\x)});\fill(4.47135,0)circle(1.6pt)node[below]{$T$};\draw[dashed](0,1.8)--(5,1.8);\node[left]at(0,1.8){3};}
+图\ref{fig:dep-ai-drag}中的第二个零点才是落地事件。给AI实现时，应要求分别输出事件括区间、两端状态、插值方法和最终根，而不只输出一个飞行时间。此表的节点由解析式生成，没有积分误差；若程序给出不同结果，可以先从单位、初始零点和穿越方向查起。
+
+\section{参数反演中的可识别性}
+\subsection{残差很小并不保证参数唯一}
+考虑恒定驱动与线性阻力模型$\dot v=a-\kappa v$，$v(0)=0$，未知参数为$a>0,\kappa>0$。沿用上一节的积分因子法，把常数驱动$-g$换成$a$、初速取零，得到$v(t)=a(1-\ee^{-\kappa t})/\kappa$；下例还将按这组初值逐步积分。只有一次速度测量时，每选一个$\kappa$都能调整$a$满足数据，所以不能同时唯一求出两参数。
+
+很早的测量主要给$v\simeq at-a\kappa t^2/2$，对阻力的敏感度很弱；很晚的测量主要给终端速度$a/\kappa$，又只能识别参数比。把所有数据都放在同一个极端区间，即使点很多，也可能无法稳定区分$a$和$\kappa$。
+
+有给定测量标准差$\sigma_i$时，可用灵敏度矩阵$J_{ij}=\partial v(t_i)/\partial\theta_j$讨论局部信息量。对$a$求偏导，$v$中的其余因子不变；对$\kappa$求偏导则同时对指数和分母使用链式法则与商法则。两列为
+\[
+\begin{aligned}
+\frac{\partial v}{\partial a}&=\frac{1-\ee^{-\kappa t}}\kappa,\\
+\frac{\partial v}{\partial\kappa}
+&=a\frac{\kappa t\ee^{-\kappa t}-(1-\ee^{-\kappa t})}{\kappa^2}
+=\frac{a[(1+\kappa t)\ee^{-\kappa t}-1]}{\kappa^2}.
+\end{aligned}
+\]
+若两列在测量时刻近似成比例，$J^{\mathsf T}WJ$接近奇异，参数误差会很大。应先缩放参数与单位，再用奇异值或相关系数判断退化；原始矩阵某一列数值很小也可能只是单位不同。
+
+\begin{example}两次速度测量的解析反演
+粒子从静止开始满足$\dot v=a-\kappa v$。在$t_1=1\,\mathrm s$、$2t_1$测得速度$6.0,9.0\,\mathrm{m/s}$。求$a,\kappa$，预测$3t_1$时速度；若两次测量误差独立、标准差均为$0.03\,\mathrm{m/s}$，估计$\kappa$的一阶标准差。
+\ExpansionDiagram{fig:dep-ai-inverse-q}{两次速度数据位于同一条向终端速度弯曲的曲线上}{
+\draw[->](0,0)--(5.5,0)node[right]{$t/t_1$};\draw[->](0,0)--(0,3.2)node[above]{$v$};\draw[thick,domain=0:5,samples=90]plot(\x,{3*(1-exp(-ln(2)*\x))});\fill(1,1.5)circle(1.8pt)node[above left]{$v_1$};\fill(2,2.25)circle(1.8pt)node[above]{$v_2$};\draw[dashed](0,3)--(5,3)node[right]{$a/\kappa$};}
+\end{example}
+\begin{solution}
+先求速度初值解。将方程写成$\dot v+\kappa v=a$，乘积分因子$\ee^{\kappa t}$，得到
+\[\frac{\dd}{\dd t}(\ee^{\kappa t}v)=a\ee^{\kappa t}.\]
+用$v(0)=0$从$0$到$t$积分，
+\[\ee^{\kappa t}v(t)=a\int_0^t\ee^{\kappa s}\dd s
+=a\left[\frac{\ee^{\kappa s}}{\kappa}\right]_0^t
+=\frac a\kappa(\ee^{\kappa t}-1),\]
+故$v(t)=a(1-\ee^{-\kappa t})/\kappa$。令$q=\ee^{-\kappa t_1}$，则$v_1=a(1-q)/\kappa$、$v_2=a(1-q^2)/\kappa$。图\ref{fig:dep-ai-inverse-q}的两点之比给
+\[
+ \frac{v_2}{v_1}=1+q,\qquad
+ q=\frac12,\quad \kappa=\frac{\ln2}{t_1}=0.693147\,\mathrm{s^{-1}}.
+\]
+再由第一点求$a=\kappa v_1/(1-q)=12\ln2\,\mathrm{m/s^2}\simeq8.31777\,\mathrm{m/s^2}$。第三点应为$v_3=v_1(1+q+q^2)=10.5\,\mathrm{m/s}$。这个第三次预测没有参与确定参数，可以用于下一轮独立测量。
+\ExpansionDiagram{fig:dep-ai-inverse-a}{反演先由比值确定衰减因子，再由尺度确定驱动强度}{
+\node[draw]at(0,0){$v_2/v_1$};\node[draw]at(2.5,0){$q$};\node[draw]at(5,0){$\kappa$};\draw[->](.8,0)--(2.1,0);\draw[->](2.9,0)--(4.4,0);\node[draw]at(5,-1.4){$a$};\draw[->](5,-.4)--(5,-1);\draw[->](0,-1.4)--(4.5,-1.4)node[midway,below]{$v_1$提供尺度};}
+图\ref{fig:dep-ai-inverse-a}中正阻力模型要求$0<q<1$，即$1<v_2/v_1<2$。如果数据比值在这个区间外，不应让优化器通过任意负阻力或极端参数掩盖模型不相容。
+
+误差传播从$\kappa=-t_1^{-1}\ln q$求偏导，其中
+$\partial q/\partial v_2=1/v_1$、$\partial q/\partial v_1=-v_2/v_1^2$。分别乘外层对数导数$-1/(t_1q)$，得到
+\[
+ \frac{\partial\kappa}{\partial v_2}=-\frac1{t_1qv_1},\qquad
+ \frac{\partial\kappa}{\partial v_1}=\frac{v_2}{t_1qv_1^2}.
+\]
+所以$\sigma_\kappa=\sigma_v\sqrt{1+(v_2/v_1)^2}/(t_1qv_1)\simeq0.01803\,\mathrm{s^{-1}}$。两个数据恰好解两个参数时，拟合残差为零，但不代表参数没有误差；本题误差来自已给的测量标准差，不能再用零残差估计零方差。
+\end{solution}
+
+\section{静摩擦切换与分段运动}
+\subsection{程序需要区分运动状态和静止状态}
+库仑摩擦不是把$-\mu mg\operatorname{sgn}v$在$v=0$处随便补一个值即可。静止时，若外力$|F|\leq\mu_smg$，静摩擦调节为$-F$，速度保持零；外力超过阈值才开始滑动。滑动时摩擦大小为$\mu_kmg$、方向反对速度。速度到零后，须重新检查静止是否能维持。
+
+交给AI生成数值模型时，状态量应包含“粘着”与“滑动”两类；滑动段定位$v=0$事件，再依据当时外力决定继续静止或立即反向。简单把每步负速度夹成零，可能丢失真实反向运动；把符号函数任意平滑，则改变了低速摩擦模型。两者都不能仅凭曲线平滑就当作原题解。
+
+\begin{example}正弦驱动力下的停滑区间
+水平滑块初始静止，外力$F(t)=0.6mg\sin\Omega t$，静摩擦系数$\mu_s=0.5$、动摩擦系数$\mu_k=0.3$。从$t=0$开始，求第一次启动、第一次停止及下一次反向启动的时刻，写出第一滑动段的速度。用$\theta=\Omega t$表示结果。
+\ExpansionDiagram{fig:dep-ai-friction-q}{驱动力的正弦曲线与静摩擦上下限}{
+\draw[->](0,0)--(6.8,0)node[right]{$\theta$};\draw[->](0,-1.7)--(0,1.8)node[above]{$F/(mg)$};\draw[thick,domain=0:6.283185,samples=150]plot(\x,{2*.6*sin(\x r)});\draw[dashed](0,1)--(6.3,1);\draw[dashed](0,-1)--(6.3,-1);\node[right]at(6.3,1){$0.5$};\node[right]at(6.3,-1){$-0.5$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-ai-friction-q}中第一次超过静摩擦上限发生在$\theta_0=\arcsin(5/6)\simeq0.985111$之后。启动临界时速度仍为零，开始向右滑动后满足
+\[
+ \frac{\dd v}{\dd t}=g(0.6\sin\theta-0.3).
+\]
+用$\dd\theta=\Omega\dd t$并带入启动初值$v(\theta_0)=0$，积分为
+\[\frac{\Omega v}{g}=\int_{\theta_0}^{\theta}(0.6\sin u-0.3)\dd u
+=[-0.6\cos u-0.3u]_{\theta_0}^{\theta}.\]
+代入两端，得
+\[
+ \frac{\Omega v}{g}=0.6(\cos\theta_0-\cos\theta)-0.3(\theta-\theta_0).
+\]
+记上式右端为$H(\theta)$。启动根$H(\theta_0)=0$不能用作停止时刻。由$H'=0.6\sin\theta-0.3$，速度先增至$\theta=5\pi/6$，随后在所考察区间内严格减小。计算得
+\[
+H(3.74)\simeq9.3602\times10^{-4}>0,\qquad
+H(3.75)\simeq-5.4687\times10^{-3}<0.
+\]
+因此首次停止根位于$[3.74,3.75]$。二分该区间至宽度小于$10^{-8}$，得$\theta_s\simeq3.741466$。此时$F/(mg)=0.6\sin\theta_s\simeq-0.338723$，仍在$[-0.5,0.5]$内，所以滑块可以停住，由静摩擦抵消负驱动力。
+\ExpansionDiagram{fig:dep-ai-friction-a}{第一正向滑动段结束后存在有限粘着区间}{
+\draw[->](0,0)--(6.3,0)node[right]{$\theta$};\draw[->](0,-.7)--(0,1.6)node[above]{$\Omega v/g$};\draw[very thick](0,0)--(.985111,0);\draw[thick,domain=.985111:3.741466,samples=100]plot(\x,{.6*(cos(.985111 r)-cos(\x r))-.3*(\x-.985111)});\draw[very thick](3.741466,0)--(4.126703,0);\draw[thick,domain=4.126703:5.2,samples=60]plot(\x,{.6*(cos(4.126703 r)-cos(\x r))+.3*(\x-4.126703)});\draw[dashed](3.741466,-.35)--(3.741466,.8);\draw[dashed](4.126703,-.35)--(4.126703,.8);\node[above]at(3.8,.9){停滑};}
+下一次超过负静摩擦阈值在$\theta_r=\pi+\arcsin(5/6)\simeq4.126703$。因此图\ref{fig:dep-ai-friction-a}中的静止区间为$[\theta_s,\theta_r]$。反向滑动开始后摩擦改为向右，用$v(\theta_r)=0$积分，
+\[\frac{\Omega v}{g}=\int_{\theta_r}^{\theta}(0.6\sin u+0.3)\dd u
+=[-0.6\cos u+0.3u]_{\theta_r}^{\theta},\]
+故局部速度为
+\[
+ \frac{\Omega v}{g}=0.6(\cos\theta_r-\cos\theta)+0.3(\theta-\theta_r).
+\]
+三个实际时刻分别为$\theta_0/\Omega,\theta_s/\Omega,\theta_r/\Omega$。编写数值程序时，可逐段用上述积分式核对速度，再按静摩擦阈值接续状态。停下后的有限粘着区间应被保留，平滑插值会把这段运动规律抹去。
+\end{solution}

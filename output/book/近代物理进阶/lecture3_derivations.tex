@@ -1,0 +1,88 @@
+\section{守恒方程中的未知量与参考系}
+\subsection{质心系的速度和能量}
+总四动量为$(E/c,\vct P)$，若$E^2-c^2P^2>0$，令参考系速度沿$\vct P$，大小$V=c^2P/E$。变换后的平行动量为$P'=\gamma(P-VE/c^2)=0$。相应$\gamma=E/\sqrt{E^2-c^2P^2}$，新系能量
+\[
+ E'=\gamma(E-VP)=\sqrt{E^2-c^2P^2}=Mc^2.
+\]
+总四动量为类时时，质心系速度由它唯一确定。同向光子束的总四动量为类光，形式上需要$V=c$，因而没有质心惯性系。固定靶实验的实验室一般有非零总动量，阈值时末态仍须携带整体动能。
+
+\subsection{两体末态的通用解}
+在质心系中，两末态粒子的动量必为$\vct p_*,-\vct p_*$。设总能量为$W$，质量$m_1,m_2$，则$E_{1*}+E_{2*}=W$，并有$E_{1*}^2-E_{2*}^2=(m_1^2-m_2^2)c^4$。将左侧因式分解，得到
+\[
+ E_{1*}=\frac{W^2+(m_1^2-m_2^2)c^4}{2W},\quad
+ E_{2*}=\frac{W^2+(m_2^2-m_1^2)c^4}{2W}.
+\]
+再由$E_{1*}^2-p_*^2c^2=m_1^2c^4$，得到
+\[
+ p_*c=\frac{\sqrt{[W^2-(m_1+m_2)^2c^4]
+ [W^2-(m_1-m_2)^2c^4]}}{2W}.
+\]
+末态粒子各有正能量$E_{i*}=\sqrt{m_i^2c^4+p_*^2c^2}\geq m_ic^2$，所以物理分支必须满足$W\geq(m_1+m_2)c^2$，这才是两体阈值。仅要求根号为实还可能保留$W\leq|m_1-m_2|c^2$的代数分支，它不满足上述两个正能量条件。在阈值极限$p_*=0$，末态没有相对运动，但整体在实验室仍可运动。内部激发应计入$m_i$，不能在公式外再次添加同一激发能。
+
+\Diagram{fig:m3twobody}{两体质心系中动量等大反向，能量未必相等}{\draw[axis](-3,0)--(3.2,0);\fill(-1,0)circle(2pt)node[below]{$m_1$};\fill(1,0)circle(2pt)node[below]{$m_2$};\draw[->,thick](-1,.5)--(-2.7,.5)node[above]{$p_*$};\draw[->,thick](1,.5)--(2.7,.5)node[above]{$p_*$};}
+图\ref{fig:m3twobody}给出反向动量，不要求两个粒子以相同速率运动。若$m_1\ne m_2$，能量也不同。得到$E_{i*},p_*$后，再按题目给定出射角变回实验室，通常比直接在实验室同时联立角度、速度、能量更清楚。
+
+\subsection{相对速度与入射能量不是同一输入}
+在两个相同粒子的对撞中，某系观察到每束速率为$v$，彼此相对速率是$2v/(1+v^2/c^2)$。质心能量却是$2\gamma_vmc^2$，不能把相对速率直接代入“每束能量”公式。相对速率属于一粒子的静止系，束能量属于实验室，所选参考系必须在整个守恒式中一致。
+
+同样，“完全非弹性”只规定末态相对运动消失，不规定静质量守恒。动能变为热或激发后，总四动量仍守恒，而复合物静质量增加。若相互作用放出辐射，须把辐射四动量留在末态，复合体的质量和速度会相应改变；不能在不封闭的子系统中同时要求能量、动量各自不变。
+
+\section{四势推导中的全部横向分量}
+\subsection{磁场变换的一项完整展开}
+以$B_z'=\partial_{x'}A_y'-\partial_yA_x'$为例，代入导数和势的变换：
+\begin{align*}
+ B_z'&=\gamma(\partial_x+V\partial_t/c^2)A_y
+ -\gamma\partial_y(A_x-V\phi/c^2)\\
+ &=\gamma(\partial_xA_y-\partial_yA_x)
+ +\frac{\gamma V}{c^2}(\partial_tA_y+\partial_y\phi)\\
+ &=\gamma(B_z-VE_y/c^2).
+\end{align*}
+每个括号都是原系已定义的场，不需要假设场静态。对$B_y'=\partial_zA_x'-\partial_{x'}A_z'$，同样给$\gamma(B_y+VE_z/c^2)$；符号变化来自旋度的分量次序。$B_x'=\partial_yA_z'-\partial_zA_y'=B_x$，因为这两势分量和这两个导数都未变。
+
+纵向电场中抵消较多，完整写成
+\begin{align*}
+ E_x'&=-\gamma^2(\partial_x+V\partial_t/c^2)(\phi-VA_x)\\
+ &\quad-\gamma^2(\partial_t+V\partial_x)(A_x-V\phi/c^2).
+\end{align*}
+展开后，$V\partial_xA_x$和$V\partial_t\phi/c^2$的交叉项分别抵消，余下$-\gamma^2(1-\beta^2)(\partial_x\phi+\partial_tA_x)=E_x$。若漏掉$\partial_{t'}$中的空间导数项，就会错误地产生纵向场也乘$\gamma$的结果。
+
+\subsection{场不变量的代数核对}
+沿$x$推动时，纵向$E_x^2-c^2B_x^2$不变。将横向组合为$E_y'^2-c^2B_z'^2$，代入式\eqref{eq:m3field}：
+\begin{align*}
+ E_y'^2-c^2B_z'^2
+ &=\gamma^2[(E_y-VB_z)^2-c^2(B_z-VE_y/c^2)^2]\\
+ &=\gamma^2(1-\beta^2)(E_y^2-c^2B_z^2)\\
+ &=E_y^2-c^2B_z^2.
+\end{align*}
+另一对$(E_z,B_y)$相同，三项相加就得$E'^2-c^2B'^2=E^2-c^2B^2$。点积中的横向交叉项也成对抵消，得到$\vct E'\cdot\vct B'=\vct E\cdot\vct B$。
+
+非零真空平面波的两个场不变量均为零，其能量密度和坡印廷矢量仍非零。有限洛伦兹变换可逆，所以全零场只能由全零场变来；非零场至多在满足条件时消去其中一种场。
+
+\section{麦克斯韦方程与电荷连续性}
+安培—麦克斯韦方程为$\nabla\times\vct B=\mu_0\vct j+c^{-2}\partial_t\vct E$。取散度，左侧旋度的散度恒为零，右侧用$\nabla\cdot\vct E=\rho/\varepsilon_0$，得$0=\mu_0\nabla\cdot\vct j+\mu_0\partial_t\rho$。因此连续性方程是场方程相容的要求，位移电流项对变化电荷必不可少。
+
+采用$\mathcal F^{0i}=-E_i/c$、$\mathcal F^{i0}=E_i/c$、$\mathcal F^{ij}=-\epsilon_{ijk}B_k$，其中$i,j,k=1,2,3$，完整矩阵及洛伦兹力的分量核对见例\ref{ex:m3fourtensor}。含源方程为$\partial_\nu\mathcal F^{\nu\mu}=\mu_0J^\mu$。取$\mu=0$，空间散度给$\nabla\cdot\vct E/c=\mu_0c\rho$，就是高斯定律；取空间分量，得到$\nabla\times\vct B-c^{-2}\partial_t\vct E=\mu_0\vct j$。再缩并$\partial_\mu$，由于$\partial_\mu\partial_\nu$对称而场张量反对称，左侧恒零，故$\partial_\mu J^\mu=0$。指标次序须与场张量定义一致。
+
+\subsection{规范自由度与实际场}
+洛伦兹规范下$\Box A^\mu=\mu_0J^\mu$，规范函数若满足$\Box\zeta=0$，改变势后仍保持同一规范。因此即使固定洛伦兹规范，势也未完全唯一。可观测场由势的导数组合决定，某个分量为零不能单独作为“没有电场”或“没有磁场”的证据。
+
+对局域源，场方程的物理解还需选择边界条件，例如不从无限远无缘无故入射的辐射，以及对过去源历史的延迟响应。仅验证某个势满足波动方程，并不能说明它已满足实际初始、边界条件。匀速电荷场、加速电荷辐射场、外加平面波虽然都遵循同一方程，其边界数据不同。
+
+\subsection{场的能量与参考系}
+真空电磁能量密度为$u_{\rm em}=\varepsilon_0E^2/2+B^2/(2\mu_0)$，能流$\vct S=\vct E\times\vct B/\mu_0$。纯静电场的能流可以为零，变到运动系出现磁场后能流一般非零，这与能量和动量共同变换一致。不能只变换能量密度而保留原系“动量为零”的判断。
+
+\Diagram{fig:m3energyflow}{运动电荷场的电磁能流与场的角分布相联系}{\draw[axis](-2.3,0)--(2.7,0)node[right]{$V$};\fill(0,0)circle(2pt);\draw[axis](0,1.5)--(0,2.5)node[above]{$E_y$};\draw(.5,1.6)circle(.14);\fill(.5,1.6)circle(1pt);\draw[axis](.6,2.3)--(2,2.3)node[right]{$\vct S$};}
+图\ref{fig:m3energyflow}在电荷横向上方给$E_y$、$B_z$，所以能流沿正$x$。局部能量守恒为$\partial_tu_{\rm em}+\nabla\cdot\vct S=-\vct j\cdot\vct E$。其中$\vct j\cdot\vct E$是场对物质做功的功率密度，右侧的负号表示这部分能量从场中流失；磁力不直接做功。不同参考系可有不同的电力、磁力分量，总能量动量守恒仍成立。
+
+\subsection{电磁场不变量怎样限制可选参考系}
+若某系中电场为零，则$\vct E\cdot\vct B=0$且$c^2B^2-E^2>0$；若磁场为零，则第一不变量仍为零，而第二不变量小于零。这些是必要条件，也给出正交场中的构造方法。设$\vct E\perp\vct B$，沿$\vct E\times\vct B$方向取速度，场变换中平行速度的分量均为零，横向分量为
+\[
+ \vct E'=\gamma(\vct E+\vct V\times\vct B),\quad
+ \vct B'=\gamma(\vct B-\vct V\times\vct E/c^2).
+\]
+磁占优时取$\vct V=\vct E\times\vct B/B^2$。矢量恒等式$(\vct E\times\vct B)\times\vct B=-B^2\vct E$使$\vct E'=0$，而$V=E/B<c$。电占优时取$\vct V=c^2\vct E\times\vct B/E^2$，得到$\vct B'=0$，且$V=c^2B/E<c$。
+
+\Diagram{fig:m3fieldclasses}{正交场沿电磁能流方向选择变换；等强边界不能由有限惯性变换静止化}{\draw[axis](0,0)--(4,0)node[right]{$\vct E\times\vct B$};\draw[->,thick](0,0)--(0,2.5)node[above]{$\vct E$};\draw(1.5,1.6)circle(.16);\fill(1.5,1.6)circle(1.5pt);\node[right]at(1.8,1.6){$\vct B$朝外};\draw[->](.5,-.6)--(3,-.6)node[midway,below]{$\vct V$};}
+图\ref{fig:m3fieldclasses}的方向构造还可从能流理解：正交场的坡印廷矢量沿$\vct E\times\vct B$。但$E=cB\ne0$时，两种尝试均要求$V=c$，没有可消去单个场的惯性系；平面电磁波属于这一类零不变量场。两个不变量都为零并不表示场本身为零。
+
+当$\vct E\cdot\vct B\ne0$时，任一场在任何惯性系中都非零。在电、磁场平行的系中，两场的有向大小仍须同时满足两个不变量；确定场型后，再求相应的亚光速变换速度。

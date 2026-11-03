@@ -1,0 +1,111 @@
+\subsection{自然变量怎样进入偏导数}
+\label{th:naturalderivatives}
+势函数的自然变量来自其全微分中独立微分的系数。以 $F=U-TS$ 为例，展开乘积，
+\[
+ \dd F=\dd U-T\dd S-S\dd T
+ =-S\dd T-p\dd V.
+\]
+$T\dd S$ 的抵消使 $F$ 可直接用 $T,V$ 作为自变量。于是
+$S=-F_T|_V$、$p=-F_V|_T$；再求混合导数，
+\[
+ \left(\frac{\partial S}{\partial V}\right)_T
+ =-F_{TV}
+ =-F_{VT}
+ =\left(\frac{\partial p}{\partial T}\right)_V.
+\]
+等式中两个负号来自同一个势的两个一阶导数。若从 $U$ 或 $H$ 出发，系数中的正负号不同，所得 Maxwell 关系也随之改变。实际使用时，先写势的全微分，再读出一阶导数，可直接确定符号。
+
+“自然变量”不表示势只能在这些变量下表示。$U(S,V)$ 可改写成 $U(T,V)$，只是后者的偏导数须经过链式法则。沿 $V$ 固定的升温方向，
+\[
+ \left(\frac{\partial U}{\partial T}\right)_V
+ =T\left(\frac{\partial S}{\partial T}\right)_V=C_V.
+\]
+沿 $T$ 固定的膨胀方向，熵一般同时改变，才有式\eqref{eq:duvt}中的体积系数。若把两条不同方向上的偏导数视为同一个“内能对体积的变化率”，便会丢掉 $T S_V|_T$ 这一项。
+
+\Diagram{fig:derivativepaths}{同一点出发的等温方向与等熵方向}{
+ \draw[axis](0,0)--(5.5,0)node[right]{$V$};
+ \draw[axis](0,0)--(0,3.2)node[above]{$T$};
+ \coordinate(A)at(1,2.4);\fill(A)circle(1.4pt)node[above left]{$A$};
+ \draw[axis](A)--(4.6,2.4)node[right]{$T$ 固定};
+ \draw[curve]plot[domain=1:4.6](\x,{2.4/\x^.45});
+ \draw[->](2.1,1.72)--(2.6,1.56);
+ \node at(3.8,.75){$S$ 固定};
+}
+图\ref{fig:derivativepaths}示意理想气体的两条方向。在等熵方向，内能变化可直接用 $-p\dd V$；沿等温方向则必须同时计算熵变。对于理想气体，两项恰好抵消，使等温内能不变；这一抵消是具体状态方程的结果。
+
+\subsection{全微分、倒数关系与循环关系}
+设单相区的状态方程为 $p=p(T,V)$，全微分为
+$\dd p=p_T|_V\dd T+p_V|_T\dd V$。沿定压方向令 $\dd p=0$，得到
+\[
+ \left(\frac{\partial V}{\partial T}\right)_p
+ =-\frac{(\partial p/\partial T)_V}
+ {(\partial p/\partial V)_T}.
+\]
+这个比值是状态面上定压切线的斜率。保持同一个第三变量不变时，两个互为反函数的局部斜率满足倒数关系；保持条件不同时，则须从全微分重新推导。将下列三个偏导相乘，得到循环关系
+\[
+ \left(\frac{\partial p}{\partial T}\right)_V
+ \left(\frac{\partial T}{\partial V}\right)_p
+ \left(\frac{\partial V}{\partial p}\right)_T=-1.
+\]
+循环关系中的负号来自 $\dd p=0$ 时两项相抵。若某个分母偏导为零或发散，所用坐标可能失去局部可逆性，应回到全微分或改用另一组状态变量，而不能继续机械使用倒数。
+
+\subsection{热容差、压缩率与绝热斜率}
+\label{th:compressibilityratio}
+记 $A=(\partial p/\partial T)_V$、$B=(\partial p/\partial V)_T$，其中稳定单相区有 $B<0$。沿定压方向，$\dd V/\dd T=-A/B$，代入熵微分，
+\[
+ C_p=C_V-\frac{TA^2}{B}.
+\]
+该式与响应系数形式的式\eqref{eq:cpminuscv}相同。沿等熵方向，先由式\eqref{eq:dsvt}求
+\[
+ \left(\frac{\partial T}{\partial V}\right)_S
+ =-\frac{TA}{C_V},
+\]
+再代入状态方程全微分，得到
+\[
+ \left(\frac{\partial p}{\partial V}\right)_S
+ =B-\frac{TA^2}{C_V}
+ =B\,\frac{C_p}{C_V}.
+\]
+定义 $\kappa_S=-V^{-1}(\partial V/\partial p)_S$，便有
+\[
+ \frac{\kappa_T}{\kappa_S}=\frac{C_p}{C_V}.
+\]
+在 $C_V>0,\kappa_T>0$ 的稳定区，绝热压缩比等温压缩更困难，因为压缩引起的升温会进一步增大压强。理想气体给 $\kappa_T=1/p$、$\kappa_S=1/(\gamma p)$；实际气体也满足上述热容比关系，但热容比一般随状态变化。
+
+小振幅声波中的一小团气体在振动周期内来不及与周围交换足够热量时，其压强密度关系近似等熵。由于 $\rho\propto1/V$，
+\[
+ c_s^2=\left(\frac{\partial p}{\partial\rho}\right)_S
+ =-\frac{V}{\rho}\left(\frac{\partial p}{\partial V}\right)_S
+ =\frac1{\rho\kappa_S}.
+\]
+理想气体因而有 $c_s^2=\gamma RT/M$。这里忽略了黏滞、热传导和内部自由度弛豫对声速的频率依赖；采用哪一热容，应与声波时间尺度内能否建立内部平衡相对应。
+
+\subsection{实际气体中两种压缩斜率的比较}
+用摩尔体积 $v$ 表示 van der Waals 状态方程
+$p=RT/(v-b)-a/v^2$，摩尔定容热容为常数 $c$。在一摩尔的熵微分中，
+$s_T|_v=c/T$、$s_v|_T=R/(v-b)$，于是等熵方向的温度变化为
+\[
+ \left(\frac{\partial T}{\partial v}\right)_s
+ =-\frac{RT}{c(v-b)}.
+\]
+对状态方程作链式求导，可得
+\begin{align*}
+ \left(\frac{\partial p}{\partial v}\right)_s
+ &=\left(\frac{\partial p}{\partial v}\right)_T+
+ \left(\frac{\partial p}{\partial T}\right)_v
+ \left(\frac{\partial T}{\partial v}\right)_s\\
+ &=-\left(1+\frac Rc\right)\frac{RT}{(v-b)^2}
+ +\frac{2a}{v^3}.
+\end{align*}
+令 $\gamma_0=1+R/c$，便有
+\[
+ c_s^2=\frac1M\left[
+ \frac{\gamma_0RTv^2}{(v-b)^2}-\frac{2a}{v}\right].
+\]
+这里先完成等熵导数，再乘 $\dd v/\dd\rho=-v^2/M$。$\gamma_0$ 是这个常定容热容模型中出现的组合，实际的 $C_p/C_V$ 应由前文热容差求出，通常与 $\gamma_0$ 不同。
+
+第一项给出热运动及排斥体积对恢复力的贡献，吸引项则削弱这一响应。令 $a,b\to0$，结果恢复为理想气体声速。实际气体的声速由状态方程的等熵斜率确定，既取决于压强，也取决于它随密度和温度变化的方式。
+
+还可在等温失稳边界附近直接比较斜率。若 $p_v|_T\to0^-$，由前面的通式有
+$p_v|_s\to-TA^2/C_V$，在 $A$ 与 $C_V$ 有限时仍可为有限负值。等温压缩率发散与等熵响应发散因而不是同一个条件。这一比较限于给定状态方程及常热容近似；接近真实临界点时，热容和弛豫时间本身也可能显著变化。
+

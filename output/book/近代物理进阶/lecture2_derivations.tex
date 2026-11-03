@@ -1,0 +1,91 @@
+\section{连续转向与加速参考系}
+\subsection{瞬时惯性系的适用范围}
+光滑类时世界线在每个事件都有瞬时静止惯性系，可用来定义固有加速度和局部推进功率。若要由这些局部惯性系建立加速坐标，还须指定空间坐标和同步方式。双生子题中赋给远处地球的同时读数可随转向而跃变，旅行者的本地钟却连续走时。
+
+对任意有限加速过程，旅行者固有时始终为$\int\dd t\sqrt{1-v^2/c^2}$，只需已知实验室轨迹。瞬时转向模型是把加速段的持续时间和路程同时趋零的极限，保留两段惯性速度的差。若加速持续时间不可略，去返总时间、最远距离以及固有时都应包括该段积分。
+
+在一维运动中，$\chi=\operatorname{artanh}(v/c)$。链式法则给$\dd\chi/\dd t=\dot v/[c(1-v^2/c^2)]=\gamma_v^2\dot v/c$；再乘$\dd t/\dd\tau=\gamma_v$，得到有向固有加速度$a_*=c\dd\chi/\dd\tau=\gamma_v^3\dot v$，其大小为$\alpha=|a_*|$。制动时$a_*$可为负，而$\alpha$仍非负。随着$\gamma_v$增大，有限的固有加速度可对应越来越小的实验室加速度；题设须说明控制的是哪一个量。
+
+\subsection{恒固有加速度的坐标网}
+令参考飞船的固有加速度为$\alpha>0$，设$L_\alpha=c^2/\alpha$。为与飞船保持固定局部距离，可引入坐标$(\tau,\xi)$：
+\begin{align*}
+ ct&=(L_\alpha+\xi)\sinh(\alpha\tau/c),\\
+ x&=(L_\alpha+\xi)\cosh(\alpha\tau/c)-L_\alpha.
+\end{align*}
+参考飞船在$\xi=0$，此处$\tau$正是其固有时。记$\chi=\alpha\tau/c$，乘积法则给
+\begin{align*}
+ \dd(ct)&=\sinh\chi\dd\xi
+ +(L_\alpha+\xi)\cosh\chi\frac\alpha c\dd\tau,\\
+ \dd x&=\cosh\chi\dd\xi
+ +(L_\alpha+\xi)\sinh\chi\frac\alpha c\dd\tau.
+\end{align*}
+相减平方时，混合项相等而抵消；$\dd\xi^2$的系数为$\sinh^2\chi-\cosh^2\chi=-1$，$\dd\tau^2$的系数为$(L_\alpha+\xi)^2\alpha^2/c^2$，得到
+\[
+ \dd s^2=c^2(1+\alpha\xi/c^2)^2\dd\tau^2-\dd\xi^2.
+\]
+该坐标网只取$\xi>-L_\alpha$以保持同一时间方向。固定$\xi$的其他钟在同一坐标时间内经历$\dd\tau_\xi=(1+\alpha\xi/c^2)\dd\tau$，其固有加速度为$\alpha_\xi=\alpha/(1+\alpha\xi/c^2)$。要让不同位置的点保持这种固定距离，它们不能全取相同固有加速度。
+
+\Diagram{fig:m2rindler}{固定加速坐标的世界线是共用光状渐近线的双曲线}{\draw[axis](-1.5,0)--(4.3,0)node[right]{$x/L_\alpha$};\draw[axis](0,0)--(0,4.5)node[above]{$ct/L_\alpha$};\foreach\a in{.7,1,1.5}{\draw[curve,domain=0:1.6,samples=70]plot({\a*cosh(\x)-1},{\a*sinh(\x)});}\draw[guide](-1,0)--(3.2,4.2);\node[below]at(-1,0){$-1$};}
+图\ref{fig:m2rindler}中越靠前的固定坐标点，所需固有加速度越小。若一根杆的各处在实验室同一时刻开始按完全相同速度程序加速，实验室端点距离可保持不变，但随共同速度增大，其瞬时静止系端点距离会增大。这与保持局部固有距离不变是不同的加速安排，物体内部会承受应力，不能假设任意加速都保留一个绝对刚性形状。
+
+\subsection{加速系光信号的有限传播}
+沿$\xi$方向的光满足$\dd s^2=0$，所以坐标速度为$\dd\xi/\dd\tau=\pm c(1+\alpha\xi/c^2)$。局部观察者用自身钟和局部尺测得的光速仍为$c$。取$-L_\alpha<\xi_1<\xi_2$及正号，分离变量：
+\[
+ \Delta\tau=\frac1c\int_{\xi_1}^{\xi_2}
+ \frac{\dd\xi}{1+\alpha\xi/c^2}.
+\]
+令$z=1+\alpha\xi/c^2$，则$\dd\xi=(c^2/\alpha)\dd z$，上下限为$z_i=1+\alpha\xi_i/c^2>0$，故
+\[
+ \Delta\tau=\frac c\alpha\int_{z_1}^{z_2}\frac{\dd z}z
+ =\frac c\alpha[\ln z]_{z_1}^{z_2}
+ =\frac c\alpha\ln\frac{1+\alpha\xi_2/c^2}{1+\alpha\xi_1/c^2}.
+\]
+若两站间距$\Delta\xi=\xi_2-\xi_1$很小，展开对数得到$\Delta\tau\simeq\Delta\xi/[c(1+\alpha\xi_1/c^2)]$。只有两站还位于$|\alpha\xi/c^2|\ll1$的原点附近时，才进一步近似为$\Delta\xi/c$。靠近$\xi=-L_\alpha$时坐标传播时间发散，对应图中的光状边界；它限制持续加速观察者的信号联系范围。
+
+\section{推进方程的能量和质量含义}
+\subsection{喷流速度在哪里定义}
+火箭方程中的$u$是喷流在每次燃烧瞬间的飞船静止系测量值。火箭持续变速后，不同时刻喷出的两团燃气在初始实验室中的速度不同；它们无需以某一固定实验室速度向后运动。若题设给的是实验室排气速度，必须先用速度变换换成瞬时$u$，一般会得到随$m$或$\chi$变化的微分方程。
+
+微分能量式$-\dd m=\gamma_u\dd\mu$表示飞船静质量损失中包括喷流静能和喷流动能。这里$m$是整个剩余飞船连同未用燃料的静质量，不等于某个发动机标称干质量。燃料中可转化的化学能很小，实际喷出的静质量大部分只是原料质量的搬运；光子火箭则取极端理想情况，排出物没有静质量。
+
+在燃烧前瞬时静止系，残余飞船获得$\dd v_*$。它的反冲动能约$m\dd v_*^2/2$，相对一阶喷流能是二阶小量，所以微分推导可以忽略。有限脉冲反冲则不能忽略；例\ref{ex:m2finitepulse}保留它之后仍给相同积分质量比，原因是发射光子的实验室能量随着火箭快度连续变化，而非每一步都在同一个静止系中计量。
+
+\subsection{质量比、推进效率与任务边界}
+若真实系统只有部分失去的质量能用于定向喷流，可把静止系单位质量损失携带的后向动量记为$\eta c(-\dd m)$，$0\leq\eta\leq1$。四动量守恒给$\dd\chi=-\eta\dd m/m$。固定排气速度的理想模型有$\eta=u/c$，向后纯光束有$\eta=1$，等量前后光束有$\eta=0$。这个定义把发动机效率、废热和喷流分布压缩为一个明确动量效率，但不能仅由“多少热量释放”确定$\eta$。
+
+对每个$\eta>0$的推进段，有$-\dd m/m=|\dd\chi|/\eta$，积分后该段的对数质量比为$\ln(m_i/m_f)=\int|\dd\chi|/\eta$。若$\eta=0$却仍排放质量，$\dd\chi=0$不能反推出质量损失，须按实际消耗另计。若巡航段不损失质量，它只增加旅行时间和距离。制动、返航各有相应推进消耗；抛弃空壳时，还须把抛弃后的剩余质量作为下一段初质量。比较燃料消耗应采用相同末态和载荷条件。
+
+\section{延迟成像的投影几何}
+照片中每一个像素对应一条到达观察者的光线。远场近似把这些光线看作平行，成像面取垂直视线的平面。设朝向观察者的单位矢量$\vct n$固定，接收时间可去掉一个共同常数写成$t_o=t_e-\vct n\cdot\vct r(t_e)/c$。固定$t_o$首先确定发射事件，随后投影
+\[
+ \vct R_{\rm image}=(I-\vct n\vct n^{\mathsf T})\vct r(t_e).
+\]
+这个投影矩阵删去沿视线深度分量，保留横向两分量。照片只保留横向投影；不同$t_e$的发射点集合也不属于某一实验室同时截面。
+
+\Diagram{fig:m2projection}{先沿光锥选择发射事件，再向垂直视线的平面投影}{\draw[axis](0,0)--(4.5,0)node[right]{$\vct n$};\draw[axis](0,0)--(0,3)node[above]{像面横向};\fill(3,2)circle(1.5pt)node[right]{$\vct r(t_e)$};\draw[guide](3,2)--(0,2);\fill(0,2)circle(1.5pt)node[left]{投影};\draw[->](0,0)--(3,2);}
+图\ref{fig:m2projection}中的横向位移除以接收时间间隔，得到视横向速度；实际位移除以发射时间间隔，得到物体的局部运动速度。具体地，$\vct v_{\rm app,\perp}=\vct v_\perp/(1-\vct n\cdot\vct v/c)$。对亚光速源，分母为正，接收顺序与发射顺序一致；视横向速度却可超过$c$，如例\ref{ex:m2super}所示。
+
+圆柱照片中的参数转角也是投影意义上的结果。源系圆周参数$\varphi$只表示表面标记，远场横向坐标中出现$\cos(\varphi+\alpha)$，使某些原本侧面的标记进入可见投影。要判断它是否真的可见，还需考虑不透明物体的自遮挡、前后表面和发光特性；透明发光圆环与不透明圆柱不能共用同一套可见点集合。
+
+有限观察距离时，光线不再平行，距离展开中$R_\perp^2/(2b)$项会改变延迟时刻，透视比例也随深度变化。若只保留一阶远场项，就应把“等效旋转”限定在该精度和相应物形，不把它推广为任意物体照片的普遍刚体旋转定理。
+
+\subsection{变质量推进的局部守恒与全局能量}
+火箭方程中的$m$是船体、载荷和全部剩余燃料的静质量。前文已在燃烧前的瞬时船系证明$-\dd m=\gamma_u\dd\mu$、$mc\dd\chi=\gamma_u u\dd\mu$。以下用这两个局部守恒式核对固定实验室中的能量和动量；其中$\dd\mu$是喷流静质量，$u$是其局部后向速度大小。
+
+局部一阶守恒可积成有限的准确火箭方程。计算固定实验室中的总喷流能量时，须先把各瞬时船系的微元变换到同一实验室系：
+\[
+ \dd E_{\rm jet}=\gamma_v\gamma_u\dd\mu(c^2-vu),\qquad
+ \dd p_{\rm jet}=\gamma_v\gamma_u\dd\mu(v-u).
+\]
+对船的$E=mc^2\cosh\chi$、$p=mc\sinh\chi$用乘积法则，代入$\dd m=-\gamma_u\dd\mu$及$\dd\chi=\gamma_u u\dd\mu/(mc)$，逐项得到
+\begin{align*}
+ \dd E&=c^2\cosh\chi\,\dd m+mc^2\sinh\chi\,\dd\chi\\
+ &=-\gamma_v\gamma_u c^2\dd\mu
+   +\gamma_v\gamma_u vu\dd\mu=-\dd E_{\rm jet},\\
+ \dd p&=c\sinh\chi\,\dd m+mc\cosh\chi\,\dd\chi\\
+ &=-\gamma_v\gamma_u v\dd\mu
+   +\gamma_v\gamma_u u\dd\mu=-\dd p_{\rm jet}.
+\end{align*}
+这里用了$\cosh\chi=\gamma_v$、$c\sinh\chi=\gamma_vv$；两个守恒式中的喷流量与船体量均在同一实验室系计量。
+\Diagram{fig:m2jetframes}{各次喷流的局部静止系不同；总能量需统一到同一参考系}{\draw[axis](0,0)--(6.1,0)node[right]{$x$};\foreach\x/\v in{.7/v_1,2.7/v_2,4.7/v_3}{\draw[curve](\x,.3)rectangle({\x+.8},.9);\draw[->]({\x+.9},.6)--({\x+1.35},.6)node[above]{$\v$};\draw[->](\x,.6)--({\x-.5},.6);}\node[below]at(3,0){同一实验室系中的连续发射位置};}
+图\ref{fig:m2jetframes}只示意沿途发射，不把几个船体画成同时存在。对有限过程，先求末态船四动量，再从初态总四动量中扣除它，常比逐一积分全部喷流更省算式；两种方法必须给出同一结果。

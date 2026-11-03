@@ -1,0 +1,82 @@
+\begin{exercise}\label{ex:o4ellipsereconstruct}
+完全偏振光经旋转线检偏器的最大、最小强度比为9:1，最大方向与$x$成30度。求椭圆长短轴比及长轴方向；仅凭这些数据能否确定旋向？
+\Diagram{fig:o4reconstructq}{检偏最大方向与椭圆长轴一致}{\draw[axis](-2,0)--(2.5,0)node[right]{$x$};\draw[curve,rotate=30](0,0)ellipse(1.8 and .6);\draw[guide](-1.8,-1.039)--(1.8,1.039);\node[right]at(1.8,1.039){30度};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4reconstructq}完全偏振条件下，沿主轴检偏得到强度分别正比$A^2,B^2$，所以$A/B=3$，长轴为30度模180度。强度比不是半轴比9。
+\Diagram{fig:o4reconstructa}{同一椭圆轨迹允许两种相反旋向}{\draw[curve](0,0)ellipse(1.6 and .6);\draw[->](1.6,0)arc(0:60:1.6 and .6);\draw[->](1.6,0)arc(0:-60:1.6 and .6);\node[right]at(2,.3){需圆偏振分析};}
+图\ref{fig:o4reconstructa}两种旋向有相同线检偏曲线，需波片测$S_3$符号。若没有“完全偏振”前提，9:1还可能来自自然光与线偏振混合，不能唯一恢复椭圆半轴。
+\end{solution}
+
+\begin{exercise}\label{ex:o4halfcircular}
+证明理想半波片将任意完全偏振光的椭圆旋向反转，并求其长轴方向变化。输入长轴角$\psi$，快轴角$\alpha$。
+\Diagram{fig:o4halfcircq}{半波片在快慢轴上把一个分量反号}{\draw[axis](-2,0)--(2.3,0)node[right]{快轴};\draw[axis](0,-1.7)--(0,2)node[above]{慢轴};\draw[curve,rotate=25](0,0)ellipse(1.6 and .7);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4halfcircq}中，在波片快、慢轴基底去掉共同相位，半波片为$H=\operatorname{diag}(1,-1)$。对任意时间的实电场，它使$(E_f(t),E_s(t))$变为$(E_f(t),-E_s(t))$，即关于快轴的镜像。镜像保留长短半轴，长轴相对快轴的夹角由$\psi-\alpha$变为$-(\psi-\alpha)$，所以非圆椭圆的输出方向为
+\[
+ \psi_o=2\alpha-\psi\pmod\pi.
+\]
+\Diagram{fig:o4halfcirca}{镜像变换保留椭圆形状，反转沿轨迹的有向旋转}{\draw[axis](-2.4,0)--(2.6,0)node[right]{快轴};\draw[curve,rotate=25](0,0)ellipse(1.8 and .65);\draw[guide,rotate=-25](0,0)ellipse(1.8 and .65);\node[below]at(0,-1.8){$\psi_o=2\alpha-\psi$};}
+图\ref{fig:o4halfcirca}中的轨迹形状不变，有向面积却反号。代数上，轴基底的互相关$E_fE_s^*$变为$-E_fE_s^*$，故$S_3$变号；绕传播轴旋转实坐标基底不改变$S_3$，这一结论在实验室基底同样成立。完全偏振光的椭圆率大小保持，旋向反转。
+
+有两个退化情形须分开：线偏振的$S_3=0$，本来没有椭圆旋向，只需使用线方向公式；圆偏振满足长短半轴相同，长轴方向$\psi$没有定义，不能再用长轴角描述输出。对圆Jones矢量直接作用$H$，$(1,i)$变为$(1,-i)$，能明确判断圆旋向反转。公共相位改变时间参数的起点，不改变上述几何结论。
+\end{solution}
+
+\begin{exercise}\label{ex:o4twoquarter}
+两块相同四分之一波片快轴平行或正交。分别求合成Jones矩阵，并说明两片都存在时偏振是否一定改变。
+\Diagram{fig:o4twoquarterq}{两片波片的相对轴角决定相位差相加或相消}{\draw[curve](0,-1)--(0,1);\draw[curve](3,-1)--(3,1);\draw[axis](-1,0)--(4.5,0);\node[above]at(0,1){$Q_1$};\node[above]at(3,1){$Q_2$};}
+\end{exercise}
+\begin{solution}
+按图\ref{fig:o4twoquarterq}，快轴平行时两矩阵均为$\operatorname{diag}(1,i)$，乘积$\operatorname{diag}(1,-1)$，等效半波片。快轴正交时第二片在同一基底为$\operatorname{diag}(i,1)$，乘积$iI$。
+\Diagram{fig:o4twoquartera}{正交轴相消后只剩共同相位，所有输入偏振态保持}{\node at(0,.5){平行：$Q^2=H$};\node at(0,-.6){正交：$Q_\perp Q=iI$};\draw[->](2,.5)--(3.3,.5);\draw[->](2,-.6)--(3.3,-.6);\node[right]at(3.5,.5){相差累加};\node[right]at(3.5,-.6){偏振不变};}
+图\ref{fig:o4twoquartera}的正交轴组合在所用约化矩阵中为$iI$，所有输入偏振态保持。若恢复每片删去的快轴传播相位$\phi_{f1},\phi_{f2}$，完整矩阵为$\ee^{i(\phi_{f1}+\phi_{f2})}iI$；与参考臂干涉时须保留这整个共同相位，不能仅由$iI$断言实物插入后的总相移恰为$\pi/2$。平行轴组合虽等效半波片，对沿其本征轴的输入仍只改变共同相位。
+\end{solution}
+
+\begin{exercise}\label{ex:o4criticaldecay}
+全反射入射角为$i=i_c+\epsilon$，$0<\epsilon\ll1$，$i_c=\arcsin(n_2/n_1)$。求倏逝振幅衰减长度随$\epsilon$的领先阶，说明临界角附近的尺度。
+\Diagram{fig:o4criticalq}{刚超过临界角，低折射率侧场衰减很慢}{\draw[curve](-2.3,0)--(2.3,0);\draw[guide](0,-1.5)--(0,2);\draw[->](-1.6,-1.3)--(0,0);\draw[->](0,0)--(1.6,-1.3);\node[right]at(1.2,1){长衰减尾部};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4criticalq}的$\kappa=k_0\sqrt{n_1^2\sin^2i-n_2^2}$。记$F(i)=n_1^2\sin^2i-n_2^2$，对平方和三角函数逐层求导有$F'(i)=2n_1^2\sin i\cos i$。利用$F(i_c)=0$、$\sin i_c=n_2/n_1$，得到
+\begin{align*}
+ F(i_c+\epsilon)&=F(i_c)+F'(i_c)\epsilon+O(\epsilon^2)\\
+ &=2n_2\sqrt{n_1^2-n_2^2}\,\epsilon+O(\epsilon^2).
+\end{align*}
+将这一领先项代入$\ell=1/(k_0\sqrt F)$，得
+\[
+ \ell=\frac1\kappa\simeq
+ \frac{\lambda_0}{2\pi\sqrt{2n_2\sqrt{n_1^2-n_2^2}\,\epsilon}}.
+\]
+\Diagram{fig:o4criticala}{衰减长度在临界角右侧按$\epsilon^{-1/2}$增大}{\draw[axis](0,0)--(4.5,0)node[right]{$\epsilon$};\draw[axis](0,0)--(0,3.5)node[above]{$\ell$};\draw[curve,domain=.2:4,samples=70]plot(\x,{1.4/sqrt(\x)});}
+图\ref{fig:o4criticala}的发散说明接近临界角时必须考虑有限光束角谱和第二界面距离。若光束有角度展宽，一部分成分可能低于临界角，单一平面波的无穷衰减长度不再完整描述实际束形。
+\end{solution}
+
+\begin{exercise}\label{ex:o4magneticinterface}
+正常入射到无损磁性介质界面，介质波阻抗分别为$Z_1=\sqrt{\mu_1/\varepsilon_1}$、$Z_2=\sqrt{\mu_2/\varepsilon_2}$。推导共同切向电场基底的$r,t,R,T$，说明何时可只用折射率。
+\Diagram{fig:o4magneticq}{正常入射时电场与磁场的比例由波阻抗决定}{\draw[curve](2,-1.3)--(2,1.3);\draw[->](0,.5)--(1.9,.5);\draw[->](1.9,-.4)--(0,-.4);\draw[->](2.1,.5)--(4.5,.5);\node[above]at(.8,1){$Z_1$};\node[above]at(3.3,1){$Z_2$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4magneticq}中，统一取切向电场沿$x$，入射波沿$+z$、反射波沿$-z$。由$\vct H=\hat{\vct k}\times\vct E/Z$，反射磁场相对其电场多一个方向反号。将入射电场幅度取1，边界条件为
+\[
+ 1+r=t,\qquad \frac{1-r}{Z_1}=\frac t{Z_2}.
+\]
+用$t=1+r$代入，得到$Z_2-Z_2r=Z_1+Z_1r$，因此$r=(Z_2-Z_1)/(Z_2+Z_1)$、$t=2Z_2/(Z_1+Z_2)$。
+\Diagram{fig:o4magnetica}{阻抗匹配可无反射，即使相折射率不同}{\draw[curve](0,-1.5)--(0,1.7);\node[above]at(-1.7,1.5){$Z_1$};\node[above]at(1.8,1.5){$Z_2=Z_1$};\draw[axis](-3,0)--(3.2,0)node[right]{$z$};\draw[->,thick](-2.3,0)--(-2.3,1)node[above]{$E_i$};\draw[->,thick](1.5,0)--(1.5,1)node[above]{$E_t=E_i$};\node[below]at(-1.6,-.6){$E_r=0$};\node[below]at(1.5,-.6){$T=1$};}
+无损介质$Z_1,Z_2>0$，平面波平均能流大小为$|E|^2/(2Z)$。图\ref{fig:o4magnetica}中反、入射处于同一介质，透射处于介质2，所以
+\[
+ R=|r|^2,\qquad T=\frac{Z_1}{Z_2}|t|^2
+ =\frac{4Z_1Z_2}{(Z_1+Z_2)^2}.
+\]
+两者相加的分子为$(Z_2-Z_1)^2+4Z_1Z_2=(Z_1+Z_2)^2$，故$R+T=1$。当$Z_1=Z_2$时无反射，即使两介质的折射率不同也成立，因为阻抗依赖$\mu/\varepsilon$，折射率依赖$\mu\varepsilon$。两介质均非磁性、磁导率相同时，$Z\propto1/n$，才可把阻抗比换成反折射率比，恢复通常正常入射公式。
+\end{solution}
+
+\begin{exercise}\label{ex:o4uncertaintystate}
+两束互不相干光分别为正、负圆偏振，强度为$3I$和$I$。求总斯托克斯量和偏振度；旋转线检偏器能否观察到强度变化？
+\Diagram{fig:o4mixtureq}{两相反圆偏振分量不相干地叠加}{\begin{scope}[xshift=-2cm]\draw[curve](0,0)circle(.8);\draw[->](.8,0)arc(0:70:.8);\node[below]at(0,-1.1){$3I$};\end{scope}\begin{scope}[xshift=2cm]\draw[curve](0,0)circle(.8);\draw[->](.8,0)arc(0:-70:.8);\node[below]at(0,-1.1){$I$};\end{scope}}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4mixtureq}两圆态各有$S_1=S_2=0$，$S_3$分别等于其强度的正、负值。直接加斯托克斯量，得$S_0=4I,S_1=S_2=0,S_3=2I$，偏振度$1/2$。
+\Diagram{fig:o4mixturea}{线检偏透过恒为$2I$，波片分析后才显出圆偏振不平衡}{\draw[axis](0,0)--(4.6,0)node[right]{检偏角};\draw[axis](0,0)--(0,2.8)node[above]{透射强度};\draw[very thick](0,1.7)--(4,1.7);\node[left]at(0,1.7){$2I$};}
+线检偏强度恒为$S_0/2=2I$，如图\ref{fig:o4mixturea}。虽然它的旋转曲线与自然光相同，光束仍有一半的圆偏振成分；加四分之一波片后两线方向透过强度成为$3I$与$I$，即可识别。独立光束按斯托克斯量相加；Jones矢量直接相加只适用于有确定相位关系的场。
+\end{solution}

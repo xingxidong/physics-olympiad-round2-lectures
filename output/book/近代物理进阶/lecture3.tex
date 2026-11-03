@@ -1,0 +1,239 @@
+\chapter{相对论动力学与电磁场}
+\section{相位与波四矢量}\label{th:m3wave}
+单色平面波的复表示为$\mathcal E=\mathcal E_0\exp[i(\vct k\cdot\vct r-\omega t)]$。同一波面的事件在不同坐标系中仍具有相同相位，所以$\omega t-\vct k\cdot\vct r$是洛伦兹标量。将逆坐标变换代入相位，按$t',x',y',z'$收集系数，得到
+\begin{align}\label{eq:m3wave}
+ \omega'&=\gamma(\omega-Vk_x),& k_x'&=\gamma(k_x-V\omega/c^2),\\
+ k_y'&=k_y,&k_z'&=k_z.\notag
+\end{align}
+因此$k^\mu=(\omega/c,\vct k)$是波四矢量。真空中$\omega=c|\vct k|$，故$k^2=0$，任何惯性系中仍有真空色散关系。若在介质中使用波矢变换，介质的运动也要一起变换，不能同时假定两系介质都静止且折射率相同。
+
+由$k_x=(\omega/c)\cos\theta$可得$\omega'=\gamma\omega(1-\beta\cos\theta)$。再以$k_x'c/\omega'$求方向，便重现光行差公式。频率和方向应作为同一四矢量的分量一起求出。
+
+\begin{example}\label{ex:m3movingmirror}
+一束频率$\nu$的光沿$x$正向照射以速度$V>0$远离的理想平面镜，镜面垂直$x$。忽略镜子反冲。求反射光在实验室中的频率。
+\Diagram{fig:m3mirrorq}{运动镜面与入射、反射光}{\draw[curve](4,-1)--(4,1.4);\draw[axis](4.2,1)--(5.5,1)node[above]{$V$};\draw[very thick,->](0,.6)--(3.7,.6)node[midway,above]{$\nu$};\draw[very thick,->](3.7,-.3)--(.2,-.3)node[midway,below]{$\nu_r$};}
+\end{example}
+\begin{solution}
+先把图\ref{fig:m3mirrorq}的入射光变到镜系。入射$k_x=\omega/c$，故$\omega'_i=\gamma\omega(1-\beta)$。镜系中镜面静止，反射保持频率并使$k_x'$反号：$\omega'_r=\omega'_i$，$k'_{xr}=-\omega'_i/c$。
+\Diagram{fig:m3mirrora}{镜系反射保持频率，再将反向波变回实验室}{\draw[curve](3,-1)--(3,1.3);\draw[->](0,.5)--(2.8,.5)node[midway,above]{$\omega'_i$};\draw[->](2.8,-.4)--(0,-.4)node[midway,below]{$\omega'_r=\omega'_i$};\node[right]at(3.2,.2){镜系};}
+逆变换$\omega_r=\gamma(\omega'_r+Vk'_{xr})$给$\omega_r=\gamma(1-\beta)\omega'_i$。因此图\ref{fig:m3mirrora}对应的两次频率变换合成
+\[
+ \frac{\nu_r}\nu=\gamma^2(1-\beta)^2=\frac{1-\beta}{1+\beta}.
+\]
+若镜子靠近，只需令$\beta<0$，频率升高。低速时$\nu_r/\nu\simeq1-2\beta$，因频移发生在入射与返回两段，不是一次多普勒因子。
+\end{solution}
+
+\section{总四动量、质心系与阈值}\label{th:m3momentum}
+封闭系统的总四动量$P^\mu=\sum_i p_i^\mu$守恒。若$P^2>0$，存在总空间动量为零的质心系，系统不变质量为
+\[
+ M^2c^4=E_{\rm tot}^2-c^2\vct P^2.
+\]
+其速度为$\vct V_{\rm cm}=c^2\vct P/E_{\rm tot}$。在该系总能量等于$Mc^2$，其中包含各粒子的相对运动能、内部能及相互作用能；一般$M\ne\sum_i m_i$。讨论散射时取入射和出射粒子相隔很远的状态，可把相互作用能归入粒子静质量及可分辨辐射，直接使用粒子四动量求和。
+
+\subsection{功—能关系与一维加速}
+单粒子满足$E^2=p^2c^2+m^2c^4$，故$\dd E=c^2\vct p\cdot\dd\vct p/E=\vct v\cdot\dd\vct p$。由此$\dd E=\vct f\cdot\dd\vct r$，无须先假定牛顿动能。对直线运动，$\dd p/\dd v=m\gamma_v^3$；对瞬时垂直方向的速度微扰，$\dd\vct p_\perp=m\gamma_v\dd\vct v_\perp$。相同三力在两方向产生的实验室加速度不同。
+
+\begin{example}\label{ex:m3photonpair}
+两个光子能量为$E_1,E_2$，传播方向夹角$\theta$。求它们组成系统的不变质量；讨论平行、反向两种极限及能否产生静质量$m$的正反粒子对。
+\Diagram{fig:m3pairq}{两光子四动量的空间夹角}{\draw[axis](0,0)--(3.6,0)node[right]{$\vct p_1$};\draw[axis](0,0)--(1.8,2.5)node[right]{$\vct p_2$};\draw(.8,0)arc(0:54.25:.8);\node at(1,.5){$\theta$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3pairq}中$|\vct p_i|=E_i/c$，所以
+\begin{align*}
+ M^2c^4&=(E_1+E_2)^2-c^2(p_1^2+p_2^2+2p_1p_2\cos\theta)\\
+ &=2E_1E_2(1-\cos\theta).
+\end{align*}
+平行时$M=0$，不存在质心静止系；反向时$Mc^2=2\sqrt{E_1E_2}$。若反向且$E_1=E_2$，实验室就是质心系。
+\Diagram{fig:m3paira}{质心系中的粒子对阈值：末态相对动量趋于零}{\draw[axis](-2.7,0)--(2.7,0);\draw[->,thick](-2.5,.6)--(-.3,.6)node[midway,above]{$E'_1$};\draw[->,thick](2.5,.6)--(.3,.6)node[midway,above]{$E'_2$};\fill(-.5,-.5)circle(2pt)node[below]{$m$};\fill(.5,-.5)circle(2pt)node[below]{$m$};}
+图\ref{fig:m3paira}所示的最小末态质心能量为$2mc^2$，因而阈值条件为$E_1E_2(1-\cos\theta)\geq2m^2c^4$。这只是能量动量允许的条件，还须满足电荷等其他守恒律和实际相互作用机制。单个自由光子不可能在真空中产生一对有质量粒子，因为其总不变质量为零。
+\end{solution}
+
+\begin{example}\label{ex:m3inelastic}
+静质量$m$的粒子以动能$K$撞击同样质量的静止粒子，两者完全粘合且不向外辐射。求粘合体的静质量、速度及其内部增加的能量。
+\Diagram{fig:m3inelasticq}{实验室中的完全非弹性碰撞}{\fill(0,0)circle(3pt)node[below]{$m$};\draw[axis](.2,.4)--(1.8,.4)node[above]{$K$};\fill(3,0)circle(3pt)node[below]{$m$静止};\draw[->](3.5,0)--(4.5,0);\draw[curve](5,0)circle(.35);\node[below]at(5,-.35){$M$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3inelasticq}中，入射粒子的总能量为$E_1=mc^2+K$，靶粒子能量为$mc^2$。入射动量由质壳关系给出：
+\[
+ p^2c^2=E_1^2-m^2c^4=K^2+2mc^2K.
+\]
+粘合体携带全部四动量，所以$E_T=2mc^2+K$、$P_T=p$，其静质量满足
+\begin{align*}
+ M^2c^4&=(2mc^2+K)^2-p^2c^2\\
+ &=4m^2c^4+2mc^2K.
+\end{align*}
+故$M=2m\sqrt{1+K/(2mc^2)}$，速度为$V=Pc^2/E_T=c\sqrt{K^2+2mc^2K}/(2mc^2+K)$。
+\Diagram{fig:m3inelastica}{质心系内相向运动的动能变为粘合体内部能}{\draw[->](-2,.4)--(-.5,.4);\draw[->](2,.4)--(.5,.4);\fill(-1.5,0)circle(2.5pt);\fill(1.5,0)circle(2.5pt);\draw[curve](0,-1)circle(.35);\node[right]at(.5,-1){$\Delta U=(M-2m)c^2$};}
+图\ref{fig:m3inelastica}是在总动量为零的质心系，粘合前的相向动能全部转为内部能，因此
+\[
+ \Delta U=(M-2m)c^2,
+ \qquad K_{\rm bulk}=E_T-Mc^2=K-\Delta U.
+\]
+两项之和为初始实验室动能$K$。其中$\Delta U$是粘合体自身系的内能增加，$K_{\rm bulk}$是实验室中的整体动能。令$k=K/(2mc^2)$，展开$\sqrt{1+k}=1+k/2-k^2/8+\cdots$，得到
+\[
+ \Delta U=\frac K2-\frac{K^2}{16mc^2}+\cdots,\qquad
+ K_{\rm bulk}=\frac K2+\frac{K^2}{16mc^2}+\cdots.
+\]
+牛顿极限中两者各占一半。相对论情形不能把所有入射动能都算成内部能，因为总动量守恒要求粘合体继续平动。
+\end{solution}
+
+\section{四力、加速度与瞬时静止系}\label{th:m3force}
+设实验室粒子速度为$\vct u$，使用$\gamma_u$区别于参考系相对运动的$\gamma$。三力$\vct f=\dd\vct p/\dd t$对应
+\[
+ F^\mu=\gamma_u(\vct f\cdot\vct u/c,f_x,f_y,f_z).
+\]
+沿$x$变换后，粒子的新洛伦兹因子$\gamma_{u'}=\gamma\gamma_u(1-Vu_x/c^2)$。以$F'^i/\gamma_{u'}$求三力，得
+\begin{align}\label{eq:m3forcetrans}
+ f'_x&=\frac{f_x-V(\vct f\cdot\vct u)/c^2}{1-Vu_x/c^2},\\
+ f'_{y,z}&=\frac{f_{y,z}}{\gamma(1-Vu_x/c^2)}.\notag
+\end{align}
+在瞬时静止系中$u'=0$，四力时间分量为零，$F^2=-f_0^2$。这里$f_0$专指瞬时静止系三力的大小，固定惯性系中的三力须另作变换。
+
+四加速度需同时求导$\gamma_u$与$\vct u$：
+\[
+ \dot\gamma_u=-\frac12(1-u^2/c^2)^{-3/2}
+ \left(-\frac{2\vct u\cdot\vct a}{c^2}\right)
+ =\gamma_u^3\frac{\vct u\cdot\vct a}{c^2}.
+\]
+再用$\dd/\dd\tau=\gamma_u\dd/\dd t$对$u^\mu=\gamma_u(c,\vct u)$逐项求导，得
+\[
+ a^0=\gamma_u^4\frac{\vct u\cdot\vct a}{c},\quad
+ \vct a_{(4)}=\gamma_u^2\vct a+\gamma_u^4\frac{\vct u\cdot\vct a}{c^2}\vct u.
+\]
+沿瞬时速度方向分解，四加速度的纵、横空间分量分别为$\gamma_u^4a_\parallel$、$\gamma_u^2a_\perp$，时间分量为$\gamma_u^4ua_\parallel/c$。因此
+\[
+ \alpha^2=-a_\mu a^\mu
+ =\gamma_u^8(1-u^2/c^2)a_\parallel^2+\gamma_u^4a_\perp^2
+ =\gamma_u^6a_\parallel^2+\gamma_u^4a_\perp^2.
+\]
+恒静质量时$F^\mu=ma^\mu$，这也给出四力模与固有加速度的关系。
+
+\begin{example}\label{ex:m3accel}
+粒子在实验室瞬时以速度$u$沿$x$运动，其瞬时静止系加速度分量为$(\alpha_x,\alpha_y,0)$。从四加速度变换推导实验室两分量。
+\Diagram{fig:m3accelq}{瞬时静止系中的加速度分解}{\draw[axis](0,0)--(3.8,0)node[right]{$x_0$};\draw[axis](0,0)--(0,2.8)node[above]{$y_0$};\draw[->,thick](0,0)--(2.4,1.8);\draw[guide](2.4,0)--(2.4,1.8)--(0,1.8);\node[below]at(1.2,0){$\alpha_x$};\node[left]at(0,.9){$\alpha_y$};}
+\end{example}
+\begin{solution}
+把四加速度记为$A^\mu=\dd U^\mu/\dd\tau$，实验室三加速度记为$\vct a$，以免同一字母混淆。图\ref{fig:m3accelq}的瞬时静止系中，$A_*^\mu=(0,\alpha_x,\alpha_y,0)$。沿$x$逆变换得到
+\[
+ A^0=\gamma_u\beta_u\alpha_x,\quad
+ A^x=\gamma_u\alpha_x,\quad A^y=\alpha_y.
+\]
+这里变换的是同一事件处的四矢量，不把该瞬时静止系延伸为整个加速过程的静止系。
+\Diagram{fig:m3accela}{实验室加速度的纵、横分量分别多出不同的时间因子}{\draw[axis](0,0)--(3.8,0)node[right]{$x,\ u$};\draw[axis](0,0)--(0,2.8)node[above]{$y$};\draw[->,thick](0,0)--(1.3,1.8);\draw[guide](1.3,0)--(1.3,1.8)--(0,1.8);\node[below]at(1.3,0){$\alpha_x/\gamma_u^3$};\node[left]at(0,1){$\alpha_y/\gamma_u^2$};}
+为将图\ref{fig:m3accela}中的$A^i$还原为三加速度，先对$\gamma_u$求导：
+\[
+ \frac{\dd\gamma_u}{\dd t}=\gamma_u^3\frac{\vct u\cdot\vct a}{c^2}
+ =\gamma_u^3\frac{ua_x}{c^2}.
+\]
+因$\dd/\dd\tau=\gamma_u\dd/\dd t$，该事件处$u_y=0$，所以
+\begin{align*}
+ A^x&=\gamma_u\frac{\dd(\gamma_u u_x)}{\dd t}
+ =\gamma_u^2a_x+\gamma_u^4\frac{u^2a_x}{c^2}
+ =\gamma_u^4a_x,\\
+ A^y&=\gamma_u\frac{\dd(\gamma_u u_y)}{\dd t}=\gamma_u^2a_y.
+\end{align*}
+与变换所得分量比较，得到$a_x=\alpha_x/\gamma_u^3$、$a_y=\alpha_y/\gamma_u^2$。时间分量$A^0=\gamma_u^4ua_x/c$也与上式一致。纵向多出的一个因子来自速度变化引起的$\gamma_u$变化，不能把横向时间膨胀的推算直接套到纵向。
+\end{solution}
+
+\begin{example}\label{ex:m3longfield}
+均匀电场沿$x$，带电粒子瞬时也沿$x$运动。用瞬时静止系三力和加速度关系说明为何平行电场不变；再求实验室加速度。
+\Diagram{fig:m3longq}{平行电场中的带电粒子}{\foreach\y in{0,.6,1.2}{\draw[axis](0,\y)--(4,\y);}\node[right]at(4,.6){$E_x$};\fill(1.5,.6)circle(3pt)node[above]{$q,m$};\draw[axis](1.7,1.6)--(3,1.6)node[above]{$u$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3longq}中实验室$f_x=qE_x$。把式\eqref{eq:m3forcetrans}取$V=u$且$\vct f\cdot\vct u=f_xu$，得$f_{0x}=f_x$。粒子在瞬时静止系受到电力$qE_{0x}$，故$qE_{0x}=qE_x$，即$E_{0x}=E_x$。
+\Diagram{fig:m3longa}{相同平行电力对应不同的坐标加速度}{\draw[axis](0,0)--(4.3,0)node[right]{$u/c$};\draw[axis](0,0)--(0,2.8)node[above]{$a_x/(qE_x/m)$};\draw[curve,domain=0:1,samples=70]plot({3.5*\x},{2.3*(1-\x*\x)^1.5});\node[left]at(0,2.3){$1$};\node[below]at(3.5,0){$1$};}
+瞬时静止系$\alpha_x=qE_x/m$，由例\ref{ex:m3accel}，图\ref{fig:m3longa}的实验室加速度$a_x=qE_x/(m\gamma_u^3)$。随着速度增加，电力保持不变，加速度减小；能量输入率仍为$qE_xu$，并不因加速度变小而趋于零。
+\end{solution}
+
+\section{四电流与电荷守恒}\label{th:m3current}
+对于共同运动的带电粒子群，静止系密度为$\rho_0$，实验室电荷密度$\rho=\gamma_u\rho_0$，电流$\vct j=\rho\vct u$，因此
+\[
+ J^\mu=(c\rho,\vct j)=\rho_0u^\mu,\quad J^2=c^2\rho_0^2.
+\]
+多种不同速度的带电成分应分别构造四电流再求和；总四电流未必类时，也未必存在把所有电荷同时静止的惯性系。连续性方程
+\[
+ \frac{\partial\rho}{\partial t}+\nabla\cdot\vct j=0
+\]
+可以写为$\partial_\mu J^\mu=0$，其积分形式是某固定体积内电荷减少等于流出边界的电荷。沿$x$的变换给$\rho'=\gamma(\rho-Vj_x/c^2)$、$j'_x=\gamma(j_x-V\rho)$，横向电流分量不变。
+
+\begin{example}\label{ex:m3wire}
+无限直导线沿$x$，实验室中正离子静止，线电荷密度$+\lambda$；电子速度为$-u$，电子实验室线密度为$-\lambda$。求沿$+V$运动的观察系中的总线电荷密度和电流。规定常规电流沿正向。
+\Diagram{fig:m3wireq}{实验室中电中性的载流导线}{\draw[curve](-.3,0)--(5.8,0);\foreach\x in{0,1,2,3,4,5}{\node at(\x,.4){$+$};\node at(\x,-.4){$-$};}\draw[axis](3,-.9)--(1.5,-.9)node[midway,below]{$u$};\draw[axis](1,1)--(2.5,1)node[midway,above]{$I=\lambda u$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3wireq}的总$\lambda_T=0$，$I=\lambda u$。对单位横截面的积分四电流同样变换，得到
+\[
+ \lambda_T'=-\gamma\frac{VI}{c^2},\qquad I'=\gamma I.
+\]
+也可逐成分求解：离子$\lambda'_+=\gamma\lambda$；电子$\lambda'_- =\gamma[-\lambda-V(\lambda u)/c^2]$。两者相加即得上式。
+\Diagram{fig:m3wirea}{运动观察系中负电荷密度的绝对值大于正电荷密度}{\draw[curve](0,0)--(5.8,0);\foreach\x in{.3,1.3,2.3,3.3,4.3,5.3}{\node at(\x,.4){$+$};}\foreach\x in{0,.7,1.4,2.1,2.8,3.5,4.2,4.9,5.6}{\node at(\x,-.4){$-$};}\node[below]at(3,-1){$\lambda'_T<0$，示意密度};}
+图\ref{fig:m3wirea}说明电中性是与参考系有关的密度条件，整段材料上包含多少总电荷则还涉及边界和同时截面。若直接把离子和电子都缩短相同倍数，便错误地忽略了电子在实验室已经运动以及密度变换中的电流项。
+\end{solution}
+
+\section{四势、规范与场方程}\label{th:m3potential}
+由$\nabla\cdot\vct B=0$，局部可写$\vct B=\nabla\times\vct A$。法拉第定律给$\nabla\times(\vct E+\partial_t\vct A)=0$，所以$\vct E=-\nabla\phi-\partial_t\vct A$。势不唯一：$\vct A\to\vct A+\nabla\zeta$、$\phi\to\phi-\partial_t\zeta$保持场不变。
+
+把势代入高斯定律，得到$-\nabla^2\phi-\partial_t\nabla\cdot\vct A=\rho/\varepsilon_0$。取洛伦兹规范
+\[
+ \nabla\cdot\vct A+\frac1{c^2}\partial_t\phi=0,
+\]
+就有$(c^{-2}\partial_t^2-\nabla^2)\phi=\rho/\varepsilon_0$。再把势代入安培—麦克斯韦定律，利用$\nabla\times\nabla\times\vct A=\nabla(\nabla\cdot\vct A)-\nabla^2\vct A$，梯度项由规范条件抵消，得到
+\[
+ \left(\frac1{c^2}\partial_t^2-\nabla^2\right)\vct A=\mu_0\vct j.
+\]
+令$A^\mu=(\phi/c,\vct A)$、$\Box=c^{-2}\partial_t^2-\nabla^2$，两式合并为$\Box A^\mu=\mu_0J^\mu$。在保持此协变规范的选择下，四势按四矢量变换。若另行改用其他规范，还须补相应规范变换，不能把某个规范下的分量形式当作场本身。
+
+\subsection{导数变换}
+由链式法则，$\partial_{ct'}=\gamma(\partial_{ct}+\beta\partial_x)$、$\partial_{x'}=\gamma(\partial_x+\beta\partial_{ct})$，$\partial_{y',z'}=\partial_{y,z}$。特别注意导数的正负号与坐标正变换不同，因为这里是对逆坐标式求导。将两导数组合平方，交叉项抵消，就可验证$\Box'=\Box$。
+
+\section{电磁场的完整变换}\label{th:m3fields}
+对四势作沿$x$的变换，$\phi'=\gamma(\phi-VA_x)$、$A_x'=\gamma(A_x-V\phi/c^2)$、$A_y'=A_y$、$A_z'=A_z$。例如
+\begin{align*}
+ E_y'&=-\partial_y\phi'-\partial_{t'}A_y'\\
+ &=-\gamma\partial_y\phi+\gamma V\partial_y A_x
+ -\gamma\partial_tA_y-\gamma V\partial_xA_y\\
+ &=\gamma(E_y-VB_z).
+\end{align*}
+这里$B_z=\partial_xA_y-\partial_yA_x$，负号由叉乘方向决定。同样将$E_x'$完整展开，时间与空间交叉导数抵消，剩下$\gamma^2(1-\beta^2)E_x=E_x$。对$\vct B'=\nabla'\times\vct A'$逐分量计算，得到
+\begin{equation}\label{eq:m3field}
+ \begin{aligned}
+ E_x'&=E_x,&B_x'&=B_x,\\
+ E_y'&=\gamma(E_y-VB_z),&B_y'&=\gamma(B_y+VE_z/c^2),\\
+ E_z'&=\gamma(E_z+VB_y),&B_z'&=\gamma(B_z-VE_y/c^2).
+ \end{aligned}
+\end{equation}
+相对任意$\vct V$的矢量形式是
+\[
+ \vct E'_\parallel=\vct E_\parallel,\quad
+ \vct E'_\perp=\gamma(\vct E+\vct V\times\vct B)_\perp,
+\]
+\[
+ \vct B'_\parallel=\vct B_\parallel,\quad
+ \vct B'_\perp=\gamma(\vct B-\vct V\times\vct E/c^2)_\perp.
+\]
+从分量式可直接验证$E^2-c^2B^2$和$\vct E\cdot\vct B$不变。两个不变量可以排除某些变换目标，但具体参考系速度仍须代入变换式求出。
+
+\begin{example}\label{ex:m3crossed}
+实验室中$\vct E=E\hat{\vct y}$、$\vct B=B\hat{\vct z}$，$E,B>0$。求能使电场或磁场消失的沿$x$运动惯性系，并讨论$E=cB$。
+\Diagram{fig:m3crossq}{正交电磁场与可选的变换方向}{\draw[axis](0,0)--(3.6,0)node[right]{$x$};\draw[axis](0,0)--(0,2.5)node[above]{$E\hat{\vct y}$};\draw(1.5,1)circle(.18);\fill(1.5,1)circle(1.2pt);\node[right]at(1.8,1){$B\hat{\vct z}$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3crossq}中$E_y'=\gamma(E-VB)$、$B_z'=\gamma(B-VE/c^2)$。若$E<cB$，取$V=E/B<c$，可令$E'=0$。此时$B'=\sqrt{B^2-E^2/c^2}$，仍沿$z$正向。
+\Diagram{fig:m3crossa}{由不变量符号区分磁占优、电占优和光状场}{\draw[axis](0,0)--(5,0)node[right]{$E/(cB)$};\draw[curve](2.5,-.6)--(2.5,.8);\node[below]at(2.5,-.6){$1$};\node[above]at(1,.2){可令$E'=0$};\node[above]at(4,.2){可令$B'=0$};}
+若$E>cB$，取$V=c^2B/E<c$，得到$B'=0$和$E'=\sqrt{E^2-c^2B^2}$。图\ref{fig:m3crossa}的分界$E=cB$要求$V=c$才能消场，不是合法惯性系。此时两个不变量均为零，任何有限速度系中仍有非零正交场且$E'=cB'$，真空平面波正属于这类情况。
+\end{solution}
+
+\begin{example}\label{ex:m3wavefield}
+真空平面波沿$x$传播，电场沿$y$，磁场沿$z$。沿波方向以速度$V$运动的观察者测得何种频率、振幅与光强？
+\Diagram{fig:m3waveq}{沿波传播方向追赶平面波}{\draw[axis](-.2,0)--(5.5,0)node[right]{$\vct k,V$};\draw[curve,domain=0:5,samples=100]plot(\x,{.7*sin(180*\x)});\node[above]at(2,1){$E_y$};\draw[axis](3,-1)--(4.5,-1);}
+\end{example}
+\begin{solution}
+图\ref{fig:m3waveq}中$B_z=E_y/c$。式\eqref{eq:m3field}给$E_y'=\gamma(1-\beta)E_y$、$B_z'=E_y'/c$。频率同样有$\omega'=\gamma(1-\beta)\omega$。
+\Diagram{fig:m3wavea}{振幅和频率同比例红移，波长相应伸长}{\draw[axis](0,0)--(5.6,0)node[right]{$x'$};\draw[curve,domain=0:5,samples=90]plot(\x,{.45*sin(100*\x)});\draw[<->](.9,-.9)--(4.5,-.9)node[midway,below]{$\lambda'=\lambda/[\gamma(1-\beta)]$};}
+时间平均光强$I=\varepsilon_0cE_0^2/2$，所以图\ref{fig:m3wavea}中的$I'/I=\gamma^2(1-\beta)^2=(1-\beta)/(1+\beta)$。频率比和振幅比相同，而光强比是其平方。此结果对整个无限平面波的局部能流成立，与点源角功率的立体角雅可比属于不同问题。
+\end{solution}
+\input{lecture3_derivations}
+\input{lecture3_extensions}
+\input{lecture3_depth}
+\input{lecture3_connections}
+\input{lecture3_exercises}

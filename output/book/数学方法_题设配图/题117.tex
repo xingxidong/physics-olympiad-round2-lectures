@@ -1,0 +1,12 @@
+% 题设配图；与紧随其后的解答分别编号。
+\ExpansionDiagram{fig:audit-m-q-117}{同一组伸长量与测力数据用于比较模型}{
+\draw[->](-.4,0)--(6.8,0)node[right]{$x/(10^{-2}\,\mathrm m)$};
+\draw[->](0,-.3)--(0,2.9)node[above]{$F/\mathrm N$};
+\foreach \x/\force in {0/.20,1/1.01,2/1.83,3/2.70,4/3.65,5/4.71,6/5.87}{
+ \draw(\x,{.4*(\force-.02)})--(\x,{.4*(\force+.02)});
+ \fill(\x,{.4*\force})circle(1.5pt);
+ \draw(\x,-.06)--(\x,.06)node[below,yshift=-1mm]{$\x$};
+}
+\foreach \f in {1,2,3,4,5,6}{\draw(-.06,{.4*\f})--(.06,{.4*\f});\node[left]at(-.08,{.4*\f}){$\f$};}
+\node[right]at(3.6,.45){$\sigma_F=0.02\,\mathrm N$};
+}

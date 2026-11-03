@@ -1,0 +1,74 @@
+\section{费马原理的变分推导}
+\subsection{驻值不必是最短路程}
+静态各向同性介质中的光线使光程$\mathcal L=\int_A^B n(\vct r)\dd s$在固定端点的路径变分下取驻值。高折射率区的单位路程耗时较长，所以几何短路未必是光程短路。费马原理只要求一阶变分为零，允许局部最小、鞍值及退化驻值。
+
+用任意单调参数$q$表示路径，拉格朗日量为$\mathcal G=n(\vct r)|\dot{\vct r}|$。变分导数
+\[
+ \frac{\partial\mathcal G}{\partial\dot{\vct r}}=n\vct t,
+ \qquad \frac{\partial\mathcal G}{\partial\vct r}=|\dot{\vct r}|\nabla n.
+\]
+欧拉—拉格朗日方程除以$\dd s/\dd q=|\dot{\vct r}|$，得到$\dd(n\vct t)/\dd s=\nabla n$。把左侧展开为$(\dd n/\dd s)\vct t+n\dd\vct t/\dd s$，再以$\dd n/\dd s=\vct t\cdot\nabla n$，得曲率方程
+\[
+ n\frac{\dd\vct t}{\dd s}
+ =\nabla n-(\vct t\cdot\nabla n)\vct t=\nabla_\perp n.
+\]
+只有折射率梯度的横向部分使射线转弯；沿射线方向的变化只改变相位积累和局部速度。弯曲方向朝横向折射率较大处，这与分层界面逐层折射的极限一致。
+
+\subsection{界面的切向条件}
+在两均匀介质间界面选交点$Q$，端点$A,B$固定。光程为$n_1|A-Q|+n_2|Q-B|$。让$Q$沿界面切向移动$\delta\vct q$，一阶变化为$(n_1\vct t_1-n_2\vct t_2)\cdot\delta\vct q$。任意切向变化都取驻值，要求切向分量$n_1\vct t_{1\parallel}=n_2\vct t_{2\parallel}$，于是$n_1\sin i=n_2\sin r$。
+
+\Diagram{fig:o1fermat}{界面交点的切向变分给出折射定律}{\draw[curve](-3,0)--(3,0);\fill(-2,1.6)circle(1.5pt)node[left]{$A$};\fill(2,-1.4)circle(1.5pt)node[right]{$B$};\fill(0,0)circle(1.5pt)node[above]{$Q$};\draw[curve](-2,1.6)--(0,0)--(2,-1.4);\draw[guide](-2,1.6)--(.6,0)--(2,-1.4);\draw[->](0,.3)--(.6,.3)node[midway,above]{$\delta q$};}
+图\ref{fig:o1fermat}的驻值路径在真实界面法向上不要求约化动量连续，因为折射率在该处跳变。光沿边界的相位必须连续，给出相同切向条件。反射则可由镜像法或在同一介质中改变法向传播方向得到，入射角等于反射角。
+
+\subsection{全反射和几何模型的边界}
+从$n_1>n_2$射向低折射率介质时，切向条件可能要求$\sin r>1$，此时没有实传播方向。几何光学把它描述为全反射，但并未说明低折射率侧的场严格为零。波动边界解会出现虚法向波矢、倏逝场及偏振相关反射相位。这些内容在第四讲推导，说明同一切向相位约束可以继续使用，而实射线概念已有适用边界。
+
+\section{主平面如何连接实际光线}
+主平面是在把系统矩阵分解为“物侧平移—等效折射—像侧平移”时选出的两个参考面。在相同物像介质中，一条假想入射光从实际入口沿直线延长到第一主面，再在等效薄系统中改变倾角，最后从第二主面延长回实际出口；这个构造保持系统外光线关系，不声称系统内部光线按该折线传播。
+
+把矩阵乘法完整写出，设$h_1$从第一顶点向右、$h_2$从最后顶点向右，
+\[
+ T(-h_2,n_2)S(\Phi)T(h_1,n_1)
+ =\begin{pmatrix}
+ 1+h_2\Phi/n_2&h_1/n_1-h_2/n_2+h_1h_2\Phi/(n_1n_2)\\
+ -\Phi&1-h_1\Phi/n_1
+ \end{pmatrix}.
+\]
+由$C=-\Phi$先定总光焦度，再由$A,D$定两个主面，$B$因行列式条件自动一致。若$C=0$，这套分解失去有限主面解，但原$M$依然完整；无焦望远系统、扩束器应直接用矩阵分析。
+
+\subsection{焦距和顶点焦距的差别}
+系统外平行光与后焦点的关系，从出射参考面的$y_o=Ay_i$、$n_2\theta_o=Cy_i$可得后焦点距该面的距离$v_F=-n_2A/C=n_2A/\Phi$。另一方面，主面后焦距为$n_2/\Phi$，第二主面相对出口位置为$h_2=n_2(A-1)/\Phi$，相加正好也是$n_2A/\Phi$。这证明主面公式与实际外光线相交位置一致。
+
+玻璃球的两主面在球心，主面后焦距为$f=nr/[2(n-1)]$，从后表面量起的背焦距则为$f-r$。当$n=2$，平行近轴光的焦点在后顶点；当$n>2$，背焦距为负，总光焦度$\Phi$仍为正。实虚像应由后表面外光线的会聚或发散判断，并注明距离的参考面。
+
+\section{渐变介质力学类比的参数选择}
+由力学零能量条件$|\dot{\vct r}|=v_0n$，切向单位矢量$\vct t=\dot{\vct r}/(v_0n)$。对$n\vct t=\dot{\vct r}/v_0$按弧长求导，利用$\dd/\dd s=(v_0n)^{-1}\dd/\dd q$，得到
+\[
+ \frac{\dd(n\vct t)}{\dd s}
+ =\frac{\ddot{\vct r}}{v_0^2n}.
+\]
+令它等于$\nabla n$，便得$\ddot{\vct r}=v_0^2n\nabla n=\tfrac12v_0^2\nabla(n^2)$。这一等式证明零能量力学轨迹满足费马射线方程。任意正值$v_0$只改变虚拟参数的快慢，不改变空间轨迹。
+
+真实传播时间中的权重由$\dd t=n\dd s/c$和$\dd s=v_0n\dd q$共同给出，即$\dd t=v_0n^2\dd q/c$。船行波模型的当地波速为$c_A/n$，相同计算须把分母$c$换成$c_A$。有色散时，波包到达时间应按群速度计算，相位轨迹未必就是能量传播轨迹。
+
+\subsection{对称性给出的积分常数}
+若$n$不依$z$，虚拟势具有轴向平移对称性，$\dot z$及$n\cos\alpha$守恒，其中$\alpha$相对$z$轴量取。若$n$只依$r$，转动对称性给$nr\sin\psi$守恒，其中$\psi$相对径向量取。使用守恒量时，须同时保留角度的几何定义。
+
+\Diagram{fig:o1symmetries}{平移对称守恒轴向分量，转动对称守恒角动量}{\begin{scope}[xshift=-2.6cm]\draw[axis](0,0)--(2.5,0)node[right]{$z$};\draw[curve](0,.2)..controls(1,1.3)and(1.6,1.4)..(2.2,1);\draw[guide](0,1.7)--(2.3,1.7);\node[below]at(1.2,-.5){$n\cos\alpha$};\end{scope}\begin{scope}[xshift=1.5cm]\draw[curve](0,0)circle(1);\draw[->](0,0)--(1.6,.8);\draw[->](1.6,.8)--(1.9,1.8);\node[below]at(.5,-1.5){$nr\sin\psi$};\end{scope}}
+图\ref{fig:o1symmetries}中的守恒量限定方向和可达区域，继而用于积分求轨迹。若下一界面破坏相应对称性，应按界面相位匹配确定新区域的积分常数。
+
+\subsection{同一共轭关系的横向与纵向变化}
+物距和像距必须从各自主面量取。设物、像侧折射率分别为$n_O,n_I$，系统光焦度为$\Phi$，则$n_O/u+n_I/v=\Phi$。在系统不变时微分，
+\[
+ -\frac{n_O}{u^2}\dd u-\frac{n_I}{v^2}\dd v=0,
+ \qquad \frac{\dd v}{\dd u}=-\frac{n_Ov^2}{n_Iu^2}.
+\]
+物点轴向坐标取$z_O=-u$、像点取$z_I=v$，所以同向轴坐标的纵向放大率为$\dd z_I/\dd z_O=n_Ov^2/(n_Iu^2)>0$。由横向放大率$m_y=-n_Ov/(n_Iu)$，得
+\[
+ m_z=\frac{\dd z_I}{\dd z_O}=\frac{n_I}{n_O}m_y^2.
+\]
+在相同外部介质中，轴向微小长度的放大率是横向放大率的平方。横向倒像的负号不使纵向关系变负；物点向右微移，实像在相应共轭分支上也向右移。
+\Diagram{fig:o1longmagnify}{两个相近轴上物点与其共轭像点；箭头表示微小轴向位移}{\draw[axis](-3.3,0)--(3.7,0)node[right]{$z$};\draw[thick](0,-1.2)--(0,1.2)node[above]{系统};\fill(-2.8,0)circle(1.5pt)node[below]{$O$};\fill(-2.3,0)circle(1.5pt)node[above]{$O+\dd z_O$};\fill(2,0)circle(1.5pt)node[below]{$I$};\fill(3,0)circle(1.5pt)node[above]{$I+\dd z_I$};\draw[->](-2.8,-.6)--(-2.3,-.6);\draw[->](2,-.6)--(3,-.6);}
+图\ref{fig:o1longmagnify}只表示微分共轭，不把有限厚度物体的所有截面当作具有同一个放大率。对有限景深，应分别求前后物面的像距；当物面跨越焦面时，实虚像分支还会改变。矩阵成像式能直接处理这些情况，而只报一个等效焦距不足以定位物像。
+
+当$|m_y|$较大时，物面的小定位误差会被放大为像面位移。几何离焦产生的弥散直径还依赖像方孔径角；衍射斑则由有限孔径决定。用纵向放大率估算焦面位置时，应保持近轴、小位移和同一成像分支三个条件。

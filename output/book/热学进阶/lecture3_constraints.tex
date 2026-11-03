@@ -1,0 +1,124 @@
+\subsection{熵极值的一阶条件与稳定性}
+\label{th:entropystability}
+把两个固定体积的子系统组成孤立整体，总内能 $U_\Sigma$ 固定。以 $U_1$ 为独立变量，
+$S_\Sigma(U_1)=S_1(U_1)+S_2(U_\Sigma-U_1)$。
+一阶导数为$1/T_1-1/T_2$，其零点给共同温度。还须检查二阶项。由$\dd T_1/\dd U_1=1/C_1$、$\dd T_2/\dd U_1=-1/C_2$，链式法则给$\dd(T_1^{-1})/\dd U_1=-1/(T_1^2C_1)$、$\dd(-T_2^{-1})/\dd U_1=-1/(T_2^2C_2)$。在共同温度$T$处，
+\[
+ \frac{\dd^2S_\Sigma}{\dd U_1^2}
+ =-\frac1{T^2C_1}-\frac1{T^2C_2}<0,
+\]
+其中 $C_1,C_2>0$ 是相应固定体积下的热容。偏离平衡一个微小能量 $\delta U$ 时，
+\[
+ S_\Sigma-S_{\Sigma,\rm eq}
+ =-\frac{(\delta U)^2}{2T^2}
+ \left(\frac1{C_1}+\frac1{C_2}\right)+O((\delta U)^3).
+\]
+一次项消失，二次项为负，所以微小自发能量交换会把系统带回熵更高的附近状态。这一二阶条件使熵的驻点成为稳定最大值。
+
+\Diagram{fig:entropymaximum}{能量分配方向上的熵最大值}{
+ \draw[axis](0,0)--(5.5,0)node[right]{$U_1$};
+ \draw[axis](0,0)--(0,3.2)node[above]{$S_\Sigma$};
+ \draw[curve]plot[domain=.7:4.5](\x,{2.7-.4*(\x-2.6)^2});
+ \draw[guide](2.6,0)--(2.6,2.7);
+ \node[below]at(2.6,0){$U_{1,\rm eq}$};
+ \draw[->](1.3,1.7)--(1.9,2.3);
+ \draw[->](4,1.65)--(3.4,2.3);
+}
+图\ref{fig:entropymaximum}的横向变化只重新分配整体已有能量，未改变总能量。若允许体积、粒子数或外场参数变化，应连同新的约束重新建立总熵函数。隔板固定、可移动、可导热或选择透过粒子，分别开放不同的交换方向，所需平衡条件也不同。
+
+\subsection{可达状态与最大功的几何关系}
+能量守恒与熵不减共同限制可达终态，但并不替代对装置操作条件的说明。例如两个有限物体之间可输出机械功时，物体总内能可以下降；若禁止对外功且最终机械储能恢复，物体总内能必须等于初值。前者在不同能量水平上寻找尽可能低的终态，后者只能沿固定能量曲线移动。
+
+对常热容物体，用温度坐标表示的能量曲线是直线
+$C_1T_1+C_2T_2=\text{常量}$，熵曲线则为
+$C_1\ln(T_1/T_\ast)+C_2\ln(T_2/T_\ast)=\text{常量}$。
+这里 $T_\ast>0$ 是共同参考温度，所有对数的自变量无量纲。等温线 $T_1=T_2$ 与能量直线的交点给直接接触终态；与初始等熵曲线的交点给可逆做功的共同终态。这两个交点一般不重合。
+
+暂存机械功可以使物体总内能在中途变化，最后若把机械储能完全归还，两物体又回到原能量直线上。此时所求“某物体最高温”是这条能量直线与熵允许区间的端点，而非两物体共同终温。前文温度转移题的两个根分别对应初态和另一个等熵端点，必须根据所求物体及允许操作选择。
+
+\subsection{热容随温度变化时的统一端点方程}
+若各物体热容为 $C_i(T)>0$，先分别定义相对于任意固定参考态的能量和熵，
+\[
+ U_i(T)-U_i(T_\ast)=\int_{T_\ast}^{T}C_i(t)\dd t,
+ \qquad
+ S_i(T)-S_i(T_\ast)=\int_{T_\ast}^{T}\frac{C_i(t)}t\dd t.
+\]
+直接接触的共同终温由
+\[
+ \sum_i\int_{T_i}^{T_d}C_i(t)\dd t=0
+\]
+确定；可逆热机取最大功的共同终温由
+\[
+ \sum_i\int_{T_i}^{T_r}\frac{C_i(t)}t\dd t=0
+\]
+确定。两式的被积函数不同，分别代表能量和熵约束。前一式左侧对终温的导数为 $\sum_iC_i(T)>0$，后一式为 $\sum_iC_i(T)/T>0$，故在正热容温区内各有至多一个共同终温根。
+
+最大功再由
+$W_{\max}=\sum_i[U_i(T_i)-U_i(T_r)]$ 求得。参考常数在初末相减时全部抵消，既无需给每个物体规定绝对内能，也无需把温变热容强行替换成某个平均常数。数值求根时，初始最低温与最高温可作为这类共同终温的自然夹逼区间。
+
+\subsection{不同热容流率的并流与逆流换热}
+\label{th:unequalexchanger}
+稳态换热应使用每单位时间通过装置的热容，即热容流率
+$\mathcal C=\dot m c_p$，其中 $c_p$ 为单位质量的定压热容，$\mathcal C$ 的量纲为功率除温度。设冷热流的热容流率 $\mathcal C_h,\mathcal C_c$ 沿程为常量，不发生相变，传热系数与单位长度面积的乘积 $k_\ell$ 也为常量，总长为 $L$。管外绝热、无其他做功时，总传热率满足
+\[
+ \dot Q=\mathcal C_h(T_{h,\rm in}-T_{h,\rm out})
+ =\mathcal C_c(T_{c,\rm out}-T_{c,\rm in}).
+\]
+这与间歇地把热水份移走的协议不同：稳态两流在沿程持续交换能量，出口物质不断离开装置。
+
+并流时，坐标 $x$ 沿两流共同方向，局部温差
+$\Delta=T_h-T_c$ 满足
+\[
+ \frac{\dd\Delta}{\dd x}
+ =-k_\ell\left(\frac1{\mathcal C_h}+\frac1{\mathcal C_c}\right)\Delta.
+\]
+分离变量，从入口到出口积分，$[\ln\Delta]_{\Delta_{\rm in}}^{\Delta_{\rm out}}=-k_\ell(1/\mathcal C_h+1/\mathcal C_c)[x]_0^L$。取指数给出$\Delta_{\rm out}=\Delta_{\rm in}\ee^{-\mathcal N(1+r)}$。再用出口温差等于
+$\Delta_{\rm in}-\dot Q(1/\mathcal C_h+1/\mathcal C_c)$，可求传热率。
+记 $\mathcal C_{\min}$ 为两者中较小值，
+$r=\mathcal C_{\min}/\mathcal C_{\max}$、
+$\mathcal N=k_\ell L/\mathcal C_{\min}$，并定义
+$\varepsilon=\dot Q/[\mathcal C_{\min}(T_{h,\rm in}-T_{c,\rm in})]$，得到
+\[
+ \varepsilon_{\parallel}
+ =\frac{1-\ee^{-\mathcal N(1+r)}}{1+r}.
+\]
+并流无限加长时，两股出口流趋于共同温度，换热效能趋于 $1/(1+r)$。热量守恒决定这个共同温度，两股流均无法完全达到对方的入口温度。
+
+\Diagram{fig:unequalexchanger}{逆流换热的两端边界位于不同位置}{
+ \draw(0,0)rectangle(6,1.6);
+ \draw[axis](.3,1.2)--(5.7,1.2);
+ \draw[axis](5.7,.4)--(.3,.4);
+ \node[left]at(0,1.2){$T_{h,\rm in}$};
+ \node[right]at(6,1.2){$T_{h,\rm out}$};
+ \node[left]at(0,.4){$T_{c,\rm out}$};
+ \node[right]at(6,.4){$T_{c,\rm in}$};
+ \draw[axis](0,-.5)--(6,-.5)node[right]{$x$};
+}
+逆流时按图\ref{fig:unequalexchanger}仍取 $x$ 沿热流方向，冷流实际流向与坐标相反。因此
+$\dd T_h/\dd x=-k_\ell\Delta/\mathcal C_h$，
+$\dd T_c/\dd x=-k_\ell\Delta/\mathcal C_c$。
+为写出边界消元的步骤，先取 $\mathcal C_h\ge\mathcal C_c$，令
+$D=T_{h,\rm in}-T_{c,\rm in}$，则
+\[
+ \Delta(0)=D-\frac{\dot Q}{\mathcal C_c},\qquad
+ \Delta(L)=D-\frac{\dot Q}{\mathcal C_h}.
+\]
+相减两条温度方程，得$\Delta'=k_\ell(1/\mathcal C_c-1/\mathcal C_h)\Delta$。分离变量后，$[\ln\Delta]_{\Delta(0)}^{\Delta(L)}=k_\ell(1/\mathcal C_c-1/\mathcal C_h)[x]_0^L$，故
+\[
+ \frac{\Delta(L)}{\Delta(0)}
+ =\exp\!\left[k_\ell L\left(
+ \frac1{\mathcal C_c}-\frac1{\mathcal C_h}\right)\right]
+ =\ee^{\mathcal N(1-r)}.
+\]
+记$E=\ee^{\mathcal N(1-r)}$。代入两端温差，$D-\dot Q/\mathcal C_h=E(D-\dot Q/\mathcal C_c)$，移项得$\dot Q(E/\mathcal C_c-1/\mathcal C_h)=D(E-1)$。因$\mathcal C_c=\mathcal C_{\min}$，除以$D\mathcal C_c$并约去$E$，得到
+\[
+ \varepsilon_{\rm counter}
+ =\frac{1-\ee^{-\mathcal N(1-r)}}
+ {1-r\ee^{-\mathcal N(1-r)}}\quad(r<1),\qquad
+ \varepsilon_{\rm counter}\big|_{r=1}
+ =\frac{\mathcal N}{1+\mathcal N}.
+\]
+取$r\to1$时，令$\delta=1-r$，则$e^{-\mathcal N\delta}=1-\mathcal N\delta+O(\delta^2)$。分子为$\mathcal N\delta+O(\delta^2)$，分母为$1-(1-\delta)[1-\mathcal N\delta+O(\delta^2)]=(1+\mathcal N)\delta+O(\delta^2)$，约去$\delta$便得到$\mathcal N/(1+\mathcal N)$；例~\ref{ex:heatexchanger}另从恒定沿程温差直接求解这一情形。
+
+另一种热容流率大小关系可交换冷热流的命名后得到同一形式。无限长时，逆流可使较小热容流率的一侧趋近对方入口温度。冷流出口可高于热流出口，因为它们位于不同位置；任意同一截面仍须保持热流温度不低于冷流，局部传热方向才与第二定律一致。
+

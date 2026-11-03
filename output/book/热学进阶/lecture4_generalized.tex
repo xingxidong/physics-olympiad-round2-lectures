@@ -1,0 +1,72 @@
+\subsection{广义坐标与相应的功}
+\label{th:generalizedwork}
+体积、界面面积和外场参数改变时，能量中出现的功项各有不同。把一个可控参数记为 $a$，其共轭广义力记为 $Y$，对固定粒子数的平衡态可写
+\[
+ \dd U=T\dd S-p\dd V+Y\dd a.
+\]
+这里 $Y\dd a$ 按外界对系统做功为正。界面以 $a=\Sigma$ 为坐标时 $Y=\sigma$；改变均匀重力场强度时，若系统能量计入重力势能，$a=g$，则 $Y$ 是全部粒子的质量乘高度之和的平均值。共轭量的符号由所选参数及功的约定确定。
+
+定义 $F=U-TS$，相同的参数项保留为
+\[
+ \dd F=-S\dd T-p\dd V+Y\dd a.
+\]
+固定其他变量后，有 $Y=F_a|_T$、$S_a|_T=-Y_T|_a$。进一步改用 $T,a$ 作变量，
+\[
+ \left(\frac{\partial U}{\partial a}\right)_T
+ =Y-T\left(\frac{\partial Y}{\partial T}\right)_a.
+\]
+它把第二讲的体积公式与表面公式统一起来：取 $a=V,Y=-p$，体积系数为 $-p+Tp_T$；取 $a=\Sigma,Y=\sigma$，面积系数为 $\sigma-T\sigma_T$。两个符号差别源于两种广义功的定义。
+
+\Diagram{fig:generalizedcoordinates}{不同约束方向对应不同的能量系数}{
+ \node[draw](u)at(0,0){$U(S,V,a)$};
+ \node[draw](s)at(4,1.6){熵方向：$T\dd S$};
+ \node[draw](v)at(4,0){体积方向：$-p\dd V$};
+ \node[draw](a)at(4,-1.6){参数方向：$Y\dd a$};
+ \draw[axis](u)--(s);\draw[axis](u)--(v);\draw[axis](u)--(a);
+}
+图\ref{fig:generalizedcoordinates}中，每一方向都规定其他独立坐标保持不变。若实际装置同时改变体积和外场参数，两个功项应同时进入第一定律；在实验室能量与旋转参照系的有效能量之间切换时，也要保留变换所引入的角动量项。
+
+\subsection{从微观能量求广义力}
+设可分辨的微观状态能量为 $E_i(a)$，没有显式温度依赖。固定 $T,a$ 的配分和为 $Z=\sum_i\ee^{-\beta E_i(a)}$。对参数求导，
+\[
+ \left(\frac{\partial\ln Z}{\partial a}\right)_T
+ =-\beta\left\langle\frac{\partial E_i}{\partial a}\right\rangle,
+ \qquad
+ \left(\frac{\partial F}{\partial a}\right)_T
+ =\left\langle\frac{\partial E_i}{\partial a}\right\rangle.
+\]
+逐项求导时，$Z_a=\sum_i(-\beta E_{i,a})\ee^{-\beta E_i}$；除以$Z$就得到第一式。再用$F=-\kb T\ln Z$，有$F_a=-\kb T(-\beta\langle E_{i,a}\rangle)=\langle E_{i,a}\rangle$。因此微观参数变化所引起的能量增量，平均后正是宏观广义功。在经典连续相空间中，把求和改成积分也得到同样关系，前提是积分区域和测度的参数依赖已正确处理。
+
+同一配分和还可给出熵。能量$E_i$不显含温度时，固定外参有
+\[
+ \left(\frac{\partial\ln Z}{\partial T}\right)_a
+ =\frac1Z\sum_i\frac{E_i}{\kb T^2}\ee^{-E_i/(\kb T)}
+ =\frac{\langle E\rangle}{\kb T^2}.
+\]
+对$F=-\kb T\ln Z$用乘积法则，得到
+\begin{equation}\label{eq:canonicalentropy}
+ \begin{aligned}
+ S=-\left(\frac{\partial F}{\partial T}\right)_a
+ &=\kb\ln Z+\kb T\left(\frac{\partial\ln Z}{\partial T}\right)_a\\
+ &=\kb\ln Z+\frac{\langle E\rangle}{T}.
+ \end{aligned}
+\end{equation}
+对$N$个独立经典粒子，$Z_N=Z_1^N/N!$；固定$N$比较状态时，$\ln N!$为常数，在熵差中相消。因而可由单粒子配分积分求出每粒子的熵差，再乘$N$。
+
+若能量零点只是与$a$无关的常数，占有概率、热容与广义力都不变，平均能量只平移同一常数；若减去一个随$a$变化的函数，则$Y$也随之改变。外场参数可变时，不能在不同参数状态各自任选势能零点后再把差值丢掉。例如重力势能应始终相对于同一固定几何高度定义，才能正确计算改变$g$所做的功。
+
+\subsection{广延性、摩尔量与附加界面能}
+均匀体相系统在短程相互作用、边界效应可忽略时满足
+$U(\lambda S,\lambda V,\lambda N)=\lambda U(S,V,N)$。
+对 $\lambda$ 在1处求导，得到 Euler 关系
+\[
+ U=TS-pV+\mu N.
+\]
+对右侧三个乘积分别微分，得
+\[
+ \dd U=T\dd S+S\dd T-p\dd V-V\dd p+\mu\dd N+N\dd\mu.
+\]
+与$\dd U=T\dd S-p\dd V+\mu\dd N$比较，相同项相消后便有$S\dd T-V\dd p+N\dd\mu=0$。单组分系统的Gibbs自由能为$G=\mu N$；用摩尔量时，化学势按每摩尔定义，便等于摩尔Gibbs自由能。
+
+含显著界面能时，按相同形状把线尺度放大 $\ell$ 倍，体积乘 $\ell^3$，面积却只乘 $\ell^2$。因而把小液滴当作只有体积的均匀广延系统，会漏掉界面项；液滴内外压差与蒸气压的曲率修正都由此产生。远离界面的液相和气相仍按各自的体相摩尔关系计算，界面自由能另行加入，并与面积、体积的几何约束联立。
+

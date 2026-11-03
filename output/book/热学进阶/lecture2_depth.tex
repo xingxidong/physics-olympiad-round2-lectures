@@ -1,0 +1,82 @@
+\section{有限换热速度下的气体压缩}
+\subsection{等温与绝热之间还存在相位滞后}
+一份理想气体在平衡态$(p_0,V_0,T_0)$附近受小幅体积振动，壁面与恒温环境之间的总热导为$H$，总定容热容为$C_V$。忽略气体内部温差，但保留与环境的有限换热速度。由第一定律，线性温度扰动满足
+\[
+ C_V\dot{\delta T}+H\delta T=-p_0\dot{\delta V}.
+\]
+右侧使用平衡压强，因为扰动压强与体积变化率的乘积是二阶项。令$\tau=C_V/H$，体积相对扰动为$\delta V/V_0=\Re[\eta\ee^{\mathrm i\omega t}]$。齐次温度方程给$\int\dd(\delta T)/\delta T=-\int\dd t/\tau$，故自由解为$C\ee^{-t/\tau}$。对周期驱动取特解$\delta T=\Re[\widehat T\ee^{\mathrm i\omega t}]$，代入并比较复振幅，
+\[
+ (H+\mathrm i\omega C_V)\widehat T=-\mathrm i\omega p_0V_0\eta.
+\]
+总解是该特解加齐次解，常数$C$由初温减去特解在$t=0$的值确定。稳定周期中齐次项已衰减。理想气体有$p_0V_0=(\gamma-1)C_VT_0$，其中$\gamma=C_p/C_V$；以下$\delta T,\delta p$表示周期扰动的复振幅，因此
+\[
+ \frac{\delta T}{T_0}=-\frac{(\gamma-1)\mathrm i\omega\tau}{1+\mathrm i\omega\tau}\eta,
+ \qquad \frac{\delta p}{p_0}=\frac{\delta T}{T_0}-\eta.
+\]
+把压强写为$\delta p=-K(\omega)\eta$，得到动态体积模量
+\[
+ K(\omega)=p_0\frac{1+\mathrm i\gamma\omega\tau}{1+\mathrm i\omega\tau}.
+\]
+以$x=\omega\tau$表示频率参数，分子分母同乘$1-\mathrm ix$，有$K=p_0[1+\gamma x^2+\mathrm i(\gamma-1)x]/(1+x^2)$，故其实部和虚部分别是
+\[
+ K'=p_0\left[1+\frac{(\gamma-1)x^2}{1+x^2}\right],\quad
+ K''=p_0\frac{(\gamma-1)x}{1+x^2}.
+\]
+低频极限$K'\to p_0$对应等温压缩，高频极限$K'\to\gamma p_0$对应绝热压缩。中间频段还存在由$K''$描述的相位滞后，因而需要复响应系数；只改变实热容的数值会漏掉耗散。
+
+\begin{example}[气体的压强—体积滞回与耗散]
+按本节模型，体积作$V(t)=V_0[1+\eta_0\cos\omega t]$，$\eta_0\ll1$。求稳定周期中外界对气体所做的净功，以及频率参数使耗散最大的位置。说明气体每周期内能改变量为何为零。
+\ExpansionDiagram{fig:dep-th2-volume-q}{气体由活塞周期压缩，并通过有限热导向恒温环境换热}{
+\draw(0,2)--(0,0)--(3,0);\draw(0,2)--(3,2);\draw[very thick](3,0)--(3,2);\draw[<->](2.5,2.4)--(3.5,2.4);\node at(1.5,1){气体};\draw[->](1.5,0)--(1.5,-1)node[below]{$H,T_0$};\node[right]at(4.5,1){$V_0+\delta V$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-th2-volume-q}的稳态温度已经排除起始自由弛豫。压强实扰动为
+\[
+ \delta p=-\eta_0K'\cos\omega t+\eta_0K''\sin\omega t.
+\]
+外界净功是$W_{\rm on}=-\oint p\dd V$；常数压强项闭合积分为零，所以
+\begin{align*}
+ W_{\rm on}&=\int_0^{2\pi/\omega}
+ \delta p\,V_0\eta_0\omega\sin\omega t\dd t\\
+ &=\pi V_0\eta_0^2K''
+ =\pi p_0V_0\eta_0^2(\gamma-1)\frac{x}{1+x^2}.
+\end{align*}
+这里令$\phi=\omega t$，$\dd\phi=\omega\dd t$，上下限为$0,2\pi$。交叉项的积分$\int_0^{2\pi}\sin\phi\cos\phi\dd\phi=[\sin^2\phi/2]_0^{2\pi}=0$；耗散项的积分$\int_0^{2\pi}\sin^2\phi\dd\phi=[\phi/2-\sin(2\phi)/4]_0^{2\pi}=\pi$，分别给出上述两项的系数。
+\ExpansionDiagram{fig:dep-th2-volume-a}{压强—体积椭圆的面积对应周期耗散}{
+\draw[->](0,0)--(5,0)node[right]{$V$};\draw[->](0,0)--(0,3.5)node[above]{$p$};\draw[thick,domain=0:360,samples=120]plot({2.5+1.5*cos(\x)},{1.8-.8*cos(\x)+.6*sin(\x)});\draw[->,domain=20:40,samples=12]plot({2.5+1.5*cos(\x)},{1.8-.8*cos(\x)+.6*sin(\x)});\node[below]at(2.5,0){$V_0$};\node[right]at(4,2.8){逆时针};}
+图\ref{fig:dep-th2-volume-a}按气体坐标画逆时针环路，故$-\oint p\dd V>0$。用商法则，$\dd[x/(1+x^2)]/\dd x=[(1+x^2)-2x^2]/(1+x^2)^2=(1-x^2)/(1+x^2)^2$，导数在$x=1$由正变负，所以每周期耗散在该点最大。这里固定的是体积振幅，若固定驱动力振幅，响应振幅会随频率变化，极值条件需另求。
+
+周期末温度回到同值，理想气体内能也回到同值，$\Delta U=0$。由第一定律，输入功全部变为向环境排出的净热量。环境在恒温$T_0$下的熵增加为$W_{\rm on}/T_0$，与正的耗散相符。低频时换热足够快，高频时几乎来不及换热，两端的每周期耗散均趋零。
+\end{solution}
+
+\begin{example}[热弛豫造成的活塞阻尼]
+气体推动质量$M$、面积$A$的活塞，活塞还受劲度$k$的弹簧约束，外部常压在平衡点抵消$p_0$。活塞向外位移$x$使$\delta V=Ax$。在气体热修正相对总弹性很小的条件下，求相对等温固有频率的一阶频移和振幅衰减率。
+\ExpansionDiagram{fig:dep-th2-piston-q}{弹簧与气体共同提供恢复力，气体还引入热耗散}{
+\draw(0,0)rectangle(3,2);\draw[very thick](3,0)--(3,2);\draw(3,1)--(3.2,1)--(3.35,1.2)--(3.55,.8)--(3.75,1.2)--(3.95,.8)--(4.15,1.2)--(4.35,.8)--(4.55,1.2)--(4.75,1)--(5,1);\node[above]at(4,1.3){$k$};\draw[thick](5,0)--(5,2);\node at(1.4,1){$V_0,T_0$};\node[above]at(3,2){$M$};\draw[->](3,-.5)--(4,-.5)node[right]{$x$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-th2-piston-q}中压强扰动产生力$A\delta p=-A^2K(\omega)x/V_0$，所以频率方程为
+\[
+ -M\omega^2+k+\frac{A^2}{V_0}K(\omega)=0.
+\]
+等温基准频率$\omega_0^2=(k+A^2p_0/V_0)/M$。令$\omega=\omega_0+\delta\omega$、$\delta\omega=\Delta\omega+\mathrm i\Gamma$，由于采用$\ee^{\mathrm i\omega t}$，正$\Gamma$表示衰减。将频率平方展开为$\omega_0^2+2\omega_0\delta\omega$，略去二阶小量；在一阶热修正$K-p_0$内部取$\omega=\omega_0$，得到
+\[
+ -2M\omega_0\delta\omega+
+ \frac{A^2}{V_0}[K(\omega_0)-p_0]=0.
+\]
+等温零阶项已由$\omega_0$的定义抵消。比较剩余式的实部与虚部，
+\[
+ \Delta\omega=\frac{A^2[K'(\omega_0)-p_0]}{2MV_0\omega_0},
+ \qquad\Gamma=\frac{A^2K''(\omega_0)}{2MV_0\omega_0}.
+\]
+\ExpansionDiagram{fig:dep-th2-piston-a}{振幅随热耗散衰减，振动频率则由实部弹性决定}{
+\draw[->](0,0)--(6,0)node[right]{$t$};\draw[->](0,-1.5)--(0,1.8)node[above]{$x$};\draw[dashed,domain=0:5.5]plot(\x,{1.3*exp(-.2*\x)});\draw[dashed,domain=0:5.5]plot(\x,{-1.3*exp(-.2*\x)});\draw[thick,domain=0:5.5,samples=150]plot(\x,{1.3*exp(-.2*\x)*cos(360*\x)});}
+图\ref{fig:dep-th2-piston-a}示意$\ee^{-\Gamma t}$包络。令$x_0=\omega_0\tau$，显式结果为
+\[
+ \Delta\omega=\frac{A^2p_0(\gamma-1)}{2MV_0\omega_0}
+ \frac{x_0^2}{1+x_0^2},\qquad
+ \Gamma=\frac{A^2p_0(\gamma-1)}{2MV_0\omega_0}
+ \frac{x_0}{1+x_0^2}.
+\]
+使用这些一阶式需要$A^2p_0(\gamma-1)/(MV_0\omega_0^2)\ll1$；若不满足，应回到热方程与活塞方程联立求完整特征根。仅把压缩指数选为一个实数，会遗漏$\Gamma$，也无法解释振幅逐渐减小。
+\end{solution}

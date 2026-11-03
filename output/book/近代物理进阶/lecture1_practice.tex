@@ -1,0 +1,117 @@
+\begin{exercise}\label{ex:m1twoemitters}
+静止系中两灯位于$\pm L/2$，同时向中点发光。求两束光相遇事件在运动系的坐标，以及两发射事件在运动系是否同时。
+\Diagram{fig:m1emitq}{两灯同时发射相向光线}{\draw[axis](-2.3,0)--(2.5,0);\fill(-2,0)circle(1.5pt)node[below]{$A$};\fill(2,0)circle(1.5pt)node[below]{$B$};\draw[->](-1.8,.5)--(-.2,.5);\draw[->](1.8,.5)--(.2,.5);}
+\end{exercise}
+\begin{solution}
+在图\ref{fig:m1emitq}的$S$系中，左右发射事件分别为$A:(0,-L/2)$、$B:(0,L/2)$，坐标次序为$(ct,x)$。两束光到中点均走$L/2$，故相遇于$C:(L/2,0)$。变换至沿$+x$以$V$运动的$S'$，得到
+\begin{align*}
+ A'&:(\gamma\beta L/2,-\gamma L/2),\\
+ B'&:(-\gamma\beta L/2,\gamma L/2),\\
+ C'&:(\gamma L/2,-\gamma\beta L/2).
+\end{align*}
+所以右灯先发光，$t'_B-t'_A=-\gamma\beta L/c$。
+\Diagram{fig:m1emita}{运动系中先发射的光走得更久，相遇点仍唯一}{\draw[axis](-2.7,0)--(2.5,0)node[right]{$x'$};\draw[axis](0,-1.7)--(0,3)node[above]{$ct'$};\draw[very thick](-2,1.2)--(-1.2,2)--(2,-1.2);\node[left]at(-2,1.2){$A$};\node[right]at(2,-1.2){$B$};\node[above]at(-1.2,2){$C$};}
+图\ref{fig:m1emita}中，左行和右行光仍具有光速。由$A'$到$C'$，
+\[
+ c(t'_C-t'_A)=\frac{\gamma L}2(1-\beta)
+ =x'_C-x'_A;
+\]
+由$B'$到$C'$，
+\[
+ c(t'_C-t'_B)=\frac{\gamma L}2(1+\beta)
+ =x'_B-x'_C.
+\]
+两条光路的传播时间不同，正好补偿了两次发射的不同步。相遇是同一时空事件，不会因参考系改变而消失。$x'_B-x'_A=\gamma L$是两个不同时发射事件的位置差；两灯在$S'$的同时距离仍为$L/\gamma$。
+\end{solution}
+
+\begin{exercise}\label{ex:m1clockoffset}
+两个静止于$S'$的钟相距$L$，钟面相对坐标时间偏移分别为$b_A,b_B$。实验室在$t=0$同时读取，求读数差；什么偏移能使这次读数相同？
+\Diagram{fig:m1offsetq}{钟面读数含可人为设置的常数偏移}{\draw[curve](0,0)circle(.5);\draw[curve](4,0)circle(.5);\node at(0,0){$A$};\node at(4,0){$B$};\node[above]at(0,.7){$t'+b_A$};\node[above]at(4,.7){$t'+b_B$};\draw[axis](1,-1)--(2.5,-1)node[right]{$V$};}
+\end{exercise}
+\begin{solution}
+在图\ref{fig:m1offsetq}的实验室同时截面，两钟坐标时间差$\Delta t'=-VL/c^2$，因此钟面差$T_B-T_A=b_B-b_A-VL/c^2$。使本次读数相同需$b_B-b_A=VL/c^2$。
+\Diagram{fig:m1offseta}{两钟速率相同，偏移只改变读数的常数差}{\draw[axis](0,0)--(4.5,0)node[right]{$t$};\draw[axis](0,0)--(0,3.6)node[above]{读数};\draw[curve](0,.4)--(3.8,2.8);\draw[guide](0,1)--(3.8,3.4);\node[right]at(3.8,2.8){固定偏移};}
+图\ref{fig:m1offseta}中两钟在实验室的速率均为$1/\gamma$，所以在每个实验室同时截面上，该读数差都相同；这个偏移相当于按实验室同时性而非车系爱因斯坦同时性设置钟。钟的正常走时速率与一组钟的同步约定是不同问题。
+\end{solution}
+
+\begin{exercise}\label{ex:m1propersegments}
+粒子先以$v_1$运动实验室时间$T_1$，再以$v_2$运动$T_2$，方向任意，变速时间忽略。求总固有时；若已知两端点坐标差，何时可以用端点间隔代替？
+\Diagram{fig:m1segmentsq}{折线世界线的两段固有时须相加}{\STAxes\draw[very thick](0,0)--(2,2.5)--(1,4);\draw[guide](0,0)--(1,4);\node[right]at(2,2.5){$B$};\node[right]at(1,4){$C$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1segmentsq}每段匀速，故$\tau=T_1\sqrt{1-v_1^2/c^2}+T_2\sqrt{1-v_2^2/c^2}$。端点间隔给的是直接连接两端的匀速世界线固有时$\tau_{AC}=\sqrt{(T_1+T_2)^2-|\vct v_1T_1+\vct v_2T_2|^2/c^2}$。
+\Diagram{fig:m1segmentsa}{在端点共同静止系中，直线停留的钟积累时间最多}{\draw[axis](-1.5,0)--(2,0)node[right]{$x_*$};\draw[axis](0,0)--(0,4.3)node[above]{$ct_*$};\draw[very thick](0,0)--(1.3,2.1)--(0,3.8);\draw[guide](0,0)--(0,3.8);}
+在图\ref{fig:m1segmentsa}的端点静止系，实际轨迹$\int\sqrt{1-v_*^2/c^2}\dd t_*\leq\int\dd t_*=\tau_{AC}$，等号要求全程$v_*=0$，即两段本来就是同一匀速速度矢量。仅两段速率相同而方向改变，仍不能用端点间隔代替曲线积分。
+\end{solution}
+
+\begin{exercise}\label{ex:m1inversevel}
+实验室测得粒子$v_x=.8c,v_y=.3c$。求使其纵向速度为零的$x$向惯性系，以及该系中的横向速度和洛伦兹因子。
+\Diagram{fig:m1inverseq}{选择变换速度消去纵向分量}{\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[axis](0,0)--(0,2.3)node[above]{$y$};\draw[->,thick](0,0)--(3.2,1.2);\draw[guide](3.2,0)--(3.2,1.2);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1inverseq}中，设所求参考系沿$x$以$V$运动。速度变换的分母$1-Vv_x/c^2>0$，所以$v'_x=0$等价于$V=v_x=.8c$，其洛伦兹因子为$\gamma=5/3$。横向速度为
+\[
+ v'_y=\frac{v_y}{\gamma(1-Vv_x/c^2)}
+ =\frac{.3c}{(5/3)(1-.64)}=.5c.
+\]
+因此新系中粒子仅沿$y'$运动，$\gamma_{v'}=(1-.25)^{-1/2}=2/\sqrt3$。
+\Diagram{fig:m1inversea}{新系中轨迹纯横向，速率仍小于$c$}{\draw[axis](0,0)--(3.7,0)node[right]{$x'$};\draw[axis](0,0)--(0,2.7)node[above]{$y'$};\draw[very thick,->](0,0)--(0,2.1)node[right]{$.5c$};}
+横向速度增大的原因可由微小事件差看出：$\dd y'=\dd y$，而
+\[
+ \dd t'=\gamma(1-Vv_x/c^2)\dd t=.6\dd t.
+\]
+相同横向位移除以更短的新系坐标时间，得到图\ref{fig:m1inversea}的$.5c$，并非横向位移本身被放大。四速度提供独立核对：原速率平方$.73c^2$，故
+\[
+ \gamma_v=\frac1{\sqrt{.27}},\qquad
+ \gamma_{v'}=\gamma\gamma_v(1-.64)
+ =\frac{.6}{\sqrt{.27}}=\frac2{\sqrt3}.
+\]
+只消去纵向速度仍未使粒子静止。若再在$S'$中沿$y'$以$.5c$变换，才到达粒子的静止系；两次非共线变换的空间轴关系须另行确定。
+\end{solution}
+
+\begin{exercise}\label{ex:m1numberangular}
+各向同性光源在固有时内每秒发射$\dot N_0$个光子。求实验室按发射时间定义的角光子率，积分求总光子率，并与总功率不变比较。
+\Diagram{fig:m1numberq}{同一批光子的数目不变，角密度与时间率改变}{\draw[axis](0,0)--(3.8,0)node[right]{$V$};\draw[curve](0,0)--(3,1);\draw[curve](0,0)--(3,1.5);\node[right]at(3,1.5){$\dd\Omega$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1numberq}中，源系在$\dd\tau$内向$\dd\Omega'$发出的光子数为$\dd N=\dot N_0\dd\tau\dd\Omega'/(4\pi)$。令$\delta=[\gamma(1-\beta\cos\theta)]^{-1}$。由光行差，
+\[
+ \frac{\dd\cos\theta}{\dd\cos\theta'}
+ =\frac1{\gamma^2(1+\beta\cos\theta')^2}=\delta^{-2},
+\]
+方位角不变，所以$\dd\Omega=\delta^{-2}\dd\Omega'$。再用实验室发射时间$\dd t=\gamma\dd\tau$，得到
+\[
+ \frac{\dd\dot N}{\dd\Omega}=\frac{\dot N_0}{4\pi\gamma}\delta^2.
+\]
+\Diagram{fig:m1numbera}{单次光子数不变，时间膨胀降低实验室总发射率}{\draw[axis](0,0)--(4.2,0)node[right]{$\beta$};\draw[axis](0,0)--(0,2.7)node[above]{$\dot N/\dot N_0$};\draw[curve,domain=0:1,samples=70]plot({3.5*\x},{2.3*sqrt(1-\x*\x)});\node[left]at(0,2.3){$1$};}
+全角积分可以直接计算。以$\mu=\cos\theta$，
+\begin{align*}
+ \int\delta^2\dd\Omega
+ &=\frac{2\pi}{\gamma^2}\int_{-1}^1\frac{\dd\mu}{(1-\beta\mu)^2}\\
+ &=\frac{2\pi}{\gamma^2}
+ \left[\frac{1}{\beta(1-\beta\mu)}\right]_{-1}^1\\
+ &=\frac{2\pi}{\beta\gamma^2}
+ \left[\frac1{1-\beta}-\frac1{1+\beta}\right]=4\pi.
+\end{align*}
+在$\beta=0$处取连续极限。因此图\ref{fig:m1numbera}给出总光子率$\dot N=\dot N_0/\gamma$。若源系每光子能量为$E_0$，同一批各向同性光子的总动量为零，整体能量变换便给平均能量$\langle E\rangle=\gamma E_0$。于是$P=\dot N\langle E\rangle=\dot N_0E_0$。按实验室发射时间计，光子数率因时间膨胀减小，平均单光子能量增加，两者相抵。接收时间率还须计入传播延迟。
+\end{solution}
+
+\begin{exercise}\label{ex:m1redblue}
+单色运动源静止频率$\nu_0$。求实验室观察到无频移的方向，并确定蓝移、红移的角域。
+\Diagram{fig:m1redq}{多普勒因子随实验室观察角变化}{\draw[axis](0,0)--(4,0)node[right]{$V$};\draw[curve](0,0)--(2.3,1.6);\draw[curve](0,0)--(-1,1.6);\draw[guide](0,0)--(0,2.2);\node at(1,.35){$\theta$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1redq}中，$0<\beta<1$时$\nu/\nu_0=[\gamma(1-\beta\cos\theta)]^{-1}$。令此比为1，得到
+\[
+ \cos\theta_* =\frac{1-1/\gamma}{\beta}
+ =\frac{\gamma-1}{\gamma\beta}.
+\]
+利用$(\gamma-1)(\gamma+1)=\gamma^2\beta^2$，可改写为$\cos\theta_*=\gamma\beta/(\gamma+1)$。该值介于0和1之间，对应唯一的前向无频移圆锥。
+\Diagram{fig:m1reda}{无频移锥内蓝移，锥外红移}{\draw[axis](-1,0)--(4,0)node[right]{$x$};\draw[curve](0,0)--(1.8,2);\draw[curve](0,0)--(1.8,-2);\node[right]at(2,.5){蓝移};\node[left]at(-.2,1.5){红移};\node[above]at(1.8,2){$\theta_*$};}
+图\ref{fig:m1reda}的锥内满足$\cos\theta>\cos\theta_*$，多普勒分母小于1，因而蓝移；锥外红移。将边界方向反变换到源系，有
+\[
+ \cos\theta'_* =\frac{\cos\theta_*-\beta}{1-\beta\cos\theta_*}
+ =-\frac{\gamma\beta}{\gamma+1}=-\cos\theta_*.
+\]
+源系略向后的发射方向也可能在实验室无频移。低速展开$\gamma=1+\beta^2/2+\cdots$给$\cos\theta_*\simeq\beta/2$，边界略小于$\pi/2$；高速时$\cos\theta_*\to1$。当$\beta=0$时所有方向都无频移，不能把$\beta\to0$所得的边界锥误认为静止光源只有一个无频移方向。
+\end{solution}

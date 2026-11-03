@@ -1,0 +1,68 @@
+\begin{exercise}\label{ex:o3babinet}
+同一平面内两互补孔径的透过函数满足$t_1(\xi,\eta)+t_2(\xi,\eta)=1$。推导两者远场的关系，说明细丝与同宽狭缝何时具有相同衍射强度。
+\Diagram{fig:o3babinetq}{细丝遮挡与同宽狭缝互补}{\begin{scope}[xshift=-2cm]\draw[curve](-1,-1.2)rectangle(1,1.2);\draw[very thick](0,-1.2)--(0,1.2);\node[below]at(0,-1.5){细丝};\end{scope}\begin{scope}[xshift=2cm]\draw[curve](-1,-1.2)--(-.15,-1.2)--(-.15,1.2)--(-1,1.2);\draw[curve](1,-1.2)--(.15,-1.2)--(.15,1.2)--(1,1.2);\node[below]at(0,-1.5){狭缝};\end{scope}}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3babinetq}由衍射积分线性，$U_1+U_2=U_{\rm free}$。理想无限平面波的无遮挡远场只在前向方向有集中分量，因此离开前向时$U_2=-U_1$、$|U_2|^2=|U_1|^2$。
+\Diagram{fig:o3babineta}{轴外两复场等大反相，强度相同}{\draw[axis](0,0)--(2.4,0)node[right]{$U_1$};\draw[axis](0,0)--(-2.4,0)node[left]{$U_2$};\node[above]at(0,1){轴外$U_{\rm free}=0$};}
+所以细丝轴外暗纹可按同宽单缝公式测其宽度，如图\ref{fig:o3babineta}。但中央透过背景、有限照明包络和物体附近矢量边界场不相同，不能说两者整个屏幕总光强或总透过功率都相同。原理适用于相同入射波和标量孔径模型。
+\end{solution}
+
+\begin{exercise}\label{ex:o3phasehalves}
+宽$a$狭缝的上、下半缝照明振幅相同，但相位相差$\pi$。以缝中心为原点，取场$+U_0$于$0<\xi<a/2$、$-U_0$于$-a/2<\xi<0$。求远场强度和零点。
+\Diagram{fig:o3halvesq}{同一孔径两半具有反号复振幅}{\draw[curve](0,-1.5)rectangle(.7,1.5);\draw[curve](0,0)--(.7,0);\node[right]at(1,.8){$+U_0$};\node[right]at(1,-.8){$-U_0$};\node[left]at(0,0){$a$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3halvesq}中上下半缝的场符号相反。以$q=k\sin\theta$，分别作两个定积分：
+\begin{align*}
+ F(q)/U_0&=\int_0^{a/2}\ee^{-iq\xi}\dd\xi
+ -\int_{-a/2}^0\ee^{-iq\xi}\dd\xi\\
+ &=\left[\frac{\ee^{-iq\xi}}{-iq}\right]_0^{a/2}
+ -\left[\frac{\ee^{-iq\xi}}{-iq}\right]_{-a/2}^0\\
+ &=\frac{1-\ee^{-iqa/2}}{iq}
+ -\frac{\ee^{iqa/2}-1}{iq}\\
+ &=\frac{2-2\cos(qa/2)}{iq}
+ =-\frac{2i}{q}[1-\cos(qa/2)].
+\end{align*}
+故$I\propto4U_0^2[1-\cos(qa/2)]^2/q^2$。由于孔面场是实奇函数，远场为纯虚奇函数，也可由积分对称性预先判断。
+\Diagram{fig:o3halvesa}{轴上因两半相消为暗，光能分到两侧瓣}{\draw[axis](-3.5,0)--(3.7,0)node[right]{$qa/2$};\draw[axis](0,0)--(0,2.7)node[above]{相对强度};\draw[curve,domain=-8:-.01,samples=180]plot({\x/2.5},{3.8*(1-cos(\x r))^2/(\x*\x)});\draw[curve,domain=.01:8,samples=180]plot({\x/2.5},{3.8*(1-cos(\x r))^2/(\x*\x)});\node[below]at(0,0){$0$};\node[below]at(2.51327,0){$2\pi$};\node[below]at(-2.51327,0){$-2\pi$};}
+图\ref{fig:o3halvesa}的轴上必须取极限。展开$1-\cos(qa/2)=q^2a^2/8+O(q^4)$，得到$F\simeq-iU_0qa^2/4\to0$。对$q\ne0$，其他零点要求$qa/2=2m\pi$，即$a\sin\theta=2m\lambda$，$m\ne0$。
+
+令$u=qa/4$，可写成$F=-iU_0a\sin^2u/u$。首个正旁瓣在$0<u<\pi$内，场模正比$\sin^2u/u$。用商法则，
+\[
+ \frac{\dd}{\dd u}\frac{\sin^2u}{u}
+ =\frac{2u\sin u\cos u-\sin^2u}{u^2}.
+\]
+内点$\sin u\ne0$，驻值方程为$2u\cos u=\sin u$，即$\tan u=2u$；取该区间的非零根。相位片没有改变孔面强度，按帕塞瓦尔关系总远场功率保持不变，原中央能量转移到两侧。
+\end{solution}
+
+\begin{exercise}\label{ex:o3sinusoidalphase}
+在近轴薄元件的标量模型中，无限宽相位光栅透过率为$t(x)=\exp[i\phi\cos(2\pi x/b)]$。设正入射，$\lambda/b\ll1$，忽略反射及各低级衍射束方向余弦的差别。定义第$m$级的傅里叶系数$c_m$，在$|\phi|\ll1$时求零级、正负一级振幅到所需阶，并验证这一模型中的功率守恒到二阶。
+\Diagram{fig:o3sinephaseq}{正弦相位调制不改变孔面振幅}{\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,-1.4)--(0,1.7)node[above]{相位};\draw[curve,domain=0:4.5,samples=100]plot(\x,{cos(240*\x)});\node[below]at(2.7,-1.4){周期$b$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o3sinephaseq}的周期函数展开为$t=\sum_mc_m\ee^{i2\pi mx/b}$，系数为
+\[
+ c_m=\frac1b\int_0^bt(x)\ee^{-i2\pi mx/b}\dd x.
+\]
+令$u=2\pi x/b$，弱调制展开为$t\simeq1+i\phi\cos u-\phi^2\cos^2u/2$。
+\Diagram{fig:o3sinephasea}{弱相位光栅把少量零级功率转入两侧一级}{\draw[axis](-2.5,0)--(2.7,0)node[right]{$m$};\draw[very thick](0,0)--(0,2.4);\draw[very thick](-1.5,0)--(-1.5,.6);\draw[very thick](1.5,0)--(1.5,.6);\node[below]at(-1.5,0){$-1$};\node[below]at(1.5,0){$1$};}
+用$\cos u=(\ee^{iu}+\ee^{-iu})/2$和$\cos^2u=(1+\cos2u)/2$，逐项收集指数函数：
+\[
+ t=1-\frac{\phi^2}{4}
+ +\frac{i\phi}{2}(\ee^{iu}+\ee^{-iu})
+ -\frac{\phi^2}{8}(\ee^{2iu}+\ee^{-2iu})+O(\phi^3).
+\]
+因此$c_0=1-\phi^2/4+O(\phi^4)$，$c_{\pm1}=i\phi/2+O(\phi^3)$；
+二级振幅虽为$O(\phi^2)$，其功率仅从四阶起算。在题设的近轴归一化下，图\ref{fig:o3sinephasea}中三束的功率份额分别为
+\[
+ \eta_0=|c_0|^2=1-\frac{\phi^2}{2}+O(\phi^4),\qquad
+ \eta_{\pm1}=|c_{\pm1}|^2=\frac{\phi^2}{4}+O(\phi^4).
+\]
+相加得到$\eta_0+\eta_{+1}+\eta_{-1}=1+O(\phi^4)$，即守恒到二阶。
+图中竖线只标示三束分配，不按小参数的真实比例绘制；弱调制时一级功率远小于零级。
+
+传播角满足$\sin\theta_m=m\lambda/b$，题设保证所保留的一级为近轴传播波。
+若衍射角较大，以电场幅值计量时法向能流还含方向余弦因子；若某级不传播，它也不能作为远场输出功率相加。
+大角度情形的能流分配应由实际边界条件和各级传播方向确定。孔面恒模条件$|t|=1$给出傅里叶系数的平方和，却不足以单独确定这些法向能流。相位调制较大时，还须保留更多衍射级。
+\end{solution}

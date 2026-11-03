@@ -1,0 +1,92 @@
+\section{孔径自相关、成像传递与边缘加权}
+\subsection{从点像积分得到强度传递函数}
+在一个方向上讨论无像差、空间平移不变的近轴成像。设像面点响应的场为
+\[
+ h(x)=C\int P(\xi)\exp\!\left(-\frac{2\pi\mathrm i\xi x}{\lambda f}\right)\dd\xi,
+\]
+其中$P$为有效光瞳函数，$f$为此式所用的有效焦距尺度。对互不相干物点，归一化强度点响应是$g(x)=|h(x)|^2/\int|h|^2\dd x$。物面强度先换算到几何像坐标，再与$g$作卷积：
+\[
+ I(x)=\int I_{\rm geom}(x')g(x-x')\dd x'.
+\]
+这一步使用了不同物点间的交叉项平均为零，不能用来处理激光照明下的任意相干物体。
+
+记未归一化强度的傅里叶变换为$N(\nu)$。将$|h|^2$展开，并对$x$积分，
+\begin{align*}
+ N(\nu)&=\int |h(x)|^2\ee^{-2\pi i\nu x}\dd x\\
+ &=|C|^2\iint P(\xi)P^*(\eta)
+ \left\{\int\ee^{-2\pi ix[(\xi-\eta)/(\lambda f)+\nu]}\dd x\right\}
+ \dd\xi\dd\eta\\
+ &=|C|^2\lambda f\int
+ P(\xi)P^*(\xi+\lambda f\nu)\dd\xi.
+\end{align*}
+最后一步在傅里叶分布意义下使用$\int\ee^{-2\pi ixt}\dd x=\delta(t)$；括号内的狄拉克函数为$\lambda f\,\delta(\eta-\xi-\lambda f\nu)$，其尺度因子不能漏去。以$N(0)=|C|^2\lambda f\int|P|^2\dd\xi$归一化，得到
+\[
+ G(\nu)=\int g(x)\ee^{-2\pi\mathrm i\nu x}\dd x
+ =\frac{\int P(\xi)P^*(\xi+\lambda f\nu)\dd\xi}
+ {\int |P(\xi)|^2\dd\xi}.
+\]
+分母使$G(0)=1$。对于实对称光瞳，$G$为实偶函数；带像差的复光瞳还可能产生传递相位，不能只保留模。
+
+宽$a$的均匀一维光瞳取$P=1$于$|\xi|<a/2$。分子是两段错开$\lambda f\nu$的区间重叠长度，故
+\[
+ G(\nu)=\begin{cases}1-|\nu|/\nu_c,&|\nu|\leq\nu_c,\\0,&|\nu|>\nu_c,
+ \end{cases}\qquad \nu_c=\frac a{\lambda f}.
+\]
+上式给出不相干强度成像的截止频率。相干成像传递的是复场，传递函数与光瞳本身对应，截止为$a/(2\lambda f)$。比较这两个数值时须保留各自的照明条件和被传递的量；仅凭截止频率的比值，还不足以比较实际物体的可分辨程度。
+\ExpansionDiagram{fig:dep-o3-overlap}{错位光瞳的重叠长度决定一维不相干传递函数}{
+\fill[gray!20](2.5,.1)rectangle(5,1.5);\draw[very thick](1,.5)--(5,.5);\draw[very thick](2.5,1.2)--(6.5,1.2);\node[below]at(3,.1){重叠$a-|\lambda f\nu|$};\draw[<->](1,1.8)--(2.5,1.8)node[midway,above]{$\lambda f\nu$};}
+图\ref{fig:dep-o3-overlap}同时说明了截止的来由：光瞳错位超过整个宽度后，重叠积分为零，物体相应的强度频率分量不再出现在像中。
+
+\begin{example}条纹能够成像但对比度已经降低
+某一维不相干成像系统的均匀有效光瞳宽$a=2.0\,\mathrm{mm}$，有效焦距$f=100\,\mathrm{mm}$，波长$\lambda=500\,\mathrm{nm}$。几何像的强度为$I_0[1+0.8\cos(2\pi\nu x)]$，其中$\nu=20\,\mathrm{mm}^{-1}$。求实际像的调制度，并求保持调制度不低于0.4所允许的最高频率。
+\ExpansionDiagram{fig:dep-o3-modulation-q}{平移不变成像使各正弦强度分量分别乘传递系数}{
+\draw[->](0,0)--(3.2,0)node[right]{$x$};\draw[->](0,0)--(0,2.1)node[above]{$I/I_0$};\draw[dotted](0,1)--(3,1);\draw[domain=0:3,samples=90]plot(\x,{1+.8*cos(360*\x)});\node[above]at(1.5,2.2){几何像};\draw[->](3.8,1)--(4.7,1);\draw[->](5,0)--(8.2,0)node[right]{$x$};\draw[->](5,0)--(5,2.1)node[above]{$I/I_0$};\draw[dotted](5,1)--(8,1);\draw[domain=5:8,samples=90]plot(\x,{1+.4*cos(360*\x)});\node[above]at(6.5,2.2){实际像};}
+\end{example}
+\begin{solution}
+统一长度单位后，$\lambda=0.0005\,\mathrm{mm}$，所以$\nu_c=2/(0.0005\times100)=40\,\mathrm{mm}^{-1}$。常数分量乘$G(0)=1$，正弦分量乘$G(20)=1-20/40=1/2$，因此
+\[
+ I(x)=I_0[1+0.4\cos(2\pi\nu x)].
+\]
+图\ref{fig:dep-o3-modulation-q}中的周期不变，变化的是振幅相对平均强度的比例。由$I_{\max}=1.4I_0$、$I_{\min}=0.6I_0$，可见度也是0.4。
+\ExpansionDiagram{fig:dep-o3-modulation-a}{调制度要求选出比截止频率更低的可用频段}{
+\draw[->](0,0)--(5,0)node[right]{$\nu/\nu_c$};\draw[->](0,0)--(0,2.4)node[above]{$G$};\draw[thick](0,2)--(4,0);\draw[dashed](0,1)--(2,1)--(2,0);\node[left]at(0,2){1};\node[left]at(0,1){$1/2$};\node[below]at(2,0){$1/2$};\node[below]at(4,0){1};}
+一般输出调制度为$0.8(1-\nu/\nu_c)$，要求不低于0.4给$\nu\leq\nu_c/2=20\,\mathrm{mm}^{-1}$。图\ref{fig:dep-o3-modulation-a}中截止前仍有一段低对比度区。因此“频率未超过截止”与“达到给定对比度”是两个不同条件。这里假设探测器能连续记录；有限像素还会另加像素孔径与采样限制。
+\end{solution}
+
+\subsection{连续加权为何能压低旁瓣}
+硬边孔径在边缘突然截止，其傅里叶场具有较慢的尾部衰减。让透过振幅在边缘连续降至零，可以改变尾部阶数。判断代价时须固定照明条件，不能把峰值归一化后的两条曲线直接当作相同通光量。
+
+\begin{example}三角振幅孔径与均匀孔径
+一维孔宽均为$a$、入射场振幅同为$U_0$。第一孔的振幅透过率为1，第二孔为$t(\xi)=1-2|\xi|/a$于$|\xi|\leq a/2$，外侧为零。求第二孔的远场场、第一零点及总透过功率，与第一孔比较。
+\ExpansionDiagram{fig:dep-o3-triangle-q}{相同外宽的硬边光瞳与三角振幅光瞳}{
+\draw[->](-2,0)--(2,0)node[right]{$\xi$};\draw[dashed](-1.5,0)--(-1.5,1.5)--(1.5,1.5)--(1.5,0);\draw[thick](-1.5,0)--(0,1.5)--(1.5,0);\node[above]at(0,1.6){$t$};\node[below]at(-1.5,0){$-a/2$};\node[below]at(1.5,0){$a/2$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o3-triangle-q}中三角透过率是两个宽$a/2$的单位矩形函数卷积后乘$2/a$。每个矩形的傅里叶变换为$(a/2)\operatorname{sinc}(qa/4)$，故卷积定理给
+\[
+ F_\triangle(q)=\frac{aU_0}{2}\operatorname{sinc}^2(qa/4),
+ \quad \frac{I_\triangle(q)}{I_\triangle(0)}
+ =\operatorname{sinc}^4(qa/4).
+\]
+也可直接积分核对。对$q\ne0$，分部积分取$u=1-2\xi/a$、$\dd v=\cos(q\xi)\dd\xi$，得
+\begin{align*}
+ F_\triangle(q)&=2U_0\int_0^{a/2}(1-2\xi/a)\cos(q\xi)\dd\xi\\
+ &=2U_0\left[(1-2\xi/a)\frac{\sin(q\xi)}q\right]_0^{a/2}
+ +\frac{4U_0}{aq}\int_0^{a/2}\sin(q\xi)\dd\xi\\
+ &=\frac{4U_0}{aq}\left[-\frac{\cos(q\xi)}q\right]_0^{a/2}
+ =\frac{4U_0}{aq^2}[1-\cos(qa/2)].
+\end{align*}
+边界项为零，最后用$1-\cos(qa/2)=2\sin^2(qa/4)$，重现卷积法结果。首零点为$|q|=4\pi/a$，均匀孔首零为$2\pi/a$，所以三角加权的中央瓣宽了一倍。
+\ExpansionDiagram{fig:dep-o3-triangle-a}{归一化场的零点移动；实线为三角加权，虚线为均匀孔}{
+\draw[->](-.2,0)--(7.2,0)node[right]{$qa/(2\pi)$};\draw[->](0,0)--(0,2.3)node[above]{归一化场};
+\draw[thick,domain=.01:6.6,samples=180]plot(\x,{2*(sin(90*\x)/(pi*\x/2))^2});\draw[dashed,domain=.01:6.6,samples=180]plot(\x,{2*sin(180*\x)/(pi*\x)});\node[below=12pt]at(1,0){1};\node[below=12pt]at(2,0){2};}
+图\ref{fig:dep-o3-triangle-a}画场而非强度，均匀孔场会反号，三角孔场为非负的平方。三角孔强度尾部按$q^{-4}$包络衰减，均匀孔按$q^{-2}$衰减，但主瓣展宽且透过功率降低。
+
+功率需在孔面算$|t|^2$：
+\[
+ P_\triangle\propto2|U_0|^2\int_0^{a/2}(1-2\xi/a)^2\dd\xi
+ =2|U_0|^2\left[\xi-\frac{2\xi^2}{a}+\frac{4\xi^3}{3a^2}\right]_0^{a/2}
+ =\frac{a|U_0|^2}{3}.
+\]
+均匀孔为$a|U_0|^2$，故总功率比为$1/3$，轴上强度比则由场比$1/2$得$1/4$。这两个比值不同，原因是整个角分布的宽度和旁瓣都发生了改变。
+\end{solution}

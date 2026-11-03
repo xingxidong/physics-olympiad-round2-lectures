@@ -1,0 +1,119 @@
+\section{移动约束的反力与分离条件}
+\subsection{把轨道的加速度写入法向方程}
+固定轨道上的分离由速度和曲率决定。轨道本身加速时，质点的绝对加速度还包含支架的加速度。设光滑轨道只作水平平移，位置为$X(t)$；相对于支架的曲线写成$y=f(\xi)$，于是
+\[
+ x=X(t)+\xi,\qquad y=f(\xi),\qquad A(t)=\ddot X(t).
+\]
+取朝轨道上方的单位法向量及沿$\xi$增大方向的单位切向量：
+\[
+ \vct n=\frac{(-f',1)}{\sqrt{1+f'^2}},\qquad
+ \vct t=\frac{(1,f')}{\sqrt{1+f'^2}}.
+\]
+将坐标对时间求导两次：
+\[
+ \vct a=(A+\ddot\xi,\ f''\dot\xi^2+f'\ddot\xi).
+\]
+若轨道从下方支承质点，接触力为$N\vct n$且$N\geq0$。沿两个方向投影得到
+\begin{align}
+ (1+f'^2)\ddot\xi+f'f''\dot\xi^2&=-A-gf',\\
+ N&=\frac{m(g+f''\dot\xi^2-Af')}{\sqrt{1+f'^2}}.
+\end{align}
+这里$f''$带有符号。凹面朝上时，曲率项提高反力；凸面朝上时，曲率项降低反力。$N=0$以后还应检验自由运动是否朝允许离开的方向发展。
+\ExpansionDiagram{fig:dep-d2-moving}{移动曲线上质点的坐标及法向方向}{
+\draw[->](-.6,0)--(5.8,0)node[right]{$x$};\draw[->](0,-1.3)--(0,2.7)node[above]{$y$};
+\draw[thick,domain=.2:4.7,samples=60]plot(\x,{1.8-.13*(\x-1.5)^2});
+\fill(3,1.5075)circle(2pt)node[above left]{$P$};
+\draw[->,thick](3,1.5075)--(3.468,2.7075)node[right]{$N\vct n$};\draw[->](3,1.5075)--(3,.5)node[right]{$mg$};
+\draw[dashed](1.5,-.4)--(1.5,1.8);\node[below]at(1.5,-.4){$X$};\draw[<->](1.5,-.65)--(3,-.65)node[midway,below]{$\xi$};
+\draw[->](.3,2.3)--(1.3,2.3)node[midway,above]{$A>0$};}
+图\ref{fig:dep-d2-moving}中的反力垂直于曲线，却不一定垂直于质点的绝对速度。它对质点的瞬时功率为
+\[
+ \mathcal P_N=N\vct n\cdot\dot{\vct r}
+ =-\frac{Nf'\dot X}{\sqrt{1+f'^2}}.
+\]
+轨道驱动装置通过反力交换能量，所以实验室系中的机械能通常变化。
+
+\subsection{恒加速支架中的第一积分}
+当$A$为常量时，支架参考系中的惯性力$-mA\vct e_x$可由势$mA\xi$表示。相对动能包含曲线的度量因子：
+\[
+ E_{\rm rel}=\frac m2(1+f'^2)\dot\xi^2+mgf(\xi)+mA\xi.
+\]
+将上式逐项求导。因为 $\dd(f'^2)/\dd t=2f'f''\dot\xi$，有
+\[
+\begin{aligned}
+\frac{\dd E_{\rm rel}}{\dd t}
+&=m(1+f'^2)\dot\xi\ddot\xi+mf'f''\dot\xi^3
++mgf'\dot\xi+mA\dot\xi\\
+&=m\dot\xi\big[(1+f'^2)\ddot\xi+f'f''\dot\xi^2+gf'+A\big]=0.
+\end{aligned}
+\]
+括号正好是切向方程，故 $E_{\rm rel}$ 守恒。如果 $A$ 随时间变化，求导时还会多出 $m\dot A\,\xi$，于是 $\dd E_{\rm rel}/\dd t=m\dot A\,\xi$；此时应直接积分运动方程，不能套用同一个常量。
+
+\begin{example}[向左加速的凸抛物线支架]
+光滑轨道在支架坐标系中为$y=-\xi^2/(2R)$，支架始终以$g/4$向左加速。质量$m$的小珠放在轨道上侧，从顶点以相对速度$u=\sqrt{gR/2}$向右运动。求第一次分离的位置和分离时的相对速度；说明分离前能否出现转向。
+\ExpansionDiagram{fig:dep-d2-parabola-q}{小珠从凸抛物线顶点向右滑动，轨道加速度向左}{
+\draw[->](-1,0)--(4.4,0)node[right]{$\xi$};\draw[->](0,-2.2)--(0,1.2)node[above]{$y$};
+\draw[thick,domain=-.8:3.5,samples=50]plot(\x,{-.13*\x*\x});
+\fill(0,0)circle(2pt)node[above left]{$O$};\draw[->,thick](.1,.25)--(1.2,.25)node[right]{$u$};
+\draw[->,thick](2,.9)--(.6,.9)node[midway,above]{$A=-g/4$};
+\node[right]at(2.7,-1.8){$y=-\xi^2/(2R)$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-d2-parabola-q}中从顶点向右的坐标为$\xi>0$。支架系内的惯性力恒为$mg/4$，方向向右，其势能为$-mg\xi/4$。取顶点的总势能为零，重力势能为$-mg\xi^2/(2R)$，相对速率平方为$(1+\xi^2/R^2)\dot\xi^2$。令$s=\xi/R$，相对能量守恒给出
+\[
+\frac m2(1+s^2)\dot\xi^2-\frac{mgR}{2}s^2-\frac{mgR}{4}s
+=\frac m2u^2,
+\]
+即
+\[
+ (1+s^2)\dot\xi^2=u^2+gRs^2+\frac{gR}{2}s,
+ \qquad
+ \frac{\dot\xi^2}{gR}=\frac{1/2+s/2+s^2}{1+s^2}.
+\]
+对 $s\geq0$，分子严格为正，小珠分离前不会先停下或转向。由轨道方程逐次求导，
+\[
+\dot y=-\frac\xi R\dot\xi=-s\dot\xi,
+\qquad \ddot y=-\dot s\dot\xi-s\ddot\xi
+=-\frac{\dot\xi^2}R-s\ddot\xi.
+\]
+取指向轨道上方的单位法向量 $\vct n=(s,1)/\sqrt{1+s^2}$，相对加速度的法向投影中两项 $s\ddot\xi$ 相消，只剩 $-\dot\xi^2/[R\sqrt{1+s^2}]$。重力与惯性力的合投影为 $mg(s/4-1)/\sqrt{1+s^2}$，故
+\[
+N+\frac{mg(s/4-1)}{\sqrt{1+s^2}}
+=-\frac{m\dot\xi^2}{R\sqrt{1+s^2}}.
+\]
+将速度关系代入，得到
+\[
+ \frac{N\sqrt{1+s^2}}{mg}
+ =1-\frac{\dot\xi^2}{gR}-\frac s4
+ =\frac{2-3s-s^3}{4(1+s^2)}.
+\]
+起点$N=mg/2>0$。函数$2-3s-s^3$的导数为$-3-3s^2<0$，所以只可能有一次正根。分离位置满足
+\[
+ s_*^3+3s_*=2.
+\]
+令 $s_*=2\sinh u$，利用 $\sinh3u=4\sinh^3u+3\sinh u$，左端为 $2\sinh3u$，所以 $\sinh3u=1$，得到
+\[
+ s_*=2\sinh\!\left(\frac{\operatorname{arsinh}1}{3}\right)
+ \simeq0.59607.
+\]
+\ExpansionDiagram{fig:dep-d2-parabola-a}{分离点处反力降为零；沿切线离开后转入自由运动}{
+\draw[->](-.3,0)--(4.2,0)node[right]{$s$};
+\draw[->](0,-.7)--(0,1.6)node[above]{$N/(mg)$};
+\draw[thick,domain=0:.85,samples=70]plot({4*\x},{2*(2-3*\x-\x^3)/(4*(1+\x^2)^1.5)});
+\draw[dashed](2.3843,-.5)--(2.3843,.6);\fill(2.3843,0)circle(2pt)node[above right]{$s_*$};
+\node[left]at(0,1){$1/2$};\node[right]at(3.3,-.5){约束延拓};
+\draw[->](2.38,-.1)--(3,-.35);}
+由图\ref{fig:dep-d2-parabola-a}可见，将接触解延拓到$s>s_*$会得到负反力，轨道需要拉住小珠，违反单侧支承条件。分离后应改用重力下的抛体方程。在分离瞬间，两条轨迹法向加速度相同；再向右，保持接触所需反力将变成向下，实际小珠留在轨道上方，因而分离有效。
+
+利用$N=0$直接消去一次速度计算，得到
+\[
+ \dot\xi_*=\sqrt{gR(1-s_*/4)}\simeq0.92249\sqrt{gR}.
+\]
+相对速度沿图\ref{fig:dep-d2-parabola-q}所示曲线切线，大小为
+\[
+ v_{{\rm rel},*}=\sqrt{1+s_*^2}\,\dot\xi_*
+ \simeq1.07394\sqrt{gR}.
+\]
+题目未给支架初速度，因此绝对速度应保留为
+$\vct v_*=(\dot X_*+\dot\xi_*,\,-s_*\dot\xi_*)$。分离位置和相对速度均不依赖$\dot X_*$。
+\end{solution}

@@ -1,0 +1,1776 @@
+\chapter{刚体碰撞进阶}
+
+
+
+\section{碰撞守恒量、冲量与有效质量}
+
+碰撞中可用的守恒量取决于短时间内的外冲量。恢复系数约束接触点的法向相对速度；刚体发生转动时，该点的有效质量通常不同于物体质量。
+
+
+
+\subsection{碰撞过程中的守恒量}
+碰撞持续时间很短，接触力却可能很大。求碰后的运动时，通常只需计算接触力的冲量，无须求出它随形变变化的全过程。以下采用经典力学中的刚体近似，碰撞前后的量分别加上标 $-$、$+$。
+
+\subsubsection{短时近似与外冲量}
+质点在接触时间 $\tau$ 内满足
+\begin{equation}
+ m(\vct v^+-\vct v^-)=\vct J_{\rm c}+\int_{t_-}^{t_+}\vct F_{\rm ext}\dd t.
+\end{equation}
+其中 $\vct J_{\rm c}$ 是接触冲量。若重力与接触冲量相比很小，即 $mg\tau\ll |\vct J_{\rm c}|$，可忽略重力冲量。这个条件只适用于碰撞阶段，随后的飞行或摆动仍须计入重力。
+
+支座反力、绳的张力和轨道约束力可能随接触力一起增大。它们的冲量并不因 $\tau$ 小而自动消失。图\ref{sup5:fig:d4-t1}中的两球若都自由运动，总动量守恒；若其中一球被固定，固定装置会向两球系统传递冲量。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[curve] (0,0) circle(.48) (3,0) circle(.64);
+\node at(0,0){$m_1$};\node at(3,0){$m_2$};
+\draw[axis](-1.5,.9)--(-.3,.9) node[midway,above]{$\vct v_1^-$};
+\draw[axis](.6,0)--(1.8,0) node[midway,below]{$\vct n$};
+\draw[axis](-.15,-.95)--(-1.25,-.95) node[midway,below]{$-J\vct n$};
+\draw[axis](3.15,-.95)--(4.25,-.95) node[midway,below]{$J\vct n$};
+\draw[guide](-1.8,-1.5) rectangle(4.8,1.4);
+\node at(1.5,1.8){系统边界包含两个物体};
+\end{tikzpicture}
+\caption{内冲量相互抵消。法向单位矢量 $\vct n$ 从物体1指向物体2。}\label{sup5:fig:d4-t1}
+\end{figure}
+
+对于由多个物体组成的系统，先把各物体的动量方程相加，再判断哪一个分量没有外冲量。光滑水平面上的可动斜面与小球碰撞时，系统水平动量守恒，竖直动量通常不守恒。固定铰链处的冲量对铰点力矩为零，因此关于铰点的角动量可守恒，系统的线动量却可改变。
+
+刚体的冲量方程应写成
+\begin{equation}\label{sup5:eq:d4-rigid}
+ M\Delta\vct V_C=\sum\vct J_i,\qquad
+ I_C\Delta\omega=\sum(\vct r_i\times\vct J_i)_z.
+\end{equation}
+这里 $\vct r_i$ 从质心指向受冲量点，$I_C$ 是关于质心且垂直于运动平面的转动惯量。碰撞期间构形近似不变，速度和角速度可以有有限跃变。
+
+\subsubsection{恢复系数约束的是接触点的相对速度}
+取 $\vct n$ 从物体1指向物体2，令两接触点的速度为 $\vct v_{P1}$、$\vct v_{P2}$，定义
+\begin{equation}
+ g_n=(\vct v_{P2}-\vct v_{P1})\cdot\vct n.
+\end{equation}
+接近时 $g_n^-<0$。牛顿恢复系数定义为
+\begin{equation}\label{sup5:eq:d4-e}
+ g_n^+=-e g_n^-,\qquad 0\le e\le1.
+\end{equation}
+本讲把 $e$ 视为给定的碰撞参数。$e=1$ 表示法向相对速度反号；$e=0$ 表示碰撞结束时法向相对速度为零，并不保证两个物体永久黏合。黏合还要求接触处的切向相对运动消失，并在后续运动中保持连接。
+
+若物体发生转动，\eqref{sup5:eq:d4-e}必须使用接触点速度，不能直接用质心速度代替。光滑接触没有切向冲量；只有对不受其他切向冲量的质点，才可直接断言其切向速度不变。
+
+
+\subsection{冲量、约化质量与能量损失}
+\subsubsection{质点正碰}
+两个自由质点沿同一直线接触，设碰前速度为 $u_1,u_2$，正方向与 $\vct n$ 相同，且 $u_1>u_2$。物体1受到冲量 $-J$，物体2受到 $J$，于是
+\begin{align}
+ v_1&=u_1-J/m_1,&v_2&=u_2+J/m_2,\\
+ v_2-v_1&=e(u_1-u_2).
+\end{align}
+消去速度得
+\begin{equation}\label{sup5:eq:d4-Jpoint}
+ J=(1+e)\mu(u_1-u_2),\qquad
+ \mu=\frac{m_1m_2}{m_1+m_2}.
+\end{equation}
+代回即有
+\begin{align}\label{sup5:eq:d4-vpoint}
+ v_1&=\frac{(m_1-em_2)u_1+(1+e)m_2u_2}{m_1+m_2},\\
+ v_2&=\frac{(1+e)m_1u_1+(m_2-em_1)u_2}{m_1+m_2}.
+\end{align}
+质心速度 $V=(m_1u_1+m_2u_2)/(m_1+m_2)$ 不变。把总动能分解为质心平动和相对运动两部分，得到
+\begin{equation}
+ T=\frac12(m_1+m_2)V^2+\frac12\mu(u_1-u_2)^2.
+\end{equation}
+恢复系数只把相对速度的大小变为原来的 $e$ 倍。因此能量损失为
+\begin{equation}\label{sup5:eq:d4-loss}
+ Q=T^--T^+=\frac12\mu(1-e^2)(u_1-u_2)^2.
+\end{equation}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.3,0)--(6.6,0) node[right]{$e$};
+\draw[axis](0,-.2)--(0,2.8) node[above]{$Q/T_{\rm rel}^-$};
+\draw[curve,domain=0:1,samples=60] plot({6*\x},{2.2*(1-\x*\x)});
+\draw[guide](0,2.2)--(6,2.2);\node[left]at(0,2.2){$1$};
+\node[below]at(0,0){$0$};\node[below]at(6,0){$1$};
+\node[above right]at(2.6,1.79){$1-e^2$};
+\end{tikzpicture}
+\caption{自由质点正碰的相对动能损失，$T_{\rm rel}^-=\mu(u_1-u_2)^2/2$。}\label{sup5:fig:d4-t2}
+\end{figure}
+
+图\ref{sup5:fig:d4-t2}纵轴以碰前相对动能为单位。$e=0$ 时相对动能全部损失，质心平动动能仍保留；只有在质心原来静止时，总动能才会全部消失。
+
+\subsubsection{含转动时的有效质量}
+考虑两个在平面内自由运动的刚体，接触冲量沿固定法线。接触点速度为
+\begin{equation}
+ \vct v_{Pi}=\vct V_i+\omega_i\vct k\times\vct r_i.
+\end{equation}
+由式\eqref{sup5:eq:d4-rigid}，物体2有 $\Delta\vct V_2=J\vct n/m_2$、$\Delta\omega_2=J(\vct r_2\times\vct n)_z/I_2$。再用 $\vct n\cdot(\vct k\times\vct r_2)=(\vct r_2\times\vct n)_z$，可得接触点沿法向的速度增量
+\begin{equation}
+ J\left[\frac1{m_2}+\frac{(\vct r_2\times\vct n)_z^2}{I_2}\right].
+\end{equation}
+物体1受相反冲量，其接触点法向速度减小。两者相减可写为
+\begin{equation}\label{sup5:eq:d4-kappa}
+ g_n^+=g_n^-+\kappa J,\quad
+ \kappa=\frac1{m_1}+\frac1{m_2}
+ +\frac{(\vct r_1\times\vct n)_z^2}{I_1}
+ +\frac{(\vct r_2\times\vct n)_z^2}{I_2}.
+\end{equation}
+因而
+\begin{equation}\label{sup5:eq:d4-general}
+ J=-\frac{(1+e)g_n^-}{\kappa},\qquad
+ Q=\frac{(1-e^2)(g_n^-)^2}{2\kappa}.
+\end{equation}
+量 $m_{\rm eff}=1/\kappa$ 是此次接触的有效质量。它取决于冲量方向和作用点，不能只凭刚体总质量确定。
+
+这一能量关系也可沿累积冲量直接推导。记碰撞中已经传递的法向冲量为 $j$，当前相对速度为 $g_n(j)=g_n^-+\kappa j$。作用与反作用两力的总功率为 $Fg_n$，且 $\dd j=F\dd t$，故
+\[
+T^+-T^-=\int_0^J(g_n^-+\kappa j)\dd j
+=[g_n^-j+\kappa j^2/2]_0^J.
+\]
+于是
+\begin{equation}
+ T^+-T^-=Jg_n^-+\tfrac12\kappa J^2.
+\end{equation}
+代入恢复关系即可得到式\eqref{sup5:eq:d4-general}。有固定铰链或可动支座时，应先用约束消去不允许的速度，再求 $\kappa$；不可照搬两个自由刚体的表达式。支座运动且对系统做功时，还须另算支座的能量交换。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[刚体弹性碰撞的法向相对速度]\label{ex:hw5-1}
+
+两个平面刚体在$P$处发生无摩擦、完全弹性碰撞。证明：碰后接触点法向相对速度与碰前大小相等、方向相反。说明证明中为何不能直接使用质心相对速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)..controls(0,.9)and(-1.5,1.1)..(-2,.3)..controls(-2.5,-1)and(0,-1.1)..(0,0);
+\draw[curve](0,0)..controls(0,-1)and(1.8,-1.1)..(2.2,-.2)..controls(2.5,1.1)and(0,1.2)..(0,0);
+\coordinate(P)at(0,0);\coordinate(Ca)at(-1.1,.3);\coordinate(Cb)at(1.2,-.25);
+\fill(P)circle(2pt);\draw[thin](P)--(0,-1.2)node[below]{$P$};\fill(Ca)circle(1.3pt)node[below left]{$C_1$};\fill(Cb)circle(1.3pt)node[above right]{$C_2$};
+\draw[guide](Ca)--(P)node[midway,above]{$\vct r_1$};\draw[guide](Cb)--(P)node[midway,below]{$\vct r_2$};\draw[axis](0,0)--(-.65,0)node[below]{$\vct n$};
+\end{tikzpicture}
+\caption{接触法线不通过质心时，碰撞同时改变平动与转动}\label{fig:hw5-1-q}
+\end{figure}
+
+\begin{solution}
+取图\ref{fig:hw5-1-s}中由刚体2指向刚体1的单位法线$\vct n$，冲量$J\vct n$作用于刚体1，反冲量作用于刚体2。定义$g^-=(\vct v_{P1}^--\vct v_{P2}^-)\cdot\vct n<0$，有
+\[
+ g^+=g^-+WJ,\quad W=\frac1{m_1}+\frac1{m_2}
+ +\frac{(\vct r_1\times\vct n)_z^2}{I_1}
+ +\frac{(\vct r_2\times\vct n)_z^2}{I_2}>0.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)..controls(0,.9)and(-1.5,1.1)..(-2,.3)..controls(-2.5,-1)and(0,-1.1)..(0,0);
+\draw[curve](0,0)..controls(0,-1)and(1.8,-1.1)..(2.2,-.2)..controls(2.5,1.1)and(0,1.2)..(0,0);
+\coordinate(P)at(0,0);\coordinate(Ca)at(-1.1,.3);\coordinate(Cb)at(1.2,-.25);
+\fill(P)circle(2pt);\draw[thin](P)--(0,-1.2)node[below]{$P$};\fill(Ca)circle(1.3pt)node[below left]{$C_1$};\fill(Cb)circle(1.3pt)node[above right]{$C_2$};
+\draw[guide](Ca)--(P)node[midway,above]{$\vct r_1$};\draw[guide](Cb)--(P)node[midway,below]{$\vct r_2$};\draw[axis](0,0)--(-.9,0)node[below]{$J\vct n$};
+\draw[axis](0,0)--(.9,0)node[above]{$-J\vct n$};
+\end{tikzpicture}
+\caption{同一对接触冲量关于两质心分别具有非零力臂}\label{fig:hw5-1-s}
+\end{figure}
+
+记$\vct r_i=\overrightarrow{C_iP}$。刚体1的变化为$\Delta\vct V_1=J\vct n/m_1$、$\Delta\omega_1=J(\vct r_1\times\vct n)_z/I_1$，刚体2则取相反冲量。代入
+\[
+ \Delta\vct v_{Pi}=\Delta\vct V_i+
+ \Delta\omega_i\vct e_z\times\vct r_i
+\]
+并沿$\vct n$投影，每个转动项都产生一个非负的平方项，于是得到上式的$W$。图中的两个质心偏离接触法线，因此两个转动力臂均不为零。
+
+令$a_i=(\vct r_i\times\vct n)_z$。分别用$\tfrac12m[(\vct V+\Delta\vct V)^2-\vct V^2]=m\vct V\cdot\Delta\vct V+\tfrac12m|\Delta\vct V|^2$展开平动动能，转动动能同样展开，得到
+\[
+\begin{aligned}
+\Delta T_1&=J(\vct V_1^-\cdot\vct n+\omega_1^-a_1)
++\frac{J^2}{2}\left(\frac1{m_1}+\frac{a_1^2}{I_1}\right),\\
+\Delta T_2&=-J(\vct V_2^-\cdot\vct n+\omega_2^-a_2)
++\frac{J^2}{2}\left(\frac1{m_2}+\frac{a_2^2}{I_2}\right).
+\end{aligned}
+\]
+因$(\vct e_z\times\vct r_i)\cdot\vct n=a_i$，两式的线性项之和正是$Jg^-$，二次项之和是$WJ^2/2$。完全弹性要求总动能不变，故
+\[
+ 0=\Delta T=Jg^-+\tfrac12WJ^2.
+\]
+排除未发生碰撞的$J=0$根，得$J=-2g^-/W$，代回即
+\[
+ \boxed{g^+=-g^-}.
+\]
+接触点偏离质心时，冲量还改变角速度，$W$中的转动项不可删去。本结论只针对法向分量；光滑碰撞没有切向冲量，但偏心冲量引起的转动仍可能改变接触点的切向速度。
+
+
+\end{solution}
+
+
+
+\begin{example}[正碰中的冲量与能量损失]\label{sup5:problem-example-1}
+光滑水平面上，质量为 $m$ 的小球A以速度 $u>0$ 追上静止的质量为 $2m$ 的小球B，二者沿球心连线碰撞，恢复系数为 $e$。求两球末速度、相互作用的冲量与能量损失，并讨论A何时反弹。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](-1.5,-.5)--(5,-.5);
+\draw[curve](0,0)circle(.5)(3,0)circle(.5);
+\node at(0,0){A};\node at(3,0){B};
+\node[above]at(0,.6){$m$};\node[above]at(3,.6){$2m$};
+\draw[axis](.7,0)--(1.9,0)node[midway,above]{$u$};
+\node[right]at(3.7,0){静止};\draw[axis](4,-1)--(5,-1)node[right]{$x$};
+\end{tikzpicture}
+\caption{两球沿同一水平直线正碰。}\label{sup5:fig:d4-e1-q}
+\end{figure}
+\begin{solution}
+沿图\ref{sup5:fig:d4-e1-q}的 $x$ 方向取正。水平面支持力没有水平冲量，故两球系统满足
+\begin{equation}
+ mu=mv_A+2mv_B.
+\end{equation}
+碰前A相对B的接近速度为 $u$，碰后B相对A的分离速度为 $v_B-v_A$，所以
+\begin{equation}
+ v_B-v_A=eu.
+\end{equation}
+由第二式 $v_A=v_B-eu$，代入第一式得 $3v_B=(1+e)u$，于是
+\begin{equation}
+ v_A=\frac{1-2e}{3}u,\qquad v_B=\frac{1+e}{3}u.
+\end{equation}
+图\ref{sup5:fig:d4-e1-s}画出了冲量方向，并以 $e=1/2$ 标出碰后状态。B的冲量为
+\begin{equation}
+ J=2mv_B=\frac{2(1+e)}3mu,
+\end{equation}
+A所受冲量是 $-J$。即使 $v_A>0$，A的速度也比原来小，所受冲量仍向左。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(.42)(3,0)circle(.42);\node at(0,0){A};\node at(3,0){B};
+\draw[axis](-.55,0)--(-1.65,0)node[midway,above]{$-J$};
+\draw[axis](3.55,0)--(4.65,0)node[midway,above]{$J$};
+\node[below]at(0,-.6){$e=\tfrac12:\ v_A=0$};
+\draw[axis](2.8,-1.45)--(4,-1.45)node[midway,below]{$v_B=u/2$};
+\end{tikzpicture}
+\caption{冲量总是使两球的相对接近速度减小；$e=1/2$ 时A恰好停止。}\label{sup5:fig:d4-e1-s}
+\end{figure}
+本题质心速度为 $u/3$，碰撞不能改变其平动动能。把总动能逐项分解为
+\[
+T^- =\frac16mu^2+\frac13mu^2,
+\qquad
+T^+ =\frac16mu^2+\frac13me^2u^2.
+\]
+每式第一项是质心平动能，第二项是相对运动能。图\ref{sup5:fig:d4-e1-s}中A停止时，B仍在运动，并携带系统的全部动量。
+
+约化质量为 $\mu=2m/3$，由相对动能的变化得
+\begin{equation}
+ Q=\frac m3(1-e^2)u^2.
+\end{equation}
+当 $e=1/2$ 时，$Q=mu^2/4$；初动能为 $mu^2/2$，末动能为 $\tfrac12(2m)(u/2)^2=mu^2/4$，两种算法相符。A在 $e>1/2$ 时向左反弹，$e<1/2$ 时继续向右，$e=1/2$ 时停止。对所有 $e\ge0$，都有 $v_B\ge v_A$，符合碰后不再相互穿入的条件。
+\end{solution}
+
+
+
+\begin{example}[自由杆端部受撞]\label{sup5:problem-example-5}
+长 $L$、质量 $M$ 的均匀细杆静止在光滑水平面上。质量 $m$ 的小球以速度 $u$ 垂直于杆，撞击杆的右端P。小球与杆光滑接触，恢复系数为 $e$。求小球、杆质心和杆的碰后运动；再取 $m=M$、$e=1$ 讨论。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[line width=3pt](-2,0)--(2,0);\fill(0,0)circle(2pt);\node[above]at(0,.1){C};\node[above]at(2,.1){P};
+\draw[<->](-2,.7)--(2,.7)node[midway,above]{$L$};
+\draw[curve](2,-1.65)circle(.25);\node[right]at(2.3,-1.65){$m$};
+\draw[axis](2,-1.3)--(2,-.35)node[midway,right]{$u$};
+\node[left]at(-2.3,0){$M$};
+\end{tikzpicture}
+\caption{小球从下方撞击杆端P，碰撞法线竖直向上。}\label{sup5:fig:d4-e5-q}
+\end{figure}
+\begin{solution}
+图\ref{sup5:fig:d4-e5-q}中取向上为速度正方向，逆时针为角速度正方向。设杆受到向上的冲量 $J$，杆质心速度为 $V_C$，角速度为 $\omega$，球的末速度为 $v$。分别写出冲量方程：
+\begin{equation}
+ v=u-J/m,\qquad MV_C=J,\qquad
+ \frac{ML^2}{12}\omega=\frac L2J.
+\end{equation}
+于是 $\omega=6J/(ML)$。杆端P的向上速度由平动和转动叠加，图\ref{sup5:fig:d4-e5-s}给出
+\begin{equation}
+ v_P=V_C+\omega L/2=\frac{4J}{M}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[line width=2.5pt](-2,0)--(2,0);\node[below]at(0,-.1){C};\node[below]at(2,-.1){P};
+\draw[axis](0,0)--(0,.65)node[above left]{$V_C=J/M$};
+\draw[axis](2,0)--(2,2.6)node[above]{$v_P=4J/M$};
+\draw[axis](-.7,-.7)arc(225:315:.98995);\node[below]at(0,-1.1){$\omega>0$};
+\draw[curve](3.8,-.8)circle(.2);\draw[axis](3.8,-.5)--(3.8,.475)node[above]{$v$};
+\end{tikzpicture}
+\caption{杆端速度包含质心平动与绕质心转动两部分。小球箭头按 $m=M,e=1$ 的特例绘制。}\label{sup5:fig:d4-e5-s}
+\end{figure}
+恢复关系为 $v_P-v=eu$，因而
+\begin{equation}
+ J\left(\frac4M+\frac1m\right)=(1+e)u,
+ \qquad J=\frac{(1+e)mM}{M+4m}u.
+\end{equation}
+所以
+\begin{equation}
+ v=\frac{4m-eM}{M+4m}u,\quad
+ V_C=\frac{(1+e)m}{M+4m}u,\quad
+ \omega=\frac{6(1+e)m}{M+4m}\frac uL.
+\end{equation}
+杆端的冲量响应系数为 $4/M$，相应的有效质量为 $M/4$。冲量同时引起杆的平动和转动，接触点的速度变化由这两部分共同决定。
+
+取 $m=M,e=1$，可得 $J=2Mu/5$，$v=3u/5$，$V_C=2u/5$，$\omega=12u/(5L)$。此时P点速度为 $8u/5$，大于入射球速率，但 $v_P-v=u$，恢复关系仍成立。杆的动能为
+\begin{equation}
+ T_{\rm rod}=\frac{J^2}{2M}+\frac{(JL/2)^2}{2(ML^2/12)}
+ =\frac{2J^2}{M}.
+\end{equation}
+上述特例中，球和杆的末动能分别为 $9Mu^2/50$、$8Mu^2/25$，总和仍为 $Mu^2/2$。一般情况下，损失为 $(1-e^2)u^2/[2(1/m+4/M)]$。
+小球是否反弹，应从已求得的带符号速度判断：$4m<eM$ 时才有 $v<0$。即使碰撞完全弹性，等质量的小球和杆也不会交换质心速度，因为接触点还包含转动速度。
+
+图\ref{sup5:fig:d4-e5-s}中杆所获动能占入射动能的比例为
+\[
+\frac{T_{\rm rod}}{mu^2/2}
+=\frac{4(1+e)^2mM}{(M+4m)^2}.
+\]
+在 $e=1$ 时，只有 $M=4m$ 才使该比值达到1，此时球恰好停止。对应的接触点有效质量为 $M/4=m$，与两相等有效质量的弹性碰撞相符。
+
+\end{solution}
+
+
+
+\begin{example}[铰接杆与打击中心]\label{sup5:problem-example-6}
+均匀细杆质量为 $M$、长为 $L$，上端O用固定光滑铰链悬挂，初始竖直静止。小球质量为 $m$，以水平速度 $u$ 撞击距O为 $a$ 的点P，$0<a\le L$。接触光滑，恢复系数为 $e$。求小球末速度、杆角速度和铰链冲量，并求使水平铰链冲量为零的打击位置。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[line width=3pt](1,2.5)--(1,-1);\draw[curve](1,2.5)circle(.12);\node[right]at(1.2,2.5){O};
+\fill(1,.4)circle(2pt);\node[right]at(1.15,.4){P};\node[right]at(1.15,-.95){$L$};
+\draw[<->](2.1,2.5)--(2.1,.4)node[midway,right]{$a$};
+\draw[curve](-1,.4)circle(.22);\draw[axis](-.7,.4)--(.6,.4)node[midway,above]{$u$};
+\node[below]at(-1,.05){$m$};\node[left]at(.8,1.5){$M$};
+\end{tikzpicture}
+\caption{杆只绕固定点O转动，冲量作用点为P。}\label{sup5:fig:d4-e6-q}
+\end{figure}
+\begin{solution}
+在图\ref{sup5:fig:d4-e6-q}中，向右为速度和冲量的正方向，杆向右摆起的角速度记为正。杆关于O的转动惯量为 $I_O=ML^2/3$。铰链冲量对O无力矩，所以
+\begin{equation}
+ I_O\omega=Ja,\qquad v_P=a\omega=\frac{Ja^2}{I_O}.
+\end{equation}
+小球有 $v=u-J/m$。将接触点P的速度代入恢复关系 $v_P-v=eu$，得
+\begin{equation}
+ J=\frac{(1+e)u}{1/m+a^2/I_O},\quad
+ \omega=\frac{(1+e)mau}{I_O+ma^2},\quad
+ v=\frac{ma^2-eI_O}{I_O+ma^2}u.
+\end{equation}
+杆质心C距O为 $L/2$，故 $V_C=\omega L/2$。图\ref{sup5:fig:d4-e6-s}中杆的线动量方程给出水平铰链冲量
+\begin{equation}
+ H_x+J=MV_C,\qquad
+ H_x=J\left(\frac{3a}{2L}-1\right).
+\end{equation}
+碰撞前后C的瞬时速度均无竖直分量，忽略重力冲量后有 $H_y=0$。这不表示碰撞以后的竖直铰链力为零。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[line width=2.5pt](0,2.5)--(0,-2.5);\node[right]at(.15,2.65){O};
+\fill(0,0)circle(2pt);\node[left]at(-.15,0){C};
+\draw[axis](0,2.5)--(-.3,2.5);\node[above left]at(-.35,2.5){$H_x$};
+\fill(0,-.5)circle(1.5pt);\node[left]at(-.15,-.5){P};
+\draw[axis](0,-.5)--(3,-.5);\node[above]at(2.6,-.5){$J$};
+\draw[axis](0,0)--(1,0)node[right]{$V_C$};
+\draw[guide](0,-.833333)--(3.8,-.833333);
+\draw[<->](3.8,2.5)--(3.8,-.833333)node[midway,right]{$a_*=2L/3$};
+\end{tikzpicture}
+\caption{铰接杆的冲量与质心速度。图示 $L/2<a<2L/3$，P位于C与打击中心之间，铰链冲量向左。}\label{sup5:fig:d4-e6-s}
+\end{figure}
+令 $H_x=0$，得到 $a_*=2L/3$。在这一位置打击，P处冲量恰好等于杆的线动量增量，铰链无需再提供水平冲量。$a<a_*$ 时铰链冲量向左，$a>a_*$ 时向右。
+
+损失为
+\begin{equation}
+ Q=\frac{(1-e^2)u^2}{2(1/m+a^2/I_O)}.
+\end{equation}
+因铰点固定，铰链冲量不做功，$e=1$ 时球与杆的总动能守恒。小球反弹的条件是 $ma^2<eI_O$，由此也能看出，靠近铰点打击时杆的接触点难以获得较大速度。
+
+在打击中心，杆沿P点法线的有效质量为
+\[
+\frac{I_O}{a_*^2}
+=\frac{ML^2/3}{(2L/3)^2}=\frac34M.
+\]
+代回冲量式时，应使用这一数值。铰链水平冲量为零，不表示杆没有转动，也不表示小球可以按碰上总质量为 $M$ 的自由质点处理。
+
+\end{solution}
+
+
+
+\section{斜碰、速度空间与允许末态}
+
+守恒量限定末速度的几何轨迹，接近与分离条件决定物理分支。接触法线和速度方向须在同一图中标明，再将相应分量代入冲量方程。
+
+
+
+\subsection{斜碰中的几何关系}
+两光滑球碰撞时，接触法线沿两球球心连线。将相对速度分成法向和切向分量，切向分量保持不变，法向分量按式\eqref{sup5:eq:d4-e}改变。若球在接触前无自转，沿球心连线的冲量也不会使其自转。
+
+设质量 $m$ 的入射球以速度 $u\vct e_x$ 撞击静止的质量 $M$ 的球，半径和为 $d$，瞄准距离为 $b$。图\ref{sup5:fig:d4-t3}中 $b>0$，故
+\begin{equation}
+ \beta=\frac b d,\quad c=\sqrt{1-\beta^2},\quad
+ \vct n=c\vct e_x-\beta\vct e_y,\quad 0\le\beta<1.
+\end{equation}
+入射球位于靶球左上方，$g_n^-=-uc$，冲量和速度为
+\begin{align}\label{sup5:eq:d4-oblique}
+ J&=(1+e)\frac{mM}{m+M}uc,\\
+ \vct v_1&=u\vct e_x-\frac Jm\vct n,
+ &\vct v_2&=\frac JM\vct n.
+\end{align}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\coordinate(A)at(0,1);\coordinate(B)at(1.732,0);
+\draw[curve](A)circle(1)(B)circle(1);
+\fill(A)circle(1.3pt)(B)circle(1.3pt);
+\node[above left]at(A){$m$};\node[below right]at(B){$M$};
+\draw[guide](-2.4,0)--(3.4,0);\draw[guide](-2.4,1)--(-1,1);
+\draw[<->](-2.1,0)--(-2.1,1)node[midway,left]{$b$};
+\draw[axis](-2.2,2.4)--(-.6,2.4)node[midway,above]{$u$};
+\draw[guide](A)--(B);
+\draw[guide](A)--(-.7,-.212)(B)--(1.032,-1.212);
+\draw[<->](-.7,-.212)--(1.032,-1.212)node[midway,below left]{$d$};
+\draw[axis](1.6,1.8)--(2.466,1.3)node[midway,above right]{$\vct n$};
+\draw[axis](3.4,0)--(4.4,0)node[right]{$x$};
+\end{tikzpicture}
+\caption{瞄准距离和接触法线，图示 $b=d/2$。接触时两球球心距离为 $d$。}\label{sup5:fig:d4-t3}
+\end{figure}
+
+对于弹性碰撞，在质心系中两球速度的大小分别不变。回到实验室系时，必须给速度矢量加上同一个质心速度。入射球的末速度端点在速度平面内满足
+\begin{equation}\label{sup5:eq:d4-circle}
+ |\vct v_1-\vct V|=\frac{M}{m+M}u,\qquad
+ \vct V=\frac{m}{m+M}u\vct e_x.
+\end{equation}
+若 $m>M$，原点在此圆外，最大偏转角由原点向圆的切线确定；若 $m<M$，圆包围原点，入射球可向后反弹。等质量弹性斜碰且两球末速度均不为零时，由动量和能量关系可得 $\vct v_1\cdot\vct v_2=0$。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[两个自由球的速度空间]\label{ex:hw5-6}
+
+球$A$质量$3m$、初速度$(v_0,2v_0,0)$，球$B$质量$m$、初速度$(v_0,0,0)$，两球完全弹性碰撞，碰撞方向可变。(1)求$A$碰后可能速率范围；(2)求其速度方向可能分布的立体角。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4,0)node[right]{$v_x$};\draw[axis](0,0)--(0,3)node[above]{$v_y$};\fill(1,1.5)circle(2pt)node[right]{$\vct V$};\draw[curve](1,1.5)circle(.5);\draw[guide](0,0)--(1,1.5);
+\end{tikzpicture}
+\caption{两自由球碰撞后的速度球截面}\label{fig:hw5-6-q}
+\end{figure}
+
+\begin{solution}
+质心速度为$\vct V=(v_0,3v_0/2,0)$。在质心系中，$A$初速度为$(0,v_0/2,0)$，弹性碰撞后大小仍为$v_0/2$。图\ref{fig:hw5-6-s}是速度空间球面的一个截面：球心为$\vct V$，半径为$v_0/2$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4,0)node[right]{$v_x$};\draw[axis](0,0)--(0,3)node[above]{$v_y$};\fill(1,1.5)circle(2pt)node[right]{$\vct V$};\draw[curve](1,1.5)circle(.5);\draw[guide](0,0)--(1,1.5);\draw[guide](0,0)--(.523372891,1.651084740);\draw[guide](0,0)--(1.322780956,1.118146030);\node at(2.8,2.7){$R=v_0/2$};\node at(2.8,2.2){$d=\sqrt{13}v_0/2$};
+\draw[guide](1,1.5)--(.523372891,1.651084740);
+\draw(.61017,.915255)arc(56.30993:72.4105:1.1);\node at(.49,1.01){$\Theta$};\node[below left]at(0,0){$O$};
+\end{tikzpicture}
+\caption{原点向速度球的两条切线限定方向范围}\label{fig:hw5-6-s}
+\end{figure}
+
+球心距原点$d=\sqrt{13}v_0/2$，因此
+\[
+ \boxed{\frac{\sqrt{13}-1}{2}v_0\le|\vct v_A'|
+ \le\frac{\sqrt{13}+1}{2}v_0}.
+\]
+由原点向速度球面作切线，半锥角满足$\sin\Theta=R/d=1/\sqrt{13}$。以$O\vct V$为极轴，图\ref{fig:review5-cap}中允许的方向为$0\le\vartheta\le\Theta$、$0\le\varphi<2\pi$。因此立体角为
+\[
+\begin{aligned}
+\Omega&=\int_0^{2\pi}\dd\varphi\int_0^\Theta\sin\vartheta\,\dd\vartheta
+=\int_0^{2\pi}\bigl[-\cos\vartheta\bigr]_0^\Theta\,\dd\varphi\\
+&=(1-\cos\Theta)\bigl[\varphi\bigr]_0^{2\pi}
+=2\pi(1-\cos\Theta).
+\end{aligned}
+\]
+将$\cos\Theta=\sqrt{1-1/13}$代入，得到
+\[
+ \boxed{\Omega=2\pi(1-\cos\Theta)
+ =2\pi\left(1-\sqrt{\frac{12}{13}}\right)}.
+\]
+此处不限定在某一平面内碰撞，才使用立体角。若运动限制在平面内，可能方向改为一个平面角区间$2\Theta$。
+
+
+下面用碰撞运动学确定速度球面的可达性。两球的初始相对速度为$\vct g=2v_0\vct e_y$。对光滑弹性球，选择接触法线$\vct n$后有$\vct g'=\vct g-2(\vct g\cdot\vct n)\vct n$，从而$|\vct g'|=2v_0$。让碰撞参数和接触法线变化，可使相对速度方向遍及球面；无偏转方向作为擦边极限包含在内。又
+\[
+ \vct v_A'=\vct V+\frac{m}{3m+m}\vct g',
+\]
+因此速度端点遍历半径$v_0/2$的速度球面，而不是球内体积。
+
+沿轴方向的两交点分别给出最小、最大速率，切锥边界则给出允许方向的边界；速率极值点与允许方向的切点是速度球上的不同位置。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\coordinate(V)at(3,0);\draw[curve](V)circle(.9);\draw[axis](O)--(4.4,0)node[right]{$O\vct V$};\fill(O)circle(1.5pt)node[below left]{$O$};\fill(V)circle(1.5pt)node[below]{$\vct V$};
+\draw(O)--(2.73,.8585);\draw(O)--(2.73,-.8585);\draw[guide](V)--(2.73,.8585)node[midway,right]{$R$};\draw(.85,0)arc(0:17.4576:.85);\node at(1.12,.16){$\Theta$};
+\draw[guide](2.73,-.8585)arc(-90:90:.25 and .8585);\node[align=left]at(2,-1.65){绕极轴转过全部方位角\\每条允许射线穿过速度球};
+\end{tikzpicture}
+\caption{速度球的切锥；空间方向由锥内射线给出}\label{fig:review5-cap}
+\end{figure}
+
+
+\end{solution}
+
+
+
+\begin{example}[三个等质量球的守恒约束]\label{ex:hw5-7}
+
+三个质量$m$的球在光滑水平面上碰撞，只有$A$初速度为$(v_0,0)$，其余静止，碰撞完全弹性，不限定碰撞次序及具体几何。(1)求守恒关系允许的$A$末速度区域；(2)求$A$反向最大速率；(3)求$A$偏转$90^\circ$时的最大速率；(4)已知$\vct v_A'=(2v_0/3,v_0/3)$，求$B$相对原方向的最大偏转角。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=2]\draw[axis](0,0)--(1.5,0)node[right]{$v_x/v_0$};\draw[axis](0,0)--(0,1)node[above]{$v_y/v_0$};\draw[curve](.333333,0)circle(.666667);\fill(.333333,0)circle(1pt)node[below]{$1/3$};\node at(.5,1.5){$\vct v_A$的允许区域};\end{scope}
+\end{tikzpicture}
+\caption{守恒关系允许的首球末速度圆盘}\label{fig:hw5-7-q}
+\end{figure}
+
+\begin{solution}
+令$\vct s=(v_0,0)-\vct v_A'$，则$\vct v_B'+\vct v_C'=\vct s$。对给定$\vct s$，后两球动能最小时两速度相同，所以守恒的充要代数条件为
+\[
+ |\vct v_A'|^2+\tfrac12|\vct s|^2\le v_0^2.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=2.25]
+\fill[gray!10](.333333,0)circle(.666667);\draw[curve](.333333,0)circle(.666667);
+\draw[axis](-.5,0)--(1.25,0)node[right]{$v_{Ax}'/v_0$};\draw[axis](0,-.8)--(0,.95)node[above]{$v_{Ay}'/v_0$};
+\fill(-.333333,0)circle(.7pt)node[below]{$-1/3$};\fill(0,.57735)circle(.7pt)node[right]{$1/\sqrt3$};
+\fill(.333333,0)circle(.6pt)node[below]{$1/3$};\end{scope}
+\begin{scope}[shift={(6.3,0)},scale=2.5]
+\draw[curve](.166667,-.166667)circle(.40824829);
+\draw[axis](-.45,0)--(.9,0)node[right]{$v_{Bx}'/v_0$};\draw[axis](0,-.7)--(0,.7)node[above]{$v_{By}'/v_0$};
+\fill(.166667,-.166667)circle(.6pt)node[right]{$\vct V_{BC}$};\fill(-.206011,0)circle(.8pt)node[below left]{$B_-$};
+\node[above right]at(0,0){$O$};\end{scope}
+\end{tikzpicture}
+\caption{左图为守恒允许圆盘，右图速度圆上的负轴点实现完全反向}\label{fig:hw5-7-s}
+\end{figure}
+
+充分性也可构造说明：令$\vct v_{B,C}'=\vct s/2\pm\vct w$，则
+\[
+ |\vct w|^2=\frac12\left(v_0^2-|\vct v_A'|^2-\frac12|\vct s|^2\right).
+\]
+右端非负时，在平面内任选具有该大小的$\vct w$，就能同时满足动量和能量。这一构造满足守恒方程；能否由指定的碰撞路径产生，还要检验接触条件。
+
+令$\vct v_A'=(x,y)$，把$\vct s=(v_0-x,-y)$代入约束并乘以2，有
+\[
+2(x^2+y^2)+(v_0-x)^2+y^2\le2v_0^2,
+\]
+即$3x^2+3y^2-2v_0x\le v_0^2$。除以3并对$x$配方，得到图\ref{fig:hw5-7-s}左侧的圆盘：
+\[
+ \boxed{(v_{Ax}'-v_0/3)^2+v_{Ay}'^2\le4v_0^2/9}.
+\]
+反向取$x$轴负半轴，最大速率为$\boxed{v_0/3}$；偏转$90^\circ$令$v_{Ax}'=0$，最大速率为$\boxed{v_0/\sqrt3}$。
+
+给定$A$末速度后，$|\vct v_A'|^2=5v_0^2/9$、$\vct s=(v_0/3,-v_0/3)$，故$BC$质心速度为$\vct V_{BC}=\vct s/2=(v_0/6,-v_0/6)$。写$\vct v_{B,C}'=\vct V_{BC}\pm\vct w$，代入前述能量关系，
+\[
+|\vct w|^2=\frac12\left(v_0^2-\frac59v_0^2-\frac19v_0^2\right)
+=\frac{v_0^2}{6}.
+\]
+圆心到原点的距离为$v_0/\sqrt{18}$，小于半径$v_0/\sqrt6$，所以速度圆包围原点，$B$可沿任意方向。要使$B$完全反向，取$v_{By}'=0$，即$w_y=v_0/6$；再取负的水平分量
+$w_x=-\sqrt{v_0^2/6-v_0^2/36}=-\sqrt5v_0/6$，于是
+\[
+ v_{Bx}'=\frac{1-\sqrt5}{6}v_0<0,
+ \qquad\boxed{\text{最大偏转角}=180^\circ}.
+\]
+这些是未限定碰撞构形时的守恒允许范围。若另给固定的入射位置、碰撞法线或次序，还须将相应接触条件与此区域取交集。
+
+
+\end{solution}
+
+
+
+\begin{example}[等质量光滑球的斜碰]\label{sup5:problem-example-2}
+两个相同光滑球的质量均为 $m$，半径均为 $R$。A沿水平直线以速度 $u$ 入射，B原来静止。瞄准距离 $b=R$，碰撞完全弹性。求两球末速度的分量、大小和夹角。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.9]
+\draw[curve](0,1)circle(1)(1.732,0)circle(1);
+\fill(0,1)circle(1.3pt)(1.732,0)circle(1.3pt);
+\node[above left]at(0,1){A};\node[below right]at(1.732,0){B};
+\draw[guide](0,1)--(1.732,0);
+\draw[guide](0,1)--(-.7,-.212)(1.732,0)--(1.032,-1.212);
+\draw[<->](-.7,-.212)--(1.032,-1.212)node[midway,below left]{$2R$};
+\draw[guide](-2.4,0)--(3,0);\draw[guide](-2.4,1)--(-1,1);
+\draw[<->](-2.1,0)--(-2.1,1)node[midway,left]{$R$};
+\draw[axis](-2.3,2.25)--(-.7,2.25)node[midway,above]{$u$};
+\end{tikzpicture}
+\caption{接触时两球球心距离为 $2R$，球心连线与水平方向夹角为 $30^\circ$。}\label{sup5:fig:d4-e2-q}
+\end{figure}
+\begin{solution}
+图\ref{sup5:fig:d4-e2-q}中，A在左上方，B在右下方。法线从A指向B，因此
+\begin{equation}
+ \vct n=\frac{\sqrt3}{2}\vct e_x-\frac12\vct e_y.
+\end{equation}
+碰前A沿法线的速度分量为 $u\sqrt3/2$，B为零。等质量弹性正碰会交换这两个法向分量；切向分量没有改变。也可直接由恢复关系求得
+\begin{equation}
+ J=2\frac m2\frac{\sqrt3}2u=\frac{\sqrt3}2mu.
+\end{equation}
+由图\ref{sup5:fig:d4-e2-s}的矢量分解，
+\begin{align}
+ \vct v_A&=u\vct e_x-\frac Jm\vct n
+ =\frac u4\vct e_x+\frac{\sqrt3u}4\vct e_y,\\
+ \vct v_B&=\frac Jm\vct n
+ =\frac{3u}4\vct e_x-\frac{\sqrt3u}4\vct e_y.
+\end{align}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\coordinate(O)at(0,0);\coordinate(A)at(1,1.732);\coordinate(U)at(4,0);
+\draw[axis](O)--(A)node[midway,left]{$\vct v_A$};
+\draw[axis](A)--(U)node[midway,above right]{$\vct v_B$};
+\draw[axis](O)--(U)node[midway,below]{$u\vct e_x$};
+\draw[guide](A)--(1,0);\node[below]at(1,0){$u/4$};
+\draw (A)++(-.15,-.26)--++(.26,-.15)--++(.15,.26);
+\node[right]at(4.2,1.2){$|\vct v_A|=u/2$};
+\node[right]at(4.2,.5){$|\vct v_B|=\sqrt3u/2$};
+\end{tikzpicture}
+\caption{末速度首尾相接等于初速度；直角位于两条末速度的方向之间。}\label{sup5:fig:d4-e2-s}
+\end{figure}
+沿接触法线垂直方向取单位矢量 $\vct t=(1/2,\sqrt3/2)$。图\ref{sup5:fig:d4-e2-q}中，入射速度可分成
+\[
+u\vct e_x=\frac{\sqrt3u}{2}\vct n+\frac u2\vct t.
+\]
+法向分量在等质量弹性碰撞中传给B，切向分量仍留在A。因此 $\vct v_A=(u/2)\vct t$、$\vct v_B=(\sqrt3u/2)\vct n$，也就得到图\ref{sup5:fig:d4-e2-s}中的两个末速度。这种分解解释了两方向为何垂直。
+
+由分量平方和可得 $|\vct v_A|=u/2$、$|\vct v_B|=\sqrt3u/2$。A向水平线上方偏转 $60^\circ$，B向下偏转 $30^\circ$，两末速度垂直。直接计算内积也有
+\begin{equation}
+ \vct v_A\cdot\vct v_B
+ =\frac{3u^2}{16}-\frac{3u^2}{16}=0
+\end{equation}
+末动能为 $\tfrac12m(u^2/4+3u^2/4)=mu^2/2$。若 $b=0$，A停止而B沿原方向运动，零速度没有方向，不能再给两个末速度指定夹角。
+\end{solution}
+
+
+
+\begin{example}[重球的最大偏转角]\label{deep5:problem-example-3}
+质量为 $m$ 的光滑球以速度 $u$ 撞击静止的质量为 $M$ 的光滑球，$m>M$，碰撞完全弹性。两球半径和为 $d$。求入射球的最大偏转角及达到该角度时的瞄准距离；给出 $m=2M$ 的结果。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,.9)circle(.7)(2,0)circle(.5);
+\draw[guide](-1.6,.9)--(0,.9);\draw[guide](-1.6,0)--(3,0);
+\draw[axis](-1.6,1.9)--(-.2,1.9)node[midway,above]{$u$};
+\draw[<->](-1.3,0)--(-1.3,.9)node[midway,left]{$b$};
+\node at(0,.9){$m$};\node at(2,0){$M$};
+\node[right]at(3.1,.8){$m>M$};
+\end{tikzpicture}
+\caption{改变入射直线的偏置 $b$，比较入射球的碰后方向。图示碰前尚未接触。}\label{deep5:fig:d4-e3-q}
+\end{figure}
+\begin{solution}
+图\ref{deep5:fig:d4-e3-q}中靶球静止，系统质心速度为 $V=mu/(m+M)$。在质心系中，入射球碰前速率为 $u-V=Mu/(m+M)$，弹性碰撞保持这一速率。因此实验室系中的末速度端点落在以 $C=(V,0)$ 为圆心、以 $r=Mu/(m+M)$ 为半径的圆上。
+
+图\ref{deep5:fig:d4-e3-s}中，末速度矢量从速度原点O出发。因 $V>r$，偏转角的最大值由切点T确定，且 $CT\perp OT$。直角三角形OCT给出
+\begin{equation}
+ \sin\theta_{\max}=\frac rV=\frac Mm,\qquad
+ v_{1,\rm tan}=\sqrt{V^2-r^2}
+ =u\sqrt{\frac{m-M}{m+M}}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.8]
+\draw[axis](-.3,0)--(7,0)node[right]{$v_x$};
+\draw[axis](0,-2.5)--(0,2.8)node[above]{$v_y$};
+\draw[curve](4,0)circle(2);\fill(4,0)circle(1.5pt)(3,1.732)circle(1.5pt);
+\draw[axis](0,0)--(3,1.732)node[midway,above left]{$\vct v_1$};
+\draw[guide](4,0)--(3,1.732)node[midway,right]{$r$};
+\node[below left]at(0,0){O};\node[below]at(4,0){C};\node[above]at(3,1.732){T};
+\draw (1,0)arc(0:30:1);\node at(1.35,.35){$\theta_{\max}$};
+\draw(3,1.732)++(-.26,-.15)--++(.15,-.26)--++(.26,.15);
+\node[below]at(2,-.65){$OC=V$};
+\end{tikzpicture}
+\caption{速度圆与切线；图中按 $m=2M$ 绘制，圆心到原点的距离为半径的两倍。}\label{deep5:fig:d4-e3-s}
+\end{figure}
+切点对应的瞄准距离可由接触几何求出。令 $c=\sqrt{1-b^2/d^2}$，式\eqref{sup5:eq:d4-oblique}在 $e=1$ 时给出
+\begin{equation}
+ \frac{v_{1x}}u=1-\frac{2M}{m+M}c^2,\qquad
+ \frac{v_{1y}}u=\frac{2M}{m+M}c\sqrt{1-c^2}.
+\end{equation}
+由速度分量先算出
+\[
+|\vct v_1|^2=u^2\left[1-\frac{4mM}{(m+M)^2}c^2\right],
+\qquad
+Vv_{1x}=\frac{mu^2}{m+M}\left[1-\frac{2M}{m+M}c^2\right].
+\]
+两式相减为 $Mu^2[1-2mc^2/(m+M)]/(m+M)$。图\ref{deep5:fig:d4-e3-s}中的切线条件是 $CT\perp OT$，其标量形式恰为 $|\vct v_1|^2-Vv_{1x}=0$。
+
+切点满足 $\vct v_1\cdot(\vct v_1-V\vct e_x)=0$。将上述分量代入，化简得
+\begin{equation}
+ c^2=\frac{m+M}{2m},\qquad
+ \frac b d=\sqrt{\frac{m-M}{2m}}.
+\end{equation}
+当 $m=2M$ 时，$\theta_{\max}=30^\circ$，$b=d/2$，末速率为 $u/\sqrt3$。极值在斜碰中取得，对应非零的瞄准距离和接触冲量。$m\to M^+$ 时切点趋近速度原点，极限偏角趋于 $90^\circ$，但原点本身没有速度方向。
+\end{solution}
+
+
+
+\section{多约束、摩擦与连续碰撞}
+
+支座、绳和粗糙接触可以同时传递冲量，相继碰撞还会改变约束状态。各阶段分别联立冲量关系与有效的接触条件，碰撞结束后的运动另用动力学方程求解。
+
+
+
+\subsection{约束、摩擦与连续碰撞}
+碰撞后的速度必须同时满足恢复关系和运动约束。铰接杆上的接触点只能沿圆周切线运动，轨道上的小珠只能沿轨道切线运动。约束冲量先由这些条件求出，再判断相应方向能否使用动量守恒。
+
+粗糙接触还可能产生切向冲量。只给法向恢复系数不足以确定转动和切向速度；还需要摩擦模型。第\ref{sup5:sec:d4-rough}节采用刚性接触下的库仑冲量模型：接触点持续滑动时，切向冲量的增量与法向冲量增量成 $\mu$ 倍；一旦切向相对速度降至零，若维持零滑动无需额外切向冲量，则不再增加切向冲量。这个模型只描述短时速度跃变，不把碰后瞬时的零切向速度解释为持续滚动。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(6.4,0)node[right]{$t$};
+\foreach \x/\txt in {1/{碰撞1},3.2/{碰撞2},5.4/{碰撞3}}{
+\draw[curve](\x,-.12)--(\x,.12);\node[above]at(\x,.25){\txt};}
+\node[below,text width=2cm,align=center]at(2.1,-.2){自由运动\\更新位置};
+\node[below,text width=2cm,align=center]at(4.3,-.2){自由运动\\再求接触时刻};
+\end{tikzpicture}
+\caption{相互分离的多次碰撞逐次处理，每次都以此前的末状态为初状态。}\label{sup5:fig:d4-t4}
+\end{figure}
+
+图\ref{sup5:fig:d4-t4}的每次接触之间均有自由运动阶段。求出某次末速度后，应重新计算下一次接触的位置和时刻；若接触点已在分离，就不能继续套用碰撞公式。对于同时存在多个接触点的系统，须给出各接触的冲量关系和相容条件。若有限形变过程影响接触先后，还需要具体的接触模型，不能任意指定二体碰撞的计算顺序。
+
+以下例题先求碰撞造成的速度变化，再处理随后的运动。每题从冲量方程和接触点速度列式，所得能量损失可再用式\eqref{sup5:eq:d4-general}核算。
+
+
+\subsection{多约束碰撞的联立方法}
+\label{sec:complete5}
+设碰前构形已知，用独立广义速度$\dot{\vct q}$描述系统。碰撞时间内构形不变，将动能写成$T=\dot{\vct q}^{\mathsf T}M\dot{\vct q}/2$。第$a$个接触的法向相对速度可写成$g_a=\vct c_a^{\mathsf T}\dot{\vct q}$，对应压缩冲量为$J_a\ge0$，于是
+\[
+ M(\dot{\vct q}^+-\dot{\vct q}^-)=\sum_a\vct c_aJ_a,
+ \qquad
+ g_a^+=g_a^-+\sum_b W_{ab}J_b,
+\]
+\[
+ W_{ab}=\vct c_a^{\mathsf T}M^{-1}\vct c_b.
+\]
+向量$\vct c_a$是接触间隙对坐标的梯度，其正向与法向相对速度的定义一致。$W$对称，其非对角元表示某处冲量对另一处接触速度的影响。单接触时，它退化为前文有效质量的倒数。
+
+杆的连接方式决定允许的独立速度，碰撞矩阵也随之改变。例\ref{ex:hw5-3}中把铰接模型当成整根刚体，会额外强加不应存在的角速度约束。例\ref{ex:hw5-4}则须在杆长约束之外保留地面接触条件，并在求解后检查地面冲量能否由向上的支持作用提供。
+
+若所有列入的接触均按给定恢复关系闭合，可联立$g_a^+=-e_ag_a^-$求冲量；求得负$J_a$表明该组接触假设不成立。将这一接触撤去后，应核对其碰后间隙速度是否非负。多个同时接触的恢复关系还要与能量及具体接触模型相容，逐对套用二体弹性碰撞公式并任意规定顺序，通常不能确定同一次多点碰撞。
+
+\subsubsection{能量约束与可达运动}
+以各接触向量$\vct c_a$为列组成矩阵$C$，则$\vct g^-=C^{\mathsf T}\dot{\vct q}^-$、$W=C^{\mathsf T}M^{-1}C$。碰撞期间构形不变，质量矩阵$M$也不变。给定冲量向量$\vct J$后，广义速度增量为$\Delta\dot{\vct q}=M^{-1}C\vct J$。将$\dot{\vct q}^+=\dot{\vct q}^-+\Delta\dot{\vct q}$代入动能，展开二次型：
+\begin{align*}
+ T^+-T^-&=(\dot{\vct q}^-)^{\mathsf T}M\Delta\dot{\vct q}
+ +\frac12\Delta\dot{\vct q}^{\mathsf T}M\Delta\dot{\vct q}\\
+ &=\vct J^{\mathsf T}C^{\mathsf T}\dot{\vct q}^-
+ +\frac12\vct J^{\mathsf T}C^{\mathsf T}M^{-1}C\vct J\\
+ &=\vct J^{\mathsf T}\vct g^-+\frac12\vct J^{\mathsf T}W\vct J.
+\end{align*}
+将联立求出的冲量代入此式，可直接计算动能变化。它还说明，$e=0$只使法向分离速度为零，永久黏合需要额外的连接条件；库仑摩擦则需要独立的切向冲量模型。
+
+对于例\ref{ex:hw5-6}和例\ref{ex:hw5-7}的速度空间问题，动量、能量守恒给出可能末态的代数边界。具体球面接触还要求碰撞法线、相对接近速度以及碰撞次序能够实现这些末态。因此，守恒关系允许的区域与指定几何下的实际可达集合应分别表述。自由碰撞中“相对速率不变”的结论适用于质心系；回到实验室系必须把同一个质心速度加回每个物体。
+
+\subsubsection{粗糙碰撞的切向冲量}\label{sup5:sec:d4-rough}
+对撞击固定水平面的轴对称圆盘，取切向接触速度为$g_t$。法向冲量由恢复系数给出；切向冲量则须同时考虑转动。单位切向冲量改变$g_t$的系数为$W_t=1/m+R^2/I_C$，故消除初始滑动所需冲量为$J_t^*=-g_t^-/W_t$。在法、切向运动解耦、滑动过程中摩擦方向不反转的库仑冲量模型下，若$|J_t^*|\le\mu J_n$，切向冲量取$J_t^*$；否则取$J_t=-\mu J_n\,\operatorname{sgn}g_t^-$。
+
+上述规则给出碰后瞬间的速度。若随后继续接触地面，还须重新求支持力和静摩擦，才能判断是否持续滚动。一般非圆刚体的法、切向速度变化可能耦合，不能直接套用圆盘的两条独立冲量公式。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[三球刚杆撞墙]\label{ex:hw5-2}
+
+三个质量均为$m$的小球$A,B,C$等距固定在长$2l$的轻杆上，$B$为中点。系统无初始转动，以速度$v_0$水平撞向光滑竖直墙，$C$首先碰墙，杆与墙法线夹角$45^\circ$。碰撞完全弹性，求碰后运动。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(B)at(1.2,1.2);\coordinate(C)at(2.4,2.4);\draw[curve](A)--(C);\foreach \p in {A,B,C}{\fill(\p)circle(2pt)node[left]{$\p$};}\draw[thick](2.4,-0.5)--(2.4,3);\fill[pattern=north east lines](2.4,-0.5)rectangle(2.52,3);\draw[axis](1.2,1.2)--(2.1,1.2)node[above]{$v_0$};
+\end{tikzpicture}
+\caption{三个等质量质点固定在轻杆上撞墙}\label{fig:hw5-2-q}
+\end{figure}
+
+\begin{solution}
+质心在$B$，$I_B=2ml^2$。图\ref{fig:hw5-2-s}中墙对$C$的冲量向左，记大小为$J$，逆时针为正，则
+\[
+ V_x'=v_0-\frac{J}{3m},\quad V_y'=0,\quad
+ \omega'=\frac{J\sin45^\circ}{2ml}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(B)at(1.2,1.2);\coordinate(C)at(2.4,2.4);\draw[curve](A)--(C);\foreach \p in {A,B,C}{\fill(\p)circle(2pt);}\node[left]at(A){$A$};\node[left]at(B){$B$};\node[right,xshift=4pt]at(C){$C$};\draw[thick](2.4,-0.5)--(2.4,3);\fill[pattern=north east lines](2.4,-0.5)rectangle(2.52,3);\draw[axis](2.4,2.4)--(1.4,2.4)node[above]{$J$};\node at(4,1){$I_B=2ml^2$};
+\draw[axis](0,0)--(.64,-.77)node[right]{$\vct v_A'$};
+\draw[axis](2.4,2.4)--(1.5,3.17)node[above left]{$\vct v_C'$};
+\end{tikzpicture}
+\caption{墙冲量改变角速度，两端球速度均须合成平动与转动}\label{fig:hw5-2-s}
+\end{figure}
+
+$C$点法向速度为$V_x'-\omega'l\sin45^\circ$，弹性条件要求它等于$-v_0$。所以$J[1/(3m)+1/(4m)]=2v_0$，得到
+\[
+ \boxed{J=\frac{24}{7}mv_0,\quad
+ \vct V_B'=-\frac17v_0\vct e_x,\quad
+ \omega'=\frac{6\sqrt2}{7}\frac{v_0}{l}}.
+\]
+按$\vct v_i'=\vct V_B'+\omega'\vct e_z\times\vct r_{Bi}$合成三个球的速度，取向右、向上为坐标正向，结果如下，与图\ref{fig:hw5-2-s}的箭头方向一致：
+\[
+ \begin{array}{c|cc}
+ &v_x'/v_0&v_y'/v_0\\\hline
+ A&5/7&-6/7\\ B&-1/7&0\\ C&-1&6/7
+ \end{array}
+\]
+质心$B$以$v_0/7$向左反弹，接触球$C$的水平分量反向，竖直分量则由转动产生，其速率为$\sqrt{85}v_0/7$。完全弹性条件只要求法向分量反向，切向分量须由刚体运动求出。
+
+三球的水平总动量为$-3mv_0/7$，比碰前$3mv_0$减少$24mv_0/7$，等于向左的墙冲量；竖直总动量仍为零。关于碰撞瞬间的$B$点，墙冲量的力臂为$l/\sqrt2$，所以角冲量为$Jl/\sqrt2=I_B\omega'$。碰后平动动能为$3mv_0^2/98$，转动动能为$72mv_0^2/49$，二者之和为$3mv_0^2/2$，与碰前相同。系统的大部分动能进入了绕质心的转动。
+
+\end{solution}
+
+
+
+\begin{example}[同一构形的刚接与铰接碰撞]\label{ex:hw5-3}
+
+三个质量$m$的小球由两根长$l$的轻杆$AB,BC$连接，$BC$水平，$BA$相对向左水平线向下倾斜$45^\circ$。系统以$v_0$向右平移，$C$与光滑竖直墙完全弹性碰撞。(1)两杆在$B$刚接；(2)两杆在$B$铰接。分别求碰后$C$的速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-1.2,-1.2);\coordinate(B)at(0,0);\coordinate(C)at(1.7,0);\draw[curve](A)--(B)--(C);\foreach \p in {A,B,C}{\fill(\p)circle(2pt)node[above left]{$\p$};}\draw[thick](1.7,-1.8)--(1.7,1);\fill[pattern=north east lines](1.7,-1.8)rectangle(1.8199999999999998,1);\draw[axis](-1.3,.7)--(-.3,.7)node[above]{$v_0$};\node at(-.6,-.2){$45^\circ$};
+\end{tikzpicture}
+\caption{相同几何构形可采用刚接或铰接}\label{fig:hw5-3-q}
+\end{figure}
+
+\begin{solution}
+取$x$向右、$y$向上，图\ref{fig:hw5-3-s}中的墙冲量为$-J\vct e_x$，其中$J>0$。墙光滑且恢复系数为$1$，两种连接方式都满足$v_{Cx}'=-v_0$；竖直速度须由各自内部约束确定。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-1.2,-1.2);\coordinate(B)at(0,0);\coordinate(C)at(1.7,0);\draw[curve](A)--(B)--(C);\foreach \p in {A,B,C}{\fill(\p)circle(2pt)node[above left]{$\p$};}\draw[thick](1.7,-1.8)--(1.7,1);\fill[pattern=north east lines](1.7,-1.8)rectangle(1.8199999999999998,1);\draw[axis](-1.3,.7)--(-.3,.7)node[above]{$v_0$};\node at(-.6,-.2){$45^\circ$};\draw[axis](1.7,0)--(.8,0)node[above]{$J$};\draw[axis](3.8,.4)--(3.1,.85);\node[right]at(3.8,.4){刚接：$\vct v_C'$};
+\draw[axis](3.8,-.8)--(3.1,-.8);\node[right]at(3.8,-.8){铰接：$\vct v_C'$};
+\end{tikzpicture}
+\caption{两种连接方式对碰后速度的约束不同}\label{fig:hw5-3-s}
+\end{figure}
+刚接时，取$B=(0,0)$、$C=(l,0)$、$A=(-l/\sqrt2,-l/\sqrt2)$。质心坐标及转动惯量为
+\[
+ G=\left(\frac{l-l/\sqrt2}{3},-\frac{l}{3\sqrt2}\right),\qquad
+ I_G=\frac m3(AB^2+BC^2+CA^2)
+ =\frac{ml^2}{3}(4+\sqrt2).
+\]
+其中$CA^2=(2+\sqrt2)l^2$。设$C$相对$G$的位置为$(d_x,d_y)$，则
+$d_x=l(2+1/\sqrt2)/3$、$d_y=l/(3\sqrt2)$。
+质心动量和绕质心的角动量方程分别给出
+\[
+ \vct v_G'=\left(v_0-\frac{J}{3m},0\right),\qquad
+ I_G\omega'=Jd_y.
+\]
+将$\vct v_C'=\vct v_G'+\omega'\vct k\times(d_x,d_y)$分解，
+\[
+ v_{Cx}'=v_0-J\left(\frac1{3m}+\frac{d_y^2}{I_G}\right)
+ =v_0-JW,\qquad
+ v_{Cy}'=\frac{Jd_xd_y}{I_G},
+\]
+\[
+ W=\frac1{3m}+\frac1{6m(4+\sqrt2)}
+ =\frac{9+2\sqrt2}{6m(4+\sqrt2)}.
+\]
+由$v_{Cx}'=-v_0$得$J=2v_0/W$，代入竖直分量，得到
+\[
+ \boxed{\vct v_C'=
+ \left(-v_0,\frac{2+4\sqrt2}{9+2\sqrt2}v_0\right)}
+ \qquad\text{（刚接）}.
+\]
+竖直分量来自整体转动，并非墙提供了竖直冲量。
+
+铰接时，轻杆只能沿杆方向传递冲量。令$AB$对$A$的冲量为
+$p(1,1)/\sqrt2$，$BC$对$B$的冲量为$q\vct e_x$；
+$p,q$允许为负。三个球的分量动量方程为
+\[
+ \begin{aligned}
+ m(v_{Ax}'-v_0)&=p/\sqrt2,&mv_{Ay}'&=p/\sqrt2,\\
+ m(v_{Bx}'-v_0)&=-p/\sqrt2+q,&mv_{By}'&=-p/\sqrt2,\\
+ m(v_{Cx}'-v_0)&=-q-J,&mv_{Cy}'&=0.
+ \end{aligned}
+\]
+图中的$BC$水平，所以其长度约束给$v_{Bx}'=v_{Cx}'=-v_0$。
+杆$AB$的长度约束为
+$(v_{Bx}'-v_{Ax}')+(v_{By}'-v_{Ay}')=0$。
+将上列速度分量代入，后者给出$q=2\sqrt2p$，而$B$的水平动量方程化为
+\[
+ -2mv_0=-p/\sqrt2+q=3p/\sqrt2.
+\]
+因此$p=-2\sqrt2mv_0/3$、$q=-8mv_0/3$。再代入$C$的水平动量方程求$J$，得
+\[
+ \begin{gathered}
+ \vct v_A'=v_0(1/3,-2/3),\qquad
+ \vct v_B'=v_0(-1,2/3),\\
+ J=\frac{14}{3}mv_0,\qquad
+ \boxed{\vct v_C'=(-v_0,0)}\quad\text{（铰接）}.
+ \end{gathered}
+\]
+这些速度给出
+$T'=\tfrac12mv_0^2(5/9+13/9+1)=3mv_0^2/2=T$，
+与完全弹性碰撞一致。$B$处刚接能够传递冲量矩，铰接只保持两杆长度，因而两种模型的接触点切向速度不同。
+\end{solution}
+
+
+
+\begin{example}[两杆下落时端球与墙碰撞]\label{ex:hw5-4}
+
+三球$A,B,C$分别为$2m,m,m$，两根长$l$的轻杆铰接成$A$、$C$接触光滑地面、$B$在上方的构形。初始两杆近乎竖直，因微小扰动分别向两侧展开。右墙距初始底端位置$a=5\sqrt2l/8$，$C$与墙完全弹性碰撞。证明$C$碰撞前后的速率相等。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1,0)--(4.3,0);\coordinate(A)at(0,0);\coordinate(B)at(1.3,1.3);\coordinate(C)at(2.6,0);\draw[curve](A)--(B)--(C);\fill(A)circle(2pt)node[below]{$A,2m$};\fill(B)circle(2pt)node[above]{$B,m$};\fill(C)circle(2pt)node[below]{$C,m$};\draw[thick](2.6,0)--(2.6,2.2);\fill[pattern=north east lines](2.6,0)rectangle(2.72,2.2);
+\end{tikzpicture}
+\caption{两杆展开到正交位置时端球碰墙}\label{fig:hw5-4-q}
+\end{figure}
+
+\begin{solution}
+碰墙前系统水平质心不动。两杆等长，$B$的水平坐标是$A,C$坐标的平均值，故$5x_A+3x_C=0$。当$x_C=a$时，$AC=8a/5=\sqrt2l$，两杆在$B$处夹角为$90^\circ$，如图\ref{fig:hw5-4-s}。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}
+\draw[thick](-.4,0)--(3,0);\draw[thick](2.6,0)--(2.6,2.1);
+\draw[curve](0,0)--(1.3,1.3)--(2.6,0);
+\fill(0,0)circle(2pt)node[below]{$A$};\fill(1.3,1.3)circle(2pt)node[above right]{$B$};\fill(2.6,0)circle(2pt)node[below]{$C$};
+\draw(1.15,1.15)--(1.3,1)--(1.45,1.15);
+\draw[axis](1.3,1.3)--(.75,1.85)node[left]{$Q$};\node at(.4,-.65){$P=0$};
+\end{scope}
+\begin{scope}[shift={(5.8,.7)}]
+\fill(0,0)circle(2pt)node[above right]{$C$};
+\draw[axis](0,0)--(-1.2,0)node[left]{$J_w=3mu$};
+\draw[axis](0,0)--(0,1.15)node[above]{$J_g=mu$};
+\draw[axis](0,0)--(.8,-.8)node[right]{$\vct J_{BC\to C}$};
+\node at(.1,-1.3){$\vct J_{BC\to C}=(mu,-mu)$};
+\end{scope}
+\end{tikzpicture}
+\caption{杆的正交关系给出零冲量，墙与地面的冲量均指向允许方向}\label{fig:hw5-4-s}
+\end{figure}
+
+设碰前$v_C=u>0$。由上述水平关系与杆长约束，
+\[
+ v_A=-3u/5,\qquad (v_{Bx},v_{By})=(u/5,-4u/5).
+\]
+先假设两个底端碰后仍接地，并在求解后检查地面冲量。令$\vct e_{AB}=(1,1)/\sqrt2$，$AB$对$A$的内冲量为$P\vct e_{AB}$；令$BC$对$B$的内冲量为$Q(-1,1)/\sqrt2$。由于两杆正交，$BC$的冲量在$AB$方向投影为零。$A$只能水平运动，因此
+\[
+ \Delta\vct v_A\cdot\vct e_{AB}=\frac P{4m},\qquad
+ \Delta\vct v_B\cdot\vct e_{AB}=-\frac Pm.
+\]
+两端相对速度沿杆的分量必须相等，故$P=0$，$v_A$不变。若$v_C'=w$，则
+\[
+ v_{Bx}'=\tfrac12(w-3u/5),\quad
+ v_{By}'=-\tfrac12(w+3u/5).
+\]
+代入完全弹性条件，消去$A$不变的动能：
+\[
+ u^2+\frac{17}{25}u^2
+ =w^2+\frac12w^2+\frac{9}{50}u^2.
+\]
+由此$w^2=u^2$。碰后$C$离开右墙，故$\boxed{w=-u}$，速率不变。碰后$\vct v_B'=u(-4/5,1/5)$，故$Q=\sqrt2mu$。$BC$对$C$的冲量为$(mu,-mu)$；地面给$C$的竖直冲量为$mu$，墙给$C$的向左冲量为$3mu$，均满足单侧接触方向。因此碰后$C$保持接地的假设成立，所求速率确为$u$。
+
+给定墙距使$AB$的冲量恰好为零。若改变墙距，须重新求两杆内冲量并判断$C$是否离地；只要碰后仍保持地面接触，墙的弹性条件仍使其水平速度反向。可能改变速率的是脱离地面后出现的竖直分量，不能把特殊墙距解释为法向弹性关系成立的条件。
+
+
+\end{solution}
+
+
+
+\begin{example}[直角轻绳系统中的黏合]\label{ex:hw5-5}
+
+三个球$A,B,C$用绷直、不可伸长轻绳$AB,BC$连接，$AB\perp BC$，系统在光滑水平面上静止。第四球$D$沿该直角的角平分线以$v_0$撞向$B$并完全黏合，之后两绳仍绷紧。质量比$m_A:m_B:m_C:m_D=1:1:2:1$。求黏合体速度及损失动能占$D$初动能的比例。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(B)at(0,0);\coordinate(A)at(-2,0);\coordinate(C)at(0,-2);\draw[curve](A)--(B)--(C);\fill(A)circle(2pt)node[above left]{$A,m$};\fill(B)circle(2pt)node[above right]{$B,m$};\fill(C)circle(2pt)node[below]{$C,2m$};\fill(-1.5,-1.5)circle(2pt)node[left]{$D,m$};\draw[axis](-1.5,-1.5)--(-.45,-.45)node[midway,above left]{$v_0$};
+\end{tikzpicture}
+\caption{第四球沿角平分线撞向直角绳结}\label{fig:hw5-5-q}
+\end{figure}
+
+\begin{solution}
+取图\ref{fig:hw5-5-s}中$x$沿$AB$向右、$y$向上，$D$初速度为$(v_0/\sqrt2,v_0/\sqrt2)$。绳约束要求$v_{Ax}=V_x$、$v_{Cy}=V_y$；$A$没有竖直冲量，$C$没有水平冲量，所以$v_{Ay}=v_{Cx}=0$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(0,0)--(0,-2);\fill(-2,0)circle(2pt)node[above]{$A,m$};\fill(0,0)circle(2pt)node[above left]{$BD,2m$};\fill(0,-2)circle(2pt)node[below]{$C,2m$};\draw[axis](0,0)--(1.1,0)node[below]{$V_x$};\draw[axis](0,0)--(0,1)node[right]{$V_y$};\node at(2,-.8){$m_A+m_{BD}=3m$};\node at(2,-1.5){$m_C+m_{BD}=4m$};
+\end{tikzpicture}
+\caption{黏合体与另两球共同分配两个方向的动量}\label{fig:hw5-5-s}
+\end{figure}
+
+黏合后的$BD$质量为$2m$。分别写全系统的水平与竖直动量：
+\[
+ 3mV_x=\frac{mv_0}{\sqrt2},\quad
+ 4mV_y=\frac{mv_0}{\sqrt2}.
+\]
+因此
+\[
+ \boxed{\vct V_{BD}=v_0(\sqrt2/6,\sqrt2/8)}.
+\]
+碰后总动能为$T'=\tfrac12[3mV_x^2+4mV_y^2]=7mv_0^2/48$，而$D$初动能为$T_0=mv_0^2/2$，故
+\[
+ \boxed{\frac{T_0-T'}{T_0}=\frac{17}{24}}.
+\]
+绳$AB$传递的拉冲量为$mV_x=mv_0/(3\sqrt2)>0$，绳$BC$传递的拉冲量为$2mV_y=mv_0/(2\sqrt2)>0$。两根绳都只受拉，与题设碰后仍绷紧的条件相容。
+
+绳传递的冲量使$A,C$也获得动能。计算损失时须计入这两个球的末态动能，单独对$B,D$套用两球黏合公式会漏掉这部分能量。
+
+
+设两绳拉冲量分别为$J_1,J_2$。对图\ref{fig:hw5-5-s}中的$A,C$分别列冲量方程：$J_1=mV_x$、$J_2=2mV_y$；对黏合体列式则为
+\[
+ 2mV_x=\frac{mv_0}{\sqrt2}-J_1,\qquad
+ 2mV_y=\frac{mv_0}{\sqrt2}-J_2.
+\]
+消去$J_1,J_2$便分别出现惯性系数$3m$和$4m$。碰后各部分动能为
+\[
+ T_A=\frac{mv_0^2}{36},\qquad
+ T_C=\frac{mv_0^2}{32},\qquad
+ T_{BD}=\frac{25mv_0^2}{288},
+\]
+相加仍得$7mv_0^2/48$。两个方向的等效质量不同，原因是水平冲量要带动$A$，竖直冲量则要带动质量为$2m$的$C$；它们都不是整个系统的共同平动。
+
+\end{solution}
+
+
+
+\begin{example}[小球与可动斜面的碰撞]\label{sup5:problem-example-4}
+质量为 $M$ 的斜面放在光滑水平地面上，斜面角为 $\theta$，向右升高。质量为 $m$ 的小球以竖直向下的速度 $u$ 撞击光滑斜面，斜面原来静止，法向恢复系数为 $e$。求碰后小球速度与斜面速度。碰撞期间斜面只做水平平动。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(4,0)--(4,2.5)--cycle;
+\draw[guide](-.5,-.1)--(5,-.1);\node at(3,.6){$M$};
+\draw[curve](1.8834,1.4366)circle(.22);\node[left]at(1.55,1.4366){$m$};
+\draw[axis](1.8834,3.1)--(1.8834,1.85)node[midway,right]{$u$};
+\draw(1,0)arc(0:32:1);\node at(1.25,.32){$\theta$};
+\draw[axis](3.4,2.125)--(2.87,2.973)node[above left]{$\vct n$};
+\end{tikzpicture}
+\caption{斜面向右升高，指向小球的法线为 $(-\sin\theta,\cos\theta)$。}\label{sup5:fig:d4-e4-q}
+\end{figure}
+\begin{solution}
+取图\ref{sup5:fig:d4-e4-q}中的法线 $\vct n=(-\sin\theta,\cos\theta)$，它从斜面指向小球。设小球受冲量 $J\vct n$，斜面碰后水平速度为 $V$。小球的两分量满足
+\begin{equation}
+ v_x=-\frac{J\sin\theta}{m},\qquad
+ v_y=-u+\frac{J\cos\theta}{m}.
+\end{equation}
+斜面受到相反冲量，水平动量方程为
+\begin{equation}
+ MV=J\sin\theta.
+\end{equation}
+图\ref{sup5:fig:d4-e4-s}中，地面竖直支持冲量为 $J\cos\theta$，抵消小球向斜面传递的向下冲量。斜面的竖直速度因此不变，两物体系统的竖直动量则随外冲量改变。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(0,1.2)circle(2pt);\node[left]at(-.15,1.2){小球};
+\draw[axis](0,1.2)--(-.8,2.5)node[above]{$J\vct n$};
+\draw[curve](2.7,0)rectangle(4.6,.9);\node at(3.65,.45){斜面};
+\draw[axis](3.65,.9)--(4.45,-.4)node[right]{$-J\vct n$};
+\draw[axis](3.3,-1)--(3.3,.05)node[midway,left]{$J\cos\theta$};
+\draw[axis](4.9,.45)--(6.1,.45)node[midway,above]{$V$};
+\end{tikzpicture}
+\caption{分别画出小球与斜面的冲量；地面支持冲量是外冲量。}\label{sup5:fig:d4-e4-s}
+\end{figure}
+恢复关系使用小球相对于斜面的法向速度。碰前该速度为 $-u\cos\theta$，碰后为
+\begin{align}
+ (\vct v-V\vct e_x)\cdot\vct n
+ &=-u\cos\theta+J\left(\frac1m+\frac{\sin^2\theta}{M}\right)\\
+ &=eu\cos\theta.
+\end{align}
+故
+\begin{equation}
+ J=\frac{(1+e)mM u\cos\theta}{M+m\sin^2\theta},\qquad
+ V=\frac{(1+e)m u\sin\theta\cos\theta}{M+m\sin^2\theta}.
+\end{equation}
+把$J$分别代回小球的两个分量式，得到
+\[
+v_x=-\frac{(1+e)M u\sin\theta\cos\theta}{M+m\sin^2\theta},
+\]
+\[
+\begin{aligned}
+v_y&=-u+\frac{(1+e)M u\cos^2\theta}{M+m\sin^2\theta}\\
+&=u\,\frac{eM\cos^2\theta-(M+m)\sin^2\theta}{M+m\sin^2\theta}.
+\end{aligned}
+\]
+在$M=m$、$\theta=45^\circ$、$e=1$时，
+\begin{equation}
+ v_x=-\frac23u,\quad v_y=-\frac13u,\quad V=\frac23u.
+\end{equation}
+小球在实验室中仍向下运动，但相对斜面的法向速度已经向外。不能以 $v_y<0$ 判定它仍在压入斜面。
+
+上述特例中，小球相对于斜面的速度为 $(-4u/3,-u/3)$。沿外法线投影，分离速度为
+\[
+\left(-\frac43u,-\frac13u\right)\cdot
+\left(-\frac1{\sqrt2},\frac1{\sqrt2}\right)=\frac u{\sqrt2}>0.
+\]
+图\ref{sup5:fig:d4-e4-q}中斜面同时向右移动，这个相对速度才决定小球是否离开斜面。竖直动量不能用于整体守恒，但水平动量 $mv_x+MV$ 仍为零。
+
+本题地面约束点竖直位移为零，支持冲量不做功；由有效质量可得
+\begin{equation}
+ Q=\frac{(1-e^2)u^2\cos^2\theta}{2(1/m+\sin^2\theta/M)}.
+\end{equation}
+在上述弹性特例中，末动能为 $\tfrac12m(5u^2/9)+\tfrac12m(4u^2/9)=mu^2/2$。$M\to\infty$ 时斜面趋于固定，冲量趋于 $(1+e)mu\cos\theta$。
+\end{solution}
+
+
+
+\begin{example}[滑动终止的冲量条件]\label{sup5:problem-example-9}
+均匀圆盘质量为 $m$、半径为 $R$，在竖直平面内运动。碰前质心速度为 $(u,-w)$，$u,w>0$，角速度为零。圆盘撞击固定水平粗糙平面，法向恢复系数为 $e$，摩擦因数为 $\mu$。采用本讲的库仑冲量模型，求碰后质心速度、角速度及能量损失。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,1)circle(1);\fill(0,1)circle(2pt);\node[left]at(-.15,1){C};
+\draw[curve](-2,0)--(4,0);\node[below]at(0,-.1){P};
+\draw[axis](0,1)--(1.4,1)node[right]{$u$};
+\draw[axis](0,1)--(0,.2)node[midway,right]{$w$};
+\draw[guide](0,1)--(-1,1)node[midway,above]{$R$};
+\node[right]at(2.1,2){$\omega^-=0$};
+\end{tikzpicture}
+\caption{碰前P点向右滑动，摩擦冲量向左。}\label{sup5:fig:d4-e9-q}
+\end{figure}
+\begin{solution}
+图\ref{sup5:fig:d4-e9-q}中取向右、向上和逆时针为正。法向冲量 $J_n$ 通过圆心，没有力矩，因此
+\begin{equation}
+ J_n=m(1+e)w,\qquad v_y=ew.
+\end{equation}
+设向左的摩擦冲量大小为 $P\ge0$。它同时减小质心水平速度并使圆盘顺时针转动：
+\begin{equation}
+ v_x=u-\frac Pm,\qquad
+ I\omega=-RP,\quad I=\frac12mR^2,\quad
+ \omega=-\frac{2P}{mR}.
+\end{equation}
+接触点P相对平面的切向速度为 $g_t=v_x+R\omega$，所以
+\begin{equation}
+ g_t=u-\frac{3P}{m}.
+\end{equation}
+令 $g_t=0$ 得停止滑动所需的冲量 $P_*=mu/3$。库仑摩擦能提供的冲量上限是 $\mu J_n$。按图\ref{sup5:fig:d4-e9-s}，两种分支可合写为
+\begin{equation}\label{sup5:eq:d4-friction}
+ P=\min\left\{\frac{mu}{3},\ \mu m(1+e)w\right\}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.4,0)node[right]{$P$};
+\draw[axis](0,-.2)--(0,2.7)node[above]{$g_t$};
+\draw[curve](0,2.2)--(3.5,0);\node[left]at(0,2.2){$u$};
+\draw[guide](2,0)--(2,.943);\node[below]at(2,-.1){$\mu J_n<P_*$};
+\fill(3.5,0)circle(2pt);\node[below]at(4.15,-.1){$P_*=mu/3$};
+\node[right]at(2.15,1.4){持续滑动};
+\end{tikzpicture}
+\caption{摩擦冲量随接触过程累积；到达 $P_*$ 后切向速度为零，不沿直线继续延长到负值。}\label{sup5:fig:d4-e9-s}
+\end{figure}
+若 $u>3\mu(1+e)w$，接触结束时仍向右滑动，应取 $P=\mu m(1+e)w$。若 $u\le3\mu(1+e)w$，滑动可在接触期间终止，应取 $P=mu/3$，得到 $v_x=2u/3$、$\omega=-2u/(3R)$。后一个分支仍可能有 $v_y>0$，圆盘随后会离开平面，并非沿平面持续滚动。
+
+切向损失还可沿累积摩擦冲量积分。令 $p$ 从零增加到最终的 $P$，图\ref{sup5:fig:d4-e9-s}中的切向滑动速度为 $u-3p/m$，因此
+\[
+Q_t=\int_0^P\left(u-\frac{3p}{m}\right)\dd p
+=\left[up-\frac{3p^2}{2m}\right]_0^P
+=uP-\frac{3P^2}{2m}.
+\]
+在滑动终止以前，被积函数非负；一旦到达 $P_*$ 就应停止增加摩擦冲量，而不让它沿图中直线继续越过零点。
+
+法向损失为 $m(1-e^2)w^2/2$。水平方向的平动与转动动能合计为
+\begin{equation}
+ \frac12m\left(u-\frac Pm\right)^2
+ +\frac12\frac{mR^2}{2}\left(\frac{2P}{mR}\right)^2
+ =\frac12mu^2-uP+\frac{3P^2}{2m}.
+\end{equation}
+因此总损失为
+\begin{equation}
+ Q=\frac12m(1-e^2)w^2+uP-\frac{3P^2}{2m}.
+\end{equation}
+在实际取值 $0\le P\le mu/3$ 内，切向损失非负。若不判断滑动是否已停止，直接令 $P=\mu J_n$，就可能算出不符合所用摩擦模型的反向滑动。
+\end{solution}
+
+
+
+\begin{example}[圆轨道小珠受到斜向碰撞]\label{deep5:problem-example-10}
+固定光滑圆轨道位于水平面内，质量为 $M$ 的小珠原来静止于轨道最右端P。质量为 $m$ 的光滑小球以速度 $u\vct n$ 撞击小珠，接触法线为
+\begin{equation*}
+ \vct n=\cos\beta\,\vct t+\sin\beta\,\vct e_r,
+ \qquad 0\le\beta\le\pi/2,
+\end{equation*}
+其中 $\vct t$ 在P点向上，$\vct e_r$ 沿径向向右。恢复系数为 $e$，忽略两物体的尺寸。求小球与小珠末速度及轨道冲量。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1.5);\fill(0,0)circle(1.3pt)(1.5,0)circle(2pt);
+\node[left]at(0,0){O};\node[below right]at(1.5,0){P};
+\draw[axis](1.5,0)--(1.5,1.4)node[above]{$\vct t$};
+\draw[axis](1.5,0)--(3,0)node[right]{$\vct e_r$};
+\draw[axis](.4,-1.1)--(1.3,-.2)node[midway,below left]{$u\vct n$};
+\draw[axis](1.5,0)--(2.5,1)node[right]{$\vct n$};
+\draw(1.5,.65)arc(90:45:.65);\node at(1.9,.82){$\beta$};
+\end{tikzpicture}
+\caption{小珠只能沿P点切线运动；接触法线与切线成 $\beta$ 角。}\label{deep5:fig:d4-e10-q}
+\end{figure}
+\begin{solution}
+小珠受球的冲量 $J\vct n$。图\ref{deep5:fig:d4-e10-q}中径向运动被轨道限制，切向分量则改变小珠速度。令小珠末速度为 $V\vct t$，轨道给小珠的冲量为 $K\vct e_r$，则
+\begin{equation}
+ MV=J\cos\beta,\qquad 0=J\sin\beta+K.
+\end{equation}
+小球所受冲量为 $-J\vct n$，其末速度仍沿 $\vct n$ 的直线：
+\begin{equation}
+ \vct v=\left(u-\frac Jm\right)\vct n.
+\end{equation}
+图\ref{deep5:fig:d4-e10-s}的径向冲量互相抵消，切向速度用于恢复关系，
+\begin{equation}
+ (V\vct t-\vct v)\cdot\vct n
+ =-u+J\left(\frac1m+\frac{\cos^2\beta}{M}\right)=eu.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(0,0)circle(2pt);\node[below]at(0,-.15){P};
+\draw[axis](0,0)--(1.6,1.6)node[above right]{$J\vct n$};
+\draw[guide](1.6,1.6)--(0,1.6);\draw[guide](1.6,1.6)--(1.6,0);
+\draw[axis](0,0)--(-1.6,0)node[above]{$K\vct e_r$};
+\draw[axis](0,0)--(0,1.6)node[above left]{$MV\vct t$};
+\node[right]at(2.1,.4){$K=-J\sin\beta$};
+\end{tikzpicture}
+\caption{小珠的冲量分解：径向分量由轨道抵消，合冲量沿切线。}\label{deep5:fig:d4-e10-s}
+\end{figure}
+由此得到
+\begin{align}
+ J&=\frac{(1+e)mM}{M+m\cos^2\beta}u,\\
+ V&=\frac{(1+e)m\cos\beta}{M+m\cos^2\beta}u,\\
+ \vct v&=\frac{m\cos^2\beta-eM}{M+m\cos^2\beta}u\vct n,\\
+ K&=-\frac{(1+e)mM\sin\beta}{M+m\cos^2\beta}u.
+\end{align}
+有效质量中的 $\cos^2\beta$ 来自两次投影：冲量 $J$ 的切向分量为 $J\cos\beta$，使小珠获得速度 $V=J\cos\beta/M$；恢复关系中再取该速度的法向分量 $V\cos\beta$。图\ref{deep5:fig:d4-e10-s}中的小珠受圆周约束，碰后速度只能沿切线。
+
+直接展开碰后动能，亦有
+\[
+T^+-T^-=-uJ+\frac{J^2}{2}
+\left(\frac1m+\frac{\cos^2\beta}{M}\right).
+\]
+记$W=1/m+\cos^2\beta/M$，代入$J=(1+e)u/W$，得
+\[
+T^+-T^-=-\frac{(1+e)u^2}{W}+\frac{(1+e)^2u^2}{2W}
+=-\frac{(1-e^2)u^2}{2W}.
+\]
+
+轨道冲量没有切向分量，所以小球与小珠的总切向动量守恒；总径向动量却因 $K$ 改变。固定光滑轨道不做功，损失为
+\begin{equation}
+ Q=\frac{(1-e^2)u^2}{2(1/m+\cos^2\beta/M)}.
+\end{equation}
+当 $\beta=0$ 时退化为两自由质点正碰；当 $\beta=\pi/2$ 时小珠不动，冲量完全传给轨道，小球末速度为 $-eu\vct n$。轨道对径向运动的限制已包含在有效质量中，碰撞结果随法线方向改变。
+\end{solution}
+
+
+
+\begin{example}[三个悬殊质量球的连续碰撞]\label{ex:hw5-8}
+
+三球质量满足$m_1\gg m_2\gg m_3$，从高度$h$一起由静止落下，半径与彼此间距相对$h$可忽略。碰撞按大球与地面、球1与球2、球2与球3的顺序完全弹性发生，之后不再发生球间碰撞。球在水平方向可有微小错位。求最后碰撞后瞬间球3速率的可能范围，采用质量比趋于无穷的极限。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1,0)--(2,0);\draw(0,1.1)circle(.55);\draw(.08,1.95)circle(.3);\draw(.15,2.43)circle(.18);\node[right]at(.6,1.1){$m_1$};\node[right]at(.5,1.95){$m_2$};\node[right]at(.5,2.43){$m_3$};\draw[<->](1.5,0)--(1.5,.55)node[midway,right]{$h$};
+\end{tikzpicture}
+\caption{允许微小水平错位的三个悬殊质量球}\label{fig:hw5-8-q}
+\end{figure}
+
+\begin{solution}
+落地前共同速率为$u=\sqrt{2gh}$。图\ref{fig:hw5-8-s}用向上单位矢量$\vct e$表示方向。球1反弹后速度为$u\vct e$，球2原速度为$-u\vct e$。在球1的共动系中，球2碰后速度大小为$2u$，所以
+\[
+ \vct v_2=u\vct e+2u\vct a,\qquad |\vct a|=1.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=.8]
+\draw[axis](-2.5,0)--(3.2,0)node[right]{$v_{2x}/u$};\draw[axis](0,-1.4)--(0,3.8)node[above]{$v_{2z}/u$};
+\draw[curve](0,1)circle(2);\fill(0,1)circle(1pt)node[left]{$1$};
+\fill(0,3)circle(1.5pt)node[right]{$3$};\fill(1.32287566,-.5)circle(1.5pt)node[right]{$s=-1/2$};
+\draw[axis](0,0)--(1.32287566,-.5);\node[below left]at(0,-1){$-1$};
+\end{scope}
+\begin{scope}[shift={(5.2,.1)}]
+\draw[axis](0,-.3)--(0,2.5)node[above]{$z$};\fill(0,0)circle(3pt)node[left]{$m_2$};\fill(0,1.3)circle(2pt)node[left]{$m_3$};
+\draw[axis](.4,0)--(1.3,0)node[right]{$v_{2x}$};\draw[axis](.4,1.3)--(.4,.5)node[right]{$-u$};
+\node[align=left]at(1.1,-1){第二次法线竖直\\$v_{3z}=(2s+1)u$};\end{scope}
+\end{tikzpicture}
+\caption{选择中球速度圆上的不同点，第二次碰撞连续给出零至七倍落速}\label{fig:hw5-8-s}
+\end{figure}
+
+第二次球间碰撞可把球2视为速度不变的重体。球3原速度仍为$-u\vct e$，在球2系中碰后相对速率为$|\vct v_2+u\vct e|$。因此
+\[
+ |\vct v_3|\le|\vct v_2|+|\vct v_2+u\vct e|\le3u+4u=7u.
+\]
+三球共线、碰撞法线竖直时，$v_2=3u$、$v_3=7u$，上界可取到。
+
+下界零也能达到：选择第一次碰后$v_{2z}=-u/2$、水平分量大小$\sqrt7u/2$，它满足上述速度圆；再使第二次碰撞法线竖直。球3的竖直速度从$-u$变为$2(-u/2)-(-u)=0$，水平速度仍为零。更明确地，选球2碰后竖直分量$su$，其中$-1/2\le s\le3$，并令水平分量为$u\sqrt{4-(s-1)^2}$。它始终位于图中的速度圆上。第二次碰撞取竖直法线，则球3碰后速度为$(2s+1)u\vct e$，恰好连续覆盖$0$到$7u$。在题设规定的碰撞次序及无后续球间碰撞的构形中，可由水平错位选择相应法线，故
+\[
+ \boxed{0\le|\vct v_3|\le7\sqrt{2gh}}.
+\]
+$7u$是共线碰撞的上界。水平错位使碰撞法线改变，末速率因而可以取整个区间中的值。有限质量比会修正该区间；这里已经采用质量逐级悬殊的极限。
+
+
+\end{solution}
+
+
+
+\begin{example}[弹道摆与整周运动]\label{deep5:problem-example-7}
+质量为 $M$ 的小摆球由长 $l$ 的轻绳悬挂，初始位于最低点。质量为 $m$ 的子弹以水平速度 $u$ 射入并留在摆球中，摆球及子弹的尺寸均忽略。求碰撞后共同速度、碰撞损失，以及轻绳始终绷紧完成整周运动所需的最小入射速度。若碰后速度平方小于 $2gl$，求最大摆角。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(1,2.5)circle(2pt);\node[above]at(1,2.5){O};
+\draw[curve](1,2.5)--(1,-.5);\draw[curve](1,-.5)circle(.27);\node[right]at(1.4,-.5){$M$};
+\node[right]at(1.1,1){$l$};
+\draw[curve](-1.7,-.5)circle(.11);\node[below]at(-1.7,-.7){$m$};
+\draw[axis](-1.4,-.5)--(.5,-.5)node[midway,above]{$u$};
+\end{tikzpicture}
+\caption{子弹在摆球最低点水平入射，轻绳沿竖直方向。}\label{deep5:fig:d4-e7-q}
+\end{figure}
+\begin{solution}
+碰撞期间轻绳可能提供竖直冲量，但没有水平冲量。图\ref{deep5:fig:d4-e7-q}的水平方向因此满足
+\begin{equation}
+ mu=(M+m)v_0,\qquad v_0=\frac m{M+m}u.
+\end{equation}
+碰撞阶段子弹嵌入摆球，不能用机械能守恒求 $v_0$。损失为
+\begin{equation}
+ Q=\frac12mu^2-\frac12(M+m)v_0^2
+ =\frac{mM}{2(M+m)}u^2.
+\end{equation}
+碰撞结束后，系统质量固定为 $M+m$，轻绳张力不做功。摆到与竖直向下方向成 $\theta$ 角时，图\ref{deep5:fig:d4-e7-s}给出升高量 $l(1-\cos\theta)$，故
+\begin{equation}\label{deep5:eq:d4-pendspeed}
+ v^2=v_0^2-2gl(1-\cos\theta).
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.83]
+\coordinate(O)at(0,0);\coordinate(B)at(0,-2);\coordinate(P)at(1.732,-1);\coordinate(T)at(0,2);
+\draw[guide](O)circle(2);\fill(O)circle(2pt)(B)circle(2pt)(P)circle(2pt)(T)circle(2pt);
+\draw[curve](B)--(O)--(P);\node[left]at(O){O};\node[below left]at(B){最低点};\node[right]at(P){P};\node[above]at(T){最高点};
+\draw(0,-.6)arc(-90:-30:.6);\node at(.4,-.7){$\theta$};
+\draw[axis](B)--(1.23,-2)node[midway,below]{$v_0$};
+\draw[axis](T)--(-.55,2)node[left]{$v_{\rm top}$};
+\draw[axis](P)--(2.282,-.047)node[right]{$v$};
+\draw[guide](P)--(3,-1);\draw[guide](B)--(3,-2);
+\draw[<->](2.8,-2)--(2.8,-1)node[midway,right]{$l(1-\cos\theta)$};
+\end{tikzpicture}
+\caption{摆动阶段的高度与速度，速度箭头按整周临界状态绘制。右侧切向速度向上，最高点速度向左。}\label{deep5:fig:d4-e7-s}
+\end{figure}
+若 $v_0^2<2gl$，摆球在下半圆内速度降为零，此时张力仍非负。由式\eqref{deep5:eq:d4-pendspeed}得到
+\begin{equation}
+ \theta_{\max}=\arccos\left(1-\frac{v_0^2}{2gl}\right).
+\end{equation}
+在这个转向点，速度为零，而图\ref{deep5:fig:d4-e7-s}的径向方程给出
+\[
+T_t=(M+m)g\cos\theta_{\max}
+=(M+m)g\left(1-\frac{v_0^2}{2gl}\right)>0.
+\]
+上升段中，$v^2$ 和 $\cos\theta$ 都递减。由 $T=(M+m)(v^2/l+g\cos\theta)$ 可知，张力在转向点最小；该处仍有 $T_t>0$，所以在到达转向点之前绳始终绷紧。条件 $v_0^2<2gl$ 限定了这一运动分支。
+
+整周运动还要求轻绳张力在全程非负。沿指向O的方向列式，
+\begin{equation}
+ T-(M+m)g\cos\theta=(M+m)\frac{v^2}{l}.
+\end{equation}
+在最高点 $\theta=\pi$，有 $T_{\rm top}+(M+m)g=(M+m)v_{\rm top}^2/l$，所以 $v_{\rm top}^2\ge gl$。最低点到最高点的能量关系为 $v_0^2=v_{\rm top}^2+4gl$，从而
+\begin{equation}
+ v_{0,\min}=\sqrt{5gl},\qquad
+ u_{\min}=\frac{M+m}{m}\sqrt{5gl}.
+\end{equation}
+把式\eqref{deep5:eq:d4-pendspeed}代回张力公式，$T=(M+m)(v_0^2/l-2g+3g\cos\theta)$，可知最高点确实是整周运动中张力最小的位置。若仅要求能量足够达到高度 $2l$，会漏掉最高点的绷紧条件。
+\end{solution}
+
+
+
+\begin{example}[上下两球落地后的速度放大]\label{deep5:problem-example-8}
+质量为 $M$ 的大球与质量为 $m$ 的小球上下排列，$M>3m$，小球在上。两球从静止同时下落，落地前速率均近似为 $u=\sqrt{2gh}$。大球先与地面弹性碰撞，随后立即与仍在下降的小球发生弹性正碰。求第二次碰撞后两球速度和小球上升高度。
+
+两球接触事件相互分离，但时间间隔远小于 $u/g$；球的半径及两事件间的高度变化相对 $h$ 均忽略。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,2.5)circle(.3)(0,1)circle(.55);\node[right]at(.65,1){$M$};\node[right]at(.4,2.5){$m$};
+\draw[axis](-1,2.8)--(-1,1.9)node[midway,left]{$-u$};
+\draw[axis](1.6,1.4)--(1.6,.5)node[midway,right]{$-u$};
+\draw[curve](-1.6,0)--(3,0);\fill[pattern=north east lines](-1.6,-.15)rectangle(3,0);
+\node[right]at(2,2.6){向上为正};
+\end{tikzpicture}
+\caption{两球先共同下落，大球先接触地面。}\label{deep5:fig:d4-e8-q}
+\end{figure}
+\begin{solution}
+图\ref{deep5:fig:d4-e8-q}中地面碰撞结束后，大球速度已变为 $+u$，小球尚未碰撞，速度仍为 $-u$。两球第二次碰撞的接近速度是 $2u$。图\ref{deep5:fig:d4-e8-s}将这两个阶段分别画出。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\foreach \x in {0,4}{\draw[curve](\x,2)circle(.25)(\x,.7)circle(.45);}
+\draw[axis](1,.5)--(1,1.1)node[right]{$+u$};
+\draw[axis](1,2.6)--(1,2)node[right]{$-u$};
+\draw[axis](5,2)--(5,3.5)node[right]{$v$};
+\draw[axis](5,.5)--(5,.8)node[right]{$V$};
+\node[below]at(0,0){地面碰撞后};\node[below]at(4,0){球间碰撞后};
+\draw[axis](1.7,1.6)--(2.7,1.6);
+\end{tikzpicture}
+\caption{球间碰撞前后的速度。末态按 $M=7m$ 示意，四个速度箭头采用同一比例。}\label{deep5:fig:d4-e8-s}
+\end{figure}
+第二次碰撞期间地面不再接触大球，两球竖直动量守恒：
+\begin{equation}
+ Mu-mu=MV+mv.
+\end{equation}
+恢复关系给 $v-V=2u$。代入动量方程得
+\begin{equation}
+ V=\frac{M-3m}{M+m}u,\qquad
+ v=\frac{3M-m}{M+m}u.
+\end{equation}
+在题设 $M>3m$ 下，两球碰后都向上运动，且小球更快。小球从第二次碰撞位置向上升高
+\begin{equation}
+ H=\frac{v^2}{2g}
+ =\left(\frac{3M-m}{M+m}\right)^2h.
+\end{equation}
+当 $M/m\to\infty$，有 $v\to3u$、$H\to9h$。有限质量比时高度小于 $9h$。能量并没有增加：大球的碰后动能相应减小，且
+\begin{equation}
+ MV^2+mv^2=(M+m)u^2.
+\end{equation}
+上述结果要求两次接触在时间上分开。若球间接触与地面接触持续重叠，应同时处理两处接触，不能再按两个独立的二体碰撞计算。
+小球上升高度增加所需的能量来自大球。第二次碰撞中，大球减少的动能与小球增加的动能分别为
+\[
+\frac12M(u^2-V^2)
+=\frac{4Mm(M-m)}{(M+m)^2}u^2,
+\]
+\[
+\frac12m(v^2-u^2)
+=\frac{4Mm(M-m)}{(M+m)^2}u^2.
+\]
+两式相等，说明第二次弹性碰撞中小球增加的动能全部来自大球。将图\ref{deep5:fig:d4-e8-s}中的 $M=7m$ 及相应速度代入，也可逐项得到这一结果。$M/m$ 很大时，大球的速度变化很小，但质量与速度变化量的乘积仍有限，因而传递的能量不趋于零。
+
+\end{solution}
+
+
+
+\section{习题与解答}
+
+\begin{exercise}[圆盘边缘的偏心黏合]\label{sup5:problem-exercise-7}
+质量为 $M$、半径为 $R$ 的均匀圆盘静止在光滑水平气垫台上。质量为 $m$ 的小颗粒以速度 $u$ 沿圆盘边缘切线运动，在P点与圆盘黏合。取圆盘原中心C为原点，P为 $(R,0)$，颗粒初速度沿 $+y$ 方向。求组合体的质心速度、角速度和碰撞损失。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1.5);\fill(0,0)circle(2pt)(1.5,0)circle(2pt);
+\draw[guide](0,0)--(1.5,0)node[midway,above]{$R$};\node[left]at(0,0){C};\node[right]at(1.6,0){P};
+\draw[curve](1.5,-2.3)circle(.1);\node[right]at(1.7,-2.3){$m$};
+\draw[axis](1.5,-2)--(1.5,-.4)node[midway,right]{$u$};
+\node[left]at(-1.6,.8){$M$};
+\end{tikzpicture}
+\caption{颗粒沿边缘切线入射，圆盘不受固定转轴约束。}\label{sup5:fig:d4-h7-q}
+\end{figure}
+\begin{solution}
+图\ref{sup5:fig:d4-h7-q}中的圆盘中心C并不是组合体的质心。设组合体质心为G，$CG=c$，则
+\begin{equation}
+ c=\frac{mR}{M+m},\qquad
+ \vct V_G=\frac{mu}{M+m}\vct e_y.
+\end{equation}
+先取关于G的角动量。碰前圆盘不动，颗粒对G的力臂为 $R-c$，故
+\begin{equation}
+ L_G^-=mu(R-c)=\frac{mM}{M+m}Ru.
+\end{equation}
+组合体关于G的转动惯量应同时计入圆盘中心偏离G的平行轴项和颗粒项：
+\begin{align}
+ I_G&=\frac12MR^2+Mc^2+m(R-c)^2\\
+ &=\frac12MR^2+\frac{mM}{M+m}R^2
+ =\frac{MR^2(M+3m)}{2(M+m)}.
+\end{align}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1.5);\fill(0,0)circle(1.5pt)(.6,0)circle(2pt)(1.5,0)circle(2pt);
+\node[below]at(0,-.1){C};\node[below right]at(.7,-.1){G};\node[right]at(1.6,0){P};
+\draw[<->](0,-.8)--(.6,-.8)node[midway,below]{$c$};
+\draw[guide](.6,0)--(.6,-1.8)(1.5,0)--(1.5,-1.8);
+\draw[<->](.6,-1.8)--(1.5,-1.8)node[midway,below]{$R-c$};
+\draw[axis](.6,0)--(.6,1.4)node[above]{$V_G$};
+\draw[axis](-.1524,2.0673)arc(110:220:2.2)node[below left]{$\omega$};
+\end{tikzpicture}
+\caption{关于组合体质心G分解平动和转动；图示 $m=2M/3$ 的位置比例。}\label{sup5:fig:d4-h7-s}
+\end{figure}
+由图\ref{sup5:fig:d4-h7-s}所示的质心平动与绕G转动分解，角动量守恒给
+\begin{equation}
+ \omega=\frac{L_G^-}{I_G}=\frac{2mu}{R(M+3m)},
+\end{equation}
+方向为逆时针。末动能为
+\begin{align}
+ T^+&=\frac12(M+m)V_G^2+\frac12I_G\omega^2\\
+ &=\frac{m^2u^2}{2(M+m)}
+ +\frac{Mm^2u^2}{(M+m)(M+3m)}
+ =\frac{3m^2u^2}{2(M+3m)}.
+\end{align}
+因此
+\begin{equation}
+ Q=\frac12mu^2-T^+=\frac{mM}{2(M+3m)}u^2.
+\end{equation}
+圆盘没有固定轴，黏合后的运动包含组合体平动和绕G转动。若只用圆盘关于C的转动惯量，会同时漏掉质心偏移和组合体平动。图中的G随组合体运动；本题外力矩为零，关于G的角动量仍守恒。
+图\ref{sup5:fig:d4-h7-s}中，圆盘原中心C也在运动。由刚体点速度关系，可求得碰后瞬间
+\[
+v_C=V_G-\omega c=\frac{mu}{M+3m},\qquad
+v_P=V_G+\omega(R-c)=\frac{3mu}{M+3m}.
+\]
+两者均沿原颗粒的入射方向。黏合颗粒与圆盘P点具有同一末速度，但这个速度既不等于 $V_G$，也不等于圆盘中心速度；因此用固定轴转动来代替组合体运动会改变动能与角动量的分配。
+
+\end{solution}
+
+
+\begin{exercise}[两球与固定墙的三次碰撞]\label{sup5:problem-exercise-10}
+一条光滑直线上有两个相同小球A、B，质量均为 $m$，右端是固定弹性墙。A、B的恢复系数为 $e$，$0<e\le1$。A以速度 $u$ 向右碰上原来静止的B，第一次碰撞位置取为 $x=0$，墙在 $x=\ell$。忽略小球尺寸，且各次接触相互分离。求此后各次碰撞的速度、第二次球间碰撞的时刻与位置，以及总损失。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(.3)(1.6,0)circle(.3);\node at(0,0){A};\node at(1.6,0){B};
+\draw[axis](.45,0)--(1.05,0)node[midway,above]{$u$};
+\draw[line width=2pt](4,-.8)--(4,1.2);\node[above]at(4,1.2){墙};
+\draw[axis](-.6,-1.25)--(4.7,-1.25)node[right]{$x$};
+\draw[guide](1.6,-.35)--(1.6,-1.25);
+\node[below]at(4,-1.3){$\ell$};\node[below]at(1.6,-1.3){$0$};
+\end{tikzpicture}
+\caption{碰前的位置关系。静止球B的初始位置取为 $x=0$，第一次接触结束时取 $t=0$。}\label{sup5:fig:d4-h10-q}
+\end{figure}
+\begin{solution}
+第一次球间碰撞的动量方程与恢复关系分别为 $u=a+b$、$b-a=eu$，故
+\begin{equation}
+ a=\frac{1-e}{2}u,\qquad b=\frac{1+e}{2}u.
+\end{equation}
+图\ref{sup5:fig:d4-h10-q}中B先到墙，时刻为 $t_w=\ell/b$。墙反射后B速度为 $-b$，A仍以速度 $a$ 向右运动。图\ref{sup5:fig:d4-h10-s}中的两条位置曲线在B返回段相交，满足
+\begin{equation}
+ x_A=at,\quad x_B=2\ell-bt,\quad
+ t_2=\frac{2\ell}{a+b}=\frac{2\ell}{u},\quad
+ x_2=(1-e)\ell.
+\end{equation}
+因 $t_2/t_w=1+e>1$，第二次球间碰撞发生在墙反射之后，位置不超过墙的位置。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[axis](0,0)--(5.4,0)node[right]{$ut/\ell$};\draw[axis](0,0)--(0,3)node[above]{$x/\ell$};
+\draw[guide](0,2.4)--(5,2.4)node[right]{$1$};
+\draw[curve](0,0)--(2.667,2.4)--(4,1.2)--(5,1.2);
+\draw[curve](0,0)--(4,1.2)--(5,.6);
+\node[below]at(1.9,.55){A};\node[above left]at(1.35,1.25){B};
+\fill(2.667,2.4)circle(2pt)(4,1.2)circle(2pt);
+\node[above left]at(2.667,2.4){撞墙};\node[above right]at(4,1.2){再次接触};
+\node[below]at(4,0){$2$};\node[left]at(0,1.2){$1-e$};
+\node[below]at(2.5,-.55){图按 $e=1/2$ 绘制};
+\end{tikzpicture}
+\caption{球A与球B的位置随时间变化，墙反射与再次球碰的时刻均由轨迹交点确定。}\label{sup5:fig:d4-h10-s}
+\end{figure}
+B碰墙时，A的位置为
+\[
+x_A(t_w)=\frac ab\ell=\frac{1-e}{1+e}\ell<\ell.
+\]
+所以图\ref{sup5:fig:d4-h10-s}中的A不会先赶到墙边。B反弹到再次碰球的间隔为
+\[
+t_2-t_w=\frac{2e\ell}{(1+e)u}>0.
+\]
+当 $e\to0^+$ 时，这一间隔趋于零。在 $e=0$ 处，球间接触与碰墙事件不能按题设的顺序分别处理，因此该解限于 $e>0$。
+
+第二次球间碰撞的初速度为 $a,-b$，两球接近速率仍为 $a+b=u$。应用等质量公式，
+\begin{align}
+ v_A&=\frac{1-e}{2}a-\frac{1+e}{2}b=-eu,\\
+ v_B&=\frac{1+e}{2}a-\frac{1-e}{2}b=0.
+\end{align}
+A向左离去，B静止，此后没有新的接触。接触总数为三次：球间碰撞、B撞墙、球间再碰。两次球间碰撞各损失 $m(1-e^2)u^2/4$，墙反射不损失能量，因此
+\begin{equation}
+ Q_{\rm total}=\frac12m(1-e^2)u^2.
+\end{equation}
+这与初动能减去末动能 $me^2u^2/2$ 一致。$e=0$ 时首次碰撞已无法保证两个独立接触事件，故题目排除了这个边界。
+\end{solution}
+
+
+\begin{exercise}[碰撞后的弹簧运动与再次接触]\label{deep5:problem-exercise-4}
+光滑水平面上，质量为 $3m$ 的滑块连接劲度系数 $k$ 的水平轻弹簧，弹簧另一端固定在右侧墙上。弹簧初始无形变，滑块静止。质量为 $m$ 的小球以速度 $u$ 从左撞上滑块，碰撞完全弹性，接触时间远小于弹簧振动周期。求最大压缩量，并判断小球是否会再次碰到滑块。忽略物体尺寸。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](1.6,0)rectangle(2.6,1);\node at(2.1,.5){$3m$};
+\draw[spring](2.6,.5)--(5,.5);\draw[line width=2pt](5,0)--(5,1.5);\node[above]at(3.7,.7){$k$};
+\draw[curve](-1,.5)circle(.5);\node[left]at(-1.6,.5){$m$};
+\draw[axis](-.35,.5)--(.8,.5)node[midway,above]{$u$};
+\draw[guide](-1.8,0)--(5,0);
+\end{tikzpicture}
+\caption{碰撞发生时弹簧无形变，短时弹簧冲量忽略。}\label{deep5:fig:d4-h4-q}
+\end{figure}
+\begin{solution}
+先处理图\ref{deep5:fig:d4-h4-q}中的碰撞。动量守恒与$e=1$分别给出$u=v+3V$、$V-v=u$。第二式给$v=V-u$，代入第一式得$4V=2u$，所以小球速度$v=-u/2$、滑块速度$V=u/2$。从碰撞结束计时，以原接触位置为$x=0$。小球不受水平力，其位置由恒速积分为$x_{\rm ball}=vt$。
+
+滑块满足$3m\ddot x+kx=0$。令$\omega=\sqrt{k/(3m)}$，特征根为$\pm\mathrm i\omega$，通解为$x=C\cos\omega t+D\sin\omega t$。初始$x(0)=0$给出$C=0$；求导后代入$\dot x(0)=u/2$，得$\omega D=u/2$。因此图\ref{deep5:fig:d4-h4-s}所示两位置函数为
+\begin{equation}
+ x_{\rm ball}=-\frac u2t,\qquad
+ x_{\rm block}=\frac{u}{2\omega}\sin\omega t,
+ \quad\omega=\sqrt{\frac{k}{3m}}.
+\end{equation}
+滑块在 $t=\pi/(2\omega)$ 首次达到最右点，弹簧最大压缩量为
+\begin{equation}
+ x_{\max}=\frac{u}{2\omega}=\frac u2\sqrt{\frac{3m}{k}}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=.85cm,y=.8cm]
+\draw[axis](0,0)--(7,0)node[right]{$\omega t$};\draw[axis](0,-3.4)--(0,1.7)node[above]{$2\omega x/u$};
+\draw[curve,domain=0:6.283,samples=90]plot(\x,{sin(\x r)});
+\draw[guide](0,0)--(3.1,-3.1)node[below right]{$-\omega t$};
+\node[above]at(2.4,.9){$\sin\omega t$};
+\node[below]at(3.142,0){$\pi$};\node[below]at(6.283,0){$2\pi$};
+\node[left]at(0,1){$1$};\node[left]at(0,-1){$-1$};
+\end{tikzpicture}
+\caption{同一位置尺度下，滑块的位置有界，小球持续向左远离。}\label{deep5:fig:d4-h4-s}
+\end{figure}
+滑块稍后会向左返回，仍须判断它能否追上小球。令两位置相等，置 $z=\omega t>0$，须有
+\begin{equation}
+ \sin z=-z.
+\end{equation}
+在 $0<z<\pi$ 内左边为正，右边为负；在 $z\ge\pi$ 内，$-z<-1\le\sin z$。两区间均无解，因此没有第二次碰撞。能量验算中应只把滑块碰后的动能用于弹簧压缩：$3mu^2/8=kx_{\max}^2/2$，小球携带的动能不参与后续振动。
+忽略碰撞期间弹簧冲量的条件也可量化。设接触时间为 $\delta t$，其间滑块速度量级为 $V$。由于碰前弹簧无形变，碰撞中弹簧力从零增至约 $kV\delta t$，故其冲量量级为
+\[
+J_k\sim\frac12kV(\delta t)^2,
+\qquad \frac{J_k}{3mV}\sim\frac12(\omega\delta t)^2\ll1.
+\]
+因此图\ref{deep5:fig:d4-h4-q}中的弹簧在短时碰撞方程中可略去，在图\ref{deep5:fig:d4-h4-s}的后续振动中却必须保留。
+
+\end{solution}
+
+
+\begin{exercise}[粗糙碰撞的滑动分支]\label{deep5:problem-exercise-9}
+均匀圆盘的参数与例\ref{sup5:problem-example-9}相同，碰前水平速度为 $u=3w$，竖直速度为 $-w$，角速度为零。取 $e=1/2$、$\mu=2/5$。求碰后速度、角速度、接触点切向速度及损失，并求本题恰好终止滑动所需的最小摩擦因数。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,1)circle(1);\fill(0,1)circle(2pt);\draw[curve](-1.8,0)--(4.5,0);
+\draw[axis](0,1)--(2.4,1)node[right]{$3w$};
+\draw[axis](0,1)--(0,.2)node[midway,right]{$w$};
+\node[right]at(2.6,2){$e=1/2,\ \mu=2/5$};\node[below]at(0,-.1){P};
+\end{tikzpicture}
+\caption{圆盘先向右滑动，摩擦冲量不足时，接触结束仍会保留右向滑动。}\label{deep5:fig:d4-h9-q}
+\end{figure}
+\begin{solution}
+由图\ref{deep5:fig:d4-h9-q}的法向速度，$J_n=m(1+e)w=3mw/2$。向左摩擦冲量的上限为
+\begin{equation}
+ \mu J_n=\frac35mw.
+\end{equation}
+终止滑动需要 $P_*=mu/3=mw$。摩擦冲量上限小于这个值，接触结束时仍在滑动，故取 $P=3mw/5$。
+\begin{equation}
+ v_x=3w-\frac35w=\frac{12}{5}w,\qquad
+ v_y=\frac12w,\qquad
+ \omega=-\frac{6w}{5R}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,1)circle(1);\draw[curve](-1.8,0)--(4.6,0);\fill(0,0)circle(2pt);
+\draw[axis](0,1)--(2.4,1)node[right]{$v_x=12w/5$};
+\draw[axis](0,1)--(0,1.5);
+\draw[guide](-1.55,1.5)--(0,1.5);\node[left]at(-1.55,1.5){$v_y=w/2$};
+\draw[axis](0,0)--(1.2,0)node[below right]{$g_t=6w/5$};
+\draw[axis](-1.2235,1.5705)arc(155:25:1.35);\node at(1.7,2.2){$\omega<0$};
+\end{tikzpicture}
+\caption{碰后质心向右上方运动，圆盘顺时针转动，接触点的切向相对速度仍向右。}\label{deep5:fig:d4-h9-s}
+\end{figure}
+在图\ref{deep5:fig:d4-h9-s}的P点，转动速度向左，故
+\begin{equation}
+ g_t=v_x+R\omega=\frac{12}{5}w-\frac65w=\frac65w>0.
+\end{equation}
+法向损失为 $3mw^2/8$，切向损失为
+\begin{equation}
+ uP-\frac{3P^2}{2m}
+ =\left(\frac95-\frac{27}{50}\right)mw^2
+ =\frac{63}{50}mw^2.
+\end{equation}
+总损失为 $Q=327mw^2/200$。恰好终止滑动要求 $\mu_*J_n=P_*$，所以
+\begin{equation}
+ \mu_* =\frac{u}{3(1+e)w}=\frac23.
+\end{equation}
+这一门槛来自接触点速度，并非来自质心水平速度降至零。即使达到门槛，质心仍有 $v_x=2w$。
+分别计算碰后的水平平动能、竖直平动能和转动能。由图\ref{deep5:fig:d4-h9-s}中的速度，得到
+\[
+K_x=\frac{72}{25}mw^2,\quad K_y=\frac18mw^2,
+\quad K_{\rm rot}=\frac9{25}mw^2.
+\]
+三项合为 $673mw^2/200$，初动能为 $5mw^2$，差值恰为 $327mw^2/200$。摩擦减小了水平平动能，同时增加了转动能，只有两者之和的减少才是切向耗散。
+
+\end{solution}
+
+
+\begin{exercise}[选做：轻绳松弛后的最高点]\label{deep5:problem-exercise-12}
+弹道摆的结构与例\ref{deep5:problem-example-7}相同。子弹嵌入后，组合体在最低点的速度满足 $v_0^2=3gl$。求轻绳首次松弛时的摆角、速率，以及松弛后的首次抛体飞行中最高点相对最低点的高度。松弛后忽略空气阻力。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](0,0)circle(1.8);\fill(0,0)circle(2pt)(0,-1.8)circle(2pt);\node[left]at(0,0){O};\node[below]at(0,-1.8){B};
+\draw[curve](0,0)--(0,-1.8);\draw[axis](0,-1.8)--(1.3,-1.8)node[right]{$\sqrt{3gl}$};
+\draw[axis](1.8,0)--(1.8,1)node[above]{$\vct e_y$};
+\node[right]at(2,0){最低点为高度零点};
+\end{tikzpicture}
+\caption{初速不足以保持整周绷紧，须先求张力降为零的位置。}\label{deep5:fig:d4-h12-q}
+\end{figure}
+\begin{solution}
+在图\ref{deep5:fig:d4-h12-q}中，令 $\theta$ 从竖直向下方向量起。只要绳仍绷紧，能量关系给
+\begin{equation}
+ v^2=3gl-2gl(1-\cos\theta)=gl(1+2\cos\theta).
+\end{equation}
+设组合体质量为 $\mathcal M=M+m$，向心方程给
+\begin{equation}
+ T=\mathcal M\left(\frac{v^2}{l}+g\cos\theta\right)
+ =\mathcal Mg(1+3\cos\theta).
+\end{equation}
+轻绳不能提供负张力，首次松弛时
+\begin{equation}
+ \cos\theta_s=-\frac13,\qquad
+ \theta_s=\arccos(-1/3),\qquad v_s=\sqrt{\frac{gl}{3}}.
+\end{equation}
+此点S已位于O的上方。图\ref{deep5:fig:d4-h12-s}把绷紧圆弧与松弛后的抛物线分开画出。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[scale=1.4]
+\draw[guide](0,0)circle(1);\fill(0,0)circle(1.3pt);\node[left]at(0,0){O};
+\draw[curve](0,-1)arc(-90:19.471:1);
+\draw[curve,domain=0:.544331,samples=50]plot({.942809-.192450*\x},{.333333+.544331*\x-.5*\x*\x});
+\fill(.942809,.333333)circle(1.5pt)(.838052,.481481)circle(1.5pt);
+\node[right]at(.99,.30){S};\node[above left]at(.838052,.53){A};
+\draw[guide](0,0)--(.942809,.333333);\node[below]at(0,-1){B};
+\draw[guide](0,-1)--(-1.5,-1);\draw[guide](.838052,.481481)--(-1.5,.481481);
+\draw[<->](-1.3,-1)--(-1.3,.481481)node[midway,left]{$40l/27$};
+\end{scope}
+\begin{scope}[shift={(6.5,-1.2)}]
+\draw[axis](0,0)--(-2.7,0)node[left]{$-\Delta x$};
+\draw[axis](0,0)--(0,3.1)node[above]{$\Delta y$};
+\draw[curve,domain=0:.544331,samples=70]plot({-18*.192450*\x},{18*(.544331*\x-.5*\x*\x)});
+\fill(0,0)circle(1.8pt)(-1.8856,2.6667)circle(1.8pt);
+\node[below right]at(0,0){S};\node[above left]at(-1.8856,2.6667){A};
+\draw[guide](-1.8856,2.6667)--(0,2.6667)node[right]{$4l/27$};
+\draw[axis](0,0)--(-.8,2.263);\node[right]at(-.8,2.263){$\vct v_s$};
+\node at(-1.3,4.1){S附近的轨迹放大};
+\end{scope}
+\end{tikzpicture}
+\caption{S处松绳后进入圆内的抛物线，A为首次抛体飞行的最高点；右图以S为局部坐标原点。}\label{deep5:fig:d4-h12-s}
+\end{figure}
+取最低点B为高度零点，松弛高度为 $y_s=l(1-\cos\theta_s)=4l/3$。在S点，沿运动方向的单位切向矢量为 $(\cos\theta_s,\sin\theta_s)$，故
+\begin{equation}
+ v_{sx}=-\frac13\sqrt{\frac{gl}{3}},\qquad
+ v_{sy}=\frac{2\sqrt2}{3}\sqrt{\frac{gl}{3}}.
+\end{equation}
+进入抛体运动后，额外上升量仅由竖直速度决定：
+\begin{equation}
+ \Delta y=\frac{v_{sy}^2}{2g}=\frac{4l}{27},\qquad
+ y_{\max}=\frac{4l}{3}+\frac{4l}{27}=\frac{40l}{27}.
+\end{equation}
+还须确认到达A前绳不会重新绷紧。以O为原点、$l$ 为长度单位、$\sqrt{l/g}$ 为时间单位，令 $s=t\sqrt{g/l}$，松弛后的轨迹为
+\begin{equation}
+ x=\frac{2\sqrt2}{3}-\frac{s}{3\sqrt3},\qquad
+ y=\frac13+\frac{2\sqrt2}{3\sqrt3}s-\frac{s^2}{2}.
+\end{equation}
+记初始无量纲位置为 $(x_0,y_0)$、速度为 $(p,q)$：
+\[
+(x_0,y_0)=(2\sqrt2/3,1/3),\qquad
+(p,q)=(-1/(3\sqrt3),2\sqrt2/(3\sqrt3)).
+\]
+将 $x=x_0+ps$、$y=y_0+qs-s^2/2$ 平方，先按 $s$ 的次数排列：
+\[
+x^2+y^2-1=(x_0^2+y_0^2-1)+2(x_0p+y_0q)s
++(p^2+q^2-y_0)s^2-qs^3+\frac{s^4}{4}.
+\]
+其中$x_0^2+y_0^2=1$、$x_0p+y_0q=0$、$p^2+q^2=y_0=1/3$，前三项均抵消，所以
+\begin{equation}
+ x^2+y^2-1=s^3\left(\frac s4-\frac{2\sqrt2}{3\sqrt3}\right).
+\end{equation}
+A点对应 $s_A=2\sqrt2/(3\sqrt3)$，在 $0<s\le s_A$ 内右端为负，质点到O的距离始终小于绳长。因此图中的抛物线到A为止满足松绳条件。
+图\ref{deep5:fig:d4-h12-s}中的最高点A还可求出完整坐标。松绳后达到A的时间为
+\[
+\Delta t_A=\frac{v_{sy}}g
+=\frac{2\sqrt2}{3\sqrt3}\sqrt{\frac lg}.
+\]
+取O为原点，代入水平匀速与竖直抛体方程得
+\[
+x_A=\frac{16\sqrt2}{27}l,\qquad y_A=\frac{13}{27}l.
+\]
+最低点B在 $y=-l$，所以A相对B高 $40l/27$。A处竖直速度为零，水平速度仍等于 $v_{sx}$；保留的水平动能相当于高度 $v_{sx}^2/(2g)=l/54$，故不能把初动能全部换成重力势能来求最高点。
+
+\end{solution}
+

@@ -1,0 +1,3182 @@
+\chapter{刚体运动进阶}
+
+
+
+\section{惯量张量、主轴与角动量}
+
+空间转动中，角动量一般不沿角速度方向。惯量张量由质量分布及取轴位置决定；只有满足相应主轴条件，才能使用沿轴的标量关系。
+
+
+
+\subsection{惯量张量与角动量}
+取$O$为刚体上的固定点，或取$O$为质心并使用相对质心的速度。以该点为原点定义
+\[
+ \mathsf I=\int[(\vct r\cdot\vct r)\mathsf1-\vct r\vct r^{\mathsf T}]\dd m,
+ \quad\vct L_O=\mathsf I\vct\omega,\quad T_{\text{转}}=\tfrac12\vct\omega\cdot\mathsf I\vct\omega.
+\]
+惯量张量的非对角元为$-\int xy\dd m$等。沿单位轴$\vct n$的转动惯量是$\vct n^{\mathsf T}\mathsf I\vct n$；角动量通常不与角速度平行。在主轴坐标系中，惯量张量为对角矩阵；平行轴定理的张量形式为$\mathsf I_O=\mathsf I_C+m(d^2\mathsf1-\vct d\vct d^{\mathsf T})$。
+
+随刚体转动的坐标系中，矢量导数要加运输项：$(\dd\vct L/\dd t)_{\text{地}}=(\dd\vct L/\dd t)_{\text{体}}+\vct\omega\times\vct L$。主轴下因此得到欧拉方程$I_1\dot\omega_1+(I_3-I_2)\omega_2\omega_3=M_1$及循环式。
+\subsubsection{圆锥的主惯量与进动取轴}
+\label{sec:dynamics-cone-inertia}
+均匀圆锥的密度为 $\rho=3m/(\pi r^2h)$。从尖点沿轴量 $z$，薄片半径为 $rz/h$，故质量元为 $\dd m=\rho\pi(rz/h)^2\dd z=3mz^2\dd z/h^3$。薄片绕轴的惯量是其质量乘半径平方的一半，绕直径的惯量则为四分之一；移到过锥尖的横轴还须加 $z^2\dd m$。因此
+\[
+ \ell=\frac1m\int_0^hz\dd m
+ =\frac3{h^3}[z^4/4]_0^h=\frac{3h}{4},
+\]
+\[
+ I_3=\int_0^h\frac12\left(\frac{rz}{h}\right)^2\dd m
+ =\frac{3mr^2}{2h^5}[z^5/5]_0^h=\frac{3mr^2}{10},
+\]
+\[
+ \begin{aligned}
+ I_{1,O}&=\int_0^h\left[z^2+\frac14\left(\frac{rz}{h}\right)^2\right]\dd m\\
+ &=\frac{3m}{h^3}\left(1+\frac{r^2}{4h^2}\right)[z^5/5]_0^h
+ =\frac{3mh^2}{5}+\frac{3mr^2}{20}.
+ \end{aligned}
+\]
+关于质心的横向主惯量还应减去$m\ell^2$。固定尖点的题目可绕尖点列角动量方程；悬挂尖点随进动移动的题目，改绕质心计算便可避开运动取矩点的附加项。
+
+\LectureNeedspace{8\baselineskip}
+
+
+\subsection{惯量张量的分量与主轴}
+\label{sec:complete6}
+以固定点或质心为原点，刚体质元的相对速度为$\vct\omega\times\vct r$。利用矢量三重积，角动量为
+\[
+ \vct L=\int\vct r\times(\vct\omega\times\vct r)\dd m
+ =\int[r^2\vct\omega-(\vct r\cdot\vct\omega)\vct r]\dd m.
+\]
+在直角坐标中，这一线性关系写成
+\[
+ \begin{pmatrix}L_x\\L_y\\L_z\end{pmatrix}
+ =\begin{pmatrix}
+ \int(y^2+z^2)\dd m&-\int xy\dd m&-\int xz\dd m\\
+ -\int xy\dd m&\int(z^2+x^2)\dd m&-\int yz\dd m\\
+ -\int xz\dd m&-\int yz\dd m&\int(x^2+y^2)\dd m
+ \end{pmatrix}
+ \begin{pmatrix}\omega_x\\\omega_y\\\omega_z\end{pmatrix}.
+\]
+有些记号把$\int xy\dd m$称为惯量积，矩阵的对应元还带负号；另一些记号将负号计入惯量积的定义。计算时应先声明采用哪一种。本讲以矩阵元本身为准。
+
+质量分布关于$xz$平面对称时，$y$为奇函数的积分为零，故$\int xy\dd m=\int yz\dd m=0$。对称面足够时，主轴方向可由对称性确定；其余情形须求惯量矩阵的本征矢量。主轴上的本征值是主惯量，而非对角元为零只是所选主轴坐标的性质。
+
+绕单位轴$\vct n=(n_1,n_2,n_3)$转动时，$\vct\omega=\omega\vct n$，因此
+\[
+ I_{\vct n}=\vct n^{\mathsf T}\mathsf I\vct n,
+ \quad T_{\rm rot}=\frac12I_{\vct n}\omega^2,
+ \quad \vct L\cdot\vct n=I_{\vct n}\omega.
+\]
+最后一式只给轴向角动量。若$\vct n$不是主轴，$\vct L$还含横向分量，不能直接写成$\vct L=I_{\vct n}\vct\omega$。例\ref{ex:hw6-1}至例\ref{ex:hw6-4}分别用对称性、方向余弦、平行轴移动和体积分展示这几种取轴方法。
+
+\subsubsection{常用惯量定理的范围}
+平行轴公式的中心轴必须通过质心，两轴须平行。薄片的垂直轴定理$I_z=I_x+I_y$则要求三轴交于同一点，且$x,y$在薄片平面内；对三维实体还包含$z^2$项，一般没有这一等式。均匀细杆关于中心横轴的惯量为$ml^2/12$，关于端点横轴为$ml^2/3$；均匀实心球关于直径为$2mR^2/5$。换用其他质量分布时，应重新作惯量积分。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[矩形薄片的各轴惯量]\label{ex:hw6-1}
+
+均匀矩形薄片质量$m$，两边长$a,b$，中心为$O$，$x,y$轴分别平行于$a,b$边，$z$轴垂直薄片。求三条中心主轴及两条中心对角线的转动惯量。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1)rectangle(2,1);\draw[axis](-2.6,0)--(2.7,0)node[right]{$x$};\draw[axis](0,-1.5)--(0,1.7)node[above]{$y$};\draw[guide](-2,-1)--(2,1);\node at(1,1.4){$a$};\node at(2.4,.6){$b$};
+\end{tikzpicture}
+\caption{矩形薄片的中心坐标轴与对角线}\label{fig:hw6-1-q}
+\end{figure}
+
+\begin{solution}
+由对称性三个惯量积均为零。图\ref{fig:hw6-1-s}中对$x$轴，质元距轴为$|y|$，故
+\[
+ I_x=\frac m{ab}\int_{-a/2}^{a/2}\dd x\int_{-b/2}^{b/2}y^2\dd y
+ =\frac m{ab}\bigl[x\bigr]_{-a/2}^{a/2}
+ \left[\frac{y^3}{3}\right]_{-b/2}^{b/2}
+ =\frac m{ab}\,a\,\frac{b^3}{12}=\frac{mb^2}{12}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1)rectangle(2,1);\draw[axis](-2.6,0)--(2.7,0)node[right]{$x$};\draw[axis](0,-1.5)--(0,1.7)node[above]{$y$};\draw[guide](-2,-1)--(2,1);\node at(1,1.4){$a$};\node at(2.4,.6){$b$};\draw[axis](0,0)--(2,1)node[above right]{$\vct n$};\node at(0,-2){$I_d=\vct n^{\mathsf T}\mathsf I\vct n$};
+\end{tikzpicture}
+\caption{对角线方向的惯量由主惯量投影求得}\label{fig:hw6-1-s}
+\end{figure}
+
+对$y$轴，把到轴距离改为$|x|$，积分为
+\[
+I_y=\frac m{ab}\left[\frac{x^3}{3}\right]_{-a/2}^{a/2}
+\bigl[y\bigr]_{-b/2}^{b/2}
+=\frac m{ab}\,\frac{a^3}{12}\,b=\frac{ma^2}{12}.
+\]
+对垂直薄片的$z$轴，距离平方为$x^2+y^2$，所以$I_z=I_x+I_y$。三条主轴的结果为
+\[
+ I_y=ma^2/12,\qquad I_z=m(a^2+b^2)/12.
+\]
+对角线单位向量为$\vct n=(a,\pm b,0)/\sqrt{a^2+b^2}$，所以
+\[
+ \boxed{I_d=\frac{a^2}{a^2+b^2}I_x+
+ \frac{b^2}{a^2+b^2}I_y=\frac{ma^2b^2}{6(a^2+b^2)}}.
+\]
+例如绕方向$\vct n=(a,b,0)/\sqrt{a^2+b^2}$以角速度大小$\omega$转动，有
+\[
+ \vct L=\frac{m\omega}{12\sqrt{a^2+b^2}}(ab^2,ba^2,0).
+\]
+除$a=b$外，这个矢量与$(a,b,0)$不平行。其沿轴投影仍等于$I_d\omega$，垂直分量则决定维持定轴转动所需的约束力矩。
+
+两对角线的惯量相同，但$a\ne b$时它们不是主轴。绕对角线转动时，$\vct L$可能有垂直于转轴的分量；$I_d\omega$只给出沿轴投影。
+
+
+也可直接按到对角线的距离积分。以正斜率对角线为例，面内的垂线单位向量为$(-b,a,0)/\sqrt{a^2+b^2}$，故质元到轴的有向距离为$(-bx+ay)/\sqrt{a^2+b^2}$，于是
+\[
+ I_d=\frac1{a^2+b^2}\int(b^2x^2-2abxy+a^2y^2)\dd m.
+\]
+关于$x$轴或$y$轴的镜面对称使$\int xy\dd m=0$；具体地，对固定$x$，$\int_{-b/2}^{b/2}y\dd y=[y^2/2]_{-b/2}^{b/2}=0$。再代入已求出的$\int x^2\dd m=ma^2/12$、$\int y^2\dd m=mb^2/12$，就还原上述结果。积分中的距离为面内到斜轴的垂距，与图\ref{fig:hw6-1-s}的轴线一致。
+
+\end{solution}
+
+
+
+\begin{example}[正方体的体对角线与面对角线]\label{ex:hw6-2}
+
+均匀正方体质量$m$、边长$l$。求绕一条体对角线和一条面对角线的转动惯量。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(B)at(2,0);\coordinate(C)at(2,2);\coordinate(D)at(0,2);\coordinate(E)at(.8,.65);\coordinate(F)at(2.8,.65);\coordinate(G)at(2.8,2.65);\coordinate(H)at(.8,2.65);\draw[curve](A)--(B)--(C)--(D)--cycle;\draw[curve](B)--(F)--(G)--(C);\draw[curve](D)--(H)--(G);\draw[guide](A)--(E)--(F);\draw[guide](E)--(H);
+\fill(1.4,1.325)circle(1.2pt)node[right]{$C$};
+\end{tikzpicture}
+\caption{边长相同的均匀正方体}\label{fig:hw6-2-q}
+\end{figure}
+
+\begin{solution}
+以正方体中心$C$为原点，三条棱平行的轴由镜面对称性构成主轴，三个主惯量因边长相等而相等。令均匀密度为$\rho=m/l^3$，先计算$x$轴惯量。内层积分为
+\[
+\int_{-l/2}^{l/2}(y^2+z^2)\dd z
+=\left[y^2z+\frac{z^3}{3}\right]_{-l/2}^{l/2}
+=ly^2+\frac{l^3}{12}.
+\]
+再对$y$积分，
+\[
+\int_{-l/2}^{l/2}\left(ly^2+\frac{l^3}{12}\right)\dd y
+=\left[\frac{ly^3}{3}+\frac{l^3y}{12}\right]_{-l/2}^{l/2}
+=\frac{l^4}{6}.
+\]
+最后对$x$积分，得到
+\[
+I_x=\rho\int_{-l/2}^{l/2}\frac{l^4}{6}\dd x
+=\rho\frac{l^4}{6}\bigl[x\bigr]_{-l/2}^{l/2}
+=\frac{ml^2}{6}=I_y=I_z.
+\]
+三个惯量积因被积函数对某一坐标为奇函数而为零，故惯量张量是$(ml^2/6)\vct 1$，过中心任意方向都有相同惯量。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,0)}]\coordinate(A)at(0,0);\coordinate(B)at(2,0);\coordinate(C)at(2,2);\coordinate(D)at(0,2);\coordinate(E)at(.8,.65);\coordinate(F)at(2.8,.65);\coordinate(G)at(2.8,2.65);\coordinate(H)at(.8,2.65);\draw[curve](A)--(B)--(C)--(D)--cycle;\draw[curve](B)--(F)--(G)--(C);\draw[curve](D)--(H)--(G);\draw[guide](A)--(E)--(F);\draw[guide](E)--(H);\draw[very thick](A)--(G);\node at(1.4,-.5){体对角线};\end{scope}\begin{scope}[shift={(4.2,0)}]\coordinate(A)at(0,0);\coordinate(B)at(2,0);\coordinate(C)at(2,2);\coordinate(D)at(0,2);\coordinate(E)at(.8,.65);\coordinate(F)at(2.8,.65);\coordinate(G)at(2.8,2.65);\coordinate(H)at(.8,2.65);\draw[curve](A)--(B)--(C)--(D)--cycle;\draw[curve](B)--(F)--(G)--(C);\draw[curve](D)--(H)--(G);\draw[guide](A)--(E)--(F);\draw[guide](E)--(H);\draw[very thick](B)--(D);\draw[guide](2.4,.325)--(.4,2.325);\draw[<->](1,1)--(1.4,1.325)node[midway,below right]{$l/2$};\node at(1.4,-.5){面对角线与中心平行轴};\end{scope}
+\fill(1.4,1.325)circle(1.2pt)node[right]{$C$};\fill(5.6,1.325)circle(1.2pt)node[right]{$C$};\fill(5.2,1)circle(1.2pt)node[below left,fill=white,inner sep=1pt]{$F$};
+\end{tikzpicture}
+\caption{体对角线通过中心，面对角线须使用平行轴定理}\label{fig:hw6-2-s}
+\end{figure}
+
+体对角线通过中心，故$\boxed{I_{\text{体}}=ml^2/6}$。面对角线与一条过中心平行线相距$l/2$，如图\ref{fig:hw6-2-s}，平行轴定理给出
+\[
+ \boxed{I_{\text{面}}=\frac{ml^2}{6}+m\left(\frac l2\right)^2
+ =\frac5{12}ml^2}.
+\]
+方向余弦给出过中心的平行轴惯量。面对角线不通过中心，计算其惯量时须加上平移项。
+
+
+任意单位方向$\vct n$都有$\vct n^{\mathsf T}\vct I_C\vct n=(ml^2/6)\vct n^{\mathsf T}\vct n=ml^2/6$；体对角线取$\vct n=(1,1,1)/\sqrt3$只是其中一个方向。
+
+对面对角线，设它所在面为$z=l/2$，轴为$y=x$。质心到该轴的垂足是这个面的中心$F=(0,0,l/2)$，因而$CF=l/2$。图\ref{fig:hw6-2-s}右图中的短距离线就是$CF$，不是正方形中心到某条对角线的面内距离。也可直接积分$(x-y)^2/2+(z-l/2)^2$，其中新增常量项积分为$ml^2/4$，与平行轴定理一致。
+
+\end{solution}
+
+
+
+\begin{example}[圆柱轴截面的一条对角线]\label{ex:hw6-3}
+
+均匀实心圆柱质量$m$、半径$R$、高度$H$。$AB$是包含圆柱轴线的矩形轴截面的一条对角线，求绕$AB$的转动惯量。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(.4 and 1);\draw(3,0)ellipse(.4 and 1);\draw[curve](0,1)--(3,1);\draw[curve](0,-1)--(3,-1);\draw[guide](-.5,0)--(3.5,0);\draw[very thick](0,1)--(3,-1);\node[above]at(0,1){$A$};\node[below]at(3,-1){$B$};\node at(1.5,1.4){$H$};
+\end{tikzpicture}
+\caption{圆柱轴截面内通过质心的对角线}\label{fig:hw6-3-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw6-3-s}中$AB$通过圆柱质心，与圆柱轴方向的余弦为$H/\sqrt{H^2+4R^2}$。先计算圆柱的两个中心主惯量。取轴向为$z$，横截面内用极坐标$s,\varphi$，则$\dd m=\rho s\dd s\dd\varphi\dd z$，其中$\rho=m/(\pi R^2H)$。轴向惯量为
+\[
+\begin{aligned}
+I_\parallel&=\rho\int_{-H/2}^{H/2}\dd z\int_0^{2\pi}\dd\varphi\int_0^Rs^3\dd s\\
+&=\rho\bigl[z\bigr]_{-H/2}^{H/2}\bigl[\varphi\bigr]_0^{2\pi}
+\left[\frac{s^4}{4}\right]_0^R
+=\rho H\cdot2\pi\cdot\frac{R^4}{4}=\frac12mR^2.
+\end{aligned}
+\]
+取横轴为$x$轴，到该轴的距离平方为$s^2\sin^2\varphi+z^2$。角向和径向积分中，
+\[
+\int_0^{2\pi}\sin^2\varphi\,\dd\varphi
+=\left[\frac\varphi2-\frac{\sin2\varphi}{4}\right]_0^{2\pi}=\pi,
+\qquad \int_0^Rs\dd s=\left[\frac{s^2}{2}\right]_0^R=\frac{R^2}{2}.
+\]
+结合已求出的$\int_0^Rs^3\dd s=R^4/4$，得到
+\[
+\begin{aligned}
+I_\perp&=\rho\int_{-H/2}^{H/2}\left(\frac{\pi R^4}{4}+\pi R^2z^2\right)\dd z\\
+&=\rho\pi\left[\frac{R^4z}{4}+\frac{R^2z^3}{3}\right]_{-H/2}^{H/2}
+=m\left(\frac{R^2}{4}+\frac{H^2}{12}\right).
+\end{aligned}
+\]
+因此两个主惯量为
+\[
+ I_\parallel=\frac12mR^2,\qquad
+ I_\perp=\frac{m}{12}(3R^2+H^2).
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(.4 and 1);\draw(3,0)ellipse(.4 and 1);\draw[curve](0,1)--(3,1);\draw[curve](0,-1)--(3,-1);\draw[guide](-.5,0)--(3.5,0);\draw[very thick](0,1)--(3,-1);\node[above]at(0,1){$A$};\node[below]at(3,-1){$B$};\node at(1.5,1.4){$H$};\draw[<->](3.7,-1)--(3.7,1)node[midway,right]{$2R$};\node at(1.5,-1.6){$\cos\gamma=H/\sqrt{H^2+4R^2}$};
+\end{tikzpicture}
+\caption{对角线方向由圆柱高度与直径共同确定}\label{fig:hw6-3-s}
+\end{figure}
+
+轴向与横向都是主方向，故没有交叉项：
+\begin{align*}
+ I_{AB}&=I_\parallel\frac{H^2}{H^2+4R^2}
+ +I_\perp\frac{4R^2}{H^2+4R^2}\\
+ &=\boxed{\frac{mR^2(R^2+5H^2/6)}{H^2+4R^2}}.
+\end{align*}
+
+当$H\to0$时，该轴趋于圆盘直径，结果为$mR^2/4$；在$R/H\to0$的细长极限中，结果趋于$5mR^2/6$。此时尽管轴与长轴夹角很小，横向惯量乘以小角平方的贡献仍与$R^2$同阶，不能提前删去而只取$mR^2/2$。
+
+
+图\ref{fig:hw6-3-s}中的对角线两端轴向间距为$H$、径向间距为$2R$，所以$\sin^2\gamma=4R^2/(H^2+4R^2)$。在主轴惯量的加权式中，$I_\parallel$应乘$\cos^2\gamma$，$I_\perp$应乘$\sin^2\gamma$。
+
+\end{solution}
+
+
+
+\begin{example}[均匀椭球的主惯量]\label{ex:hw6-4}
+
+均匀实心椭球质量$m$，区域为$x^2/a^2+y^2/b^2+z^2/c^2\le1$。求三个主惯量。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(2 and 1.2);\draw[guide](0,0)ellipse(2 and .4);\draw[axis](0,0)--(2.6,0)node[right]{$a,x$};\draw[axis](0,0)--(0,1.8)node[above]{$c,z$};\draw[axis](0,0)--(-1.2,-1)node[left]{$b,y$};
+\end{tikzpicture}
+\caption{均匀椭球的三个对称方向}\label{fig:hw6-4-q}
+\end{figure}
+
+\begin{solution}
+三个坐标面都是对称面，故$\int xy\dd m=\int yz\dd m=\int zx\dd m=0$，坐标轴为主轴。图\ref{fig:hw6-4-s}的变量替换$x=a\xi,y=b\eta,z=c\zeta$把椭球映为单位球，体积元乘以$abc$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,0)}]\draw[curve](0,0)ellipse(2 and 1.2);\draw[guide](0,0)ellipse(2 and .4);\draw[axis](0,0)--(2.6,0)node[right]{$a,x$};\draw[axis](0,0)--(0,1.8)node[above]{$c,z$};\draw[axis](0,0)--(-1.2,-1)node[left]{$b,y$};\end{scope}\begin{scope}[shift={(6,0)}]\draw(0,0)circle(1.2);\draw[guide](0,0)ellipse(1.2 and .35);\node at(0,-1.7){$\xi^2+\eta^2+\zeta^2\le1$};\draw[axis](-2.5,.5)--(-1.5,.5);\node at(-2,1.1){$x=a\xi$};\end{scope}
+\end{tikzpicture}
+\caption{椭球通过坐标缩放映为单位球}\label{fig:hw6-4-s}
+\end{figure}
+
+单位球的球对称性给出三个平方坐标积分相等，计算其中一个即可。取$\eta=r\sin\vartheta\sin\varphi$，体积元为$r^2\sin\vartheta\dd r\dd\vartheta\dd\varphi$，于是
+\[
+\int\eta^2\dd V
+=\int_0^1r^4\dd r\int_0^\pi\sin^3\vartheta\,\dd\vartheta
+\int_0^{2\pi}\sin^2\varphi\,\dd\varphi.
+\]
+径向积分为$[r^5/5]_0^1=1/5$。第二个积分令$t=\cos\vartheta$，则$\dd t=-\sin\vartheta\dd\vartheta$，上下限由$0,\pi$变为$1,-1$，故
+\[
+\int_0^\pi\sin^3\vartheta\,\dd\vartheta
+=-\int_1^{-1}(1-t^2)\dd t
+=\left[t-\frac{t^3}{3}\right]_{-1}^{1}=\frac43.
+\]
+第三个积分使用$\sin^2\varphi=(1-\cos2\varphi)/2$，
+\[
+\int_0^{2\pi}\sin^2\varphi\,\dd\varphi
+=\left[\frac\varphi2-\frac{\sin2\varphi}{4}\right]_0^{2\pi}=\pi.
+\]
+三者相乘，得$\int\eta^2\dd V=(1/5)(4/3)\pi=4\pi/15$，$\xi^2,\zeta^2$的积分相同。
+
+单位球中$\int\eta^2\dd V=\int\zeta^2\dd V=4\pi/15$，又$m=\rho abc\,4\pi/3$，所以
+\[
+ I_x=\rho abc\int(b^2\eta^2+c^2\zeta^2)\dd V
+ =\frac m5(b^2+c^2).
+\]
+循环得到
+\[
+ \boxed{I_x=\frac m5(b^2+c^2),\quad I_y=\frac m5(c^2+a^2),
+ \quad I_z=\frac m5(a^2+b^2)}.
+\]
+坐标缩放同时改变距离和体积元。积分中保留密度与体积因子的乘积，才能使变换前后的质量相同。
+
+
+当$a=b=c=R$时，三个结果均为$2mR^2/5$，还原均匀实心球。若仅令$c\to0$并保持质量不变，得到的极薄椭球厚度仍随面内位置变化，面密度并不均匀；因此$I_z\to m(a^2+b^2)/5$，不能改用均匀薄片的惯量。图\ref{fig:hw6-4-s}的缩放保留的是三维均匀椭球的质量分布。
+
+\end{solution}
+
+
+
+\begin{example}[转台上的径向收缩]\label{sup6:problem-example-3}\label{sup6:ex:d5-e3}
+水平转台绕固定竖直轴O无摩擦转动，本体惯量为 $I_0$。质量m的小滑块由径向导轨与转台保持相同方位角，并由安装在转台上的电机从半径a移到b，$0<b<a$。初、末径向速度均为零，初始角速度为 $\omega_0$。忽略电机及传动件的质量变化，求末角速度和电机对机械系统所做的功，并由径向力积分验证结果。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2);\draw[guide](0,0)circle(1);\draw[curve](0,0)--(2,0);\fill(0,0)circle(1.5pt)node[below left]{$O$};
+\fill(1,0)circle(2pt)node[below]{$b$};\draw[fill=white](1.65,-.16)rectangle(1.97,.16);\node[right]at(2.2,.2){$m,\ r=a$};
+\draw[axis](1.6,.55)--(.9,.55)node[midway,above]{收缩};\draw[axis](-1.2,1.2)arc(135:210:1.7);\node[left]at(-1.8,.5){$\omega_0$};
+\node[right]at(2.3,-1.3){本体惯量 $I_0$};
+\end{tikzpicture}
+\caption{导轨给滑块切向约束力，电机沿径向驱动。轴承不提供轴向力矩。}\label{sup6:fig:d5-e3-q}
+\end{figure}
+\begin{solution}
+以转台和滑块为机械系统。图\ref{sup6:fig:d5-e3-q}中的径向驱动力对O的力矩为零，导轨切向力是系统内力，故
+\[
+H=(I_0+ma^2)\omega_0=(I_0+mr^2)\omega(r).
+\]
+令 $I_a=I_0+ma^2$、$I_b=I_0+mb^2$，则 $\omega_b=I_a\omega_0/I_b$。收缩使惯量减小，角速度增大。
+径向速度为零的两个端态，其动能分别为 $H^2/(2I_a)$、$H^2/(2I_b)$。没有摩擦耗散，电机向机械运动输入的功为
+\[
+W=\frac{H^2}{2}\left(\frac1{I_b}-\frac1{I_a}\right)\ge0.
+\]
+初始有转动时$H\ne0$，上式严格为正，收缩所增加的转动能由电机供给；轴向角动量在此过程中仍保持不变。若$\omega_0=0$，整个过程没有转动，两端径向速度又为零，净机械功为零。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(3.5,0);\fill(0,0)circle(1.6pt)node[below]{$O$};\fill(2.4,0)circle(2pt)node[above]{$m$};
+\draw[axis](2.4,0)--(1.3,0)node[midway,below]{$F_r<0$};\draw[axis](2.4,0)--(2.4,-1)node[right]{$F_\varphi<0$};\node at(1.1,.8){$r$};
+\begin{scope}[shift={(5.3,-.5)}]
+\draw[axis](0,0)--(4,0)node[right]{$r$};\draw[axis](0,0)--(0,2.4)node[above]{$K_{\rm rot}$};
+\draw[curve,domain=.4:3.5,samples=60]plot(\x,{2.2/(1+.6*\x*\x)});
+\node at(2,2.2){$H^2/[2(I_0+mr^2)]$};
+\end{scope}
+\end{tikzpicture}
+\caption{滑块收缩时的受力与转动能。左图取 $\dot r<0$、$\omega>0$，径向力示意为向内；右图保持系统角动量H不变。}\label{sup6:fig:d5-e3-s}
+\end{figure}
+为验证功，取图\ref{sup6:fig:d5-e3-s}中向外的径向为正，电机力的带符号分量为 $F_r$。滑块径向方程为
+\[
+F_r=m(\ddot r-r\omega^2).
+\]
+这里的功是 $\int F_r\dot r\,\dd t$。其中加速径向运动的部分满足
+\[
+\int m\ddot r\dot r\,\dd t
+=\left[\frac12m\dot r^2\right]_{\text{初}}^{\text{末}}.
+\]
+这一项只由两个端态的径向速度决定。题设初、末径向速度均为零，保证它对整个过程的积分为零，收缩途中则仍可有径向动能。
+余下的转动贡献用角动量守恒式消去$\omega$，再令$z=I_0+mr^2$，则$\dd z=2mr\dd r$，上下限分别变为$I_a,I_b$。于是
+\[
+\begin{aligned}
+W&=-mH^2\int_a^b\frac{r\dd r}{(I_0+mr^2)^2}\\
+&=-\frac{H^2}{2}\int_{I_a}^{I_b}z^{-2}\dd z
+=\frac{H^2}{2}\left[\frac1z\right]_{I_a}^{I_b}
+=\frac{H^2}{2}\left(\frac1{I_b}-\frac1{I_a}\right).
+\end{aligned}
+\]
+积分中用到的是初、末径向速度为零，因而该结果也适用于非准静态收缩。运动途中，系统动能还包括 $m\dot r^2/2$。
+以逆时针为正，求图\ref{sup6:fig:d5-e3-s}中的切向力。对角动量守恒式$H=(I_0+mr^2)\omega$按乘积法则求导，
+\[
+0=(I_0+mr^2)\dot\omega+2mr\dot r\omega.
+\]
+移项求出$\dot\omega$，再代入极坐标切向加速度$r\dot\omega+2\dot r\omega$，得
+\[
+\dot\omega=-\frac{2mr\dot r\omega}{I_0+mr^2},\qquad
+F_\varphi=m(r\dot\omega+2\dot r\omega)
+=\frac{2mI_0\dot r\omega}{I_0+mr^2}.
+\]
+收缩时 $\dot r<0$、$\omega>0$，故 $F_\varphi<0$。滑块位于O右侧时，导轨给它向下的切向力。该力使滑块角动量减小，反作用力使转台本体的角动量增加，系统总角动量不变。
+\end{solution}
+
+
+
+\section{欧拉角、进动与刚体方程}
+
+自转、进动和章动共同描述陀螺姿态。角速度在同一组基矢下合成后，才可按选定取矩点建立刚体方程，稳态进动只是其中一类运动。
+
+
+
+\subsection{欧拉角与刚体方程}
+\label{sec:complete6-euler}
+设对称轴$\vct e_3$与空间竖直轴夹角为$\vartheta$，其方位角为$\varphi$，绕自身轴的相对转角为$\psi$。取$\vct e_1$在竖直轴与对称轴构成的平面内，使$\vct e_z=\cos\vartheta\vct e_3-\sin\vartheta\vct e_1$，再令$\vct e_2=\vct e_3\times\vct e_1$。角速度可分解为
+\[
+ \vct\omega=-\dot\varphi\sin\vartheta\vct e_1
+ +\dot\vartheta\vct e_2
+ +(\dot\psi+\dot\varphi\cos\vartheta)\vct e_3.
+\]
+这组三轴随对称轴的方向变化，却不随$\psi$自转。在完整的随体主轴上，还须将前两个分量绕$\vct e_3$旋转$\psi$。对轴对称刚体，由$I_1=I_2$可直接写
+\[
+ T_{\rm rot}=\frac12I_1(\dot\vartheta^2+\dot\varphi^2\sin^2\vartheta)
+ +\frac12I_3(\dot\psi+\dot\varphi\cos\vartheta)^2.
+\]
+例\ref{ex:hw6-8}中的角度按该题图中约定；比较不同文献或坐标架时，应先对应倾角、进动角与自转角，再比较分量的正负。
+
+随体主轴中，惯量矩阵为常量。写 $\vct L=\sum_i I_i\omega_i\vct e_i$，基矢满足 $\dot{\vct e}_i=\vct\omega\times\vct e_i$，逐项求导，
+\[
+\frac{\dd\vct L}{\dd t}
+=\sum_i I_i\dot\omega_i\vct e_i
++\sum_i I_i\omega_i(\vct\omega\times\vct e_i).
+\]
+因此空间中的导数仍要计入基矢转动：
+\[
+ \vct M=\left(\frac{\dd\vct L}{\dd t}\right)_{\rm body}
+ +\vct\omega\times\vct L.
+\]
+于是
+\[
+ \begin{aligned}
+ I_1\dot\omega_1+(I_3-I_2)\omega_2\omega_3&=M_1,\\
+ I_2\dot\omega_2+(I_1-I_3)\omega_3\omega_1&=M_2,\\
+ I_3\dot\omega_3+(I_2-I_1)\omega_1\omega_2&=M_3.
+ \end{aligned}
+\]
+匀速进动可使转动坐标架中的角动量分量恒定；基矢仍在转动，空间导数$\dot{\vct L}$通常不为零。例\ref{ex:hw6-5}至例\ref{ex:hw6-7}均由进动造成的角动量方向变化平衡重力矩。悬挂尖端移动时，绕质心取矩可避免把移动尖端误当固定点。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[水平圆锥陀螺的进动]\label{ex:hw6-5}
+
+均匀实心圆锥质量$m$、高$h$、底半径$r$，锥尖$O$固定，圆锥绕对称轴以角速度$\omega$自转。存在对称轴保持水平、绕竖直轴匀速进动的状态，求进动角速度$\Omega$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\draw[curve](O)--(3,1)--(3,-1)--cycle;\draw(3,0)ellipse(.35 and 1);\draw[axis](0,0)--(4,0)node[right]{$\vct e_3,\omega$};\draw[axis](0,-.7)--(0,2)node[above]{$\vct e_z,\Omega$};\fill(2.25,0)circle(2pt)node[above]{$C$};\draw[axis](2.25,0)--(2.25,-1.2)node[right]{$mg$};\node[below right]at(O){$O$};
+\end{tikzpicture}
+\caption{尖端固定且对称轴水平的圆锥}\label{fig:hw6-5-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw6-5-s}中的锥尖到质心距离及尖点主惯量，已在前文“\nameref{sec:dynamics-cone-inertia}”中由薄圆盘积分求出：
+\[
+\ell=\frac{3h}4,\qquad I_3=\frac{3mr^2}{10},\qquad
+I_1=\frac{3mh^2}5+\frac{3mr^2}{20}.
+\]
+这里的横向惯量包含将各薄片移到锥尖横轴的贡献，不能用质心惯量替代。
+总角速度同时含自转与进动，角动量关于固定尖点可写成
+\[
+ \vct L_O=I_3\omega\vct e_3+I_1\Omega\vct e_z.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\draw[curve](O)--(3,1)--(3,-1)--cycle;\draw(3,0)ellipse(.35 and 1);\draw[axis](0,0)--(4,0)node[right]{$\vct e_3,\omega$};\draw[axis](0,-.7)--(0,2)node[above]{$\vct e_z,\Omega$};\fill(2.25,0)circle(2pt)node[above]{$C$};\draw[axis](2.25,0)--(2.25,-1.2)node[right]{$mg$};\node[below right]at(O){$O$};\draw[axis](1,1.8)--(2.4,1.8)node[right]{$L_3=I_3\omega$};\node at(3,2.5){$\dot{\vct e}_3=\Omega\vct e_z\times\vct e_3$};
+\end{tikzpicture}
+\caption{轴向角动量随对称轴进动}\label{fig:hw6-5-s}
+\end{figure}
+
+对称轴水平且匀速进动时，第二项在地面系中不变，第一项随轴以$\Omega$转动。因此
+\[
+ \dot{\vct L}_O=I_3\omega\Omega\,\vct e_z\times\vct e_3,
+ \quad\vct M_O=mg\ell\,\vct e_z\times\vct e_3.
+\]
+相等即得
+\[
+ \boxed{\Omega=\frac{mg\ell}{I_3\omega}=\frac{5gh}{2r^2\omega}}.
+\]
+进动方向随自转方向反转。进动角动量的竖直分量在地面系中保持不变，其导数为零。因此，在精确水平的稳态下，上述关系也适用于未作快陀螺近似的情况。
+
+
+这里$I_1$是过锥尖且垂直于对称轴的惯量。图\ref{fig:hw6-5-s}中$\vct e_3$水平，故$\vct\Omega\perp\vct e_3$；进动不增加自转轴上的角速度分量，$\omega$就是总角速度在$\vct e_3$上的分量。重力矩与$\dot{\vct L}_O$均沿$\vct e_z\times\vct e_3$，比较同一方向的系数即可求出$\Omega$。
+
+\end{solution}
+
+
+
+\begin{example}[细杆悬挂圆锥的偏斜]\label{ex:hw6-6}
+
+上一题的圆锥尖端通过长$h/2$的无质量细杆铰接于固定点$O_0$。圆锥仍有水平自转轴，存在绕竖直方向的匀速进动状态。求$\Omega$及细杆与竖直方向夹角$\theta$；并求$h\sim r$、$\omega^2r\gg g$时的近似。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\draw[curve](O)--(3,1)--(3,-1)--cycle;\draw(3,0)ellipse(.35 and 1);\draw[axis](0,0)--(4,0)node[right]{$\vct e_3,\omega$};\draw[axis](-.4,-.7)--(-.4,2.15)node[above]{$\vct e_z,\Omega$};\fill(2.25,0)circle(2pt)node[above]{$C$};\draw[axis](2.25,0)--(2.25,-1.2)node[right]{$mg$};\node[below right]at(O){$O$};\draw[curve](-.4,1.44568323)--(0,0);\fill(-.4,1.44568323)circle(2pt)node[left]{$O_0$};\node at(-1,.7){$h/2$};
+\end{tikzpicture}
+\caption{圆锥尖端由无质量细杆悬挂}\label{fig:hw6-6-q}
+\end{figure}
+
+\begin{solution}
+取图\ref{fig:hw6-6-s}中圆锥轴向外为径向，细杆向内上方拉尖端，拉力为$T$。质心绕竖直轴的半径为$R_C=3h/4+(h/2)\sin\theta$。竖直与径向运动方程为
+\[
+ T\cos\theta=mg,\qquad T\sin\theta=m\Omega^2R_C.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\draw[curve](O)--(3,1)--(3,-1)--cycle;\draw(3,0)ellipse(.35 and 1);\draw[axis](0,0)--(4,0)node[right]{$\vct e_3,\omega$};\draw[axis](-.4,-.7)--(-.4,2.15)node[above]{$\vct e_z,\Omega$};\fill(2.25,0)circle(2pt)node[above]{$C$};\draw[axis](2.25,0)--(2.25,-1.2)node[right]{$mg$};\node[below right]at(O){$O$};\draw[curve](-.4,1.44568323)--(0,0);\fill(-.4,1.44568323)circle(2pt)node[left]{$O_0$};\node at(-1,.7){$h/2$};\draw[axis](0,0)--(-.4,1.44568323)node[midway,right,xshift=8pt,yshift=-5pt]{$T$};\draw(-.4,.89568323)arc(-90:-74.534:.55)node[midway,right]{$\theta$};\draw[<->](-.4,-1.8)--(2.25,-1.8)node[midway,below]{$R_C$};
+\end{tikzpicture}
+\caption{竖直进动轴通过悬点，拉力提供向心力}\label{fig:hw6-6-s}
+\end{figure}
+
+绕圆锥质心取矩，细杆拉力的竖直分量产生力矩$mg(3h/4)$，与上一题相同。因此
+\[
+ \boxed{\Omega=\frac{5gh}{2r^2\omega},\qquad
+ \tan\theta=\frac{\Omega^2}{g}
+ \left(\frac{3h}{4}+\frac h2\sin\theta\right)}.
+\]
+绕质心的角动量包含$I_{1,C}\Omega\vct e_z$，该项在地面系中的导数为零；产生水平转矩响应的仍是$I_3\omega\vct e_3$。尖端处拉力的水平分量与$\overrightarrow{CO}$共线，不产生质心力矩，只有其竖直分量$mg$参加进动平衡。因此，本题的稳态进动仍满足上一题的$\Omega$关系。
+
+这是偏角的隐式方程。快自转时$\theta\ll1$，且$\Omega^2h/g\ll1$，保留最低阶得
+\[
+ \boxed{\theta\simeq\frac{3h\Omega^2}{4g}
+ =\frac{75gh^3}{16r^4\omega^2}}.
+\]
+细杆的微小偏斜使拉力具有水平分量，由它提供质心作圆周运动所需的向心力。
+
+
+令$\epsilon=\Omega^2h/g$，偏角方程写成$\tan\theta=\epsilon(3/4+\sin\theta/2)$。这个方程在$0<\theta<\pi/2$中恰有一解：函数
+\[
+f(\theta)=\frac{\tan\theta}{3/4+\sin\theta/2}
+\]
+从零连续增至无穷。按商法则求导，
+\[
+f'(\theta)=\frac{\sec^2\theta(3/4+\sin\theta/2)-\tan\theta\cos\theta/2}
+{(3/4+\sin\theta/2)^2}
+=\frac{\tfrac34\sec^2\theta+\tfrac12\sin\theta\tan^2\theta}
+{(3/4+\sin\theta/2)^2}>0.
+\]
+
+对于小偏角支，设$\theta=A\epsilon+B\epsilon^2+O(\epsilon^3)$。用$\tan\theta=\theta+O(\theta^3)$、$\sin\theta=\theta+O(\theta^3)$代入，比较到$\epsilon^2$阶：
+\[
+A\epsilon+B\epsilon^2
+=\frac34\epsilon+\frac A2\epsilon^2+O(\epsilon^3).
+\]
+同次项系数相等，得$A=3/4$、$B=A/2=3/8$，即
+\[
+ \theta=\frac34\epsilon+\frac38\epsilon^2+O(\epsilon^3).
+\]
+最低阶即为上式；第二项来自细杆偏斜后质心回转半径的增加。图\ref{fig:hw6-6-s}的$R_C$从竖直进动轴量到质心；若只取尖端到质心的$3h/4$，便会遗漏这一反馈。又$T=mg/\cos\theta$，所以拉力比$mg$大的修正从$\theta^2$阶开始，不影响最低阶偏角。
+
+\end{solution}
+
+
+
+\begin{example}[倾斜圆锥的稳态进动双支]\label{ex:hw6-7}
+
+均匀实心圆锥的尖端固定，对称轴与水平夹角为$\theta$，相对随轴进动坐标架的自转角速度为$\omega$。求保持倾角不变的匀速进动角速度$\Omega$，说明两支解的条件。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,-.4)--(0,2.5)node[above]{$z,\Omega$};\draw[axis](0,0)--(3.5,0)node[right]{水平};\draw[curve](0,0)--(2.83,.2)--(2.17,1.8)--cycle;\draw[axis](0,0)--(3,1.2)node[right]{$\vct e_3,\omega$};\draw(.8,0)arc(0:21.801409:.8);\node at(1.2,.25){$\theta$};\fill(1.875,.75)circle(2pt)node[above]{$C$};
+\end{tikzpicture}
+\caption{对称轴与水平成固定倾角的圆锥}\label{fig:hw6-7-q}
+\end{figure}
+
+\begin{solution}
+关于尖点的主惯量为$I_3=3mr^2/10$、$I_1=3mr^2/20+3mh^2/5$，质心距尖点$\ell=3h/4$。图\ref{fig:hw6-7-s}中总角速度为$\vct\omega_{\text{总}}=\omega\vct e_3+\Omega\vct e_z$，沿对称轴的总分量是$\omega+\Omega\sin\theta$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,-.4)--(0,2.5)node[above]{$z,\Omega$};\draw[axis](0,0)--(3.5,0)node[right]{水平};\draw[curve](0,0)--(2.83,.2)--(2.17,1.8)--cycle;\draw[axis](0,0)--(3,1.2)node[right]{$\vct e_3,\omega$};\draw(.8,0)arc(0:21.801409:.8);\node at(1.2,.25){$\theta$};\fill(1.875,.75)circle(2pt)node[above]{$C$};\draw[axis](1.875,.75)--(1.875,-.5)node[right]{$mg$};\node at(3,2.4){$\omega_3=\omega+\Omega\sin\theta$};
+\end{tikzpicture}
+\caption{总轴向角速度包含进动的投影}\label{fig:hw6-7-s}
+\end{figure}
+
+由惯量张量
+\[
+ \vct L=I_1\Omega\vct e_z+
+ [I_3\omega+(I_3-I_1)\Omega\sin\theta]\vct e_3.
+\]
+稳态中方括号内的系数恒定，$\vct e_z$也固定，只有$\vct e_3$随进动改变。由$\dot{\vct e}_3=\Omega\vct e_z\times\vct e_3$，
+\[
+\dot{\vct L}
+=\Omega[I_3\omega+(I_3-I_1)\Omega\sin\theta]
+\vct e_z\times\vct e_3.
+\]
+重力矩为$\vct M=\ell\vct e_3\times(-mg\vct e_z)=mg\ell\vct e_z\times\vct e_3$。在$\cos\theta\ne0$时这个共同方向矢量非零，令两系数相等，得到
+\[
+ (I_3-I_1)\sin\theta\,\Omega^2+I_3\omega\Omega-mg\ell=0.
+\]
+故在$A=(I_3-I_1)\sin\theta\ne0$时
+\[
+ \boxed{\Omega_\pm=\frac{-I_3\omega\pm
+ \sqrt{I_3^2\omega^2+4Amg\ell}}{2A}}.
+\]
+须满足判别式非负。$A=0$且$\omega\ne0$时，方程退化为线性方程，解为$\Omega=mg\ell/(I_3\omega)$；若$A=0$且$\omega=0$，则不能平衡非零重力矩，不存在这一非竖直稳态。
+
+当$A\ne0$固定，且$|4Amg\ell/(I_3^2\omega^2)|\ll1$时，可分别求两支的快自转近似。慢支取$\Omega_s=O(\omega^{-1})$，则$A\Omega_s^2$相对于常数项是高阶小量，方程最低阶给出
+\[
+ I_3\omega\Omega_s\simeq mg\ell,
+ \qquad \Omega_s\simeq\frac{mg\ell}{I_3\omega}.
+\]
+两根之和为$\Omega_s+\Omega_f=-I_3\omega/A$，所以快支满足
+\[
+ \Omega_f=-\frac{I_3\omega}{A}-\Omega_s
+ \simeq-\frac{I_3\omega}{A}.
+\]
+
+例如细长圆锥常有$I_1>I_3$，且轴在水平面上方时$\sin\theta>0$，于是$A<0$。存在两实支须有
+\[
+ I_3^2\omega^2\ge4(I_1-I_3)mg\ell\sin\theta.
+\]
+等号时两支合并；低于该自转阈值时，不存在这一固定倾角的稳态。这些根给出固定倾角稳态。要判断稳态对章动扰动是否稳定，还须列出倾角的扰动方程。
+
+如果改把$\omega$定义为总角速度沿对称轴的投影，二次项就应相应改写。两种自转角速度的定义不能混用；本题在题设中已固定为相对进动架的自转。
+上述推导适用于$\cos\theta\ne0$。轴竖直时，进动角不再是独立坐标，应直接用欧拉方程描述。
+
+\end{solution}
+
+
+
+\begin{example}[翻身陀螺的欧拉角与接触动力学]\label{ex:hw6-8}
+
+把翻身陀螺理想化为轴对称刚体，外形接触面为半径$R$的球面，质量$m$。球心$O$相对质心$C$沿对称轴$\vct e_3$偏移$\alpha R$，主惯量为$I_1=I_2,I_3$。接触点$A$在水平地面上滑动，动摩擦为$-\mu N\vct v_A/|\vct v_A|$。用欧拉角描述运动，求外力、质心力矩、接触约束、角速度、能量及竖直角动量的变化率，并证明$\vct L\times\vct e_3=I_1(\vct\omega\times\vct e_3)$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.3);\draw[thick](-2,-1.3)--(2,-1.3);\coordinate(C)at(-.2,-.25);\coordinate(A)at(0,-1.3);\fill(C)circle(2pt)node[left]{$C$};\fill(0,0)circle(1pt)node[below right]{$O$};\fill(A)circle(2pt)node[below]{$A$};\draw[axis](C)--(.8,1)node[above]{$\vct e_3$};\draw[axis](C)--(-.2,1.6)node[left]{$\vct e_z$};\draw[guide](C)--(A);
+\draw(-.2,.4)arc(90:51.34019:.65)node[midway,above]{$\theta$};
+\end{tikzpicture}
+\caption{球面接触的翻身陀螺及偏置质心}\label{fig:hw6-8-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw6-8-s}固定竖直单位矢量$\vct e_z$，以$\theta$为$\vct e_3$对竖直的夹角、$\phi$为绕竖直的方位角、$\psi$为绕对称轴的自转角。接触几何为
+\[
+ \vct a:=\overrightarrow{CA}=R(\alpha\vct e_3-\vct e_z),\quad
+ z_C=R(1-\alpha\cos\theta),\quad \vct v_A=\vct v_C+\vct\omega\times\vct a.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.3);\draw[thick](-2,-1.3)--(2,-1.3);\coordinate(C)at(-.2,-.25);\coordinate(A)at(0,-1.3);\fill(C)circle(2pt)node[left]{$C$};\fill(0,0)circle(1pt)node[below right]{$O$};\fill(A)circle(2pt)node[below]{$A$};\draw[axis](C)--(.8,1)node[above]{$\vct e_3$};\draw[axis](C)--(-.2,1.6)node[left]{$\vct e_z$};\draw[guide](C)--(A);\draw[axis](0,-1.3)--(0,-.4)node[below right]{$N$};\draw[axis](0,-1.3)--(1,-1.3)node[below]{$\vct f$};\draw[axis](-.2,-.25)--(-.2,-1.1)node[midway,left]{$mg$};
+\draw(-.2,.4)arc(90:51.34019:.65)node[midway,above]{$\theta$};\draw[axis](0,-1.95)--(-.9,-1.95)node[below]{$\vct v_A$};
+\end{tikzpicture}
+\caption{接触点的法向力、摩擦与质心重力}\label{fig:hw6-8-s}
+\end{figure}
+
+\textbf{外力与约束。}令$\vct f=-\mu N\vct v_A/|\vct v_A|$，则
+\[
+ m\dot{\vct v}_C=(N-mg)\vct e_z+\vct f,\quad
+ \dot{\vct L}_C=\vct a\times(N\vct e_z+\vct f).
+\]
+接触要求$\vct v_A\cdot\vct e_z=0$，故$\vct v_A=v_x\vct e_x+v_y\vct e_y$。对$z_C=R(1-\alpha\cos\theta)$逐次求导，
+\[
+\dot z_C=R\alpha\sin\theta\dot\theta,\qquad
+\ddot z_C=R\alpha(\cos\theta\dot\theta^2+\sin\theta\ddot\theta).
+\]
+代入竖直平动方程$N-mg=m\ddot z_C$，得
+\[
+ N=mg+mR\alpha(\cos\theta\dot\theta^2+\sin\theta\ddot\theta).
+\]
+这些式子只适用于$N\ge0$的接触阶段。$\vct v_A=0$时动摩擦方向不再有定义，须改用静摩擦条件，不能继续除以零。
+
+\textbf{欧拉角与角动量。}在由竖直轴、节点线和对称轴依次构造的坐标架中，角速度矢量为
+\[
+ \vct\omega=\dot\phi\vct e_z+\dot\theta\vct e_\phi+\dot\psi\vct e_3,
+ \quad\omega_3=\dot\psi+\dot\phi\cos\theta.
+\]
+这里$\vct e_\phi=(\vct e_z\times\vct e_3)/\sin\theta$沿方位增加方向，$\dot{\vct e}_3=\vct\omega\times\vct e_3$。欧拉角在$\sin\theta=0$处坐标退化，但矢量形式的接触几何和动力学仍可继续使用。
+
+取随体主轴$\vct e_1,\vct e_2,\vct e_3$，并约定$\psi=0$时$\vct e_1=\vct e_\phi$、$\vct e_2=\vct e_3\times\vct e_\phi$；随后两轴绕$\vct e_3$正向转过$\psi$。按这一零位约定，角速度的随体分量为
+\[
+ \omega_1=\dot\theta\cos\psi+\dot\phi\sin\theta\sin\psi,\quad
+ \omega_2=-\dot\theta\sin\psi+\dot\phi\sin\theta\cos\psi.
+\]
+轴对称性给出$\vct L=I_1\vct\omega+(I_3-I_1)\omega_3\vct e_3$，两边与$\vct e_3$叉乘，立即得到所要求的正比式。它表明垂直于对称轴的角动量与角速度具有相同方向。
+
+\textbf{能量与耗散。}保留质心平动，总机械能为
+\[
+ E=\frac m2|\vct v_A-\vct\omega\times\vct a|^2
+ +\frac{I_1}{2}(\dot\theta^2+\dot\phi^2\sin^2\theta)
+ +\frac{I_3}{2}(\dot\psi+\dot\phi\cos\theta)^2
+ +mgR(1-\alpha\cos\theta).
+\]
+重力已计入势能，平动与转动动能的变化率相加为
+\[
+\begin{aligned}
+\dot E&=(N\vct e_z+\vct f)\cdot\vct v_C
++\vct\omega\cdot[\vct a\times(N\vct e_z+\vct f)]\\
+&=(N\vct e_z+\vct f)\cdot(\vct v_C+\vct\omega\times\vct a)
+=(N\vct e_z+\vct f)\cdot\vct v_A.
+\end{aligned}
+\]
+第二步用了混合积的循环关系。接触约束给出$\vct e_z\cdot\vct v_A=0$，再代入摩擦定律，因此
+\[
+ \boxed{\dot E=\vct f\cdot\vct v_A=-\mu N|\vct v_A|\le0}.
+\]
+竖直角动量为$L_z=I_1\dot\phi\sin^2\theta+I_3\omega_3\cos\theta$，其变化率为
+\[
+ \boxed{\dot L_z=R\alpha(\vct e_3\times\vct f)\cdot\vct e_z}.
+\]
+还可直接分解竖直角动量的变化：法向力矩的竖直分量为零，摩擦力矩中的$-R\vct e_z\times\vct f$也没有竖直分量，因此只剩$R\alpha\vct e_3\times\vct f$。机械能减少与$L_z$变化来自同一个接触摩擦，但二者没有固定的比例关系。
+
+最后考虑$\lambda_J=-\vct L\cdot\vct a=R(L_z-\alpha I_3\omega_3)$。按乘积法则求导，
+\[
+\dot\lambda_J=-\dot{\vct L}\cdot\vct a-\vct L\cdot\dot{\vct a}.
+\]
+第一项中$\dot{\vct L}=\vct a\times(N\vct e_z+\vct f)$与$\vct a$垂直，故为零。第二项用$\dot{\vct a}=R\alpha\vct\omega\times\vct e_3$和轴对称角动量表达式，
+\[
+\vct L\cdot\dot{\vct a}
+=R\alpha[I_1\vct\omega+(I_3-I_1)\omega_3\vct e_3]
+\cdot(\vct\omega\times\vct e_3)=0.
+\]
+因两个基矢$\vct\omega,\vct e_3$都与其叉积垂直，得到$\dot\lambda_J=0$。摩擦耗能时，这一积分仍保持常量，并与能量变化共同限制运动。是否发生翻转还取决于初态及其后的动力学演化。
+
+
+\end{solution}
+
+
+
+\begin{example}[翻转势垒与临界时间]\label{deep6:problem-example-10}\label{deep6:ex:d5-e10}
+质量M、宽 $2b$、高 $2h$ 的匀质矩形薄板在竖直平面内绕右下角O的固定光滑铰轴转动。初始板竖直，给定顺时针角速度 $\omega_0>0$，此后只受重力与铰链力。求质心越过O正上方的角速度阈值，并判断在阈值等号处能否有限时间越过。仅讨论越过最高质心位置之前的运动。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](-2.2,0)rectangle(0,3);\draw[curve,rotate=-20](-2.2,0)rectangle(0,3);
+\fill(0,0)circle(2pt)node[below right]{$O$};\fill(-.521,1.786)circle(1.7pt)node[left]{$C$};
+\draw[guide](0,0)--(-.521,1.786);\draw[axis](-.521,1.786)--(-.521,.8)node[left]{$Mg$};
+\draw[guide](0,0)--(0,3.3);\draw(0,.65)arc(90:70:.65);\node at(.25,.9){$\varphi$};
+\node[left]at(-2.2,1.3){$2h$};\node[below]at(-1.1,0){$2b$};\node[right]at(1.2,2.3){虚线为初始构形};
+\end{tikzpicture}
+\caption{O为固定铰轴，不把它等同于仅靠地面摩擦维持的自由接触角点。}\label{deep6:fig:d5-e10-q}
+\end{figure}
+\begin{solution}
+按图\ref{deep6:fig:d5-e10-q}，顺时针转角为 $\varphi$，质心坐标为
+\[
+x_C=-b\cos\varphi+h\sin\varphi,\qquad
+y_C=b\sin\varphi+h\cos\varphi.
+\]
+令 $d=\sqrt{b^2+h^2}$，最高点满足 $x_C=0$，故 $\varphi_c=\arctan(b/h)$、$y_{C,\max}=d$。用平行轴定理，
+\[
+I_O=\frac M{12}\big[(2b)^2+(2h)^2\big]+Md^2
+=\frac43Md^2.
+\]
+取质心初始高度h为势能零点，能量方程为
+\[
+\frac12I_O\dot\varphi^2+Mg(y_C-h)=\frac12I_O\omega_0^2.
+\]
+势垒高度为 $Mg(d-h)$，因此阈值为
+\[
+\omega_c=\sqrt{\frac{2Mg(d-h)}{I_O}}
+=\sqrt{\frac{3g(d-h)}{2d^2}}.
+\]
+若 $\omega_0<\omega_c$，板在最高点之前转向；若 $\omega_0>\omega_c$，则以非零角速度越过。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(6,0)node[right]{$\varphi$};\draw[axis](0,0)--(0,3.1)node[above]{$U$};
+\draw[curve,domain=0:1.2,samples=80]plot({4*\x},{2*(cos((\x-.6)*180/pi)-cos(.6*180/pi))/(1-cos(.6*180/pi))});
+\draw[guide](0,2)--(5.5,2)node[right]{$E_c$};\draw[guide](2.4,0)--(2.4,2);\node[below]at(2.4,0){$\varphi_c$};
+\node at(4.1,2.9){临界能量};
+\end{tikzpicture}
+\caption{临界能量在势垒顶与势能曲线相切，速度随距顶点的角距离线性趋零。}\label{deep6:fig:d5-e10-s}
+\end{figure}
+在等号处，图\ref{deep6:fig:d5-e10-s}中 $E=E_c$。置 $\delta=\varphi_c-\varphi>0$，利用 $y_C=d\cos\delta$，
+\[
+\frac12I_O\dot\varphi^2=Mg d(1-\cos\delta)
+=2Mgd\sin^2\frac\delta2.
+\]
+记$\lambda=\sqrt{Mgd/I_O}$，上升阶段$\dot\varphi>0$，而$\dot\delta=-\dot\varphi$，故$\dot\delta=-2\lambda\sin(\delta/2)$。令$q=\tan(\delta/4)$，用
+$\dot\delta=4\dot q/(1+q^2)$、$\sin(\delta/2)=2q/(1+q^2)$代入，方程化为$\dot q=-\lambda q$。初始$\delta_0=\varphi_c$，所以$q_0=\tan(\varphi_c/4)$。分离变量积分，
+\[
+\int_{q_0}^{q(t)}\frac{\dd q}{q}=-\lambda\int_0^t\dd s,
+\qquad \ln\frac{q(t)}{q_0}=-\lambda t.
+\]
+于是临界解及到达任一剩余角距离$\delta>0$的时间为
+\[
+\delta(t)=4\arctan\!\left[\tan\frac{\varphi_c}{4}\,\ee^{-\lambda t}\right],
+\qquad
+t=\frac1\lambda\ln\frac{\tan(\varphi_c/4)}{\tan(\delta/4)}.
+\]
+当$\delta\to0^+$时，$\tan(\delta/4)\sim\delta/4$，时间按对数趋于无穷。这也与图\ref{deep6:fig:d5-e10-s}中势垒顶附近剩余动能正比于$\delta^2$一致。因此$\omega_c$是有限时间翻转所需初始角速度的下确界；取等号时板渐近接近最高点，不能在有限时间越过。
+\end{solution}
+
+
+
+\section{平面刚体、运动点取矩与滚动}
+
+平面刚体须同时满足质心平动和绕质心转动方程。运动点取矩需要相应修正，滚动约束则直接联系两侧接触材料点的速度。
+
+
+
+\subsection{平面运动中的运动点取矩}
+若$A$是刚体材料点，记$\vct r_{CA}=\vct r_C-\vct r_A$，方向由$A$指向质心$C$。采用相对$A$速度定义的角动量为$I_A\omega$，且$I_A$不随时间改变。将第三讲已推导的运动点相对角动量定理用于平面刚体，得到
+\[
+ \label{sup6:eq:d5-material-origin} I_A\dot\omega=M_A-[\vct r_{CA}\times m\vct a_A]_z.
+\]
+这给出本讲拓展例题中移动杆端的求解方法。瞬时转动中心可用于求速度和动能；要直接绕该点列角动量定理，还须满足相应取矩点的运动条件。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[运动杆端取矩]\label{sup6:problem-example-1}\label{sup6:ex:d5-e1}
+质量M、长L的匀质细杆AB静置在光滑水平桌面上。现对B施加桌面内垂直于杆、大小为F的力。求开始作用瞬间的质心加速度、角加速度及两端加速度，并分别绕C、A列转动方程。忽略空气阻力。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(6,0);\foreach\x/\s in{0/A,3/C,6/B}{\fill(\x,0)circle(1.6pt)node[below]{$\s$};}
+\draw[axis](6,0)--(6,1.6)node[right]{$F$};\draw[<->](0,-.8)--(6,-.8)node[midway,below]{$L$};
+\draw[axis](0,1.8)--(1.2,1.8)node[right]{$x$};\draw[axis](0,1.8)--(0,2.8)node[above]{$y$};
+\end{tikzpicture}
+\caption{俯视桌面。力沿正y方向，重力与桌面支持力不影响面内运动。}\label{sup6:fig:d5-e1-q}
+\end{figure}
+\begin{solution}
+以图\ref{sup6:fig:d5-e1-q}中的正y方向为加速度正向，转动取逆时针为正。杆受合力F，故 $a_{Cy}=F/M$。绕质心的力矩为 $FL/2$，而 $I_C=ML^2/12$，所以
+\[
+\alpha=\frac{FL/2}{ML^2/12}=\frac{6F}{ML}.
+\]
+开始作用瞬间 $\omega=0$，刚体点加速度关系中没有向心项。由 $\vct a_P=\vct a_C+\vct\alpha\times\vct r_{PC}$，
+\[
+a_{Ay}=\frac FM-\frac L2\alpha=-\frac{2F}M,
+\qquad a_{By}=\frac FM+\frac L2\alpha=\frac{4F}M.
+\]
+两端的x分量均为零。A向下、B向上，这一加速度分布由质心平移与绕质心转动叠加而成。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(6,0);\node[above]at(0,0){$A$};\node[below]at(3,0){$C$};\node[below]at(6,0){$B$};
+\draw[axis](0,0)--(0,-1)node[left]{$-2F/M$};\draw[axis](3,0)--(3,.5)node[right]{$F/M$};\draw[axis](6,0)--(6,2)node[right]{$4F/M$};
+\draw[axis](3.983,.688)arc(35:145:1.2);\node at(3,1.6){$\alpha>0$};
+\end{tikzpicture}
+\caption{释放瞬间的三点加速度。材料点A虽瞬时静止，加速度不为零。}\label{sup6:fig:d5-e1-s}
+\end{figure}
+图\ref{sup6:fig:d5-e1-s}中的A随杆运动，关于A的力矩要保留原点加速度修正。释放瞬间 $\omega=0$，将质心方程移到A，可写成
+\[
+\begin{aligned}
+\tau_A&=I_C\alpha+\big(\vct r_{CA}\times M\vct a_C\big)_z,\\
+\vct a_C&=\vct a_A+\vct\alpha\times\vct r_{CA}.
+\end{aligned}
+\]
+代入后，与 $\alpha$ 成正比的两项合为 $(I_C+ML^2/4)\alpha=I_A\alpha$；含 $\vct a_A$ 的一项保留下来，反映A本身的加速运动。
+绕图\ref{sup6:fig:d5-e1-s}的A取矩时，$I_A=ML^2/3$，须用式\eqref{sup6:eq:d5-material-origin}：
+\[
+I_A\alpha=FL-\left(\frac L2\vct e_x\times M\vct a_A\right)_z
+=FL+FL=2FL.
+\]
+由此仍得 $\alpha=6F/(ML)$。若误把A当作固定铰点，写成 $I_A\alpha=FL$，角加速度就会少一半。上述结果只针对开始作用的瞬间；随后杆转动，必须保留速度平方项并说明F的方向是否随杆改变。
+\end{solution}
+
+
+
+\begin{example}[铰接杆的速度与支座力]\label{sup6:problem-example-2}\label{sup6:ex:d5-e2}
+质量M、长L的匀质杆一端O固定铰接，在竖直平面内从水平位置静止释放。以杆从初始位置向下转过的角为 $\theta$，求 $0\le\theta\le\pi/2$ 内的角速度、角加速度和铰链力，并求铰链力大小的最大值。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\coordinate(O)at(0,0);\coordinate(B)at(4,-2.8);\draw[guide](0,0)--(4.7,0);\draw[curve](O)--(B);
+\fill(O)circle(2pt)node[above left]{$O$};\fill(2,-1.4)circle(1.6pt)node[above]{$C$};\node[right]at(B){$B$};
+\draw(1,0)arc(0:-35:1);\node at(1.3,-.35){$\theta$};\draw[axis](2,-1.4)--(2,-2.6)node[left]{$Mg$};
+\draw[axis](-.2,-.2)--(-.2,-1.3)node[left]{$y$};\draw[axis](.2,.3)--(1.3,.3)node[right]{$x$};
+\end{tikzpicture}
+\caption{取x向右、y向下；$\theta$ 的正向为顺时针。}\label{sup6:fig:d5-e2-q}
+\end{figure}
+\begin{solution}
+图\ref{sup6:fig:d5-e2-q}中，质心下降 $L\sin\theta/2$。固定铰链不做功，能量守恒给出
+\[
+\frac12\frac{ML^2}{3}\omega^2=Mg\frac L2\sin\theta,
+\qquad \omega^2=\frac{3g}L\sin\theta.
+\]
+重力对O的顺时针力矩为 $MgL\cos\theta/2$，因此
+\[
+\alpha=\frac{3g}{2L}\cos\theta.
+\]
+此式由力矩方程得到，在刚释放、$\omega=0$ 时也成立。
+图\ref{sup6:fig:d5-e2-s}中，切向加速度垂直OC，法向加速度沿CO。两者都要投影到图\ref{sup6:fig:d5-e2-q}的固定坐标轴；随杆转动的方向本身也随时间改变。
+质心坐标为 $x_C=(L/2)\cos\theta$、$y_C=(L/2)\sin\theta$。一次求导给出 $\dot x_C=-(L/2)\omega\sin\theta$、$\dot y_C=(L/2)\omega\cos\theta$。再用 $\dot\omega=\alpha$ 对乘积求导，得到含 $\alpha$ 的切向项与含 $\omega^2$ 的法向项：
+\[
+\begin{aligned}
+a_{Cx}&=-\frac L2(\alpha\sin\theta+\omega^2\cos\theta)
+=-\frac94g\sin\theta\cos\theta,\\
+a_{Cy}&=\frac L2(\alpha\cos\theta-\omega^2\sin\theta)
+=\frac34g(1-3\sin^2\theta).
+\end{aligned}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(4,-2.8);\fill(0,0)circle(2pt)node[above right]{$O$};\fill(2,-1.4)circle(1.6pt)node[right]{$C$};
+\draw[axis](0,0)--(-1.2,0)node[below]{$H_x<0$};\draw[axis](0,0)--(0,1.1)node[left]{$H_y<0$};
+\draw[axis](2,-1.4)--(.8,-.56);\node at(1.65,-.32){$\omega^2L/2$};
+\draw[axis](2,-1.4)--(1.35,-2.328571)node[below left]{$\alpha L/2$};
+\node[align=left]at(6,-1){法向加速度指向O\\切向加速度沿下降方向};
+\end{tikzpicture}
+\caption{铰链力及质心的法向、切向加速度。图中为中间构形。}\label{sup6:fig:d5-e2-s}
+\end{figure}
+设铰链对杆的力分量为 $H_x,H_y$。按图\ref{sup6:fig:d5-e2-s}的坐标正向，
+\[
+H_x=Ma_{Cx}=-\frac94Mg\sin\theta\cos\theta,
+\qquad H_y+Mg=Ma_{Cy}.
+\]
+所以 $H_y=-Mg(1+9\sin^2\theta)/4$，负号表示向上。力的大小为
+\[
+H^2=\frac{M^2g^2}{16}
+\left[81\sin^2\theta\cos^2\theta+(1+9\sin^2\theta)^2\right]
+=\frac{M^2g^2}{16}(1+99\sin^2\theta).
+\]
+它在此区间单调增大，最大值在杆竖直向下时达到，为 $H_{\max}=5Mg/2$；刚释放时为 $Mg/4$。最低点虽有 $\alpha=0$，向心加速度仍为 $3g/2$，因此支座力并不等于Mg。
+\end{solution}
+
+
+
+\begin{example}[绕线方向与线轴的运动]\label{sup6:problem-example-5}\label{sup6:ex:d5-e5}
+线轴质量M，外半径R，绕线轴半径r，$0<r<R$，转动惯量 $I_C=\beta MR^2$。线从内轴下侧切向引出，以大小F、与水平向右方向成 $\theta$ 角的力拉动，$0\le\theta\le\pi/2$。线轴在水平地面上纯滚动。求质心加速度、静摩擦力及纯滚动条件，并说明何时线轴向左开始运动。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-2,-1.3)--(3,-1.3);\draw[curve](0,0)circle(1.3);\draw[curve](0,0)circle(.65);\fill(0,0)circle(1.5pt)node[above right]{$C$};
+\coordinate(Q)at({.65*sin(35)},{-.65*cos(35)});\fill(Q)circle(1.5pt)node[below left]{$Q$};\draw[guide](0,0)--(Q)node[midway,left]{$r$};
+\draw[axis](Q)--++(35:2.6)node[right]{$F$};\draw[guide](Q)--++(1.1,0);\draw($(Q)+(0:.6)$)arc(0:35:.6);\node at($(Q)+(17.5:.75)$){$\theta$};
+\draw[guide](0,0)--(-.919,.919);\node at(-.45,.85){$R$};\node[below]at(0,-1.3){$P$};
+\end{tikzpicture}
+\caption{力沿内轴下侧的切线，因而对C的力矩为逆时针 $Fr$。}\label{sup6:fig:d5-e5-q}
+\end{figure}
+\begin{solution}
+按图\ref{sup6:fig:d5-e5-q}，取质心加速度a、地面摩擦分量f向右为正，角加速度取顺时针为正。拉力对C的力矩与顺时针正向相反，故
+\[
+Ma=F\cos\theta+f,\qquad
+\beta MR^2\alpha=-Fr-fR,\qquad a=R\alpha.
+\]
+图\ref{sup6:fig:d5-e5-q}中，半径CQ与拉线垂直，力臂就是内轴半径r，拉力矩大小为 $Fr$。拉线与水平线的夹角 $\theta$ 用于分解拉力的水平、竖直分量。
+将第二式除以R，并与第一式相加，消去f：
+\[
+(1+\beta)Ma=F(\cos\theta-r/R).
+\]
+于是
+\[
+a=\frac{F(\cos\theta-r/R)}{(1+\beta)M},\qquad
+f=-\frac{F(\beta\cos\theta+r/R)}{1+\beta}.
+\]
+本题范围内f总为负，即摩擦向左；质心加速度却可以向右或向左。临界角为 $\theta_*=\arccos(r/R)$。从静止开始时，$\theta<\theta_*$ 向右运动，$\theta>\theta_*$ 向左运动。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.6,0)node[right]{$\theta$};\draw[axis](0,-1.3)--(0,1.8)node[above]{$(1+\beta)Ma/F$};
+\draw[curve,domain=0:90,samples=70]plot({.045*\x},{2*(cos(\x)-.5)});
+\node[below]at(2.7,0){$\theta_*$};\node[below]at(4.05,0){$\pi/2$};\node[left]at(0,1){$1-r/R$};
+\begin{scope}[shift={(7.4,.2)}]
+\draw[curve](0,0)circle(1);\draw[curve](-1.5,-1)--(1.5,-1);
+\draw[axis](0,-1)--(-1,-1)node[below]{$f<0$};\draw[axis](0,-1)--(0,-.2)node[left]{$N$};\draw[axis](0,0)--(0,-.7)node[right]{$Mg$};
+\end{scope}
+\end{tikzpicture}
+\caption{左图示意 $r/R=1/2$ 时的加速度变号；右图的地面摩擦始终向左。}\label{sup6:fig:d5-e5-s}
+\end{figure}
+竖直方向没有加速度，$N=Mg-F\sin\theta$。因此图\ref{sup6:fig:d5-e5-s}所用模型还要求
+\[
+N>0,\qquad
+\frac{F(\beta\cos\theta+r/R)}{1+\beta}
+\le\mu_s(Mg-F\sin\theta).
+\]
+接触一旦失效，或摩擦超过极限，就须按新的运动状态重列方程。
+还可核对拉力功率。由图\ref{sup6:fig:d5-e5-q}中的切点位置
+$\vct r_{QC}=(r\sin\theta,-r\cos\theta)$，纯滚动时
+\[
+v_{Qx}=v_C(1-r\cos\theta/R),\qquad
+v_{Qy}=-v_Cr\sin\theta/R.
+\]
+故拉力功率为 $Fv_C(\cos\theta-r/R)$，与
+$\dd K/\dd t=(1+\beta)Mv_Ca$ 相等。从静止受力后向左运动时，$v_C$ 和括号均为负，输入功率仍为正。
+\end{solution}
+
+
+
+\begin{example}[圆柱在被拉动的板上滚动]\label{sup6:problem-example-7}\label{sup6:ex:d5-e7}
+质量m的长板可在光滑水平面上平移，板上圆柱质量M、半径R、惯量 $I_C=\beta MR^2$。系统初始静止，对板施加向右恒力F。圆柱与板无滑动，接触静摩擦系数为 $\mu_s$。求板和圆柱的加速度、角加速度、摩擦力及无滑动条件，并讨论摩擦所做的功。板长足够，运动中圆柱未到板端。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-2,-1.3)rectangle(4,-1);\draw[curve](-2,-1.55)--(4,-1.55);\draw[curve](0,0)circle(1);
+\fill(0,0)circle(1.5pt)node[above]{$C,M$};\draw[axis](4,-1.15)--(5.3,-1.15)node[right]{$F$};\node[below]at(2,-1.55){光滑地面};\node at(2.8,-.7){板m};
+\draw[axis](.2,1.3)--(1.3,1.3)node[right]{$x$};
+\end{tikzpicture}
+\caption{板与地面无摩擦；圆柱与板的接触材料点具有相同水平速度。}\label{sup6:fig:d5-e7-q}
+\end{figure}
+\begin{solution}
+图\ref{sup6:fig:d5-e7-q}中，板向右加速时，摩擦使圆柱向右平移并逆时针转动。本题取逆时针角加速度为正。设板加速度A、圆柱加速度a、板对圆柱的摩擦f均以向右为正，则
+\[
+Ma=f,\qquad \beta MR^2\alpha=fR,\qquad
+a+R\alpha=A.
+\]
+最后一式由接触点速度 $v_C+R\omega=V$ 求导得到，加号与本题逆时针正向一致。前两式代入约束，得到
+\[
+a=\frac{\beta}{1+\beta}A,\quad
+R\alpha=\frac{A}{1+\beta},\quad
+f=\frac{\beta M}{1+\beta}A.
+\]
+板受到F与反向摩擦，故 $mA=F-f$。令 $D=(1+\beta)m+\beta M$，消元后
+\[
+\boxed{A=\frac{(1+\beta)F}D,\quad
+a=\frac{\beta F}D,\quad
+\alpha=\frac F{RD},\quad f=\frac{\beta MF}D.}
+\]
+圆柱没有竖直加速度，$N=Mg$，因此须有 $F\le\mu_sgD/\beta$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.6,-1.25)rectangle(2.5,-1);\draw[curve](0,0)circle(1);\fill(0,-1)circle(1.5pt)node[below]{$P$};
+\draw[axis](0,-1)--(1.15,-1)node[right]{$f$};\draw[axis](0,-1)--(-1.15,-1)node[midway,below]{$-f$};
+\draw[axis](0,.15)--(1.1,.15)node[right]{$v_C$};\draw[axis](-.8,.8)arc(135:210:1.1);\node[left]at(-1.2,.3){$\omega$};
+\node[align=left]at(5.7,.15){$v_P=v_C+R\omega=V$\\圆柱：$\mathcal P_f=fV$\\板：$\mathcal P_f=-fV$};
+\end{tikzpicture}
+\caption{相同的接触点速度使两个摩擦功率相消；圆柱单独得到正的摩擦功。}\label{sup6:fig:d5-e7-s}
+\end{figure}
+由图\ref{sup6:fig:d5-e7-s}，圆柱摩擦功率也可拆成 $fv_C+(fR)\omega=fV$。它同时增加平动能和转动能；板的摩擦功率为 $-fV$，整个系统的外力功率只剩FV。
+由速度约束，$v_C=\beta V/(1+\beta)$、$R\omega=V/(1+\beta)$。系统总动能为
+\[
+K=\frac12\left(m+\frac{\beta M}{1+\beta}\right)V^2.
+\]
+对时间求导，$FV=\dot K$ 给出相同的板加速度。圆柱的接触点随板运动，计算圆柱自身的能量变化时，必须计入所获摩擦功。
+\end{solution}
+
+
+
+\begin{example}[圆柱同时与上下两面无滑动接触]\label{sup6:problem-example-8}\label{sup6:ex:d5-e8}
+质量M、半径R、惯量 $\beta MR^2$ 的圆柱置于固定水平地面与质量m的水平长板之间，$0<\beta\le1$。上板由理想导向机构保持水平平移，导向机构没有水平力、不做功；已知板对圆柱的法向压力恒为N。对板施加向右力F。两处均无滑动，求上板和圆柱的加速度及两处摩擦，写出摩擦系数分别为 $\mu_1,\mu_2$ 时的成立条件。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-2,-1)--(3,-1);\draw[curve](0,0)circle(1);\draw[curve](-2,1)rectangle(3,1.25);
+\draw[guide](-2,1.6)--(3,1.6)node[right]{水平导向};\draw[axis](3,1.12)--(4.3,1.12)node[right]{$F$};
+\fill(0,1)circle(1.5pt)node[above left]{$Q$};\fill(0,-1)circle(1.5pt)node[below]{$P$};\fill(0,0)circle(1.5pt)node[left]{$C$};
+\node[right]at(1.3,.5){$N$已给定};\node[above]at(-1.4,1.25){板m};
+\end{tikzpicture}
+\caption{上板的竖直载荷由导向与接触共同承担，不能自行令给定压力N等于mg。}\label{sup6:fig:d5-e8-q}
+\end{figure}
+\begin{solution}
+图\ref{sup6:fig:d5-e8-q}中，下接触点P的速度为零。取圆柱向右平动、顺时针转动为正，$a=R\alpha$。上接触点Q速度为 $v_Q=v_C+R\omega=2v_C$，故上板加速度 $A=2a$。
+这里对两个接触位置的水平速度求导，得到 $A=2a$。接触材料点还可有竖直的向心加速度，故不能把“接触点瞬时速度为零”解释为该材料点的整个加速度为零。图\ref{sup6:fig:d5-e8-q}中两个约束使用的都是水平方向分量。
+设上、下两处作用于圆柱的摩擦分别为 $f_1,f_2$，均先取向右为正。平动和转动方程为
+\[
+Ma=f_1+f_2,\qquad \beta Ma=f_1-f_2.
+\]
+相加、相减，
+\[
+f_1=\frac{1+\beta}{2}Ma,\qquad
+f_2=\frac{1-\beta}{2}Ma.
+\]
+板的水平运动满足 $mA=F-f_1$，结合 $A=2a$，得到
+\[
+D=4m+(1+\beta)M,\qquad a=\frac{2F}D,\quad A=\frac{4F}D,
+\]
+\[
+f_1=\frac{(1+\beta)MF}D,\qquad
+f_2=\frac{(1-\beta)MF}D.
+\]
+当 $\beta<1$ 时，地面对圆柱的静摩擦也向右。上接触的驱动力矩使轮缘具有向左滑动的趋势，下接触摩擦由此指向右方。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1);\draw[curve](-1.5,-1)--(1.8,-1);\draw[curve](-1.5,1)--(1.8,1);
+\draw[axis](0,1)--(1.3,1)node[above]{$f_1$};\draw[axis](0,-1)--(.8,-1)node[below]{$f_2$};
+\draw[axis](0,1)--(0,.25)node[left]{$N$};\draw[axis](0,-1)--(0,-.25)node[left]{$Mg+N$};
+\begin{scope}[shift={(5,0)}]
+\draw[axis](0,-1)--(0,1.5)node[above]{高度};\draw[axis](0,-1)--(3,-1)node[right]{水平速度};
+\draw[curve](0,-1)--(1.2,0)--(2.4,1);\fill(0,-1)circle(1.5pt)node[left]{$P:0$};\fill(1.2,0)circle(1.5pt)node[right]{$C:v_C$};\fill(2.4,1)circle(1.5pt)node[right]{$Q:2v_C$};
+\end{scope}
+\end{tikzpicture}
+\caption{两处摩擦的力矩方向相反；右图的速度分布给出上板速率为圆柱质心速率的两倍。}\label{sup6:fig:d5-e8-s}
+\end{figure}
+图\ref{sup6:fig:d5-e8-s}中的上接触压力为N，下接触压力由圆柱竖直平衡得 $Mg+N$。因此两个独立条件为
+\[
+\frac{(1+\beta)MF}D\le\mu_1N,\qquad
+\frac{(1-\beta)MF}D\le\mu_2(Mg+N).
+\]
+任一处先达到极限，都须更换约束。对于薄圆环 $\beta=1$，下接触摩擦恰为零；它仍满足无滑动运动，并不需要假设两处摩擦都达到极限。
+用上板速度V表示总动能，还可得
+\[
+K=\frac12mV^2+\frac12(1+\beta)M(V/2)^2=\frac D8V^2.
+\]
+整个系统中，上接触的摩擦功率相消，下接触点静止，导向机构不做功，故 $FV=\dot K=(D/4)V\dot V$，与 $A=4F/D$ 相符。
+\end{solution}
+
+
+
+\begin{example}[球沿凸圆面滚下，何时先打滑]\label{deep6:problem-example-9}\label{deep6:ex:d5-e9}
+匀质实心球半径r、质量m，在半径R的固定凸圆弧外侧运动，球心轨迹半径为 $a=R+r$。球从靠近顶点的角度 $\theta_0>0$ 处静止释放，取 $\theta_0\to0^+$ 的极限；$\theta$ 从向上的竖直半径量起。静摩擦系数 $\mu_s=1/5$。求纯滚动阶段的速度、反力和摩擦，并求首次打滑的位置。判断能否直接用纯滚动方程的 $N=0$ 求实际离面角。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-2.5,0)arc(180:0:2.5);\fill(0,0)circle(1.5pt)node[below]{$O$};\draw[guide](0,0)--(0,3.7);
+\coordinate(C)at(1.87,2.67);\draw[curve](C)circle(.76);\fill(C)circle(1.4pt)node[above]{$C$};\draw[guide](0,0)--(C)node[midway,right]{$a$};
+\draw(0,.9)arc(90:55:.9);\node at(.45,1.1){$\theta$};\node[left]at(-2,1.2){固定圆弧R};
+\end{tikzpicture}
+\caption{球心沿半径 $a=R+r$ 的圆运动。角度从顶点向右侧增大。}\label{deep6:fig:d5-e9-q}
+\end{figure}
+\begin{solution}
+先保留释放角 $\theta_0$。纯滚动的能量关系为
+\[
+mg a(\cos\theta_0-\cos\theta)=\frac12(1+\beta)mv^2,
+\qquad \beta=\frac25.
+\]
+对给定位置再取 $\theta_0\to0^+$，得到
+\[
+v^2=\frac{2ga}{1+\beta}(1-\cos\theta).
+\]
+严格位于顶点且完全静止的球会保持不动。这里先在 $\theta_0>0$ 处释放，再令 $\theta_0\to0^+$，以保留离开不稳定平衡所需的初始偏离。
+沿图\ref{deep6:fig:d5-e9-q}的切向向下列式，$m\dot v=mg\sin\theta-f$。以球滚下时的自转方向为正，转动方程为$\beta mr^2\dot\omega=fr$，滚动约束给出$\dot v=r\dot\omega$，所以$f=\beta m\dot v$。代回平动方程并合并，
+\[
+(1+\beta)m\dot v=mg\sin\theta,\qquad
+\dot v=\frac{g\sin\theta}{1+\beta},\qquad
+f=\frac{\beta}{1+\beta}mg\sin\theta.
+\]
+这一步没有约去速度，在静止释放瞬间同样成立。摩擦方向沿坡向上。再沿指向O的方向列式，
+\[
+mg\cos\theta-N=\frac{mv^2}a,
+\quad N=\frac{mg}{1+\beta}\big[(3+\beta)\cos\theta-2\big].
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(.8);\draw[axis](0,0)--(0,-1.3)node[left]{$mg$};\draw[axis](0,0)--(.75,1.07)node[right]{$N$};\draw[axis](0,0)--(-.98,.69)node[left]{$f$};
+\begin{scope}[shift={(4,-.3)}]
+\draw[axis](0,0)--(5,0)node[right]{$\theta$};\draw[axis](0,0)--(0,2.8)node[above]{力除以mg};
+\draw[curve,domain=0:54,samples=70]plot({.075*\x},{2.3*(17*cos(\x)-10)/7});
+\draw[guide,domain=0:54,samples=70]plot({.075*\x},{2.3*(2/7)*sin(\x)*5});
+\node[right]at(3.7,.45){$N/(mg)$};\node at(2.8,2.5){$f/(\mu_smg)$};
+\pgfmathsetmacro{\xs}{.075*acos(340/389)}
+\draw[guide](\xs,0)--(\xs,{2.3*270/389});\fill(\xs,{2.3*270/389})circle(1.5pt);\node[below]at(\xs,0){$\theta_s$};
+\end{scope}
+\end{tikzpicture}
+\caption{首次 $f/\mu_s=N$ 即到达滚动极限。相交点右侧的曲线仅是继续强加滚动约束的形式结果。}\label{deep6:fig:d5-e9-s}
+\end{figure}
+图\ref{deep6:fig:d5-e9-s}中，首次打滑满足
+\[
+\beta\sin\theta_s=\mu_s\big[(3+\beta)\cos\theta_s-2\big].
+\]
+代入参数，化为 $\sin\theta_s=(17/10)\cos\theta_s-1$。在 $0<\theta_s<\arccos(10/17)$ 内，右端为正，平方后
+\[
+1-c^2=(17c/10-1)^2,\qquad
+c\left(\frac{389}{100}c-\frac{17}5\right)=0.
+\]
+符合区间条件的根为
+\[
+\cos\theta_s=\frac{340}{389},\quad
+\sin\theta_s=\frac{189}{389},\quad
+v_s^2=\frac{70}{389}ga.
+\]
+此时 $N_s=270mg/389>0$、$f_s=54mg/389=\mu_sN_s$，球仍与圆面接触。还须确认这是沿运动方向遇到的第一个摩擦边界。令摩擦比值为
+\[
+q(\theta)=\frac{\beta\sin\theta}{(3+\beta)\cos\theta-2}.
+\]
+记分母$D=(3+\beta)\cos\theta-2$，则$D'=-(3+\beta)\sin\theta$。按商法则，
+\[
+\begin{aligned}
+q'(\theta)&=\frac{\beta\cos\theta D-\beta\sin\theta D'}{D^2}\\
+&=\frac{\beta[(3+\beta)(\cos^2\theta+\sin^2\theta)-2\cos\theta]}{D^2}
+=\frac{\beta[(3+\beta)-2\cos\theta]}{D^2}>0.
+\end{aligned}
+\]
+分母为正的接触区内，$q$ 从零增至无穷，因此图\ref{deep6:fig:d5-e9-s}中摩擦边界必先于纯滚动模型的离面边界被碰到。平方求根时排除 $c=0$，也是因为它已超出这个接触区。
+若继续强加纯滚动约束，会在 $\cos\theta_d=10/17$ 处得到 $N=0$。但球已在更早的 $\theta_s$ 处打滑，此后的平动与自转不再满足 $v=r\omega$。实际离面位置须由动摩擦规律和两套运动方程重新求出。
+\end{solution}
+
+
+
+\section{加速与转动参考系中的约束运动}
+
+支承加速或转动时，惯性力由地面系与动系之间的加速度变换得到。平衡、稳定性和摩擦极限都须说明参考系，并限制在实际允许的位移内。
+
+
+
+\subsection{加速参考系与旋转约束}
+车厢加速或导轨转动时，物体相对它们的加速度与地面加速度不同。将加速度变换代入牛顿方程，便得到相应的惯性力。以下先推导这些变换，再用于加速容器、旋转约束和地球附近的落体运动。速度与加速度的参考系须随符号一并确定。
+
+\subsubsection{平移参考系与有效重力}
+设惯性系为 $S$，参考系 $S'$ 的原点位置为 $\vct R_0(t)$，两系坐标轴始终平行。质点位置满足
+\[
+\vct r=\vct R_0+\vct r',\qquad
+\vct a=\vct a_0+\vct a'.
+\]
+将牛顿方程 $m\vct a=\vct F$ 改写为
+\begin{equation}
+m\vct a'=\vct F-m\vct a_0.
+\label{rot:eq:d6-translation}
+\end{equation}
+右端的 $-m\vct a_0$ 是平移惯性力。它与参考系加速度反向，不是另一物体施加的作用，也不与某个真实作用力构成作用力、反作用力对。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\coordinate(O)at(0,0);\coordinate(A)at(2.2,.7);\coordinate(P)at(5.8,2.5);
+\draw[axis](O)--(6.7,0)node[right]{$x$};\draw[axis](O)--(0,3.2)node[above]{$y$};\node[below left]at(O){$O$};
+\fill(A)circle(1.6pt)node[below]{$O'$};\fill(P)circle(2pt)node[above]{$m$};
+\draw[axis](O)--(A)node[midway,above left]{$\vct R_0$};\draw[axis](A)--(P)node[midway,above]{$\vct r'$};
+\draw[guide](O)--(P);\draw[axis](A)--++(1.4,0)node[right]{$\vct a_0$};
+\end{tikzpicture}
+\caption{平移系原点与质点的相对位置。坐标轴未转动，故没有科里奥利项。}\label{rot:fig:d6-translation}
+\end{figure}
+图\ref{rot:fig:d6-translation}中若 $\vct a_0$ 恒定，均匀重力可与惯性力合成
+\[
+\vct g_{\rm eff}=\vct g-\vct a_0.
+\]
+相对静止的悬绳沿有效重力方向，静止液面与有效重力垂直。处理接触问题时，还须另列 $N\ge0$：接触面只能推物体，所求反力超出这一范围时，原接触状态便无法维持。
+
+若真实保守力在 $S'$ 中具有不显含时间的势能 $U(\vct r')$，且 $\vct a_0$ 恒定，惯性力势能为 $m\vct a_0\cdot\vct r'$，从而
+\begin{equation}
+E'=\frac12m|\vct v'|^2+U+m\vct a_0\cdot\vct r'
+\label{rot:eq:d6-translation-energy}
+\end{equation}
+在无功理想约束下守恒。对上式求导，保守力为 $-\nabla U$，约束力的相对功率为零，因此
+\[
+\begin{aligned}
+\dot E'&=m\vct v'\cdot\vct a'+\nabla U\cdot\vct v'
++m\vct a_0\cdot\vct v'+m\dot{\vct a}_0\cdot\vct r'\\
+&=\vct v'\cdot(-m\vct a_0)+m\vct a_0\cdot\vct v'
++m\dot{\vct a}_0\cdot\vct r'.
+\end{aligned}
+\]
+前两项相消。若 $\vct a_0$ 随时间改变，则
+\[
+\frac{\dd E'}{\dd t}=m\dot{\vct a}_0\cdot\vct r'
+\]
+一般不为零。$E'$ 描述相对运动，地面系机械能须用地面速度另行计算。
+
+\subsubsection{转动参考系中的动力学}
+\paragraph{加速度变换}
+对任意矢量 $\vct B$，它在两系中的时间导数满足
+\[
+\left(\frac{\dd\vct B}{\dd t}\right)_S
+=\left(\frac{\dd\vct B}{\dd t}\right)_{S'}+\vct\Omega\times\vct B.
+\]
+先对相对位置求导，得 $\vct v=\vct V_0+\vct v'+\vct\Omega\times\vct r'$。第二次求导时分别有
+\[
+\left(\frac{\dd\vct v'}{\dd t}\right)_S=\vct a'+\vct\Omega\times\vct v',
+\]
+\[
+\left(\frac{\dd}{\dd t}\vct\Omega\times\vct r'\right)_S
+=\dot{\vct\Omega}\times\vct r'
++\vct\Omega\times(\vct v'+\vct\Omega\times\vct r').
+\]
+再加原点加速度，得到
+\begin{equation}
+\begin{aligned}
+\vct a={}&\vct a_0+\vct a'
++2\vct\Omega\times\vct v'
++\dot{\vct\Omega}\times\vct r'\\
+&+\vct\Omega\times(\vct\Omega\times\vct r').
+\end{aligned}
+\label{rot:eq:d6-acceleration}
+\end{equation}
+两个 $\vct\Omega\times\vct v'$ 分别来自相对速度的惯性系导数和 $\vct\Omega\times\vct r'$ 的求导，相加得到系数2。
+因此在 $S'$ 中，
+\begin{equation}
+m\vct a'=\vct F+\vct F_{\rm tr}+\vct F_{\rm cor}
++\vct F_{\rm E}+\vct F_{\rm cf},
+\end{equation}
+其中
+\[
+\begin{aligned}
+\vct F_{\rm tr}&=-m\vct a_0,&
+\vct F_{\rm cor}&=-2m\vct\Omega\times\vct v',\\
+\vct F_{\rm E}&=-m\dot{\vct\Omega}\times\vct r',&
+\vct F_{\rm cf}&=-m\vct\Omega\times(\vct\Omega\times\vct r').
+\end{aligned}
+\]
+后三项依次为科里奥利力、欧拉惯性力和离心惯性力。
+
+\paragraph{方向与相对速度}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\node at(0,0){$\odot\,\Omega$};\draw[guide](.4,0)--(2,0);\fill(2,0)circle(1.6pt)node[above left]{$P$};
+\draw[axis](2,0)--(3.4,0)node[right]{$\vct v'$};\draw[axis](2,0)--(2,-1.4)node[below]{$\vct F_{\rm cor}$};\node at(1,-2.1){沿半径向外运动};
+\begin{scope}[shift={(6,0)}]
+\node at(0,0){$\odot\,\Omega$};\draw[guide](.4,0)--(2,0);\fill(2,0)circle(1.6pt)node[below]{$P$};
+\draw[axis](2,0)--(2,1.4)node[above]{$\vct v'$};\draw[axis](2,0)--(3.4,0)node[right]{$\vct F_{\rm cor}$};\node at(1,-2.1){沿正方位角运动};
+\end{scope}
+\end{tikzpicture}
+\caption{角速度垂直纸面向外。先算 $\vct\Omega\times\vct v'$，再取负号。}\label{rot:fig:d6-coriolis}
+\end{figure}
+图\ref{rot:fig:d6-coriolis}的 $\vct v'$ 是物体相对转动系的速度。相对转台静止的物体有 $\vct v'=0$，科里奥利力为零；它在地面系中仍可作圆周运动。反过来，地面系静止的物体在转动系中通常有非零相对速度。
+对固定转轴，离心力始终背离转轴，大小为 $m\Omega^2\rho$。若转速增大，欧拉惯性力与转动的切向加速度反向。再计入图\ref{rot:fig:d6-coriolis}中的科里奥利力，合惯性力一般不沿径向；各项的方向须分别确定。
+
+\subsubsection{离心势与旋转系能量}
+当原点固定、$\vct\Omega$ 恒定时，离心力可写成势能的负梯度，
+\[
+U_{\rm cf}=-\frac12m|\vct\Omega\times\vct r'|^2
+=-\frac12m\Omega^2\rho^2.
+\]
+离心势随距轴距离增大而降低，其负梯度正好指向外侧。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\node at(0,0){$\odot\,\Omega$};\fill(2,0)circle(1.6pt)node[above]{$P$};\draw[guide](.4,0)--(2,0)node[midway,below]{$\rho$};\draw[axis](2,0)--(3.3,0)node[right]{$m\Omega^2\rho$};
+\begin{scope}[shift={(6,1)}]
+\draw[axis](0,0)--(3.6,0)node[right]{$\rho$};\draw[axis](0,-2.4)--(0,.6)node[above]{$U_{\rm cf}$};
+\draw[curve,domain=0:3,samples=60]plot(\x,{-.22*\x*\x});\node at(2,-2.6){$-m\Omega^2\rho^2/2$};
+\end{scope}
+\end{tikzpicture}
+\caption{离心力向外，离心势随半径降低。势能零点取在转轴上。}\label{rot:fig:d6-centrifugal}
+\end{figure}
+科里奥利力与相对速度垂直，$\vct F_{\rm cor}\cdot\vct v'=0$。若真实势能 $U$ 在旋转系中不显含时间，约束也相对该系静止，且没有摩擦耗散，则
+\begin{equation}
+E'=\frac12m|\vct v'|^2+U-\frac12m\Omega^2\rho^2
+=\text{常量}.
+\label{rot:eq:d6-jacobi}
+\end{equation}
+图\ref{rot:fig:d6-centrifugal}中的负二次项只属于旋转系能量。取转轴为 $z$ 轴，将 $\vct v=\vct v'+\vct\Omega\times\vct r'$ 代入惯性系动能，
+\[
+E=\frac12m|\vct v'|^2+m\vct v'\cdot(\vct\Omega\times\vct r')
++\frac12m\Omega^2\rho^2+U.
+\]
+惯性系角动量的轴向分量满足
+\[
+\Omega L_z=m\vct\Omega\cdot(\vct r'\times\vct v')+m\Omega^2\rho^2
+=m\vct v'\cdot(\vct\Omega\times\vct r')+m\Omega^2\rho^2.
+\]
+两式相减，交叉项消去，有
+\begin{equation}
+E'=E-\Omega L_z.
+\label{rot:eq:d6-energy-relation}
+\end{equation}
+即使 $E'$ 守恒，维持转速的电机仍可改变地面系机械能 $E$，变化量满足 $\Delta E=\Omega\Delta L_z$。角速度随时间变化时，还须计入欧拉惯性力和离心势的时间变化，式\eqref{rot:eq:d6-jacobi}的守恒条件已不成立。
+
+\subsubsection{相对平衡、稳定性与约束}
+约束相对旋转系固定、运动只需一个独立坐标 $q$ 时，能量方程常可写为
+\[
+\frac12A(q)\dot q^2+U_{\rm eff}(q)=E',\qquad A(q)>0.
+\]
+相对平衡满足 $U_{\rm eff}'(q_*)=0$。若二阶导数为正，小振动角频率为 $\sqrt{U_{\rm eff}''(q_*)/A(q_*)}$；若二阶导数为零，则须继续展开高阶项。
+在两个或更多自由度中，科里奥利项会耦合速度分量。有效势的严格极小值可给出稳定性的充分条件，但有效势出现负曲率并不总意味着运动发散；应保留速度耦合项，求线性方程的特征频率。
+由运动方程求出相对平衡后，还须核对约束力：静摩擦不能超过极限，单侧接触的压力和轻绳张力不能为负。
+
+\subsubsection{地球附近的局部坐标}
+取 $x$ 向东、$y$ 向北、$z$ 向上，三轴构成右手系。在纬度 $\lambda$ 处，地球角速度的局部分量为
+\[
+\vct\Omega=(0,\Omega\cos\lambda,\Omega\sin\lambda).
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1.8);\draw[guide](-2,0)--(2,0);\draw[axis](0,-1.9)--(0,2.6)node[above]{$\vct\Omega$};
+\coordinate(P)at(1.474,1.032);\fill(P)circle(1.6pt)node[right]{$P$};\draw[guide](0,0)--(P);\draw(.7,0)arc(0:35:.7);\node at(.9,.3){$\lambda$};\node[below left]at(0,0){$O$};
+\begin{scope}[shift={(5.3,-.5)}]
+\draw[axis](0,0)--(3.2,0)node[right]{北y};\draw[axis](0,0)--(0,2.7)node[above]{上z};\node[below left]at(0,0){$\odot$东x};
+\draw[axis](0,0)--(2.25,1.575)node[above right]{$\vct\Omega$};\draw[guide](2.25,0)--(2.25,1.575)--(0,1.575);
+\node[below]at(1.2,0){$\Omega\cos\lambda$};\node[left]at(0,1.575){$\Omega\sin\lambda$};\draw(.7,0)arc(0:35:.7);\node at(.95,.3){$\lambda$};
+\end{scope}
+\end{tikzpicture}
+\caption{左图以地心纬度示意局部方向；右图为北、上平面，东向垂直纸面向外。}\label{rot:fig:d6-earth}
+\end{figure}
+将地球近似为球体，并在图\ref{rot:fig:d6-earth}的局部区域内取均匀重力。$g$ 为当地有效重力加速度，已计入静止物体的离心效应，列式时不再另加这一静态离心项。
+短时运动可用零阶速度代入科里奥利力，求一阶自转修正。所需尺度条件为运动距离远小于地球半径、$\Omega t\ll1$；忽略项包括二阶自转效应以及按此模型舍去的重力和局部坐标梯度。
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[加速斜面上的相对运动]\label{rot:problem-example-1}\label{rot:ex:d6-e1}
+光滑斜面向右上方升高，与水平面成 $\gamma$ 角。斜面保持姿态，水平加速度为 $A$，向右为正。质量为 $m$ 的小块初始相对斜面静止。求接触阶段的相对加速度、支持力和地面加速度，确定相对静止条件及接触能够维持的范围。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(5,0)--(5,2.9)--cycle;\draw[fill=white,rotate around={30:(2.7,1.56)}](2.4,1.56)rectangle(3,2.06);\node at(2.9,2.35){$m$};
+\draw[axis](1,3)--(3,3)node[right]{$A$};\draw(.9,0)arc(0:30:.9);\node at(1.2,.32){$\gamma$};\draw[axis](3.8,2.4)--(4.9,3.04)node[right]{$s$};
+\end{tikzpicture}
+\caption{相对坐标 $s$ 沿坡向上为正，水平加速度 $A$ 可取正或负。}\label{rot:fig:d6-e1-q}
+\end{figure}
+\begin{solution}
+在图\ref{rot:fig:d6-e1-q}的随斜面平移系中，惯性力为 $-mA\vct e_x$。沿坡和向外法线的单位矢量分别为
+\[
+\vct e_s=(\cos\gamma,\sin\gamma),\qquad
+\vct e_n=(-\sin\gamma,\cos\gamma).
+\]
+图\ref{rot:fig:d6-e1-s}中的合有效力为 $(-mA,-mg)$。沿坡取点积，重力和惯性力都可能使物块下滑；向外法线取点积时，惯性力却有向外分量：
+\[
+m\ddot s=(-mA,-mg)\cdot\vct e_s,\qquad
+0=N+(-mA,-mg)\cdot\vct e_n.
+\]
+法向相对加速度为零来自仍在平面上运动的约束，不能把它直接用于离面以后的阶段。
+将重力与惯性力分别投影，有
+\[
+\ddot s=-g\sin\gamma-A\cos\gamma,\qquad
+N=m(g\cos\gamma-A\sin\gamma).
+\]
+相对静止要求 $\ddot s=0$，即 $A=-g\tan\gamma$：斜面须向左加速。此时 $N=mg/\cos\gamma>0$，因而该相对平衡能满足接触条件。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(0,0)circle(1.8pt)node[above right]{$m$};\draw[guide](-1.7,-.981)--(1.7,.981);
+\draw[axis](0,0)--(0,-1.6)node[below]{$mg$};\draw[axis](0,0)--(-1.5,0)node[left]{$mA$};\draw[axis](0,0)--(-.7,1.212)node[above]{$N$};
+\node[align=left]at(4.3,.1){图示 $A>0$\\惯性力向左\\法向反力随A增大而减小};
+\end{tikzpicture}
+\caption{平移系受力图。惯性力的箭头只对应图示的正A情形。}\label{rot:fig:d6-e1-s}
+\end{figure}
+图\ref{rot:fig:d6-e1-s}中，保持接触要求 $A\le g\cot\gamma$。当 $A>g\cot\gamma$，有效重力的向外法向分量为 $A\sin\gamma-g\cos\gamma>0$，自由运动使物块离开斜面，所需的负支持力无法提供。
+等号处 $N=0$，有效重力恰与斜面平行。若平面无限延伸且初始法向相对速度为零，物块的自由轨迹可以继续与斜面重合，法向间隙仍为零。因此 $N=0$ 给出接触的临界条件，是否分离还须考察随后的法向相对运动。
+
+保持接触时，小块地面加速度为 $\vct a=A\vct e_x+\ddot s\vct e_s$，逐项整理得
+\[
+\begin{aligned}
+a_x&=A\sin^2\gamma-g\sin\gamma\cos\gamma,\\
+a_y&=-g\sin^2\gamma-A\sin\gamma\cos\gamma.
+\end{aligned}
+\]
+这也等于 $-g\vct e_y+(N/m)\vct e_n$，与地面系中只受重力和支持力的方程一致。有限斜面还须在物块到达端点时终止这一阶段。
+\end{solution}
+
+
+
+\begin{example}[加速水槽的液面与压力]\label{rot:problem-example-2}\label{rot:ex:d6-e2}
+开口矩形水槽沿 $x$ 方向长 $2\ell$、高 $H$、垂直纸面宽 $B$，初始平均液深为 $h_0$。水槽以恒加速度 $A$ 向右运动，密度为 $\rho$ 的液体相对槽静止，忽略毛细效应。取槽中心为 $x=0$，底面为 $z=0$。求液面、底部表压及两端壁对液体的水平合力，确定不溢流且槽底全部被液体覆盖的条件。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill[gray!12](0,0)--(6,0)--(6,1)--(0,2.2)--cycle;\draw[curve](0,2.8)--(0,0)--(6,0)--(6,2.8);\draw[curve](0,2.2)--(6,1);\draw[guide](0,1.6)--(6,1.6)node[right]{$h_0$};
+\draw[axis](2,3.2)--(4,3.2)node[right]{$A$};\draw[<->](-.55,0)--(-.55,2.8)node[midway,left]{$H$};
+\node[below]at(0,0){$-\ell$};\node[below]at(3,0){$0$};\node[below]at(6,0){$\ell$};\node at(3,.65){$\rho$，宽B};
+\end{tikzpicture}
+\caption{液面左高右低，虚线为原来的平均液面高度。}\label{rot:fig:d6-e2-q}
+\end{figure}
+\begin{solution}
+在随槽系中，有效重力为 $(-A,-g)$。流体静力方程给出
+\[
+\frac{\partial p}{\partial x}=-\rho A,\qquad
+\frac{\partial p}{\partial z}=-\rho g.
+\]
+沿图\ref{rot:fig:d6-e2-q}的自由液面，表压恒为零，故 $\dd p=-\rho A\dd x-\rho g\dd z_s=0$，液面斜率为 $\dd z_s/\dd x=-A/g$。加速后两端液深都会改变，积分留下的高度常数须由体积守恒确定。
+先对压强方程积分：$\partial p/\partial x=-\rho A$给$p=-\rho Ax+f(z)$，再由$f'(z)=-\rho g$得$p=-\rho Ax-\rho gz+C$。自由液面上$p=p_{\rm atm}$，故液面可写为$z_s(x)=c-Ax/g$。高度常数$c$由体积守恒确定：
+\[
+B\int_{-\ell}^{\ell}\left(c-\frac Agx\right)\dd x
+=B\left[cx-\frac{A}{2g}x^2\right]_{-\ell}^{\ell}
+=2B\ell c=2B\ell h_0.
+\]
+所以$c=h_0$、$C=p_{\rm atm}+\rho gh_0$，得到
+\[
+z_s(x)=h_0-\frac Agx,\qquad
+p(x,z)-p_{\rm atm}=\rho g(h_0-z)-\rho Ax.
+\]
+图\ref{rot:fig:d6-e2-q}中，两端液深分别为
+$h_L=h_0+A\ell/g$、$h_R=h_0-A\ell/g$，底部表压为 $p_b(x)=\rho gh_0-\rho Ax$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,2.4)--(0,0)--(4,0)--(4,2.4);\draw[guide](0,2)--(4,.8);
+\draw[axis](0,.67)--(1.4,.67)node[above]{$F_L$};\draw[axis](4,.27)--(3.3,.27)node[above]{$F_R$};
+\begin{scope}[shift={(6,0)}]
+\draw[axis](0,0)--(3.8,0)node[right]{$x$};\draw[axis](0,0)--(0,2.7)node[above]{$p_b$};\draw[curve](.3,2.2)--(3.2,1);
+\node[below]at(.3,0){$-\ell$};\node[below]at(3.2,0){$\ell$};\node at(1.7,2.7){线性压强分布};
+\end{scope}
+\end{tikzpicture}
+\caption{端壁作用于液体的力方向相反，左端合力较大。底部表压从左向右线性降低。}\label{rot:fig:d6-e2-s}
+\end{figure}
+端壁上的表压随深度线性增大。分别积分，图\ref{rot:fig:d6-e2-s}中的两个力为
+\[
+\begin{aligned}
+F_L&=\rho gB\int_0^{h_L}(h_L-z)\dd z
+=\rho gB\left[h_Lz-\frac{z^2}{2}\right]_0^{h_L}
+=\frac12\rho gBh_L^2,\\
+F_R&=\rho gB\int_0^{h_R}(h_R-z)\dd z
+=\rho gB\left[h_Rz-\frac{z^2}{2}\right]_0^{h_R}
+=\frac12\rho gBh_R^2.
+\end{aligned}
+\]
+于是净水平力为
+\[
+F_L-F_R=\frac12\rho gB(h_L-h_R)(h_L+h_R)
+=2\rho B\ell h_0A=M_{\rm liq}A.
+\]
+这一合力使全部液体获得水平加速度$A$。底面对液体的竖直合力为
+\[
+B\int_{-\ell}^{\ell}p_b\dd x
+=\rho B\left[gh_0x-\frac{Ax^2}{2}\right]_{-\ell}^{\ell}
+=2\rho gB\ell h_0=M_{\rm liq}g,
+\]
+恰好平衡液体重力。
+取 $A\ge0$，槽底不露出要求 $h_R\ge0$，不溢出要求 $h_L\le H$，故
+\[
+0\le A\le\frac g\ell\min(h_0,H-h_0).
+\]
+右端液深恰为零或左端液面恰到槽口时取等号。若右端已经露底，体积积分的范围须改为实际湿润区域，见习题\ref{rot:ex:d6-h2}。
+\end{solution}
+
+
+
+\begin{example}[基座振动引起的弹簧响应]\label{rot:problem-example-3}\label{rot:ex:d6-e3}
+水平小车上固定一轻弹簧，劲度系数为 $k$，连接质量为 $m$、可无摩擦滑动的物块。弹簧无形变时，物块中心对应的地面坐标为 $X(t)=X_0\cos\nu t$。令物块相对该位置的位移为 $x$，初始 $x=\dot x=0$。求相对运动及共振响应，分别计算相对运动能量的变化率和支点传入物块、弹簧系统的功率。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.6)rectangle(6,1.2);\draw[curve](.5,-.5)--(.5,1);\draw[spring](.5,.3)--(3.9,.3);\draw[fill=white](3.9,-.1)rectangle(4.7,.7);\node at(4.3,.3){$m$};
+\draw[guide](2.8,-.5)--(2.8,1);\node[above]at(2.8,1){$O':X(t)$};\draw[<->](2.8,-.9)--(4.3,-.9)node[midway,below]{$x$};\draw[axis](5,1.7)--(6.4,1.7)node[right]{基座运动};
+\end{tikzpicture}
+\caption{物块地面坐标为 $q=X+x$，$x$ 同时是弹簧伸长量。}\label{rot:fig:d6-e3-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-e3-q}中，小车系的惯性力为$-m\ddot X$。由基座位置逐次求导，$\dot X=-X_0\nu\sin\nu t$、$\ddot X=-X_0\nu^2\cos\nu t$。置$\omega_0=\sqrt{k/m}$，有
+\[
+\ddot x+\omega_0^2x=-\ddot X=X_0\nu^2\cos\nu t.
+\]
+地面坐标与形变量的关系是 $q=X+x$，弹簧力为 $-kx$，不是 $-kq$。从地面系写 $m(\ddot X+\ddot x)=-kx$，也得到同一方程。题设的初始静止指相对基座的 $x(0)=\dot x(0)=0$；在本题基座相位下，$q(0)=X_0$、$\dot q(0)=0$。
+当$\nu\ne\omega_0$，先取特解$x_p=C\cos\nu t$，其二阶导数为$-C\nu^2\cos\nu t$。代入方程并比较余弦系数，得$C(\omega_0^2-\nu^2)=X_0\nu^2$。加上齐次通解，
+\[
+x=C\cos\nu t+A\cos\omega_0t+B\sin\omega_0t,
+\qquad C=\frac{X_0\nu^2}{\omega_0^2-\nu^2}.
+\]
+初始位移给$C+A=0$，初始速度给$B\omega_0=0$，因此$A=-C,B=0$，得到
+\[
+x(t)=\frac{X_0\nu^2}{\omega_0^2-\nu^2}
+\big(\cos\nu t-\cos\omega_0t\big).
+\]
+地面坐标为
+\[
+q(t)=\frac{X_0}{\omega_0^2-\nu^2}
+\big(\omega_0^2\cos\nu t-\nu^2\cos\omega_0t\big).
+\]
+接近共振时，两个余弦项的频率相近。第二项由初始条件确定，在无阻尼模型中始终保留，响应须由两项叠加求得。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(7,0)node[right]{$\omega_0t$};\draw[axis](0,-2.3)--(0,2.8)node[above]{$x/X_0$};
+\draw[curve,domain=0:11.5,samples=180]plot({.55*\x},{.19*\x*sin(\x*180/pi)});
+\draw[guide](0,0)--(6.325,2.185);\draw[guide](0,0)--(6.325,-2.185);\node[right]at(4,2.5){包络 $\pm\omega_0t/2$};
+\node[left]at(0,1.52){$4$};\node[left]at(0,-1.52){$-4$};
+\end{tikzpicture}
+\caption{实线为共振位移，虚线为线性增长的正、负包络。}\label{rot:fig:d6-e3-s}
+\end{figure}
+当 $\nu=\omega_0$，对上式取极限，利用
+\[
+\cos\nu t-\cos\omega_0t\sim-(\nu-\omega_0)t\sin\omega_0t,
+\quad \omega_0^2-\nu^2\sim-2\omega_0(\nu-\omega_0),
+\]
+得到图\ref{rot:fig:d6-e3-s}所示的
+\[
+x(t)=\frac12X_0\omega_0t\sin\omega_0t.
+\]
+这一共振解要求基座持续按给定规律运动。振幅增长到弹簧超出线性范围或物块触及行程端点时，模型便须改变。
+
+相对运动能量$E_r=m\dot x^2/2+kx^2/2$求导后，用相对运动方程消去加速度：
+\[
+\dot E_r=m\dot x\ddot x+kx\dot x
+=\dot x(m\ddot x+kx)=-m\ddot X\dot x.
+\]
+地面系中，物块与弹簧的机械能为 $E=m(\dot X+\dot x)^2/2+kx^2/2$。由 $m\ddot q=-kx$，逐项求导，
+\[
+\dot E=(-kx)\dot q+kx(\dot q-\dot X)=-kx\dot X.
+\]
+后一式用支点的地面速度 $\dot X$ 计算实际传入功率；前一式用相对速度 $\dot x$ 计算惯性力对相对运动的功率。二者对应不同的能量方程。
+\end{solution}
+
+
+
+\begin{example}[匀速旋转径向杆上的滑珠]\label{rot:problem-example-4}\label{rot:ex:d6-e4}
+轻直杆在水平面内绕固定端 $O$ 以恒角速度 $\Omega>0$ 逆时针转动。质量为 $m$ 的滑珠可沿杆无摩擦滑动，初始半径为 $a$、相对速度为零，杆端半径为 $R$，$0<a<R$。求到达杆端前的运动、杆对珠的切向作用力、到端点的时间，以及维持转速的电机对滑珠所做的功。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(5.6,0);\fill(0,0)circle(1.7pt)node[below]{$O$};\draw[fill=white](1.8,-.18)rectangle(2.2,.18);\node[above]at(2,.2){$m$};\node[below]at(1,-.1){$a$};\node[below]at(5.6,0){$R$};
+\draw[axis](.7,.7)arc(45:135:1);\node at(.3,1.7){$\Omega$};\draw[axis](3,.5)--(4.4,.5)node[right]{$\vct e_r$};
+\end{tikzpicture}
+\caption{俯视水平转杆；珠的径向相对速度初始为零，方位角随杆转动。}\label{rot:fig:d6-e4-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-e4-q}中，杆不施加沿杆作用力。随杆系的径向方程为
+\[
+\ddot r=\Omega^2r.
+\]
+令$r\propto e^{st}$，特征方程为$s^2-\Omega^2=0$，故通解为$r=C_1e^{\Omega t}+C_2e^{-\Omega t}$。其导数为$\dot r=\Omega C_1e^{\Omega t}-\Omega C_2e^{-\Omega t}$。由$r(0)=a,\dot r(0)=0$，得到$C_1+C_2=a$、$\Omega(C_1-C_2)=0$，所以两系数均为$a/2$，即
+\[
+r=a\cosh\Omega t,\qquad
+\dot r=a\Omega\sinh\Omega t.
+\]
+杆对滑珠的切向力记为 $N_\varphi$，正向取逆时针。由于相对切向加速度为零，它须平衡科里奥利力，
+\[
+N_\varphi=2m\Omega\dot r.
+\]
+该力也正好提供地面系极坐标加速度中的 $2\Omega\dot r$ 项。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(0,0)circle(1.7pt)node[above right]{$m$};\draw[guide](-1.4,0)--(2.1,0);
+\draw[axis](0,0)--(1.7,0)node[right]{$m\Omega^2r$};\draw[axis](0,0)--(0,1.4)node[above]{$N_\varphi$};\draw[axis](0,0)--(0,-1.4)node[below]{$2m\Omega\dot r$};
+\node[align=left]at(5,.2){向下：科里奥利力\\向上：杆的真实作用力\\径向：相对加速度不为零};
+\end{tikzpicture}
+\caption{随杆系的水平力图。竖直重力与支持力已相互平衡。}\label{rot:fig:d6-e4-s}
+\end{figure}
+到达杆端时，$\cosh\Omega t_R=R/a$，所以
+\[
+t_R=\frac1\Omega\operatorname{arcosh}\frac Ra,\qquad
+v_r=\Omega\sqrt{R^2-a^2},\qquad v_\varphi=\Omega R.
+\]
+图\ref{rot:fig:d6-e4-s}中的出杆时间还可写为普通对数。由 $\cosh z=(e^z+e^{-z})/2$，解正的z得到
+\[
+t_R=\frac1\Omega\ln\frac{R+\sqrt{R^2-a^2}}a.
+\]
+初始滑珠虽相对杆静止，地面切向速度却为 $\Omega a$，所以计算地面动能增量时不能把初动能置零。
+由式\eqref{rot:eq:d6-jacobi}，相对运动满足
+\[
+\frac12m\dot r^2-\frac12m\Omega^2r^2=-\frac12m\Omega^2a^2.
+\]
+地面系机械能不守恒。图\ref{rot:fig:d6-e4-s}中的切向力对珠做功，功率为
+$N_\varphi\Omega r=2m\Omega^2r\dot r$。维持转速的电机提供相等的功率，因此
+\[
+W=\int_a^R2m\Omega^2r\dd r
+=m\Omega^2\bigl[r^2\bigr]_a^R=m\Omega^2(R^2-a^2).
+\]
+直接计算地面动能变化，初态为 $m\Omega^2a^2/2$，末态为 $m\Omega^2(2R^2-a^2)/2$，差值相同。杆端之后若珠自由离开，其地面初速度须同时保留径向和切向分量。
+在图\ref{rot:fig:d6-e4-s}所示的到端点过程，径向动能增加 $m\Omega^2(R^2-a^2)/2$，切向动能也增加同样大小，两者之和正好为电机所做的功。杆对珠的力垂直其相对速度，但不垂直其地面速度，这正是两种能量描述不同的原因。
+\end{solution}
+
+
+
+\begin{example}[无摩擦转盘上的自由质点]\label{rot:problem-example-5}\label{rot:ex:d6-e5}
+半径为 $R$ 的水平圆盘绕中心 $O$ 以恒角速度 $\Omega>0$ 逆时针转动。盘面完全光滑，质量为 $m$ 的质点在 $t=0$ 位于盘系 $x'=a,y'=0$，并相对盘静止，$0<a<R$。此后仅受竖直重力和支持力。求两个参考系中的轨迹、相对速度、到盘边的时间与旋转系能量。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.2);\fill(0,0)circle(1.5pt)node[below left]{$O$};\fill(1,0)circle(1.8pt)node[below]{$P_0:a$};\draw[axis](1,0)--(1,1.4)node[right]{$\Omega a$};
+\draw[axis](0,0)--(2.7,0)node[right]{$x=x'$};\draw[axis](0,0)--(0,2.7)node[above]{$y=y'$};\node at(-1.6,-1.7){初始时刻};
+\end{tikzpicture}
+\caption{相对盘静止的质点，在地面系中已有切向初速度 $\Omega a$。}\label{rot:fig:d6-e5-q}
+\end{figure}
+\begin{solution}
+地面系中水平合力为零。由图\ref{rot:fig:d6-e5-q}的初态，
+\[
+x=a,\qquad y=\Omega at.
+\]
+相对盘静止只说明初始相对速度为零。由速度变换，地面初速度为 $\vct\Omega\times(a,0,0)=(0,\Omega a,0)$，而不是零。盘面光滑，此后没有水平力把质点拉成圆周运动。
+盘系相对于地面逆时针转过 $\tau=\Omega t$，故将地面位置乘逆转矩阵，
+\[
+\begin{aligned}
+x'&=a(\cos\tau+\tau\sin\tau),\\
+y'&=a(-\sin\tau+\tau\cos\tau).
+\end{aligned}
+\]
+这里使用的逆转矩阵为
+\[
+\begin{pmatrix}x'\\y'\end{pmatrix}
+=\begin{pmatrix}\cos\tau&\sin\tau\\-\sin\tau&\cos\tau\end{pmatrix}
+\begin{pmatrix}a\\a\tau\end{pmatrix}.
+\]
+这个矩阵改变位置矢量的坐标分量。图\ref{rot:fig:d6-e5-s}中，质点在地面系仍沿直线运动，转盘系中的曲线来自坐标轴随时间转动。
+用$\dd/\dd t=\Omega\dd/\dd\tau$，对正弦、余弦以及含$\tau$的乘积分别求导，
+\[
+\dot x'=a\Omega(-\sin\tau+\sin\tau+\tau\cos\tau),\qquad
+\dot y'=a\Omega(-\cos\tau+\cos\tau-\tau\sin\tau).
+\]
+括号内前两项抵消，得到
+\[
+\dot x'=a\Omega\tau\cos\tau,\qquad
+\dot y'=-a\Omega\tau\sin\tau,
+\quad |\vct v'|^2=a^2\Omega^2\tau^2.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.67]
+\pgfmathsetmacro{\tauR}{sqrt(8)}
+\draw[guide](0,0)circle(3);\node at(-1.8,3.35){地面系};
+\draw[axis](-3.25,0)--(3.4,0)node[right]{$x/a$};\draw[axis](0,-3.25)--(0,3.4)node[above]{$y/a$};
+\draw[curve](1,0)--(1,\tauR);\draw[axis](1,1)--(1,1.8);
+\fill(1,0)circle(1.6pt)node[below right]{$P_0$};\fill(1,\tauR)circle(1.8pt)node[above right]{$P_R$};
+\node at(-1.25,-1.6){$R/a=3$};
+\begin{scope}[xshift=8.7cm]
+\draw[guide](0,0)circle(3);\node at(-1.8,3.35){转盘系};
+\draw[axis](-3.25,0)--(3.4,0)node[right]{$x'/a$};\draw[axis](0,-3.4)--(0,3.4)node[above]{$y'/a$};
+\draw[curve,domain=0:\tauR,samples=150]plot({cos(\x*180/pi)+\x*sin(\x*180/pi)},{-sin(\x*180/pi)+\x*cos(\x*180/pi)});
+\draw[axis,domain=1.4:1.7,samples=16]plot({cos(\x*180/pi)+\x*sin(\x*180/pi)},{-sin(\x*180/pi)+\x*cos(\x*180/pi)});
+\fill(1,0)circle(1.6pt)node[above right]{$P_0$};
+\fill({cos(\tauR*180/pi)+\tauR*sin(\tauR*180/pi)},{-sin(\tauR*180/pi)+\tauR*cos(\tauR*180/pi)})circle(1.8pt)node[below right]{$P_R$};
+\end{scope}
+\end{tikzpicture}
+\caption{图取 $R=3a$，画出质点到达盘边前的轨迹。虚线为盘边；两图中的 $P_R$ 对应同一离盘时刻，$\Omega t_R=\sqrt8$。}\label{rot:fig:d6-e5-s}
+\end{figure}
+图\ref{rot:fig:d6-e5-s}的两种坐标给出同一到轴距离：
+\[
+r^2=x^2+y^2=x'^2+y'^2=a^2(1+\Omega^2t^2).
+\]
+所以首次到达盘边的时刻为
+\[
+t_R=\frac{\sqrt{R^2-a^2}}{\Omega a}.
+\]
+地面系速率保持 $\Omega a$，相对盘的速率却随时间增大。旋转系能量为
+\[
+E'=\frac12ma^2\Omega^2\tau^2
+-\frac12m\Omega^2a^2(1+\tau^2)
+=-\frac12m\Omega^2a^2.
+\]
+离心力对相对运动做正功，科里奥利力只改变相对速度方向。地面机械能 $E=m\Omega^2a^2/2$、轴向角动量 $L_z=m\Omega a^2$ 都保持不变，也满足 $E'=E-\Omega L_z$。
+\end{solution}
+
+
+
+\begin{example}[加速转盘上的静摩擦极限]\label{rot:problem-example-6}\label{rot:ex:d6-e6}
+水平转盘从静止开始，以恒定角加速度 $\alpha>0$ 逆时针加速。质量为 $m$ 的小物体最初位于距轴 $r>0$ 处，相对盘静止，静摩擦系数为 $\mu$。求不打滑时的摩擦矢量、首次达到摩擦极限的角速度与时间，确定不打滑阶段存在的条件。再取 $\alpha=3\mu g/(5r)$，求达到极限时两摩擦分量的比例。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2);\fill(0,0)circle(1.5pt)node[below left]{$O$};\fill(1.3,0)circle(2pt)node[right]{$m$};\draw[guide](0,0)--(1.3,0)node[midway,below]{$r$};
+\draw[axis](-1.2,1.2)arc(135:225:1.7);\node[anchor=east]at(-2.2,1.3){$\Omega=\alpha t$};\draw[axis](1.3,.2)--(1.3,1)node[left]{$\vct e_\varphi$};
+\end{tikzpicture}
+\caption{物体相对盘静止，但地面系加速度同时含向心与切向分量。}\label{rot:fig:d6-e6-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-e6-q}中，物体地面加速度为 $-r\Omega^2\vct e_r+r\alpha\vct e_\varphi$。唯一水平真实力为静摩擦，因此
+\[
+\vct f=-mr\Omega^2\vct e_r+mr\alpha\vct e_\varphi,
+\qquad |\vct f|=mr\sqrt{\Omega^4+\alpha^2}.
+\]
+在盘系中，静摩擦的径向和切向分量分别抵消离心力和欧拉惯性力。物体相对盘静止，$\vct v'=0$，科里奥利力为零。
+无滑动条件为
+\[
+\Omega^4+\alpha^2\le(\mu g/r)^2.
+\]
+若 $0<\alpha<\mu g/r$，摩擦随时间严格增大，首次达到极限时
+\[
+\Omega_s=\big[(\mu g/r)^2-\alpha^2\big]^{1/4},
+\qquad t_s=\frac{\Omega_s}{\alpha}.
+\]
+若 $\alpha>\mu g/r$，初始切向需求已超过最大静摩擦，不能先假设存在不打滑阶段；若 $\alpha=\mu g/r$，只有 $t=0$ 瞬间达到等号，任意正时间均无法维持原约束。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(0,0)circle(1.6pt)node[below right]{$m$};\draw[axis](0,0)--(-1.6,1.2)node[above left]{$|\vct f|=\mu mg$};\draw[guide](0,0)--(-1.6,0)--(-1.6,1.2)--(0,1.2)--cycle;
+\node[below]at(-.8,0){$4\mu mg/5$};\node[right]at(0,.6){$3\mu mg/5$};\node[align=left]at(4,.7){径向向内\\切向沿加速方向\\两分量按矢量相加};
+\end{tikzpicture}
+\caption{指定角加速度下的3、4、5直角力三角形。}\label{rot:fig:d6-e6-s}
+\end{figure}
+对指定参数，令 $K=\mu g/r$，有 $\alpha=3K/5$、$\Omega_s^4=16K^2/25$，因此
+\[
+\Omega_s^2=\frac45K,\quad
+|f_r|=\frac45\mu mg,\quad f_\varphi=\frac35\mu mg,
+\quad t_s=\frac{2\sqrt5}{3}\sqrt{\frac r{\mu g}}.
+\]
+图\ref{rot:fig:d6-e6-s}的摩擦同时含径向、切向分量。达到极限后若继续加速，物体开始相对盘滑动；随后的运动须由动摩擦规律求解，盘的转速 $\Omega=\alpha t$ 已不等于物体自身的方位角速度。
+\end{solution}
+
+
+
+\begin{example}[绕竖直直径旋转的圆环]\label{rot:problem-example-7}\label{rot:ex:d6-e7}
+半径为 $a$ 的光滑圆环以竖直直径为固定轴，由电机维持恒角速度 $\Omega$ 转动。质量为 $m$ 的小珠穿在环上，$\theta$ 从最低点量起，向图中右侧为正。求相对运动方程、全部相对平衡及其稳定性，求稳定平衡附近的小振动频率，并讨论临界转速下的运动。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2);\draw[axis](0,-2.4)--(0,2.8)node[above]{$z,\ \vct\Omega$};\fill(0,0)circle(1.5pt)node[left]{$O$};\coordinate(P)at(1.414,-1.414);\fill(P)circle(2.2pt)node[right]{$m$};
+\draw[guide](0,0)--(P)node[midway,above]{$a$};\draw(0,-.8)arc(-90:-45:.8);\node at(.55,-.95){$\theta$};\draw[guide](P)--(0,-1.414);\draw[guide](1.414,-1.414)--(1.414,-2.55);\draw[<->](0,-2.45)--(1.414,-2.45)node[midway,below]{$a\sin\theta$};
+\end{tikzpicture}
+\caption{圆环随竖直轴转动，小珠到该轴的距离为 $a\sin\theta$。}\label{rot:fig:d6-e7-q}
+\end{figure}
+\begin{solution}
+在图\ref{rot:fig:d6-e7-q}的随环系中，小珠相对动能为 $ma^2\dot\theta^2/2$，重力势能为 $-mga\cos\theta$。离心势只用到轴距离，故
+\[
+U_{\rm eff}=-mga\cos\theta-\frac12m\Omega^2a^2\sin^2\theta.
+\]
+科里奥利力垂直圆环平面，由约束抵消，不进入沿环方程。使用$\dd(\sin^2\theta)/\dd\theta=2\sin\theta\cos\theta$，有效势的一阶导数为
+\[
+U_{\rm eff}'=mga\sin\theta-m\Omega^2a^2\sin\theta\cos\theta.
+\]
+代入$ma^2\ddot\theta=-U_{\rm eff}'$，得到
+\[
+ma^2\ddot\theta=-mga\sin\theta
++m\Omega^2a^2\sin\theta\cos\theta,
+\]
+即 $\ddot\theta=(\Omega^2\cos\theta-g/a)\sin\theta$。相对平衡角满足
+$\sin\theta=0$，或 $\cos\theta=g/(\Omega^2a)$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-2.2,0)--(2.3,0)node[right]{$\theta$};\draw[axis](0,-.3)--(0,2.3)node[above]{$U_{\rm eff}-U_0$};
+\draw[curve,domain=-1.6:1.6,samples=100]plot(\x,{2*(1-cos(\x*180/pi)-.25*sin(\x*180/pi)^2)});\node at(0,-.8){$\Omega^2a/g=1/2$};
+\begin{scope}[shift={(6,0)}]
+\draw[axis](-2.2,0)--(2.3,0)node[right]{$\theta$};\draw[axis](0,-1.3)--(0,1.3)node[above]{$U_{\rm eff}-U_0$};
+\draw[curve,domain=-1.6:1.6,samples=100]plot(\x,{2*(1-cos(\x*180/pi)-sin(\x*180/pi)^2)});
+\fill(-1.047,-.5)circle(1.4pt);\fill(1.047,-.5)circle(1.4pt);\node at(0,-1.8){$\Omega^2a/g=2$};
+\end{scope}
+\end{tikzpicture}
+\caption{转速越过临界值后，最低点由势能极小变为极大，两侧出现新的稳定平衡。}\label{rot:fig:d6-e7-s}
+\end{figure}
+最低点 $\theta=0$ 的线性方程为
+$\ddot\eta+(g/a-\Omega^2)\eta=0$。因此当 $\Omega^2<g/a$ 时稳定，小振动角频率为 $\sqrt{g/a-\Omega^2}$；超过该转速则不稳定。环顶 $\theta=\pi$ 的线性系数为 $-(g/a+\Omega^2)$，始终不稳定。
+当 $\Omega^2>g/a$，图\ref{rot:fig:d6-e7-s}右图两侧的平衡角为
+\[
+\theta_* =\pm\arccos\frac g{\Omega^2a}.
+\]
+在平衡处，运动方程右端对角度的导数为 $-\Omega^2\sin^2\theta_*$，所以两者均稳定，
+\[
+\omega_*^2=\Omega^2\sin^2\theta_*
+=\Omega^2\left[1-\left(\frac g{\Omega^2a}\right)^2\right].
+\]
+稳定性也可统一由 $U_{\rm eff}''/(ma^2)$ 判断。对有效势求两次导数，
+\[
+\frac{U_{\rm eff}''}{ma^2}
+=\frac ga\cos\theta-\Omega^2(\cos^2\theta-\sin^2\theta).
+\]
+在非零平衡角处利用 $g/a=\Omega^2\cos\theta_*$，前两项相消，只剩 $\Omega^2\sin^2\theta_*>0$，从而得到两侧平衡的小振动频率。
+在临界 $\Omega^2=g/a$ 处，二次势能项为零，但
+\[
+U_{\rm eff}=U_0+\frac{mga}{8}\theta^4+O(\theta^6).
+\]
+此时还有精确恒等式
+\[
+U_{\rm eff}(\theta)-U_{\rm eff}(0)
+=\frac{mga}{2}(1-\cos\theta)^2.
+\]
+最低点附近的小偏离使势能升高，因此它仍稳定。图\ref{rot:fig:d6-e7-s}中临界势阱的井底变平，回复作用从三次项开始，周期随振幅改变，见习题\ref{rot:ex:d6-h7}。
+
+随环系的守恒量是 $E'=ma^2\dot\theta^2/2+U_{\rm eff}$。地面能量满足
+$E-E'=\Omega L_z=m\Omega^2a^2\sin^2\theta$，可随珠的位置改变，差额由维持转速的电机提供或回收。
+\end{solution}
+
+
+
+\begin{example}[高塔落体的东偏]\label{rot:problem-example-8}\label{rot:ex:d6-e8}
+在北纬 $0\le\lambda<\pi/2$ 处，质点从高为 $H$ 的塔顶相对地面静止释放。取当地有效重力加速度为 $g$，地球角速度为 $\Omega$，忽略空气阻力。设 $H\ll R_\oplus$、$\Omega\sqrt{H/g}\ll1$。求落地时相对于塔脚的东西偏移，保留到 $\Omega$ 的一阶。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1,0)--(4,0);\draw[curve](0,0)--(0,3);\fill(0,3)circle(2pt)node[above]{$m$};\node[below left]at(0,0){塔脚};
+\draw[axis](0,3)--(0,2)node[right]{$g$};\draw[<->](-.6,0)--(-.6,3)node[midway,left]{$H$};\draw[axis](1,.4)--(3,.4)node[right]{东x};
+\node[align=left]at(6.1,2.2){上z：竖直向上\\北y：入纸面\\$\Omega_y=\Omega\cos\lambda$};
+\end{tikzpicture}
+\caption{局部东、北、上坐标。初始相对地面速度为零。}\label{rot:fig:d6-e8-q}
+\end{figure}
+\begin{solution}
+按图\ref{rot:fig:d6-e8-q}，零阶速度为 $\vct v^{(0)}=(0,0,-gt)$。将它代入科里奥利加速度，
+\[
+-2\vct\Omega\times\vct v^{(0)}
+=(2\Omega gt\cos\lambda,0,0).
+\]
+因而东西向的一阶方程及初态为
+\[
+\ddot x=2\Omega gt\cos\lambda,\qquad x(0)=\dot x(0)=0.
+\]
+用给定的零初速度作第一次定积分，再用零初位移作第二次定积分：
+\[
+\begin{aligned}
+\dot x(t)&=2\Omega g\cos\lambda\int_0^ts\dd s
+=2\Omega g\cos\lambda\left[\frac{s^2}{2}\right]_0^t,\\
+x(t)&=\Omega g\cos\lambda\int_0^ts^2\dd s
+=\Omega g\cos\lambda\left[\frac{s^3}{3}\right]_0^t.
+\end{aligned}
+\]
+因此
+\[
+\dot x=\Omega gt^2\cos\lambda,\qquad
+x=\frac13\Omega gt^3\cos\lambda.
+\]
+零阶落地时间为 $T=\sqrt{2H/g}$。将一阶东西速度再次代入科里奥利力，得到的竖直和南北修正均为二阶，故求一阶落点偏移时可使用这个 $T$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4,0)node[right]{$x/\delta$};\draw[axis](0,0)--(0,3.1)node[above]{$z/H$};
+\draw[curve,domain=0:1,samples=100]plot({3*\x^3},{2.5*(1-\x^2)});
+\fill(0,2.5)circle(1.5pt)node[left]{$1$};\fill(3,0)circle(1.5pt)node[below]{$1$};\node[align=left]at(7,1.8){$x/\delta=(t/T)^3$\\$z/H=1-(t/T)^2$\\东西位移已放大显示};
+\end{tikzpicture}
+\caption{落体逐渐获得向东速度，落地位置在塔脚东侧。}\label{rot:fig:d6-e8-s}
+\end{figure}
+图\ref{rot:fig:d6-e8-s}中，落地东偏为
+\[
+\boxed{\delta=\frac23\Omega H\sqrt{\frac{2H}g}\cos\lambda.}
+\]
+落地东西速度为 $2\Omega H\cos\lambda$。在给定模型中，赤道附近一阶东偏最大，靠近极点趋零。
+也可从绕地轴的角动量理解该方向。记到地轴的距离为 $\rho\simeq(R_\oplus+z)\cos\lambda$，初态为 $\rho_0$。忽略小区域内高阶影响，有
+\[
+\rho(\Omega\rho+v_x)=\Omega\rho_0^2,
+\quad v_x=\Omega\left(\frac{\rho_0^2}\rho-\rho\right)
+\simeq2\Omega(H-z)\cos\lambda.
+\]
+代入 $H-z=gt^2/2$，与前述积分结果相同。下落时到地轴的距离持续减小，质点的地面东向速度相应增加；塔顶与塔脚原有的线速度差只反映了初态的一部分信息。
+\end{solution}
+
+
+
+\begin{example}[旋转斜管中的不稳定平衡]\label{rot:problem-example-9}\label{rot:ex:d6-e9}
+光滑直管与水平面成 $\gamma$ 角，$0<\gamma<\pi/2$，下端 $O$ 位于竖直转轴上。管以恒角速度 $\Omega>0$ 绕该轴转动。质量为 $m$ 的珠沿管坐标为 $s$，$0<s<L$，初始 $s=s_0,\dot s=0$。求相对运动、平衡位置及其稳定性，判断珠先到达哪一端，并求管的两个横向约束力分量。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,-.3)--(0,4)node[above]{$\vct\Omega,z$};\draw[curve](0,0)--(5,3);\draw[guide](0,0)--(5.4,0);\fill(2.5,1.5)circle(2.2pt)node[above]{$m$};
+\draw[guide](2.5,1.5)--(2.5,0);\node[below]at(1.3,0){$s\cos\gamma$};\draw(.9,0)arc(0:31:.9);\node at(1.2,.35){$\gamma$};\node[below left]at(0,0){$O$};\node[right]at(5,3){$L$};
+\end{tikzpicture}
+\caption{珠到转轴的距离为 $s\cos\gamma$，高度为 $s\sin\gamma$。管提供双侧约束。}\label{rot:fig:d6-e9-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-e9-q}的沿管方向为
+$\vct e_s=\cos\gamma\vct e_r+\sin\gamma\vct e_z$。重力沿管分量为 $-mg\sin\gamma$，离心力沿管分量为 $m\Omega^2s\cos^2\gamma$，科里奥利力垂直管所在的竖直平面，因此
+\[
+\ddot s=\Omega^2s\cos^2\gamma-g\sin\gamma.
+\]
+令 $\kappa=\Omega\cos\gamma$，平衡位置为
+\[
+s_* =\frac{g\sin\gamma}{\Omega^2\cos^2\gamma}.
+\]
+只有$0<s_*<L$时它才位于管内。置$u=s-s_*$，方程化为$\ddot u=\kappa^2u$。特征方程的两根为$\pm\kappa$，故$u=C_1\ee^{\kappa t}+C_2\ee^{-\kappa t}$。代入$u(0)=s_0-s_*$、$\dot u(0)=0$，得到
+\[
+C_1+C_2=s_0-s_*,\qquad \kappa(C_1-C_2)=0,
+\quad C_1=C_2=\frac{s_0-s_*}{2}.
+\]
+合并指数并对时间求导，得到
+\[
+s(t)=s_*+(s_0-s_*)\cosh\kappa t,
+\qquad \dot s=(s_0-s_*)\kappa\sinh\kappa t.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.2,0)node[right]{$s$};\draw[axis](0,-1)--(0,2.4)node[above]{$U_{\rm eff}$};
+\draw[curve,domain=0:4.8,samples=70]plot(\x,{1.9-.34*(\x-2.4)^2});\draw[guide](2.4,0)--(2.4,1.9);\node[below]at(2.4,0){$s_*$};
+\draw[axis](1.6,1.2)--(.8,.6);\draw[axis](3.2,1.2)--(4,.6);\node[align=left]at(7.4,1.1){向内偏离后到O\\向外偏离后到管端\\平衡位于势能极大处};
+\end{tikzpicture}
+\caption{有效势为开口向下的二次函数，平衡位置不稳定。}\label{rot:fig:d6-e9-s}
+\end{figure}
+图\ref{rot:fig:d6-e9-s}的有效势为
+$U_{\rm eff}=mgs\sin\gamma-m\kappa^2s^2/2$。若 $s_0<s_*$，珠沿管向O运动，到端点时间为
+\[
+t_O=\frac1\kappa\operatorname{arcosh}\frac{s_*}{s_*-s_0}.
+\]
+若 $s_0>s_*$，则向外运动并到达L，
+\[
+t_L=\frac1\kappa\operatorname{arcosh}\frac{L-s_*}{s_0-s_*}.
+\]
+这两个到端点时间的反双曲余弦参数均大于1。例如 $s_0<s_*$ 时，$s_*/(s_*-s_0)>1$，故存在唯一的正到达时间。由 $\dot s$ 的表达式，其符号在 $t>0$ 始终与 $s_0-s_*$ 相同；图\ref{rot:fig:d6-e9-s}的两支轨道因此不会先转向再到另一端。
+只有从 $s_0=s_*$ 相对静止释放时，珠才保持相对平衡，任意小的位置偏差都会增长；若 $s_*\ge L$，管内静止释放的珠均向 $O$ 运动。
+
+求管的约束分量时，取竖直截面内法向
+$\vct e_n=-\sin\gamma\vct e_r+\cos\gamma\vct e_z$，方位角正向取 $\vct e_\varphi$。地面加速度为
+\[
+\vct a=(\ddot s\cos\gamma-\Omega^2s\cos\gamma)\vct e_r
++2\Omega\dot s\cos\gamma\vct e_\varphi
++\ddot s\sin\gamma\vct e_z.
+\]
+投影到 $\vct e_n$ 时，两个 $\ddot s$ 项抵消，得到
+\[
+N_n=m(g\cos\gamma+\Omega^2s\sin\gamma\cos\gamma),
+\qquad N_\varphi=2m\Omega\dot s\cos\gamma.
+\]
+管的方位角作用力在地面系做功，电机功率为
+$\Omega(s\cos\gamma)N_\varphi=2m\Omega^2s\dot s\cos^2\gamma$。它在珠向外时输入能量、向内时回收能量，与旋转系有效能量守恒并不冲突。
+\end{solution}
+
+
+
+\begin{example}[科里奥利耦合与表观势能]\label{rot:problem-example-10}\label{rot:ex:d6-e10}
+水平面内的质点受各向同性线性回复力 $\vct F=-k\vct r$，固定力心为 $O$，质量为 $m$，记 $\omega_0=\sqrt{k/m}$。采用绕 $O$ 以恒角速度 $\Omega>0$ 逆时针转动的坐标系。初态为 $x'=a,y'=0,\dot x'=\dot y'=0$。求相对运动，判断 $\Omega>\omega_0$ 时轨迹是否发散，并讨论 $\Omega=\omega_0$ 的情形。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.5,0)--(4,0)node[right]{$x'$};\draw[axis](0,-.7)--(0,2.8)node[above]{$y'$};\fill(0,0)circle(1.5pt)node[below left]{$O$};\fill(2.5,0)circle(2pt)node[above]{$m:a$};
+\draw[axis](2.5,0)--(1.1,0)node[midway,below]{$-k\vct r$};\draw[axis](.7,.7)arc(45:135:1);\node at(-1,1.6){$\Omega$};
+\end{tikzpicture}
+\caption{线性回复力在两个坐标系中都指向O，初始静止条件仅针对转动系。}\label{rot:fig:d6-e10-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-e10-q}中，离心力为 $m\Omega^2(x',y')$，科里奥利力分量为 $(2m\Omega\dot y',-2m\Omega\dot x')$，故
+\[
+\begin{aligned}
+\ddot x'-2\Omega\dot y'+(\omega_0^2-\Omega^2)x'&=0,\\
+\ddot y'+2\Omega\dot x'+(\omega_0^2-\Omega^2)y'&=0.
+\end{aligned}
+\]
+当 $\Omega>\omega_0$，有效势 $m(\omega_0^2-\Omega^2)r^2/2$ 的曲率为负。判断运动是否发散，还须解出含科里奥利耦合的两个方程。
+
+置 $\zeta=x'+iy'$，两式合并为
+\[
+\ddot\zeta+2i\Omega\dot\zeta+(\omega_0^2-\Omega^2)\zeta=0.
+\]
+再令$\zeta=e^{-i\Omega t}w$，按乘积法则求两次导数：
+\[
+\dot\zeta=e^{-i\Omega t}(\dot w-i\Omega w),\qquad
+\ddot\zeta=e^{-i\Omega t}(\ddot w-2i\Omega\dot w-\Omega^2w).
+\]
+代入原方程并除以非零的$e^{-i\Omega t}$，
+\[
+\ddot w-2i\Omega\dot w-\Omega^2w
++2i\Omega(\dot w-i\Omega w)
++(\omega_0^2-\Omega^2)w=0.
+\]
+两个$\dot w$项抵消，$w$的系数为$-\Omega^2+2\Omega^2+\omega_0^2-\Omega^2=\omega_0^2$，所以$\ddot w+\omega_0^2w=0$。通解为$w=C\cos\omega_0t+D\sin\omega_0t$。由$\zeta(0)=a$得$C=w(0)=a$；由$\dot\zeta(0)=0$得$\dot w(0)=i\Omega a$，即$\omega_0D=i\Omega a$。代回变换，得到
+\[
+\boxed{\zeta=a e^{-i\Omega t}
+\left(\cos\omega_0t+i\frac\Omega{\omega_0}\sin\omega_0t\right).}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.2,0)node[right]{$\Omega/\omega_0$};\draw[axis](0,0)--(0,3.8)node[above]{$r_{\max}/a$};
+\draw[curve](0,1)--(1.5,1)--(4.5,3);\draw[guide](1.5,0)--(1.5,1);\node[below]at(1.5,0){$1$};\node[left]at(0,1){$1$};\node[align=left]at(3.3,.6){负二次有效势\\仍对应有界运动};
+\end{tikzpicture}
+\caption{角速度可以大于固有频率，轨道半径仍保持有限。图示初始相对速度为零的解。}\label{rot:fig:d6-e10-s}
+\end{figure}
+图\ref{rot:fig:d6-e10-s}中的半径上界由复坐标的模直接得到：
+\[
+r^2=|\zeta|^2=a^2\left(\cos^2\omega_0t
++\frac{\Omega^2}{\omega_0^2}\sin^2\omega_0t\right).
+\]
+故 $r\le a\max(1,\Omega/\omega_0)$，任意有限 $\Omega$ 下都不发散。特征指数 $-i\Omega\pm i\omega_0$ 也均为纯虚数。
+当 $\Omega=\omega_0$ 时，括号为 $e^{i\omega_0t}$，因而 $\zeta=a$，质点相对旋转系静止；地面系中它以角速度 $\omega_0$ 作半径为 $a$ 的圆周运动，回复力提供向心力。
+
+本例的地面力场为保守中心力，$E$ 与 $L_z$ 各自守恒。旋转系中的科里奥利项虽不做功，却改变速度方向，使负曲率有效势下仍存在上述有界轨道。
+还可用地面守恒量说明半径为何有界。初态给出
+\[
+L_z=m\Omega a^2\ne0,\qquad E=\frac12m(\omega_0^2+\Omega^2)a^2.
+\]
+把地面切向动能用 $L_z$ 消去，得
+\[
+E=\frac12m\dot r^2+\frac{L_z^2}{2mr^2}+\frac12m\omega_0^2r^2.
+\]
+角动量项在 $r\to0$ 时趋于无穷，回复力势能在 $r\to\infty$ 时趋于无穷，有限能量把半径限制在两者之间。图\ref{rot:fig:d6-e10-s}中的半径上界因此也能由地面守恒量解释，旋转系负二次势能本身未包含这些限制。
+\end{solution}
+
+
+
+\section{习题与解答}
+
+\begin{exercise}[三角薄板的惯量与支座力]\label{sup6:problem-exercise-1}\label{sup6:ex:d5-h1}
+匀质直角等腰三角薄板质量M，顶点为 $O=(0,0)$、$A=(a,0)$、$B=(0,a)$。薄板在光滑水平面内绕O的固定竖直轴转动。在A沿正y方向施力F，初始薄板静止。由面积积分求 $I_O,I_C$，再求初始角加速度和O处的水平支座力。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(3.5,0)--(0,3.5)--cycle;\node[below left]at(0,0){$O$};\node[below]at(3.5,0){$A$};\node[left]at(0,3.5){$B$};
+\draw[axis](3.5,0)--(3.5,1.5)node[right]{$F$};\draw[guide](1.2,0)--(1.2,2.3);\draw[guide](1.4,0)--(1.4,2.1);\node at(1.9,1.8){$\dd x$};
+\draw[axis](-.3,-.4)--(4.2,-.4)node[right]{$x$};\draw[axis](-.4,-.3)--(-.4,4.1)node[above]{$y$};
+\end{tikzpicture}
+\caption{面积积分区域为 $0\le x\le a$、$0\le y\le a-x$。}\label{sup6:fig:d5-h1-q}
+\end{figure}
+\begin{solution}
+图\ref{sup6:fig:d5-h1-q}的面密度为 $\sigma=2M/a^2$。先积分x方向的二次矩，再利用对称性，
+\[
+\begin{aligned}
+I_O&=\sigma\int_0^a\int_0^{a-x}(x^2+y^2)\dd y\dd x\\
+&=2\sigma\int_0^a(ax^2-x^3)\dd x
+=2\sigma\left[\frac{ax^3}{3}-\frac{x^4}{4}\right]_0^a\\
+&=2\sigma\left(\frac{a^4}3-\frac{a^4}4\right)=\frac13Ma^2.
+\end{aligned}
+\]
+积分区域由图\ref{sup6:fig:d5-h1-q}中的直线AB给出：$x+y=a$，因此先固定x时，y的范围为 $0\le y\le a-x$。同一区域内交换x、y不改变积分，才可把两个二次矩合并。质心也可由一次矩求得：
+\[
+x_C=\frac{\sigma}{M}\int_0^a x(a-x)\,\dd x
+=\frac{\sigma}{M}\left[\frac{ax^2}{2}-\frac{x^3}{3}\right]_0^a
+=\frac{\sigma a^3}{6M}=\frac a3,
+\qquad y_C=x_C.
+\]
+固定轴O的支持力对O力矩为零，故先由取矩求角加速度，再由质心平动求支座力，可以避免把支座力作为多余未知量引入惯量积分。
+质心为 $C=(a/3,a/3)$，故 $OC^2=2a^2/9$，
+\[
+I_C=I_O-MOC^2=\frac19Ma^2.
+\]
+力F对O的力矩为aF，逆时针角加速度为 $\alpha=aF/I_O=3F/(Ma)$。初始没有向心加速度，因此
+\[
+\vct a_C=\vct\alpha\times\overrightarrow{OC}
+=\left(-\frac{\alpha a}3,\frac{\alpha a}3\right)
+=(-F/M,F/M).
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(3.3,0)--(0,3.3)--cycle;\fill(1.1,1.1)circle(1.6pt)node[below right]{$C$};\node[below]at(0,0){$O$};
+\draw[axis](1.1,1.1)--(.2,2);\node at(.8,1.9){$\vct a_C$};\draw[axis](0,0)--(-1.3,0)node[above]{$H_x=-F$};\draw[axis](3.3,0)--(3.3,1.3)node[right]{$F$};
+\draw[axis](4.1,1.6)arc(0:100:.65);\node at(4,2.7){$\alpha>0$};
+\end{tikzpicture}
+\caption{质心沿垂直OC的方向开始加速，支座只需提供向左的水平分量。}\label{sup6:fig:d5-h1-s}
+\end{figure}
+图\ref{sup6:fig:d5-h1-s}中，由 $\vct H+(0,F)=M\vct a_C=(-F,F)$，得 $H_x=-F,H_y=0$。本题y轴位于桌面内；垂直桌面的重力另由桌面支持力平衡。
+\end{solution}
+
+
+\begin{exercise}[自由径向滑块与转台，选做]\label{sup6:problem-exercise-3}\label{sup6:ex:d5-h3}
+转台本体惯量为 $I_0$，可绕固定竖直轴无摩擦转动。质量m的滑块可沿转台上的光滑径向直导轨自由移动，无电机或径向弹簧。初始半径 $r_0>0$、径向速度零、共同角速度 $\omega_0>0$。求 $\omega(r)$ 和向外运动的径向速度。若 $I_0=mr_0^2$，求滑块首次到达 $2r_0$ 时的两种速度。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.2);\draw[curve](0,0)--(2.2,0);\fill(0,0)circle(1.5pt)node[below]{$O$};\draw[fill=white](.9,-.15)rectangle(1.2,.15);\node[above]at(1.05,.2){$m$};\node[below]at(.6,-.1){$r_0$};
+\draw[axis](-1.4,1.4)arc(135:210:2);\node[left]at(-2,.4){$\omega_0$};\node[right]at(2.5,.7){导轨足够长};
+\end{tikzpicture}
+\caption{滑块径向无驱动力，导轨仅施加切向约束。}\label{sup6:fig:d5-h3-q}
+\end{figure}
+\begin{solution}
+图\ref{sup6:fig:d5-h3-q}中系统没有轴向外力矩，记 $I_a=I_0+mr_0^2$，则
+\[
+H=I_a\omega_0,
+\qquad \omega(r)=\frac H{I_0+mr^2}.
+\]
+机械能守恒还需要核对接触力的功率。设导轨对滑块的切向力为 $N_\varphi$。滑块与导轨接触处的切向速度相同，均为 $r\omega$，径向相对速度则与导轨力垂直。于是
+\[
+\mathcal P_{\text{块}}=N_\varphi r\omega,\qquad
+\mathcal P_{\text{台}}=(-rN_\varphi)\omega,
+\qquad \mathcal P_{\text{块}}+\mathcal P_{\text{台}}=0.
+\]
+图\ref{sup6:fig:d5-h3-s}表示机械能从转台传给滑块。两个接触力各自做功，总功率相消依靠的是接触处相同的切向速度和相反的切向作用力。
+导轨力对滑块与转台的总功率为零，轴承不做功，所以机械能守恒：
+\[
+\frac12m\dot r^2+\frac{H^2}{2(I_0+mr^2)}=\frac{H^2}{2I_a}.
+\]
+向外运动取正根，得到
+\[
+\dot r=\frac H{\sqrt m}\sqrt{\frac1{I_a}-\frac1{I_0+mr^2}},\qquad r\ge r_0.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5,0)node[right]{$r/r_0$};\draw[axis](0,0)--(0,2.8)node[above]{归一化速度};
+\draw[curve,domain=1:3.1,samples=70]plot({1.4*\x},{4/(1+\x*\x)});
+\draw[guide,domain=1:3.1,samples=90]plot({1.4*\x},{2*sqrt(2-4/(1+\x*\x))});
+\node[below]at(1.4,0){$1$};\node[below]at(2.8,0){$2$};\node[right]at(4.3,.5){$\omega/\omega_0$};\node at(3.4,3.2){$\dot r/(r_0\omega_0)$};
+\node[draw,minimum width=3.8cm,minimum height=.65cm]at(8.5,2.2){滑块：$+N_\varphi r\omega$};
+\node[draw,minimum width=3.8cm,minimum height=.65cm]at(8.5,.2){转台：$-N_\varphi r\omega$};
+\draw[axis](8.5,.6)--(8.5,1.8)node[midway,right]{$N_\varphi r\omega$};
+\node at(8.5,-.7){两接触力的总功率为零};
+\end{tikzpicture}
+\caption{左图取 $I_0=mr_0^2$，转动减慢而径向速率增加；右图表示向外滑动时由转台传给滑块的功率。}\label{sup6:fig:d5-h3-s}
+\end{figure}
+在图\ref{sup6:fig:d5-h3-s}所用参数下，$I_a=2mr_0^2$、$H=2mr_0^2\omega_0$。到 $r=2r_0$ 时，
+\[
+\omega_2=\frac25\omega_0,
+\qquad \dot r_2^2=4mr_0^4\omega_0^2
+\left(\frac1{2mr_0^2}-\frac1{5mr_0^2}\right)
+=\frac65r_0^2\omega_0^2.
+\]
+滑块切向速度为 $r\omega=4r_0\omega_0/5$，径向速度为 $\sqrt{6/5}\,r_0\omega_0$。释放瞬间径向速率虽然为零，径向方程 $\ddot r=r\omega^2$ 仍给出正的初始加速度，故存在向外运动分支。
+\end{solution}
+
+
+\begin{exercise}[水平拉力的作用高度]\label{deep6:problem-exercise-5}\label{deep6:ex:d5-h5}
+质量M、半径R、惯量 $\beta MR^2$ 的轮静置在粗糙水平面上。对轮施加向右水平力F，其初始作用线在轮心C上方带符号距离q处，$-R\le q\le R$。求开始作用瞬间纯滚动的加速度和摩擦力，讨论摩擦方向及摩擦为零的作用高度。仅讨论初始瞬间。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1.4);\draw[curve](-2,-1.4)--(3,-1.4);\fill(0,0)circle(1.5pt)node[below right]{$C$};
+\draw[axis](0,.8)--(2.8,.8)node[right]{$F$};\draw[<->](-.5,0)--(-.5,.8)node[midway,left]{$q$};\draw[guide](0,0)--(2,0);\node[below]at(0,-1.4){$P$};
+\end{tikzpicture}
+\caption{q向上为正，图示 $q>0$。正力矩按顺时针取。}\label{deep6:fig:d5-h5-q}
+\end{figure}
+\begin{solution}
+图\ref{deep6:fig:d5-h5-q}中，设摩擦分量f向右为正。水平平动、顺时针转动及无滑动约束分别为
+\[
+Ma=F+f,\qquad \beta MR^2\alpha=Fq-fR,
+\qquad a=R\alpha.
+\]
+消去角加速度并将前两式相加，
+\[
+(1+\beta)Ma=F(1+q/R).
+\]
+所以
+\[
+a=\frac{F(1+q/R)}{(1+\beta)M},\qquad
+f=\frac{F(q/R-\beta)}{1+\beta}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(6,0)node[right]{$q/R$};\draw[axis](1.5,-1.6)--(1.5,1.8)node[above]{$(1+\beta)f/F$};
+\draw[curve](0,-1.5)--(3,.5);\node[below]at(0,0){$-1$};\node[below]at(2.25,0){$\beta$};\node[below]at(3,0){$1$};\node at(3.7,1.7){$f>0$};\node at(.5,-1.9){$f<0$};
+\end{tikzpicture}
+\caption{示意 $\beta=1/2$ 的摩擦变号，横轴零点位于纵轴处。}\label{deep6:fig:d5-h5-s}
+\end{figure}
+图\ref{deep6:fig:d5-h5-s}中的摩擦变号也可从初始滑动趋势看出。若暂不计摩擦，轮心加速度为 $F/M$，顺时针角加速度为 $Fq/(\beta MR^2)$，下接触点的水平加速度为
+\[
+a_{P,x}^{(f=0)}=\frac FM\left(1-\frac{q}{\beta R}\right).
+\]
+它向右时，维持无滑动需要向左的摩擦；它向左时，需要向右的摩擦。$q=\beta R$ 恰使这项为零，与联立方程得到的零摩擦位置相同。
+当 $q<\beta R$ 时摩擦向左，$q>\beta R$ 时向右，$q=\beta R$ 时为零。图\ref{deep6:fig:d5-h5-s}的变号对应拉力矩与纯滚动所需角加速度之间的不同关系。
+竖直平衡给 $N=Mg$，还须满足
+\[
+\frac{F|q/R-\beta|}{1+\beta}\le\mu_sMg.
+\]
+若 $\beta=1/2$，力沿轮心上方 $R/2$ 作用便能在初始瞬间无需摩擦地实现 $a=R\alpha$。这一结果不保证后续仍无需摩擦，因为题设未规定力的作用线如何随轮转动。
+\end{solution}
+
+
+\begin{exercise}[突然获得速度的板]\label{deep6:problem-exercise-7}\label{deep6:ex:d5-h7}
+质量M的长板在光滑水平面上，以初速度U向右运动；其上质量同为M、半径R的匀质实心圆柱初始不平移、不转动。板与圆柱间动摩擦系数为 $\mu$，此后无水平外力。求滑动终止时两者的速度、圆柱角速度、经过时间与系统能量损失。板足够长。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-2,-1.3)rectangle(4,-1);\draw[curve](0,0)circle(1);\node at(0,1.4){圆柱静止};\draw[axis](2,-.8)--(3.3,-.8)node[right]{$U$};\node[below]at(1,-1.5){板M，地面光滑};\node at(0,0){$M$};
+\end{tikzpicture}
+\caption{初始板向右滑过圆柱的底部，摩擦作用使圆柱向右并逆时针加速。}\label{deep6:fig:d5-h7-q}
+\end{figure}
+\begin{solution}
+按图\ref{deep6:fig:d5-h7-q}，取圆柱向右平动、逆时针转动为正。设从初态累积的摩擦冲量为J。由于两者质量相同，
+\[
+v_C=\frac JM,\quad V=U-\frac JM,\quad
+\omega=\frac{JR}{MR^2/2}=\frac{2J}{MR}.
+\]
+图\ref{deep6:fig:d5-h7-q}中，圆柱底部材料点因逆时针自转而向右运动，所以它的地面速度为 $v_C+R\omega$。还要减去板的速度V，才是决定摩擦方向的相对速度。只比较两个质心速度，会漏掉自转对滑动终止条件的贡献。
+相对于板的接触滑动速度是 $u_P=v_C+R\omega-V$，所以
+\[
+u_P=\frac{4J}M-U.
+\]
+首次无滑动时 $J_r=MU/4$，得到
+\[
+v_C=\frac U4,\qquad V=\frac{3U}4,
+\qquad \omega=\frac U{2R}\quad\text{（逆时针）}.
+\]
+两者总水平动量为 $M(v_C+V)=MU$，与初态相同。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.7,0);\node at(3.8,-.8){$J/(MU)$};\draw[axis](0,-2)--(0,1.3)node[above]{$u_P/U$};
+\draw[curve](0,-1.5)--(3,0);\node[left]at(0,-1.5){$-1$};\node[below right]at(3,0){$1/4$};
+\begin{scope}[shift={(7,0)}]
+\draw[curve](0,0)circle(.85);\draw[curve](-1.3,-.85)--(1.5,-.85);\draw[axis](0,-.85)--(1.35,-.85)node[right]{$3U/4$};\draw[axis](0,0)--(.45,0);\node[above]at(.2,.08){$U/4$};\node at(0,1.3){$R\omega=U/2$};
+\end{scope}
+\end{tikzpicture}
+\caption{滑动速度由负值增至零；右图的下接触点速度为 $U/4+U/2=3U/4$。}\label{deep6:fig:d5-h7-s}
+\end{figure}
+图\ref{deep6:fig:d5-h7-s}所示过程内 $N=Mg$，动摩擦恒为 $\mu Mg$。因此 $J=\mu Mgt$，
+\[
+t_r=\frac U{4\mu g}.
+\]
+无滑动后系统无水平外力，保持当前速度只需零摩擦。滑动阶段两接触材料点的相对速率为$U-4\mu gt$，因此耗散功率为$\mu Mg(U-4\mu gt)$。对时间积分，
+\[
+\begin{aligned}
+Q&=\int_0^{t_r}\mu Mg(U-4\mu gt)\dd t
+=\mu Mg\bigl[Ut-2\mu gt^2\bigr]_0^{t_r}\\
+&=\mu Mg\left(\frac{U^2}{4\mu g}-\frac{U^2}{8\mu g}\right)
+=\frac18MU^2.
+\end{aligned}
+\]
+所以末态总动能为$K_r=MU^2/2-Q=3MU^2/8$。热量来自接触点的相对滑动；摩擦对板和圆柱各自的功不能分别当成全部耗散。
+\end{solution}
+
+
+\begin{exercise}[两个固定轴圆盘的摩擦传动]\label{deep6:problem-exercise-8}\label{deep6:ex:d5-h8}
+两个相同圆盘半径R、轴向惯量I，轴心 $O_1,O_2$ 固定，两轮缘在P处外切。最初左盘逆时针角速度为 $\Omega_0$，右盘静止；随后接触处发生滑动摩擦，直至两轮缘无滑动。轴承无摩擦。求末角速度、能量损失，并判断两个圆盘的总角动量是否守恒。若滑动摩擦大小恒为f，求所需时间。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.3,0)circle(1.3);\draw[curve](1.3,0)circle(1.3);\fill(-1.3,0)circle(1.5pt)node[below]{$O_1$};\fill(1.3,0)circle(1.5pt)node[below]{$O_2$};\fill(0,0)circle(1.5pt)node[below]{$P$};
+\draw[axis](-2.1,.8)arc(135:220:1.13);\node[left]at(-2.7,.4){$\Omega_0$};\node at(1.3,1.7){初始静止};
+\end{tikzpicture}
+\caption{正角速度统一取逆时针。接触前左轮缘在P处向上运动。}\label{deep6:fig:d5-h8-q}
+\end{figure}
+\begin{solution}
+按图\ref{deep6:fig:d5-h8-q}的符号，左盘P点速度为 $R\omega_1$ 向上，右盘P点速度为 $-R\omega_2$ 向上。初始相对滑动向上，摩擦对左盘向下、对右盘向上。两力对各自轴心的力矩都为顺时针，故
+\[
+I\dot\omega_1=-fR,\qquad I\dot\omega_2=-fR.
+\]
+若把滑动摩擦冲量记作$J_f=\int_0^t f(s)\dd s$，对两个角方程分别积分，
+\[
+I\int_{\Omega_0}^{\omega_1}\dd\omega
+=-R\int_0^tf(s)\dd s=-RJ_f,\qquad
+I\int_0^{\omega_2}\dd\omega=-RJ_f.
+\]
+左端分别为$I(\omega_1-\Omega_0)$和$I\omega_2$，所以两盘的角速度为
+\[
+\omega_1=\Omega_0-\frac{RJ_f}{I},\qquad
+\omega_2=-\frac{RJ_f}{I}.
+\]
+因此末态角速度不依赖滑动摩擦随时间怎样变化；恒定f只在最后求时间时才需要。图\ref{deep6:fig:d5-h8-s}中的外轴力又说明，角速度之差不变不能被解释为两个圆盘的总角动量守恒。
+相减得到 $\omega_1-\omega_2=\Omega_0$。无滑动要求 $R\omega_1=-R\omega_2$，联立这两个线性关系，
+\[
+\omega_{1f}=\frac{\Omega_0}2,
+\qquad \omega_{2f}=-\frac{\Omega_0}2.
+\]
+两圆盘向相反方向转动，接触材料点的速度却相同。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.3,0)circle(1.3);\draw[curve](1.3,0)circle(1.3);
+\fill(0,0)circle(1.4pt);\draw[axis](0,0)--(0,-.9);\node at(-.45,-.5){$f$};\draw[axis](0,0)--(0,.9);\node at(.45,.5){$f$};
+\draw[axis](-1.3,0)--(-1.3,1);\node at(-1.8,.5){$H_1$};\draw[axis](1.3,0)--(1.3,-1);\node at(1.8,-.5){$H_2$};\node[below]at(0,-1.7){两个轴力构成顺时针外力偶};
+\end{tikzpicture}
+\caption{图中仅画与滑动摩擦对应的轴力分量，径向压力及其轴力分量未画。}\label{deep6:fig:d5-h8-s}
+\end{figure}
+初动能为 $I\Omega_0^2/2$，末动能为两项 $I(\Omega_0/2)^2/2$ 之和，故
+\[
+Q=\frac14I\Omega_0^2.
+\]
+总自转角动量从 $I\Omega_0$ 减为零。图\ref{deep6:fig:d5-h8-s}中的轴力维持轴心固定，关于P的总外力矩为 $-2fR$，这正是总角动量改变的原因。轮缘摩擦在整个系统中是内力；两条转动方程相减后保持不变的是 $I(\omega_1-\omega_2)$。
+当f恒定时，$\omega_1=\Omega_0-fRt/I$、$\omega_2=-fRt/I$，用 $\omega_1+\omega_2=0$ 得
+\[
+t_r=\frac{I\Omega_0}{2fR}.
+\]
+此后轴承无摩擦且不需传递负载，维持匀速反向转动所需的接触切向力为零。
+\end{solution}
+
+
+\begin{exercise}[绕绳下降的线轴]\label{deep6:problem-exercise-9}\label{deep6:ex:d5-h9}
+线轴质量M，绕中心轴的惯量I，细绳缠绕在半径r的轴上，绳的上端固定。线轴从静止释放，下降时绳保持竖直、无滑动地展开，线轴中心沿竖直线运动。忽略绳质量，求下降加速度、绳张力、下降高度h后的速率和转速，说明张力是否做功。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1,3)--(1.5,3);\draw[curve](.55,3)--(.55,0);\draw[curve](0,0)circle(1.1);\draw[curve](0,0)circle(.55);\fill(0,0)circle(1.5pt)node[below left]{$C$};\draw[guide](0,0)--(-.55,0)node[midway,above]{$r$};
+\draw[axis](.55,0)--(.55,1.3)node[right]{$T$};\draw[axis](0,0)--(0,-1.5)node[left]{$Mg$};\node[below right]at(.55,0){$Q$};
+\end{tikzpicture}
+\caption{绳在内轴右侧切向展开，张力产生逆时针力矩。}\label{deep6:fig:d5-h9-q}
+\end{figure}
+\begin{solution}
+图\ref{deep6:fig:d5-h9-q}中，取向下加速度a和逆时针角加速度 $\alpha$ 为正。绳不滑动，展开长度等于轴转过的弧长，故 $a=r\alpha$。平动与转动方程为
+\[
+Ma=Mg-T,\qquad I\alpha=Tr.
+\]
+消去T、$\alpha$，得到
+\[
+a=\frac{g}{1+I/(Mr^2)},\qquad
+T=\frac{MgI}{Mr^2+I}.
+\]
+两者均为常量，$0<T<Mg$，下降过程加速且绳保持受拉。从静止开始，由 $\dot v=v\dd v/\dd h=a$ 积分，
+\[
+\int_0^v\xi\dd\xi=\int_0^ha\dd\eta,
+\qquad [\xi^2/2]_0^v=a[\eta]_0^h,
+\]
+即 $v^2=2ah$。再用 $v=r\omega$，
+\[
+v=\sqrt{\frac{2gh}{1+I/(Mr^2)}},\qquad \omega=\frac vr.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(1.1);\draw[curve](0,0)circle(.55);\fill(.55,0)circle(1.7pt)node[right]{$Q$};
+\draw[axis](.55,0)--(.55,-1.2)node[left]{$v_C$};\draw[axis](.55,0)--(.55,1.2)node[right]{$r\omega$};
+\node[align=left]at(4.5,0){$v_Q=-v_C+r\omega=0$\\张力作用点瞬时静止\\$\mathcal P_T=0$};
+\end{tikzpicture}
+\caption{绳接触点的平移速度与转动速度抵消。图中竖直速度以向上为正。}\label{deep6:fig:d5-h9-s}
+\end{figure}
+图\ref{deep6:fig:d5-h9-s}中张力的作用点Q瞬时静止，张力不做功。质心平动能的增长率包含负项 $-Tv$，自转动能的增长率包含正项 $Tr\omega=Tv$，相加后抵消。因此系统的能量式为
+\[
+Mgh=\frac12Mv^2+\frac12I\omega^2,
+\]
+代入 $\omega=v/r$，可得到前述速率。张力的功率由材料点Q的速度确定；质心平动能式中的张力项只计入平动部分。
+\end{solution}
+
+
+\begin{exercise}[有限摩擦下的内环整周滚动，选做]\label{deep6:problem-exercise-10}\label{deep6:ex:d5-h10}
+半径r的球在半径R的固定竖直圆形轨道内侧运动，$r<R$，球心轨迹半径 $a=R-r$，球的惯量为 $I_C=\beta mr^2$。底部初始速率为 $v_0$，同时满足纯滚动。静摩擦系数为 $\mu>0$。求保持接触且不打滑地完成整周运动所需的最小 $v_0$，并指出最先达到摩擦极限的位置。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.5);\draw[guide](0,0)circle(1.9);\fill(0,0)circle(1.5pt)node[left]{$O$};
+\draw[curve](1.556,-1.09)circle(.6);\fill(1.556,-1.09)circle(1.5pt)node[above]{$C$};\draw[guide](0,0)--(1.556,-1.09)node[midway,above]{$a$};
+\draw[guide](0,0)--(0,-1.9);\draw(0,-.7)arc(-90:-35:.7);\node at(.5,-.8){$\theta$};\draw[axis](0,-1.9)--(1,-1.9)node[below]{$v_0$};
+\end{tikzpicture}
+\caption{角度从最低点量起，球心轨道半径为 $R-r$。}\label{deep6:fig:d5-h10-q}
+\end{figure}
+\begin{solution}
+图\ref{deep6:fig:d5-h10-q}中，质心上升高度为 $a(1-\cos\theta)$。纯滚动时能量守恒，
+\[
+v^2=v_0^2-\frac{2ga}{1+\beta}(1-\cos\theta).
+\]
+沿切向取 $\theta$ 增大的方向为正。平动、转动关系给出
+\[
+m\dot v=-mg\sin\theta+f,\qquad
+\beta m\dot v=-f,
+\]
+所以 $f=\beta mg\sin\theta/(1+\beta)$。在后半周f会变号，摩擦条件须使用绝对值。向圆心列法向方程，
+\[
+N-mg\cos\theta=\frac{mv^2}a.
+\]
+置 $\lambda=v_0^2/(ga)$，则
+\[
+\frac{N}{mg}=\lambda-\frac2{1+\beta}
++\frac{3+\beta}{1+\beta}\cos\theta.
+\]
+保持接触且不打滑，需要对所有角度满足 $N\ge |f|/\mu$，即
+\[
+(1+\beta)\lambda\ge
+2-(3+\beta)\cos\theta+\frac\beta\mu|\sin\theta|.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.5,0)node[right]{$-\cos\theta$};\draw[axis](0,0)--(0,2.6)node[above]{$\sin\theta$};
+\draw[guide](0,0)circle(1.6);\draw[axis](0,0)--(3.3,1.2)node[above right]{$(3+\beta,\beta/\mu)$};
+\draw[curve](0,0)--(1.504,.547);\fill(1.504,.547)circle(1.8pt)node[above]{$\theta_*$};
+\node[align=left]at(6.8,.7){两个向量同向时\\内积取最大值};
+\end{tikzpicture}
+\caption{在前半周，用单位向量 $(-\cos\theta,\sin\theta)$ 求线性组合的最大值。}\label{deep6:fig:d5-h10-s}
+\end{figure}
+前半周取 $\vct u=(-\cos\theta,\sin\theta)$，它沿单位圆上半周运动。令 $\vct b=(3+\beta,\beta/\mu)$，则需最大化的角度项为 $\vct b\cdot\vct u$。因为 $\vct b$ 的两个分量都为正，$\vct u=\vct b/|\vct b|$ 对应的角度落在 $\pi/2<\theta<\pi$，确实属于可经过的位置。
+图\ref{deep6:fig:d5-h10-s}中，柯西不等式给出右端的最大值为
+$2+\sqrt{(3+\beta)^2+(\beta/\mu)^2}$，等号可以在前半周达到。因此
+\[
+\boxed{v_{0,\min}^2=
+\frac{ga}{1+\beta}\left[2+\sqrt{(3+\beta)^2+(\beta/\mu)^2}\right].}
+\]
+前半周首先达到极限的位置满足
+\[
+\cos\theta_*=-\frac{3+\beta}{\sqrt{(3+\beta)^2+(\beta/\mu)^2}},\qquad
+\sin\theta_*=\frac{\beta/\mu}{\sqrt{(3+\beta)^2+(\beta/\mu)^2}}.
+\]
+后半周有关于最高点对称的另一个极限位置。这里的最小初速保证最高点 $v^2\ge ga>0$，全程不会先发生速度转向；对有限 $\mu$，最高点反力也严格为正。
+取实心球的惯量系数 $\beta=2/5$，结果化为
+\[
+v_{0,\min}^2=\frac{ga}{7}\left[10+\sqrt{289+4/\mu^2}\right].
+\]
+当 $\mu\to\infty$ 时趋于 $27ga/7$，即只由最高点接触条件给出的极限。有限摩擦下，最严格的位置在最高点之前，不能只检查环顶反力。
+\end{solution}
+
+
+\begin{exercise}[加速悬点上的复摆]\label{deep6:problem-exercise-11}\label{deep6:ex:d5-h11}
+长L、质量M的匀质细杆，一端铰接在作恒定水平加速度A向右运动的车架上。杆在竖直平面内摆动，悬点O始终不发生竖直运动。求相对车架的稳定平衡方向、小振动周期及平衡状态下的铰链力。取杆与向下竖直方向的夹角 $\theta$ 向右为正。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1,1.2)--(2,1.2);\fill(0,1.2)circle(1.7pt)node[above]{$O$};\draw[guide](0,1.2)--(0,-2);
+\draw[curve](0,1.2)--(1.6,-1.8);\fill(.8,-.3)circle(1.5pt)node[right]{$C$};\draw[axis](.8,1.8)--(2.3,1.8)node[right]{$A$};
+\draw(0,.4)arc(-90:-62:.8);\node at(.35,.15){$\theta$};\node[left]at(-.3,-1.1){竖直线};
+\end{tikzpicture}
+\caption{图示一般偏角；稳定位置将在竖直线左侧。}\label{deep6:fig:d5-h11-q}
+\end{figure}
+\begin{solution}
+图\ref{deep6:fig:d5-h11-q}中，O为加速材料点，不能直接写成固定轴的重力矩方程。取 $\vct r_{CO}=(L/2)(\sin\theta,-\cos\theta)$，由式\eqref{sup6:eq:d5-material-origin}，
+\[
+I_O\ddot\theta=-\frac{ML}2g\sin\theta
+-\frac{ML}2A\cos\theta,
+\qquad I_O=\frac13ML^2.
+\]
+也可在随车平移的参考系中，在C加向左惯性力MA，得到同一转动方程。令
+\[
+G=\sqrt{g^2+A^2},\qquad \phi=\arctan(A/g),
+\]
+则 $g\sin\theta+A\cos\theta=G\sin(\theta+\phi)$。稳定平衡方向为 $\theta_*=-\phi$，杆沿向下且向左的有效重力方向。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill(0,1.7)circle(1.7pt)node[above]{$O$};\draw[curve](0,1.7)--(-1.5,-1.3);\fill(-.75,.2)circle(1.7pt)node[below right]{$C$};
+\draw[axis](-.75,.2)--(-.75,-1.1)node[right]{$Mg$};\draw[axis](-.75,.2)--(-1.4,.2)node[above]{$MA$};\draw[axis,dashed](-.75,.2)--(-1.4,-1.1)node[left]{$MG$};
+\node[align=left]at(3.5,.6){随车系：惯性力向左\\地面系：质心加速度向右};
+\end{tikzpicture}
+\caption{稳定平衡由有效重力确定，惯性力只用于随车系的转动方程。}\label{deep6:fig:d5-h11-s}
+\end{figure}
+稳定性可由随车系的势能确认。以向上为竖直正向，重力势与平移惯性力势之和为
+\[
+U_{\rm eff}=-\frac{MLg}{2}\cos\theta+\frac{MLA}{2}\sin\theta
+=-\frac{MLG}{2}\cos(\theta+\phi).
+\]
+对偏角求导时，$\phi$ 是常量，因此
+\[
+U_{\rm eff}'=\frac{MLG}{2}\sin(\theta+\phi),\qquad
+U_{\rm eff}''=\frac{MLG}{2}\cos(\theta+\phi).
+\]
+在 $\theta_*=-\phi$ 处，$U_{\rm eff}'=0$、$U_{\rm eff}''=MLG/2>0$。图\ref{deep6:fig:d5-h11-s}中杆沿有效重力方向悬垂，正是这一势能极小位置；反向沿有效重力悬立的位置则不稳定。
+在图\ref{deep6:fig:d5-h11-s}的稳定方向附近，置 $\eta=\theta+\phi$，小角度方程为
+\[
+\ddot\eta+\frac{3G}{2L}\eta=0,\qquad
+T=2\pi\sqrt{\frac{2L}{3G}}.
+\]
+求实际铰链力回到地面系。相对车架平衡时杆只平移，质心加速度为 $(A,0)$，所以
+\[
+H_x=MA,\qquad H_y-Mg=0,
+\qquad |\vct H|=M\sqrt{A^2+g^2}.
+\]
+铰链力向右上方，恰好沿OC的反方向；当 $A\to0$ 时，恢复端点悬杆的小振动周期 $2\pi\sqrt{2L/(3g)}$。
+\end{solution}
+
+
+\begin{exercise}[减速、停止与反向滚动]\label{deep6:problem-exercise-12}\label{deep6:ex:d5-h12}
+惯量为 $\beta MR^2$ 的轮在固定斜面上沿坡向下纯滚动，初速度为 $v_0$。从某时刻开始，对轮心施加沿坡向上的恒力F，满足 $F>Mg\sin\gamma$，斜面倾角为 $\gamma$。求纯滚动时的加速度、摩擦方向、停止前位移和时间，并说明停止后摩擦是否立即反向。给出纯滚动所需的摩擦条件。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[rotate=-20]
+\draw[curve](-3,0)--(4,0);\draw[curve](0,1)circle(1);\fill(0,1)circle(1.5pt)node[above]{$C$};
+\draw[axis](0,1)--(-1.6,1)node[left]{$F$};\draw[axis](.3,1.4)--(1.6,1.4)node[right]{$v_0$};\draw[axis](0,0)--(1.1,0)node[below]{$f$};
+\end{scope}
+\draw[guide](-2.819,1.026)--(-1.6,1.026);\draw(-2.219,1.026)arc(0:-20:.6);\node at(-1.95,.77){$\gamma$};
+\end{tikzpicture}
+\caption{轮仍沿坡向下运动时，足够大的向上拉力已使摩擦转为沿坡向下。}\label{deep6:fig:d5-h12-q}
+\end{figure}
+\begin{solution}
+以图\ref{deep6:fig:d5-h12-q}中沿坡向下为正，转动正向取向下滚动时的方向。轮心拉力没有绕质心的力矩，因此
+\[
+Ma=Mg\sin\gamma-F+f,\qquad
+\beta MR^2\alpha=-fR,\qquad a=R\alpha.
+\]
+由后两式 $f=-\beta Ma$，代回平动方程，令 $B=F/M-g\sin\gamma>0$，得到
+\[
+a=-\frac B{1+\beta},\qquad
+f=\frac{\beta MB}{1+\beta}>0.
+\]
+摩擦沿坡向下，与此时质心速度同向；角加速度为负，因而自转和平动同时减慢。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.1,0)node[right]{$t$};\draw[axis](0,-1.7)--(0,2.2)node[above]{$v_C$};
+\draw[curve](0,1.7)--(4.5,-1.3);\node[left]at(0,1.7){$v_0$};\node[above right]at(2.55,0){$t_s$};
+\draw[axis](1,-1.7)--(2,-1.7)node[right]{摩擦沿坡向下};\node at(4.2,1.3){停止后向上滚动};
+\end{tikzpicture}
+\caption{恒定加速度使速度连续过零，摩擦方向在过零处不改变。}\label{deep6:fig:d5-h12-s}
+\end{figure}
+从开始施力的时刻计时，积分恒加速度方程，得
+\[
+v_C(t)-v_0=\int_0^t-\frac{B}{1+\beta}\,\dd\tau
+=-\frac{Bt}{1+\beta}.
+\]
+令 $v_C(t_s)=0$，图\ref{deep6:fig:d5-h12-s}中的停止时刻为 $t_s=(1+\beta)v_0/B$。再对速度积分，停止前位移为
+\[
+\begin{aligned}
+s_s&=\int_0^{t_s}\left(v_0-\frac{B\tau}{1+\beta}\right)\dd\tau
+=\left[v_0\tau-\frac{B\tau^2}{2(1+\beta)}\right]_0^{t_s}\\
+&=\frac{(1+\beta)v_0^2}{B}-\frac{(1+\beta)v_0^2}{2B}
+=\frac{(1+\beta)v_0^2}{2B}.
+\end{aligned}
+\]
+法向力为 $N=Mg\cos\gamma$，保持纯滚动需要
+\[
+\frac{\beta B}{1+\beta}\le\mu_sg\cos\gamma.
+\]
+若该条件满足，轮在 $t_s$ 后沿坡向上加速，a、f仍保持原值。纯滚动的接触点相对地面始终静止，质心速度过零并未引起滑动方向改变，因而摩擦不在此时反向。
+停止前，静摩擦作用点瞬时静止，重力做功 $Mg\sin\gamma\,s_s$，拉力做功 $-Fs_s$，两者之和为
+\[
+-(F-Mg\sin\gamma)s_s=-MBs_s
+=-\frac12(1+\beta)Mv_0^2,
+\]
+恰好等于初始平动能和转动能的减少量。
+\end{solution}
+
+
+\begin{exercise}[粗糙斜面的相对静止区间]\label{rot:problem-exercise-1}\label{rot:ex:d6-h1}
+斜面向右上方升高，倾角为 $\gamma$，姿态保持不变，水平加速度为 $A$，向右为正。物块与斜面的静摩擦系数为 $\mu$，满足 $\mu\tan\gamma<1$。求物块能相对斜面静止的全部 $A$ 值，并说明摩擦方向随 $A$ 的变化。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(5,0)--(5,2.887)--cycle;\fill(2.6,1.501)circle(2.4pt)node[above]{$m$};\draw[axis](2.6,1.501)--(3.7,2.136)node[right]{$f>0$};\draw[axis](1,3.2)--(3,3.2)node[right]{$A$};\draw(.8,0)arc(0:30:.8);\node at(1.1,.3){$\gamma$};
+\end{tikzpicture}
+\caption{摩擦分量 $f$ 沿坡向上为正，负值表示实际摩擦沿坡向下。}\label{rot:fig:d6-h1-q}
+\end{figure}
+\begin{solution}
+在图\ref{rot:fig:d6-h1-q}的平移系中，相对加速度为零。沿坡和法向分别有
+\[
+f=m(g\sin\gamma+A\cos\gamma),\qquad
+N=m(g\cos\gamma-A\sin\gamma).
+\]
+静摩擦条件为 $|f|\le\mu N$，还须有 $N>0$。将绝对值拆成两个不等式，
+\[
+\begin{aligned}
+A(\cos\gamma+\mu\sin\gamma)&\le g(\mu\cos\gamma-\sin\gamma),\\
+A(\cos\gamma-\mu\sin\gamma)&\ge-g(\mu\cos\gamma+\sin\gamma).
+\end{aligned}
+\]
+由 $\mu\tan\gamma<1$，两式中 $A$ 的系数均为正，因此
+\[
+\boxed{-g\frac{\mu\cos\gamma+\sin\gamma}{\cos\gamma-\mu\sin\gamma}
+\le A\le
+g\frac{\mu\cos\gamma-\sin\gamma}{\cos\gamma+\mu\sin\gamma}.}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.5,0)--(7,0)node[right]{$A$};\draw[curve](.5,0)--(5.5,0);\foreach\x/\s in{.5/A_-,3/{-g\tan\gamma},5.5/A_+}{\fill(\x,0)circle(1.6pt)node[below]{$\s$};}
+\node at(1.7,.65){$f<0$，沿坡向下};\node at(4.5,.65){$f>0$，沿坡向上};\node at(3,-1){可维持相对静止的区间};
+\end{tikzpicture}
+\caption{区间图只表示三个加速度的次序，横向未按数值比例绘制。}\label{rot:fig:d6-h1-s}
+\end{figure}
+记上述上下端点为 $A_-,A_+$。由于
+\[
+g\cot\gamma-A_+
+=\frac{g}{\sin\gamma(\cos\gamma+\mu\sin\gamma)}>0,
+\]
+整个区间都满足 $N>0$。图\ref{rot:fig:d6-h1-s}中，$A=-g\tan\gamma$ 时摩擦为零；$A$ 比它小时摩擦沿坡向下，比它大时摩擦沿坡向上。两端点分别达到相反方向的静摩擦极限。超出区间便无法维持相对静止；若加速度进一步使接触失效，还须改用离面运动模型。
+\end{solution}
+
+
+\begin{exercise}[水槽右端露底后的液面]\label{rot:problem-exercise-2}\label{rot:ex:d6-h2}
+沿用例\ref{rot:ex:d6-e2}的矩形水槽，给定 $h_0<H/2$，向右的加速度 $A$ 已使右端露底，但液体尚未溢出。求槽底湿润长度、左壁液深、自由液面和底部表压，确定这一阶段的 $A$ 范围，并求端壁对液体的水平合力。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\fill[gray!12](0,0)--(4,0)--(0,2.5)--cycle;\draw[curve](0,3)--(0,0)--(6,0)--(6,3);\draw[curve](0,2.5)--(4,0);\node[below]at(0,0){$-\ell$};\node[below]at(4,0){$x_d$};\node[below]at(6,0){$\ell$};
+\draw[<->](0,-.8)--(4,-.8)node[midway,below]{$d$};\draw[<->](-.6,0)--(-.6,2.5)node[midway,left]{$h_L$};\draw[axis](2.5,3.4)--(4.2,3.4)node[right]{$A$};
+\end{tikzpicture}
+\caption{液体横截面成为三角形，右端干燥部分不计入体积积分。}\label{rot:fig:d6-h2-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-h2-q}中，自由液面斜率仍为 $-A/g$。令湿润长度为 $d$，干湿交点为 $x_d=-\ell+d$，则
+\[
+h_L=\frac Agd,\qquad z_s(x)=\frac Ag(x_d-x),\quad -\ell\le x\le x_d.
+\]
+每单位宽度的液体面积由体积守恒保持 $2\ell h_0$。在湿区积分，令 $\xi=x+\ell$，则 $x_d-x=d-\xi$，
+\[
+\int_{-\ell}^{x_d}z_s(x)\dd x
+=\frac Ag\int_0^d(d-\xi)\dd\xi
+=\frac Ag[d\xi-\xi^2/2]_0^d=\frac{Ad^2}{2g}.
+\]
+故
+\[
+\frac12d h_L=2\ell h_0,
+\qquad d=2\sqrt{\frac{g\ell h_0}{A}},\qquad
+h_L=2\sqrt{\frac{A\ell h_0}{g}}.
+\]
+体积只在 $-\ell\le x\le x_d$ 上积分，$x>x_d$ 的干底区域不计入液体截面积。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(6.3,0)node[right]{$x$};\draw[axis](0,0)--(0,2.9)node[above]{$p_b$};\draw[curve](.4,2.4)--(4,0)--(5.7,0);
+\node[below]at(.4,0){$-\ell$};\node[below]at(4,0){$x_d$};\node at(4.9,.6){干底};\draw[guide](.4,0)--(.4,2.4);\node[right]at(1,2.6){$p_b(-\ell)=\rho gh_L$};
+\end{tikzpicture}
+\caption{湿底表压线性降至零；干底只承受大气压，表压为零。}\label{rot:fig:d6-h2-s}
+\end{figure}
+图\ref{rot:fig:d6-h2-s}中的分段压强为
+\[
+p_b(x)=\begin{cases}\rho A(x_d-x),&-\ell\le x\le x_d,\\0,&x_d<x\le\ell.\end{cases}
+\]
+露底要求 $d<2\ell$，不溢流要求 $h_L\le H$，即
+\[
+\frac{gh_0}{\ell}<A\le\frac{gH^2}{4\ell h_0}.
+\]
+因 $H>2h_0$，这个区间非空。右壁未接触液体，水平压力为零；左壁作用于液体的力为
+\[
+F_L=\frac12\rho gBh_L^2
+=2\rho B\ell h_0A=M_{\rm liq}A.
+\]
+上式的压力积分为 $F_L=\rho gB\int_0^{h_L}(h_L-z)\dd z=\rho gB[h_Lz-z^2/2]_0^{h_L}$。底部竖直合力使用同一湿区边界，
+\[
+F_b=\rho AB\int_0^d(d-\xi)\dd\xi
+=\rho AB[d\xi-\xi^2/2]_0^d
+=\frac{\rho ABd^2}2=2\rho gB\ell h_0=M_{\rm liq}g,
+\]
+恰好平衡液体重力。
+\end{solution}
+
+
+\begin{exercise}[加速度阶跃下的弹簧压缩]\label{rot:problem-exercise-3}\label{rot:ex:d6-h3}
+小车上的水平轻弹簧可受拉也可受压，劲度系数为 $k$，连接质量为 $m$ 的光滑物块。初始小车、物块均静止，弹簧无形变。$t=0$ 起，小车以恒加速度 $A$ 向右运动。取弹簧形变量 $x$ 向右伸长为正，求 $x(t)$、最大压缩量及物块的地面加速度，并写出相对能量守恒式。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.5)rectangle(6,1);\draw[curve](.5,-.4)--(.5,.8);\draw[spring](.5,.2)--(3.4,.2);\draw[fill=white](3.4,-.2)rectangle(4.2,.6);\node at(3.8,.2){$m$};\draw[axis](4.8,1.5)--(6.3,1.5)node[right]{$A$};\node at(1.7,1.4){$x(0)=0$};
+\end{tikzpicture}
+\caption{小车向右加速时，初始惯性力使物块相对车向左压缩弹簧。}\label{rot:fig:d6-h3-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-h3-q}的小车系方程为
+\[
+\ddot x+\omega_0^2x=-A,\qquad \omega_0=\sqrt{k/m}.
+\]
+静态平衡形变量为 $x_*=-A/\omega_0^2$。置 $\xi=x-x_*$，得 $\ddot\xi+\omega_0^2\xi=0$。其特征根为 $\pm i\omega_0$，实通解及其导数为
+\[
+\xi=C\cos\omega_0t+D\sin\omega_0t,\qquad
+\dot\xi=-C\omega_0\sin\omega_0t+D\omega_0\cos\omega_0t.
+\]
+由 $\xi(0)=A/\omega_0^2$ 得 $C=A/\omega_0^2$，由 $\dot\xi(0)=0$ 得 $D=0$。还原 $x=x_*+\xi$，得到
+\[
+x(t)=-\frac A{\omega_0^2}(1-\cos\omega_0t),\qquad
+\dot x=-\frac A{\omega_0}\sin\omega_0t.
+\]
+恒加速度在 $t=0$ 阶跃，并不等于给物块施加冲量：位置、速度都连续，只有方程中的加速度项改变。新平衡位置在原位置左侧，初态到新平衡位置的距离为 $mA/k$，图\ref{rot:fig:d6-h3-s}中的轨道便以此为振幅绕新平衡振动。
+首次最大压缩发生在 $t=\pi/\omega_0$，其大小为
+$|x|_{\max}=2A/\omega_0^2=2mA/k$，为静态压缩量的两倍。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(7,0)node[right]{$\omega_0t$};\draw[axis](0,-2.7)--(0,.6)node[above]{$kx/(mA)$};
+\draw[curve,domain=0:6.283,samples=100]plot(\x,{cos(\x*180/pi)-1});\draw[guide](0,-1)--(6.5,-1);\node[left]at(0,-1){$-1$};\node[left]at(0,-2){$-2$};\node[above]at(3.142,0){$\pi$};\node[above]at(6.283,0){$2\pi$};
+\end{tikzpicture}
+\caption{弹簧在自然长度与最大压缩状态之间往返，虚线为新的相对平衡位置。}\label{rot:fig:d6-h3-s}
+\end{figure}
+由 $\dot x$ 再求导，$\ddot x=-(A/\omega_0)\omega_0\cos\omega_0t=-A\cos\omega_0t$，所以地面加速度为 $a_q=A+\ddot x=A(1-\cos\omega_0t)$，范围为 $0\le a_q\le2A$。图\ref{rot:fig:d6-h3-s}的最大压缩处，弹簧对物块向右的力为 $2mA$，与 $a_q=2A$ 相符。
+将相对运动方程乘以 $m\dot x$，有
+\[
+m\dot x\ddot x+kx\dot x+mA\dot x
+=\frac{\dd}{\dd t}\left(\frac12m\dot x^2+\frac12kx^2+mAx\right)=0.
+\]
+各项分别用了 $\dd(\dot x^2)/\dd t=2\dot x\ddot x$、$\dd(x^2)/\dd t=2x\dot x$；$A$ 为常量，故第三项是惯性力势能 $mAx$ 的导数。对时间从 $0$ 积到 $t$，初态 $x=\dot x=0$，得到
+\[
+\frac12m\dot x^2+\frac12kx^2+mAx=0.
+\]
+配方后可写为
+\[
+\frac12m\dot x^2+\frac12k(x+mA/k)^2=\frac{m^2A^2}{2k},
+\]
+相对能量中须计入惯性力势能$mAx$；相对动能与弹性势能两项之和并不守恒。
+\end{solution}
+
+
+\begin{exercise}[径向滑珠的回转与到轴（选做）]\label{rot:problem-exercise-4}\label{rot:ex:d6-h4}
+水平光滑径向杆以恒角速度 $\Omega>0$ 转动，杆从 $O$ 沿正半径延伸。滑珠初始 $r=a>0$，相对杆向内的速度大小为 $u$。求运动，并确定先转向外侧、渐近接近 $O$、在有限时间到达 $O$ 这三种情况各自的条件。杆向外足够长，只讨论到达 $O$ 之前的运动。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(6,0);\fill(0,0)circle(1.6pt)node[below]{$O$};\fill(2.5,0)circle(2pt)node[above]{$m$};\draw[axis](2.5,0)--(1.3,0)node[midway,below]{$u$};\node[below]at(3.1,0){$a$};\draw[axis](.7,.7)arc(45:135:1);\node at(.1,1.6){$\Omega$};
+\end{tikzpicture}
+\caption{向内初速度与向外的离心项相竞争，初始径向坐标为a。}\label{rot:fig:d6-h4-q}
+\end{figure}
+\begin{solution}
+沿图\ref{rot:fig:d6-h4-q}的杆方向仍有 $\ddot r=\Omega^2r$。特征方程 $s^2-\Omega^2=0$ 的两个根为 $\pm\Omega$，所以
+\[
+r=C_1e^{\Omega t}+C_2e^{-\Omega t},\qquad
+\dot r=\Omega C_1e^{\Omega t}-\Omega C_2e^{-\Omega t}.
+\]
+初始条件给出 $C_1+C_2=a$、$\Omega(C_1-C_2)=-u$，相加、相减得
+\[
+C_1=\frac12\left(a-\frac{u}{\Omega}\right),\qquad
+C_2=\frac12\left(a+\frac{u}{\Omega}\right).
+\]
+用双曲函数合并两个指数项，运动可写为
+\[
+r=a\cosh\Omega t-\frac u\Omega\sinh\Omega t,
+\quad \dot r=a\Omega\sinh\Omega t-u\cosh\Omega t.
+\]
+指数解中 $C_2$ 始终为正，$C_1$ 在 $u=\Omega a$ 处变号：为正时 $r$ 最终增长，为零时只剩衰减项，为负时 $r$ 会在有限正时间降至零。
+相应的旋转系能量为
+\[
+E'=\frac12m(\dot r^2-\Omega^2r^2)
+=\frac12m(u^2-\Omega^2a^2).
+\]
+若 $0<u<\Omega a$，令 $\dot r=0$ 得
+\[
+t_* =\frac1\Omega\operatorname{artanh}\frac{u}{\Omega a},\qquad
+r_{\min}=\sqrt{a^2-u^2/\Omega^2}>0.
+\]
+由能量式改写得
+\[
+\dot r^2=\Omega^2r^2+u^2-\Omega^2a^2.
+\]
+径向转向必须先满足 $\dot r=0$，因此 $r_{\min}^2=a^2-u^2/\Omega^2$ 只有在 $u<\Omega a$ 时才为正。这同时排除了另外两类轨道中出现正半径转折点的可能。
+珠在到轴前径向速度已降至零，随后转而向外加速。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.6,0)node[right]{$\Omega t$};\draw[axis](0,0)--(0,3.5)node[above]{$r/a$};
+\draw[curve,domain=0:2,samples=90]plot({1.8*\x},{1.5*(cosh(\x)-.5*sinh(\x))});
+\draw[guide,domain=0:2.2,samples=90]plot({1.8*\x},{1.5*exp(-\x)});
+\draw[curve,densely dotted,domain=0:.804719,samples=70]plot({1.8*\x},{1.5*(cosh(\x)-1.5*sinh(\x))});
+\node[left]at(0,1.5){$1$};\node[above]at(2.8,3.2){$u=\Omega a/2$};\node at(2.8,.65){$u=\Omega a$};\node at(2,-.65){点线：$u=3\Omega a/2$};
+\begin{scope}[shift={(7.4,1.5)},scale=1.1]
+\draw[axis](-.15,0)--(2.55,0)node[right]{$r/a$};\draw[axis](0,-1.75)--(0,1.75)node[above]{$\dot r/(\Omega a)$};
+\draw[curve,domain=-.549306:1.25,samples=110]plot({sqrt(.75)*cosh(\x)},{sqrt(.75)*sinh(\x)});
+\draw[axis,domain=.3:.5,samples=12]plot({sqrt(.75)*cosh(\x)},{sqrt(.75)*sinh(\x)});
+\draw[guide](1,-1)--(0,0);\draw[axis,dashed](.65,-.65)--(.45,-.45);
+\draw[curve,densely dotted,domain=1:0,samples=80]plot(\x,{-sqrt((\x)^2+1.25)});
+\draw[axis,densely dotted](.65,{-sqrt(.65*.65+1.25)})--(.45,{-sqrt(.45*.45+1.25)});
+\fill(1,-.5)circle(1.5pt);\fill(1,-1)circle(1.5pt);\fill(1,-1.5)circle(1.5pt);
+\fill({sqrt(.75)},0)circle(1.7pt);\draw[guide]({sqrt(.75)},0)--(1.45,.5);\node[right]at(1.45,.5){$r_{\min}/a$};
+\node[below left]at(0,0){$O$};\node[below]at(1.3,-1.85){相轨迹，线型同左图};
+\end{scope}
+\end{tikzpicture}
+\caption{左图为三类径向运动，右图为对应相轨迹，箭头沿时间增加方向。临界分支渐近接近原点；实线在正半径处转向，点线以非零速度到轴。}\label{rot:fig:d6-h4-s}
+\end{figure}
+当 $u=\Omega a$，图\ref{rot:fig:d6-h4-s}的临界解为 $r=ae^{-\Omega t}$，仅在 $t\to\infty$ 时趋零。
+若 $u>\Omega a$，解 $r=0$ 得
+\[
+t_O=\frac1\Omega\operatorname{artanh}\frac{\Omega a}{u},
+\qquad \dot r(t_O)=-\sqrt{u^2-\Omega^2a^2}.
+\]
+到轴时仍有非零向内速度。由于杆只沿正半径延伸，后续运动取决于端部构造，本题的运动阶段在此结束。
+若不使用反双曲函数，两种有限时间分别为
+\[
+\begin{aligned}
+t_*&=\frac1{2\Omega}\ln\frac{\Omega a+u}{\Omega a-u},&&0<u<\Omega a,\\
+t_O&=\frac1{2\Omega}\ln\frac{u+\Omega a}{u-\Omega a},&&u>\Omega a.
+\end{aligned}
+\]
+两式在各自定义域内分子大于分母，时间均为正。$u$ 从两侧趋于 $\Omega a$ 时，它们都对数发散，与图\ref{rot:fig:d6-h4-s}中临界轨道只在无限时间到轴相符。
+\end{solution}
+
+
+\begin{exercise}[地面静止点的转动系运动]\label{rot:problem-exercise-5}\label{rot:ex:d6-h5}
+无摩擦水平面上的一质点在地面系始终静止，与固定点 $O$ 相距 $a$。采用绕 $O$ 以角速度 $\Omega>0$ 逆时针转动的坐标系，初始坐标为 $(a,0)$。求相对轨迹、速度、加速度及各惯性力，说明这些惯性力怎样满足相对运动方程。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.4,0)--(3.8,0)node[right]{$x=x'$};\draw[axis](0,-1.8)--(0,2.4)node[above]{$y=y'$};\fill(2.5,0)circle(2pt)node[above]{$m$};\draw[axis](2.5,0)--(2.5,-1.3)node[right]{$v'_0=\Omega a$};\node at(1.2,1.5){地面速度为零};\node[below left]at(0,0){$O$};
+\end{tikzpicture}
+\caption{初始两坐标系方向重合，相对转动系的速度沿负 $y$ 方向。}\label{rot:fig:d6-h5-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-h5-q}中的地面位置为 $(a,0)$，乘逆转矩阵即得
+\[
+x'=a\cos\Omega t,\qquad y'=-a\sin\Omega t.
+\]
+对这两个坐标分别求一次、两次时间导数，得到
+\[
+\begin{aligned}
+\dot x'&=-a\Omega\sin\Omega t,&\dot y'&=-a\Omega\cos\Omega t,\\
+\ddot x'&=-a\Omega^2\cos\Omega t=-\Omega^2x',&
+\ddot y'&=a\Omega^2\sin\Omega t=-\Omega^2y'.
+\end{aligned}
+\]
+质点在转动系中沿半径为 $a$ 的圆顺时针运动，以上分量可合为
+\[
+\vct v'=-\vct\Omega\times\vct r',\qquad
+\vct a'=-\Omega^2\vct r'.
+\]
+在初始位置 $(a,0)$，相对速度为 $(0,-\Omega a)$，图\ref{rot:fig:d6-h5-s}中的科里奥利力因此指向O。一般位置可用三重积恒等式 $\vct\Omega\times(\vct\Omega\times\vct r')=-\Omega^2\vct r'$，其中用到了水平位置与竖直转轴垂直。
+角速度恒定、原点固定，平移与欧拉惯性力均为零。离心力为 $m\Omega^2\vct r'$；代入相对速度计算科里奥利力，
+\[
+\vct F_{\rm cor}=-2m\vct\Omega\times(-\vct\Omega\times\vct r')
+=-2m\Omega^2\vct r'.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](0,0)circle(1.3);\fill(0,0)circle(1.5pt)node[above left]{$O$};\fill(1.3,0)circle(1.8pt)node[above]{$m$};
+\draw[axis](1.3,0)--(2.3,0)node[right]{$m\Omega^2a$};\draw[axis](1.3,0)--(-.7,0);\node at(.2,-.45){$2m\Omega^2a$};\draw[axis](1.3,0)--(1.3,-1)node[right]{$\vct v'$};
+\node[align=left]at(5.7,.6){离心力向外\\科里奥利力向内\\合惯性力向内};
+\end{tikzpicture}
+\caption{初始瞬间的惯性力图，科里奥利力大小是离心力的两倍。}\label{rot:fig:d6-h5-s}
+\end{figure}
+图\ref{rot:fig:d6-h5-s}中，两个惯性力之和为 $-m\Omega^2\vct r'=m\vct a'$，给出了相对圆周运动所需的向心加速度。地面系中水平真实力与加速度均为零，两种描述通过坐标变换相连。
+相对动能为 $m\Omega^2a^2/2$，离心势为其相反数，故 $E'=0$。地面系中 $E=L_z=0$，也符合 $E'=E-\Omega L_z$。
+\end{solution}
+
+
+\begin{exercise}[转盘制动时的摩擦需求]\label{rot:problem-exercise-6}\label{rot:ex:d6-h6}
+水平转盘初始以角速度 $\Omega_0>0$ 转动，随后按 $\Omega(t)=\Omega_0-\alpha t$ 匀减速，至 $t_b=\Omega_0/\alpha$ 停止，此后保持静止，$\alpha>0$。距轴 $r$ 处的物体相对盘不动。求全过程所需的最小静摩擦系数，以及制动段和停止后的摩擦。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2);\fill(0,0)circle(1.5pt)node[below left]{$O$};\fill(1.3,0)circle(2pt)node[right]{$m$};\draw[guide](0,0)--(1.3,0)node[midway,below]{$r$};
+\draw[axis](-1.2,1.2)arc(135:225:1.7);\node at(-2.5,.7){$\Omega>0$};\node at(3.3,1.5){$\dot\Omega=-\alpha$};
+\end{tikzpicture}
+\caption{角速度仍为正，角加速度与它反向。}\label{rot:fig:d6-h6-q}
+\end{figure}
+\begin{solution}
+在图\ref{rot:fig:d6-h6-q}的制动段，物体地面加速度同时包括向心分量和反向切向分量，故
+\[
+\vct f=-mr\Omega^2\vct e_r-mr\alpha\vct e_\varphi,
+\qquad |\vct f|=mr\sqrt{\Omega^4+\alpha^2}.
+\]
+法向力为 $mg$，摩擦系数须满足
+\[
+\mu\ge\frac rg\sqrt{(\Omega_0-\alpha t)^4+\alpha^2}.
+\]
+在 $0\le t\le t_b$，$\Omega$ 非负且单调减小，右端最大值在初始时刻。因此
+\[
+\boxed{\mu_{\min}=\frac rg\sqrt{\Omega_0^4+\alpha^2}.}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5,0)node[right]{$\Omega/\Omega_0$};\draw[axis](0,0)--(0,3)node[above]{$|f|/(mr\Omega_0^2)$};
+\draw[curve,domain=0:1,samples=80]plot({4*\x},{2*sqrt(\x^4+.25)});\node[below]at(4,0){$1$};\node[left]at(0,1){$1/2$};\draw[axis](3.4,2.8)--(1.5,2.8)node[midway,above]{时间推进};
+\end{tikzpicture}
+\caption{示意 $\alpha=\Omega_0^2/2$ 的制动过程，摩擦需求从右向左减小。}\label{rot:fig:d6-h6-s}
+\end{figure}
+图\ref{rot:fig:d6-h6-s}中，摩擦需求随制动减小，故初始条件满足后，后续制动段也能保持相对静止。
+
+刚停止前，径向分量趋于零，切向摩擦仍为 $-mr\alpha\vct e_\varphi$。$t_b$ 时角加速度改为零，物体已在地面系静止，所需水平摩擦随之变为零。这一有限力的跳变不会产生冲量，物体速度连续。
+\end{solution}
+
+
+\begin{exercise}[临界转速下的非线性振动（选做）]\label{rot:problem-exercise-7}\label{rot:ex:d6-h7}
+半径为 $a$ 的光滑圆环绕竖直直径以恒定角速度 $\Omega=\sqrt{g/a}$ 转动。质量为 $m$ 的小珠从 $\theta=\Theta$ 处相对静止释放，以最低点为 $\theta=0$，其中 $0<\Theta\ll1$，角度用弧度表示。保留势能展开中的首个非零项，求周期随振幅的渐近关系，判断最低点的稳定性。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2);\draw[guide](0,-2.05)--(0,2.5)node[above]{转轴};\fill(0,0)circle(1.4pt)node[left]{$O$};
+\coordinate(A)at({2*sin(35)},{-2*cos(35)});\coordinate(B)at({-2*sin(35)},{-2*cos(35)});
+\draw[guide](B)--(0,0)--(A);\fill(A)circle(2pt)node[below right]{$\theta=\Theta$};\fill(B)circle(1.5pt)node[below left]{$-\Theta$};\draw[axis](0,-.8)arc(-90:-55:.8)node[midway,below right]{$\Theta$};
+\node[below]at(0,-2.15){$\theta=0$};\node at(3.5,1){$\Omega^2a=g$};\node at(3.5,.4){$\Theta\ll1$};
+\end{tikzpicture}
+\caption{两个小振幅转折位置；图中角度为便于辨认而放大。}\label{rot:fig:d6-h7-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-h7-q}中的圆环对小珠只作法向约束，相对运动沿圆周进行。由例\ref{rot:ex:d6-e7}的有效势能，在临界转速下有
+\[
+U_{\rm eff}=-mga\cos\theta-\frac{mga}{2}\sin^2\theta.
+\]
+利用 $\cos\theta=1-\theta^2/2+\theta^4/24+O(\theta^6)$ 和 $\sin^2\theta=\theta^2-\theta^4/3+O(\theta^6)$，得
+\[
+U_{\rm eff}-U_{\rm eff}(0)=\frac{mga}{8}\theta^4+O(\theta^6).
+\]
+二次项抵消，四次项为正。因此最低点仍是严格局部极小点，只是回复力不再与小位移成正比。振幅为 $\Theta$ 时，相对能量守恒给出
+\[
+\frac12ma^2\dot\theta^2=\frac{mga}{8}(\Theta^4-\theta^4),
+\qquad
+|\dot\theta|=\frac12\sqrt{\frac ga}\sqrt{\Theta^4-\theta^4}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-2.6,0)--(2.7,0)node[right]{$\theta/\Theta$};\draw[axis](0,0)--(0,2.6)node[above]{$(U_{\rm eff}-U_0)/\Delta U$};
+\draw[curve,domain=-1.15:1.15,samples=90]plot({2*\x},{1.2*(\x)^4});\draw[guide](-2.3,1.2)--(2.3,1.2);\node[above right]at(2.4,1.1){$\dfrac{E'-U_0}{\Delta U}=1$};\fill(-2,1.2)circle(1.7pt);\fill(2,1.2)circle(1.7pt);\draw[guide](-2,0)--(-2,1.2);\draw[guide](2,0)--(2,1.2);\node[below]at(-2,0){$-1$};\node[below]at(2,0){$1$};\node[left]at(0,1.2){$1$};
+\end{tikzpicture}
+\caption{四次势阱及两个转折点。$U_0=U_{\rm eff}(0)$，$\Delta U=mga\Theta^4/8$。}\label{rot:fig:d6-h7-s}
+\end{figure}
+图\ref{rot:fig:d6-h7-s}中，从 $0$ 到 $\Theta$ 的时间为四分之一周期。令 $\theta=\Theta u$，有
+\[
+T=4\int_0^\Theta\frac{\dd\theta}{|\dot\theta|}
+=\frac8\Theta\sqrt{\frac ag}\int_0^1\frac{\dd u}{\sqrt{1-u^4}}.
+\]
+这个定积分可化成端点没有奇性的形式。取 $u=\sin\phi$，则 $\dd u=\cos\phi\,\dd\phi$，上下限 $u=0,1$ 分别对应 $\phi=0,\pi/2$。在此区间 $\cos\phi\ge0$，且
+\[
+1-u^4=1-\sin^4\phi=\cos^2\phi(1+\sin^2\phi),
+\]
+于是分子中的 $\cos\phi$ 与分母中的同一因子约去，得
+\[
+\int_0^1\frac{\dd u}{\sqrt{1-u^4}}
+=\int_0^{\pi/2}\frac{\dd\phi}{\sqrt{1+\sin^2\phi}}.
+\]
+右侧被积函数在整个区间连续，因而图\ref{rot:fig:d6-h7-s}中的转折点虽速度为零，质点经过转折点附近所需时间仍有限。
+该积分没有初等原函数。记 $f(\phi)=(1+\sin^2\phi)^{-1/2}$，将 $[0,\pi/2]$ 等分为偶数 $n$ 段，步长 $h=\pi/(2n)$，复合辛普森公式给出
+\[
+S_n=\frac h3\left[f(0)+f(\pi/2)
++4\sum_{j=1,3,\ldots,n-1}f(jh)
++2\sum_{j=2,4,\ldots,n-2}f(jh)\right].
+\]
+取 $n=16,32$，两次均得 $1.311028777$（保留九位小数）。将其乘以周期表达式中的系数 $8$，得
+\[
+\boxed{T=\frac{10.4882}{\Theta}\sqrt{\frac ag}\,[1+O(\Theta^2)].}
+\]
+振幅越小，周期越长，$\Theta\to0$ 时振动频率趋于零。线性化只能得到零频率，而四次势阱仍将小能量轨道限制在最低点附近，因此最低点保持稳定。
+\end{solution}
+
+
+\begin{exercise}[竖直上抛后的落点]\label{rot:problem-exercise-8}\label{rot:ex:d6-h8}
+在北纬 $\lambda$ 处，以速率 $u$ 相对地面竖直上抛一质点，初始水平速度为零。忽略空气阻力，取当地有效重力加速度为 $g$。仅保留地球角速度 $\Omega$ 的一阶效应，求回到原高度时的东西偏移和东西向速度。设 $0\le\lambda<\pi/2$，飞行高度、水平位移均远小于地球半径。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-2,0)--(3,0);\draw[axis](0,0)--(3.3,0)node[right]{$x$（东）};\draw[axis](0,0)--(0,3.3)node[above]{$z$（天顶）};\fill(0,0)circle(2pt)node[below left]{$O$};\draw[axis](.2,.2)--(.2,1.8)node[right]{$u$};\draw[axis](2.1,2.6)--(2.1,1.6)node[right]{$g$};\node[anchor=east]at(-.4,2.5){北向垂直纸面向内};
+\end{tikzpicture}
+\caption{以发射点为原点；初始速度只有竖直分量。}\label{rot:fig:d6-h8-q}
+\end{figure}
+\begin{solution}
+按图\ref{rot:fig:d6-h8-q}取东为 $x$ 正向、北为 $y$ 正向、天顶为 $z$ 正向。零阶运动为
+\[
+v_z^{(0)}=u-gt,\qquad z^{(0)}=ut-\frac12gt^2,
+\qquad T=\frac{2u}{g}.
+\]
+由 $\vct\Omega=(0,\Omega\cos\lambda,\Omega\sin\lambda)$，一阶科里奥利加速度的东向分量为
+\[
+\ddot x=-2\Omega\cos\lambda\,(u-gt).
+\]
+初始 $x=\dot x=0$。先积加速度，再积速度，两个积分的下限都取发射时刻：
+\[
+\begin{aligned}
+\dot x(t)&=-2\Omega\cos\lambda\int_0^t(u-g\tau)\,\dd\tau
+=-2\Omega\cos\lambda\left[u\tau-\frac12g\tau^2\right]_0^t\\
+&=-2\Omega\cos\lambda\left(ut-\frac12gt^2\right),\\
+x(t)&=-2\Omega\cos\lambda\int_0^t\left(u\tau-\frac12g\tau^2\right)\dd\tau\\
+&=-2\Omega\cos\lambda\left[\frac12u\tau^2-\frac16g\tau^3\right]_0^t
+=-\Omega ut^2\cos\lambda+\frac13\Omega gt^3\cos\lambda.
+\end{aligned}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5,0)node[right]{$\tau=gt/u$};\draw[axis](0,-2.5)--(0,.7)node[above]{$\dot x/(\Omega u^2\cos\lambda/g)$};
+\draw[curve,domain=0:2,samples=80]plot({2*\x},{2*(\x^2-2*\x)});\draw[guide](2,0)--(2,-2);\node[above]at(2,0){$1$};\node[above]at(4,0){$2$};\node[left]at(0,-2){$-1$};\node[below]at(2,-2.05){最高点};
+\end{tikzpicture}
+\caption{全程东向速度不大于零：下降时虽向东加速，质点仍向西漂移。}\label{rot:fig:d6-h8-s}
+\end{figure}
+积分结果还可整理为 $\dot x=-2\Omega\cos\lambda\,z^{(0)}(t)$。在从抛出到回到原高度的整个开区间，$z^{(0)}>0$，所以东西速度始终向西。上升、下降两段虽然加速度方向相反，向西位移却在两段中持续积累。
+图\ref{rot:fig:d6-h8-s}中，最高点 $t=u/g$ 对应东西向加速度为零、向西速度最大，速度为 $-\Omega u^2\cos\lambda/g$。下降时加速度改向东，向西速度逐渐减小，直到落回原高度时
+\[
+\boxed{x(T)=-\frac{4\Omega u^3\cos\lambda}{3g^2},\qquad \dot x(T)=0.}
+\]
+落点在发射点西侧。速度曲线全在时间轴下方，曲线与时间轴之间的有向面积为负，给出有限的向西位移。
+
+竖直方向的科里奥利修正含有一阶水平速度，因而属于二阶，求一阶偏移时可直接使用 $T=2u/g$。
+\end{solution}
+
+
+\begin{exercise}[向北平抛时的东西偏移]\label{rot:problem-exercise-9}\label{rot:ex:d6-h9}
+在纬度为 $\lambda$ 的地点，从高为 $H$ 处以速率 $u$ 相对地面向正北平抛，初始竖直、东西速度均为零。忽略空气阻力，取当地有效重力加速度为 $g$，只计 $\Omega$ 的一阶效应。求落地时的东西偏移及南半球偏移为零的条件。设 $-\pi/2<\lambda<\pi/2$，$\Omega\sqrt{2H/g}\ll1$，运动范围足够小，可使用固定的当地坐标轴。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}
+\draw[axis](0,0)--(2.7,0)node[right]{东};\draw[axis](0,0)--(0,2.8)node[above]{北};\fill(0,0)circle(2pt)node[below left]{$P$};\draw[axis](0,.2)--(0,1.7)node[right]{$u$};\node at(1.1,-.7){俯视：发射方向};
+\end{scope}
+\begin{scope}[xshift=5.2cm]
+\draw[curve](-.6,0)--(2,0);\draw[curve](0,0)--(0,2);\fill(0,2)circle(2pt)node[above]{$P$};\draw[<->](-.45,0)--(-.45,2)node[midway,left]{$H$};\draw[axis](.2,2)--(1.6,2)node[right]{$u$（北）};\node at(.8,-.7){侧视：初始高度};
+\end{scope}
+\end{tikzpicture}
+\caption{俯视与侧视共用发射点P；东西偏移由北向运动和下落共同产生。}\label{rot:fig:d6-h9-q}
+\end{figure}
+\begin{solution}
+取东、北、天顶为 $x$、$y$、$z$ 正向。图\ref{rot:fig:d6-h9-q}给出的零阶速度为 $(0,u,-gt)$。代入 $-2\vct\Omega\times\vct v^{(0)}$，得
+\[
+a_x=2\Omega u\sin\lambda+2\Omega gt\cos\lambda,
+\qquad a_y=a_z=0\quad\text{（一阶）}.
+\]
+第一项由向北平抛引起，其符号随半球改变；第二项由下落引起，在本题纬度范围内指东。用 $v_x(0)=x(0)=0$ 依次积分：
+\[
+\begin{aligned}
+v_x(t)&=\int_0^t(2\Omega u\sin\lambda+2\Omega g\tau\cos\lambda)\,\dd\tau\\
+&=\left[2\Omega u\tau\sin\lambda+\Omega g\tau^2\cos\lambda\right]_0^t
+=2\Omega ut\sin\lambda+\Omega gt^2\cos\lambda,\\
+x(t)&=\int_0^t(2\Omega u\tau\sin\lambda+\Omega g\tau^2\cos\lambda)\,\dd\tau\\
+&=\left[\Omega u\tau^2\sin\lambda+\frac13\Omega g\tau^3\cos\lambda\right]_0^t
+=\Omega ut^2\sin\lambda+\frac13\Omega gt^3\cos\lambda.
+\end{aligned}
+\]
+落地时间 $T=\sqrt{2H/g}$。故所求东向偏移为
+\[
+\boxed{\delta=\frac{2\Omega uH}{g}\sin\lambda
++\frac{2\Omega H}{3}\sqrt{\frac{2H}{g}}\cos\lambda.}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.2,0)node[right]{$u/u_*$};\draw[axis](0,-1.7)--(0,2.2)node[above]{$\delta/\delta_0$};\draw[curve](0,1.5)--(4.8,-1.5);\draw[guide](2.4,0)--(2.4,-1.4);\node[below left]at(2.4,0){$1$};\node[left]at(0,1.5){$1$};\node at(1.2,.35){向东};\node at(3.6,-1.3){向西};\node at(3.7,1.5){$\lambda<0$};
+\end{tikzpicture}
+\caption{南半球的落点偏移。$\delta_0=\Omega gT^3\cos\lambda/3>0$ 是同高度自由落体的东偏。}\label{rot:fig:d6-h9-s}
+\end{figure}
+在北半球，两项均不小于零；赤道上第一项为零，仍有下落造成的东偏。在南半球 $\sin\lambda<0$，令 $\delta=0$，可得
+\[
+\boxed{u_*= -\frac{gT}{3}\cot\lambda>0.}
+\]
+图\ref{rot:fig:d6-h9-s}表示 $\delta=\delta_0(1-u/u_*)$：$u<u_*$ 时落点向东，$u>u_*$ 时向西。$u=u_*$ 只使落地点的东西位移抵消，飞行过程中一般仍有东西运动。这个临界速率还须满足当地小区域近似；若由它算出的射程已不可忽略地球曲率，就须重建模型。
+在临界速率 $u_*$ 下，落地的东西速度仍为
+\[
+v_x(T)=2\Omega u_*T\sin\lambda+\Omega gT^2\cos\lambda
+=\frac13\Omega gT^2\cos\lambda>0.
+\]
+图\ref{rot:fig:d6-h9-s}的零偏移点处，先向西、后向东的位移恰好抵消，落地时仍有向东速度。
+\end{solution}
+
+
+\begin{exercise}[变转速导轨上的匀速外移]\label{rot:problem-exercise-10}\label{rot:ex:d6-h10}
+水平径向导轨绕固定竖直轴转动，电机使角速度满足 $\Omega(t)=\Omega_0+\alpha t$，其中 $\Omega_0\ge0$、$\alpha>0$。另一径向执行器控制小珠沿导轨运动，使 $r(t)=a+ut$，$a,u>0$。小珠质量为 $m$，导轨光滑。求径向执行器的力、导轨的方位向力，以及两个机构各自传给小珠的功率。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.12)rectangle(4.3,.12);\fill(0,0)circle(1.5pt)node[below left]{$O$};\fill(2.8,0)circle(3pt)node[below]{$m$};\draw[guide](0,-.6)--(2.8,-.6)node[midway,below]{$r=a+ut$};\draw[axis](2.8,.4)--(4.2,.4)node[right]{$u\vct e_r$};\draw[axis](2.8,.1)--(2.8,1.5)node[above]{$\vct e_\varphi$};\draw[axis](-.7,.7)arc(135:225:1);\node at(-1.6,.7){$\Omega,\alpha$};
+\end{tikzpicture}
+\caption{径向位移和转动均由外部机构规定；竖直支持力与重力抵消。}\label{rot:fig:d6-h10-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-h10-q}中 $\dot r=u$、$\ddot r=0$。地面系极坐标加速度为
+\[
+a_r=\ddot r-r\Omega^2=-r\Omega^2,
+\qquad
+a_\varphi=r\dot\Omega+2\dot r\Omega=r\alpha+2u\Omega.
+\]
+两倍交叉项来自极坐标基矢也在转动。由 $\dot{\vct e}_r=\Omega\vct e_\varphi$、$\dot{\vct e}_\varphi=-\Omega\vct e_r$，对 $\vct v=\dot r\vct e_r+r\Omega\vct e_\varphi$ 求导，$\dot r\vct e_r$ 和 $r\Omega\vct e_\varphi$ 各贡献一个 $\dot r\Omega\vct e_\varphi$，合成 $2u\Omega$。
+导轨没有径向摩擦，故径向力全部由执行器提供；方位向力全部由导轨提供。以 $\vct e_r$、$\vct e_\varphi$ 为正向，
+\[
+\boxed{F_r=-mr\Omega^2,\qquad N_\varphi=m(r\alpha+2u\Omega).}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}
+\fill(0,0)circle(2pt);\draw[axis](0,0)--(-1.6,0)node[above]{$mr\Omega^2$};\draw[axis](0,0)--(0,1.7)node[above]{$N_\varphi$};\node at(-.1,-.65){真实水平力};
+\end{scope}
+\begin{scope}[xshift=4.5cm]
+\fill(0,0)circle(2pt);\draw[axis](0,0)--(1.6,0)node[above]{$mr\Omega^2$};\draw[axis](0,0)--(0,-1.2)node[right]{$2m\Omega u$};\draw[axis](-.25,0)--(-.25,-1.9)node[left]{$m\alpha r$};\node at(.5,.8){随轨系惯性力};
+\end{scope}
+\end{tikzpicture}
+\caption{向内的执行器力平衡离心力；方位向约束力平衡科里奥利力与欧拉力。右图箭长只示方向。}\label{rot:fig:d6-h10-s}
+\end{figure}
+随导轨观察，小珠作匀速直线运动，相对加速度为零。图\ref{rot:fig:d6-h10-s}中的真实力与惯性力合力为零，其中 $m\alpha r$ 来自欧拉惯性力，$2m\Omega u$ 来自科里奥利力。
+
+小珠的地面速度为 $u\vct e_r+r\Omega\vct e_\varphi$。径向执行器功率为
+\[
+\boxed{P_r=F_ru=-mr\Omega^2u.}
+\]
+执行器施力向内而小珠向外运动，故从小珠回收机械能。导轨对小珠绕 $O$ 的力矩为 $rN_\varphi$，旋转电机经导轨传入的功率为
+\[
+\boxed{P_{\rm rot}=\Omega rN_\varphi
+=m\alpha\Omega r^2+2m\Omega^2ru.}
+\]
+相加得 $P_r+P_{\rm rot}=m\alpha\Omega r^2+m\Omega^2ru$。另一方面，
+\[
+K=\frac12m[u^2+(r\Omega)^2],\qquad
+\dot K=mr\Omega(u\Omega+r\alpha),
+\]
+恰与总功率相符。角动量也给出同一方位向力：
+\[
+\frac{\dd}{\dd t}(mr^2\Omega)=m(2ru\Omega+r^2\alpha)=rN_\varphi.
+\]
+以上功率仅指传给小珠的部分，不包括导轨、转轴和电机自身转动惯量所需的功率。
+\end{solution}
+
+
+\begin{exercise}[转动径向弹簧的平衡位置]\label{rot:problem-exercise-11}\label{rot:ex:d6-h11}
+光滑水平径向导轨以恒定角速度 $\Omega\ge0$ 绕 $O$ 转动。质量为 $m$ 的小珠穿在导轨上，通过劲度系数为 $k$、原长为 $\ell>0$ 的弹簧连接 $O$，弹簧可伸可压。只考虑 $r>0$ 的运动。求相对平衡位置、存在条件及小振动频率，讨论转速达到或超过临界值时的运动。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.13)rectangle(4.7,.13);\fill(0,0)circle(1.7pt)node[below left]{$O$};\draw[spring](.1,0)--(3.1,0);\fill(3.2,0)circle(3pt)node[above]{$m$};\draw[<->](0,-.6)--(3.2,-.6)node[midway,below]{$r$};\node at(1.5,.7){$k,\ \ell$};\draw[axis](-.6,.6)arc(135:225:.85);\node at(-1.3,.6){$\Omega$};
+\end{tikzpicture}
+\caption{弹簧沿导轨，导轨的水平约束力垂直于径向。}\label{rot:fig:d6-h11-q}
+\end{figure}
+\begin{solution}
+记 $\omega_0=\sqrt{k/m}$。图\ref{rot:fig:d6-h11-q}中，弹簧径向力为 $-k(r-\ell)$；离心力为 $m\Omega^2r$。相对运动方程为
+\[
+m\ddot r=-k(r-\ell)+m\Omega^2r,
+\qquad
+\ddot r+(\omega_0^2-\Omega^2)r=\omega_0^2\ell.
+\]
+当 $\Omega<\omega_0$ 时，
+\[
+\boxed{r_* =\frac{k\ell}{k-m\Omega^2}
+=\frac{\omega_0^2\ell}{\omega_0^2-\Omega^2}>0.}
+\]
+令 $r=r_*+\xi$，消去常数项，得 $\ddot\xi+(\omega_0^2-\Omega^2)\xi=0$。特征根为 $\pm i\sqrt{\omega_0^2-\Omega^2}$，所以
+\[
+\boxed{\omega_{\rm small}=\sqrt{\omega_0^2-\Omega^2}.}
+\]
+本题只讨论正半轴，振幅须小于 $r_*$，使整个振动过程保持 $r>0$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}
+\draw[axis](0,0)--(3.2,0)node[right]{$r/\ell$};\draw[axis](0,-.8)--(0,2.4)node[above]{$U_{\rm eff}/(k\ell^2)$};\draw[curve,domain=0:2.7,samples=70]plot({\x},{1.4*(.25*\x^2-\x+.5)});\draw[guide](2,0)--(2,-.7);\fill(2,-.7)circle(1.7pt);\node[above]at(2,0){$r_*/\ell$};\node at(1.5,1.8){$\Omega^2/\omega_0^2=1/2$};
+\end{scope}
+\begin{scope}[xshift=5cm]
+\draw[axis](0,0)--(3.2,0)node[right]{$r/\ell$};\draw[axis](0,-2.1)--(0,1.5);\draw[curve](0,.7)--(1.9,-1.96);\node at(1.6,1){$\Omega=\omega_0$};\node at(1.6,-2.5){$U_{\rm eff}$ 单调下降};
+\end{scope}
+\end{tikzpicture}
+\caption{允许区域为 $r\ge0$。左图有势能极小点；右图临界时已无极小点。纵轴使用同一任意正比例缩放。}\label{rot:fig:d6-h11-s}
+\end{figure}
+有效势能为
+\[
+U_{\rm eff}=\frac12k(r-\ell)^2-\frac12m\Omega^2r^2.
+\]
+图\ref{rot:fig:d6-h11-s}左图的二次项系数为正，平衡点是最小值。若 $\Omega=\omega_0$，二次项消失而线性项仍在，运动方程成为
+\[
+\ddot r=\omega_0^2\ell>0,
+\]
+在这个临界转速，任取初始半径 $r_i>0$ 和径向初速度 $v_i$，两次积分为
+\[
+\dot r-v_i=\int_0^t\omega_0^2\ell\,\dd\tau=\omega_0^2\ell t,\qquad
+r-r_i=\int_0^t(v_i+\omega_0^2\ell\tau)\,\dd\tau
+=\left[v_i\tau+\frac12\omega_0^2\ell\tau^2\right]_0^t.
+\]
+因此，到碰到 $r=0$ 边界之前的解为
+\[
+r(t)=r_i+v_it+\frac12\omega_0^2\ell t^2.
+\]
+若从相对静止释放，半径按时间的平方增大，因而零线性频率在这里不代表中性平衡。
+没有相对平衡位置。若 $\Omega>\omega_0$，则对所有 $r>0$，
+\[
+\ddot r=(\Omega^2-\omega_0^2)r+\omega_0^2\ell>0.
+\]
+令 $\kappa=\sqrt{\Omega^2-\omega_0^2}$，则方程为 $\ddot r-\kappa^2r=\omega_0^2\ell$。取常数特解 $r_p=-\omega_0^2\ell/\kappa^2$，齐次方程的特征根为 $\pm\kappa$，故通解是
+\[
+r=-\frac{\omega_0^2\ell}{\kappa^2}+C\cosh\kappa t+D\sinh\kappa t.
+\]
+例如从 $r_i>0$ 相对静止释放，$r(0)=r_i$ 给出 $C=r_i+\omega_0^2\ell/\kappa^2$，$\dot r(0)=\kappa D=0$ 给出 $D=0$，于是
+\[
+r(t)=\left(r_i+\frac{\omega_0^2\ell}{\kappa^2}\right)\cosh\kappa t
+-\frac{\omega_0^2\ell}{\kappa^2}.
+\]
+它始终为正并单调向外增长，比临界转速下的平方增长更快。
+平衡方程此时只有负的 $r$ 解，落在允许区域之外。
+
+导轨把运动限制为一个自由度，科里奥利力沿方位向，由 $N_\varphi=2m\Omega\dot r$ 平衡，不进入径向方程，所以有效势足以判断本题的稳定性。例\ref{rot:ex:d6-e10}没有这条导轨，两个方向仍由科里奥利项耦合，须联立方程判断。
+\end{solution}
+
+
+\begin{exercise}[旋转坐标中的闭合轨迹（选做）]\label{rot:problem-exercise-12}\label{rot:ex:d6-h12}
+水平面内的质点受中心力 $\vct F=-k\vct r$，质量为 $m$，$\omega_0=\sqrt{k/m}$。取绕 $O$ 以 $\Omega=2\omega_0$ 逆时针匀速转动的坐标系。初始时坐标轴与地面轴重合，小珠位于 $(x',y')=(a,0)$，相对速度为零。求相对轨迹的参数方程、最大和最小半径、轨迹周期及相对速度为零的位置，解释有效势为负时轨迹为何仍有界。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-1,0)--(4,0)node[right]{$x'$};\draw[axis](0,-1)--(0,2.8)node[above]{$y'$};\fill(0,0)circle(1.5pt)node[below left]{$O$};\fill(2.5,0)circle(2.5pt)node[below]{$(a,0)$};\draw[axis](2.5,0)--(1,0)node[midway,above]{$ka$};\draw[axis](2.5,.15)--(2.5,1.7)node[right]{$\vct v(0)=2\omega_0a\,\vct e_y$};\node at(1.3,-.85){$\vct v'(0)=0$};\node at(1.5,2.7){$\Omega=2\omega_0$};
+\end{tikzpicture}
+\caption{相对静止的初始条件对应非零地面速度；力始终指向O。}\label{rot:fig:d6-h12-q}
+\end{figure}
+\begin{solution}
+图\ref{rot:fig:d6-h12-q}中，地面初始速度为 $(0,2\omega_0a)$。地面坐标分别满足 $\ddot x+\omega_0^2x=0$、$\ddot y+\omega_0^2y=0$，通解是
+\[
+x=C_x\cos\omega_0t+D_x\sin\omega_0t,\qquad
+y=C_y\cos\omega_0t+D_y\sin\omega_0t.
+\]
+初位置给出 $C_x=a,C_y=0$；对通解求导后代入初速度，得 $\omega_0D_x=0,\omega_0D_y=2\omega_0a$。因此令 $\tau=\omega_0t$，有
+\[
+x=a\cos\tau,\qquad y=2a\sin\tau.
+\]
+将此矢量顺时针转过坐标轴已经转过的角 $2\tau$，可得复坐标
+\[
+\zeta=x'+iy'=a e^{-2i\tau}(\cos\tau+2i\sin\tau)
+=\frac a2(3e^{-i\tau}-e^{-3i\tau}).
+\]
+故所求参数方程为
+\[
+\boxed{x'=\frac a2(3\cos\tau-\cos3\tau),\qquad
+y'=\frac a2(-3\sin\tau+\sin3\tau).}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-2.1,0)--(2.4,0)node[right]{$x'/a$};\draw[axis](0,-3)--(0,3.1)node[above]{$y'/a$};
+\draw[curve,domain=0:360,samples=241]plot({1.25*(1.5*cos(\x)-.5*cos(3*\x))},{1.25*(-1.5*sin(\x)+.5*sin(3*\x))});
+\fill(1.25,0)circle(1.7pt);\fill(-1.25,0)circle(1.7pt);\draw[guide](1.25,0)--(2,.7)node[right]{$(1,0)$};\draw[guide](-1.25,0)--(-2,-.7)node[left]{$(-1,0)$};\fill(0,-2.5)circle(1.7pt)node[below right]{$(0,-2)$};\fill(0,2.5)circle(1.7pt)node[above left]{$(0,2)$};\draw[axis,domain=80:100,samples=20]plot({1.25*(1.5*cos(\x)-.5*cos(3*\x))},{1.25*(-1.5*sin(\x)+.5*sin(3*\x))});\draw[axis,domain=260:280,samples=20]plot({1.25*(1.5*cos(\x)-.5*cos(3*\x))},{1.25*(-1.5*sin(\x)+.5*sin(3*\x))});
+\end{tikzpicture}
+\caption{相对轨迹在 $(\pm a,0)$ 处有尖点，质点在这两点相对瞬时静止。}\label{rot:fig:d6-h12-s}
+\end{figure}
+坐标转动保持矢量长度，故
+\[
+r^2=x'^2+y'^2=a^2(\cos^2\tau+4\sin^2\tau)
+=a^2(1+3\sin^2\tau).
+\]
+因此 $r_{\min}=a$、$r_{\max}=2a$；它们在图\ref{rot:fig:d6-h12-s}中分别对应横轴上的两个尖点和纵轴上的两个端点。复坐标按指数函数求导，先写成
+\[
+\dot\zeta=\frac a2\left[-3i\omega_0e^{-i\tau}+3i\omega_0e^{-3i\tau}\right]
+=\frac{3ia\omega_0}{2}e^{-2i\tau}(e^{-i\tau}-e^{i\tau}).
+\]
+用 $e^{-i\tau}-e^{i\tau}=-2i\sin\tau$，得到
+\[
+\dot\zeta=3a\omega_0e^{-2i\tau}\sin\tau.
+\]
+相对速度在 $\tau=n\pi$ 时为零，对应位置 $(a,0)$、$(-a,0)$ 交替出现。坐标中包含频率为 $\omega_0$ 的非零谐波，故完整轨迹的最小周期为
+\[
+\boxed{T_{\rm orbit}=\frac{2\pi}{\omega_0}.}
+\]
+从参数式可直接核对最小周期：$\zeta(t+\pi/\omega_0)=-\zeta(t)$，而 $\zeta$ 不为零，所以半个周期尚未回到原位置；再过相同时间，两个非零谐波的相位都恢复。
+半径的周期为 $\pi/\omega_0$，经过这段时间位置矢量反向，完整轨迹尚未闭合。
+
+此时 $U_{\rm eff}=\frac12m(\omega_0^2-\Omega^2)r^2=-\frac32m\omega_0^2r^2$。由初始相对速度为零，
+\[
+E'=-\frac32m\omega_0^2a^2<0.
+\]
+由已求出的轨迹，质点始终位于 $a\le r\le2a$ 的环带内。有效势向外降低，离心力超过回复力，但科里奥利力持续改变相对速度方向，两个分量耦合后形成图\ref{rot:fig:d6-h12-s}中的闭合轨道。
+\end{solution}
+

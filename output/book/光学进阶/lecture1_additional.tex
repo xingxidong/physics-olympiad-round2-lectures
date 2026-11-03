@@ -1,0 +1,53 @@
+\begin{exercise}\label{ex:o1layers}
+平行分层透明介质的各层厚度为$h_j$、折射率$n_j$。底部点物体从顶面外的介质$n_0$中近轴观察。求表观深度，说明为何各层的真实光程厚度不能直接作为表观深度相加。
+\Diagram{fig:o1layersq}{平行分层结构保持每条光线的切向约化分量}{\foreach\y in{0,.7,1.4,2.1}{\draw[curve](-2,\y)--(2,\y);}\fill(0,0)circle(1.5pt)node[below]{物点};\draw[->](0,0)--(.35,.7)--(.6,1.4)--(1.1,2.1)--(1.8,3);\node[right]at(2,.35){$n_3,h_3$};\node[right]at(2,1.05){$n_2,h_2$};\node[right]at(2,1.75){$n_1,h_1$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1layersq}所有平面界面无光焦度，$p=n\theta$在近轴下保持。光从底部穿过第$j$层的横向位移为$h_j\theta_j=h_jp/n_j$，到顶面总横移$y=p\sum_jh_j/n_j$。外部出射斜率为$\theta_0=p/n_0$。
+\Diagram{fig:o1layersa}{外部光线反向延长至虚像，深度由横移除外部斜率决定}{\draw[curve](-2,1.6)--(2,1.6);\fill(0,0)circle(1.5pt)node[below]{真实物};\fill(0,.6)circle(1.5pt)node[left]{虚像};\draw[guide](0,.6)--(1,1.6);\draw[->](1,1.6)--(2.3,2.9);\draw[guide](0,0)--(0,2.6);}
+图\ref{fig:o1layersa}表观深度$h_a=y/\theta_0=n_0\sum_jh_j/n_j$。真实传播光程为$\sum_jn_jh_j$，一个含$n_j$倒数、另一个含$n_j$本身，物理意义不同。若各层折射率相同$n$，便恢复$n_0h/n$；若$n_0=n$，深度不变。
+\end{solution}
+
+\begin{exercise}\label{ex:o1immersion}
+同一薄双凸透镜折射率$n_l=1.50$，在空气中焦距$f_a$。完全浸入折射率$n_0=1.33$的液体，求主面焦距与$f_a$之比，讨论液体折射率超过玻璃时的光焦度符号。
+\Diagram{fig:o1immersionq}{同一曲率透镜置于不同外部介质}{\OptAxis\draw[curve](2,-1.3)..controls(1.4,-.4)and(1.4,.4)..(2,1.3);\draw[curve](2,-1.3)..controls(2.6,-.4)and(2.6,.4)..(2,1.3);\node[above]at(2,1.5){$n_l$};\node at(4,1){$n_0$};}
+\end{exercise}
+\begin{solution}
+令曲率组合$K=1/R_1-1/R_2>0$。图\ref{fig:o1immersionq}在外部介质中约化光焦度$\Phi=(n_l-n_0)K$，两侧相同折射率的主面焦距$f_0=n_0/\Phi$。空气中$f_a=1/[(n_l-1)K]$，所以
+\[
+ \frac{f_0}{f_a}=\frac{n_0(n_l-1)}{n_l-n_0}
+ =\frac{1.33\times.50}{.17}\simeq3.912.
+\]
+\Diagram{fig:o1immersiona}{外介质接近透镜折射率，折射偏折变弱、焦距增大}{\OptAxis\draw[<->](1.5,-1.2)--(1.5,1.2);\draw[->](0,.8)--(1.5,.8)--(5.8,0);\draw[guide](1.5,.8)--(2.6,0);\node[below]at(2.6,0){空气焦点};\node[below]at(5.8,0){液体焦点};}
+图\ref{fig:o1immersiona}焦距增大是相对折射率差减小的结果。$n_0=n_l$时界面不可光学分辨，薄透镜光焦度为零；$n_0>n_l$时$\Phi<0$，相同双凸形状转为发散。透镜的会聚、发散性质由相对折射率和几何形状共同决定。
+\end{solution}
+
+\begin{exercise}\label{ex:o1mirage}
+平移不变介质中$n(y)=n_A-gy$，$g>0$，只取$n>0$区域。光从$(z,y)=(0,0)$向上方以相对$+z$角$\alpha_0\in(0,\pi/2)$进入。求精确轨迹、最高点和回到$y=0$的水平距离。
+\Diagram{fig:o1mirageq}{折射率向上减小，光线弯回高折射率区}{\OptAxis\draw[axis](0,0)--(0,3)node[above]{$y$};\draw[axis](0,0)--(1.4,1)node[above]{$\alpha_0$};\draw[guide](0,2.5)--(5.5,2.5);\node[right]at(5.5,2.5){$n$较小};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1mirageq}的守恒量$b=n\cos\alpha=n_A\cos\alpha_0$。轨迹斜率$y'=\tan\alpha$，所以$n^2=b^2(1+y'^2)$。在上升支$y'>0$，令$n=b\cosh u$，则$y'=\sinh u$；由$n=n_A-gy$，$\dd y=-(b/g)\sinh u\dd u$，于是$\dd z=-(b/g)\dd u$。
+\Diagram{fig:o1miragea}{轨迹是倒置悬链线的一段，对最高点左右对称}{\OptAxis\draw[axis](0,0)--(0,2.7)node[above]{$y$};\draw[curve,domain=0:2.8,samples=80]plot(\x,{1.4*(cosh(1)-cosh((\x-1.4)/1.4))});\draw[guide](1.4,0)--(1.4,.760313);\node[above]at(1.4,.85){最高点};\node[below]at(2.8,0){返回};}
+以最高点$u=0,z=z_t$为参考点，上升支满足
+\[
+ \int_{z_t}^{z}\dd Z=-\frac bg\int_0^u\dd q,
+ \qquad z-z_t=-\frac bg u.
+\]
+故$u=g(z_t-z)/b$。由初始条件$n(0)=n_A=b\cosh(gz_t/b)$求出$z_t$，再以$\cosh$的偶性接续下降支，得到
+\[
+ y(z)=\frac{n_A-b\cosh[g(z-z_t)/b]}g,\quad
+ z_t=\frac bg\operatorname{arcosh}\frac{n_A}b.
+\]
+最高点$y_t=(n_A-b)/g$，回到$y=0$时$z=2z_t$。图\ref{fig:o1miragea}按一组比例画出同一悬链线结构。这个解适用于有限角度。前面的$n^2$抛物分布也有精确的正弦型轨迹，但其轴向周期依赖初始方向；仅在近轴极限下才化为固定节距$2\pi a$。两种分布的轨迹都须限制在实际介质覆盖的区域内。
+\end{solution}
+
+\begin{exercise}\label{ex:o1chromatic}
+薄透镜几何曲率固定，空气中折射率随波长变化。已知$n(\lambda_0)=n_0$，一小段波长变化对应$\Delta n$。求焦距一阶变化及平行白光的轴向色差方向。
+\Diagram{fig:o1chromq}{同一透镜对不同波长的光焦度不同}{\OptAxis\draw[<->](1.8,-1.3)--(1.8,1.3);\draw[->](0,1)--(1.8,1);\draw[curve](1.8,1)--(4,0);\draw[guide](1.8,1)--(5.6,0);\node[below]at(4,0){短波};\node[below]at(5.6,0){长波};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1chromq}的$f=K^{-1}(n-1)^{-1}$。固定$K$求导，$\dd f/\dd n=-K^{-1}(n-1)^{-2}=-f/(n-1)$，所以$\Delta f\simeq-f_0\Delta n/(n_0-1)$。对题图中的正透镜，正常色散使短波折射率较大，蓝光因而比红光更早会聚；发散透镜也服从同一有向焦距微分式。
+\Diagram{fig:o1chroma}{像面固定时，不同焦点在屏上形成不同半径模糊斑}{\OptAxis\draw[<->](1,-1.2)--(1,1.2);\draw[guide](4,-1.6)--(4,1.6);\draw[curve](1,.9)--(3,0)--(5,-.9);\draw[curve](1,-.9)--(3,0)--(5,.9);\draw[guide](1,.9)--(4.5,0);\draw[guide](1,-.9)--(4.5,0);}
+图\ref{fig:o1chroma}说明固定屏幕不可能同时处在所有波长的几何焦面。色差是$n(\lambda)$改变光焦度的几何效应，单色衍射则即使焦距相同仍形成有限光斑；两种宽度不能不分机制地直接相加。本一阶式还要求$|\Delta n|\ll n_0-1$。
+\end{solution}

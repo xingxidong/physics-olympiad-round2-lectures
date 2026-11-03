@@ -1,0 +1,159 @@
+\section{往返过程中的钟和坐标网}
+\begin{example}\label{ex:m2generalturn}
+旅行者去程速率$V_1$、返程速率$V_2$，在地球系距离$l$处瞬时换向。求地球和旅行者的总时间，并求换向前后同时地球时刻的跃变。
+\Diagram{fig:m2generalq}{不同去返速率使世界线两段斜率不同}{\draw[axis](-.2,0)--(3.8,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5.5)node[above]{$ct$};\draw[curve](0,0)--(2,2.6)--(0,4.7);\node[right]at(2,2.6){$B$};\node[below]at(2,0){$l$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:m2generalq}中取出发事件为$A:(0,0)$，转向为$B:(t_B,l)$。两段均匀速，故
+\[
+ t_B=\frac l{V_1},\quad T=\frac l{V_1}+\frac l{V_2},\quad
+ \tau=\frac l{\gamma_1V_1}+\frac l{\gamma_2V_2}.
+\]
+瞬时转向不积累有限固有时。求旅行者在$B$赋给地球的同时刻时，须分别采用转向前、后的惯性系。
+\Diagram{fig:m2generala}{两段同时线在转向事件处改变倾斜方向}{\draw[axis](-.2,0)--(3.7,0);\draw[axis](0,0)--(0,5.6)node[above]{$ct$};\draw[curve](0,0)--(2,2.6)--(0,4.7);\draw[guide](0,1.061538)--(3,3.369231);\draw[guide](0,4.504762)--(3,1.647619);\node[left]at(0,1.061538){$D_-$};\node[left]at(0,4.504762){$D_+$};}
+去程系中与$B$同时的事件满足$\Delta t-(V_1/c^2)\Delta x=0$。令地球事件为$(t_-,0)$，则
+\[
+ t_--t_B=\frac{V_1}{c^2}(0-l),\qquad
+ t_-=t_B-\frac{V_1l}{c^2}.
+\]
+返程速度为$-V_2$，同理$t_+=t_B+V_2l/c^2$。所以图\ref{fig:m2generala}中$D_+$与$D_-$的时间差为$(V_1+V_2)l/c^2$。可把旅行者赋予地球的时间分成三部分：
+\[
+ \frac{l}{\gamma_1^2V_1},\qquad
+ \frac{(V_1+V_2)l}{c^2},\qquad
+ \frac{l}{\gamma_2^2V_2}.
+\]
+第一项是$A$到$D_-$，末项是$D_+$到重逢；它们与中间的同时性改变量相加，利用$1/\gamma_i^2=1-V_i^2/c^2$恰恢复$T$。地球钟没有跳走，变化的是旅行者用不同同时线选取的远处事件。
+\end{solution}
+
+\begin{example}\label{ex:m2outbackopt}
+规定地球往返总时间为$T$，旅行者在中途换向一次，并全程以相同速率$v$运动。求最远距离和旅行者时间；若把时间改为两段不同速率，在相同端点条件下哪类路径能积累最多固有时？
+\Diagram{fig:m2optq}{固定重逢端点、一次换向的对称路径}{\draw[axis](-.2,0)--(4,0)node[right]{$x$};\draw[axis](0,0)--(0,5.4)node[above]{$ct$};\draw[curve](0,0)--(2,2.5)--(0,5);\draw[guide](0,2.5)--(2,2.5);\node[left]at(0,5){$cT$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2optq}对称点发生在地球时间$T/2$，所以$l=vT/2$，旅行者时间$\tau=T\sqrt{1-v^2/c^2}$。若只固定出发和重逢事件，完全不离开地球的惯性直线能积累$T$，是最大值。
+\Diagram{fig:m2opta}{固定端点的世界线越偏离直线，其固有时越小}{\draw[axis](-.3,0)--(3.7,0);\draw[axis](0,0)--(0,5.4)node[above]{$ct$};\draw[guide](0,0)--(1,2.5)--(0,5);\draw[curve](0,0)--(2,2.5)--(0,5);\draw[very thick](0,0)--(0,5);}
+若再规定必须经过远处某个事件$B$，则$A$到$B$、$B$到$C$各自的匀速直线分别使固有时最大，总和也最大；这由每段的积分不等式逐段得到。图\ref{fig:m2opta}中的宽折线和窄折线若转向事件不同，固有时比较应保留相同端点和途经事件的约束；它取决于整条世界线。
+\end{solution}
+
+\section{火箭的有限点火与燃料分配}
+\begin{example}\label{ex:m2finitepulse}
+初始静止、质量$M$的理想飞船一次向后发出能量为$E_\gamma$的光脉冲。$E_\gamma$按初始飞船系测量。发射后飞船静质量$m$。求脉冲能量、末速度，并与连续光子火箭质量比比较。
+\Diagram{fig:m2pulseq}{一次有限脉冲过程须保留剩余飞船的反冲能}{\draw[curve](2,0)rectangle(4,1);\node at(3,.5){初始$M$};\draw[->](1.7,.5)--(.1,.5)node[above]{$E_\gamma$};\draw[->](4.2,.5)--(5.5,.5)node[above]{$v$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:m2pulseq}的初始船系中，向后光脉冲的动量为$-E_\gamma/c$。发射后飞船向前运动，守恒式为
+\[
+ Mc^2=\gamma_vmc^2+E_\gamma,\qquad
+ \gamma_vmv=E_\gamma/c.
+\]
+用前式表示末船能量，用后式表示其动量，再作质壳平方：
+\begin{align*}
+ m^2c^4&=(Mc^2-E_\gamma)^2-E_\gamma^2\\
+ &=M^2c^4-2Mc^2E_\gamma.
+\end{align*}
+故$E_\gamma=(M^2-m^2)c^2/(2M)$，末船能量为$(M^2+m^2)c^2/(2M)$。
+\Diagram{fig:m2pulsea}{初始系能量分为脉冲和反冲后飞船能量}{\draw[curve](0,0)rectangle(5,1);\draw[curve](2,0)--(2,1);\node at(1,.5){$E_\gamma$};\node at(3.5,.5){$\gamma_vmc^2$};\node[above]at(2.5,1){$Mc^2$};}
+图\ref{fig:m2pulsea}中，末船速率和反冲动能分别为
+\[
+ \beta=\frac{pc}{E}=\frac{M^2-m^2}{M^2+m^2},\qquad
+ K=\frac{(M-m)^2}{2M}c^2.
+\]
+直接相加$E_\gamma+K=(M-m)c^2$，质量损失的能量去向因而完整闭合。再由速度式计算
+\[
+ \frac{1+\beta}{1-\beta}=\frac{M^2}{m^2},\qquad
+ \chi=\tfrac12\ln\frac{1+\beta}{1-\beta}=\ln\frac Mm.
+\]
+它与连续定向光子火箭的质量比相同，因为所有排出光子的四动量共线，总和仍为类光。若向多个方向发光，辐射总四动量通常不再类光，这一有限脉冲关系就需要重算。
+\end{solution}
+
+\begin{example}\label{ex:m2twosided}
+飞船在瞬时静止系发出总光功率$P$，其中向后比例为$f$、向前比例为$1-f$。保持$f$不变，求质量与快度的关系。若各向同性发光，飞船能否加速？
+\Diagram{fig:m2twosidedq}{相反方向光功率的差产生净推力}{\draw[curve](2,0)rectangle(4,1);\draw[->](1.8,.5)--(.1,.5)node[above]{$fP$};\draw[->](4.2,.5)--(5.9,.5)node[above]{$(1-f)P$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2twosidedq}总能量损失给$\dd m/\dd\tau=-P/c^2$。向后减向前的光动量率为$(2f-1)P/c$，所以瞬时推力$F_0=(2f-1)P/c$，快度率$\dd\chi/\dd\tau=F_0/(mc)$。
+\Diagram{fig:m2twosideda}{同样质量损失，只有光束的不对称部分产生快度变化}{\draw[axis](0,0)--(4.3,0)node[right]{$f$};\draw[axis](0,-2)--(0,2.2)node[above]{$\chi/\ln(M_0/m)$};\draw[curve](0,-1.6)--(3.6,1.6);\node[below]at(1.8,0){$1/2$};\node[below]at(3.6,0){$1$};}
+消去$\tau$后$\dd\chi=-(2f-1)\dd m/m$。以初始静止、质量$M_0$为初值，
+\[
+ \int_0^\chi\dd q=-(2f-1)\int_{M_0}^{m}\frac{\dd\mu}{\mu}
+ =-(2f-1)[\ln\mu]_{M_0}^{m},
+ \quad \chi=(2f-1)\ln\frac{M_0}{m}.
+\]
+这给出图\ref{fig:m2twosideda}的直线。$f=1/2$时两束相抵，质量下降而速度不变；各向同性辐射也没有静止系净动量。$f<1/2$则向后加速，符号由喷光方向确定。
+\end{solution}
+
+\begin{example}\label{ex:m2varyexhaust}
+某理想火箭排气速度随剩余质量变化，$u(m)=u_0m/M_0$，$u_0<c$。由初始静止加速至剩余质量$M_f$，求末快度。与把排气速度粗略取末值的结果比较。
+\Diagram{fig:m2varyq}{排气速度随质量减少而下降}{\draw[axis](0,0)--(4.3,0)node[right]{$m/M_0$};\draw[axis](0,0)--(0,2.8)node[above]{$u/u_0$};\draw[curve](0,0)--(3.5,2.3);\node[below]at(3.5,0){$1$};\node[left]at(0,2.3){$1$};}
+\end{example}
+\begin{solution}
+式\eqref{eq:m2rocket}仍可逐微元使用。图\ref{fig:m2varyq}中的$u$随质量变化，积分为
+\[
+ \chi_f=\int_{M_f}^{M_0}\frac{u(m)}c\frac{\dd m}m
+ =\frac{u_0}{cM_0}\int_{M_f}^{M_0}\dd m
+ =\frac{u_0}{cM_0}[m]_{M_f}^{M_0}
+ =\frac{u_0}c\left(1-\frac{M_f}{M_0}\right).
+\]
+因此$\beta_f=\tanh\chi_f$。即使把$M_f$趋向0，此控制模型的快度仍只趋$u_0/c$，不发散。
+\Diagram{fig:m2varya}{真实快度是对数质量坐标下排气速度的积分}{\draw[axis](0,0)--(3.4,0)node[right]{$\ln(M_0/m)$};\draw[axis](0,0)--(0,2.8)node[above]{$u/c$};\draw[curve,domain=0:2,samples=60]plot(\x,{2.3*exp(-\x)});\draw[guide](0,{2.3*exp(-2)})--(2,{2.3*exp(-2)});\draw[guide](2,0)--(2,{2.3*exp(-2)});\node[above right]at(2,{2.3*exp(-2)}){末值近似};}
+若固定取末速度$u_f=u_0M_f/M_0$，会得到$\chi_{\rm app}=(u_0/c)(M_f/M_0)\ln(M_0/M_f)$。图\ref{fig:m2varya}中末值矩形低于整条曲线，所以该近似低估快度；直接用算术平均速度也无依据，正确权重是$\dd m/m$。
+\end{solution}
+
+\begin{example}\label{ex:m2fueloptimal}
+火箭的全部点火满足同一固定排气速度$u$。需先加速到巡航速度，再减速到静止，初末质量比$R=M_0/M_f$已知。求可达巡航速度；若两次点火各使用相等的绝对燃料质量，是否能恰好停止？
+\Diagram{fig:m2optimalq}{两次相反点火，中间质量为$M_1$}{\draw[curve](0,0)rectangle(1.5,1);\node at(.75,.5){$M_0$};\draw[->](1.7,.5)--(2.5,.5);\draw[curve](2.7,0)rectangle(4.2,1);\node at(3.45,.5){$M_1$};\draw[->](4.4,.5)--(5.2,.5);\node[right]at(5.3,.5){$M_f$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2optimalq}中令两次燃烧之间的质量为$M_1$。加速和制动方向相反，要求的快度变化大小相同：
+\[
+ \chi=\frac uc\ln\frac{M_0}{M_1}
+ =\frac uc\ln\frac{M_1}{M_f}.
+\]
+两式相等给$M_1^2=M_0M_f$；相加给$2\chi=(u/c)\ln R$。所以$M_1=\sqrt{M_0M_f}$，巡航速度为$c\tanh[(u/2c)\ln R]$。
+\Diagram{fig:m2optimala}{两次相等的是质量比；后段在更小质量下产生相同快度变化}{\draw[axis](0,0)--(5.2,0)node[right]{过程};\draw[axis](0,0)--(0,3)node[above]{$\ln m$};\draw[curve](0,2.6)--(2.3,1.5)--(4.6,.4);\draw[guide](0,1.5)--(2.3,1.5);\node[right]at(2.3,1.5){$\ln\sqrt{M_0M_f}$};}
+图\ref{fig:m2optimala}按$\ln m$标出两段等长。若改为各消耗相同绝对燃料质量，则$M_1=(M_0+M_f)/2$，其最终快度为
+\begin{align*}
+ \chi_f&=\frac uc\left(\ln\frac{M_0}{M_1}-\ln\frac{M_1}{M_f}\right)\\
+ &=\frac uc\ln\frac{4M_0M_f}{(M_0+M_f)^2}<0
+ \quad(M_0>M_f).
+\end{align*}
+后段制动超过所需，船最终反向运动。由于每消耗一单位质量的快度增量与当前质量成反比，同样千克数的燃料在后段作用更大。满足停车条件时，两段消耗量为$M_0-\sqrt{M_0M_f}$和$\sqrt{M_0M_f}-M_f$，前段较多，其比值为$\sqrt R$。
+\end{solution}
+
+\section{近场接收与远场视速度}
+\begin{example}\label{ex:m2nearretarded}
+观察者在原点，发光点沿$x$轴以$v$运动，轨迹为$(vt,b)$，$b>0$。推导接收时间对发射时间的导数，说明为什么严格近场中没有单个固定观察角。
+\Diagram{fig:m2nearq}{有限冲量参数$b$的直线运动}{\draw[axis](-2.5,0)--(3,0)node[right]{$x$};\draw[axis](0,0)--(0,3)node[above]{$y$};\draw[curve](-2.2,1.5)--(2.7,1.5);\fill(1.8,1.5)circle(1.5pt)node[above]{$S$};\draw[guide](0,0)--(1.8,1.5);\node[left]at(0,1.5){$b$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2nearq}的源距$R(t_e)=\sqrt{v^2t_e^2+b^2}$，接收时间$t_o=t_e+R/c$。求导得
+\[
+ \frac{\dd t_o}{\dd t_e}
+ =1+\frac1{2c}(v^2t_e^2+b^2)^{-1/2}(2v^2t_e)
+ =1+\frac{v^2t_e}{c\sqrt{v^2t_e^2+b^2}}.
+\]
+若定义从源指向观察者的方向$\vct n=-(vt_e,b)/R$，就恢复$1-\vct n\cdot\vct v/c$。该导数在$1-\beta$与$1+\beta$之间，始终为正。
+\Diagram{fig:m2neara}{最近点前信号间隔压缩，经过后拉长}{\draw[axis](-2.7,0)--(3,0)node[right]{$vt_e/b$};\draw[axis](0,0)--(0,2.8)node[above]{$\dd t_o/\dd t_e$};\draw[curve,domain=-2.5:2.5,samples=80]plot(\x,{1.4*(1+.8*\x/sqrt(1+\x*\x))});\draw[guide](-2.5,1.4)--(2.5,1.4);}
+图\ref{fig:m2neara}在$t_e=0$导数为1，但对应接收时刻为$b/c$。由单调性，亚光速源每个接收时刻只有一个延迟发射时刻；不能把物体“现在的位置”代入传播距离后再解释照片。远场短时间近似才允许把$\vct n$视为常量。
+\end{solution}
+
+\begin{example}\label{ex:m2timecompression}
+向观察者运动的光源在固有时$\Delta\tau$内完成一次亮度变化，远场观察角为$\theta$。求接收变化持续时间；求光源同一段运动对应的视横向长度。
+\Diagram{fig:m2compressq}{固有持续时间、发射时间和到达时间的三层关系}{\draw[curve](0,0)rectangle(1.6,1);\node at(.8,.5){$\Delta\tau$};\draw[->](1.8,.5)--(2.6,.5);\node at(3.1,.5){$\Delta t_e$};\draw[->](3.7,.5)--(4.5,.5);\node[right]at(4.6,.5){$\Delta t_o$};}
+\end{example}
+\begin{solution}
+令$\vct n$从源指向远处观察者，图\ref{fig:m2compressq}中的夹角为$\vct n$与$\vct v$的夹角。源连续两次发射间隔$\Delta t_e$，第二次更靠近观察者$\vct n\cdot\vct v\Delta t_e$，故在方向近似不变的条件下
+\[
+ \Delta t_o=\Delta t_e-\frac{\vct n\cdot\vct v}{c}\Delta t_e
+ =(1-\beta\cos\theta)\gamma\Delta\tau
+ =\frac{\Delta\tau}{\delta}.
+\]
+这里先使用时间膨胀把源的固有时换成发射时间，再计算光程的缩短，两步各有不同来源。
+\Diagram{fig:m2compressa}{横向投影长度用发射期间的真实位移，视速度用接收时间相除}{\draw[axis](0,0)--(4.2,0)node[right]{视线};\draw[->,thick](0,0)--(2.7,1.8);\draw[guide](2.7,0)--(2.7,1.8);\node[right]at(2.7,.9){$v\gamma\Delta\tau\sin\theta$};}
+图\ref{fig:m2compressa}的同段横向位移为$\Delta X_\perp=v\gamma\Delta\tau\sin\theta$，因此
+\[
+ v_{\rm app}=\frac{\Delta X_\perp}{\Delta t_o}
+ =\frac{v\sin\theta}{1-\beta\cos\theta}.
+\]
+角度函数与例\ref{ex:m2super}相同，其求导过程已在那里给出：最大视横速出现在$\cos\theta=\beta$，为$\gamma v$。时间压缩因子$\delta$则在$\theta=0$最大，为$\gamma(1+\beta)$；此时横向位移为零。最快亮度变化与最大视横速对应不同观察角。若近距离使视线在变化期间显著转动，应沿实际运动积分微分延迟关系。
+\end{solution}

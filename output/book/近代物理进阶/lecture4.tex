@@ -1,0 +1,261 @@
+\chapter{光量子、热辐射与半经典量子模型}
+\section{光电效应与表面势垒}\label{th:m4photo}
+电子经电压加速，撞击靶材可以把动能转化为X射线。若单个电子最多把全部动能交给一个光子，截止波长满足$hc/\lambda_{\min}=eU$。光电效应研究相反的能量转移：入射光使材料中的电子逸出。单光子模型中，光子能量为$h\nu$，电子逸出需克服功函数$W$，最大动能
+\[
+ K_{\max}=h\nu-W,\qquad eU_s=K_{\max}.
+\]
+其中$e>0$，$U_s$为使最快光电子也到不了收集极的反向电压大小。只有$\nu\geq W/h$才可逸出。提高入射功率通常增加单位时间可吸收的光子数，不会把每个光子的能量改为更大；截止频率和遏止电压随频率的变化，因而由单光子能量决定。
+
+真实金属还存在能带占据、散射、表面状态及逸出方向分布。下面把这些细节简化为明确的势垒模型，用以讨论方向筛选；其逃逸比例不应直接当作任意材料的实测量子效率。
+
+\begin{example}\label{ex:m4escape}
+平面表面法线沿$z$正向，材料位于$z<0$。每个被吸收的光子使一个初始动能可忽略的电子获得总动能$h\nu$，速度方向在整个$4\pi$内各向同性。表面势垒只改变法向动量，势垒高度为$W$。求逃逸概率，并求收集极施加反向电压$U\geq0$时的电流。吸收光功率为$P$，忽略空间电荷和二次散射。
+\Diagram{fig:m4escapeq}{电子方向角相对外法线量取；只有法向能量用于越过势垒}{
+\draw[curve](-2,0)--(2,0);\node[left]at(-2,-.5){材料};
+\draw[axis](0,-.7)--(0,2.5)node[above]{$z$};
+\draw[->,thick](0,0)--(1.3,1.8)node[right]{$\vct v$};
+\draw[guide](0,0)--(-1.3,1.8);
+\draw(0,.72)arc(90:54.16:.72);\node at(.31,.92){$\theta$};
+\node[right]at(2,.2){$W$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:m4escapeq}的电子法向初动能为$h\nu\cos^2\theta$。平行表面的动量守恒，不能用于克服法向势垒；逸出还必须$\cos\theta>0$。若$h\nu<W$，概率为零；否则允许锥满足$\cos\theta\geq\sqrt{W/(h\nu)}$，所以
+\[
+ \mathcal P_0=\frac1{4\pi}\int_0^{2\pi}\dd\varphi
+ \int_0^{\theta_c}\sin\theta\dd\theta
+ =\frac12[-\cos\theta]_0^{\theta_c}
+ =\frac12\left(1-\sqrt{\frac W{h\nu}}\right).
+\]
+\Diagram{fig:m4escapea}{反向电压缩小可被收集的方向锥}{\draw[axis](0,0)--(0,2.8)node[above]{法线};\draw[curve](0,0)--(1.5,2);\draw[curve](0,0)--(-1.5,2);\draw[very thick](0,0)--(.7,2);\draw[very thick](0,0)--(-.7,2);\node[right]at(1.5,2){$U=0$};\node[right]at(.7,2.6){$U>0$};}
+反向电场进一步消耗法向能量$eU$。图\ref{fig:m4escapea}中的窄锥满足$h\nu\cos^2\theta\geq W+eU$，由相同积分得
+\[
+ I(U)=\frac{eP}{2h\nu}
+ \left[1-\sqrt{\frac{W+eU}{h\nu}}\right],\quad
+ 0\leq eU\leq h\nu-W.
+\]
+超过该区间时$I=0$。即使$h\nu\gg W$，此模型零电压的逃逸比例也只趋向$1/2$，因为另半球的电子朝材料内部。阈值电压仍为$U_s=(h\nu-W)/e$，与简单能量关系一致。
+\end{solution}
+
+\begin{example}\label{ex:m4stopping}
+同一材料先后受频率$\nu_1,\nu_2$照射，测得遏止电压$U_1,U_2$，其中$\nu_2>\nu_1$。推导由测量求$h/e$和功函数的方法，并解释光电流加倍是否改变结果。
+\Diagram{fig:m4stoppingq}{光电管的反向电压测量}{\draw[curve](0,0)rectangle(4,2);\draw[very thick](.8,.4)--(.8,1.6);\draw[very thick](3.2,.4)--(3.2,1.6);\draw[->](-1,1.4)--(.7,1.4)node[midway,above]{$\nu$};\node[below]at(.8,.3){阴极};\node[below]at(3.2,.3){收集极};\node[below]at(2,-.4){反向电压$U$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m4stoppingq}对每种频率分别满足$eU_i=h\nu_i-W$。两式相减，得到$h/e=(U_2-U_1)/(\nu_2-\nu_1)$，再代回$W/e=(h/e)\nu_1-U_1$。
+\Diagram{fig:m4stoppinga}{遏止电压对频率的直线斜率与截距}{\draw[axis](0,0)--(4.6,0)node[right]{$\nu$};\draw[axis](0,-.7)--(0,3)node[above]{$U_s$};\draw[curve](.8,0)--(4,2.6);\fill(1.7,.731)circle(1.5pt);\fill(3.2,1.95)circle(1.5pt);\node[below]at(.8,0){$W/h$};\node[right]at(3.3,2.6){斜率$h/e$};}
+图\ref{fig:m4stoppinga}的横截距给截止频率。在线性单光子区且材料表面未改变时，增大光功率只增加电子数，直线斜率和截距不变。若电流很大产生空间电荷，或进入多光子吸收区，就超出了此模型。
+\end{solution}
+
+\section{腔辐射的模态与能量分布}\label{th:m4modes}
+黑体完全吸收照到它的辐射，热平衡时其辐射谱只由温度决定。小孔腔体可近似黑体：外光多次反射后被吸收，孔口射出的光取样于腔内平衡辐射。记$u_\nu(T)\dd\nu$为单位体积在频率区间内的能量，$u=\int u_\nu\dd\nu$。
+
+\subsection{从腔内能量到孔口通量}
+各向同性辐射的单位立体角能量密度为$u/(4\pi)$。在$\dd t$内，从方向$\theta$穿过面积$A$的光来自体积$Ac\dd t\cos\theta\dd\Omega$，只积分向外半球。因此出射功率面密度
+\[
+ M=\frac{cu}{4\pi}\int_0^{2\pi}\dd\varphi\int_0^{\pi/2}\cos\theta\sin\theta\dd\theta=\frac{cu}4.
+\]
+不能写成$cu/2$，因为斜向光的法向投影使平均值再多一因子$1/2$。
+
+\subsection{三维电磁驻波计数}
+取体积$V=L^3$的立方腔，先使用周期边界，波矢各分量间隔$2\pi/L$。每个波矢有两个横向极化态，半径$k$的球壳中模态数
+\[
+ \dd N=2\frac{V}{(2\pi)^3}4\pi k^2\dd k.
+\]
+真空$k=2\pi\nu/c$，所以单位体积、单位频率的态密度
+\begin{equation}\label{eq:m4density}
+ g(\nu)=\frac1V\frac{\dd N}{\dd\nu}=\frac{8\pi\nu^2}{c^3}.
+\end{equation}
+若改用理想导体驻波边界，正整数波数间隔为$\pi/L$，只取球壳八分之一，再乘两极化，宏观极限结果相同。边界附近少数特殊模态只影响低阶有限尺寸修正。计数时不可把周期边界的全空间与驻波边界的八分球重复叠加。
+
+\Diagram{fig:m4modes}{周期边界波矢格点与球壳；每点有两种横向极化}{\draw[axis](0,0)--(4,0)node[right]{$k_x$};\draw[axis](0,0)--(0,3.6)node[above]{$k_y$};\foreach\x in{.5,1,1.5,2,2.5,3}{\foreach\y in{.5,1,1.5,2,2.5,3}{\fill(\x,\y)circle(.7pt);}}\draw[curve](3,0)arc(0:90:3);\draw[curve](3.3,0)arc(0:90:3.3);\node[right]at(2.8,2){$k\to k+\dd k$};}
+
+\section{从经典配分到普朗克谱}\label{th:m4planck}
+经典谐振模态有两个二次型能量项，平均各为$\kb T/2$，所以每模平均总能为$\kb T$。也可把模态的相空间按能量积分：谐振子的等能椭圆所围面积正比能量，能量态密度为常数，故
+\[
+\langle E\rangle=\frac{\int_0^\infty E\ee^{-E/(\kb T)}\dd E}{\int_0^\infty\ee^{-E/(\kb T)}\dd E}.
+\]
+令$b=\kb T$。分母为$[-b\ee^{-E/b}]_0^\infty=b$；分子分部积分为$[-bE\ee^{-E/b}]_0^\infty+b\int_0^\infty\ee^{-E/b}\dd E=b^2$，故$\langle E\rangle=b=\kb T$。
+若只积分一个动量变量的高斯分布，得到的是一个二次项的$\kb T/2$，不能把它当成整模能量。经典谱$u_\nu=8\pi\nu^2\kb T/c^3$在高频积分发散，这称为紫外灾难。
+
+取单模可交换能量为$E_n=nh\nu$，$n=0,1,\ldots$。令$q=\ee^{-h\nu/(\kb T)}$，归一化配分和为$Z=\sum q^n=1/(1-q)$。利用$q\dd Z/\dd q=\sum nq^n=q/(1-q)^2$，得
+\[
+ \langle E\rangle=h\nu\frac q{1-q}=\frac{h\nu}{\ee^{h\nu/(\kb T)}-1}.
+\]
+乘态密度得到普朗克频率谱
+\begin{equation}\label{eq:m4planck}
+ u_\nu=\frac{8\pi h\nu^3}{c^3}\frac1{\ee^{h\nu/(\kb T)}-1}.
+\end{equation}
+低频$h\nu\ll\kb T$时展开指数，恢复经典谱；高频端指数压低，积分收敛。谐振子总能量还可含$h\nu/2$零点项，但这一与温度无关的基态能不作为黑体热辐射可交换能量计入此处。
+
+\begin{example}\label{ex:m4stefan}
+由普朗克谱推导$M=\sigma T^4$，并给出$\sigma$。积分中可使用$\sum_{n=1}^\infty n^{-4}=\pi^4/90$，但需说明它怎样进入结果。
+\Diagram{fig:m4stefanq}{腔内平衡辐射经小孔向外半球射出}{\draw[curve](0,0)--(0,3)--(3,3)--(3,1.8);\draw[curve](3,1.2)--(3,0)--(0,0);\draw[->](3,1.5)--(5,2.4);\draw[->](3,1.5)--(5,1.5);\draw[->](3,1.5)--(5,.6);\node at(1.5,1.5){$u(T)$};\node[right]at(5,1.5){$M$};}
+\end{example}
+\begin{solution}
+令$x=h\nu/(\kb T)$，由式\eqref{eq:m4planck}，
+\[
+ u=\frac{8\pi\kb^4T^4}{h^3c^3}\int_0^\infty\frac{x^3\dd x}{\ee^x-1}.
+\]
+对$x>0$，$(\ee^x-1)^{-1}=\sum_{n=1}^\infty\ee^{-nx}$。各项非负，允许交换求和积分。令$y=nx$，则$\dd x=\dd y/n$、上下限仍为$0,\infty$，每一项为$n^{-4}\int_0^\infty y^3\ee^{-y}\dd y$。分部积分取$\dd v=\ee^{-y}\dd y$、$v=-\ee^{-y}$，依次得
+\begin{align*}
+ \int_0^\infty y^3\ee^{-y}\dd y
+ &=[-y^3\ee^{-y}]_0^\infty+3\int_0^\infty y^2\ee^{-y}\dd y,\\
+ \int_0^\infty y^2\ee^{-y}\dd y
+ &=[-y^2\ee^{-y}]_0^\infty+2\int_0^\infty y\ee^{-y}\dd y,\\
+ \int_0^\infty y\ee^{-y}\dd y
+ &=[-y\ee^{-y}]_0^\infty+\int_0^\infty\ee^{-y}\dd y=1.
+\end{align*}
+三个边界项都为零，最后一个积分为$[-\ee^{-y}]_0^\infty=1$，所以三个积分依次为$6,2,1$。因此
+\[
+ \int_0^\infty\frac{x^3\dd x}{\ee^x-1}=6\sum_{n=1}^\infty n^{-4}=\frac{\pi^4}{15}.
+\]
+\Diagram{fig:m4stefana}{角度投影积分把腔内$cu$变为孔口$cu/4$}{\draw[curve](-1.8,0)--(1.8,0);\draw[axis](0,0)--(0,2.8)node[above]{法线};\draw[axis](0,0)--(1.5,2)node[right]{$c\dd t$};\draw[guide](1.5,0)--(1.5,2)--(0,2);\node[left]at(0,1){$c\dd t\cos\theta$};}
+图\ref{fig:m4stefanq}的孔口通量按图\ref{fig:m4stefana}作半球投影积分：
+\[
+ M=\frac{cu}{4\pi}\int_0^{2\pi}\dd\varphi
+ \int_0^{\pi/2}\cos\theta\sin\theta\dd\theta
+ =\frac{cu}{2}\left[\frac{\sin^2\theta}{2}\right]_0^{\pi/2}
+ =\frac{cu}{4}.
+\]
+代入能量密度，得到
+\[
+ \sigma=\frac{2\pi^5\kb^4}{15h^3c^2}.
+\]
+因$u$是体积能量密度，$cu$的量纲为功率每面积，与$M$一致。温度的四次方来自三次频率因子和频率积分的一次因子。
+\end{solution}
+
+\begin{example}\label{ex:m4wien}
+分别求频率谱$u_\nu$和波长谱$u_\lambda$峰值对应的无量纲方程，说明为何$\lambda_{\max}\nu_{\max}\ne c$。
+\Diagram{fig:m4wienq}{相同能量小区间在频率轴和波长轴上宽度不同}{\draw[axis](0,1.5)--(5,1.5)node[right]{$\nu$};\draw[axis](0,0)--(5,0)node[right]{$\lambda$};\draw[very thick](1,1.5)--(2,1.5);\draw[very thick](2,0)--(4,0);\draw[guide](1,1.5)--(4,0);\draw[guide](2,1.5)--(2,0);}
+\end{example}
+\begin{solution}
+图\ref{fig:m4wienq}中的频率区间与波长区间方向相反。能量相等应写$u_\lambda\dd\lambda=-u_\nu\dd\nu$，因$\nu=c/\lambda$，
+\[
+ u_\lambda=u_\nu(c/\lambda)\left|\frac{\dd\nu}{\dd\lambda}\right|
+ =\frac{8\pi hc}{\lambda^5[\ee^{hc/(\lambda\kb T)}-1]}.
+\]
+频率谱中令$x=h\nu/(\kb T)$，只需极大化$f_3(x)=x^3/(\ee^x-1)$。对一般$f_j(q)=q^j/(\ee^q-1)$使用商法则，
+\[
+ f_j'(q)=\frac{jq^{j-1}(\ee^q-1)-q^j\ee^q}{(\ee^q-1)^2}
+ =\frac{q^{j-1}\ee^q}{(\ee^q-1)^2}
+ [j(1-\ee^{-q})-q].
+\]
+令$j=3$，非零峰便满足$3(1-\ee^{-x})=x$。
+\Diagram{fig:m4wiena}{频率谱和波长谱的峰值各由自己的密度函数决定}{\draw[axis](0,0)--(5,0)node[right]{无量纲变量};\draw[axis](0,0)--(0,2.6)node[above]{归一化谱};\draw[curve,domain=.1:7,samples=90]plot({.6*\x},{1.4*\x^3/(exp(\x)-1)});\draw[guide](1.693,0)--(1.693,2);\node[below]at(1.693,0){$2.8214$};\node[right]at(4.3,1.8){$u_\nu$示意};}
+图\ref{fig:m4wiena}的频率峰根为$x_\nu\simeq2.82144$。对波长谱令$y=hc/(\lambda\kb T)$，它正比$f_5(y)$。链式法则给$\dd u_\lambda/\dd\lambda\propto f_5'(y)\dd y/\dd\lambda$，其中$\dd y/\dd\lambda=-hc/(\kb T\lambda^2)\ne0$。在上式取$j=5$，峰条件为$5(1-\ee^{-y})=y$，非零正根$y_\lambda\simeq4.96511$。因此
+\[
+ \nu_{\max}=\frac{x_\nu\kb T}h,\quad
+ \lambda_{\max}=\frac{hc}{y_\lambda\kb T},\quad
+ \lambda_{\max}\nu_{\max}=c\frac{x_\nu}{y_\lambda}\simeq.56825c.
+\]
+两个方程都有形式根0，但谱在原点或相应无穷远边界趋零，它不是所求内部峰。两谱各自只有一个非零正峰；其位置不同来自密度换元的雅可比$c/\lambda^2$，不表示同一个光子不满足$\lambda\nu=c$。
+\end{solution}
+
+\section{玻尔氢样原子与相对论圆轨道}\label{th:m4bohr}
+固定核电荷$+Ze$，电子质量$m$，忽略核反冲。非相对论圆轨道满足$m v^2/r=Ze^2/(4\pi\varepsilon_0r^2)$、$mvr=n\hbar$。消去$v$得到
+\[
+ r_n=\frac{a_0n^2}Z,\quad v_n=\frac{Z\alpha c}n,\quad
+ E_n=-\frac{mc^2(Z\alpha)^2}{2n^2},
+\]
+其中$\alpha=e^2/(4\pi\varepsilon_0\hbar c)$、$a_0=\hbar/(mc\alpha)$，$n=1,2,\ldots$。总能量等于动能加库仑势能，利用向心关系势能为动能的$-2$倍，所以能量为负。长度$a_0$、动量$m\alpha c$、能量$m\alpha^2c^2$组成一组方便的原子单位；氢基态束缚能为这一能量单位的一半。
+
+光谱跃迁频率由$h\nu=E_{n_i}-E_{n_f}>0$确定。圆轨道的转动频率只是大量子数极限下相邻能级间隔的近似，不可对任意$n_i,n_f$直接取轨道频率作为谱线频率。
+
+\begin{example}\label{ex:m4relbohr}
+保留圆轨道角动量量子化$pr=n\hbar$，把动力学改为相对论，库仑势保持$-Ze^2/(4\pi\varepsilon_0r)$。求$v_n,r_n$、包含静能的总能量及其低$Z\alpha/n$展开。
+\Diagram{fig:m4relbohrq}{圆轨道中动量切向、库仑力径向}{\draw[curve](0,0)circle(1.5);\fill(0,0)circle(2pt)node[below]{核};\fill(1.5,0)circle(2pt);\draw[axis](1.5,0)--(1.5,1.3)node[right]{$p$};\draw[axis](1.5,0)--(.3,0)node[above]{$F$};\node[below]at(.75,0){$r$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m4relbohrq}中动量大小不变但方向转动，径向力为$pv/r$，故$pv=Ze^2/(4\pi\varepsilon_0r)$。代入$pr=n\hbar$，得到$v/c=Z\alpha/n\equiv\eta$。于是$p=\gamma_vmv$，半径为
+\[
+ r=\frac{n\hbar}{\gamma_vmv}=\frac{a_0n^2}Z\sqrt{1-\eta^2}.
+\]
+包含静能的总能量$\mathcal E=\gamma_vmc^2-Ze^2/(4\pi\varepsilon_0r)$。利用势能绝对值$pv=\gamma_vmv^2$，得
+\[
+ \mathcal E=\gamma_vmc^2(1-\eta^2)=mc^2\sqrt{1-\eta^2}.
+\]
+\Diagram{fig:m4relbohra}{相对论圆轨道的束缚能随$\eta$增加而加深}{\draw[axis](0,0)--(4.2,0)node[right]{$\eta$};\draw[axis](0,-2.6)--(0,.7)node[above]{$E_b/(mc^2)$};\draw[curve,domain=0:.98,samples=70]plot({3.6*\x},{2.3*(sqrt(1-\x*\x)-1)});\draw[guide,domain=0:1,samples=40]plot({3.6*\x},{-1.15*\x*\x});}
+令$z=\eta^2$，对$f(z)=\sqrt{1-z}$求导有$f'(0)=-1/2$、$f''(0)=-1/4$。泰勒展开$f(z)=1+f'(0)z+f''(0)z^2/2+O(z^3)=1-z/2-z^2/8+O(z^3)$。减去静能后，图\ref{fig:m4relbohra}的束缚能为
+\[
+ E_b=-mc^2\left(\frac{\eta^2}2+\frac{\eta^4}8+O(\eta^6)\right).
+\]
+首项恢复玻尔能级。模型要求$\eta<1$即$n>Z\alpha$。它只修正半经典圆轨道，不含自旋、非圆轨道的角动量结构与完整量子动力学，因此不能把此式当作全部精细结构能级。
+\end{solution}
+
+\section{作用量量子化与转折边界}\label{th:m4action}
+对一维束缚运动，定义一个完整周期的作用量$J=\oint p\dd x$。这是相平面闭合轨道所围面积。圆周运动则$J_\varphi=\int_0^{2\pi}L\dd\varphi=2\pi L$，旧量子条件$J_\varphi=nh$给$L=n\hbar$。
+
+一维波函数在允许区的短波形式含相位$\int p\dd x/\hbar$。边界反射时还会附加相位：两端硬壁使$J=nh$，$n=1,2,\ldots$；两端平滑转折点使$J=(n+1/2)h$，$n=0,1,\ldots$；一硬壁、一平滑转折点使$J=(n+3/4)h$。后两式是半经典近似，一般在量子数较大时更可靠。谐振子恰能由该条件给出精确能级，但不能据此认定任意势的半经典最低能级也精确。
+
+\begin{example}\label{ex:m4well}
+质量$m$的粒子限制在$0<x<L$，外侧无限高势垒，内部势能为零。由驻波与作用量两种方法求能级，并写出归一化波函数。
+\Diagram{fig:m4wellq}{无限深方阱的两个硬边界}{\draw[axis](-.5,0)--(4.8,0)node[right]{$x$};\draw[curve](0,3)--(0,0)--(3.5,0)--(3.5,3);\node[below]at(0,0){$0$};\node[below]at(3.5,0){$L$};\node[above]at(1.75,2.1){$V=0$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m4wellq}的阱内满足$-\hbar^2\psi''/(2m)=E\psi$。令$k=\sqrt{2mE}/\hbar$，通解为$A\sin kx+B\cos kx$。左壁$\psi(0)=0$给$B=0$；右壁$\psi(L)=0$要求$kL=n\pi$，$n=1,2,\ldots$。$n=0$只给处处为零的函数，不能归一化，故不属于允许态。
+\[
+ E_n=\frac{\hbar^2k_n^2}{2m}=\frac{n^2h^2}{8mL^2}.
+\]
+\Diagram{fig:m4wella}{方阱相轨道为两条水平动量支，面积为$2pL$}{\draw[axis](-.3,0)--(4.6,0)node[right]{$x$};\draw[axis](0,-1.8)--(0,2)node[above]{$p$};\draw[very thick,->](0,1.2)--(3.5,1.2);\draw[very thick,->](3.5,-1.2)--(0,-1.2);\draw[guide](0,1.2)--(0,-1.2);\draw[guide](3.5,1.2)--(3.5,-1.2);\node[right]at(3.5,1.2){$p_n$};}
+归一化积分逐步为
+\[
+ 1=|A|^2\int_0^L\frac{1-\cos(2n\pi x/L)}2\dd x
+ =|A|^2\left[\frac x2-\frac{L}{4n\pi}\sin\frac{2n\pi x}{L}\right]_0^L
+ =|A|^2L/2,
+\]
+故可取$\psi_n=\sqrt{2/L}\sin(n\pi x/L)$。图\ref{fig:m4wella}的相轨道上，向右支$p=p_n$、$\dd x>0$；向左支$p=-p_n$、$\dd x<0$，因此两支贡献都为正：
+\[
+ J=\int_0^L p_n\dd x+\int_L^0(-p_n)\dd x
+ =[p_nx]_0^L+[-p_nx]_L^0=2p_nL.
+\]
+用两个硬壁条件$J=nh$同样得到$p_n=nh/(2L)$。竖直碰壁段满足$\dd x=0$，不增加作用量。这个定态是两个反向行波的叠加，$\langle p\rangle=0$，却有$\langle p^2\rangle=p_n^2$；不能将相轨道上的固定动量大小解释为定态粒子总沿某一个方向运动。
+\end{solution}
+
+\begin{example}\label{ex:m4osc}
+一维谐振子势$V(x)=m\omega^2x^2/2$。用相平面面积求半经典能级，并比较直接使用$J=nh$会遗漏什么。
+\Diagram{fig:m4oscq}{谐振子的两个平滑转折点}{\draw[axis](-2.3,0)--(2.5,0)node[right]{$x$};\draw[axis](0,0)--(0,3)node[above]{$V$};\draw[curve,domain=-1.9:1.9,samples=60]plot(\x,{.65*\x*\x});\draw[guide](-1.7,1.88)--(1.7,1.88);\node[right]at(1.7,1.88){$E$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m4oscq}的势为$V=m\omega^2x^2/2$。固定能量的相轨道满足
+\[
+ \frac{x^2}{2E/(m\omega^2)}+\frac{p^2}{2mE}=1,
+\]
+故两半轴$x_m=\sqrt{2E/(m\omega^2)}$、$p_m=\sqrt{2mE}$。作用量是顺运动方向的闭合积分，上下两支都给正面积贡献。
+\Diagram{fig:m4osca}{椭圆所围面积$J=\pi x_mp_m$}{\draw[axis](-2.6,0)--(2.8,0)node[right]{$x$};\draw[axis](0,-1.9)--(0,2.2)node[above]{$p$};\draw[curve](0,0)ellipse(2 and 1.4);\node[below right]at(2,0){$x_m$};\node[above right]at(0,1.4){$p_m$};\draw[->](1.8,.61)--(1.95,.31);}
+图\ref{fig:m4osca}的椭圆面积直接给$J=\pi x_mp_m=2\pi E/\omega$。也可令$x=x_m\sin\varphi$作积分：
+\[
+ J=4p_mx_m\int_0^{\pi/2}\cos^2\varphi\dd\varphi
+ =4p_mx_m\left[\frac\varphi2+\frac{\sin2\varphi}{4}\right]_0^{\pi/2}
+ =\pi p_mx_m.
+\]
+两个转点平滑，取$J=(n+1/2)h$，$n=0,1,\ldots$，于是$E_n=\hbar\omega(n+1/2)$，相邻能级间隔为$\hbar\omega$。对谐振子这一量子条件恰给出精确能级，但不能据此认定任意势的最低能级都由半经典条件精确给出。
+
+若用$J=nh$并允许$n=0$，便给出$E=0$、$x=p=0$，与量子态不能同时具有确定位置和动量的要求不符。零点项来自转点相位，并非任意选取能量零点；给定势最低点为零后，基态相对最低点仍有$\hbar\omega/2$。由$\dd J/\dd E=2\pi/\omega$还恢复能量无关的经典周期。
+\end{solution}
+
+\begin{example}\label{ex:m4bounce}
+粒子在$x\geq0$受重力势$V=mgx$，$x<0$为无限高硬壁。用一硬一软的量子条件求能级近似，并说明其量纲与随量子数的变化。
+\Diagram{fig:m4bounceq}{底部硬壁与上方重力转折点}{\draw[axis](-.4,0)--(4.5,0)node[right]{$x$};\draw[axis](0,0)--(0,3.2)node[above]{$V$};\draw[very thick](0,0)--(0,3);\draw[curve](0,0)--(3.8,2.8);\draw[guide](0,2)--(2.714,2);\node[right]at(2.8,2){$x_t=E/(mg)$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m4bounceq}中的允许区是$0\leq x\leq E/(mg)$，动量大小$p(x)=\sqrt{2m(E-mgx)}$。完整往返作用量
+\begin{align*}
+ J&=2\int_0^{E/(mg)}\sqrt{2m(E-mgx)}\dd x\\
+ &=-\frac{2\sqrt{2m}}{mg}\int_E^0 q^{1/2}\dd q
+ =\frac{2\sqrt{2m}}{mg}\left[\frac23q^{3/2}\right]_0^E
+ =\frac{4\sqrt2}{3g\sqrt m}E^{3/2}.
+\end{align*}
+这里取$q=E-mgx$，故$\dd x=-\dd q/(mg)$，空间上下限$0,E/(mg)$依次变为$E,0$。
+\Diagram{fig:m4bouncea}{上下动量支在平滑转点相连，在硬壁处反射}{\draw[axis](-.3,0)--(4.5,0)node[right]{$x$};\draw[axis](0,-2)--(0,2.2)node[above]{$p$};\draw[curve,domain=0:3.5,samples=70]plot(\x,{1.6*sqrt(1-\x/3.5)});\draw[curve,domain=0:3.5,samples=70]plot(\x,{-1.6*sqrt(1-\x/3.5)});\draw[very thick](0,-1.6)--(0,1.6);\node[below]at(3.5,0){$x_t$};}
+图\ref{fig:m4bouncea}中一端是硬壁，一端是平滑转点，故取$J=(n+3/4)h$，得到
+\[
+ E_n=\left[\frac{3hg\sqrt m}{4\sqrt2}\left(n+\frac34\right)\right]^{2/3},\quad n=0,1,\ldots.
+\]
+括号内量纲为能量的$3/2$次方。能量随$n^{2/3}$增长，所以高能级的相邻间隔减小。此式是半经典近似；精确解应以满足硬壁条件的艾里函数零点确定，不能把$3/4$条件称为最低几个能级的精确值。
+\end{solution}
+\input{lecture4_derivations}
+\input{lecture4_extensions}
+\input{lecture4_depth}
+\input{lecture4_connections}
+\input{lecture4_exercises}

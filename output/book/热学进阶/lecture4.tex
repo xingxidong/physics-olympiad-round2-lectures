@@ -1,0 +1,608 @@
+\chapter{相变、界面与外场平衡}
+
+\section{选择状态变量与守恒的能量}
+\label{th:coordinates}
+本讲将前面的状态函数方法用于界面和外场。简单可压缩物质的体积功为$-p\dd V$；界面变化产生表面功，外场还会引入势能，须先写清系统所含的能量与全部广义功。第~\ref{th:energyidentity}节已用链式法则证明$U_V|_T=-p+Tp_T|_V$，其中等温与等熵偏导取沿不同的状态方向；改用新的坐标时，仍须分别固定其余变量。
+
+体积偏导只确定$U$的体积依赖，积分后留下的函数$\Phi(T)$还要由定容热容确定。下面先处理总量与摩尔量，再把同一方法用于表面面积及外场参数。
+
+\input{lecture4_generalized}
+\begin{example}[总量与摩尔量：实际气体的完整状态函数]\label{ex:vdwmolar}
+$\nu$ 摩尔 van der Waals 气体的摩尔体积为 $v=V/\nu$，满足 $(p+a/v^2)(v-b)=RT$。给定常量 $C_{V,m}=c$，推导摩尔内能、摩尔熵和可逆绝热线，再写回总量形式。说明总容积增大与物质的量增大有什么区别。
+\Diagram{fig:molarq}{固定温度下分别改变体积和系统尺度}{
+ \draw(0,0)rectangle(2,1.4);\node at(1,.7){$\nu,V$};\draw[axis](2.5,.7)--(3.5,.7);\draw(4,0)rectangle(7,1.4);\node at(5.5,.7){$\lambda\nu,\lambda V$};\node at(3.5,-.7){尺度扩大时 $v=V/\nu$ 不变};
+}
+\end{example}
+\begin{solution}
+在固定 $\nu$ 下对摩尔体积求偏导，$\partial U_m/\partial v|_T=Tp_T-p=a/v^2$，且 $\partial U_m/\partial T|_v=c$。因此
+\[
+ U_m-U_{m0}=c(T-T_0)+a(1/v_0-1/v),
+\]
+\[
+ S_m-S_{m0}=c\ln(T/T_0)+R\ln[(v-b)/(v_0-b)].
+\]
+等熵时 $(v-b)T^{c/R}$ 恒定，等价于 $T(v-b)^{R/c}$ 恒定。图\ref{fig:molarq}保持 $v$ 的尺度变化下，$U$、$S$ 随 $\nu$ 成比例。
+从摩尔式写回总量时，先用 $U=\nu U_m$、$S=\nu S_m$，再把所有摩尔体积都换成 $V/\nu$。内能吸引项因而由 $-\nu a/v$ 变成 $-\nu^2a/V$；熵中的体积比则让分子、分母共同含有的 $1/\nu$ 约去。这里的初末态比较始终固定物质的量。随后讨论的 $\lambda$ 倍尺度扩大，是把参考态也复制相同倍数的另一种操作，不能在同一个固定粒子数体积偏导中把 $\nu$ 一起改变。
+
+\Diagram{fig:molara}{摩尔式写回总量后吸引项与排除体积的变化}{
+ \node[draw]at(0,0){$a/v^2$};\draw[axis](.8,0)--(2.1,0);\node[draw]at(3.5,0){$\nu^2a/V^2$};
+ \node[draw]at(0,-1){$v-b$};\draw[axis](.8,-1)--(2.1,-1);\node[draw]at(3.5,-1){$(V-\nu b)/\nu$};
+}
+以相同物质的量的参考态比较，
+\[
+ \Delta U=\nu c\Delta T+\nu^2a(1/V_0-1/V),
+\]
+\[
+ \Delta S=\nu c\ln(T/T_0)+\nu R\ln[(V-\nu b)/(V_0-\nu b)].
+\]
+图\ref{fig:molara}说明 $a$ 的总容积形式含 $\nu^2$，而排除体积为 $\nu b$。固定 $\nu$ 的等温膨胀会改变摩尔体积和势能；同时放大 $V,\nu$ 则只复制系统，不能把两种变化混用在同一偏导中。
+\end{solution}
+
+\subsection{从辐射压强独立推出四次方律}
+\label{th:photonlaw}
+第二讲由辐射通量的实验温度律写出 $u\propto T^4$。现在反过来，只用各向同性光子的 $p=u/3$、均匀辐射能的广延性 $U=Vu(T)$ 和热力学恒等式。固定温度改变体积时 $U_V=u$，而
+\[
+ u=-p+Tp_T=-\frac u3+\frac T3\frac{\dd u}{\dd T}.
+\]
+于是$T\dd u/\dd T=4u$。对$u>0,T>0$分离变量，$\int_{u_0}^{u}\dd u'/u'=4\int_{T_0}^{T}\dd\vartheta/\vartheta$，得到$\ln(u/u_0)=4\ln(T/T_0)$，即$u=aT^4$、$a=u_0/T_0^4$。热力学只能确定幂指数，常数$a$需要辐射谱或实验给出。再由$J_E=cu/4$，得到Stefan--Boltzmann通量律及$\sigma_{\rm SB}=ca/4$。
+
+\begin{example}[辐射腔的可逆绝热关系]\label{ex:radiationadiabat}
+腔内只有平衡光子气体，体积由 $V_1$ 缓慢可逆地增至 $V_2$，不与外界换热。求温度、压强、总能量及做功的变化，并与单原子理想气体比较。
+\Diagram{fig:radadiabatq}{反射活塞使辐射腔缓慢膨胀}{
+ \draw(0,0)rectangle(3.5,1.6);\draw[line width=2pt](3.5,0)--(3.5,1.6);\draw[axis](3.5,.8)--(5,.8);\node at(1.75,.8){$U=aVT^4$};\node at(1.75,-.5){$Q=0$，过程可逆};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:radadiabatq}的辐射熵为 $S=4aVT^3/3$。可逆绝热时熵不变，所以
+\[
+ TV^{1/3}=\text{常量},\quad pV^{4/3}=\text{常量},\quad
+ U=aVT^4\propto V^{-1/3}.
+\]
+因此 $T_2/T_1=(V_1/V_2)^{1/3}$，$p_2/p_1=(V_1/V_2)^{4/3}$，$U_2/U_1=(V_1/V_2)^{1/3}$。
+功积分也可逐步与内能差对应。令 $K=p_1V_1^{4/3}$，则
+\[
+ W=K\int_{V_1}^{V_2}V^{-4/3}\dd V
+ =[-3KV^{-1/3}]_{V_1}^{V_2}
+ =3K(V_1^{-1/3}-V_2^{-1/3}).
+\]
+用$U_1=3p_1V_1$改写首项，所得功等于上面的内能减少。能量密度按$T^4$变化，总能量还须乘以当前体积，二者具有不同的体积指数。平衡光子数不受独立的守恒约束；但黑体光子数密度正比于$T^3$，在本题这个保持$VT^3$不变的理想可逆绝热过程中，平均总光子数恰好不变，不能由“光子可产生、湮灭”推断它在每种过程中都会改变。
+
+\Diagram{fig:radadiabata}{等熵膨胀时辐射能降低并转化为功}{
+ \draw[axis](0,0)--(5,0)node[right]{$V/V_1$};\draw[axis](0,0)--(0,2.6)node[above]{$U/U_1$};\draw[curve]plot[domain=1:4.6](\x,{2/\x^(1/3)});\node[left]at(0,2){$1$};\node[below]at(1,0){$1$};
+}
+图\ref{fig:radadiabata}中的能量差为$W=U_1-U_2=U_1[1-(V_1/V_2)^{1/3}]$，与上述压强积分一致。单原子理想气体的绝热指数为$5/3$，平衡辐射则为$4/3$；后者应由辐射状态方程和熵约束推导。
+\end{solution}
+
+\section{表面张力系统}
+\label{th:surface}
+液面面积增大时需要外界做功。以 $\Sigma$ 表示实际界面总面积、$\sigma$ 表示表面张力，在忽略体积功和其他功的模型中
+\begin{equation}\label{eq:surfacefund}
+ \dd U=T\dd S+\sigma\dd\Sigma.
+\end{equation}
+这与体积系统的 $-p\dd V$ 符号不同：增大面积需要对系统做正功。表面 Helmholtz 自由能满足 $\dd F=-S\dd T+\sigma\dd\Sigma$，故
+\begin{equation}\label{eq:surfacemaxwell}
+ \left(\frac{\partial S}{\partial\Sigma}\right)_T
+ =-\left(\frac{\partial\sigma}{\partial T}\right)_\Sigma.
+\end{equation}
+改用 $\Sigma,T$ 作变量，链式法则给
+\begin{equation}\label{eq:surfaceenergy}
+ \left(\frac{\partial U}{\partial\Sigma}\right)_T
+ =\sigma-T\left(\frac{\partial\sigma}{\partial T}\right)_\Sigma,
+ \quad
+ \dd S=\frac{C_\Sigma}{T}\dd T-\sigma_T\dd\Sigma.
+\end{equation}
+因此表面内能不一般等于 $\sigma\Sigma$；表面张力是自由能的面积导数。薄膜有两面时 $\Sigma=2A$，单液面才是 $\Sigma=A$。若还计入液体体积热容，必须说明 $C_\Sigma$ 是整个研究系统的定面积热容还是仅表面过剩热容。
+
+\input{lecture4_interfaces}
+\begin{example}[线性表面张力的内能与熵]\label{ex:linearsurface}
+某界面系统在研究温区内满足 $\sigma=\sigma_0+\alpha T$，$\sigma_0,\alpha$ 为常量；定面积热容 $C_\Sigma=C$ 为常量。求相对于 $(\Sigma_0,T_0)$ 的 $U,S$，并检验可积条件。
+\Diagram{fig:surfacelinearq}{温度改变时表面张力线性变化}{
+ \draw[axis](0,0)--(4.5,0)node[right]{$T$};\draw[axis](0,0)--(0,2.8)node[above]{$\sigma$};\draw[curve](0,2.4)--(4,.8);\node[left]at(0,2.4){$\sigma_0$};\node at(3.3,2.3){示意 $\alpha<0$};
+}
+\end{example}
+\begin{solution}
+由图\ref{fig:surfacelinearq}的斜率 $\sigma_T=\alpha$，式\eqref{eq:surfaceenergy}给出 $U_\Sigma|_T=\sigma_0+\alpha T-T\alpha=\sigma_0$。再用 $U_T|_\Sigma=C$，积分得
+\[
+ U-U_0=\sigma_0(\Sigma-\Sigma_0)+C(T-T_0).
+\]
+Maxwell 关系给 $S_\Sigma|_T=-\alpha$，定面积方向给 $S_T|_\Sigma=C/T$，所以
+\[
+ S-S_0=-\alpha(\Sigma-\Sigma_0)+C\ln\frac T{T_0}.
+\]
+温度项的积分沿定面积路径进行：$\Delta S_T=\int_{T_0}^T C\dd\vartheta/\vartheta$。面积项沿等温路径进行：$\Delta S_\Sigma=\int_{\Sigma_0}^{\Sigma}(-\alpha)\dd\Sigma'$。两者相加时，温度积分产生的对数只含无量纲比值，而面积项的量纲为 $(\mathrm{J\,m^{-2}K^{-1}})\mathrm{m^2}$，也是熵。表面张力虽包含温度项，内能的面积导数中该项被 $T\sigma_T$ 抵消，这正是表面自由能和表面内能需要区分的地方。
+
+\Diagram{fig:surfacelineara}{两条积分方向的熵贡献}{
+ \draw[axis](0,0)--(4.6,0)node[right]{$\Sigma$};\draw[axis](0,0)--(0,2.8)node[above]{$T$};\draw[axis](1,.7)--(3.2,.7);\draw[axis](3.2,.7)--(3.2,2.1);\node at(2.1,.3){$-\alpha\Delta\Sigma$};\node[right]at(3.2,1.6){$C\ln(T/T_0)$};
+}
+图\ref{fig:surfacelineara}的温度项必须为对数，不能写成 $C(T-T_0)$：后者量纲为能量，不是熵。一般可积条件为 $(\partial C_\Sigma/\partial\Sigma)_T=-T\sigma_{TT}$，本题两侧均为零，因此线性表面张力与常热容相容。所有式子只在 $\sigma>0$ 且界面模型成立的温区使用。
+\end{solution}
+
+\begin{example}[液膜等温拉伸的热与功]
+长 $\ell$ 的活动杆拉伸肥皂膜，膜有两面。温度恒为 $T$，表面张力为 $\sigma_0+\alpha T$。活动杆沿垂直杆方向移动距离 $x$，忽略重力和膜厚变化的体积功。求外力、外界做功、膜吸热和内能变化。
+\Diagram{fig:filmq}{两面液膜的活动边界}{
+ \draw[curve](0,0)--(0,2)--(4,2);\draw[curve](0,0)--(4,0);\draw[line width=2pt](2.5,0)--(2.5,2);\draw[guide](3.7,0)--(3.7,2);\draw[<->](4.3,0)--(4.3,2)node[midway,right]{$\ell$};\draw[axis](2.5,1)--(3.7,1)node[midway,above]{$x$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:filmq}中单面面积增加 $\ell x$，实际总界面增加 $\Delta\Sigma=2\ell x$。两面各对杆施加 $\sigma\ell$，故缓慢拉伸外力 $F=2\sigma\ell$，对膜做功 $W_{\rm on}=2\sigma\ell x$。
+图中杆长 $\ell$ 不变，位移 $\dd x$ 使每一面面积增加 $\ell\dd x$，所以外界微元功为 $F\dd x=\sigma\dd\Sigma$。这同时给出力的二倍系数与功的面积因子，两者应使用同一个总界面面积。等温时膜的熵变化只来自面积项；若液面张力随温度下降，即 $\alpha<0$，新生成界面具有正的熵增，需要从恒温热源吸热。内能式中的 $C(T-T_0)$ 在本题等温条件下为零，但定面积热容本身并不因此为零。
+
+\Diagram{fig:filma}{等温拉伸时的自由能、内能与热量}{
+ \node[draw]at(0,0){$\Delta F=\sigma\Delta\Sigma$};\node[draw]at(5,0){$\Delta U=\sigma_0\Delta\Sigma$};\node at(2.5,-.9){$Q=T\Delta S=-\alpha T\Delta\Sigma$};
+}
+由图\ref{fig:filma}，等温熵增$\Delta S=-\alpha\Delta\Sigma$，吸热$Q=-2\alpha T\ell x$，内能增加$\Delta U=2\sigma_0\ell x$。两种能量输入相加，$Q+W_{\rm on}=2(\sigma_0+\alpha T)\ell x-2\alpha T\ell x=\Delta U$，满足第一定律。
+\end{solution}
+
+\begin{example}[界面的绝热温度变化]
+线性表面张力、常定面积热容的界面系统，从 $(\Sigma_0,T_0)$ 可逆绝热拉伸到面积 $\Sigma$。求 $T(\Sigma)$、表面张力和外界做功。假设温区内模型始终成立。
+\Diagram{fig:surfaceadq}{与外界不换热的可动液膜}{
+ \draw(0,0)rectangle(4,1.6);\draw[line width=2pt](2.5,0)--(2.5,1.6);\draw[axis](2.5,.8)--(3.8,.8);\node at(1.2,.8){$Q=0$};\node at(2,-.5){$C_\Sigma=C$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:surfaceadq}的过程可逆，故$\dd S=0$。用已求得的熵微分，$C\dd T/T=\alpha\dd\Sigma$；从$(\Sigma_0,T_0)$积分，有$C[\ln T']_{T_0}^{T}=\alpha[\Sigma']_{\Sigma_0}^{\Sigma}$，即$C\ln(T/T_0)=\alpha(\Sigma-\Sigma_0)$，取指数得
+\[
+ T=T_0\exp[\alpha(\Sigma-\Sigma_0)/C],\quad
+ \sigma=\sigma_0+\alpha T_0\exp[\alpha(\Sigma-\Sigma_0)/C].
+\]
+外界做功积分中的变温部分以指数函数作原函数，得到
+\[
+ \int_{\Sigma_0}^{\Sigma}\alpha T_0
+ \ee^{\alpha(\Sigma'-\Sigma_0)/C}\dd\Sigma'
+ =\left[CT_0\ee^{\alpha(\Sigma'-\Sigma_0)/C}\right]_{\Sigma_0}^{\Sigma}
+ =CT_0\bigl[\ee^{\alpha\Delta\Sigma/C}-1\bigr].
+\]
+它对应内能中的温度变化项，符号在 $\alpha<0$ 的拉伸过程中为负；只要全过程张力为正，总输入功仍为正。膜的降温减小了一部分所需输入，但不取消创建界面的能量代价。
+
+\Diagram{fig:surfaceada}{可逆绝热拉伸时的温度变化}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$\Sigma-\Sigma_0$};\draw[axis](0,0)--(0,2.7)node[above]{$T$};\draw[curve]plot[domain=0:4.3](\x,{2.3*exp(-.25*\x)});\node at(2.7,2.4){$\alpha<0$};
+}
+图\ref{fig:surfaceada}中若 $\alpha<0$，拉伸使温度降低。外界做功等于内能增量，
+\[
+ W_{\rm on}=\sigma_0\Delta\Sigma+C(T-T_0).
+\]
+常数张力项给出$\sigma_0\Delta\Sigma$，前面求出的指数项给出$C(T-T_0)$。张力随温度变化，故整个过程的功须沿路径积分。
+\end{solution}
+
+\section{相平衡与汽化热}
+\label{th:clapeyron}
+同一物质的液、气两相共存时，温度和压强相等，两相摩尔 Gibbs 自由能也相等：$g_g=g_l$。沿共存线的相邻状态仍满足此等式。利用 $\dd g=-s\dd T+v\dd p$，
+\[
+ -(s_g-s_l)\dd T+(v_g-v_l)\dd p=0.
+\]
+定温定压的可逆汽化每摩尔吸热为 $L_m=T(s_g-s_l)$，从而
+\begin{equation}\label{eq:clapeyron}
+ \frac{\dd p_s}{\dd T}=\frac{L_m}{T(v_g-v_l)}.
+\end{equation}
+这就是 Clapeyron 方程。汽化时 $L_m>0$、$v_g>v_l$，共存线斜率为正。熔化时应代入液相减固相的摩尔体积差；冰熔化的体积差为负，熔化潜热为正，故其共存线斜率为负。
+
+还可从跨越两条相邻等温线的微小两相卡诺循环推导。上等温线汽化一摩尔吸热 $L_m$，两条绝热线温差为 $\dd T$；循环面积近似为 $(v_g-v_l)\dd p_s$。可逆效率为 $\dd T/T$，故 $(v_g-v_l)\dd p_s/L_m=\dd T/T$，得到同一方程。用循环法时，面积与吸热必须对应同一物质的量。
+
+\input{lecture4_phase}
+\begin{example}[饱和蒸气压的指数近似]\label{ex:vaporpressure}
+在一段温区内忽略液体摩尔体积，气相视为理想气体，摩尔汽化热 $L_m=L$ 为常量。已知 $p_s(T_0)=p_0$，求 $p_s(T)$ 和压强为 $p$ 时的沸点。
+\Diagram{fig:vaporq}{液气共存线上给定一个参考点}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$T$};\draw[axis](0,0)--(0,3)node[above]{$p_s$};\draw[curve]plot[domain=.8:4.2](\x,{.12*exp(.65*\x)});\fill(2.3,.535)circle(1.3pt)node[above left]{$T_0,p_0$};
+}
+\end{example}
+\begin{solution}
+由图\ref{fig:vaporq}沿共存线的体积差 $v_g-v_l\simeq v_g=RT/p_s$，式\eqref{eq:clapeyron}变为 $\dd p_s/p_s=L\dd T/(RT^2)$。积分时 $\int T^{-2}\dd T=-1/T$，所以
+\[
+ \ln\frac{p_s(T)}{p_0}=\frac LR\left(\frac1{T_0}-\frac1T\right),\qquad
+ p_s(T)=p_0\exp\!\left[\frac LR\left(\frac1{T_0}-\frac1T\right)\right].
+\]
+求沸点时，先把对数式中的 $1/T_b$ 单独移项，再取倒数，不能直接把 $\ln p$ 看作与温度线性。共存线的局部斜率始终正：增压要求更高的沸点。参考点规定了积分常数，因此指数中的每一项都按相同温标和单位计算；$L$ 是摩尔汽化热，必须与摩尔气体常数 $R$ 配套。若使用单位质量潜热，应同时把 $R$ 换成单位质量气体常数。
+
+\Diagram{fig:vapora}{对数蒸气压与倒温度的线性关系}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$1/T$};\draw[axis](0,0)--(0,3)node[above]{$\ln p_s$};\draw[curve](.6,2.5)--(4.2,.5);\node at(3.1,2.5){斜率 $-L/R$};
+}
+图\ref{fig:vapora}给出实验上常用的线性化。沸点满足 $p_s(T_b)=p$，因此 $T_b=[T_0^{-1}-(R/L)\ln(p/p_0)]^{-1}$。高海拔外压较低，$\ln(p/p_0)<0$，沸点随之降低。靠近临界点时潜热和体积差都变化显著，本近似不能外推。
+\end{solution}
+
+\begin{example}[汽化热随温度变化的修正]\label{ex:variablelatent}
+仍忽略液体体积，气相理想。气相摩尔定容热容 $c_{v,g}$、液相比热 $c_l$ 均视为常量，已知参考温度 $T_0$ 的汽化热为 $L_0$、蒸气压为 $p_0$。推导 $L_m(T)$ 和修正后的 $p_s(T)$。
+\Diagram{fig:latentvariableq}{汽化焓差由两相能量和气相膨胀功组成}{
+ \node[draw]at(0,0){液体 $U_{m,l}$};\draw[axis](1.3,0)--(2.8,0)node[midway,above]{$L_m$};\node[draw]at(4.5,0){气体 $U_{m,g}+RT$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:latentvariableq}的定温定压汽化热为焓差 $L_m=U_{m,g}-U_{m,l}+p_s(v_g-v_l)$。在题设近似下 $p_sv_g=RT$，且 $\dd U_{m,g}/\dd T=c_{v,g}$、$\dd U_{m,l}/\dd T\simeq c_l$。定义 $q=c_{v,g}+R-c_l$，则
+\[
+ L_m(T)=L_0+q(T-T_0)=\Lambda+qT,\quad\Lambda=L_0-qT_0.
+\]
+代入 $\dd\ln p_s=L_m(T)\dd T/(RT^2)$，分成两项积分，
+\[
+ \ln\frac{p_s(T)}{p_0}=
+ \frac qR\ln\frac T{T_0}+\frac\Lambda R\left(\frac1{T_0}-\frac1T\right).
+\]
+常数 $\Lambda$ 与参考点汽化热 $L_0$ 不同，它是把线性 $L_m(T)$ 外推到零温时的截距，通常不具备真实零温汽化热的含义。积分时分别有 $\int q\dd T/(RT)=(q/R)\ln T$、$\int\Lambda\dd T/(RT^2)=-\Lambda/(RT)$，所以两个因子中的符号由原函数确定。将最终结果对温度求导，会恢复 $\dd\ln p_s/\dd T=L_m(T)/(RT^2)$，也说明在参考温度附近它与给定的 $L_0$ 连续匹配。
+
+\Diagram{fig:latentvariablea}{修正项分别产生幂律因子和指数因子}{
+ \node[draw,align=center]at(0,0){$q/T$\\$(T/T_0)^{q/R}$};\node[draw,align=center]at(5,0){$\Lambda/T^2$\\$\exp[\Lambda(1/T_0-1/T)/R]$};
+}
+所以图\ref{fig:latentvariablea}的两个因子相乘即 $p_s/p_0$。$q$ 可正可负，取决于两相热容；不能预先把幂指数指定为正。$q=0$ 时回到常潜热公式。这里还忽略了液体焓的压强依赖和气相非理想性，修正温变潜热并不自动消除其他近似误差。
+\end{solution}
+
+\begin{example}[熔化曲线的负斜率]
+某物质熔化潜热为正，固相摩尔体积 $v_s$ 大于液相 $v_l$。求熔点对压强的局部变化率，并以给定常量近似求压强变化 $\Delta p$ 引起的熔点变化。
+\Diagram{fig:meltingq}{固、液体积差决定共存线的斜率}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$T$};\draw[axis](0,0)--(0,3)node[above]{$p$};\draw[curve](1,2.6)--(2.8,.4);\node at(1,1.1){固};\node at(3.5,1.8){液};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:meltingq}从固到液的 $\Delta v=v_l-v_s<0$，熔化熵增为 $L_m/T>0$。Clapeyron 方程给 $\dd p/\dd T=L_m/[T(v_l-v_s)]<0$。局部取倒数，
+\[
+ \frac{\dd T_m}{\dd p}=\frac{T_m(v_l-v_s)}{L_m}.
+\]
+取倒数后，潜热分母为正，斜率的符号由 $v_l-v_s$ 决定。在参考态附近用 $T_{m0}$ 计算斜率，保留的是压强变化的一阶项。压强变化较大时，须沿共存线积分 $\dd T/T=(v_l-v_s)\dd p/L_m$，同时计入各量随状态的变化。图中“加压有利于液相”表示同温下液相的 Gibbs 自由能相对降低，因而共存熔点下降。
+
+\Diagram{fig:meltinga}{加压有利于摩尔体积较小的液相}{
+ \node[draw]at(0,0){固体积较大};\draw[axis](1.3,0)--(2.7,0)node[midway,above]{加压};\node[draw]at(4.4,0){液体更有利};\node at(2.2,-.8){共存熔点降低};
+}
+若变化足够小，可把右侧参数取参考值，$\Delta T_m\simeq T_{m0}(v_l-v_s)\Delta p/L_m$。图\ref{fig:meltinga}从自由能角度说明符号：压强增加时，大体积相的 Gibbs 自由能增加更快。不能仅凭“压强抑制相变”一类措辞判断方向。
+\end{solution}
+
+\section{相空间分布与外场中的粒子}
+\label{th:phaseprobability}
+经典独立粒子的单粒子能量为
+\[
+ E(\vct r,\vct p)=\frac{p^2}{2m}+E_p(\vct r).
+\]
+与温度 $T$ 的热源平衡时，相空间密度为 $f(\vct r,\vct p)=Z^{-1}\ee^{-E/(\kb T)}$，概率测度为 $\dd^3r\dd^3p$。若用 $\dd^3r\dd^3p/h^3$ 计数微观状态，则归一化因子也相应改变；固定粒子数的经典位置概率和速度概率不受该常数尺度影响。
+
+由于动能与势能可分离，配分积分也分离：
+\[
+ Z=\int_{\cal V}\ee^{-E_p/(\kb T)}\dd^3r
+ \int_{\mathbb R^3}\ee^{-p^2/(2m\kb T)}\dd^3p.
+\]
+对位置积分得到 Maxwell 动量分布；对动量积分得到 Boltzmann 位置分布，
+\begin{equation}\label{eq:boltzmannposition}
+ \rho_P(\vct r)=\frac{\ee^{-E_p(\vct r)/(\kb T)}}
+ {\int_{\cal V}\ee^{-E_p(\vct r')/(\kb T)}\dd^3r'}.
+\end{equation}
+温度相同不意味着粒子密度均匀；势能较低处的粒子更多。反过来，密度随位置改变也不意味着不同高度的平均平动能不同。在等温平衡且动能可分离的条件下，每个位置处的条件速度分布相同。
+
+\input{lecture4_external}
+\subsection{等温大气的两种推导}
+\label{th:barometric}
+设重力加速度$g$恒定，气体摩尔质量为$M$、温度为常量$T$。高度$h$到$h+\dd h$的薄层受力平衡，$p(h)S-p(h+\dd h)S-\rho Sg\dd h=0$，所以$\dd p/\dd h=-\rho g$。理想气体$\rho=Mp/(RT)$，分离变量并从底面积分至高度$h$，有
+\[
+ \int_{p(0)}^{p(h)}\frac{\dd p'}{p'}
+ =-\frac{Mg}{RT}\int_0^h\dd h',\qquad
+ \ln\frac{p(h)}{p(0)}=-\frac{Mgh}{RT}.
+\]
+取指数，再用$n=p/(\kb T)$，得到
+\begin{equation}\label{eq:barometric}
+ p(h)=p(0)\ee^{-Mgh/(RT)},\qquad
+ n(h)=n(0)\ee^{-mgh/(\kb T)}.
+\end{equation}
+用式\eqref{eq:boltzmannposition}，单粒子势能为 $mgh$，立即得到同一密度指数。两条路线分别从宏观受力和微观概率进入，指数尺度一致，因为 $M/R=m/\kb$。尺度高度为 $H_T=RT/(Mg)$。地球实际大气温度随高度变化，不能在任意高度直接套用等温指数律。
+
+\begin{example}[气柱压强与总重量]\label{ex:atmosphere}
+截面积为 $S$、高 $H$ 的竖直刚性柱内，封闭 $N$ 个质量为 $m$ 的理想气体粒子，处于温度 $T$ 的平衡。求底面与顶面压强，并证明其差产生的合力等于气体重量。
+\Diagram{fig:columnpressureq}{上下两端的压强不同}{
+ \draw(0,0)rectangle(2,3);\draw[axis](2.6,0)--(2.6,3.5)node[above]{$h$};\node[left]at(0,0){$p_b$};\node[left]at(0,3){$p_t$};\node at(1,1.5){$N,T$};\draw[<->](3.3,0)--(3.3,3)node[midway,right]{$H$};
+}
+\end{example}
+\begin{solution}
+取 $a_g=mg/(\kb T)$、$x=a_gH$，密度为 $n(h)=n_b\ee^{-a_gh}$。图\ref{fig:columnpressureq}的固定粒子数要求
+\[
+ N=S\int_0^Hn(h)\dd h=Sn_b\frac{1-\ee^{-x}}{a_g},
+ \quad n_b=\frac{Na_g}{S(1-\ee^{-x})}.
+\]
+因此
+\[
+ p_b=\frac{Nmg}{S(1-\ee^{-x})},\qquad
+ p_t=p_b\ee^{-x}.
+\]
+这里高度积分为$\int_0^H\ee^{-a_gh}\dd h=[-\ee^{-a_gh}/a_g]_0^H=(1-\ee^{-x})/a_g$。底部密度由总粒子数决定，并非外界气源预先固定的密度。乘上$\kb T$才得到压强，$a_g\kb T=mg$使显式分子中的温度因子约去，但温度仍保留在指数里。
+
+\Diagram{fig:columnpressurea}{气体整体的竖直受力平衡}{
+ \draw(0,0)rectangle(2,2.5);\draw[axis](1,0)--(1,1)node[right]{$Sp_b$};\draw[axis](1,2.5)--(1,1.8)node[right]{$Sp_t$};\draw[axis](2.6,1.6)--(2.6,.5)node[right]{$Nmg$};
+}
+图\ref{fig:columnpressurea}中的气体所受底面向上力减去顶面向下力为 $S(p_b-p_t)=Nmg$，恰好平衡总重力。升温时底面密度归一化常数也会改变，不能把 $n_b$ 当与温度无关的固定量。
+\end{solution}
+
+\begin{example}[有限高度气柱的总热容]\label{ex:columnheat}
+上述刚性封闭气柱中装有 $\nu$ 摩尔单原子理想气体，摩尔质量 $M$。缓慢供热使每一状态都处于同一均匀温度的热平衡。求重力势能 $E_p(T)$ 和容器的热容 $C=\delta Q/\dd T$，忽略容器自身热容。
+\Diagram{fig:columnheatq}{升温除了增大热运动，还改变高度分布}{
+ \draw(0,0)rectangle(2,3);\foreach \y in{.25,.55,.85,1.25,1.8,2.5}{\fill(.8,\y)circle(1.2pt);}\draw[axis](-1,1.3)--(0,1.3)node[midway,above]{$Q$};\node[right]at(2.2,1.5){$E_p=\int_0^H Mgh\,\dd\nu$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:columnheatq}的气体密度从底部向上衰减，令 $x=MgH/(RT)$、$y=h/H$。按上一例归一化，单粒子高度的无量纲密度为 $w(y)=x\ee^{-xy}/(1-\ee^{-x})$。于是
+\[
+ E_p=\nu MgH\frac{x}{1-\ee^{-x}}\int_0^1y\ee^{-xy}\dd y.
+\]
+分部积分取 $u=y$、$\dd v=\ee^{-xy}\dd y$，
+\[
+ \int_0^1y\ee^{-xy}\dd y
+ =\left[-\frac{y\ee^{-xy}}x\right]_0^1
+   +\frac1x\left[-\frac{\ee^{-xy}}x\right]_0^1
+ =-\frac{\ee^{-x}}x+\frac{1-\ee^{-x}}{x^2}.
+\]
+所以
+\begin{equation}\label{eq:columnpotential}
+ E_p=\nu MgH\left[\frac1x-\frac1{\ee^x-1}\right]
+ =\nu RT-\frac{\nu MgH}{\ee^x-1}.
+\end{equation}
+对势能式求温度导数时，第二项的全部温度依赖都藏在 $x=MgH/(RT)$ 中。链式法则给
+\[
+ \frac{\dd}{\dd T}\frac1{\ee^x-1}
+ =-\frac{\ee^x}{(\ee^x-1)^2}\left(-\frac xT\right)
+ =\frac{x\ee^x}{T(\ee^x-1)^2}.
+\]
+再用 $MgH=xRT$，把这一项的系数写为无量纲 $x^2$，便得到热容中的修正分式。系统能量包含外场势能，所以固定几何体积下的供热量不只是平动内能变化；若把势能留在系统之外，则还应等价地计入重力对粒子所做的功。
+
+\Diagram{fig:columnheata}{刚性容器的供热分给平动能与重力势能}{
+ \node[draw]at(0,0){$\delta Q$};\draw[axis](.8,.2)--(2.3,1);\draw[axis](.8,-.2)--(2.3,-1);\node[right]at(2.3,1){$\dd U_{\rm tr}=3\nu R\dd T/2$};\node[right]at(2.3,-1){$\dd E_p$};
+}
+外壁刚性，无边界体积功。按图\ref{fig:columnheata}将重力势能计入系统，有$\delta Q=\dd(3\nu RT/2+E_p)$。用前面求出的势能导数，再加上平动热容，得到
+\begin{equation}\label{eq:columncapacity}
+ C=\nu R\left[\frac52-\frac{x^2\ee^x}{(\ee^x-1)^2}\right].
+\end{equation}
+式中第一项 $3\nu R/2$ 是局部平动热容，额外部分来自高度分布重排。气体内部没有活塞运动，仍可有超过定容平动热容的供热需求，因为外场势能随温度改变。
+\end{solution}
+
+\begin{example}[气柱热容的两端极限]\label{ex:columnlimits}
+分析式\eqref{eq:columncapacity}在 $x\ll1$、$x\gg1$ 时的行为；求平均高度的相应极限，并说明先令 $H\to\infty$ 与先令 $T\to\infty$ 为什么不同。
+\Diagram{fig:columnlimitq}{尺度高度相对于容器高度的两种情形}{
+ \draw(0,0)rectangle(1.8,3);\foreach \y in{.3,.8,1.3,1.8,2.3,2.8}\fill(.9,\y)circle(1.3pt);\node at(.9,-.5){$x\ll1$};
+ \draw(3.4,0)rectangle(5.2,3);\foreach \y in{.15,.3,.5,.75,1.1,1.7}\fill(4.3,\y)circle(1.3pt);\node at(4.3,-.5){$x\gg1$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:columnlimitq}左图$H\ll H_T$，密度近乎均匀。先从指数的Taylor展开求倒数。记$F(x)=1/(\ee^x-1)$，写成
+\[
+ \begin{aligned}
+ \ee^x-1&=x\left(1+\frac x2+\frac{x^2}6+\frac{x^3}{24}
+ +\frac{x^4}{120}+\cdots\right),\\
+ F(x)&=\frac1x(1+a_1x+a_2x^2+a_3x^3+a_4x^4+\cdots).
+ \end{aligned}
+\]
+两式相乘须为1，各次幂系数依次满足
+\[
+ \begin{aligned}
+ a_1+\tfrac12&=0,\\
+ a_2+\tfrac12a_1+\tfrac16&=0,\\
+ a_3+\tfrac12a_2+\tfrac16a_1+\tfrac1{24}&=0,\\
+ a_4+\tfrac12a_3+\tfrac16a_2+\tfrac1{24}a_1+\tfrac1{120}&=0.
+ \end{aligned}
+\]
+逐式回代得$a_1=-1/2$、$a_2=1/12$、$a_3=0$、$a_4=-1/720$。又有$F(-x)=-1-F(x)$，故$F(x)+1/2$的Laurent展开只有奇次幂，得到
+\[
+ F(x)=\frac1x-\frac12+\frac x{12}-\frac{x^3}{720}+O(x^5).
+\]
+式\eqref{eq:columnpotential}中的$1/x$先相消，平均高度为
+\[
+ \langle h\rangle=H\left(\frac1x-F(x)\right)
+ =H\left(\frac12-\frac x{12}+\frac{x^3}{720}+O(x^5)\right).
+\]
+因此首两项为$H/2-MgH^2/(12RT)$。热容须对能量求导，不能把高度展开直接当成热容展开。对$F$逐项求导，
+\[
+ F'(x)=-\frac1{x^2}+\frac1{12}-\frac{x^2}{240}+O(x^4).
+\]
+由$E_p=\nu RT-\nu MgHF(x)$及$\dd x/\dd T=-x/T$，有
+\[
+ \frac{\dd E_p}{\dd T}=\nu R+\frac{\nu MgHx}{T}F'(x)
+ =\nu R[1+x^2F'(x)].
+\]
+加上平动热容，得到
+\[
+ C=\nu R\left[\frac52+x^2F'(x)\right]
+ =\nu R\left[\frac32+\frac{x^2}{12}-\frac{x^4}{240}+O(x^6)\right].
+\]
+有限顶壁使平均势能在高温下趋于$\nu MgH/2$，附加热容从正值趋零。右图$H\gg H_T$时，$F(x)=\ee^{-x}[1+O(\ee^{-x})]$，顶壁影响指数小，$E_p\simeq\nu RT$、$\langle h\rangle\simeq RT/(Mg)$，故$C\simeq5\nu R/2$。
+
+\Diagram{fig:columnlimita}{气柱热容随无量纲高度单调升高}{
+ \draw[axis](0,0)--(5.5,0)node[right]{$x$};\draw[axis](0,0)--(0,3.1)node[above]{$C/(\nu R)$};
+ \draw[curve]plot[domain=.05:6,samples=80]({.8*\x},{2.5-\x*\x*exp(-\x)/(1-exp(-\x))^2});\draw[guide](0,2.5)--(5,2.5);\node[left]at(0,1.5){$3/2$};\node[left]at(0,2.5){$5/2$};
+}
+图\ref{fig:columnlimita}的单调性也可由公式确定。将修正分式写成$h(x)^2$，其中$h(x)=x/[2\sinh(x/2)]$。令$y=x/2>0$，商法则给
+\[
+ h'(x)=\frac{\sinh y-y\cosh y}{2\sinh^2y}.
+\]
+分子反号后的函数$f(y)=y\cosh y-\sinh y$满足$f(0)=0$、$f'(y)=y\sinh y>0$，故$h'<0$，于是$\dd[C/(\nu R)]/\dd x=-2hh'>0$，曲线从$3/2$单调升至$5/2$。
+
+固定有限$H$先升到高温，粒子高度受顶壁限制，额外热容趋零；先把顶壁移到无穷远，平均高度可以随温度不断增长，始终保留$\nu R$的重力热容。两种操作改变了不同的几何约束，极限不交换。
+\end{solution}
+
+\input{lecture4_models}
+\input{lecture4_depth}
+\section{习题与解答}
+\begin{exercise}[等温混合大气的组分分层]
+两种不发生反应的理想气体处于温度 $T$ 的重力平衡，摩尔质量为 $M_1,M_2$，地面分压为 $p_{10},p_{20}$。求各分压、摩尔分数与高度的关系，并讨论较重组分的比例。
+\Diagram{fig:atmixq}{两种质量的粒子共享温度而尺度高度不同}{
+ \draw(0,0)rectangle(2.6,3);\node at(1.3,.4){$p_{10},p_{20}$};\draw[guide](0,2)--(2.6,2);\node[right]at(2.8,2){$h$};\draw[axis](-.6,0)--(-.6,3.5);
+}
+\end{exercise}
+\begin{solution}
+各组分分别满足静力平衡，图\ref{fig:atmixq}中 $p_i(h)=p_{i0}\ee^{-M_igh/(RT)}$。因此 $x_i(h)=p_i(h)/[p_1(h)+p_2(h)]$，组分比为
+\[
+ \frac{x_2(h)}{x_1(h)}=\frac{p_{20}}{p_{10}}
+ \exp\!\left[-\frac{(M_2-M_1)gh}{RT}\right].
+\]
+同一种外场中，不同组分的势能增量按各自摩尔质量计算；温度相同只意味着它们共享热能尺度 $RT$，并不使势能指数相同。总压 $p_1+p_2$ 通常不是用一个固定平均摩尔质量写成的单一指数。若 $M_2>M_1$，组分2的尺度高度更小，其相对比例随高度下降；若两摩尔质量恰相同，则指数相消，摩尔分数保持地面比例，恢复未发生质量分层的特例。
+
+\Diagram{fig:atmixa}{较重组分的相对浓度随高度下降}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$h$};\draw[axis](0,0)--(0,2.8)node[above]{$x_2/x_1$};\draw[curve]plot[domain=0:4.3](\x,{2.3*exp(-.4*\x)});\node at(3,2.4){$M_2>M_1$};
+}
+图\ref{fig:atmixa}对应静态的分子扩散平衡，各组分按自己的摩尔质量分层。强湍流可以使较大高度范围内的组分比例近乎均匀，但这需要持续的混合作用，超出了此处静态模型的条件。
+\end{solution}
+
+\begin{exercise}[温度随高度线性下降的大气]
+气体处于静力平衡，给定 $T(h)=T_0-\beta h>0$，$\beta>0$。摩尔质量 $M$、重力 $g$ 恒定。求 $p(h)$、$n(h)$。若局部满足理想气体的干绝热梯度，$\beta$ 应是多少？
+\Diagram{fig:lapseq}{温度剖面由外部条件给定}{
+ \draw[axis](0,0)--(4.6,0)node[right]{$T$};\draw[axis](0,0)--(0,3.2)node[above]{$h$};\draw[curve](4,0)--(1,2.7);\node[below]at(4,0){$T_0$};\node at(3,2.5){$T_0-\beta h$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:lapseq}不是全局等温平衡，因此不能直接写 $n\propto\ee^{-Mgh/(RT(h))}$。应从 $\dd p/p=-Mg\dd h/[R(T_0-\beta h)]$ 积分，得到
+\[
+ p=p_0\left(1-\frac{\beta h}{T_0}\right)^{Mg/(R\beta)},\qquad
+ n=n_0\left(1-\frac{\beta h}{T_0}\right)^{Mg/(R\beta)-1}.
+\]
+积分中令$z=T_0-\beta h$，有$\dd h=-\dd z/\beta$，下限$h=0$变为$T_0$，上限$h$变为$T_0-\beta h$。所以
+\[
+ \ln\frac p{p_0}=\frac{Mg}{R\beta}
+ \int_{T_0}^{T_0-\beta h}\frac{\dd z}{z}
+ =\frac{Mg}{R\beta}[\ln z]_{T_0}^{T_0-\beta h}.
+\]
+数密度还要除以局部温度$T(h)$，因此幂指数比压强少1。若使$\beta\to0$，利用$\ln(1-\beta h/T_0)\simeq-\beta h/T_0$，所得压强恢复等温指数律；不能直接把变温度塞进等温指数的分母。
+
+\Diagram{fig:lapsea}{微小气团绝热位移时焓变化与重力势能平衡}{
+ \node[draw]at(0,0){$C_{p,m}\dd T$};\node at(2.3,0){$+$};\node[draw]at(4.2,0){$Mg\dd h$};\node at(2.1,-.8){$\dd H_m+Mg\dd h=0$};
+}
+按图\ref{fig:lapsea}，气团绝热位移时满足$\dd s=C_{p,m}\dd T/T-R\dd p/p=0$，所以$\dd p/p=(C_{p,m}/R)\dd T/T$。与静力式$\dd p/p=-Mg\dd h/(RT)$联立，约去$RT$后有
+\[
+ C_{p,m}\dd T=-Mg\dd h,\qquad
+ \frac{\dd T}{\dd h}=-\frac{Mg}{C_{p,m}},\qquad
+ \beta=\frac{Mg}{C_{p,m}}.
+\]
+这也等价于气团的摩尔焓增加与重力势能增加相抵。常热容时梯度为常数；若$C_{p,m}$随温度变化，应积分$\int C_{p,m}(T)\dd T=-Mg\int\dd h$。这种绝热分层或气团位移条件与全局等温平衡不同。
+\end{solution}
+
+\begin{exercise}[旋转容器内的气体分布]
+圆柱容器半径 $R_c$、高 $L$，装有 $N$ 个质量 $m$ 的理想气体粒子，以角速度 $\Omega$ 匀速转动。温度 $T$ 均匀，忽略重力，气体相对容器达到平衡。求径向数密度和轴心、壁面压强之比。
+\Diagram{fig:rotateq}{圆柱横截面中的半径与旋转方向}{
+ \draw[curve](0,0)circle(1.8);\fill(0,0)circle(1.2pt);\draw[axis](0,0)--(1.5,.6)node[midway,above]{$r$};
+ \draw[->](70:2.05)arc(70:160:2.05);\node at(-1.6,2.2){$\Omega$};\node at(2.8,0){$R_c$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:rotateq}在旋转系中有效势为 $E_p=-m\Omega^2r^2/2$，故 $n(r)=n_c\ee^{ar^2}$，$a=m\Omega^2/(2\kb T)$。归一化要用柱坐标体积元 $2\pi rL\dd r$，
+\[
+ N=2\pi Ln_c\int_0^{R_c}r\ee^{ar^2}\dd r
+ =\frac{\pi Ln_c}{a}(\ee^{aR_c^2}-1).
+\]
+径向积分可令 $u=r^2$，使 $2r\dd r=\dd u$，原函数变为 $\ee^{ar^2}/(2a)$。若漏掉柱坐标的 $r$ 因子，就无法得到正确的归一化系数。气体向外受离心有效力，在旋转系的平衡式中由向内的压强合力抵消，故压强必须向外增大。轴心密度随总粒子数约束一起变化，升高角速度会使粒子向外缘集中，并不意味着可在保持原轴心密度的同时仍保持总量不变。
+
+\Diagram{fig:rotatea}{密度向外增大，压强梯度提供向心加速度}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$r$};\draw[axis](0,0)--(0,2.8)node[above]{$n$};\draw[curve]plot[domain=0:4](\x,{.4*exp(.1*\x*\x)});\node at(2.7,2.5){$\dd p/\dd r=nm\Omega^2r$};
+}
+所以 $n_c=Na/[\pi L(\ee^{aR_c^2}-1)]$，而 $p(R_c)/p(0)=\ee^{aR_c^2}$。图\ref{fig:rotatea}的压强向外增大，其合力指向内侧，提供实验室系的向心加速度。$\Omega\to0$ 时用 $\ee^{aR_c^2}-1\simeq aR_c^2$，恢复均匀密度 $N/(\pi R_c^2L)$。
+\end{solution}
+
+\begin{exercise}[谐势阱的分布与热容]
+$N$ 个经典独立粒子处于三维谐势 $E_p=(\kappa_xx^2+\kappa_yy^2+\kappa_zz^2)/2$ 中，温度为 $T$，空间无限，$\kappa_i>0$。求位置概率密度、各坐标均方值、总能量和热容。
+\Diagram{fig:harmonicq}{各方向均有二次型束缚}{
+ \draw[axis](-2.3,0)--(2.3,0)node[right]{$x$};\draw[axis](0,0)--(0,2.8)node[above]{$E_p$};\draw[curve]plot[domain=-1.8:1.8](\x,{.6*\x*\x});\node at(2,2.6){$\kappa_xx^2/2$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:harmonicq}每一方向的势能为正二次型，位置积分分别归一化，
+\[
+ \rho_P(x,y,z)=\frac{\sqrt{\kappa_x\kappa_y\kappa_z}}{(2\pi\kb T)^{3/2}}
+ \exp\!\left[-\frac{\kappa_xx^2+\kappa_yy^2+\kappa_zz^2}{2\kb T}\right].
+\]
+每个坐标方向令$\alpha_i=\kappa_i/(2\kb T)$，已有高斯积分给
+\[
+ Z_i=\int_{-\infty}^{\infty}\ee^{-\alpha_ix_i^2}\dd x_i
+ =\sqrt\pi\alpha_i^{-1/2},
+\]
+三个$Z_i$相乘就是上式的归一化分母。对参数求导，
+\[
+ -Z_i'=\int x_i^2\ee^{-\alpha_ix_i^2}\dd x_i
+ =(\sqrt\pi/2)\alpha_i^{-3/2},
+\]
+因此
+\[
+ \langle x_i^2\rangle=-\frac{Z_i'}{Z_i}=\frac1{2\alpha_i}
+ =\frac{\kb T}{\kappa_i}.
+\]
+每个势能项的平均值为$\kappa_i\langle x_i^2\rangle/2=\kb T/2$，总势能为$3N\kb T/2$。增大刚度缩小了空间宽度，经典平衡时每个二次项的平均能量仍只由温度决定。
+
+\Diagram{fig:harmonica}{三个动能项和三个势能项各贡献半个热能尺度}{
+ \node[draw,align=center]at(0,0){动能3项\\$3\kb T/2$};\node at(2.5,0){$+$};\node[draw,align=center]at(4.8,0){势能3项\\$3\kb T/2$};\node at(2.4,-.9){单粒子总能量 $3\kb T$};
+}
+图\ref{fig:harmonica}再加三个动能二次项，得到总能量 $U_{\rm tot}=3N\kb T$，热容 $3N\kb$。若只束缚 $d$ 个位置方向，其他方向由固定硬壁限制，则势能贡献为 $d\kb T/2$，总热容 $(3+d)N\kb/2$。量子低温下经典等分不再适用。
+\end{solution}
+
+\begin{exercise}[有限气柱高度的涨落]
+单粒子在高 $H$ 的等温重力气柱中，令 $a_g=mg/(\kb T)$、$x=a_gH$。求平均高度与高度方差，证明 $\dd\langle mgh\rangle/\dd T=(mg)^2\operatorname{Var}(h)/(\kb T^2)$，并联系气柱的额外热容。
+\Diagram{fig:heightvarq}{归一化的截断指数高度分布}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$h$};\draw[axis](0,0)--(0,3)node[above]{$w(h)$};\draw[curve]plot[domain=0:4](\x,{2.5*exp(-.5*\x)});\draw[guide](4,0)--(4,2.6);\node[below]at(4,0){$H$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:heightvarq}的归一化积分 $Z_h=\int_0^H\ee^{-a_gh}\dd h=(1-\ee^{-a_gH})/a_g$。对参数求导，$\langle h\rangle=-\partial\ln Z_h/\partial a_g$，再求一次导数得到方差：
+\[
+ \langle h\rangle=\frac1{a_g}-\frac H{\ee^x-1},\quad
+ \operatorname{Var}(h)=\frac1{a_g^2}-\frac{H^2\ee^x}{(\ee^x-1)^2}.
+\]
+对显式的$\ln Z_h=\ln(1-\ee^{-a_gH})-\ln a_g$求导，得$\partial_{a_g}\ln Z_h=H/(\ee^{a_gH}-1)-1/a_g$。再求导时，$\partial_{a_g}[H/(\ee^{a_gH}-1)]=-H^2\ee^{a_gH}/(\ee^{a_gH}-1)^2$，$\partial_{a_g}(-1/a_g)=1/a_g^2$，因此$\partial_{a_g}^2\ln Z_h$等于上式方差。其概率意义已由位置配分积分的商法则证明：$-Z_h''/Z_h+(Z_h'/Z_h)^2=-\operatorname{Var}(h)$。这里高度积分的边界必须保持固定。
+
+\Diagram{fig:heightvara}{参数导数把平均位置与位置涨落相联系}{
+ \node[draw]at(0,0){$-\partial_{a_g}\ln Z_h$};\draw[axis](1.6,0)--(2.8,0);\node[draw]at(4.6,0){$\partial_{a_g}^2\ln Z_h$};\node at(2.3,-.9){平均高度的响应由方差决定};
+}
+由图\ref{fig:heightvara}，$\partial\langle h\rangle/\partial a_g=-\operatorname{Var}(h)$，且 $\dd a_g/\dd T=-mg/(\kb T^2)$，链式相乘即得题给关系。乘 $N$ 后，额外热容为 $N(mg)^2\operatorname{Var}(h)/(\kb T^2)\ge0$，与式\eqref{eq:columncapacity}一致。热容非负在此也由概率方差直接保证。
+\end{solution}
+
+\begin{exercise}[有限气柱的绝热外场变化（选做）]
+单原子气体位于高 $H$ 的刚性气柱中，粒子数固定，初温 $T$。外场加速度 $g$ 缓慢改变，过程可逆绝热。用单粒子高度分布的配分积分推导 $T$ 对 $g$ 的局部变化率，并讨论无限高气柱极限。
+\Diagram{fig:changegq}{外场改变会做功，即使容器不变形}{
+ \draw(0,0)rectangle(2,3);\node at(1,1.5){$N,H$};\draw[axis](3,2.5)--(3,.7)node[midway,right]{$g\to g+\dd g$};\node at(1,-.5){$Q=0$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:changegq}中参数$g$改变，外界对粒子做广义功$Nm\langle h\rangle\dd g$，不能再写总能量不变。单粒子配分积分中动量项$\propto T^{3/2}$，位置项为$Z_h$。由式\eqref{eq:canonicalentropy}，再用$\langle E\rangle/T=3\kb/2+mg\langle h\rangle/T$，忽略与温度和$g$无关的常数，单粒子熵为
+\[
+ s=\kb\left[\frac32\ln T+\ln Z_h+\frac32+a_g\langle h\rangle\right].
+\]
+取 $T$ 不变求 $g$ 导数，利用 $\partial_{a_g}\ln Z_h=-\langle h\rangle$ 与 $\partial_{a_g}\langle h\rangle=-\operatorname{Var}(h)$，得到
+\[
+ \left(\frac{\partial S}{\partial g}\right)_T
+ =-\frac{Nm^2g}{\kb T^2}\operatorname{Var}(h).
+\]
+具体地，固定$T$时$a_{g,g}=m/(\kb T)$，对位置熵两项求导有$\partial_g[\ln Z_h+a_g\langle h\rangle]=[-\langle h\rangle+\langle h\rangle-a_g\operatorname{Var}(h)]m/(\kb T)$。前两项抵消，乘$N\kb$即得上述结果。等熵微分还使用$S_T|_g=C/T$，这里$C$包含外场势能响应；只用平动热容会漏掉位置分布的储能变化。
+
+\Diagram{fig:changega}{等熵约束联系温度响应与外场响应}{
+ \node[draw]at(0,0){$(C/T)\dd T$};\node at(2.4,0){$+$};\node[draw]at(4.7,0){$S_g|_T\dd g$};\node at(2.4,-.8){总和为零};
+}
+按图\ref{fig:changega}，
+\[
+ \left(\frac{\dd T}{\dd g}\right)_S
+ =\frac{Nm^2g\operatorname{Var}(h)}{\kb TC}.
+\]
+无限高气柱中方差$1/a_g^2$、$C=5N\kb/2$，故$\dd T/T=(2/5)\dd g/g$。从初值$(g_i,T_i)$积分，$[\ln\vartheta]_{T_i}^{T}=(2/5)[\ln g']_{g_i}^{g}$，即$T=T_i(g/g_i)^{2/5}$。外场增强使气柱压低，同时因广义做功而升温。
+\end{solution}
+
+\begin{exercise}[球面液滴与蒸气压的曲率修正（选做）]
+不可压缩液体摩尔体积为 $v_l$，温度 $T$、表面张力 $\sigma$ 恒定。平面液面饱和蒸气压为 $p_\infty$。半径 $r$ 的液滴与理想蒸气平衡，忽略蒸气压改变量对液体压强的小贡献。推导液滴周围的平衡蒸气压。
+\Diagram{fig:kelvinq}{球形界面的内外压强差}{
+ \draw[curve](0,0)circle(1.5);\draw[axis](0,0)--(1.5,0)node[midway,above]{$r$};\node at(0,-.7){$p_l$};\node at(2.7,1){$p_v$};\node at(2.8,0){$p_l-p_v=2\sigma/r$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:kelvinq}的球面机械平衡给 $p_l-p_v=2\sigma/r$。相对于平面共存，液体化学势增量近似 $\Delta\mu_l=v_l\Delta p_l\simeq2\sigma v_l/r$。理想蒸气定温化学势变化为 $\Delta\mu_v=RT\ln(p_v/p_\infty)$。
+液体侧定温积分为$\Delta\mu_l=\int_{p_\infty}^{p_l}v_l\dd p'=v_l(p_l-p_\infty)$，再忽略$p_v-p_\infty$，保留曲率压差。蒸气侧为$\Delta\mu_v=\int_{p_\infty}^{p_v}RT\dd p'/p'=RT[\ln p']_{p_\infty}^{p_v}$。两相都从平面共存参考态出发，化学势初值相等，故末态相平衡要求两增量相等。指数修正仅在不可压缩液体、理想蒸气及上述压差近似同时成立时适用。
+
+\Diagram{fig:kelvina}{相平衡要求两相化学势增量相等}{
+ \node[draw]at(0,0){$2\sigma v_l/r$};\node at(2.4,0){$=$};\node[draw]at(5,0){$RT\ln(p_v/p_\infty)$};
+}
+按图\ref{fig:kelvina}令两者相等，得
+\[
+ p_v=p_\infty\exp\!\left(\frac{2\sigma v_l}{rRT}\right).
+\]
+表面曲率提高了液体化学势，因而小液滴需要更高的蒸气压才能维持相平衡。液滴只有一个液气界面，压差为 $2\sigma/r$；肥皂泡的两层界面才给出 $4\sigma/r$。半径接近分子尺度时，连续介质表面张力模型失效。
+\end{solution}
+
+\begin{exercise}[共存线上潜热的局部变化]
+不忽略两相摩尔体积，已知各相 $C_{p,m}$ 与 $v_T|_p$。从摩尔焓差 $L_m=h_g-h_l$ 出发，求沿共存线的 $\dd L_m/\dd T$；说明它何时化为前面的热容差近似。
+\Diagram{fig:latentderivq}{沿共存曲线同时改变温度和压强}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$T$};\draw[axis](0,0)--(0,3)node[above]{$p$};\draw[curve](1,.4)to[out=30,in=240](3.7,2.5);\draw[axis](2,1)--(2.6,1.6);\node[right]at(3,1){$\dd p=p_s'(T)\dd T$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:latentderivq}的方向不是定压方向。对每一相，摩尔焓微分为 $\dd h=C_{p,m}\dd T+[v-Tv_T|_p]\dd p$，两相相减后除以 $\dd T$：
+\[
+ \frac{\dd L_m}{\dd T}=\Delta C_{p,m}
+ +\left[\Delta v-T\Delta(v_T|_p)\right]\frac{\dd p_s}{\dd T}.
+\]
+沿共存线求导时，每个相的 $\dd p$ 都由同一个 $p_s'(T)\dd T$ 给出，所以压强项在两相相减后留下的是 $[v_g-v_l-T((v_g)_T-(v_l)_T)]p_s'$。其中的温度偏导按定压取，而整个 $L_m$ 的导数按沿共存线取，这两种导数有不同的约束。把它们都写成未注明条件的“对温度求导”，容易把第二项误删。最后再用 Clapeyron 式替换 $p_s'$，即可把修正完全用共存两相的性质表示。
+
+\Diagram{fig:latentderiva}{潜热变化包含定压项与沿共存线的压强修正}{
+ \node[draw]at(0,0){$\Delta C_{p,m}$};\node at(2.2,0){$+$};\node[draw]at(4.8,0){$[\Delta v-T\Delta v_T]p_s'$};
+}
+图\ref{fig:latentderiva}中第二项是沿共存线变压带来的修正。气相理想时 $v_g-T(v_g)_T|_p=0$，再忽略液体体积及热膨胀项，便得到 $\dd L_m/\dd T\simeq C_{p,m,g}-C_{p,m,l}=c_{v,g}+R-c_l$。前面的线性汽化热公式正是在这些近似下成立。
+\end{solution}

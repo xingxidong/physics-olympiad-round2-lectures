@@ -1,0 +1,1642 @@
+\chapter{质心运动问题}
+
+
+合外力决定质心的运动，约束关系和能量方程则用来求系统内部的相对运动。总动能包含质心平动动能与相对动能；系统不断拾取或抛出物质时，还须计入进出物质携带的动量。下面从固定物质系统出发，逐步讨论这些情形。
+
+除相对论部分外，均采用牛顿力学，以地面为惯性参考系。绳链弯折、物质黏附等过程所用的理想模型会在题目中说明；若模型允许动能耗散，就不再额外要求机械能守恒。图中力、速度与动量箭头主要表示方向，长度不统一表示大小。
+
+
+
+\section{固定物质系统的质心与整体反冲}
+
+内部相互作用可以改变相对运动，而封闭系统的质心运动由合外力决定。系统包含哪些物质须预先固定，质心平动与相对运动的能量再分别计算。
+
+
+
+\subsection{固定物质系统的质心与能量分解}
+\subsubsection{先确定系统由哪些物质组成}
+设系统含有质量不变的 $N$ 个质点，总质量为 $M$。质心位置、速度与总动量为
+\begin{equation}
+\vct R=\frac1M\sum_i m_i\vct r_i,\qquad
+\vct V=\dot{\vct R},\qquad \vct P=M\vct V.
+\label{sup3:eq:d3-cm}
+\end{equation}
+对连续体，将求和改为积分：$M=\int\dd m$，$\vct R=M^{-1}\int\vct r\,\dd m$。积分必须覆盖同一批物质。静止的绳段、已抛出的燃气若属于所选系统，也必须计入。
+
+在牛顿第三定律适用的经典模型中，内力成对抵消，故
+\begin{equation}
+M\ddot{\vct R}=\vct F_{\rm ext}.
+\label{sup3:eq:d3-cm-eom}
+\end{equation}
+各质点的速度可以不同。合外力为零时，质心保持匀速直线运动，系统内部仍可振动、转动或发生碰撞。若合外力只在某一方向上为零，动量也只在该方向上守恒。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.92]
+\coordinate(O)at(0,0);\coordinate(C)at(3,1.3);\coordinate(P)at(5,2.5);
+\draw[axis](O)--(6,0)node[right]{$x$};\draw[axis](O)--(0,3.2)node[above]{$y$};
+\draw[axis](O)--(C)node[midway,below]{$\vct R$};
+\draw[axis](C)--(P)node[midway,above left]{$\vct\rho_i$};
+\draw[guide](O)--(P);\node[left]at(O){$O$};
+\fill(C)circle(2pt)node[below right]{$C$};\fill(P)circle(2pt)node[right]{$m_i$};
+\foreach \p in {(1.8,1.9),(2.2,.7),(4.1,.5),(3.5,2.6)}\fill\p circle(1.2pt);
+\draw[axis](3,1.3)--(4.1,1.3)node[below]{$\vct V$};
+\end{tikzpicture}
+\caption{将质点位置分为质心位置与相对位置。相对位矢的质量加权和为零。}\label{sup3:fig:d3-cm}
+\end{figure}
+
+\subsubsection{总动能中还有相对运动}
+按图\ref{sup3:fig:d3-cm}写 $\vct r_i=\vct R+\vct\rho_i$，则
+$\sum m_i\vct\rho_i=0$，求导后有 $\sum m_i\dot{\vct\rho}_i=0$。展开总动能，交叉项因而消失：
+\begin{align}
+K&=\frac12\sum_i m_i(\vct V+\dot{\vct\rho}_i)^2\notag\\
+ &=\underbrace{\frac12MV^2}_{K_C}
+ +\underbrace{\frac12\sum_i m_i\dot{\vct\rho}_i^{\,2}}_{K_{\rm rel}}.
+\label{sup3:eq:d3-konig}
+\end{align}
+对平面运动的刚体，$K_{\rm rel}=I_C\omega^2/2$；对一般质点组，它还可包含振动等内部运动。若只保留位于 C 的等效质点，其动能中便不再包含 $K_{\rm rel}$。
+
+两质点问题尤其适合使用相对坐标。令 $\vct r=\vct r_2-\vct r_1$，约化质量 $\mu=m_1m_2/(m_1+m_2)$，则
+\begin{equation}
+K=\frac12MV^2+\frac12\mu\dot{\vct r}^{\,2}.
+\label{sup3:eq:d3-reduced}
+\end{equation}
+证明只需将 $\dot{\vct\rho}_1=-m_2\dot{\vct r}/M$、
+$\dot{\vct\rho}_2=m_1\dot{\vct r}/M$ 代入式\eqref{sup3:eq:d3-konig}。
+
+\subsubsection{质心动能定理中的位移}
+将式\eqref{sup3:eq:d3-cm-eom}与 $\dd\vct R=\vct V\dd t$ 点乘，左侧为 $M\dot{\vct V}\cdot\vct V\dd t=\dd(MV^2/2)$。沿实际质心轨迹积分，得到
+\begin{equation}
+\Delta K_C=\int\vct F_{\rm ext}\cdot\dd\vct R.
+\label{sup3:eq:d3-pseudowork}
+\end{equation}
+积分使用的是\emph{质心位移}。计算实际外力做功时，应使用各力作用点的位移：
+\begin{equation}
+W_{\rm ext}=\sum_i\int\vct F_i^{\rm ext}\cdot\dd\vct r_i.
+\end{equation}
+两式一般不相等。合外力为恒力时，$\vct F_{\rm ext}\cdot\Delta\vct R$ 仍只等于 $\Delta K_C$；系统是否耗散，还要根据实际功与总能量判断。
+
+将各作用点速度分解后，实际外力功率为
+\[
+\mathcal P_{\rm ext}=\vct F_{\rm ext}\cdot\vct V
+ +\sum_i\vct F_i^{\rm ext}\cdot\dot{\vct\rho}_i.
+\]
+后一项可改变相对运动。内力的功率也未必相消：一对大小相等、方向相反的内力作用于速度不同的两点，其总功率一般不为零。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[curve](0,0)rectangle(4.4,.55);\fill(2.2,.28)circle(1.5pt)node[above=5pt]{$C$};
+\fill(4.4,.28)circle(1.5pt)node[below=3pt]{$A$};
+\draw[axis](4.4,.28)--(5.7,.28)node[right]{$F$};
+\draw[axis](1.3,-.55)--(2.6,-.55)node[midway,below]{$\dd X_C$};
+\draw[axis](3.6,-1.25)--(5.4,-1.25)node[midway,below]{$\dd x_A$};
+\node[align=left]at(2.5,1.6){质心平动：$F\,\dd X_C=\dd K_C$\\实际输入：$F\,\dd x_A$};
+\end{tikzpicture}
+\caption{可形变物体的恒力作用点 A 与质心 C 可以有不同位移。实际功与质心平动动能使用不同位移计算。}\label{sup3:fig:d3-work}
+\end{figure}
+
+\subsubsection{质心系中的碰撞能量}
+在一维两体碰撞中，质心速度由外冲量决定。若外冲量可忽略，$V$ 不变，碰撞损失只来自相对运动。将碰前速度记为$u_1,u_2$，碰后速度记为$v_1,v_2$。恢复系数$e$使$(v_1-v_2)^2=e^2(u_1-u_2)^2$。在式\eqref{sup3:eq:d3-reduced}中相减，质心动能项抵消，留下
+\[
+K_{\rm before}-K_{\rm after}
+=\frac\mu2\big[(u_1-u_2)^2-(v_1-v_2)^2\big].
+\]
+代入恢复系数关系，得到
+\begin{equation}
+K_{\rm before}-K_{\rm after}
+=\frac12\mu(1-e^2)(u_1-u_2)^2.
+\label{sup3:eq:d3-collision-loss}
+\end{equation}
+完全非弹性碰撞使两物体的相对速度降为零，故在总动量一定时留下的平动动能最小，为 $P^2/(2M)$。若物体碰后还有转动，转动能仍须另计。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[光滑墙角中的正方形]\label{ex:hw3-4}
+
+边长$l$、质量$m$的均匀薄正方形，一对相邻顶点分别接触光滑竖直墙和光滑水平地面，正方形在墙角外侧，构形如图\ref{fig:hw3-4-q}。令连接两接触顶点的边与水平夹角为$\phi$，以$\theta=\phi-\pi/4$描述相对对称构形的倾斜。求瞬时角速度为零时的角加速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,3)--(0,0)--(3.5,0);\coordinate(A)at(0,1.4);\coordinate(B)at(1.9,0);\coordinate(D)at(3.3,1.9);\coordinate(E)at(1.4,3.3);\draw[curve](A)--(B)--(D)--(E)--cycle;\fill(1.65,1.65)circle(2pt)node[right]{$C$};\node[left]at(A){$A$};\node[below]at(B){$B$};\draw[guide](0,0)--(3,3);\draw(1.35,0)arc(180:143.61565:.55)node[midway,above left]{$\phi$};
+\end{tikzpicture}
+\caption{相邻顶点接触墙与地面的正方形}\label{fig:hw3-4-q}
+\end{figure}
+
+\begin{solution}
+先按两点都保持接触计算，再判断反力是否允许这一运动。接触点为$A=(0,l\sin\phi)$、$B=(l\cos\phi,0)$，由正方形几何可得
+\[
+ x_C=y_C=\frac l2(\sin\phi+\cos\phi)=\frac l{\sqrt2}\cos\theta.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,3)--(0,0)--(3.5,0);\coordinate(A)at(0,1.4);\coordinate(B)at(1.9,0);\coordinate(D)at(3.3,1.9);\coordinate(E)at(1.4,3.3);\draw[curve](A)--(B)--(D)--(E)--cycle;\fill(1.65,1.65)circle(2pt)node[right]{$C$};\node[left]at(A){$A$};\node[below]at(B){$B$};\draw[axis](0,1.4)--(.7,1.4)node[above]{$a_{Ax}$};\node[left]at(0,2){$N_A=0$};\draw[axis](1.9,0)--(1.9,.8)node[right,yshift=-3pt]{$N_B$};\draw[axis](1.65,1.65)--(1.65,.8)node[left]{$mg$};\draw(1.35,0)arc(180:143.61565:.55)node[midway,above left]{$\phi$};\draw[guide](1.65,0)--(1.65,-.6);\draw[<->](1.65,-.45)--(1.9,-.45)node[midway,below]{$|d|$};
+\end{tikzpicture}
+\caption{离墙瞬间只保留地面支持力，墙上接触点向右加速}\label{fig:hw3-4-s}
+\end{figure}
+
+双接触约束下，$I_C=ml^2/6$，动能与势能为
+\[
+ T=\frac12ml^2\left(\frac16+\sin^2\theta\right)\dot\theta^2,
+ \qquad V=\frac{mgl}{\sqrt2}\cos\theta.
+\]
+令 $A(\theta)=ml^2(1/6+\sin^2\theta)$，则
+\[
+\frac{\dd}{\dd t}\frac{\partial T}{\partial\dot\theta}
+=A\ddot\theta+2ml^2\sin\theta\cos\theta\,\dot\theta^2,
+\quad
+\frac{\partial T}{\partial\theta}=ml^2\sin\theta\cos\theta\,\dot\theta^2,
+\]
+且 $V'=-mgl\sin\theta/\sqrt2$。代入拉格朗日方程，在 $\dot\theta=0$ 时得到形式解
+\[
+ \beta_{\text{双}}:=\ddot\theta=
+ \frac{g\sin\theta}{\sqrt2l(1/6+\sin^2\theta)}.
+\]
+墙面对薄片的反力应向右；上述约束解要求
+\[
+ N_A=m\ddot x_C
+ =-\frac{ml}{\sqrt2}\sin\theta\,\beta_{\text{双}}
+ =-\frac{3mg\sin^2\theta}{1+6\sin^2\theta}<0
+ \qquad(\theta\ne0).
+\]
+非对称构形从静止释放时，墙面接触立即解除。因此，双接触形式解不适用于这一瞬间的实际运动。
+
+离墙后，薄片只受重力和地面支持力，见图\ref{fig:hw3-4-s}。令$d=x_C-x_B=(l/\sqrt2)\sin\theta$为质心相对地面接触点的水平距离，取$\beta=\ddot\theta$；刚体的逆时针角加速度为$-\beta$。由于地面光滑，$\ddot x_C=0$。在当前零角速度瞬间，保持$B$接地给出$\ddot y_C=-d\beta$。竖直平动与绕质心转动方程为
+\[
+ N_B-mg=-md\beta,\qquad I_C\beta=dN_B.
+\]
+联立两式，得到实际角加速度
+\[
+ \boxed{\beta=\frac{mgd}{I_C+md^2}
+ =\frac{g\sin\theta}{\sqrt2l(1/6+\tfrac12\sin^2\theta)}}.
+\]
+此时$N_B=mg/(1+3\sin^2\theta)>0$，地面接触仍然保持。刚体运动关系给出$a_{Ax}=d\beta\ge0$，与$A$向右离墙的运动相符。对称位置$\theta=0$有$\beta=0$，正方形可以静止；它对倾斜扰动不稳定。
+
+
+\end{solution}
+
+
+
+\begin{example}[恒力拉动弹簧两体系统]\label{sup3:problem-example-1}\label{sup3:ex:d3-e1}
+光滑水平面上，质量分别为 $m_1,m_2$ 的两小块由劲度系数为 $k$ 的轻弹簧连接，初始静止且弹簧处于原长。自 $t=0$ 起，对右侧小块施加向右恒力 $F$。以初始质心为原点，求两小块的运动，并比较恒力实际做功与质心平动动能的增量。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](-.5,0)--(8,0);\draw[curve](0,0)rectangle(1.3,.7);\node at(.65,.35){$m_1$};
+\draw[spring](1.3,.35)--(4.8,.35);\node[above]at(3, .6){$k,\ \ell_0$};
+\draw[curve](4.8,0)rectangle(6.1,.7);\node at(5.45,.35){$m_2$};
+\draw[axis](6.1,.35)--(7.5,.35)node[above]{$F$};
+\draw[axis](0,-.7)--(7.5,-.7)node[right]{$x$};\node[below]at(3,-.7){$C_0$};
+\end{tikzpicture}
+\caption{恒力只作用于右块。弹簧伸长与系统整体平移是两个独立的运动量。}\label{sup3:fig:d3-e1-q}
+\end{figure}
+\begin{solution}
+令 $M=m_1+m_2$，$\mu=m_1m_2/M$。用 $X$ 表示质心坐标，$q=x_2-x_1-\ell_0$ 表示弹簧伸长。这里 $x_1,x_2$ 是两块的质点坐标。初态坐标须满足
+$m_1x_{10}+m_2x_{20}=0$ 与 $x_{20}-x_{10}=\ell_0$。故
+\[
+x_1=X-\frac{m_2}{M}(\ell_0+q),\qquad
+x_2=X+\frac{m_1}{M}(\ell_0+q).
+\]
+图\ref{sup3:fig:d3-e1-s}给出两块相对 C 的速度；对应的相对动量大小相等、方向相反。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.4,0)--(7.8,0)node[right]{$x$};
+\fill(1,0)circle(2pt)node[below]{$m_1$};\fill(5.8,0)circle(2pt)node[below]{$m_2$};
+\fill(3,0)circle(1.6pt)node[below]{$C$};
+\draw[axis](3,.4)--(4.2,.4)node[right]{$\dot X$};
+\draw[axis](1,.7)--(-.1,.7)node[above right]{$-\dfrac{m_2}{M}\dot q$};
+\draw[axis](5.8,.7)--(7,.7)node[above left]{$\dfrac{m_1}{M}\dot q$};
+\draw[<->](1,-.65)--(5.8,-.65)node[midway,below]{$\ell_0+q$};
+\end{tikzpicture}
+\caption{质心平移与相对运动的分解。图中相对速度箭头对应 $\dot q>0$ 的时刻。}\label{sup3:fig:d3-e1-s}
+\end{figure}
+系统合外力为 $F$，所以 $M\ddot X=F$。由零初始条件先积分速度，再积分位置：
+\[
+\dot X=\frac FM\int_0^t\dd u=\frac{Ft}M,
+\qquad X=\frac FM\int_0^tu\dd u=\frac FM[u^2/2]_0^t.
+\]
+于是
+\[
+X=\frac{Ft^2}{2M},\qquad \dot X=\frac{Ft}{M}.
+\]
+两块各自的方程为 $m_1\ddot x_1=kq$、$m_2\ddot x_2=F-kq$。后一式除以 $m_2$，减去前一式除以 $m_1$，得到
+\[
+\ddot q+\omega^2q=\frac F{m_2},\qquad
+\omega^2=k\left(\frac1{m_1}+\frac1{m_2}\right)=\frac k\mu.
+\]
+图\ref{sup3:fig:d3-e1-q}中，弹簧对两块的力等大反向，但两块速度不同，两力的总功率为 $kq\dot x_1-kq\dot x_2=-kq\dot q$，恰为弹性势能变化率的负值。采用质心和相对坐标后，可分别求解整体平移与弹簧伸缩。
+
+定义 $q_*=F/(m_2\omega^2)=m_1F/(Mk)$，令 $Q=q-q_*$，则 $\ddot Q+\omega^2Q=0$。试取 $Q=\ee^{rt}$，得特征方程 $r^2+\omega^2=0$，根为 $r=\pm\mathrm i\omega$，实通解为 $Q=A\cos\omega t+B\sin\omega t$。初始条件给出 $A=-q_*$、$\omega B=0$，故
+\[
+q=q_*(1-\cos\omega t),\qquad \dot q=\omega q_*\sin\omega t.
+\]
+两块的速度也可明确写成
+\[
+\dot x_1=\frac{Ft}{M}-\frac{m_2}{M}\omega q_*\sin\omega t,
+\quad
+\dot x_2=\frac{Ft}{M}+\frac{m_1}{M}\omega q_*\sin\omega t.
+\]
+图\ref{sup3:fig:d3-e1-s}中的相对速度方向每半个周期改变一次；质心速度始终向右增大。
+
+将它与 $X(t)$ 代回坐标式，即得两块的完整运动。
+
+恒力作用点是右块，故实际功为
+\[
+W=F(x_2-x_{20})=FX+\frac{m_1F}{M}q.
+\]
+质心动能却只有
+\[
+K_C=\frac12M\dot X^2=\frac{F^2t^2}{2M}=FX.
+\]
+余下的功进入相对动能与弹簧势能。将相对运动方程乘以 $\mu\dot q$，
+\[
+\frac{\dd}{\dd t}\left(\frac12\mu\dot q^2+\frac12kq^2\right)
+=\mu\dot q\ddot q+kq\dot q=\frac{m_1F}{M}\dot q.
+\]
+从初态积分，右侧为 $\frac{m_1F}{M}\int_0^{q(t)}\dd\xi=\frac{m_1F}{M}[\xi]_0^{q(t)}$，有
+\[
+\frac12\mu\dot q^2+\frac12kq^2=\frac{m_1F}{M}q.
+\]
+也可代入 $q(t)$ 直接验证：左边为 $kq_*^2(1-\cos\omega t)=kq_*q$。实际功中，$FX$ 增加质心平动动能，其余部分增加相对动能与弹性势能；本题没有耗散。
+\end{solution}
+
+
+
+\begin{example}[可动斜面的反冲]\label{deep3:problem-example-5}\label{deep3:ex:d3-e5}
+质量为 $M$、倾角为 $\alpha\in(0,\pi/2)$ 的斜面放在光滑水平面上。质量为 $m$ 的小块从斜面上静止释放，接触面光滑。斜面向右下方倾斜，初始整个系统静止。设小块相对斜面沿坡向下走过 $s$，下降高度 $h=s\sin\alpha$。求斜面的位移和速度、小块的相对速度与加速度，并求支持力。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.6,0)--(7.5,0);\draw[curve](0,.05)--(0,3.2)--(5.4,.05)--cycle;
+\node at(2,1){$M$};\begin{scope}[shift={(1.7,2.2)},rotate=-30.26]\draw[curve,fill=white](-.35,0)rectangle(.35,.5);\node at(0,.25){$m$};\end{scope}
+\draw[guide](1.7,2.2)--(4.1,2.2);\draw[<->](4.2,2.2)--(4.2,.8)node[midway,right]{$h$};
+\draw(4.6,.05)arc(180:149.74:.8);\node at(4.2,.42){$\alpha$};
+\draw[axis](5.8,-.6)--(7,-.6)node[right]{$x$};
+\end{tikzpicture}
+\caption{小块向右下方滑动，斜面向左反冲。高度差由相对位移 $s$ 决定。}\label{deep3:fig:d3-e5-q}
+\end{figure}
+\begin{solution}
+取斜面位移 $X$ 向右为正，相对速度 $u=\dot s$ 向坡下为正。小块地面速度的分量为
+\[
+v_x=\dot X+u\cos\alpha,\qquad v_y=-u\sin\alpha.
+\]
+图\ref{deep3:fig:d3-e5-s}将水平反冲与相对滑动分别画出。系统在水平方向不受外力，所以
+\[
+(M+m)\dot X+mu\cos\alpha=0,
+\qquad \dot X=-\frac{m\cos\alpha}{M+m}u.
+\]
+由 $X(0)=s(0)=0$，同式积分给出
+\[
+X=-\frac{m\cos\alpha}{M+m}\int_0^{s(t)}\dd\xi
+=-\frac{m\cos\alpha}{M+m}[\xi]_0^{s(t)}
+=-\frac{ms\cos\alpha}{M+m}.
+\]
+它同时满足质心水平坐标不变的要求。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\coordinate(P)at(1.4,2);\draw[curve](-.3,3)--(4.3,.3);
+\fill(P)circle(2pt)node[above left]{$P$};
+\draw[axis](P)--(2.7,1.24)node[right]{$u$};
+\draw[axis](1.4,2.6)--(.1,2.6)node[midway,above]{$\dot X<0$};
+\draw[axis](P)--(2.1,3.2)node[right]{$N$};
+\draw[axis](P)--(1.4,.65)node[left]{$mg$};
+\begin{scope}[shift={(5.1,0)}]
+\draw[axis](0,.5)--(3.2,.5);\fill(1.3,.5)circle(1.6pt)node[above]{$C$};
+\draw[guide](1.3,0)--(1.3,2.8);\node[align=center]at(1.4,2){$\Delta X_C=0$\\$M\dot X+m v_x=0$};
+\end{scope}
+\end{tikzpicture}
+\caption{斜面反冲使小块的地面水平速度小于相对速度的水平分量；小块受力只有重力与法向支持力。}\label{deep3:fig:d3-e5-s}
+\end{figure}
+固定地面不做功，两接触面的内力总功率为零，系统机械能守恒。代入速度分量，有
+\begin{align*}
+K&=\frac12(M+m)\dot X^2+mu\dot X\cos\alpha+\frac12mu^2\\
+ &=\frac12m\frac{M+m\sin^2\alpha}{M+m}u^2=mgh.
+\end{align*}
+令 $D=M+m\sin^2\alpha$，得到
+\[
+u^2=\frac{2gh(M+m)}D,\qquad
+\dot X=-\frac{m\cos\alpha}{M+m}\sqrt{\frac{2gh(M+m)}D}.
+\]
+因为 $h=s\sin\alpha$，对 $u^2(s)$ 求导可得恒定相对加速度
+\[
+\begin{aligned}
+a_s&=u\frac{\dd u}{\dd s}=\frac12\frac{\dd u^2}{\dd s}
+=\frac12\frac{\dd}{\dd s}\frac{2gs\sin\alpha(M+m)}D\\
+&=\frac{g(M+m)\sin\alpha}D,\qquad
+\ddot X=-\frac{mg\sin\alpha\cos\alpha}D.
+\end{aligned}
+\]
+小块的竖直加速度为 $-a_s\sin\alpha$。竖直受力方程
+$N\cos\alpha-mg=-ma_s\sin\alpha$ 给出
+\[
+N=\frac{mgM\cos\alpha}D>0.
+\]
+也可由斜面的水平受力 $M\ddot X=-N\sin\alpha$ 验证符号。$M\to\infty$ 时恢复固定斜面的 $u^2=2gh$、$N=mg\cos\alpha$；$M$ 有限时，重力释放的能量同时进入斜面的反冲运动。
+相对加速度也可由力方程直接求出，从而避免在释放瞬间约去零速度。图\ref{deep3:fig:d3-e5-s}中沿坡向下投影，小块满足
+\[
+m(\ddot X\cos\alpha+\dot u)=mg\sin\alpha.
+\]
+把水平动量关系求导所得 $\ddot X=-m\dot u\cos\alpha/(M+m)$ 代入，得
+\[
+m\frac{M+m\sin^2\alpha}{M+m}\dot u=mg\sin\alpha.
+\]
+这与能量法一致，并在 $u=0$ 的释放时刻仍成立。支持力始终为正，因此只要小块尚未滑出斜面，所假定的接触运动就能维持。
+
+\end{solution}
+
+
+
+\section{质量输运、动量与能量收支}
+
+提绳、拾取颗粒和火箭喷气都涉及物质穿过所选边界。进出速度必须注明参考系；动量输运与能量收支分别列写，黏附损失不能由动量守恒代替。
+
+
+
+\subsection{拾取物质时怎样选择系统}
+\subsubsection{固定物质系统与变质量物体}
+若研究对象是“当前正在运动的部分”，其成员随时间改变，不能直接把固定系统公式写成 $F=M\dot v$。设该物体质量为 $M$、速度为 $v$，吸收物质的地面速度为 $w$，吸收速率 $\dot M>0$。在 $\dd t$ 内，将物体与将被吸收的微元 $\dd M$ 共同作为固定物质系统：
+\[
+Mv+w\dd M+F\dd t=(M+\dd M)(v+\dd v).
+\]
+略去二阶小量后得到
+\begin{equation}
+M\dot v=F+(w-v)\dot M,
+\qquad \frac{\dd(Mv)}{\dd t}=F+w\dot M.
+\label{sup3:eq:d3-accretion}
+\end{equation}
+所有速度都相对同一惯性系。若流入物质原来静止，$w=0$，就有 $\dd(Mv)/\dd t=F$；但加速度仍不等于 $F/M$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[curve](0,0)rectangle(2,1);\node at(1,.5){$M,\ v$};
+\draw[curve](3.2,.2)rectangle(3.7,.8);\node[above]at(3.45,.8){$\dd M$};
+\draw[axis](3.7,.5)--(4.6,.5)node[above]{$w$};
+\draw[guide](-.2,-.2)rectangle(4.8,1.4);
+\node at(2.3,-.65){吸收前：同一批物质};
+\begin{scope}[shift={(6,0)}]
+\draw[curve](0,0)rectangle(3,1);\node at(1.5,.5){$M+\dd M$};
+\draw[axis](3,.5)--(4,.5)node[right]{$v+\dd v$};
+\node at(1.5,-.65){吸收后};
+\end{scope}
+\end{tikzpicture}
+\caption{用同一批物质比较吸收前后的动量，流入动量为 $w\dd M$。}\label{sup3:fig:d3-flux}
+\end{figure}
+
+\subsubsection{黏附时损失多少机械能}
+微元黏附前后若没有可恢复的形变能，损失的机械能为
+\begin{equation}
+\dd E_{\rm diss}=\frac12(v-w)^2\dd M.
+\label{sup3:eq:d3-diss}
+\end{equation}
+可在物体的瞬时共动惯性系中看出：微元原有相对动能为 $(v-w)^2\dd M/2$，黏附后这一相对运动消失到一阶精度。该损失由相对速度决定，伽利略变换不改变它。
+
+如果物质经过弯折区后改变方向，进入移动部分的速率可能不等于牵引端速度。绳长约束先给出弯折点速度，据此才能确定质量流率。下面的折绳和堆绳虽然都在启动静止绳元，流率却不同。
+
+
+\subsection{开放系统的能量收支}
+\label{sec:complete3}
+取质量为 $m$、速度为 $\vct v$ 的本体，外界物质以质量速率 $q$ 被完全黏入，流入前的地面速度为 $\vct u$。短时间内选取本体和即将流入的同一批物质，由动量平衡得到
+\[
+ m\dot{\vct v}=\vct F+q(\vct u-\vct v),\qquad \dot m=q.
+\]
+与 $\vct v$ 点乘，并计入 $m$ 的变化：
+\[
+\begin{aligned}
+\frac\dd{\dd t}\left(\frac12mv^2\right)
+&=m\dot{\vct v}\cdot\vct v+\frac12\dot m\,v^2\\
+&=\vct F\cdot\vct v+q\vct u\cdot\vct v-\frac12qv^2.
+\end{aligned}
+\]
+用 $|\vct u-\vct v|^2=u^2+v^2-2\vct u\cdot\vct v$ 配方，有
+\[
+ \frac\dd{\dd t}\left(\frac12mv^2\right)
+ =\vct F\cdot\vct v+\frac12qu^2
+   -\frac12q|\vct u-\vct v|^2.
+\]
+右边三项分别计入外力对本体做功、流入物质携带的动能，以及黏入过程的非弹性损失。静止物质被拾取时，最后一项为$qv^2/2$。动量与能量的通量须分别列出，二者由不同的守恒关系确定。例\ref{ex:hw3-1}与例\ref{ex:hw3-2}中的弯折区或拾取区，正是这种局部损失发生的位置。
+
+\subsubsection{运动点取矩的两个定义}
+对总质量恒定的物质系统，取运动点$Q$，定义采用绝对速度的角动量
+\[
+ \vct H_Q=\sum_i(\vct r_i-\vct r_Q)\times m_i\vct v_i.
+\]
+求导时，位置矢量的导数为 $\vct v_i-\vct v_Q$，所以
+\[
+\begin{aligned}
+\dot{\vct H}_Q
+&=\sum_i(\vct v_i-\vct v_Q)\times m_i\vct v_i
++\sum_i(\vct r_i-\vct r_Q)\times m_i\vct a_i\\
+&=-\vct v_Q\times\vct P+\vct M_Q,
+\end{aligned}
+\]
+其中 $\vct v_i\times\vct v_i=0$，内力矩在本题采用的经典刚体模型中成对抵消。因而
+\[
+ \dot{\vct H}_Q=\vct M_Q-\vct v_Q\times\vct P.
+\]
+若另定义 $\widetilde{\vct H}_Q=\sum_i(\vct r_i-\vct r_Q)\times m_i(\vct v_i-\vct v_Q)$，求导中第一组叉乘为零，剩下
+\[
+\sum_i(\vct r_i-\vct r_Q)\times m_i(\vct a_i-\vct a_Q)
+=\vct M_Q-\left[\sum_i m_i(\vct r_i-\vct r_Q)\right]\times\vct a_Q.
+\]
+方括号等于 $M(\vct R_C-\vct r_Q)$，则
+\[
+ \dot{\widetilde{\vct H}}_Q
+ =\vct M_Q-M(\vct R_C-\vct r_Q)\times\vct a_Q.
+\]
+质心与固定点可分别使相应附加项消失。材料点某一瞬间静止，只说明$\vct v_Q=0$，不能推出$\vct a_Q=0$。例\ref{ex:hw3-4}应先判定哪些接触能够保持，再选取角动量的参考点。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[水平折绳的匀速与恒力牵引]\label{ex:hw3-1}
+
+一根柔软、不可伸长的均匀绳，长$l$、质量$m$，初始拉直放在光滑水平面上。将左端向右牵引，绳在运动端与未动绳段之间折回。不计两段非弯折处的相互作用。(1)绳端以$v_0$匀速运动，求牵引力与端点位移$x$的关系；(2)牵引力为恒力$F_0$，求绳端运动。只讨论拾取完成前。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide](0,0)--(5,0);\draw[curve](2,.24)--(1,.24)arc(90:270:.12)--(5,0);\draw[axis](2,.24)--(3,.24)node[above]{$F,v$};\draw[<->](0,.85)--(2,.85)node[midway,above]{$x$};\node[below]at(0,0){初始端点};\node at(3.5,-.7){$\lambda=m/l$};
+\end{tikzpicture}
+\caption{水平柔绳的运动端与弯折区}\label{fig:hw3-1-q}
+\end{figure}
+
+\begin{solution}
+绳端前进$x$时，弯折处前进$x/2$，被拉动的绳长为$x/2$，整段速度为$v=\dot x$。图\ref{fig:hw3-1-s}中其质量为$\lambda x/2$，而不是$\lambda x$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide](0,0)--(5,0);\draw[curve](2,.24)--(1,.24)arc(90:270:.12)--(5,0);\draw[axis](2,.24)--(3,.24)node[above]{$F,v$};\draw[<->](0,.85)--(2,.85)node[midway,above]{$x$};\node[below]at(0,0){初始端点};\node at(3.5,-.7){$\lambda=m/l$};\draw[<->](1,1.5)--(2,1.5)node[midway,above]{$x/2$};\draw[guide](1,.24)--(1,1.6);\draw[guide](2,.24)--(2,1.6);\node at(3.8,-1.1){下段速度为零};
+\end{tikzpicture}
+\caption{绳端前进$x$，弯折区只前进$x/2$}\label{fig:hw3-1-s}
+\end{figure}
+
+绳的总动量为$P=\lambda xv/2$，所以
+\[
+ F=\dot P=\frac\lambda2(v^2+x\dot v).
+\]
+匀速时$\boxed{F(x)=\lambda v_0^2/2=mv_0^2/(2l)}$，与$x$无关。牵引功率为$\lambda v_0^3/2$，动能增加率为$\lambda v_0^3/4$；另一半在绳元突然改变速度的区域耗散。
+
+恒力时，由 $P(0)=0$，$P(t)=\int_0^t F_0\dd\tau=F_0t$，即 $\lambda xv/2=F_0t$。利用 $v=\dot x$ 分离变量，
+\[
+\frac\lambda2\int_0^{x(t)}\xi\dd\xi=F_0\int_0^t\tau\dd\tau,
+\qquad \frac\lambda2[\xi^2/2]_0^{x(t)}=F_0[\tau^2/2]_0^t.
+\]
+整理得
+\[
+ x^2=\frac{2F_0}{\lambda}t^2,\qquad
+ \boxed{x(t)=\sqrt{\frac{2F_0l}{m}}t,\quad
+ v(t)=\sqrt{\frac{2F_0l}{m}}\quad(t>0)}.
+\]
+理想模型的初始运动质量为零，启动解因而具有奇性：有限恒力对应非零的右极限速度，与额外指定的$v(0^+)=0$不相容。若端点带质量$\varepsilon>0$，方程改为$(\varepsilon+\lambda x/2)v=F_0t$，启动便连续；令$\varepsilon\to0$才得到上式。拾取完成对应$x/2=l$，即端点已前进$2l$。匀速牵引的适用时间为$0<t<2l/v_0$；恒力解中则为$0<t<2l\sqrt{\lambda/(2F_0)}$。
+
+绳全部运动后应改用整绳的定质量方程。
+
+
+弯折处的质量流率可以直接给出耗散功率。运动绳段质量$M_v=\lambda x/2$，故$\dot M_v=\lambda v/2$。其动能为$T=\lambda xv^2/4$，于是
+\[
+ \dot T=\frac\lambda4v^3+\frac\lambda2xv\dot v,
+ \qquad Fv=\frac\lambda2v^3+\frac\lambda2xv\dot v,
+ \qquad \dot E_{\text{耗}}=\frac\lambda4v^3.
+\]
+耗散功率等于$\tfrac12\dot M_vv^2$，来自静止绳元并入运动绳段。对匀速或恒力分支，这一结果都与图\ref{fig:hw3-1-s}所示的拾取过程相容；不能对整个过程直接使用机械能守恒。
+
+\end{solution}
+
+
+
+\begin{example}[竖直提绳及带球提绳]\label{ex:hw3-2}
+
+均匀柔绳长$l$、质量$m$，最初堆在地面同一点，绳的空间体积忽略。(1)将一端竖直提起：分别求匀速$v_0$所需的力，以及恒力$F_0$时端点的运动规律。(2)若绳端固定一个质量也为$m$的小球，初始给予小球向上速度$v_0$，之后不加牵引力，求小球的最大高度，并求整绳能离地的条件。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1,0)--(1.4,0);\draw[curve](0,0)--(0,2.4);
+\draw[decorate,decoration={snake,amplitude=2pt,segment length=5pt}](-.6,.05)--(.6,.05);
+\draw[<->](.65,0)--(.65,2.4)node[midway,right]{$x$};\draw[axis](0,2.4)--(0,3.3)node[above]{$F$};\node at(0,-.55){无球提绳};\begin{scope}[shift={(5.5,0)}]\draw[thick](-1,0)--(1.4,0);\draw[curve](0,0)--(0,2.4);
+\draw[decorate,decoration={snake,amplitude=2pt,segment length=5pt}](-.6,.05)--(.6,.05);
+\draw[<->](.65,0)--(.65,2.4)node[midway,right]{$x$};\draw[fill=white](0,2.4)circle(.16);\node[left]at(-.2,2.4){$m$};
+\draw[axis](.6,2.6)--(.6,3.3)node[right]{$v$};\node at(0,-.55){带球自由上升};\node at(0,-1.1){$v(0)=v_0$};\end{scope}
+\end{tikzpicture}
+\caption{无球提绳与带球自由上升采用不同的运动质量和外力}\label{fig:hw3-2-q}
+\end{figure}
+
+\begin{solution}
+取绳的线密度$\lambda=m/l$，竖直向上为正。图\ref{fig:hw3-2-s}中，运动绳长为$x$，速度为$v=\dot x$；新绳元从地面静止部分进入运动段，质量进入率为$\lambda v$，进入前的动量为零。因此无球时
+\[
+ F-\lambda xg=\frac{\dd}{\dd t}(\lambda xv)
+ =\lambda x\dot v+\lambda v^2.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1,0)--(1.4,0);\draw[curve](0,0)--(0,2.4);
+\draw[decorate,decoration={snake,amplitude=2pt,segment length=5pt}](-.6,.05)--(.6,.05);
+\draw[<->](.65,0)--(.65,2.4)node[midway,right]{$x$};\draw[axis](0,2.4)--(0,3.3)node[above]{$F$};\node at(0,-.55){无球提绳};\node[right]at(0,1.4){$\lambda x$};\draw[axis](-.5,1.9)--(-.5,.9)node[left]{$\lambda xg$};\draw[axis](0,.15)--(0,.8)node[right]{$v$};\node at(.1,-1.1){$\dot m=\lambda v$};\begin{scope}[shift={(5.5,0)}]\draw[thick](-1,0)--(1.4,0);\draw[curve](0,0)--(0,2.4);
+\draw[decorate,decoration={snake,amplitude=2pt,segment length=5pt}](-.6,.05)--(.6,.05);
+\draw[<->](.65,0)--(.65,2.4)node[midway,right]{$x$};\draw[fill=white](0,2.4)circle(.16);\node[left]at(-.2,2.4){$m$};
+\draw[axis](.6,2.6)--(.6,3.3)node[right]{$v$};\node at(0,-.55){带球自由上升};\node[right]at(.9,1.8){$m+\lambda x$};\draw[axis](-.5,1.9)--(-.5,.9)node[left]{$(m+\lambda x)g$};\draw[axis](0,.15)--(0,.8)node[right]{$v$};\node at(.1,-1.1){$\dot m=\lambda v$};\end{scope}
+\end{tikzpicture}
+\caption{无球提绳与带球自由上升采用不同的运动质量和外力}\label{fig:hw3-2-s}
+\end{figure}
+匀速提绳时$\dot v=0$，所需拉力为
+$\boxed{F=\lambda gx+\lambda v_0^2}$。
+前一项克服运动段重力，后一项使新加入的绳元获得动量。
+
+恒力$F=F_0$时，令$w(x)=v^2$，用$\dot v=v\,\dd v/\dd x=w'/2$化为
+\[
+ w'+\frac2xw=\frac{2F_0}{\lambda x}-2g.
+\]
+在$x>0$处乘积分因子$x^2$并积分：
+\[
+ (x^2w)'=\frac{2F_0}{\lambda}x-2gx^2,\qquad
+ x^2w=\int\left(\frac{2F_0}{\lambda}x-2gx^2\right)\dd x
+ =\frac{F_0}{\lambda}x^2-\frac{2g}{3}x^3+C.
+\]
+要求$x\to0^+$时速度有限，须取$C=0$。记$A=F_0/\lambda$、$b=2g/3$，在上升支$v=\sqrt{A-bx}$上，由$x(0)=0$，
+\[
+ t=\int_0^x\frac{\dd\xi}{\sqrt{A-b\xi}}
+ =\left[-\frac2b\sqrt{A-b\xi}\right]_0^x
+ =\frac2b\left(\sqrt A-\sqrt{A-bx}\right).
+\]
+解出根式后，
+\[
+ \boxed{v=\sqrt{F_0/\lambda}-\frac{gt}{3},\qquad
+ x=\sqrt{F_0/\lambda}\,t-\frac{gt^2}{6}}.
+\]
+该式用于$x\le l$且$v\ge0$的拾绳阶段。其初速极限为$\sqrt{F_0/\lambda}$，不能同时任意规定为零；这是$x=0$处运动质量为零的启动奇性。若从有限绳长启动，应使用相应初始条件确定$C$。
+
+带球且无外加拉力时，图中运动质量改为$M(x)=m+\lambda x$。动量方程为
+\[
+ M\dot v=-Mg-\lambda v^2,\qquad
+ w'+\frac{2\lambda}{m+\lambda x}w=-2g.
+\]
+积分因子由 $z=m+\lambda x$、$\dd z=\lambda\dd x$ 求得：
+\[
+\int\frac{2\lambda\dd x}{m+\lambda x}=2\int\frac{\dd z}z
+=2\ln z+C,
+\qquad \exp(2\ln z)=z^2=(m+\lambda x)^2.
+\]
+从$x=0,w=v_0^2$积分：
+\[
+ \begin{aligned}
+ (m+\lambda x)^2w-m^2v_0^2
+ &=-2g\int_0^x(m+\lambda\xi)^2\dd\xi\\
+ &=-\frac{2g}{3\lambda}[(m+\lambda\xi)^3]_0^x
+ =-\frac{2g}{3\lambda}\big[(m+\lambda x)^3-m^3\big].
+ \end{aligned}
+\]
+所以
+\[
+ v^2(x)=
+ \frac{m^2v_0^2-\frac{2g}{3\lambda}[(m+\lambda x)^3-m^3]}
+ {(m+\lambda x)^2}.
+\]
+若在绳未全部拾起时速度降至零，分子为零。代入$\lambda=m/l$，
+\[
+ \left(1+\frac hl\right)^3=1+\frac{3v_0^2}{2gl},\qquad
+ \boxed{h=l\left[\left(1+\frac{3v_0^2}{2gl}\right)^{1/3}-1\right]}.
+\]
+这一分支要求$h\le l$，等价于$v_0^2\le14gl/3$。
+若$v_0^2>14gl/3$，先在$x=l$处求交接速度：
+\[
+ v_l^2=\frac{m^2v_0^2-(2gl/3m)(8m^3-m^3)}{4m^2}
+ =\frac14\left(v_0^2-\frac{14}{3}gl\right)>0.
+\]
+此后整绳与球质量恒定，只受重力。设继续上升高度为 $\Delta h$，由 $v\,\dd v=-g\,\dd h$ 积分，$[v^2/2]_{v_l}^{0}=-g[h]_0^{\Delta h}$，得 $\Delta h=v_l^2/(2g)$，故
+$\boxed{h=l+v_l^2/(2g)}$。
+等号$v_0^2=14gl/3$只表示在最高点恰好拾起最后绳元；要使整绳以非零速度离地，须满足严格不等式。
+\end{solution}
+
+
+
+\begin{example}[恒力推动拾尘板]\label{ex:hw3-3}
+
+初始质量$M_0$、迎风面积$S$的板，在恒力$F>0$作用下从静止开始向右运动。右侧静止尘埃均匀分布，质量密度为$\rho$，被板完全黏附。忽略其他阻力，求$v(t),x(t)$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](0,0)rectangle(2.2,1.7);\fill[pattern=dots](2.25,0)rectangle(4.8,1.7);
+\draw[guide](0,0)--(0,1.7);\draw[fill=white](2,0)rectangle(2.2,1.7);
+\draw[axis](-.3,-.15)--(5.1,-.15)node[right]{$x$};\node[below left]at(0,-.15){$0$};
+\node at(.9,.8){已扫过};\node at(3.7,2.1){$\rho,S$};\node[above]at(0,1.9){初态$M_0$};
+\draw[axis](2.2,1.05)--(3.1,1.05)node[above]{$F$};\draw[<->](0,-.6)--(2.2,-.6)node[midway,below]{$x$};
+\node at(2.2,-1.3){$M(x)=M_0+\rho Sx$};
+\end{tikzpicture}
+\caption{板从尘埃区的边界出发，位移决定已黏附质量}\label{fig:hw3-3-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw3-3-s}中板扫过$x$后质量为$M=M_0+qx$，其中$q=\rho S$。每秒黏附质量为$qv$，并非一个预先给定的常量。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](0,0)rectangle(2.2,1.7);\fill[pattern=dots](2.25,0)rectangle(4.8,1.7);
+\draw[guide](0,0)--(0,1.7);\draw[fill=white](2,0)rectangle(2.2,1.7);
+\draw[axis](-.3,-.15)--(5.1,-.15)node[right]{$x$};\node[below left]at(0,-.15){$0$};
+\node at(.9,.8){已扫过};\node at(3.7,2.1){$\rho,S$};\node[above]at(0,1.9){初态$M_0$};
+\draw[axis](2.2,1.05)--(3.1,1.05)node[above]{$F$};\draw[<->](0,-.6)--(2.2,-.6)node[midway,below]{$x$};
+\node at(2.2,-1.3){$M(x)=M_0+\rho Sx$};\draw[guide](2.6,-.05)--(2.6,1.85);\draw[<->](2.2,2.55)--(2.6,2.55)node[midway,above]{$\dd x$};
+\node at(4.4,2.8){$\dd m=\rho S\dd x$};
+\end{tikzpicture}
+\caption{板前方薄层提供下一时刻黏入的尘埃}\label{fig:hw3-3-s}
+\end{figure}
+
+进入尘埃的水平动量为零，故 $\dd(Mv)/\dd t=F$。从初态积分，$Mv=\int_0^tF\dd u=Ft$，即 $(M_0+qx)\dot x=Ft$。分离变量并再次积分：
+\[
+\int_0^{x(t)}(M_0+q\xi)\dd\xi=F\int_0^tu\dd u,
+\qquad [M_0\xi+q\xi^2/2]_0^{x(t)}=F[u^2/2]_0^t.
+\]
+代入上下限，得
+\[
+ M_0x+\frac q2x^2=\frac F2t^2.
+\]
+取满足$x(0)=0$的根，得到
+\[
+ \boxed{x(t)=\frac{\sqrt{M_0^2+qFt^2}-M_0}{q},\qquad
+ v(t)=\frac{Ft}{\sqrt{M_0^2+qFt^2}}}.
+\]
+对速度求导，使用乘积与链式法则，
+\[
+\dot v=\frac F{\sqrt{M_0^2+qFt^2}}
+-\frac{Ft}{2}(M_0^2+qFt^2)^{-3/2}(2qFt)
+=\frac{FM_0^2}{(M_0^2+qFt^2)^{3/2}}>0.
+\]
+速度趋于 $\sqrt{F/q}$。这一极限来自不断拾取静止尘埃所需的动量通量。
+
+展开动量导数也可写成$M\dot v=F-qv^2$。式中的$qv^2$是使新黏附尘埃获得板速所需的动量通量。由$x(t)$消去时间，累计耗散为
+\[
+ D=Fx-\frac12Mv^2=\frac{qFx^2}{2(M_0+qx)}\ge0.
+\]
+图\ref{fig:hw3-3-s}中从初始位置到板前缘的扫过长度为$x$，其右侧薄层$\dd x$则提供下一时刻黏入的质量$q\dd x$。
+
+实际外力功为$Fx$，动能为$F^2t^2/(2M)$。瞬时耗散率为$qv^3/2$，可由单个尘埃微元的完全非弹性黏附求得；因此不能直接令$Fx=Mv^2/2$。
+
+
+\end{solution}
+
+
+
+\begin{example}[带水平速度的颗粒流进入小车]\label{sup3:problem-example-8}\label{sup3:ex:d3-e8}
+质量 $M_0$ 的小车在光滑水平面上以 $v_0$ 运动。自 $t=0$ 起，颗粒以恒定质量速率 $\sigma$ 落入并留在车中，其入车前的水平地面速度为 $w$。颗粒的竖直运动由竖直冲量处理，与本题水平运动无关。求小车的水平速度、位移，以及因水平相对运动消失而产生的耗散。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](.5,.4)--(.5,1.5);\draw[curve](.5,.4)--(4,.4)--(4,1.5);\draw(.9,.15)circle(.2);\draw(3.6,.15)circle(.2);
+\foreach \xx in {1.2,2,2.8,3.6}\fill(\xx,2.8)circle(1.5pt);
+\draw[axis](2,2.6)--(2.7,1.7);\node[right]at(3.8,2.8){$\sigma,\ w$};
+\draw[axis](4.1,.9)--(5.5,.9)node[right]{$v(t)$};\node at(2.2,.9){$M_0+\sigma t$};
+\draw[curve](-.3,-.1)--(6,-.1);
+\end{tikzpicture}
+\caption{颗粒进入前的水平动量通量为 $\sigma w$，并非总是零。}\label{sup3:fig:d3-e8-q}
+\end{figure}
+\begin{solution}
+水平方向无外力，当前车内质量为 $M=M_0+\sigma t$。按图\ref{sup3:fig:d3-e8-s}比较接收前后的同一批物质，有
+\[
+\frac{\dd(Mv)}{\dd t}=\sigma w.
+\]
+结合 $Mv|_{t=0}=M_0v_0$，积分得 $Mv-M_0v_0=\int_0^t\sigma w\dd u=\sigma wt$，所以
+\[
+v(t)=\frac{M_0v_0+\sigma wt}{M_0+\sigma t}
+=w+\frac{M_0(v_0-w)}{M_0+\sigma t}.
+\]
+因此 $v$ 总趋向入流速度 $w$，不一定趋向零。求导有
+$\dot v=-\sigma M_0(v_0-w)/(M_0+\sigma t)^2$，也符合
+$M\dot v=\sigma(w-v)$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.2,0)node[right]{$t$};\draw[axis](0,-.2)--(0,2.8)node[above]{$v$};
+\draw[guide](0,1)--(4,1)node[right]{$w$};
+\draw[curve,domain=0:4,samples=60]plot(\x,{1+1.4/(1+\x)});\node[left]at(0,2.4){$v_0$};
+\begin{scope}[shift={(6,0)}]
+\draw[curve](0,.2)rectangle(2.5,1.2);\node at(1.25,.7){小车静止};
+\fill(3.5,.7)circle(2pt)node[below]{$\dd M$};\draw[axis](3.5,.7)--(2.65,.7)node[midway,above]{$w-v$};
+\node[align=center]at(1.5,-.6){水平相对动能\\$\tfrac12\dd M\,(v-w)^2$};
+\end{scope}
+\end{tikzpicture}
+\caption{左图取 $v_0>w$；右图在小车的瞬时共动惯性系中表示入流的水平相对运动。}\label{sup3:fig:d3-e8-s}
+\end{figure}
+取 $x(0)=0$，将速度积分。使用 $z=M_0+\sigma u$、$\dd z=\sigma\dd u$，
+\[
+\begin{aligned}
+x(t)&=\int_0^t\left[w+\frac{M_0(v_0-w)}{M_0+\sigma u}\right]\dd u\\
+&=wt+\frac{M_0(v_0-w)}\sigma[\ln z]_{M_0}^{M_0+\sigma t}.
+\end{aligned}
+\]
+代入上下限，得到
+\[
+x(t)=wt+\frac{M_0(v_0-w)}\sigma
+\ln\left(1+\frac{\sigma t}{M_0}\right).
+\]
+耗散可从一次微小黏附求出。图\ref{sup3:fig:d3-e8-s}右图中，质量为 $M$ 的小车与质量 $\dd M$ 的颗粒黏合，相对动能减少
+\[
+\dd E_{\rm diss,x}=\frac12\frac{M\dd M}{M+\dd M}(v-w)^2
+=\frac12\dd M(v-w)^2+O((\dd M)^2).
+\]
+用 $\dd M=\sigma\dd t$ 除以时间，就得到以下功率；它不依赖选取哪一个匀速运动的惯性系。
+
+水平相对运动造成的耗散功率为
+\[
+\dot E_{\rm diss,x}=\frac12\sigma(v-w)^2
+=\frac{\sigma M_0^2(v_0-w)^2}{2(M_0+\sigma t)^2}.
+\]
+从零到 $t$ 积分，同样令 $z=M_0+\sigma u$，
+\[
+\begin{aligned}
+E_{\rm diss,x}
+&=\frac{\sigma M_0^2(v_0-w)^2}{2}\int_0^t\frac{\dd u}{(M_0+\sigma u)^2}\\
+&=\frac{M_0^2(v_0-w)^2}{2}[-z^{-1}]_{M_0}^{M_0+\sigma t}.
+\end{aligned}
+\]
+代入上下限，可得
+\[
+E_{\rm diss,x}=\frac12M_0(v_0-w)^2
+\left(1-\frac{M_0}{M_0+\sigma t}\right).
+\]
+在地面系中，将初始小车动能与入流颗粒动能相加，再减去末态总动能，同样得到
+\[
+E_{\rm diss,x}=\frac12M_0v_0^2+\frac12\sigma t\,w^2
+-\frac{(M_0v_0+\sigma wt)^2}{2(M_0+\sigma t)}
+=\frac{M_0\sigma t}{2(M_0+\sigma t)}(v_0-w)^2.
+\]
+其中第二项是入流颗粒带来的水平动能。若只取小车前后的动能差，就会漏去这部分能量输入。颗粒竖直落下的能量变化不包含在此式中；$v_0=w$时水平耗散为零，竖直方向仍可能有非弹性损失。
+
+\end{solution}
+
+
+
+\begin{example}[恒定喷气率的火箭]\label{ex:hw3-6}
+
+火箭空体质量$M_s$、初始燃料质量$M_f$，每秒喷出燃料质量$\alpha$，喷气相对火箭速度大小恒为$u$，方向向下。初态$v=y=0$。(1)忽略重力，求$v(t)$；(2)在向下均匀重力场$g$中求$v(t)$；(3)求最大上升高度。忽略空气阻力，燃料耗尽后停止喷气。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(.7,0)--(.7,2)--(.35,2.6)--(0,2)--cycle;\node at(.35,1){$M(t)$};\draw[axis](.35,2.6)--(.35,3.3)node[right]{$v$};\draw[axis](.35,0)--(.35,-.8)node[right]{$-u\ \text{（相对火箭）}$};
+\end{tikzpicture}
+\caption{火箭与向后喷出的燃料}\label{fig:hw3-6-q}
+\end{figure}
+
+\begin{solution}
+置$M_0=M_s+M_f$、$M(t)=M_0-\alpha t$，燃烧时间$t_b=M_f/\alpha$。图\ref{fig:hw3-6-s}中向下的箭头表示相对火箭的喷气速度$-u$，喷出微元的地面速度为$v-u$；它的符号会随$v$改变。取喷出质量为正值$\alpha\dd t$，故
+\[
+ M\dot v=\alpha u-Mg.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(.7,0)--(.7,2)--(.35,2.6)--(0,2)--cycle;\node at(.35,1){$M(t)$};\draw[axis](.35,2.6)--(.35,3.3)node[right]{$v$};\draw[axis](.35,0)--(.35,-.8)node[right]{$-u\ \text{（相对火箭）}$};\draw[axis](.8,1.6)--(.8,2.5)node[right]{$\alpha u$};\draw[axis](1.5,1.6)--(1.5,.5)node[right]{$Mg$};\node at(3.7,1){$M=M_0-\alpha t$};
+\end{tikzpicture}
+\caption{推力、重力与随时间减小的质量}\label{fig:hw3-6-s}
+\end{figure}
+
+将质量表达式代入，并从初态积分：
+\[
+v(t)-v(0)=\alpha u\int_0^t\frac{\dd s}{M_0-\alpha s}-gt
+=-u\bigl[\ln(M_0-\alpha s)\bigr]_0^t-gt.
+\]
+使用$v(0)=0$，忽略重力时$\boxed{v=u\ln[M_0/M(t)]}$；计入重力则
+\[
+ \boxed{v(t)=u\ln\frac{M_0}{M_0-\alpha t}-gt},\qquad 0\le t\le t_b.
+\]
+为求高度，将速度再积分一次。令积分变量中的质量为$\widetilde M=M_0-\alpha s$，则
+\[
+\int_0^t\ln\frac{M_0}{M_0-\alpha s}\,\dd s
+=\frac1\alpha\int_{M(t)}^{M_0}\ln\frac{M_0}{\widetilde M}\,\dd\widetilde M
+=t-\frac{M(t)}\alpha\ln\frac{M_0}{M(t)}.
+\]
+这里用了原函数$\widetilde M[\ln(M_0/\widetilde M)+1]$。因此
+\[
+y(t)=u\left[t-\frac{M(t)}\alpha\ln\frac{M_0}{M(t)}\right]-\frac12gt^2.
+\]
+若从地面发射且$\alpha u\ge M_0g$，加速度随燃烧增加，燃烧段不会先向下。燃尽时
+\begin{align*}
+ v_b&=u\ln\frac{M_0}{M_s}-gt_b,\\
+ y_b&=u\left[t_b-\frac{M_s}{\alpha}\ln\frac{M_0}{M_s}\right]-\frac12gt_b^2.
+\end{align*}
+燃烧结束后质量恒为$M_s$，火箭继续作竖直上抛，故
+\[
+ \boxed{h=y_b+\frac{v_b^2}{2g}}.
+\]
+若火箭初始放在地面支架上，且允许燃烧时保持原位，则起飞问题还有两种情形：$\alpha u\le M_sg$时燃料耗尽前不能起飞；$M_sg<\alpha u<M_0g$时，起飞发生在
+\[
+ t_{\rm l}=\frac{M_0-\alpha u/g}{\alpha},\qquad
+ M_{\rm l}=\frac{\alpha u}{g}.
+\]
+把上式中的初始质量改成$M_{\rm l}$，燃烧时间改成$(M_{\rm l}-M_s)/\alpha$，并从起飞时重新计时、计高，即可使用同一组$v_b,y_b,h$公式。起飞前的燃料已被消耗，却没有贡献上升高度。
+
+若火箭从初始时刻起自由运动，推力不足时可以先向下运动，上述$v(t),y(t)$仍成立。这时最高点也能明确判定。燃烧段的加速度为
+\[
+\dot v=\frac{\alpha u}{M_0-\alpha t}-g,\qquad
+\ddot v=\frac{\alpha^2u}{(M_0-\alpha t)^2}>0.
+\]
+加速度严格增大，故速度至多先减后增。除初态外，燃烧段内若出现$v=0$，必是由下落转为上升的最低点，不是最高点。若$v_b\le0$，整个燃烧段及燃尽后都没有高于初态的位置，故$h=0$。若$v_b>0$，燃尽后上升到$y_b+v_b^2/(2g)$，还须与初态高度零比较。因此不受地面阻挡的自由运动有
+\[
+\boxed{h=\begin{cases}
+0,&v_b\le0,\\
+\max\{0,\ y_b+v_b^2/(2g)\},&v_b>0.
+\end{cases}}
+\]
+式中$v_b,y_b$仍取从初始质量$M_0$计算的燃尽值。若存在地面支架，应使用前述起飞条件，不能将先向下的自由运动解用于地面以下。
+
+
+\end{solution}
+
+
+
+\section{固有加速度与相对论推进}
+
+高速推进需要区分地面时间和固有时间，固有加速度也不同于地面系加速度。燃料消耗及航时条件由四动量和快度处理，不能继续使用牛顿速度叠加。
+
+
+
+\subsection{固有加速度与相对论推进}
+\label{sec:complete3-relativity}
+在一维运动中令快度为 $\eta$，定义 $v=c\tanh\eta$，则 $\gamma=\cosh\eta$。地面时间与固有时间满足 $\dd t=\cosh\eta\,\dd\tau$，所以
+\[
+\frac{\dd v}{\dd t}
+=\frac{c\operatorname{sech}^2\eta\,\dd\eta/\dd\tau}{\cosh\eta}
+=\frac c{\gamma^3}\frac{\dd\eta}{\dd\tau}.
+\]
+固有加速度定义为瞬时共动系中测得的加速度，满足 $a_0=\gamma^3\dd v/\dd t$，故
+\[
+ a_0=c\frac{\dd\eta}{\dd\tau},\qquad
+ \frac{\dd v}{\dd t}=\frac{a_0}{\gamma^3},\qquad
+ \frac{\dd}{\dd t}(m_0\gamma v)=m_0a_0.
+\]
+恒定固有加速度对应恒定纵向三维力；加速度变换与动量求导在例\ref{ex:hw3-7}中展开。地面坐标加速度则随速率增大而减小。从初态静止 $\eta(0)=0$ 积分，$\eta=\int_0^\tau(a_0/c)\dd s=a_0\tau/c$。再用 $\dd\tau=(c/a_0)\dd\eta$，
+\[
+t=\frac c{a_0}\int_0^\eta\cosh u\dd u
+=\frac c{a_0}[\sinh u]_0^\eta,
+\qquad
+x=\frac{c^2}{a_0}\int_0^\eta\sinh u\dd u
+=\frac{c^2}{a_0}[\cosh u]_0^\eta.
+\]
+这里位移积分使用 $\dd x/\dd\tau=v\gamma=c\sinh\eta$，并取 $t(0)=x(0)=0$，得
+\[
+ \eta=\frac{a_0\tau}{c},\qquad
+ t=\frac c{a_0}\sinh\eta,\qquad
+ x=\frac{c^2}{a_0}(\cosh\eta-1).
+\]
+其中$\tau$是船上钟的固有时间，$t$是地面惯性系的时间。
+
+对理想光子火箭，在瞬时共动系中喷出向后的光能$\dd E_\gamma$。保留一阶小量的能量、动量关系为
+\[
+ -c^2\dd m=\dd E_\gamma,\qquad
+ mc\,\dd\eta=\frac{\dd E_\gamma}{c},
+ \qquad\frac{\dd m}{m}=-\dd\eta.
+\]
+对单向加速段分离变量并积分，
+\[
+\int_{m_i}^{m_f}\frac{\dd m}m=-\int_{\eta_i}^{\eta_f}\dd\eta,
+\qquad [\ln m]_{m_i}^{m_f}=-[\eta]_{\eta_i}^{\eta_f}.
+\]
+向前加速时 $\eta_f>\eta_i$，故 $m_i/m_f=\exp(\eta_f-\eta_i)$；反向发光制动时快度减小，质量仍减少，统一写为 $m_i/m_f=\exp|\Delta\eta|$。加速后还要减速到静止时，质量消耗由两段快度变化的绝对值相加。例\ref{ex:hw3-8}将巡航快度与固有时间限制结合；把出发、制动阶段理想化为瞬时过程所得的是燃料比例下确界，有限推力航程须另外计入两段加减速期间的距离与船上时间。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[恒定固有加速度]\label{ex:hw3-7}
+
+静质量$m_0$保持不变的飞船，从静止沿直线出发，在瞬时共动惯性系中测得的加速度恒为$a_0$。求地面惯性系中的作用力$F(t)$与速度$v(t)$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[curve](2,.3)--(3.5,.3)--(4,.8)--(3.5,1.3)--(2,1.3)--cycle;\node at(2.8,.8){$m_0$};\node at(1,2){地面时$t$};\node at(4,2){船钟$\tau$};
+\end{tikzpicture}
+\caption{直线运动飞船及两种计时方式}\label{fig:hw3-7-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw3-7-s}的横轴采用地面时间$t$的无量纲组合，右侧给出它与飞船固有时$\tau$的关系。先固定当前速率$v$，取此刻的共动惯性系；飞船在该系中获得微小速度增量$\delta v'$后，速度合成式为
+\[
+v_{\rm new}=\frac{v+\delta v'}{1+v\delta v'/c^2}.
+\]
+对$\delta v'$求导并取$\delta v'=0$，
+\[
+\left.\frac{\partial v_{\rm new}}{\partial(\delta v')}\right|_0
+=\left.\frac{1+v\delta v'/c^2-(v+\delta v')v/c^2}
+{(1+v\delta v'/c^2)^2}\right|_0
+=1-\frac{v^2}{c^2}=\frac1{\gamma^2}.
+\]
+因此一阶增量满足$\dd v=\dd v'/\gamma^2$。在同一瞬间，$\dd v'=a_0\dd\tau$、$\dd t=\gamma\dd\tau$，于是
+\[
+\dot v=\frac{\dd v'/\gamma^2}{\gamma\dd\tau}
+=\frac{a_0}{\gamma^3}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.5,0)node[right]{$a_0t/c$};\draw[axis](0,0)--(0,2.5)node[above]{$v/c$};
+\draw[guide](0,2)--(4.2,2);\node[left]at(0,2){$1$};
+\draw[curve,domain=0:4.2,samples=90]plot(\x,{2*\x/sqrt(1+\x*\x)});
+\node[align=left]at(6.7,1.5){$t=\dfrac c{a_0}\sinh\dfrac{a_0\tau}{c}$\\[8pt]$\dd t=\gamma\dd\tau$};
+\node at(2.1,-.65){$F=m_0a_0$};
+\end{tikzpicture}
+\caption{地面系速度趋于光速，船钟时间由双曲函数参数化}\label{fig:hw3-7-s}
+\end{figure}
+
+相对论动量为$p=\gamma m_0v$。先对速度求导：
+\[
+\frac{\dd\gamma}{\dd v}
+=\frac{v}{c^2}(1-v^2/c^2)^{-3/2}
+=\frac{\gamma^3v}{c^2},\qquad
+\frac{\dd(\gamma v)}{\dd v}
+=\gamma+\frac{\gamma^3v^2}{c^2}
+=\gamma^3.
+\]
+最后一步用了$\gamma^{-2}=1-v^2/c^2$。再按链式法则对时间求导，得到
+\[
+ \boxed{F=\frac{\dd p}{\dd t}=m_0\gamma^3\dot v=m_0a_0}.
+\]
+从 $p(0)=0$ 积分，$p(t)=m_0a_0\int_0^t\dd s=m_0a_0t$，即 $\gamma v=a_0t$。平方并解出 $v^2$，$v^2=(a_0t)^2[1-v^2/c^2]$；选取向前运动的正根，进而
+\[
+ \boxed{v(t)=\frac{a_0t}{\sqrt{1+(a_0t/c)^2}}}.
+\]
+将第\ref{sec:complete3-relativity}节已积分求得的快度关系改写为固有时，得
+\[
+ t=\frac c{a_0}\sinh\frac{a_0\tau}{c},\qquad
+ v=c\tanh\frac{a_0\tau}{c}.
+\]
+前一式将船钟时间换算为地面时间，后一式给出相应速度。
+
+由 $\sinh\eta=a_0t/c$，得 $\cosh\eta=\sqrt{1+(a_0t/c)^2}$。代回已求出的位移式，
+\[
+x=\frac{c^2}{a_0}\left[\sqrt{1+(a_0t/c)^2}-1\right],
+\qquad \tau=\frac c{a_0}\operatorname{arsinh}\frac{a_0t}c.
+\]
+
+
+地面系中的力保持恒定，共动系中测得的加速度也始终不变。当 $a_0t\ll c$ 时，$v\simeq a_0t$、$x\simeq a_0t^2/2$；当 $a_0t\gg c$ 时，$v$ 趋于 $c$，而地面加速度 $\dot v=a_0[1+(a_0t/c)^2]^{-3/2}$ 趋于零。
+
+\end{solution}
+
+
+
+\begin{example}[光子火箭的最低燃料比例]\label{ex:hw3-8}
+
+地球与目标星在同一惯性系中相距$D=4.2$光年。飞船用正反物质完全湮灭产生的定向光辐射推进、减速，出发与到达时均相对两星静止，飞船自身经历的总时间为$\tau_f=42$年。求初始燃料质量占初始总质量的理论下限。假设全部燃料能量都能形成所需方向的光束。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(6,0);\fill(0,0)circle(2pt)node[below]{地球};\fill(5.5,0)circle(2pt)node[below]{目标星};\draw[<->](0,.7)--(5.5,.7)node[midway,above]{$D=4.2\,\mathrm{ly}$};\node at(2.8,-.8){船钟总时$\tau_f=42\,\mathrm{yr}$};
+\end{tikzpicture}
+\caption{两星间的距离与飞船固有时间}\label{fig:hw3-8-q}
+\end{figure}
+
+\begin{solution}
+以快度$\eta=\operatorname{artanh}(v/c)$描述运动。在飞船瞬时共动系中，向后发出能量$\dd E$的光，使飞船静质量减少$-\dd M$、快度增加$\dd\eta$。一阶能量与动量守恒给出
+\[
+ \dd E=-c^2\dd M=Mc^2\dd\eta,\quad
+ \frac{\dd M}{M}=-\dd\eta.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(6,0);\fill(0,0)circle(2pt)node[below]{地球};\fill(5.5,0)circle(2pt)node[below]{目标星};\draw[<->](0,.7)--(5.5,.7)node[midway,above]{$D=4.2\,\mathrm{ly}$};\node at(2.8,-.8){船钟总时$\tau_f=42\,\mathrm{yr}$};\draw[axis](0,1.6)--(1.1,1.6)node[above]{加速};\draw[axis](2,1.6)--(3.5,1.6)node[above]{巡航};\draw[axis](5.5,1.6)--(4.4,1.6)node[above]{减速};
+\end{tikzpicture}
+\caption{理想瞬时加减速之间的巡航段}\label{fig:hw3-8-s}
+\end{figure}
+
+一般推进历程中，发射光束使质量变化满足$-\dd\ln M=|\dd\eta|$。从静止加速到$\eta_{\max}$再回到静止，快度的总变差至少为$2\eta_{\max}$，因此
+\[
+ \ln\frac{M_0}{M_f}=\int|\dd\eta|\ge2\eta_{\max}.
+\]
+若途中反复加减速，不等式通常为严格不等式；只有沿同一方向单调加速、随后单调减速，才取等号。
+总质量比于是满足$M_0/M_f\ge\exp(2\eta_{\max})$。图\ref{fig:hw3-8-s}的巡航段在理想瞬时加、减速极限中占据全部固有时间，且
+\[
+ D=\int_0^{\tau_f}c\sinh\eta\,\dd\tau
+ \le c\tau_f\sinh\eta_{\max}.
+\]
+故令$q=D/(c\tau_f)=0.1$，有$\eta_{\max}\ge\operatorname{arsinh}q$，从而
+\[
+ \boxed{\frac{M_{\text{燃料}}}{M_0}\ge
+ 1-\exp[-2\operatorname{arsinh}(0.1)]
+ =1-(\sqrt{1.01}-0.1)^2\approx0.1810}.
+\]
+相应巡航速度为$v/c=q/\sqrt{1+q^2}=1/\sqrt{101}$。42年按船钟计时。直接取$v=4.2/42=0.1c$等于把它当成地面时间，忽略了两种时间的差别。有限功率的加减速过程要占用固有时间，燃料比例将高于这里的下限。
+
+
+位移不等式$D\le c\tau_f\sinh\eta_{\max}$要求几乎全部固有时间都保持最大快度。两式同时取等，要求在起点和终点瞬时完成速度改变。所求数值是这一极限的下确界。
+
+\end{solution}
+
+
+
+\begin{example}[限定地面航时的光子火箭]\label{deep3:problem-example-10}\label{deep3:ex:d3-e10}
+相对地面静止的目的地距地球为 $D$，要求飞船在地面系时间 $T$ 内抵达，抵达时相对目的地静止。飞船干质量为 $M_d$，以完全转化为定向光子的理想燃料推进，不计其他损失。先采用出发瞬间加速、随后匀速、抵达瞬间制动的脉冲模型，求燃料质量与干质量之比。当 $D=4.2$ 光年、$T=42$ 年时求数值。再说明有限推力时该结果的意义。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(8,0)node[right]{$x$};\fill(0,0)circle(2pt)node[below]{地球};\fill(7,0)circle(2pt)node[below]{目的地};
+\draw[<->](0,-.8)--(7,-.8)node[midway,below]{$D$};
+\draw[axis](.3,.8)--(1.7,.8)node[midway,above]{加速};\draw[axis](6.8,.8)--(5.4,.8)node[midway,above]{制动};
+\node at(3.5,1.6){匀速 $\beta c$，地面航时 $T$};
+\node[left]at(.3,.8){$0$};\node[right]at(6.8,.8){$0$};
+\end{tikzpicture}
+\caption{两次脉冲改变快度，航程中的匀速段承担全部地面位移。制动时光子发射方向朝前。}\label{deep3:fig:d3-e10-q}
+\end{figure}
+\begin{solution}
+脉冲的时间与位移均取零，因此匀速速度由航程直接确定：
+\[
+\beta=\frac D{cT},\qquad 0<\beta<1.
+\]
+可行条件为 $T>D/c$。相应快度为
+\[
+\eta=\operatorname{artanh}\beta
+=\frac12\ln\frac{1+\beta}{1-\beta}.
+\]
+图\ref{deep3:fig:d3-e10-s}中的两次脉冲分别使快度由 $0$ 变为 $\eta$、再由 $\eta$ 变为 $0$，各需相同质量比 $\exp\eta$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(7.5,0)node[right]{$t$};\draw[axis](0,0)--(0,2.5)node[above]{$\beta$};
+\draw[curve](0,0)--(0,1.8)--(6.5,1.8)--(6.5,0);\node[left]at(0,1.8){$D/(cT)$};\node[below]at(6.5,0){$T$};
+\node at(3.3,.8){面积 $=D/c$};
+\node[above]at(1,2.2){$M_0\to M_1$};\node[above]at(5.9,2.2){$M_1\to M_d$};
+\end{tikzpicture}
+\caption{脉冲模型的速度历程。航程等于速度曲线与时间轴之间的面积乘以 $c$。}\label{deep3:fig:d3-e10-s}
+\end{figure}
+若中间质量为 $M_1$，两次守恒关系分别给出
+\[
+M_0=M_1e^\eta,\qquad M_1=M_de^\eta.
+\]
+加速时还须携带制动燃料。两段分别从 $M_0$、$M_1$ 开始消耗质量，因此总质量比等于两段质量比的乘积。
+
+消去中间质量 $M_1$，得到
+\[
+\frac{M_0}{M_d}=\exp(2\eta)=\frac{1+\beta}{1-\beta}.
+\]
+燃料质量 $M_f=M_0-M_d$，故
+\[
+\frac{M_f}{M_d}=\frac{2\beta}{1-\beta},\qquad
+\frac{M_f}{M_0}=\frac{2\beta}{1+\beta}.
+\]
+前一比值以干质量为分母，后一比值以出发总质量为分母。代入 $\beta=4.2/42=0.1$，得到
+\[
+\frac{M_0}{M_d}=\frac{11}9,\qquad
+\frac{M_f}{M_d}=\frac29,\qquad
+\frac{M_f}{M_0}=\frac2{11}.
+\]
+
+有限推力使加速和制动占据时间。由图\ref{deep3:fig:d3-e10-s}的面积关系，令平均速度参数为$\bar\beta=D/(cT)$、峰值速度为$\beta_{\max}c$，任意允许历程都满足
+\[
+\bar\beta=\frac1T\int_0^T\beta(t)\dd t\le\beta_{\max}.
+\]
+快度从零到峰值再回到零，总变化量至少为两倍峰值快度；其余往返变化只会继续消耗质量。于是
+\[
+\frac{M_0}{M_d}\ge
+\exp\!\left(2\operatorname{artanh}\beta_{\max}\right)
+\ge\frac{1+\bar\beta}{1-\bar\beta}.
+\]
+要取等号，速度须在除脉冲以外的全部时间内等于平均速度。有限时长的加、减速阶段不能满足这个等号条件。因此$2\bar\beta/(1-\bar\beta)$是燃料与干质量之比的下确界；要确定有限推力下的实际燃料量，还须给出推力或固有加速度的限制。
+
+\end{solution}
+
+
+
+\input{lecture3_depth}
+\section{习题与解答}
+
+\begin{exercise}[非均匀杆的质心与偏心受力]\label{sup3:problem-exercise-1}\label{sup3:ex:d3-h1}
+长 $L$ 的细杆沿 $x$ 轴放置，线密度为 $\lambda(x)=\lambda_0(1+x/L)$，$0\le x\le L$。求总质量 $M$、质心坐标及绕质心垂直杆的转动惯量。杆在光滑水平面内自由运动，初始静止；若在右端沿平面内垂直于杆的方向施加恒力 $F$，求初始质心加速度与角加速度。力改作用于何处可使杆保持纯平移？
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.5,0)--(7.6,0)node[right]{$x$};\draw[curve,line width=3pt](0,.35)--(6,.35);\node[below]at(0,0){$0$};\node[below]at(6,0){$L$};
+\draw[axis](6,.35)--(6,1.1)node[above]{$F$};\node at(2.4,1.3){$\lambda(x)=\lambda_0(1+x/L)$};
+\draw[axis](-.2,2.35)--(7,2.35)node[right]{$x$};
+\draw[axis](0,2.35)--(0,4.15)node[above]{$\lambda$};
+\draw[guide](0,3)--(6,3);\draw[guide](0,3.65)--(6,3.65)--(6,2.35);
+\draw[curve](0,3)--(6,3.65);\fill(0,3)circle(1pt);\fill(6,3.65)circle(1pt);
+\node[left]at(0,3){$\lambda_0$};\node[left]at(0,3.65){$2\lambda_0$};
+\node[below left]at(0,2.35){$0$};\node[below]at(6,2.35){$L$};
+\end{tikzpicture}
+\caption{上图为线密度分布，$\lambda(L)=2\lambda(0)$；下图标出细杆及右端受力。}\label{sup3:fig:d3-h1-q}
+\end{figure}
+\begin{solution}
+图\ref{sup3:fig:d3-h1-q}中质量元为 $\dd m=\lambda_0(1+x/L)\dd x$，所以
+\[
+M=\lambda_0\int_0^L\left(1+\frac xL\right)\dd x
+=\lambda_0[x+x^2/(2L)]_0^L=\frac32\lambda_0L.
+\]
+一阶质量矩为
+\[
+\int_0^Lx\dd m=\lambda_0\int_0^L(x+x^2/L)\dd x
+=\lambda_0[x^2/2+x^3/(3L)]_0^L=\frac56\lambda_0L^2,
+\]
+故
+\[
+x_C=\frac1M\int_0^Lx\dd m=\frac59L.
+\]
+所得 $x_C>L/2$，与右端较密的分布相符。绕左端的惯量
+\[
+I_O=\lambda_0\int_0^Lx^2\left(1+\frac xL\right)\dd x
+=\lambda_0[x^3/3+x^4/(4L)]_0^L=\frac7{12}\lambda_0L^3.
+\]
+用平行轴定理减去 $Mx_C^2$，得
+\[
+I_C=\left(\frac7{12}-\frac{25}{54}\right)\lambda_0L^3
+=\frac{13}{108}\lambda_0L^3=\frac{13}{162}ML^2.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve,line width=2pt](0,0)--(6,0);\fill(3.333,0)circle(2.4pt)node[below]{$C$};
+\draw[axis](6,0)--(6,1.5)node[above]{$F$};\draw[axis](3.333,.3)--(3.333,1.25)node[left]{$a_C$};
+\draw[<->](0,-.65)--(3.333,-.65)node[midway,below]{$5L/9$};\draw[<->](3.333,-.65)--(6,-.65)node[midway,below]{$4L/9$};
+\draw[axis](4.2,1.5)arc(0:110:.55);\node at(3.8,2.4){$\alpha$};
+\end{tikzpicture}
+\caption{受力点相对质心的力臂为 $4L/9$，不是 $L/2$。}\label{sup3:fig:d3-h1-s}
+\end{figure}
+按图\ref{sup3:fig:d3-h1-s}，质心沿 $F$ 方向的加速度为 $a_C=F/M$，力对 C 的逆时针力矩为 $F(4L/9)$，因此
+\[
+\alpha=\frac{4FL}{9I_C}=\frac{72F}{13ML}.
+\]
+若力始终作用在杆上 $x=5L/9$ 的质心处，力矩为零，初始角速度也为零，杆就保持纯平移。质心加速度由合力确定，是否转动则由关于质心的力矩确定。
+图\ref{sup3:fig:d3-h1-s}中的力向上，对 C 的力矩沿逆时针方向，初始角加速度也沿逆时针方向。力移到几何中点仍有非零力臂，只有移到质量中心才能从静止保持纯平移。
+
+\end{solution}
+
+
+\begin{exercise}[抛体在最高点分裂]\label{sup3:problem-exercise-2}\label{sup3:ex:d3-h2}
+总质量 $3m$ 的小球在抛体最高点、距地面高度 $H$ 处以水平速度 $U$ 向右运动，瞬间分裂为质量 $m$、$2m$ 的两块。轻块分裂后相对地面瞬时静止，两块随后仅受重力。以分裂点正下方为地面坐标原点，求两块落点、分裂增加的动能，并验证落地前系统质心的轨迹。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.4,0)--(7.7,0)node[right]{$x$};\draw[axis](0,-.2)--(0,4)node[above]{$y$};
+\fill(0,3)circle(2pt)node[above left]{$3m$};\draw[axis](.2,3)--(1.7,3)node[above]{$U$};
+\draw[guide](0,3)--(0,0);\draw[<->](-.9,0)--(-.9,3)node[midway,left]{$H$};
+\draw[curve,domain=0:4,samples=60]plot(\x,{3-.1875*(\x)^2});\node at(3,3.5){分裂时 $t=0$};
+\end{tikzpicture}
+\caption{最高点分裂。分裂前竖直动量为零，轻块分裂后地面速度为零。}\label{sup3:fig:d3-h2-q}
+\end{figure}
+\begin{solution}
+分裂冲量持续时间忽略，重力冲量可忽略，所以瞬时总动量守恒：
+$3mU=2m v_{2x}$，$0=2m v_{2y}$。故重块初速度为 $(3U/2,0)$，轻块初速度为零。两块具有相同初始高度与竖直速度，因而同时经过
+\[
+t_f=\sqrt{\frac{2H}g}
+\]
+落地。图\ref{sup3:fig:d3-h2-s}中的落点 A、B 分别为
+\[
+x_A=0,\qquad x_B=\frac32U\sqrt{\frac{2H}g}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.8,0)--(7,0);\fill(0,3)circle(1.8pt)node[left]{分裂点};
+\draw[curve,->](0,3)--(0,0);\draw[curve,domain=0:6,samples=70]plot(\x,{3-(\x)^2/12});
+\draw[guide,domain=0:4,samples=60]plot(\x,{3-.1875*(\x)^2});
+\fill(0,0)circle(1.6pt)node[below]{$A:m$};\fill(6,0)circle(1.6pt)node[below]{$B:2m$};\fill(4,0)circle(1.6pt)node[below]{$C_f$};
+\node at(4.9,2.2){重块};\node[align=left]at(2,1.4){虚线：质心\\$x_C=Ut$};
+\end{tikzpicture}
+\caption{轻块竖直下落，重块射程增大；质心仍沿原抛体轨迹运动，$AC_f=2AB/3$。}\label{sup3:fig:d3-h2-s}
+\end{figure}
+分裂前动能为 $3mU^2/2$，分裂后为
+$\tfrac12(2m)(3U/2)^2=9mU^2/4$，所以增加
+\[
+\Delta K=\frac34mU^2.
+\]
+增加的动能由分裂时释放的内能提供，与瞬时总动量守恒相容。
+
+落地前两块的竖直初速度均为零，故
+\[
+v_y=-\int_0^t g\dd s=-gt,
+\qquad y-H=\int_0^t(-gs)\dd s=[-gs^2/2]_0^t=-\frac12gt^2.
+\]
+水平方向速度不变，位移由 $\int_0^t v_x\dd s=v_xt$ 求得。因此两块坐标为 $(0,H-gt^2/2)$ 与 $(3Ut/2,H-gt^2/2)$，质量加权得到
+\[
+x_C=Ut,\qquad y_C=H-\frac12gt^2.
+\]
+这正是未分裂时原抛体的轨迹。第一次接触地面后会有地面冲量，届时不能再将相同抛体方程继续用于整个系统。
+从分裂后到首次落地前，图\ref{sup3:fig:d3-h2-s}中质心到两碎块的水平距离之比为 $2:1$。以未分裂物体的质心轨迹为参照，两块的相对速度分别为 $-U$、$U/2$，相对动能为
+\[
+\frac12mU^2+\frac12(2m)(U/2)^2=\frac34mU^2.
+\]
+分裂前相对动能为零，所以新增动能全部进入相对运动，质心平动部分没有改变。两块竖直相对速度均为零，因而落地前质心的竖直运动也不受分裂影响。
+
+\end{solution}
+
+
+\begin{exercise}[人在船上行走后跳离]\label{sup3:problem-exercise-3}\label{sup3:ex:d3-h3}
+质量 $M$ 的船在静水中，质量 $m$ 的人起初与船共同静止。不计水的水平阻力。人相对船向右走 $L$ 后停住，再从高于水面 $H$ 的船边水平向右跳出，跳出瞬间相对船的水平速度为 $u$，竖直速度为零。求行走阶段船的位移、起跳后人和船的水平速度，以及人落水前一瞬船的总位移。跳跃与飞行中均不计空气阻力，起跳时的高度已包含人体质心高度。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,.7)--(.5,0)--(6,0)--(6.5,.7)--cycle;\node at(3,.35){$M$};
+\draw[guide](.2,-.25)--(7.8,-.25);\node[right]at(7.8,-.25){水面};
+\fill(1.2,1.25)circle(2pt);\fill(5.4,1.25)circle(2pt);\draw[axis](1.2,1.65)--(5.4,1.65)node[midway,above]{相对船走 $L$};
+\draw[axis](5.4,1.25)--(7,1.25)node[above]{起跳 $u$};\draw[<->](7.4,-.25)--(7.4,1.25)node[midway,right]{$H$};
+\end{tikzpicture}
+\caption{行走位移和起跳速度均相对船给出，必须转换为地面量。}\label{sup3:fig:d3-h3-q}
+\end{figure}
+\begin{solution}
+取向右为正，船位移记为 $X$。人相对船走 $L$，相对地面位移为 $X+L$。水平方向无合外力，初始质心静止，因此
+$MX+m(X+L)=0$，解得行走阶段
+\[
+X_1=-\frac m{M+m}L.
+\]
+人停住后与船速度相同，而总水平动量仍为零，所以二者在起跳前都静止。
+
+起跳冲量是人船系统的内冲量。图\ref{sup3:fig:d3-h3-s}中人的地面水平速度为 $v$，船速为 $V$，动量与相对速度条件分别是
+\[
+MV+mv=0,\qquad v-V=u.
+\]
+由第二式 $v=V+u$ 代入第一式，得到
+\[
+V=-\frac{m}{M+m}u,\qquad v=\frac{M}{M+m}u.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,.5)--(.4,0)--(4,0)--(4.5,.5);\draw[axis](2,.9)--(.7,.9)node[midway,above]{$|V|$};
+\fill(4.5,1.7)circle(2pt)node[above]{$m$};\draw[axis](4.5,1.7)--(6,1.7)node[above]{$v$};
+\draw[curve,domain=0:2,samples=50]plot({4.5+\x},{1.7-.4625*(\x)^2});
+\fill(6.5,-.15)circle(1pt)node[below right]{落水};
+\draw[guide](-.4,-.15)--(7,-.15);\node at(3.2,-.9){$v-V=u$，相对水平间隔以速率 $u$ 增大};
+\end{tikzpicture}
+\caption{起跳后船匀速向左，人做抛体运动。水平动量关系同时决定两个地面速度。}\label{sup3:fig:d3-h3-s}
+\end{figure}
+沿用习题\ref{sup3:ex:d3-h2}已积分得到的零竖直初速下落式，$H-g\tau^2/2=0$，得落水时间 $\tau=\sqrt{2H/g}$。人在空中时船不受水平力，继续以 $V$ 匀速运动，位移为 $\int_0^\tau V\dd s=V\tau$，因此
+\[
+X_{\rm total}=X_1+V\tau
+=-\frac m{M+m}\left(L+u\sqrt{\frac{2H}g}\right).
+\]
+上式只到人首次落水前为止。落水后人与水交换水平动量，若仍把“人和船”作为系统，水的水平作用就不能忽略。行走和起跳会把人体内能转化为机械能。本题据水平质心与动量关系求解，机械能不守恒。
+还可把图\ref{sup3:fig:d3-h3-s}中飞行阶段的两条水平位移代回质心关系。自初态至落水前，人的总水平位移为 $X_1+L+v\tau$，船为 $X_1+V\tau$，于是
+\[
+M(X_1+V\tau)+m(X_1+L+v\tau)
+=(M+m)X_1+mL+(MV+mv)\tau=0.
+\]
+行走阶段给出 $(M+m)X_1+mL=0$，起跳后则有 $MV+mv=0$。两式分别消去上式中的常数项和含 $\tau$ 的项，说明从行走到飞行，总质心的水平位置始终不变。
+
+\end{solution}
+
+
+\begin{exercise}[有限尘区与离开后的运动]\label{sup3:problem-exercise-8}\label{sup3:ex:d3-h8}
+沿用例\ref{ex:hw3-3}的拾尘板，令 $\kappa=\rho S$，但尘埃只占据 $0\le x\le L$。板从 $x=0$ 静止起受恒力 $F$，离开尘区后恒力仍继续作用。求出区时间、出区速度、出区后的位移及整个拾尘阶段的机械能损失。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-.3,0)--(8.6,0)node[right]{$x$};\draw[guide](.6,.2)rectangle(5.7,2.1);
+\foreach \xx in {1,1.8,2.6,3.4,4.2,5}\foreach \yy in {.5,1.1,1.7}\fill(\xx,\yy)circle(.7pt);
+\draw[curve,line width=2pt](.6,.1)--(.6,2.3);\node[below]at(.6,0){$0$};\node[below]at(5.7,0){$L$};\node at(7,1.5){无尘区};
+\draw[axis](.7,2.6)--(2,2.6)node[above]{$F$};
+\end{tikzpicture}
+\caption{尘区边界 $x=L$ 是质量增长规律改变的位置，恒力本身不发生变化。}\label{sup3:fig:d3-h8-q}
+\end{figure}
+\begin{solution}
+尘区内有 $M=M_0+\kappa x$，由例\ref{ex:hw3-3}的积分式
+$M_0x+\kappa x^2/2=Ft^2/2$。令 $x=L$，出区时间为
+\[
+t_L=\sqrt{\frac{2M_0L+\kappa L^2}F}.
+\]
+最终质量为 $M_L=M_0+\kappa L$，由 $M_Lv_L=Ft_L$，得
+\[
+v_L=\frac{\sqrt{F(2M_0L+\kappa L^2)}}{M_L}.
+\]
+出区以后没有流入项，板以固定质量 $M_L$ 运动，满足 $\dot v=F/M_L$。以出区时刻的状态为初值，
+\[
+v-v_L=\frac F{M_L}\int_{t_L}^t\dd s=\frac F{M_L}(t-t_L),
+\]
+\[
+x-L=\int_{t_L}^t\left[v_L+\frac F{M_L}(s-t_L)\right]\dd s
+=\left[v_L(s-t_L)+\frac F{2M_L}(s-t_L)^2\right]_{t_L}^t.
+\]
+故对 $t\ge t_L$ 有
+\[
+v=v_L+\frac F{M_L}(t-t_L),\qquad
+x=L+v_L(t-t_L)+\frac F{2M_L}(t-t_L)^2.
+\]
+图\ref{sup3:fig:d3-h8-s}中的速度和位移在边界连续；加速度则从
+$[F-\kappa v_L^2]/M_L$ 跳到 $F/M_L$。尘埃密度在边界突然降为零，使加速度发生有限跳变，速度仍保持连续。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(7,0)node[right]{$t$};\draw[axis](0,0)--(0,3.4)node[above]{$v$};
+\draw[curve,domain=0:3,samples=60]plot(\x,{1.6*\x/sqrt(1+(\x)^2)});
+\draw[curve](3,1.517893)--(6,3.035786);\draw[guide](3,0)--(3,3);\node[below]at(3,0){$t_L$};\node[right]at(3,1.3){$v_L$};
+\node at(1.3,2.6){质量增长};\node at(5.3,.65){固定质量 $M_L$};
+\end{tikzpicture}
+\caption{速度在出区时连续，切线斜率增大。左段的水平渐近趋势在出区后不再适用。}\label{sup3:fig:d3-h8-s}
+\end{figure}
+拾尘阶段输入功为 $FL$，末动能为
+\[
+K_L=\frac12M_Lv_L^2
+=\frac{F(2M_0L+\kappa L^2)}{2M_L}.
+\]
+两者之差为
+\[
+E_{\rm diss}=FL-K_L=\frac{F\kappa L^2}{2M_L}.
+\]
+它只在尘区内增加，出区后不再有黏附耗散。如果把尘区内的渐近速度 $\sqrt{F/\kappa}$ 当成全程极限速度，就会漏掉质量增长停止后的加速阶段。
+图\ref{sup3:fig:d3-h8-s}的边界加速度可进一步化简。由出区速度可得
+\[
+F-\kappa v_L^2
+=F\frac{M_L^2-\kappa(2M_0L+\kappa L^2)}{M_L^2}
+=\frac{FM_0^2}{M_L^2}.
+\]
+因此边界前后分别为 $a_-=FM_0^2/M_L^3$、$a_+=F/M_L$，且 $a_+>a_-$。边界没有额外的集中冲量，故只改变加速度，不改变当时的速度。
+
+\end{solution}
+
+
+\begin{exercise}[漏砂小车有无喷气推力]\label{sup3:problem-exercise-9}\label{sup3:ex:d3-h9}
+总初质量 $M_0$ 的小车在光滑水平面上从静止起受向右恒力 $F$。车内砂从底孔以恒定质量速率 $\alpha$ 漏出，离车瞬间砂的水平速度与车相同，漏出后也不受水平力。令当前车与车内砂的质量为 $M=M_0-\alpha t>0$。求车的水平速度和位移，并通过“车与已经漏出的全部砂”的总水平动量解释变质量项。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,1)rectangle(4,2.2);\node at(2,1.7){$M_0-\alpha t$};\draw(.6,.7)circle(.25);\draw(3.4,.7)circle(.25);
+\draw[axis](4,1.6)--(5.5,1.6)node[above]{$F$};
+\foreach \yy in {.7,.35,0}\fill(2,\yy)circle(1.2pt);\draw[axis](2.2,-.05)--(3.4,-.05)node[right]{$w_x=v$};
+\draw[guide](-.4,-.55)--(5.8,-.55);\node at(.1,.15){$\alpha$};
+\end{tikzpicture}
+\caption{砂没有相对车的水平喷出速度，竖直漏出不自动产生水平推力。}\label{sup3:fig:d3-h9-q}
+\end{figure}
+\begin{solution}
+图\ref{sup3:fig:d3-h9-q}中流出砂的地面水平速度为 $w_x=v$，所以流出砂相对车的水平速度为零，水平运动方程是
+\[
+(M_0-\alpha t)\dot v=F.
+\]
+把即将漏出的砂也计入同一批物质，在 $\dd t$ 内写出
+\[
+Mv+F\dd t=(M-\alpha\dd t)(v+\dd v)+\alpha\dd t\,v.
+\]
+展开后，流出质量乘原速度的两项抵消，只剩 $M\dd v=F\dd t$。这与火箭中流出物具有非零水平相对速度的情形不同。
+
+砂带走动量，但不会额外提供水平喷气推力。由 $v(0)=0$ 积分，
+\[
+v(t)=F\int_0^t\frac{\dd s}{M_0-\alpha s}
+=-\frac F\alpha[\ln(M_0-\alpha s)]_0^t,
+\]
+即
+\[
+v(t)=\frac F\alpha\ln\frac{M_0}{M_0-\alpha t}.
+\]
+令 $M=M_0-\alpha t$，再积分一次并取 $x(0)=0$。所需的对数积分与例\ref{ex:hw3-6}求高度时相同，沿用其中的质量代换和原函数，
+\[
+x=\frac F{\alpha^2}
+\left[\widetilde M\left(\ln\frac{M_0}{\widetilde M}+1\right)\right]_{M}^{M_0},
+\]
+得到
+\[
+x(t)=\frac F\alpha\left[t-\frac M\alpha\ln\frac{M_0}M\right].
+\]
+初期对数展开为 $v\simeq Ft/M_0$；随着质量减小，加速度 $F/M$ 增大。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](-.3,-.2)rectangle(8.5,2.4);\draw[curve](5.6,.5)rectangle(7.8,1.5);\node at(6.7,1){当前车 $M,v$};
+\foreach \xx/\vv in {.5/.4,1.8/.6,3.3/.9}{\fill(\xx,.7)circle(2pt);\draw[axis](\xx,.7)--({\xx+\vv},.7);}
+\node at(2.6,1.6){已漏砂各保持离车时的水平速度};
+\node at(4,-.8){$P_{\rm total}=Mv+\displaystyle\int_0^t\alpha v(s)\,\dd s=Ft$};
+\end{tikzpicture}
+\caption{扩大成固定物质系统后，漏出的砂仍须计入动量。虚线只表示系统成员，不是容器壁。}\label{sup3:fig:d3-h9-s}
+\end{figure}
+按图\ref{sup3:fig:d3-h9-s}，若已漏砂后续不受水平力，时刻 $s$ 漏出的砂在时刻 $t$ 仍有水平速度 $v(s)$。其总动量为
+\[
+P_{\rm sand}=\int_0^t\alpha v(s)\,\dd s=\alpha x(t).
+\]
+因此固定系统总动量应满足 $Mv+\alpha x=Ft$。代入上面两个显式解，含对数的两项恰好抵消，确实得到 $Ft$。
+
+只对当前小车求导，则
+\[
+\frac{\dd(Mv)}{\dd t}=M\dot v-\alpha v=F-\alpha v.
+\]
+式中的 $\alpha v$ 是砂带走的水平动量流率，故当前小车的动量变化率为 $F-\alpha v$。若 $F=0$ 而初始速度为某个 $v_0$，车速恒为 $v_0$，仍会持续失去当前物体的动量；其动量由离车砂携走。
+\end{solution}
+
+
+\begin{exercise}[两级火箭的分级收益]\label{sup3:problem-exercise-10}\label{sup3:ex:d3-h10}
+在无重力、无阻力的一维空间中，火箭初始静止。有效载荷质量为 $m$；外级空壳和内级空壳质量各为 $m$，每级燃料各为 $2m$，所有燃料相对当前火箭向后喷出的速率均为 $u$。先烧尽外级燃料，抛掉外级空壳，再烧尽内级燃料，最后抛掉内级空壳。抛壳瞬间无相对分离速度。求载荷最终速度，并与两级空壳均保留到燃料全部耗尽的方案比较。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)rectangle(9,1.65);\draw[curve](3,0)--(3,1.65);\draw[curve](6,0)--(6,1.65);
+\node[align=center]at(1.5,.825){外级\\空壳 $m$\\燃料 $2m$};\node[align=center]at(4.5,.825){内级\\空壳 $m$\\燃料 $2m$};\node[align=center]at(7.5,.825){载荷\\$m$};
+\draw[axis](9,.825)--(10.5,.825)node[above]{前进};\node at(4.5,2.25){初始总质量 $7m$};
+\end{tikzpicture}
+\caption{分级收益来自尽早抛掉后续不再需要加速的空壳。}\label{sup3:fig:d3-h10-q}
+\end{figure}
+\begin{solution}
+无外力时，喷气方程 $M\dd v=-u\dd M$ 的积分已在例\ref{ex:hw3-6}求出。每个燃烧段按各自的初末质量取界，$\Delta v=-u[\ln M]_{M_i}^{M_f}=u\ln(M_i/M_f)$。图\ref{sup3:fig:d3-h10-s}中的质量阶梯必须区分“燃烧”与“抛壳”：燃烧有相对喷气速度，抛壳没有相对分离速度，后者不使剩余火箭速度瞬间跳变。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(8,0)node[right]{过程};\draw[axis](0,0)--(0,4.2)node[above]{$M/m$};
+\draw[curve](.3,3.5)--(2.2,2.5)--(2.2,2)--(4.8,1)--(4.8,.5)--(7,.5);
+\foreach \yy/\la in {3.5/7,2.5/5,2/4,1/2,.5/1}{\draw[guide](0,\yy)--(.25,\yy);\node[left]at(0,\yy){$\la$};}
+\node at(1.1,3.4){燃烧};\node[right]at(2.2,2.35){抛外壳};\node at(3.7,1.9){燃烧};\node[right]at(4.8,.75){抛内壳};
+\end{tikzpicture}
+\caption{质量在燃烧中连续下降，抛壳时离散下降。只有燃烧段提供本题的速度增量。}\label{sup3:fig:d3-h10-s}
+\end{figure}
+第一段质量由 $7m$ 降至 $5m$，所以 $\Delta v_1=u\ln(7/5)$。抛外壳后剩 $4m$，速度不变。第二段由 $4m$ 降至 $2m$，故 $\Delta v_2=u\ln2$。最后抛内壳也不改变速度，最终
+\[
+v_f=u\ln\frac{14}5.
+\]
+若不提前抛外壳，燃料全部消耗使质量由 $7m$ 降至 $3m$，随后才抛空壳，载荷速度为
+\[
+v_{\rm keep}=u\ln\frac73.
+\]
+分级增加的速度为
+\[
+v_f-v_{\rm keep}=u\ln\frac65>0.
+\]
+各燃烧段的速度增量相加，对应的质量比相乘。抛壳过程虽然使当前火箭质量减少，却因相对分离速度为零而没有推进作用；它的收益体现在后续燃烧需要加速的质量更小。
+图\ref{sup3:fig:d3-h10-s}中各阶段的质量为：出发时，载荷与两个空壳共 $3m$，两份燃料共 $4m$；第一段燃烧后剩 $5m$，抛掉外壳后剩 $4m$；第二段燃烧后，内壳与载荷共 $2m$。抛壳的相对速度为零，设抛壳前速度为 $V$，瞬时动量关系为
+\[
+M_iV=M_fV+(M_i-M_f)V,
+\]
+所以质量虽跳变，速度不跳变。两级收益来自第二段的起始、终止质量比由保留外壳时的 $5/3$ 改成 $4/2$。
+
+\end{solution}
+
+
+\begin{exercise}[有有限启动长度的水平折绳]\label{deep3:problem-exercise-6}\label{deep3:ex:d3-h6}
+沿用例\ref{ex:hw3-1}的水平折绳模型，本题将绳的全长记为$L$、线密度记为$\lambda$。从 $x=x_0>0$、端点速度 $v_0\ge0$ 的状态开始计时，以恒力 $F_0>0$ 向右牵引。设 $x_0<2L$。求 $x(t)$、$v(t)$、整绳启动所需时间，说明 $x_0\to0^+$ 与直接指定零端点初速度之间的关系。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](7,0)--(1.75,0)arc(-90:-270:.15)--(3.2,.3);
+\fill(3.2,.3)circle(1.5pt)node[above]{$A_0:x_0$};\fill(1.6,.15)circle(1pt)node[left]{$B_0$};
+\draw[axis](3.2,.3)--(4.6,.3)node[above]{$F_0,\ v_0$};\node[below]at(7,0){$L$};
+\draw[guide](1.6,.15)--(1.6,-.65);
+\draw[<->](0,-.65)--(1.6,-.65)node[midway,below]{$x_0/2$};\node[above left]at(0,-.65){$0$};
+\end{tikzpicture}
+\caption{初始已有长 $x_0/2$ 的绳在运动，避免了零运动质量的奇异初态。}\label{deep3:fig:d3-h6-q}
+\end{figure}
+\begin{solution}
+总动量仍为 $P=\lambda xv/2$，故
+\[
+\frac\lambda2\frac{\dd(xv)}{\dd t}=F_0.
+\]
+定义 $A=2F_0/\lambda$，由初始动量积分，$xv-x_0v_0=\int_0^t A\dd s=At$。再用 $v=\dot x$ 分离变量，
+\[
+\int_{x_0}^{x(t)}\xi\dd\xi=\int_0^t(x_0v_0+As)\dd s,
+\qquad [\xi^2/2]_{x_0}^{x(t)}=[x_0v_0s+As^2/2]_0^t.
+\]
+整理得到
+\[
+x^2=x_0^2+2x_0v_0t+At^2.
+\]
+因为 $x>0$，取正根：
+\[
+x(t)=\sqrt{x_0^2+2x_0v_0t+At^2},\qquad
+v(t)=\frac{x_0v_0+At}{\sqrt{x_0^2+2x_0v_0t+At^2}}.
+\]
+在 $x_0>0$ 时，该解确实满足 $v(0)=v_0$。相应的速度位置关系为
+\[
+v^2=A+\frac{x_0^2(v_0^2-A)}{x^2}.
+\]
+图\ref{deep3:fig:d3-h6-s}显示：若初速小于 $\sqrt A$，端点加速；若大于 $\sqrt A$，端点减速，但因外力为正，全绳总动量仍增加。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.2,0)node[right]{$x$};\draw[axis](0,0)--(0,3)node[above]{$v^2$};
+\draw[guide](.5,1.5)--(4,1.5)node[right]{$A$};\draw[guide](1,0)--(1,2.5);\node[below]at(1,0){$x_0$};
+\draw[curve,domain=1:4,samples=60]plot(\x,{1.5-1/(\x)^2});
+\draw[curve,domain=1:4,samples=60]plot(\x,{1.5+.8/(\x)^2});
+\node at(2.7,.45){$v_0^2<A$};\node at(2.7,2.5){$v_0^2>A$};
+\begin{scope}[shift={(6.4,.3)}]
+\draw[curve](0,0)--(2.6,0);\fill(0,0)circle(1.3pt)node[below]{$B:L$};\fill(2.6,0)circle(1.3pt)node[below]{$A:2L$};\node[above]at(1.3,1){完成时 $x=2L$};\draw[axis](1.1,.4)--(2,.4)node[above]{$v$};\node at(1.3,-1){静止段长度 $L-x/2=0$};
+\end{scope}
+\end{tikzpicture}
+\caption{速度平方随牵引位移趋向 $A$；达到 $x=2L$ 后，模型转为固定质量整绳平移。}\label{deep3:fig:d3-h6-s}
+\end{figure}
+令 $x=2L$，由二次方程得到正的完成时间
+\[
+t_f=\frac{-x_0v_0+\sqrt{x_0^2v_0^2+A(4L^2-x_0^2)}}A.
+\]
+完成以前的耗散功率仍是 $\lambda v^3/4$，与是否匀速无关。完成后若继续施加 $F_0$，整绳质量为 $\lambda L$，加速度改为 $F_0/(\lambda L)$，不再有新启动绳元。
+
+固定 $t>0$，令 $x_0\to0^+$，上面的解趋于 $x=\sqrt A\,t$、$v=\sqrt A$，与例\ref{ex:hw3-1}一致。但在 $t=0$，有限 $x_0$ 的解始终有 $v(0)=v_0$。两个极限一般不能交换；尤其当 $v_0=0$ 时，极限过程含有越来越短的启动阶段，不能将极限解解释为有限质量端点在零时刻无冲量地获得非零速度。
+初始加速度由已经积分的动量式 $xv=x_0v_0+At$ 再求导：$v^2+x\dot v=A$。解出加速度，并取初值，
+\[
+\dot v=\frac{A-v^2}{x},\qquad
+\dot v(0)=\frac{A-v_0^2}{x_0}.
+\]
+当 $v_0=0$ 而 $x_0\to0^+$ 时，初始加速度发散。图\ref{deep3:fig:d3-h6-s}的不同初速分支由此在一个很短的时间内趋近同一速度。典型启动时间量级为 $x_0/\sqrt A$；将这个时间段压缩为零，才得到零启动长度的奇异解。
+
+\end{solution}
+
+
+\begin{exercise}[偏心冲量与作用点的有效质量]\label{deep3:problem-exercise-11}\label{deep3:ex:d3-h11}
+均匀细杆长 $\ell$、质量 $m$，在光滑水平面内静止。于距质心 C 的有向距离 $a$ 处的点 P 施加垂直于杆的短时冲量 $J>0$，其中 $|a|\le\ell/2$。取杆向右为有向距离正向，冲量向图中上方。求冲量后质心速度、角速度、点 P 的速度与总动能，并定义满足 $v_P=J/m_{\rm eff}$ 的有效质量。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve,line width=2pt](0,0)--(7,0);\fill(3.5,0)circle(2pt)node[below]{$C$};\fill(5.5,0)circle(2pt)node[below]{$P$};
+\draw[axis](5.5,0)--(5.5,1.8)node[above]{$J$};\draw[<->](3.5,-.7)--(5.5,-.7)node[midway,below]{$a$};\draw[<->](0,-1.5)--(7,-1.5)node[midway,below]{$\ell$};
+\end{tikzpicture}
+\caption{图示 $a>0$；一般公式同时适用于质心左侧的作用点。}\label{deep3:fig:d3-h11-q}
+\end{figure}
+\begin{solution}
+外冲量决定质心动量增量，因此 $V_C=J/m$，方向与冲量相同。关于质心的角冲量为 $aJ$，而 $I_C=m\ell^2/12$，故取逆时针为正有
+\[
+\omega=\frac{aJ}{I_C}=\frac{12aJ}{m\ell^2}.
+\]
+图\ref{deep3:fig:d3-h11-s}中点 P 的速度由质心平移与绕质心转动叠加，初始杆水平，所以两个速度分量均沿冲量轴：
+\[
+v_P=V_C+\omega a
+=J\left(\frac1m+\frac{a^2}{I_C}\right).
+\]
+即使 $a<0$，转动方向也同时改变，使 $\omega a\ge0$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve,line width=1.5pt](0,0)--(7,0);\fill(3.5,0)circle(2pt)node[below]{$C$};\fill(5.5,0)circle(2pt)node[below]{$P$};
+\draw[axis](3.5,.1)--(3.5,1.5)node[left]{$J/m$};\draw[axis](5.5,.1)--(5.5,1.5)node[left]{$V_C$};\draw[axis](5.5,1.5)--(5.5,2.5)node[left]{$\omega a$};
+\draw[axis](6.6,.1)--(6.6,2.5)node[right]{$v_P$};\draw[axis](2.2,1.6)arc(0:110:.55);\node at(1.4,2.6){$\omega$};
+\end{tikzpicture}
+\caption{点 P 的速度分解。作用点远离质心时，转动使该点速度增量更大。}\label{deep3:fig:d3-h11-s}
+\end{figure}
+按 $v_P=J/m_{\rm eff}$ 定义，有
+\[
+m_{\rm eff}=\left(\frac1m+\frac{a^2}{I_C}\right)^{-1}
+=\frac{m}{1+12a^2/\ell^2}.
+\]
+总动能应同时包含平动与转动：
+\[
+K=\frac{J^2}{2m}+\frac{a^2J^2}{2I_C}
+=\frac{J^2}{2m_{\rm eff}}=\frac12Jv_P.
+\]
+当 $a=0$ 时，$m_{\rm eff}=m$，只有平动；当 $|a|=\ell/2$ 时，$m_{\rm eff}=m/4$，总动能为 $2J^2/m$，其中平动动能仍仅为 $J^2/(2m)$。本题从静止开始，速度随累积冲量线性增加，因而得到 $K=Jv_P/2$；有初速度或响应非线性时须重新计算。
+式 $K=Jv_P/2$ 也有直接的功解释。令 $j$ 表示从零累积到 $J$ 的冲量，图\ref{deep3:fig:d3-h11-s}中作用点沿冲量方向的速度为 $v_P(j)=j/m_{\rm eff}$。由于 $\dd j=F\dd t$，
+\[
+W=\int Fv_P\dd t=\int_0^J\frac{j}{m_{\rm eff}}\dd j
+=\frac1{m_{\rm eff}}[j^2/2]_0^J=\frac{J^2}{2m_{\rm eff}}.
+\]
+作用点的速度从零随累积冲量线性增长，积分后的功为最终速度与总冲量乘积的一半。
+
+\end{solution}
+
+
+\begin{exercise}[有限固有加速度的对称航行，选做]\label{deep3:problem-exercise-12}\label{deep3:ex:d3-h12}
+静质量保持不变的飞船从地面系静止出发，前半程以恒定固有加速度 $a_0$ 向前加速，后半程以相同大小的固有加速度制动，恰在距离 $D$ 的静止目的地停下，无匀速段。求地面航时 $T$、船内经历的总固有时 $\tau$ 和中点最大速度，验证低速极限。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(8,0)node[right]{$x$};\fill(0,0)circle(1.8pt)node[below]{$0$};\fill(3.5,0)circle(1.8pt)node[below]{$D/2$};\fill(7,0)circle(1.8pt)node[below]{$D$};
+\draw[axis](.5,1)--(2,1)node[above]{$+a_0$};\draw[axis](6.5,1)--(5,1)node[above]{$-a_0$};
+\node at(3.5,2){中点换向推力，速度连续};
+\end{tikzpicture}
+\caption{两段固有加速度大小相同，出发和到达都静止。中点切换的是加速度方向。}\label{deep3:fig:d3-h12-q}
+\end{figure}
+\begin{solution}
+将例\ref{ex:hw3-7}用于前半程，令地面时间为 $t_h$，末态洛伦兹因子为 $\gamma_h$。位移条件为
+\[
+\frac D2=\frac{c^2}{a_0}(\gamma_h-1),\qquad
+\gamma_h=1+\frac{a_0D}{2c^2}.
+\]
+由前半程动量关系 $\gamma_hv_h=a_0t_h$，或由 $\gamma_h^2=1+(a_0t_h/c)^2$，可得
+\[
+t_h=\sqrt{\frac D{a_0}+\frac{D^2}{4c^2}}.
+\]
+后半程是前半程在地面系中的时间反演平移，所用时间与位移相同，故
+\[
+T=2t_h=2\sqrt{\frac D{a_0}+\frac{D^2}{4c^2}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(7.6,0)node[right]{$t$};\draw[axis](0,0)--(0,3)node[above]{$v$};
+\draw[curve,domain=0:3.2,samples=60]plot(\x,{2.4*\x/sqrt(1+(\x)^2)});
+\draw[curve,domain=3.2:6.4,samples=60]plot(\x,{2.4*(6.4-\x)/sqrt(1+(6.4-\x)^2)});
+\draw[guide](3.2,0)--(3.2,2.6);\node[below]at(3.2,0){$T/2$};\node[below]at(6.4,0){$T$};
+\node[above]at(3.2,2.6){$v_h=c\sqrt{1-\gamma_h^{-2}}$};\node at(3.2,.8){曲线下面积为 $D$};
+\end{tikzpicture}
+\caption{有限加速度下的对称速度历程。中点速度最大，出发与到达速度均为零。}\label{deep3:fig:d3-h12-s}
+\end{figure}
+图\ref{deep3:fig:d3-h12-s}中峰值速度为
+\[
+v_h=c\sqrt{1-\left(1+\frac{a_0D}{2c^2}\right)^{-2}}<c.
+\]
+船内前半程固有时由 $\gamma_h=\cosh\eta_h$ 与
+$\eta_h=a_0\tau_h/c$ 给出。所以
+\[
+\tau=2\tau_h=\frac{2c}{a_0}\operatorname{arcosh}\left(1+\frac{a_0D}{2c^2}\right)
+=\frac{4c}{a_0}\operatorname{arsinh}\sqrt{\frac{a_0D}{4c^2}}.
+\]
+后一个等式用到了 $\cosh(2z)=1+2\sinh^2z$。
+
+当 $a_0D/c^2\ll1$ 时，$T\simeq2\sqrt{D/a_0}$、$v_h\simeq\sqrt{a_0D}$，并由 $\operatorname{arsinh}z\simeq z$ 得 $\tau\simeq2\sqrt{D/a_0}$，正好恢复先匀加速、后匀减速的牛顿结果。任意有限 $a_0$ 下都有 $T>D/c$，与光速限制一致。
+对后半程，仍记 $\ell=c^2/a_0$，以距抵达时刻的剩余地面时间 $s=T-t$ 表示后半程。其速度和位置为
+\[
+v(t)=\frac{a_0s}{\sqrt{1+(a_0s/c)^2}},\qquad
+x(t)=D-\ell\left[\sqrt{1+(a_0s/c)^2}-1\right].
+\]
+在中点 $s=t_h$，两段的位置都为 $D/2$、速度都为 $v_h$；在终点 $s=0$，有 $x=D,v=0$。图\ref{deep3:fig:d3-h12-s}中两段世界线因此在中点有共同切线，推进方向在此改变。
+
+\end{solution}
+

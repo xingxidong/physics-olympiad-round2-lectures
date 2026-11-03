@@ -1,0 +1,269 @@
+\section{有限夹层中的反射、透射与阻抗匹配}
+\subsection{两次反射必须连同相位相加}
+有限夹层有两个界面。波在其中往返传播，后界面返回的波与前界面反射波相干叠加，使总反射率随厚度和频率变化。计算时须保留每次传播的相位。
+
+以下考虑细长杆的一维纵波，忽略截面附近的三维修正。材料$j$的线密度为$\mu_j=\rho_jS_j$，波速$c_j=\sqrt{E_j/\rho_j}$，力与速度的特征阻抗为
+\[
+ Z_j=\rho_jS_jc_j.
+\]
+取压缩力$P=-E_jS_j\,\partial u/\partial x$为正，质点速度$v=\partial u/\partial t$。向右行波满足$P=Z_jv$，向左行波满足$P=-Z_jv$。连接处无集中质量时，$v$和$P$连续。
+
+采用 $\ee^{-i\omega t}$ 的时间约定，夹层内速度、压缩力可写为
+\[
+v(x)=A\ee^{ik_2x}+B\ee^{-ik_2x},\qquad
+P(x)=Z_2(A\ee^{ik_2x}-B\ee^{-ik_2x}),\qquad k_2=\omega/c_2.
+\]
+在左端，$A+B=v(0)$、$A-B=P(0)/Z_2$，故 $A=[v(0)+P(0)/Z_2]/2$、$B=[v(0)-P(0)/Z_2]/2$。将这两个系数代入 $x=\ell$ 的表达式，并用 $\ee^{i\delta}+\ee^{-i\delta}=2\cos\delta$、$\ee^{i\delta}-\ee^{-i\delta}=2i\sin\delta$ 合并，得到
+\[
+ \begin{pmatrix}v(\ell)\\P(\ell)\end{pmatrix}
+ =
+ \begin{pmatrix}
+ \cos\delta&\mathrm i\sin\delta/Z_2\\
+ \mathrm i Z_2\sin\delta&\cos\delta
+ \end{pmatrix}
+ \begin{pmatrix}v(0)\\P(0)\end{pmatrix},
+ \qquad\delta=\frac{\omega\ell}{c_2}.
+\]
+其行列式为 $\cos^2\delta-(i\sin\delta/Z_2)(iZ_2\sin\delta)=1$，可直接求逆；无耗散时相向能流的差保持不变。
+\ExpansionDiagram{fig:dep-d7-layer}{夹层中的左右行波以及两端连续条件}{
+\fill[gray!15](2,-.5)rectangle(5,1.2);
+\draw[thick](0,-.5)--(7,-.5);\draw[thick](0,1.2)--(7,1.2);
+\draw[dashed](2,-.8)--(2,1.6);\draw[dashed](5,-.8)--(5,1.6);
+\node at(1,1.6){$Z_1$};\node at(3.5,1.6){$Z_2,c_2$};\node at(6,1.6){$Z_3$};
+\draw[->](.2,.8)--(1.7,.8)node[midway,above]{$v_{\rm in}$};
+\draw[->](1.7,-.05)--(.2,-.05)node[midway,below]{$v_{\rm r}$};
+\draw[->](2.4,.7)--(4.5,.7);\draw[->](4.5,.05)--(2.4,.05);
+\draw[->](5.3,.5)--(6.8,.5)node[midway,above]{$v_{\rm t}$};
+\draw[<->](2,-1)--(5,-1)node[midway,below]{$\ell$};}
+图\ref{fig:dep-d7-layer}右侧只有出射波，所以$P(\ell)=Z_3v(\ell)$。由矩阵反解，夹层左端的输入阻抗为
+\[
+ Z_{\rm in}=
+ \frac{Z_3\cos\delta-\mathrm iZ_2\sin\delta}
+ {\cos\delta-\mathrm i(Z_3/Z_2)\sin\delta}.
+\]
+令左侧速度反射振幅比为$r=v_{\rm r}/v_{\rm in}$。左端总速度为$(1+r)v_{\rm in}$、总压缩力为$Z_1(1-r)v_{\rm in}$，因而
+\[
+ r=\frac{Z_1-Z_{\rm in}}{Z_1+Z_{\rm in}}.
+\]
+相同材料内速度振幅与位移振幅具有相同反射系数，压缩力的反射系数则相反。
+
+\begin{example}[四分之一波长匹配层]
+两根半无限长杆的阻抗满足$Z_3=4Z_1$。在两杆之间接入长度$\ell$、阻抗$Z_2=2Z_1$的无耗散夹层。求能量透射率随频率的变化，并比较$\omega\ell/c_2=\pi/2$及$\pi$时的结果。两个连接面均理想连接。
+\ExpansionDiagram{fig:dep-d7-match-q}{以中等阻抗连接两根不同阻抗的杆}{
+\draw[thick](0,0)rectangle(2,.8);\draw[thick,fill=gray!15](2,-.2)rectangle(4,1);\draw[thick](4,-.4)rectangle(6,1.2);
+\node at(1,.4){$Z_1$};\node at(3,.4){$2Z_1$};\node at(5,.4){$4Z_1$};
+\draw[->](-.5,.4)--(-.05,.4);\draw[<->](2,-.8)--(4,-.8)node[midway,below]{$\ell$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-d7-match-q}中的粗细只表示阻抗分区，不另假定三个材料的波速相同。设左、右外杆中入射和透射速度振幅为$v_i,v_t$。用传递矩阵的逆矩阵，把右端$(v_t,Z_3v_t)$写回左端，得到
+\[
+ v(0)=v_t\!\left(\cos\delta-\mathrm i\frac{Z_3}{Z_2}\sin\delta\right),
+ \quad
+ P(0)=v_t(Z_3\cos\delta-\mathrm iZ_2\sin\delta).
+\]
+由$v(0)+P(0)/Z_1=2v_i$，有
+\[
+ \frac{v_t}{v_i}=
+ \frac{2Z_1}
+ {(Z_1+Z_3)\cos\delta-\mathrm i(Z_2+Z_1Z_3/Z_2)\sin\delta}.
+\]
+单向行波的平均能流为$Z|v|^2/2$，所以能量透射率还须乘以$Z_3/Z_1$：
+\[
+ \mathcal T=
+ \frac{4Z_1Z_3}
+ {(Z_1+Z_3)^2\cos^2\delta+
+ (Z_2+Z_1Z_3/Z_2)^2\sin^2\delta}
+ =\boxed{\frac{16}{25\cos^2\delta+16\sin^2\delta}}.
+\]
+\ExpansionDiagram{fig:dep-d7-match-a}{匹配层的透射峰及离开匹配频率后的反射}{
+\draw[->](0,0)--(6.8,0)node[right]{$\delta$};\draw[->](0,0)--(0,2.8)node[above]{$\mathcal T$};
+\draw[thick,domain=0:6.28318,samples=100]plot(\x,{2.4*16/(25*cos(\x r)^2+16*sin(\x r)^2)});
+\draw[dashed](0,2.4)--(6.3,2.4);\node[left]at(0,2.4){$1$};
+\node[left]at(0,1.536){$16/25$};\node[below]at(1.5708,0){$\pi/2$};\node[below]at(3.1416,0){$\pi$};\node[below]at(4.7124,0){$3\pi/2$};}
+图\ref{fig:dep-d7-match-a}中$\delta=\pi/2$时，$Z_{\rm in}=Z_2^2/Z_3=Z_1$，因此$r=0$、$\mathcal T=1$。虽然每个界面分别都会反射，两界面的返回振幅在左端相消。$\delta=\pi$时，夹层矩阵为负单位阵，输入阻抗又等于$Z_3$，故$\mathcal T=16/25$，与直接连接相同。四分之一波长匹配只在离散频率严格成立。
+\end{solution}
+
+\section{弯曲波的色散与能量输运}
+\subsection{从静态弯曲方程到动态方程}
+设细梁的弯曲刚度为$EI$、线密度为$\mu$。在小挠度、忽略截面转动惯量和剪切变形的Euler--Bernoulli近似中，取截面弯矩$M=EIy_{xx}$，并约定相邻截面剪力之差$Q_x\dd x$为微段的横向合力。微段的力矩平衡给出$Q=-M_x$，平动方程给出$\mu\dd x\,y_{tt}=Q_x\dd x$。代入弯矩与曲率的关系，依次得到
+\[
+ Q=-EIy_{xxx},\qquad \mu y_{tt}=-EIy_{xxxx},
+\]
+即
+\[
+ \mu y_{tt}+EIy_{xxxx}=0.
+\]
+梁的动态方程含四阶空间导数，有限梁的两端各需两条边界条件。例如固支端要求$y=y_x=0$；自由端要求弯矩和剪力为零，即$y_{xx}=y_{xxx}=0$。
+
+将 $y=a\cos(kx-\omega t)$ 代入方程。空间逐次求导为 $y_x=-ak\sin(kx-\omega t)$、$y_{xx}=-ak^2\cos(kx-\omega t)$、$y_{xxx}=ak^3\sin(kx-\omega t)$、$y_{xxxx}=ak^4\cos(kx-\omega t)$；时间两次求导为 $y_t=a\omega\sin(kx-\omega t)$、$y_{tt}=-a\omega^2\cos(kx-\omega t)$。比较余弦系数，$-\mu\omega^2+EIk^4=0$，所以
+\[
+ \omega^2=\frac{EI}{\mu}k^4,\qquad
+ v_{\rm ph}=\frac{\omega}{k}=\sqrt{\frac{EI}{\mu}}\,k,\qquad
+ v_{\rm g}=\frac{\dd\omega}{\dd k}=2v_{\rm ph}.
+\]
+这与理想弦的$\omega=ck$不同，波包中的不同波数传播速度不同。上述近似限于波长远大于梁的横向尺寸，不能把$k\to\infty$的结果外推为真实材料的无限传播速度。
+\ExpansionDiagram{fig:dep-d7-dispersion}{弯曲波的色散曲线；切线斜率为群速度，割线斜率为相速度}{
+\draw[->](0,0)--(5.4,0)node[right]{$k$};\draw[->](0,0)--(0,3.5)node[above]{$\omega$};
+\draw[thick,domain=0:4.3,samples=60]plot(\x,{.17*\x*\x});
+\draw[dashed](0,0)--(4.2,2.142);\draw(1.2,-.306)--(4.1,2.652);
+\fill(3,1.53)circle(2pt)node[above left]{$(k_0,\omega_0)$};
+\node[right]at(4.05,2.7){切线};\node[right]at(4.2,2.14){割线};}
+\subsection{由能量守恒求平均能流}
+单位长度的动能与弯曲势能相加，
+\[
+ e=\frac12\mu y_t^2+\frac12EIy_{xx}^2.
+\]
+利用运动方程消去$y_{tt}$，再对空间分部整理：
+\begin{align*}
+ \partial_te
+ &=-EIy_ty_{xxxx}+EIy_{xx}y_{xxt}\\
+ &=-\partial_x\!\left[EI(y_ty_{xxx}-y_{xt}y_{xx})\right].
+\end{align*}
+所以向右的瞬时能流为
+\[
+ J=EI(y_ty_{xxx}-y_{xt}y_{xx}).
+\]
+其中两项分别来自剪力和弯矩做功。对单色行波，$y_t=a\omega\sin(kx-\omega t)$、$y_{xxx}=ak^3\sin(kx-\omega t)$，而$y_{xx}=-ak^2\cos(kx-\omega t)$、$y_{xt}=a\omega k\cos(kx-\omega t)$，故
+\[
+ \langle J\rangle=EIa^2\omega k^3,\qquad
+ \langle e\rangle=\frac12\mu a^2\omega^2,\qquad
+ \frac{\langle J\rangle}{\langle e\rangle}=2\frac\omega k=v_{\rm g}.
+\]
+能量传播速度与图\ref{fig:dep-d7-dispersion}中的切线斜率一致。
+
+\begin{example}[弯曲波包的传播]
+一根足够长的均匀细梁，$EI=16\,\mathrm{N\,m^2}$、$\mu=1\,\mathrm{kg/m}$。中心波数$k_0=2\,\mathrm{m^{-1}}$的窄带小振幅波包向右传播。求载波频率、相速度、群速度，以及载波振幅$a=1\,\mathrm{mm}$时的平均能流。说明波包宽度是否能始终保持不变。
+\ExpansionDiagram{fig:dep-d7-packet-q}{载波在缓变包络内振动，波包整体向右传播}{
+\draw[->](-.2,0)--(7.2,0)node[right]{$x$};
+\draw[thick,domain=0:7,samples=200]plot(\x,{exp(-.4*(\x-3.4)^2)*cos(540*\x)});
+\draw[dashed,domain=0:7,samples=60]plot(\x,{exp(-.4*(\x-3.4)^2)});
+\draw[dashed,domain=0:7,samples=60]plot(\x,{-exp(-.4*(\x-3.4)^2)});
+\draw[->](4.7,1)--(6.3,1)node[midway,above]{$v_{\rm g}$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-d7-packet-q}中快速振动由中心波数决定。先算材料组合$\sqrt{EI/\mu}=4\,\mathrm{m^2/s}$，于是
+\[
+ \omega_0=4k_0^2=16\,\mathrm{s^{-1}},\qquad
+ f_0=\frac{\omega_0}{2\pi}=\frac8\pi\,\mathrm{Hz}.
+\]
+由 $\omega_0/k_0=16/2$，相速度为 $8\,\mathrm{m/s}$。色散关系为 $\omega(k)=4k^2$，求导得 $\dd\omega/\dd k=4\cdot2k=8k$，在 $k_0=2\,\mathrm{m^{-1}}$ 处群速度为 $16\,\mathrm{m/s}$。图中的单个波峰相对包络向后移动，因而不能通过追踪某一个波峰来测量波包能量的传播速度。
+
+把$a=10^{-3}\,\mathrm m$代入能流式：
+\[
+ \langle J\rangle
+ =16(10^{-3})^2\cdot16\cdot2^3
+ =2.048\times10^{-3}\,\mathrm W.
+\]
+另一方面，$\langle e\rangle=\mu a^2\omega_0^2/2
+=1.28\times10^{-4}\,\mathrm{J/m}$，乘以$v_{\rm g}=16\,\mathrm{m/s}$也得到同一能流。
+\ExpansionDiagram{fig:dep-d7-packet-a}{不同波数的群速度不同，初始窄带包络逐渐展宽}{
+\draw[->](0,0)--(7.5,0)node[right]{$x$};
+\draw[thick,domain=0:3.5,samples=70]plot(\x,{1.2*exp(-2*(\x-1.6)^2)});
+\draw[thick,domain=3.1:7,samples=70]plot(\x,{.7*exp(-.65*(\x-5.2)^2)});
+\node[above]at(1.6,1.25){初态};\node[above]at(5.2,.75){较晚时刻};
+\draw[->](2.9,1.1)--(4.4,1.1);}
+再求一次导数，$\dd^2\omega/\dd k^2=\dd(8k)/\dd k=8\,\mathrm{m^2/s}$。若波数宽度为 $\Delta k$，相应群速度宽度为
+\[
+ \Delta v_{\rm g}\simeq
+ \left|\frac{\dd^2\omega}{\dd k^2}\right|\Delta k
+ =8\Delta k.
+\]
+传播时间$t$后，不同成分的位置差增加约$8\Delta k\,t$；因此图\ref{fig:dep-d7-packet-a}中的展宽是色散引起的，并不表示机械能损失。只有在展宽远小于原包络宽度的时间范围内，才能把包络视为刚性平移。
+\end{solution}
+
+\section{分布质量对悬臂梁低频振动的影响}
+\subsection{用试探振型建立能量近似}
+梁自身的质量不能总压缩为一个位于端点的质点。设长度$L$的均匀悬臂梁端部另接集中质量$M$，梁的线密度为$\mu$。选择满足固支端几何条件、并把端点位移规范为$q(t)$的试探形状
+\[
+ y(x,t)=q(t)\phi(\xi),\qquad
+ \xi=x/L,\qquad
+ \phi(\xi)=\frac{\xi^2(3-\xi)}2.
+\]
+此形状来自端点静力作用的弯曲线，满足$\phi(0)=\phi'(0)=0$、$\phi(1)=1$及端点弯矩为零$\phi''(1)=0$。对带端质量的动态问题，自由端剪力由端质量的惯性力平衡，不能再额外令$\phi'''(1)=0$。
+
+由弯曲势能和动能分别得到
+\[
+ U=\frac{EIq^2}{2L^3}\int_0^1[\phi''(\xi)]^2\dd\xi
+ =\frac12\frac{3EI}{L^3}q^2,
+\]
+\[
+ T=\frac12\left[M+\mu L\int_0^1\phi^2(\xi)\dd\xi\right]\dot q^2.
+\]
+对试探形状求导，$\phi'=3\xi-3\xi^2/2$、$\phi''=3-3\xi$，故势能所需的积分为
+\[
+\int_0^1(\phi'')^2\dd\xi=9\int_0^1(1-2\xi+\xi^2)\dd\xi
+=9[\xi-\xi^2+\xi^3/3]_0^1=3.
+\]
+动能中的 $\phi^2=(9\xi^4-6\xi^5+\xi^6)/4$，积分为
+\[
+ \int_0^1\phi^2\dd\xi
+ =\frac14\left[\frac95\xi^5-\xi^6+\frac17\xi^7\right]_0^1
+ =\frac14\left(\frac95-1+\frac17\right)=\frac{33}{140}.
+\]
+单一广义坐标的拉格朗日方程因此为
+\[
+ \left(M+\frac{33}{140}\mu L\right)\ddot q+
+ \frac{3EI}{L^3}q=0.
+\]
+这里的$33\mu L/140$是相对于端点位移定义的等效质量，来自不同截面的速度平方加权；它不是梁的质心位置，也不是把整根梁替换为端点质点。
+\ExpansionDiagram{fig:dep-d7-rayleigh}{悬臂梁的试探振型和沿梁分布的惯性}{
+\fill[pattern=north east lines](-.3,-.3)rectangle(0,1.8);\draw[thick](0,0)--(5,0);
+\draw[thick,domain=0:5,samples=60]plot(\x,{1.2*(\x/5)^2*(3-\x/5)/2});
+\filldraw[fill=white](5,1.2)circle(.17)node[right=4pt]{$M$};
+\draw[<->](5.5,0)--(5.5,1.2)node[midway,right]{$q$};
+\draw[<->](0,-.5)--(5,-.5)node[midway,below]{$L$};\node[above]at(2.2,.8){$\mu\,\dd x$};}
+\subsection{近似频率的适用范围}
+上述能量商给出
+\[
+ \omega_{\rm R}^2=
+ \frac{3EI/L^3}{M+(33/140)\mu L}.
+\]
+线性、无预应力、无耗散的梁具有正定弹性能和质量内积。设真实振型为$X_n$，频率按$\omega_1\le\omega_2\le\cdots$排列。端质量也计入内积，记
+\[
+ N_n=\int_0^L\mu X_n^2\dd x+M X_n(L)^2>0.
+\]
+将满足固支端几何条件的试探形状展开为$\phi(x/L)=\sum_n a_nX_n(x)$。模态正交使动能、弯曲能中的交叉项同时消去，能量商因而成为
+\[
+ \omega_{\rm R}^2
+ =\frac{\displaystyle\sum_n a_n^2N_n\omega_n^2}
+ {\displaystyle\sum_n a_n^2N_n}.
+\]
+分母为正，且每项$\omega_n^2\ge\omega_1^2$，所以
+\[
+ \omega_{\rm R}^2-\omega_1^2
+ =\frac{\displaystyle\sum_n a_n^2N_n(\omega_n^2-\omega_1^2)}
+ {\displaystyle\sum_n a_n^2N_n}\ge0.
+\]
+单函数Rayleigh近似由此给出基频的上界；只有试探形状恰为真实第一振型时才取等号。这个结论并不保证高阶模态频率也被准确描述。
+
+\begin{example}[何时可以忽略梁自身质量]
+图\ref{fig:dep-d7-rayleigh}中的梁采用上述试探振型。若$\mu L=M$，求计入梁质量后的近似频率与忽略梁质量所得频率的比值。若要求忽略梁质量造成的频率高估不超过$5\%$，端质量至少应为梁质量的多少倍？
+\ExpansionDiagram{fig:dep-d7-mass-q}{端点集中质量与梁自身分布质量共同参与振动}{
+\fill[pattern=north east lines](-.3,-.3)rectangle(0,1);
+\draw[very thick](0,.35)--(5,.35);\filldraw[fill=white](5,.35)circle(.2)node[right=5pt]{$M$};
+\draw[<->](0,-.4)--(5,-.4)node[midway,below]{梁质量$\mu L$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-d7-mass-q}中端质量的速度为$\dot q$，而梁上截面的速度为$\phi(x/L)\dot q$。因此忽略梁质量时$\omega_0=\sqrt{3EI/(ML^3)}$，计入后
+\[
+ \frac{\omega_{\rm R}}{\omega_0}
+ =\left(1+\frac{33\mu L}{140M}\right)^{-1/2}.
+\]
+当$\mu L=M$，频率比为$\sqrt{140/173}\simeq0.8996$。忽略梁质量相对于$\omega_{\rm R}$高估约$11.16\%$，这与相对于$\omega_0$计算的$10.04\%$不是同一个百分数。
+\ExpansionDiagram{fig:dep-d7-mass-a}{梁的质量贡献由各截面速度平方加权}{
+\draw[->](0,0)--(5.8,0)node[right]{$x/L$};\draw[->](0,0)--(0,2.5)node[above]{$\phi^2$};
+\fill[gray!15,domain=0:5,samples=70](0,0)--plot(\x,{2*((\x/5)^2*(3-\x/5)/2)^2})--(5,0)--cycle;
+\draw[thick,domain=0:5,samples=70]plot(\x,{2*((\x/5)^2*(3-\x/5)/2)^2});
+\node[below]at(5,0){$1$};\node[left]at(0,2){$1$};\node at(4.1,.3){$33/140$};}
+以计入梁质量的近似频率为基准，要求
+\[
+ \frac{\omega_0-\omega_{\rm R}}{\omega_{\rm R}}
+ =\sqrt{1+\frac{33\mu L}{140M}}-1\leq0.05.
+\]
+两边先加1再平方，得$33\mu L/(140M)\leq1.05^2-1=0.1025$，故
+\[
+ \boxed{\frac{M}{\mu L}\geq
+ \frac{33}{140(0.1025)}\simeq2.300.}
+\]
+这个阈值衡量的是在同一试探振型模型中删去梁质量的影响，尚未包含试探振型相对于精确基频的误差。图\ref{fig:dep-d7-mass-a}中的权重解释了为何有效质量小于总质量：靠近固支端的截面速度很小。
+\end{solution}

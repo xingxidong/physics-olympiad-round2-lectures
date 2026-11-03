@@ -1,0 +1,41 @@
+% !TEX program = xelatex
+\documentclass[UTF8,11pt,twoside,openany]{ctexbook}
+\usepackage[paperwidth=176mm,paperheight=250mm,inner=19.5mm,outer=19.5mm,top=20mm,bottom=20mm,headheight=16pt,headsep=6mm,footskip=10mm]{geometry}
+\usepackage{amsmath,amssymb,bm,array,longtable,booktabs,fancyhdr,hyperref}
+\hypersetup{hidelinks,pdftitle={物理竞赛二轮讲义：十编合订本},pdfauthor={}}
+\linespread{1.18}\setlength{\parindent}{2em}\setlength{\parskip}{3pt}\setlength{\emergencystretch}{2em}\raggedbottom
+\ctexset{chapter={format=\LARGE\bfseries\centering,beforeskip=16pt,afterskip=22pt},section={format=\large\bfseries}}
+\pagestyle{fancy}\fancyhf{}\fancyfoot[C]{\small 总-\thepage}\fancyhead[C]{\small 物理竞赛二轮讲义}\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small 总-\thepage}\renewcommand{\headrulewidth}{0pt}}
+\begin{document}\frontmatter
+\begin{titlepage}\centering\vspace*{35mm}
+{\Huge\bfseries 物理竞赛二轮讲义\par}
+\vspace{14mm}{\Large 十编合订本\par}
+\vspace{20mm}{\large 数学方法与微积分\par 力学与电磁学\par 热学、近代物理与光学\par}
+\vfill{\large 2026年11月修订\par}
+\end{titlepage}
+\chapter*{前言}\addcontentsline{toc}{chapter}{前言}
+二轮课程在已有定律的基础上讨论条件更复杂的模型。本讲义先说明研究对象、约束和近似条件，再建立方程、展开计算，并考察边界或初态改变后解法的变化。守恒关系始终与所选系统对应。
+
+全书分十编，共四十五讲。第一编讲复数、几何、线性代数与AI辅助计算；第二、三编讨论运动、静力与动力学综合；第四编补充物理问题中使用的微积分方法；第五至七编依次讨论静电静磁、电磁感应和电路；第八至十编为热学、近代物理和光学。各编可以单独使用，合订本保留分编目录和局部章、题、图号，便于与分册对照。
+
+这里的“讲”按内容划分，模型较多的专题可分次讨论。原课程的知识、模型和题设条件构成各编主线，扩充内容补足推导与变式。题解遇到已证通式时给出引用，新的建模步骤和条件转换仍逐项说明。
+
+第一编的向量、矩阵和微分方法是后续各编共同使用的工具。阅读第三编的小振动和第七编的网络谱方法时，可回查第一编第三讲的本征矢与正交展开；处理第四编的受迫振动和第七编的暂态电路时，可对照二阶线性方程的初值解。电磁学中的边界条件、热学中的系统边界，以及光学中的波矢与能流，各有具体物理含义，不能仅因方程形式相近就互相替换。
+
+例题与习题均附解答。题设图确定几何、方向和变量，解答图接续受力分解、过程变化或边界构造，并与方程中的符号对应。可选题目标为“选做”，理论中的“选读”表示扩展阅读；公式的适用条件均在正文中说明。
+
+页码采用“编号—本编页码”，例如“7-80”表示第七编第80页。跨编引用应同时给出编名和讲次；“第七编，习题2.4”与该编分册中的同一道题对应。全书总目录列出四十五讲及主要节题，主题与模型索引用于查找分散在不同编中的相关内容。电子版目录的页码和书签均可跳转，纸面页码与分册保持一致。
+
+AI辅助计算用于实现已经明确的物理模型。方程、单位、初始条件和终止条件应先写清，再用解析极限、误差估计与守恒关系核对输出。数值曲线与推导不符时，应回到模型和算法查明原因；计算结果本身不能代替物理解释。
+\chapter*{全书目录}\addcontentsline{toc}{chapter}{全书目录}
+本目录中的页码均为“编号—本编页码”。各编前置说明与详细目录使用本编罗马页码，正文使用阿拉伯页码。
+\input{总目录条目}
+\chapter*{主题与模型索引}\addcontentsline{toc}{chapter}{主题与模型索引}
+同一主题下列出相关节题及其起始页。需要比较不同模型时，可由这些入口查阅相应推导、例题与习题。
+\begingroup\small\linespread{1.1}\selectfont
+\setlength{\parskip}{2pt}
+\ctexset{section={format=\normalsize\bfseries,beforeskip=12pt,afterskip=6pt}}
+\input{主题索引条目}
+\endgroup
+\end{document}

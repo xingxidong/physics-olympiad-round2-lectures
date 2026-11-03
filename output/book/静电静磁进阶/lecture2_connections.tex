@@ -1,0 +1,37 @@
+\section{边界误差怎样传入内部区域}
+\subsection{电势误差与场误差有不同的阶数权重}
+圆盘内的边界电势可以分解为Fourier角模。半径$b$边界上的误差若为$\delta V_m\cos m\theta$，其内部误差为
+\[
+ \delta\phi_m(r,\theta)=\delta V_m(r/b)^m\cos m\theta.
+\]
+分别对径向幂和角函数求导，
+\[\delta E_r=-\frac{m\delta V_m}b(r/b)^{m-1}\cos m\theta,\qquad
+\delta E_\theta=\frac{m\delta V_m}b(r/b)^{m-1}\sin m\theta.\]
+两分量平方相加，利用$\cos^2m\theta+\sin^2m\theta=1$，得$|\delta E_m|=m|\delta V_m|(r/b)^{m-1}/b$。因此场对近壁高阶结构比势更敏感。
+
+如果$m\geq M$的各模幅度都不超过$\epsilon$，在$r\leq\rho b$、$0<\rho<1$内，可分别用绝对值级数给保守界
+\[
+ |\delta\phi|\leq\epsilon\frac{\rho^M}{1-\rho},\qquad
+ |\delta E|\leq\frac\epsilon b
+ \frac{\rho^{M-1}[M-(M-1)\rho]}{(1-\rho)^2}.
+\]
+势界使用$\sum_{m=M}^\infty\rho^m=\rho^M/(1-\rho)$。在$0<\rho<1$内逐项求导，
+\[\sum_{m=M}^\infty m\rho^{m-1}
+=\frac{\dd}{\dd\rho}\frac{\rho^M}{1-\rho}
+=\frac{M\rho^{M-1}(1-\rho)+\rho^M}{(1-\rho)^2},\]
+将分子合并即得场界。
+这两个界只估计被省略的角模所造成的误差，边界数据本身的误差还需另算。越接近边界，$\rho$越接近1，分母越小；因此内部有效的截断精度通常不能直接延伸到壁面。
+
+\begin{example}[同一高阶边界误差在两个半径处的影响]
+半径$b$的二维圆盘边界误差只有第十角模$\epsilon\cos10\theta$。求$r=b/2$与$r=0.9b$处的最大电势误差和场误差，比较二者差别。
+\ExpansionDiagram{fig:dep-es2-error-q}{同一边界角模向圆内传播，观察位置距边界不同}{
+\draw[thick](0,0)circle(2);\draw[dashed](0,0)circle(1);\draw[dotted](0,0)circle(1.8);\draw[->](0,0)--(2,0)node[right]{$b$};\node at(.35,.35){$b/2$};\draw[->](2.3,1.5)--(1.2728,1.2728);\node[right]at(2.3,1.5){$0.9b$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-es2-error-q}中第十角模的内部幅度为$\epsilon(r/b)^{10}$。在$b/2$处，电势幅度为$\epsilon/1024$，场幅度为$(10\epsilon/b)2^{-9}\simeq0.01953\epsilon/b$。
+
+在$0.9b$处，电势幅度为$0.9^{10}\epsilon\simeq0.34868\epsilon$，场幅度为$10\times0.9^9\epsilon/b\simeq3.8742\epsilon/b$。场的量纲与电势不同，应分别用$\epsilon/b$和$\epsilon$比较，不能直接把两个数值相减。
+\ExpansionDiagram{fig:dep-es2-error-a}{电势模随半径上升，求导后场对近壁区域更敏感}{
+\draw[->](0,0)--(5,0)node[right]{$r/b$};\draw[->](0,0)--(0,2.7)node[above]{归一化幅度};\draw[thick,domain=0:4.5,samples=80]plot(\x,{2*(\x/4.5)^10});\draw[dashed,domain=0:4.5,samples=80]plot(\x,{2*(\x/4.5)^9});\draw[thick](.4,2.3)--(1.1,2.3)node[right]{$\phi/\epsilon$};\draw[dashed](.4,1.8)--(1.1,1.8)node[right]{$bE/(10\epsilon)$};\node[below]at(4.5,0){1};}
+图\ref{fig:dep-es2-error-a}中的两条曲线分别以各自边界幅度归一化，展示了电势与场误差不同的径向衰减。选取有限角模时，应同时给出观察区域和误差容限。靠壁面的表面电荷密度涉及法向导数，通常比内部电势需要更多高阶模。
+\end{solution}

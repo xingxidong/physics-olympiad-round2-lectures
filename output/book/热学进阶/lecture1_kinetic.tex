@@ -1,0 +1,150 @@
+\subsection{相对变量独立性的温度条件}
+\label{th:relativecorrelation}
+质心与相对动能的代数分离对任何速度都成立，但它们在概率上独立，还依赖初始分布。考虑两个分别按温度 $T_1,T_2$ 独立制备的粒子群，在尚未通过碰撞建立共同温度的瞬间，任一方向均有
+$\langle v_{1x}^2\rangle=\kb T_1/m_1$、
+$\langle v_{2x}^2\rangle=\kb T_2/m_2$。
+用第一讲已有的线性变换，
+\begin{align*}
+ \langle u_x^2\rangle&=\kb\left(\frac{T_1}{m_1}+\frac{T_2}{m_2}\right),\\
+ \langle V_{cx}^2\rangle&=
+ \frac{\kb(m_1T_1+m_2T_2)}{(m_1+m_2)^2},\\
+ \langle V_{cx}u_x\rangle&=
+ \frac{\kb(T_1-T_2)}{m_1+m_2}.
+\end{align*}
+最后一式由展开乘积后使用 $\langle v_{1x}v_{2x}\rangle=0$ 得到。不同温度时交叉协方差一般不为零，联合高斯密度不能再分解为质心、相对两个因子的乘积。等温时交叉项消失，对联合高斯变量，这又足以保证独立，恢复前文的分离结果。
+
+\Diagram{fig:relativecorrelation}{同温与不同温度下联合分布等密度线的示意}{
+ \begin{scope}
+  \draw[axis](-1.45,0)--(1.6,0)node[right]{$V_{cx}$};
+  \draw[axis](0,-1.1)--(0,1.3)node[above]{$u_x$};
+  \draw[curve](0,0)ellipse(1 and .55);
+  \node at(0,-1.6){$T_1=T_2$};
+ \end{scope}
+ \begin{scope}[xshift=5.5cm]
+  \draw[axis](-1.45,0)--(1.6,0)node[right]{$V_{cx}$};
+  \draw[axis](0,-1.1)--(0,1.3)node[above]{$u_x$};
+  \draw[curve,rotate=30](0,0)ellipse(1.2 and .4);
+  \node at(0,-1.6){$T_1>T_2$，存在正关联};
+ \end{scope}
+}
+图\ref{fig:relativecorrelation}中的坐标各自按合适的速度尺度绘制；倾斜表示条件均值随另一变量改变。即使有这种关联，单独对质心变量积分后的相对速度边缘分布仍是高斯，其宽度就是上式的 $\langle u_x^2\rangle$。因此不同温度的相对速率习题可以只用边缘分布求平均碰撞率；若求碰撞后实验室系的能量分配，则还应保留质心与相对变量之间的关联。
+
+在每个方向上，联合高斯变量的条件均值满足
+$\langle V_{cx}\mid u_x\rangle
+=\langle V_{cx}u_x\rangle u_x/\langle u_x^2\rangle$。
+因此在非同温情况下，选择某个有符号的相对速度分量，也会改变样本的平均质心速度。这里 $T_1,T_2$ 描述制备或瞬时分布；持续碰撞会使两组分交换能量，最终建立共同温度。
+
+\subsection{宏观漂移、热运动与动量通量}
+\label{th:pressuretensor}
+有整体流动时，实验室速度可分成平均流速与相对流体的热运动：
+$\vct v=\vct V_0+\vct c$，其中 $\langle\vct c\rangle=0$。
+局域平衡的 Maxwell 分布作用于 $\vct c$。温度由无规则运动的二阶矩确定，实验室系的总平均动能则为
+\[
+ \frac m2\langle v^2\rangle
+ =\frac m2V_0^2+\frac m2\langle c^2\rangle.
+\]
+第一项是宏观流动能，不能计入温度。不同惯性系中的 $\vct V_0$ 改变，而 $\vct c$ 的统计宽度不变。
+
+穿过法向为 $j$ 方向面元的粒子携带 $i$ 方向动量。每粒子动量为 $mv_i$，穿面通量含 $v_j$，故总动量通量张量为
+\[
+ \Pi_{ij}=nm\langle v_iv_j\rangle
+ =\rho V_{0i}V_{0j}+P_{ij},\qquad
+ P_{ij}=nm\langle c_ic_j\rangle,\quad \rho=nm.
+\]
+交叉项因 $\langle c_i\rangle=0$ 消失。各向同性平衡时 $P_{ij}=n\kb T\,\delta_{ij}$，才可用一个标量压强 $p$ 表示。若分布各向异性，三块不同朝向的壁可能承受不同的法向应力。
+
+\begin{example}[各向异性粒子群的壁面压力]
+\label{ex:anisotropicpressure}
+长方体容器内有 $N$ 个质量为 $m$ 的独立粒子，速度分布关于各坐标反演对称，分量互不相关，且 $\langle v_i^2\rangle=s_i^2$。壁面均作镜面弹性反射。求三组壁面的压力及总平动能，并说明能否只用平均动能给任意一块壁确定压力。
+\Diagram{fig:anisotropicpressureq}{三个方向的速度宽度与相应壁面}{
+ \draw[curve](0,0)rectangle(3,2);
+ \draw[curve](0,2)--(.9,2.8)--(3.9,2.8)--(3,2);
+ \draw[curve](3,0)--(3.9,.8)--(3.9,2.8);
+ \draw[axis](1.3,1)--(2.6,1)node[right]{$s_x$};
+ \draw[axis](1.3,1)--(1.3,2.2)node[above]{$s_z$};
+ \draw[axis](1.3,1)--(2,1.6)node[above left]{$s_y$};
+ \node[right]at(4.4,1.3){$n=N/V$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:anisotropicpressureq}中，垂直 $x$ 轴的壁面只反转 $v_x$。对入射半空间求撞壁冲量，沿用前文的“通量乘单次冲量”，有
+\[
+ p_x=2nm\int_{v_x>0}v_x^2f_x(v_x)\dd v_x
+ =nm s_x^2.
+\]
+第二步利用分量分布的反演对称性，把半轴二阶矩化成整轴的一半。相同方法给 $p_y=nm s_y^2$、$p_z=nm s_z^2$。总能量为
+\[
+ U_{\rm tr}=\frac{Nm}{2}(s_x^2+s_y^2+s_z^2)
+ =\frac V2(p_x+p_y+p_z).
+\]
+\Diagram{fig:anisotropicpressurea}{法向二阶矩分别决定三组壁面压力}{
+ \draw[axis](0,0)--(5,0)node[right]{壁面法向};
+ \foreach \x/\h/\t in{1/1.1/x,2.5/1.8/y,4/.7/z}{
+  \draw[fill=gray!15](\x-.3,0)rectangle(\x+.3,\h);
+  \node[below]at(\x,0){$\t$};
+  \node[above]at(\x,\h){$p_{\t}$};
+ }
+}
+图\ref{fig:anisotropicpressurea}示意三方向不等的压力。给定 $U_{\rm tr}$ 只固定三个压力之和，仍可有不同的分配。只有各向同性时 $p_x=p_y=p_z=p$，才能进一步写成 $pV=2U_{\rm tr}/3$。若分子间碰撞逐渐使三方向能量均分，在体积固定且不向外散热的条件下，总能量不变，最终共同压力等于原先三个压力的算术平均。
+\end{solution}
+
+\subsection{碰撞事件的速率权重}
+两组分在同温下的相对速率密度已由式\eqref{eq:relative}确定。某个相对速率 $u$ 对碰撞率的贡献，除概率密度外还乘扫掠速率 $u$ 和截面 $\sigma(u)$，故
+\[
+ K(T)=\langle\sigma u\rangle
+ =\int_0^\infty\sigma(u)u\,g_u(u)\dd u.
+\]
+$K$ 的量纲为体积除时间，乘 $n_1n_2$ 后才成为单位体积、单位时间的异种碰撞数。按碰撞事件抽样的密度是 $\sigma(u)u g_u(u)/K$。截面随能量变化时，即使热平衡的 $g_u$ 未变，碰撞样本的分布也会改变。
+
+\begin{example}[速率相关截面的碰撞平均]
+\label{ex:powercrosssection}
+两种粒子处于共同温度 $T$，约化质量为 $\mu$。在所讨论速率范围内，碰撞截面可近似为 $\sigma(u)=\sigma_\ast(u/u_\ast)^q$，其中 $u_\ast>0$、$q>-4$。求速率系数 $K(T)$，以及按碰撞事件抽样的平均相对动能。
+\Diagram{fig:powercrosssectionq}{相对速率分布经扫掠与截面两次取权}{
+ \node[draw](a)at(0,0){$g_u(u)\dd u$};
+ \node[draw](b)at(3.1,0){$u\,\sigma(u)$};
+ \draw[axis](a)--(b);
+ \node at(1.55,.6){碰撞机会};
+ \node[draw](c)at(6.2,0){事件样本};
+ \draw[axis](b)--(c);
+}
+\end{example}
+\begin{solution}
+图\ref{fig:powercrosssectionq}中的权重为
+$\sigma_\ast u^{q+1}/u_\ast^q$。用前文的一般 Maxwell 矩，把其中的质量换成 $\mu$，
+\[
+ K=\frac{\sigma_\ast}{u_\ast^q}
+ \frac2{\sqrt\pi}\Gamma\!\left(\frac{q+4}{2}\right)
+ \left(\frac{2\kb T}{\mu}\right)^{(q+1)/2}.
+\]
+积分原点附近的被积函数正比于 $u^{q+3}$，收敛要求 $q>-4$；无穷远端由高斯因子保证收敛。这个条件对应题设的指数范围。若真实截面只在有限速率区间服从幂律，则上式只适用于主要碰撞事件集中在该区间的温度。
+
+事件平均必须用同一总碰撞率作分母，因此
+\[
+\begin{aligned}
+ \langle E_r\rangle_{\rm coll}
+ &=\frac{\mu}{2}\frac{\langle u^{q+3}\rangle}
+ {\langle u^{q+1}\rangle}
+ =\frac{\mu}{2}\frac{I_{q+5}(\alpha_u)}{I_{q+3}(\alpha_u)}\\
+ &=\frac{\mu}{2}\frac{q+4}{2\alpha_u}
+ =\frac{q+4}{2}\kb T,\qquad \alpha_u=\frac\mu{2\kb T}.
+\end{aligned}
+\]
+第二行使用第\ref{th:integrals}节已由分部积分证明的递推式，取$s=q+3>-1$；两个速率矩具有相同归一化系数，作比后已消去。
+\Diagram{fig:powercrosssectiona}{截面指数改变碰撞速率与事件能量}{
+ \draw[axis](0,0)--(5,0)node[right]{$q$};
+ \draw[axis](0,0)--(0,3)node[above]{$\langle E_r\rangle_{\rm coll}/(\kb T)$};
+ \draw[curve](.6,.3)--(4.5,2.25);
+ \fill(2,1)circle(1.2pt)node[below right]{$(-2,1)$};
+ \fill(4,2)circle(1.2pt)node[above left]{$(0,2)$};
+ \node[below]at(0,0){$-4$};
+}
+图\ref{fig:powercrosssectiona}中的直线只在 $q>-4$ 适用。常截面 $q=0$ 给出 $2\kb T$，比随机粒子对的 $3\kb T/2$ 大；$q=-1$ 时 $\sigma u$ 为常数，事件取样与原相对速率取样一致，平均能量恢复为 $3\kb T/2$。两个极限分别检验了碰撞加权和归一化。
+\end{solution}
+
+\subsection{局域平衡与边界过程的时间尺度}
+一个容器中的总粒子数和总能量不足以确定随时间演化的分布。采用瞬时平衡的 Maxwell 形式，还要求碰撞与宏观变化之间有时间尺度分离。典型碰撞时间为 $\tau_c\sim\lambda/\bar v$，声学信息穿越尺度 $L$ 的时间约为 $\tau_s\sim L/c_s$。若体积或温度显著改变的时间为 $\tau_{\rm mac}$，准静态处理至少要求相关的松弛时间远小于 $\tau_{\rm mac}$。
+
+小孔泄流还要求“孔附近的传输”与“容器内部的重新平衡”分别满足条件。孔径远小于平均自由程，可忽略孔口内的分子间碰撞；容器内却可通过足够多的体碰撞或壁面热化保持平衡。因而分子流小孔与平衡余气可以同时存在。若整个容器都处于无碰撞极限且壁面只作镜面反射，最初分布随边界运动会发生形变，须跟踪速度方向及粒子飞行历史。
+
+宏观运动缓慢时，还应判断各处是否接近平衡。有限压差推动活塞、有限温差传热及流动耗散都会产生熵；降低平均速度未必能同时消除这些因素。后两讲将按具体能量交换方式和过程约束计算相应的熵产生。
+

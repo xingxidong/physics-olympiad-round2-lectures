@@ -1,0 +1,147 @@
+\section{成像矩阵与横向放大率}
+设物面到像面的总矩阵为$M_{OI}=\bigl(\begin{smallmatrix}A&B\\C&D\end{smallmatrix}\bigr)$。同一物点高度$y_O$发出不同倾角的光，像面高度为$y_I=Ay_O+B n_O\theta_O$。所有出射方向都汇于同一像点，要求$B=0$，横向放大率就是$A$。因为行列式为1，此时$AD=1$，角放大与横向放大有互为倒数的约化关系。
+
+对物像面两条光线，双线性量$y_1n\theta_2-y_2n\theta_1$在每个行列式为1的矩阵下不变，这就是近轴光学不变量。它约束像高与孔径角的乘积：同一系统不可能既把像无代价放大，又保持全部出射角不变。有限孔径、亮度和通光范围需在这个几何约束之外再结合能流研究。
+
+\begin{example}\label{ex:o1matriximage}
+近轴系统两端都在空气，总矩阵为$\bigl(\begin{smallmatrix}A&B\\C&D\end{smallmatrix}\bigr)$。物面在入射参考面前$u$，像面在出射参考面后$v$。推导成像条件及放大率，说明它比只给焦距多保留了什么信息。
+\Diagram{fig:o1matrixq}{物、像距离分别从系统两参考面量起}{\OptAxis\draw[curve](1.8,-1)rectangle(3.8,1);\node at(2.8,.5){$M$};\draw[->](0,0)--(0,.8);\draw[guide](5.8,-1.2)--(5.8,1.2);\node[below]at(.9,-.5){$u$};\node[below]at(4.8,-.5){$v$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1matrixq}的光线变量取$(y,p)$，空气中$p=\theta$。由物面先向右传播$u$，再经过系统$M$，最后传播$v$，因此从右向左依次相乘：
+\[
+ T(v)MT(u)=
+ \begin{pmatrix}
+ A+vC&Au+B+v(Cu+D)\\ C&Cu+D
+ \end{pmatrix}.
+\]
+同一物点发出的光线具有相同$y_O$、不同$p_O$。要使它们到像面有同一高度，输出高度中$p_O$的系数必须为零，即$Au+B+v(Cu+D)=0$。若$Cu+D\ne0$，
+\[
+ v=-\frac{Au+B}{Cu+D}.
+\]
+\Diagram{fig:o1matrixa}{同一物点的两条不同初始倾角光线须落在同一像点}{\OptAxis\draw[curve](2,-1.2)rectangle(3,1.2);\draw[->](0,.8)--(2,1);\draw[->](0,.8)--(2,-.2);\draw[->](3,.5)--(5.5,-.6);\draw[->](3,-.8)--(5.5,-.6);\fill(5.5,-.6)circle(1.4pt);}
+图\ref{fig:o1matrixa}中两条入射光线在像面汇于同点，横向放大率为矩阵左上元：
+\begin{align*}
+ m_y&=A+vC
+ =\frac{A(Cu+D)-C(Au+B)}{Cu+D}\\
+ &=\frac{AD-BC}{Cu+D}=\frac1{Cu+D}.
+\end{align*}
+最后使用约化光线矩阵的$\det M=1$。若$Cu+D=0$，行列式又保证$Au+B$不能同时为零，否则矩阵两列线性相关；此时出射为平行束，有限$v$处没有像面。$C=0$的无焦系统仍可用完整矩阵求共轭，无须引入发散的主面坐标。$C$只决定总光焦度，$A,D$还保留焦点相对系统外壳的位置，$B$则影响有限物距的共轭关系。
+\end{solution}
+
+\begin{example}\label{ex:o1thicklens}
+空气中厚透镜折射率$n$，轴向厚度$d$，前后曲率半径$R_1,R_2$均按本讲有向约定。推导厚透镜制作者公式，并求对称双凸$R_1=R,R_2=-R$的焦距与主面偏移。
+\Diagram{fig:o1thickq}{前后曲率中心的方向不同，$R_1>0,R_2<0$}{\OptAxis\draw[curve](2,-1.5)..controls(1.4,-.5)and(1.4,.5)..(2,1.5);\draw[curve](2,-1.5)..controls(3,-.5)and(3,.5)..(2,1.5);\node[above]at(2.2,1.7){$n,d$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1thickq}中两界面光焦度为$\Phi_1=(n-1)/R_1$、$\Phi_2=(1-n)/R_2$。折射矩阵$S_j=\bigl(\begin{smallmatrix}1&0\\-\Phi_j&1\end{smallmatrix}\bigr)$，玻璃内传播矩阵$T=\bigl(\begin{smallmatrix}1&d/n\\0&1\end{smallmatrix}\bigr)$，故
+\[
+ S_2TS_1=\begin{pmatrix}
+ 1-d\Phi_1/n&d/n\\
+ -\Phi_1-\Phi_2+d\Phi_1\Phi_2/n&1-d\Phi_2/n
+ \end{pmatrix}.
+\]
+由$C=-\Phi$读出厚透镜制作者公式
+\[
+ \Phi=(n-1)\left[\frac1{R_1}-\frac1{R_2}
+ +\frac{(n-1)d}{nR_1R_2}\right].
+\]
+\Diagram{fig:o1thicka}{主面向透镜内部移动，两个偏移相反}{\OptAxis\draw[guide](2,-1.5)--(2,1.5);\draw[guide](3,-1.5)--(3,1.5);\draw[very thick](2.2,-1.1)--(2.2,1.1);\draw[very thick](2.8,-1.1)--(2.8,1.1);\node[above]at(2,1.6){$V_1$};\node[above]at(3,1.6){$V_2$};\node[below]at(2.2,-1.1){$H_1$};\node[below]at(2.8,-1.1){$H_2$};}
+图\ref{fig:o1thicka}采用$R_1=R$、$R_2=-R$，所以$\Phi_1=\Phi_2=\Phi_s=(n-1)/R$，$\Phi=2\Phi_s-d\Phi_s^2/n$、$f=1/\Phi$。以两个顶点分别为基准的主面有向偏移为
+\[
+ h_1=\frac{1-D}\Phi=\frac{d\Phi_s}{n\Phi},\qquad
+ h_2=\frac{A-1}\Phi=-\frac{d\Phi_s}{n\Phi}.
+\]
+常规会聚情形$\Phi>0$，前主面向右偏、后主面向左偏；背焦距是从后顶点量到后焦点，故为$f+h_2$，而非$f$。令$d\to0$，两主面均回到薄透镜平面，$\Phi\to2(n-1)/R$。若参数使$\Phi=0$，总矩阵仍可使用，但这些除以$\Phi$的焦距、主面公式不适用，应按无焦系统处理。
+\end{solution}
+
+\begin{example}\label{ex:o1apparentdepth}
+水中点物体距平界面深$h$，水折射率$n$，空气中观察。求近轴表观深度，并用球面成像的$R\to\infty$极限和射线几何两种方法核对。
+\Diagram{fig:o1depthq}{折射光的反向延长给出水中的虚像}{\draw[curve](-2.5,0)--(2.5,0);\fill(0,-2)circle(1.5pt)node[below]{物点};\draw[->](0,-2)--(1,0)--(2.3,1.4);\draw[guide](0,-2)--(0,1.7);\node[left]at(-2.5,-.8){$n$};\node[left]at(-2.5,.8){空气};}
+\end{example}
+\begin{solution}
+沿向上方向取光轴，图\ref{fig:o1depthq}物方$n_1=n$、像方$n_2=1$，平面$\Phi=0$。式\eqref{eq:o1gauss}给$n/h+1/v=0$，所以$v=-h/n$，表观深度为$h/n$。
+\Diagram{fig:o1deptha}{近轴时折射角变大，延长线交于较浅位置}{\draw[curve](-2.5,0)--(2.5,0);\fill(0,-2)circle(1.5pt)node[left]{$h$};\fill(0,-1.2)circle(1.5pt)node[left]{$h/n$};\draw[->](0,-2)--(1,0);\draw[->](1,0)--(2.5,1.8);\draw[guide](1,0)--(0,-1.2);}
+射线在水中角$i$、空气角$r$，$n\sin i=\sin r$。若界面交点距轴$y$，真实深度$h=y/\tan i$，延长交点深度$h_a=y/\tan r$。近轴$r\simeq ni$，所以$h_a\simeq h/n$。图\ref{fig:o1deptha}画的是近轴虚像；大角度时$h_a=h\tan i/\tan r$依角度变，平面折射并不对所有孔径形成严格同一点像。
+\end{solution}
+
+\section{渐变介质的传像与精确光线}
+\begin{example}\label{ex:o1grinrelay}
+近轴渐变介质满足$y''+g^2y=0$，轴上折射率近似$n_0$。求长度$l$的约化矩阵，分别讨论四分之一节距和半节距的用途。
+\Diagram{fig:o1grinq}{渐变杆内的周期光线}{\OptAxis\draw[curve](0,-1.2)rectangle(6,1.2);\draw[curve,domain=0:6,samples=80]plot(\x,{.8*cos(60*\x)});\node[above]at(3,1.2){$y''+g^2y=0$};}
+\end{example}
+\begin{solution}
+由初值解$y(l)=y(0)\cos gl+y'(0)\sin gl/g$、$y'(l)=-gy(0)\sin gl+y'(0)\cos gl$，图\ref{fig:o1grinq}的约化矩阵为
+\[
+ M(l)=\begin{pmatrix}\cos gl&\sin gl/(n_0g)\\-n_0g\sin gl&\cos gl\end{pmatrix}.
+\]
+四分之一节距$gl=\pi/2$，输出高度由输入倾角决定、输出倾角由输入高度决定；轴上点物发出的光变为轴向平行光。半节距$gl=\pi$，$M=-I$，输入面被倒立等大地传到输出面。
+\Diagram{fig:o1grina}{半节距中，来自同一输入点的不同初始倾角光线在反高处重聚}{\draw[axis](0,0)--(6.6,0);\draw[curve,domain=0:6,samples=80]plot(\x,{.7*cos(30*\x)});\draw[guide,domain=0:6,samples=80]plot(\x,{.7*cos(30*\x)+.6*sin(30*\x)});\fill(0,.7)circle(1.4pt);\fill(6,-.7)circle(1.4pt);\node[below]at(3,-1.1){$gl=\pi$};}
+图\ref{fig:o1grina}的两光线初始斜率不同，末高却同为$-y_0$，体现$B=0$成像条件。四分之一节距不能同时又说输出面是输入面的等大像；它交换了位置和倾角的信息。若杆端与空气折射，还需接上两个平面界面的角度变换，本约化变量已自动保持$n\theta$连续。
+\end{solution}
+
+\begin{example}\label{ex:o1linearn2}
+折射率平方在某区域满足$n^2(y)=n_A^2+2ay$，$a$为常数。光从原点沿$+z$水平进入，求虚拟力学轨迹和真实传播时间，限定在折射率为实的区间。
+\Diagram{fig:o1linearq}{折射率平方的梯度使光线弯向高折射率侧}{\OptAxis\draw[axis](0,0)--(0,2.7)node[above]{$y$};\draw[->](0,0)--(1.7,0);\node at(3,1.4){$n^2=n_A^2+2ay$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1linearq}中，虚拟参数$q$满足$\ddot{\vct r}=(v_0^2/2)\nabla n^2$，故$\ddot z=0$、$\ddot y=av_0^2$。光从原点水平进入，$z(0)=y(0)=0$、$\dot z(0)=n_Av_0$、$\dot y(0)=0$。先积分加速度，$\dot y=\int_0^qav_0^2\dd s=av_0^2q$、$\dot z=n_Av_0$；再积分速度，
+\[
+ z=n_Av_0q,\qquad y=\tfrac12av_0^2q^2
+ =\frac{az^2}{2n_A^2}.
+\]
+此处的速度是对虚拟参数求导所得；真实时间仍由光程积分给出。沿轨迹$y'=az/n_A^2$，且$n^2=n_A^2+a^2z^2/n_A^2=n_A^2(1+y'^2)$。
+\Diagram{fig:o1lineara}{轨迹为抛物线，但真实传播时间不是匀加速粒子时间}{\OptAxis\draw[axis](0,0)--(0,2.9)node[above]{$y$};\draw[curve,domain=0:4.5,samples=70]plot(\x,{.12*\x*\x});\draw[guide](3,0)--(3,1.08);\node[below]at(3,0){$Z$};}
+真实传播时间为$\dd t=n\dd s/c$，图\ref{fig:o1lineara}中的弧长满足$\dd s=\sqrt{1+y'^2}\dd z=(n/n_A)\dd z$，因此
+\begin{align*}
+ t(Z)&=\frac1{cn_A}\int_0^Z n^2(z)\dd z\\
+ &=\frac1{cn_A}\left[n_A^2z+\frac{a^2z^3}{3n_A^2}\right]_0^Z
+ =\frac{n_AZ}c+\frac{a^2Z^3}{3cn_A^3}.
+\end{align*}
+几何路程的增加和沿途折射率的增加都已包含在$n\dd s$中。若$a<0$，光线向负$y$偏折，但$a y>0$，沿射线仍是折射率增大；时间修正含$a^2$，保持正值。$a$的量纲为长度倒数，$a^2Z^3/c$为时间。以上轨迹只适用于该分布覆盖的区域，遇到界面后须重新匹配出射方向。
+\end{solution}
+
+\begin{example}\label{ex:o1luneburg}
+半径$R$的球形渐变透镜在球内$n^2(r)=2-r^2/R^2$，球外$n=1$。证明平行于$x$、冲量参数满足$|b|<R$的入射光线会聚于球面右端$(R,0)$，并求从左侧平面$x=-R$到焦点的总光程。
+\Diagram{fig:o1luneq}{球边$n=1$，平行光以不同冲量参数$b$进入}{\draw[axis](-3,0)--(3,0)node[right]{$x$};\draw[axis](0,-2.2)--(0,2.4)node[above]{$y$};\draw[curve](0,0)circle(1.8);\foreach\y in{-.9,0,.9}{\draw[->](-2.8,\y)--({-sqrt(3.24-\y*\y)},\y);}\node[right]at(2,1.4){$n^2=2-r^2/R^2$};}
+\end{example}
+\begin{solution}
+取图\ref{fig:o1luneq}二维截面，入点$\vct r_0=(-a,b)$，$a=\sqrt{R^2-b^2}$。球边折射率连续且等于1，入射方向不跳变。虚拟力为$\ddot{\vct r}=-(v_0^2/R^2)\vct r$，初始速度$v_0\hat{\vct x}$。令$\eta=v_0q/R$，精确解
+\[
+ x=-a\cos\eta+R\sin\eta,\qquad y=b\cos\eta.
+\]
+在$0<\eta<\pi/2$，$r^2=R^2-2aR\sin\eta\cos\eta<R^2$，光线确在球内；首个再次到球面时$\eta=\pi/2$，得到$x=R,y=0$，与$b$无关。
+\Diagram{fig:o1lunea}{精确光线在球面同一点相交；这里无需近轴条件}{\draw[axis](-2.8,0)--(2.6,0);\draw[curve](0,0)circle(1.8);\foreach\b in{-.9,0,.9}{\pgfmathsetmacro{\a}{sqrt(3.24-\b*\b)}\draw[curve,domain=0:90,samples=70]plot({-\a*cos(\x)+1.8*sin(\x)},{\b*cos(\x)});}\fill(1.8,0)circle(1.7pt)node[right]{$F$};}
+沿轨迹$n^2=1+(a/R)\sin2\eta$，真实光程为
+\[
+ ct=R\int_0^{\pi/2}\left(1+\frac aR\sin2\eta\right)\dd\eta
+ =R\left[\eta-\frac{a}{2R}\cos2\eta\right]_0^{\pi/2}
+ =\frac{\pi R}{2}+a.
+\]
+从左平面到入点的空气程为$R-a$，相加得总光程$R(1+\pi/2)$，不依冲量参数。图\ref{fig:o1lunea}的几何聚焦同时满足等光程。严格掠射的$|b|=R$不属于穿入球内的光线，以上结论可取其从内侧逼近的极限。
+\end{solution}
+
+\section{光程、相位与短波近似}
+设标量场满足$\nabla^2U+k_0^2n^2U=0$，写$U=A\ee^{ik_0S}$，$A,S$缓变且$S$为实。第一次求导给$\nabla U=\ee^{ik_0S}(\nabla A+ik_0A\nabla S)$；再用乘积法则求散度，
+\[
+ \nabla^2U=\ee^{ik_0S}\left[
+ \nabla^2A+2ik_0\nabla A\cdot\nabla S
+ +ik_0A\nabla^2S-k_0^2A|\nabla S|^2\right].
+\]
+代回波动方程并除去指数，得$\nabla^2A+ik_0(2\nabla A\cdot\nabla S+A\nabla^2S)+k_0^2A(n^2-|\nabla S|^2)=0$。短波渐近展开中，先令$k_0^2$阶系数为零，得到程函方程$|\nabla S|^2=n^2$；再令$k_0$阶系数为零，得到输运方程$2\nabla A\cdot\nabla S+A\nabla^2S=0$。后式乘$A$，利用$\nabla(A^2)=2A\nabla A$，可写成$\nabla\cdot(A^2\nabla S)=0$。第一式决定相位面的法线方向和光程，第二式决定光线束收缩时的振幅变化；$\nabla^2A$留在更低阶，焦区等振幅急变区域不能将它忽略。
+
+\begin{example}\label{ex:o1eikonal}
+在均匀介质中，分别求平面波和球面出射波的程函$S$及振幅随传播距离的变化，解释焦散附近为何几何光学振幅会失效。
+\Diagram{fig:o1eikonalq}{平行光管截面积不变，球面光管面积随$r^2$增大}{\begin{scope}[xshift=-2cm]\draw[->](0,-.6)--(2,-.6);\draw[->](0,.6)--(2,.6);\node[above]at(1,1){平行光管};\end{scope}\draw[->](2,0)--(4.5,1.2);\draw[->](2,0)--(4.5,-1.2);\node[above]at(3.5,1.7){发散光管};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1eikonalq}的平面波可取$S=nz$，$\nabla^2S=0$。输运方程给$\partial_z A=0$，积分为$A(z)-A(z_0)=\int_{z_0}^z0\dd q=0$，故振幅不随$z$衰减。球面波取$S=nr$，径向拉普拉斯为$\nabla^2S=r^{-2}\partial_r(r^2\partial_rS)=r^{-2}\partial_r(nr^2)=2n/r$。输运方程变为$A'=-A/r$，在$r>0$分离变量，
+\[
+ \int_{A(r_0)}^{A(r)}\frac{\dd a}{a}
+ =-\int_{r_0}^{r}\frac{\dd q}{q},\qquad
+ \ln\frac{A(r)}{A(r_0)}=-\ln\frac r{r_0}.
+\]
+因此$A(r)=A(r_0)r_0/r$，强度随$1/r^2$衰减。
+\Diagram{fig:o1eikonala}{会聚光管在焦点截面积趋零，短波振幅公式不能无限使用}{\draw[->,thick](-2,1.2)--(0,0)--(2,-1.2);\draw[->,thick](-2,-1.2)--(0,0)--(2,1.2);\draw[guide](-1,-.6)--(-1,.6);\fill(0,0)circle(1.5pt)node[above]{$F$};\node[below]at(0,-1.7){焦区需波动解};}
+球面能流乘球面积保持不变。图\ref{fig:o1eikonala}会聚时光管面积趋零，几何输运式形式上给出发散振幅，表明缓变假设在焦区失效。焦区应改用衍射解，得到有限场强及焦点相移。
+\end{solution}

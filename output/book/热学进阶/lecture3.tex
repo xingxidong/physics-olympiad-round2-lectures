@@ -1,0 +1,553 @@
+\chapter{第二定律、熵与有限热源}
+
+\section{热机、卡诺循环与效率上界}
+\label{th:carnot}
+热机以某种工质经历循环，从高温热源吸热 $Q_h>0$，向低温热源放热 $Q_c>0$，对外输出功 $W$。工质回到初态，$\Delta U=0$，第一定律给出
+\[
+ W=Q_h-Q_c,\qquad \eta=\frac W{Q_h}=1-\frac{Q_c}{Q_h}.
+\]
+一次循环后工质回到初态，热源和外界则分别发生热量与功的交换。效率按输出功占高温热源供热量的比例定义，分母为 $Q_h$；净吸热 $Q_h-Q_c$ 已等于循环输出功。
+
+卡诺循环由两条可逆等温线和两条可逆绝热线组成。理想气体在高温$T_h$上由$A$膨胀到$B$，再绝热到$C$；在低温$T_c$上由$C$压缩至$D$，再绝热回$A$。等温段内能不变，由$p=\nu RT/V$得$Q=\nu RT\int_{V_i}^{V_f}\dd V/V=\nu RT[\ln V]_{V_i}^{V_f}$。低温段沿压缩方向热量为负，以下取其大小，得到
+\[
+ Q_h=\nu RT_h\ln\frac{V_B}{V_A},\qquad
+ Q_c=\nu RT_c\ln\frac{V_C}{V_D}.
+\]
+两条绝热线给 $T_hV_B^{\gamma-1}=T_cV_C^{\gamma-1}$、$T_hV_A^{\gamma-1}=T_cV_D^{\gamma-1}$。两式相除，得到 $V_B/V_A=V_C/V_D$，从而
+\begin{equation}\label{eq:carnotratio}
+ \frac{Q_h}{T_h}=\frac{Q_c}{T_c},\qquad \eta_C=1-\frac{T_c}{T_h}.
+\end{equation}
+\Diagram{fig:carnottheory}{卡诺循环的两条等温线与两条绝热线}{
+ \draw[axis](0,0)--(5.4,0)node[right]{$V$};\draw[axis](0,0)--(0,4.4)node[above]{$p$};
+ \pgfmathsetmacro{\vratio}{2^(3/2)}
+ \coordinate(A)at(.8,3.75);\coordinate(B)at(1.5,2);\coordinate(C)at({1.5*\vratio},{1.5/(1.5*\vratio)});\coordinate(D)at({.8*\vratio},{1.5/(.8*\vratio)});
+ \draw[curve]plot[domain=.8:1.5](\x,{3/\x});\draw[curve]plot[domain=1.5:{1.5*\vratio}](\x,{3*1.5^(2/3)/\x^(5/3)});
+ \draw[curve]plot[domain={.8*\vratio}:{1.5*\vratio}](\x,{1.5/\x});\draw[curve]plot[domain=.8:{.8*\vratio}](\x,{3*.8^(2/3)/\x^(5/3)});
+ \foreach \p/\pos in{A/above,B/above right,C/right,D/left}{\fill(\p)circle(1.2pt)node[\pos]{$\p$};}
+ \node at(2.2,3.2){$T_h$};\node at(3.8,.85){$T_c$};\draw[->](1,3)--(1.2,2.5);\draw[->](3.6,.4167)--(3,.5);
+}
+图\ref{fig:carnottheory}中的循环面积是 $W$。经过同一点时，绝热线比等温线更陡；高温膨胀与低温压缩之间因而围出正面积。两条等温段的热量由各自的 $p\dd V$ 积分确定。
+
+\begin{example}[用图形伸缩理解卡诺热量比]\label{ex:carnotscale}
+理想气体卡诺循环的状态如图\ref{fig:carnottheory}。讨论变换 $(p,V)\mapsto(\alpha p,\beta V)$ 如何改变温度、绝热线和微元热量，并利用它解释两条等温线的热量比。
+\Diagram{fig:carnotscaleq}{状态平面中的独立压强伸缩与体积伸缩}{
+ \draw[axis](0,0)--(4.3,0)node[right]{$V$};\draw[axis](0,0)--(0,3)node[above]{$p$};
+ \fill(1,.9)circle(1.3pt)node[left]{$(p,V)$};\fill(3,2.2)circle(1.3pt)node[right]{$(\alpha p,\beta V)$};\draw[->](1.2,1)--(2.8,2.1);
+}
+\end{example}
+\begin{solution}
+图\ref{fig:carnotscaleq}中 $pV$ 乘 $\alpha\beta$，由状态方程知 $T\mapsto\alpha\beta T$。绝热线 $pV^\gamma=C$ 变为 $p'V'^\gamma=\alpha\beta^\gamma C$，仍是同一指数的绝热线。因此可用一次伸缩把绝热段 $AD$ 映到 $BC$；两端分别处于相同高低温，故此时 $\alpha\beta=1$，并有 $V_B/V_A=V_C/V_D$。
+
+再以另一伸缩把高温等温段 $AB$ 映到低温等温段 $DC$，这次 $\alpha\beta=T_c/T_h$。理想气体微元热量为 $\delta Q=C_V\dd T+p\dd V$，两项在映射下都乘同一因子 $\alpha\beta$。
+伸缩过程中微元的温度变化也乘 $\alpha\beta$，体积变化则乘 $\beta$，所以 $p'\dd V'=\alpha\beta p\dd V$。对固定物质的量、常热容理想气体，$C_V\dd T'$ 也按同一比例改变，两个能量项相加才保证热量一起缩放。这个几何证明使用了常数 $\gamma$ 的绝热线形式；若热容随温度改变，卡诺热量比仍成立，但应由可逆熵变计算，而不再直接使用同一幂指数的伸缩图形。
+
+\Diagram{fig:carnotscalea}{两条等温段在伸缩下对应的正向积分}{
+ \draw[axis](0,1.3)--(4,1.3)node[right]{$A\to B$，$T_h$};\draw[axis](0,0)--(4,0)node[right]{$D\to C$，$T_c$};
+ \draw[->](1,1)--(1,.3);\draw[->](3,1)--(3,.3);\node at(2,-.8){$Q_{D\to C}=(T_c/T_h)Q_{A\to B}$};
+}
+图\ref{fig:carnotscalea}中两段均按膨胀方向积分，故都是吸热；实际循环的低温段方向为 $C\to D$，相应热量为负。取放热量大小后即得 $Q_c/Q_h=T_c/T_h$。伸缩论证保留了体积比和路径对应，不能只凭图上两条曲线“形状相似”就断言热量成比例。
+\end{solution}
+
+\subsection{第二定律的两种表述}
+\label{th:secondlaw}
+开尔文表述：不能制造一种循环工作的装置，其唯一效果是从单一热源吸热并把它全部转为功。克劳修斯表述：不能制造一种装置，其唯一效果是把热量从低温物体传给高温物体。这里“唯一效果”排除了工质未复原、机械储能被消耗等隐藏变化。
+
+两种表述可以通过装置组合互相推出。若有开尔文表述所禁止的装置，就可把它从高温热源吸收的热量全部变成机械功，驱动一台普通制冷机。机械功相抵消后，组合装置只把热从冷源送至热源，违背克劳修斯表述。反过来，若存在不需功的冷到热传热装置，就可把普通热机向冷源排出的热量送回热源。组合装置最终只从高温热源取热并输出同量功，违背开尔文表述。
+
+热量可以全部转成某一过程的功，例如理想气体可逆等温膨胀；这不构成反例，因为工质体积改变，过程不是循环。将其复原所需的代价必须纳入比较。
+
+\subsection{卡诺定理}
+\label{th:carnottheorem}
+设某热机与可逆卡诺机工作在同一对热源之间，均输出相同的功 $W$。若前者效率更高，它吸收的高温热量更少。把卡诺机反向运行，恰好消耗 $W$，组合后不需外功，却将净热量从低温源转移到高温源，违反第二定律。因此任何热机都满足 $\eta\le1-T_c/T_h$。
+
+若被比较的两台机器均可逆，就可交换它们的角色，同样得到反向不等式，故两者效率相等。于是可逆机效率只依赖两热源温度，与工质无关。不可逆性包括有限温差传热、摩擦、黏滞耗散和未经约束的膨胀；仅把活塞做得很慢，不能消除所有这些因素。
+
+\begin{example}[用装置组合检验宣称的效率]\label{ex:enginepair}
+一台热机在 $T_h=600\,\mathrm K$、$T_c=300\,\mathrm K$ 间循环，宣称每输出 $100\,\mathrm J$ 功只吸收 $160\,\mathrm J$ 热。用一台反向卡诺机与它组合，指出违反第二定律的净效果。
+\Diagram{fig:enginepairq}{热机和反向可逆机的各项热量与机械交换}{
+ \draw(-1,2.4)rectangle(6.3,3);\node at(2.65,2.7){热源 $600\,\mathrm K$};
+ \draw(-1,-.8)rectangle(6.3,-.2);\node at(2.65,-.5){冷源 $300\,\mathrm K$};
+ \node[draw,circle,minimum size=9mm](a)at(.6,1.1){机};\node[draw,circle,minimum size=9mm](b)at(4.5,1.1){逆};
+ \draw[axis](.6,2.4)--(.6,1.6)node[midway,left]{$160\,\mathrm J$};\draw[axis](.6,.6)--(.6,-.2)node[midway,left]{$60\,\mathrm J$};
+ \draw[axis](4.5,1.6)--(4.5,2.4)node[midway,right]{$200\,\mathrm J$};\draw[axis](4.5,-.2)--(4.5,.6)node[midway,right]{$100\,\mathrm J$};
+ \draw[axis](1.1,1.1)--(4,1.1)node[midway,above]{$W=100\,\mathrm J$};
+}
+\end{example}
+\begin{solution}
+宣称热机向冷源放热 $160-100=60\,\mathrm J$。反向卡诺机的正向效率为 $1-300/600=1/2$；反向消耗 $100\,\mathrm J$ 功时，向热源放热 $200\,\mathrm J$，从冷源吸热 $100\,\mathrm J$。
+沿每个热源分别作收支表，热源得到的净热为 $200-160$，冷源得到的净热为 $60-100$。两者相加为零，说明组合装置并未制造或损失能量，矛盾来自热量转移的方向及无外功这一条件。两台工质均作循环，机械输出与输入也已逐项抵消，所以没有未计入的储能变化可以承担这一冷到热转移。第二定律正是针对这种所有其他作用都恢复原状后的净效果。
+
+\Diagram{fig:enginepaira}{机械功相抵后只剩冷到热的热量转移}{
+ \node[draw]at(0,1.5){热源：净得到 $40\,\mathrm J$};\node[draw]at(0,-.5){冷源：净失去 $40\,\mathrm J$};\draw[axis](0,-.1)--(0,1.1)node[midway,right]{外功为零};
+}
+图\ref{fig:enginepaira}中的净效果是把 $40\,\mathrm J$ 从冷源移向热源且没有其他变化，故宣称不可能成立。数值上其效率 $100/160=0.625$ 已超过卡诺上界 $0.5$；组合计算进一步明确了矛盾发生在何处。
+\end{solution}
+
+\section{熵的定义与不可逆过程}
+\label{th:entropy}
+对可逆循环，把路径分成许多温差很小的卡诺子循环。相邻循环的内部路径反向重合，其热量贡献相抵；每个子循环满足 $Q_h/T_h-Q_c/T_c=0$。在分割尺度趋零时得到
+\[
+ \oint\frac{\delta Q_{\rm rev}}T=0.
+\]
+因此在任意两个平衡态 $A,B$ 之间，沿可逆路径的 $\int_A^B\delta Q_{\rm rev}/T$ 仅由端点决定。定义熵差
+\begin{equation}\label{eq:entropydefinition}
+ S_B-S_A=\int_A^B\frac{\delta Q_{\rm rev}}T.
+\end{equation}
+由闭合积分为零定义熵差，与由保守力的环路积分定义势能差具有相同的数学结构。这里成为全微分的是可逆路径上的 $\delta Q_{\rm rev}/T$，热量本身仍依赖路径。经典宏观计算可任选熵的零点，所得熵差相同。
+
+\begin{example}[理想气体熵的不同坐标形式]\label{ex:entropycoordinates}
+对 $\nu$ 摩尔常热容理想气体，以 $(p_0,V_0,T_0)$ 为参考态，推导 $S(p,V)$ 与 $S(T,p)$，并证明可逆绝热线是等熵线。
+\Diagram{fig:entropycoordq}{先等压、后等容的可逆参考路径}{
+ \draw[axis](0,0)--(4.6,0)node[right]{$V$};\draw[axis](0,0)--(0,3)node[above]{$p$};\draw[axis](1,.8)--(3.3,.8);\draw[axis](3.3,.8)--(3.3,2.2);\node[left]at(1,.8){$A$};\node[below]at(3.3,.8){$B$};\node[right]at(3.3,2.2){$C$};
+}
+\end{example}
+\begin{solution}
+沿用例~\ref{ex:idealstate}已经求出的可逆熵积分。图\ref{fig:entropycoordq}的等压段$A\to B$有$T_B/T_0=V/V_0$，熵变为$C_p\ln(V/V_0)$；等容段$B\to C$有$T/T_B=p/p_0$，熵变为$C_V\ln(p/p_0)$。于是
+\[
+ S-S_0=C_V\ln\frac p{p_0}+C_p\ln\frac V{V_0}
+ =C_V\ln\frac{pV^\gamma}{p_0V_0^\gamma}.
+\]
+由 $V/V_0=(T/T_0)(p_0/p)$，又得 $S-S_0=C_p\ln(T/T_0)-\nu R\ln(p/p_0)$。
+两段温度比的换算分别使用各自的不变量：等压段有 $T\propto V$，等容段有 $T\propto p$。在 $p,V$ 形式中再提出 $C_V$，利用 $C_p/C_V=\gamma$ 把两项对数合并。若改用 $T,p$，应同时替换体积对数中的温度项和压强项，合并后的温度系数为 $C_V+\nu R=C_p$。三种写法描述同一个熵差，参考态的三个量由状态方程约束，并非三个可独立任取的参数。
+
+\Diagram{fig:entropycoorda}{不同熵值对应一族绝热线}{
+ \draw[axis](0,0)--(5,0)node[right]{$V$};\draw[axis](0,0)--(0,3)node[above]{$p$};\foreach \c in{1.2,1.8,2.4}{\draw[curve]plot[domain=1:4.5](\x,{\c/\x^1.4});}
+ \node at(3.4,1.8){向上熵增};\draw[axis](3,.6)--(3,1.3);
+}
+图\ref{fig:entropycoorda}中每条曲线满足 $pV^\gamma$ 恒定。可逆绝热时 $\delta Q_{\rm rev}=0$，故 $\dd S=0$；若绝热但不可逆，系统熵可以增加，不能仍强制初末态在同一条等熵线上。
+\end{solution}
+
+\subsection{克劳修斯不等式与熵产生}
+\label{th:clausius}
+任意循环满足 $\oint\delta Q/T_b\le0$，其中 $T_b$ 是热量通过边界时的热源温度；可逆取等号。可以把每次与外界的热交换通过辅助可逆热机转换成与同一参考热源的交换，再利用单热源循环不能净做正功推出这一结论。
+
+对于非循环过程，系统与环境合起来满足熵不减。若热量 $\delta Q$ 通过温度为 $T_b$ 的边界传入系统，可写
+\[
+ \dd S=\frac{\delta Q}{T_b}+\dd S_{\rm gen},\qquad \dd S_{\rm gen}\ge0.
+\]
+孤立系统不与外界交换熵，$\Delta S= S_{\rm gen}\ge0$。有限温差传热时，高温体失去 $\delta Q$、低温体得到 $\delta Q$，整体熵变
+\[
+ \delta S=\delta Q\left(\frac1{T_c}-\frac1{T_h}\right)>0.
+\]
+计算不可逆过程的系统熵变，要根据实际初末平衡态另选可逆路径；不能把实际过程的 $\delta Q/T$ 硬积分成熵差。
+
+\input{lecture3_entropyproof}
+\begin{example}[自由膨胀为何熵增]\label{ex:freeexpansion}
+$\nu$ 摩尔理想气体最初占绝热刚性容器的一半体积 $V_0$，另一半为真空。撤去隔板，待其重新平衡。求温度、压强和熵变。
+\Diagram{fig:freeexpq}{隔板撤去后气体占据双倍体积}{
+ \draw(0,0)rectangle(5,1.7);\draw[dashed](2.5,0)--(2.5,1.7);\node at(1.25,.85){$p_0,T_0,V_0$};\node at(3.75,.85){真空};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:freeexpq}的外边界不动，外界又不供热，所以 $\Delta U=0$。理想气体内能仅依赖温度，$T_f=T_0$，由状态方程得 $p_f=p_0/2$。实际过程中不经过一串均匀平衡态，不能对气体内部取一条实际准静态 $p(V)$ 曲线。
+初末两态温度相同，只是理想气体内能不随体积改变的结果；在膨胀途中，局部温度和流速可以不均匀。图中的等温线是为了计算熵而构造的另一条可逆路径：这条替代路径有吸热和对外功，二者恰好相等，内能差仍为零。实际自由膨胀则两者均为零。比较两条路径可以看到，内能差和熵差只看端点，热量与功分别依赖过程，因此用替代路径求熵并不等于把其热量当成实际吸热。
+
+\Diagram{fig:freeexpa}{用于计算熵的等温可逆替代路径}{
+ \draw[axis](0,0)--(5,0)node[right]{$V$};\draw[axis](0,0)--(0,3)node[above]{$p$};\draw[curve]plot[domain=1:2](\x,{2.4/\x});\draw[->](1.3,1.85)--(1.6,1.5);\node[below]at(1,0){$V_0$};\node[below]at(2,0){$2V_0$};\node at(3.4,2){$T=T_0$};
+}
+沿图\ref{fig:freeexpa}的可逆等温路径，$\delta Q_{\rm rev}=p\dd V=\nu RT_0\dd V/V$，故 $\Delta S=\nu R\ln2$。实际过程 $Q=0$，不代表 $\Delta S=0$；所增加的熵来自系统内部的不可逆膨胀。
+\end{solution}
+
+\subsection{孤立系统的熵最大条件}
+\label{th:maxentropy}
+在总能量、总体积和总粒子数固定的条件下，允许子系统交换能量、体积或粒子。平衡态是受这些约束的熵极大态。以能量交换为例，$\dd U_2=-\dd U_1$，总熵微分为
+\[
+ \dd S_{\rm tot}=\left(\frac1{T_1}-\frac1{T_2}\right)\dd U_1.
+\]
+在允许双向交换的内部平衡点，该式对任意微小交换都应为零，故$T_1=T_2$。若还允许体积和粒子交换，先在单组分基本关系中引入每粒子的化学势$\mu$：$\dd U=T\dd S-p\dd V+\mu\dd N$。两子系统的总量固定，分别取$\dd U_2=-\dd U_1$、$\dd V_2=-\dd V_1$、$\dd N_2=-\dd N_1$，总熵微分为
+\[
+ \begin{aligned}
+ \dd S_{\rm tot}={}&\left(\frac1{T_1}-\frac1{T_2}\right)\dd U_1
+ +\left(\frac{p_1}{T_1}-\frac{p_2}{T_2}\right)\dd V_1\\
+ &-\left(\frac{\mu_1}{T_1}-\frac{\mu_2}{T_2}\right)\dd N_1.
+ \end{aligned}
+\]
+各交换量若可独立正负变化，其系数分别为零；在已同温的条件下，继续得到$p_1=p_2$及$\mu_1=\mu_2$。固定隔板关闭体积交换，不透粒子的膜关闭粒子交换，对应的平衡条件便不能仅从这类受限变化推出。有外场时还须在能量中计入相应势能。
+
+\section{混合气体与有限物体的熵变}
+\label{th:mixing}
+理想气体混合物的各组分相互不改变单粒子能量。均匀混合后，组分 $i$ 的分压为 $p_i=\nu_iRT/V$，总压强为 $\sum_i p_i$。熵可按各组分占据的整个可达体积计算后相加。不同组分具有可区分的分子性质，混合可产生构型熵；完全相同的气体撤去隔板，不应再人为贴上“左边粒子、右边粒子”的标签制造混合熵。
+
+\begin{example}[同温同压两种气体混合]\label{ex:equalmix}
+绝热刚性容器由隔板分成两半，每半体积 $V_0$，分别装有不同种理想气体，压强 $p_0$、温度 $T_0$ 相同。撤板后求最终状态与总熵增。
+\Diagram{fig:equalmixq}{可区分的两种分子分别占据半个容器}{
+ \draw(0,0)rectangle(5,1.7);\draw(2.5,0)--(2.5,1.7);\foreach \p in{(.5,.5),(1.1,1.2),(1.8,.6)}\node[circle,draw,inner sep=1.8pt]at\p{};\foreach \p in{(3,.5),(3.7,1.2),(4.5,.6)}\node[rectangle,fill,inner sep=1.8pt]at\p{};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:equalmixq}两侧物质的量均为 $\nu_0=p_0V_0/(RT_0)$。总能量守恒，初温相同，故最终仍为 $T_0$。总量 $2\nu_0$ 占体积 $2V_0$，最终压强仍为 $p_0$，每种组分分压为 $p_0/2$。
+原先每种分子都只在半个容器中运动，撤板后可达位置加倍，尽管总体温度和总压强都没有改变。求熵时可以设想使用选择膜，把每种组分分别作可逆等温扩展；它们所受的是各自分压，最终各为原压的一半。这条替代路径只用于计算状态熵差。对于同一种气体，原来“来自左边”和“来自右边”并不是可用于选择膜分离的物理组分，按这两个人为标签分开计熵会重复计数。
+
+\Diagram{fig:equalmixa}{混合后每个组分都可占据整个容器}{
+ \draw(0,0)rectangle(5,1.6);\foreach \p in{(.5,.5),(2.6,1.1),(4.2,.5)}\node[circle,draw,inner sep=1.8pt]at\p{};\foreach \p in{(1.2,1.1),(2.1,.5),(4.5,1.1)}\node[rectangle,fill,inner sep=1.8pt]at\p{};
+ \node at(2.5,-.55){各组分 $V_0\to2V_0$，$T$ 不变};
+}
+图\ref{fig:equalmixa}中每个组分均经历可达体积加倍的状态变化，所以 $\Delta S_i=\nu_0R\ln2$，总熵增
+\[
+ \Delta S=2\nu_0R\ln2=\frac{2p_0V_0}{T_0}\ln2.
+\]
+若两侧是同种气体且初态完全相同，撤板不改变宏观状态，总熵变为零。该变式必须改变计数方式，不能把原式机械套用。
+\end{solution}
+
+\begin{example}[不同初温、压强与热容的混合]\label{ex:generalmix}
+两种不同理想气体最初分别占体积 $V_1,V_2$，初温 $T_1,T_2$，物质的量为 $\nu_1,\nu_2$，摩尔定容热容分别为常量 $c_1,c_2$。撤去绝热刚性容器内的隔板，求 $T_f,p_f$、分压和总熵变。
+\Diagram{fig:generalmixq}{初态可以具有不同温度、密度与热容}{
+ \draw(0,0)rectangle(6,1.8);\draw(2.4,0)--(2.4,1.8);\node[align=center]at(1.2,.9){$\nu_1,V_1,T_1$\\$c_1$};\node[align=center]at(4.2,.9){$\nu_2,V_2,T_2$\\$c_2$};
+}
+\end{example}
+\begin{solution}
+令 $C_1=\nu_1c_1$、$C_2=\nu_2c_2$。图\ref{fig:generalmixq}的外界不交换热和功，各组分理想气体内能只依赖温度，所以
+\[
+ C_1T_1+C_2T_2=(C_1+C_2)T_f,
+ \qquad T_f=\frac{C_1T_1+C_2T_2}{C_1+C_2}.
+\]
+最终体积 $V_f=V_1+V_2$，分压 $p_{i,f}=\nu_iRT_f/V_f$，总压强 $p_f=(\nu_1+\nu_2)RT_f/V_f$。
+温度项和体积项有不同来源。对每种组分，定容变温给 $\int_{T_i}^{T_f}C_i\dd T/T$，等温改变可达体积给 $\int_{V_i}^{V_f}\nu_iR\dd V/V$；两段分别积分后相加。温度加权用的是系统热容 $C_i$，压强加权用的是粒子数或物质的量，两种权重通常不同。最终总压只反映粒子数之和，求熵时却须保留组分信息，不能把全部气体先合并成一个任意热容的“等效单一气体”。
+
+\Diagram{fig:generalmixa}{每个组分的替代路径：先变温，再扩展可达体积}{
+ \node[draw,align=center]at(0,0){$T_i,V_i$};\draw[axis](.9,0)--(2.1,0);\node[draw]at(3,0){$T_f,V_i$};\draw[axis](3.9,0)--(5.1,0);\node[draw]at(6.2,0){$T_f,V_f$};
+}
+沿图\ref{fig:generalmixa}分别计算两项，
+\[
+ \Delta S=\sum_{i=1}^2\left[C_i\ln\frac{T_f}{T_i}
+ +\nu_iR\ln\frac{V_1+V_2}{V_i}\right].
+\]
+温度项由热平衡贡献，体积项由不同组分的混合贡献。若题目给 $p_i,V_i,T_i$ 而未给物质的量，应先以 $\nu_i=p_iV_i/(RT_i)$ 换算。最终组分的分压通常不等于其初压。
+\end{solution}
+
+\begin{example}[两个物体直接接触的熵增]\label{ex:directcontact}
+热容分别为常量 $C_1,C_2$ 的两个固体，初温 $T_1>T_2>0$。整体绝热，体积变化可忽略，直接接触到平衡。求终温、传热量和总熵增，并用传热量作积分变量重新推导熵变。
+\Diagram{fig:directq}{热量从高温物体传向低温物体}{
+ \node[draw,minimum height=1cm]at(0,0){$C_1,T_1$};\node[draw,minimum height=1cm]at(4,0){$C_2,T_2$};\draw[axis](1,0)--(3,0)node[midway,above]{$Q$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:directq}的整体能量守恒给出算术加权终温
+\[
+ T_d=\frac{C_1T_1+C_2T_2}{C_1+C_2},\qquad
+ Q_f=C_1(T_1-T_d)=\frac{C_1C_2}{C_1+C_2}(T_1-T_2).
+\]
+实际传递累计热量 $Q$ 时，两体温度分别为 $t_1=T_1-Q/C_1$、$t_2=T_2+Q/C_2$。固体各自可近似均温，取微小状态变化的可逆替代路径，
+\[
+ \dd S_{\rm tot}=\left(-\frac1{t_1}+\frac1{t_2}\right)\dd Q.
+\]
+以累计传热量为变量时，两项积分的原函数分别为 $C_1\ln(T_1-Q/C_1)$ 和 $C_2\ln(T_2+Q/C_2)$。两者对 $Q$ 求导，恰好给 $-1/t_1$ 与 $+1/t_2$。积分到 $Q_f$ 时，两体温度才同时变为 $T_d$。在此前始终 $t_1>t_2$，因而瞬时总熵变化为正；到末态温差消失，其变化率才趋零。用共同终温替代整个过程中的瞬时温度，会把这段有限温差熵产生漏掉。
+
+\Diagram{fig:directa}{累计热量决定瞬时温差和熵产生率}{
+ \draw[axis](0,0)--(5,0)node[right]{$Q$};\draw[axis](0,0)--(0,3)node[above]{$t$};\draw[curve](0,2.5)--(4,1.3);\draw[curve](0,.5)--(4,1.3);\node[right]at(4,1.3){$T_d$};\node[left]at(0,2.5){$T_1$};\node[left]at(0,.5){$T_2$};
+}
+图\ref{fig:directa}两条直线在 $Q_f$ 处相交。分别积分，
+\[
+ \Delta S=C_1\ln\frac{T_d}{T_1}+C_2\ln\frac{T_d}{T_2}\ge0.
+\]
+由对数的凹性，$\ln T_d\ge[C_1\ln T_1+C_2\ln T_2]/(C_1+C_2)$，等号仅在初温相同取到，所以温差非零时总熵严格增加。计算不曾假设实际传热可逆；可逆路径只是求各固体状态熵差的工具。
+\end{solution}
+
+\input{lecture3_constraints}
+\begin{example}[有限热源间的最大功]\label{ex:finitework}
+上述两物体之间接一台可逆热机，整体绝热，热机循环工作，直到两物体温度相同。求可获得的最大功和最终温度，并与直接接触比较。
+\Diagram{fig:finiteworkq}{有限热源的温度随做功不断变化}{
+ \node[draw]at(0,1.5){$C_1,t_1$};\node[draw,circle]at(0,0){机};\node[draw]at(0,-1.5){$C_2,t_2$};
+ \draw[axis](0,1.1)--(0,.45);\draw[axis](0,-.45)--(0,-1.1);\draw[axis](.5,0)--(2,0)node[right]{$\dd W$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:finiteworkq}热机每个微循环从热体吸收 $\delta Q_h=-C_1\dd t_1$，向冷体排出 $\delta Q_c=C_2\dd t_2$。可逆条件 $\delta Q_h/t_1=\delta Q_c/t_2$ 给
+\[
+ C_1\frac{\dd t_1}{t_1}+C_2\frac{\dd t_2}{t_2}=0.
+\]
+从初态积分至共同终温$T_r$，即$C_1[\ln t_1]_{T_1}^{T_r}+C_2[\ln t_2]_{T_2}^{T_r}=0$。展开端点并合并$\ln T_r$，得到$(C_1+C_2)\ln T_r=C_1\ln T_1+C_2\ln T_2$，所以
+\[
+ T_r=T_1^{C_1/(C_1+C_2)}T_2^{C_2/(C_1+C_2)}.
+\]
+最大功的上界可从任意终态直接证明。若热机最终回到初态、两物体达到共同温度 $T_f$，孤立整体的熵不减给出
+\[
+ C_1\ln\frac{T_f}{T_1}+C_2\ln\frac{T_f}{T_2}\ge0.
+\]
+因此 $T_f\ge T_r$。而输出功是初始能量减去 $(C_1+C_2)T_f$，随终温升高而减少。可逆机使熵不等式取等号，所以其结果达到上界。这个证明同时排除了靠摩擦或有限温差传热获得更多功的可能，而不依赖某一台热机的具体结构。
+
+\Diagram{fig:finiteworka}{可逆过程在温度平面中的熵约束}{
+ \draw[axis](0,0)--(4.5,0)node[right]{$t_1$};\draw[axis](0,0)--(0,3)node[above]{$t_2$};\draw[guide](0,0)--(3,3);\draw[curve]plot[domain=1.1:3.8](\x,{2.8/\x});\node at(3.2,2.4){$t_1^{C_1}t_2^{C_2}=\text{常量}$};\node at(2.7,.5){等热容示意};
+}
+由整体能量守恒，最大功为
+\[
+ W_{\max}=C_1T_1+C_2T_2-(C_1+C_2)T_r.
+\]
+图\ref{fig:finiteworka}的可逆曲线与等温直线交点为终态。直接接触的终温为加权算术平均，可逆做功的终温为加权几何平均，故 $T_d\ge T_r$。两种终态的内能差正好对应直接接触所损失的输出功。
+\end{solution}
+
+\begin{example}[热容随温度改变的有限热源]
+两个物体热容分别为 $C_1(T)=a_1T$、$C_2(T)=a_2T$，其中 $a_i>0$。初温 $T_1>T_2$。分别求直接接触终温和可逆热机做功终温及最大功。
+\Diagram{fig:linearcfiniteq}{热容随温度线性增长的两个物体}{
+ \draw[axis](0,0)--(4.2,0)node[right]{$T$};\draw[axis](0,0)--(0,2.8)node[above]{$C$};\draw[curve](0,0)--(3,2.4)node[right]{$a_1T$};\draw[curve](0,0)--(3.7,1.5)node[right]{$a_2T$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:linearcfiniteq}中能量变化为$\Delta U_i=\int_{T_i}^{T_f}a_iT\dd T=[a_iT^2/2]_{T_i}^{T_f}=a_i(T_f^2-T_i^2)/2$。直接接触不做功，故
+\[
+ T_d=\sqrt{\frac{a_1T_1^2+a_2T_2^2}{a_1+a_2}}.
+\]
+可逆机则保持总熵，$\Delta S_i=\int_{T_i}^{T_f}a_i\dd T=[a_iT]_{T_i}^{T_f}=a_i(T_f-T_i)$，从而
+\[
+ T_r=\frac{a_1T_1+a_2T_2}{a_1+a_2}.
+\]
+本题中的 $a_i$ 量纲为热容除以温度。定容能量积分给温度平方，而熵积分中热容的一个温度因子被分母抵消，所以只剩温度一次项。这是直接接触终温为平方平均、可逆终温为算术平均的根源。把 $T_r$ 代回最大功式时，可先通分，利用
+\[
+ (a_1+a_2)(a_1T_1^2+a_2T_2^2)
+ -(a_1T_1+a_2T_2)^2=a_1a_2(T_1-T_2)^2,
+\]
+便得到非负的温差平方形式。
+
+\Diagram{fig:linearcfinitea}{求能量与熵时使用不同的积分权重}{
+ \node[draw]at(0,0){$\Delta U=\int C(T)\dd T$};\node[draw]at(5,0){$\Delta S=\int C(T)\dd T/T$};\node at(2.5,-.9){不再使用常热容的对数公式};
+}
+按图\ref{fig:linearcfinitea}计算初末内能之差，
+\[
+ W_{\max}=\frac12[a_1T_1^2+a_2T_2^2-(a_1+a_2)T_r^2]
+ =\frac{a_1a_2}{2(a_1+a_2)}(T_1-T_2)^2.
+\]
+本题的可逆终温是算术加权平均，不是前一例的几何平均；终温的形式由热容函数决定，不能脱离积分条件背诵。
+\end{solution}
+
+\section{分批接触、换热与温度转移}
+\begin{example}[分批热水加热冷水的极限]\label{ex:batchwater}
+各 $100\,\mathrm g$ 的热水和冷水，初温分别为 $100\,^\circ\mathrm C$、$0\,^\circ\mathrm C$，水比热视为常量且无散热。把热水等分为 $n$ 份，每次只让一份与全部冷水隔壁接触到热平衡，随后移走该热水份，再换下一份。求冷水最终温度；与直接接触、分两份比较，并求 $n\to\infty$ 极限。
+\Diagram{fig:batchq}{每份热水只使用一次，冷水主体始终保留}{
+ \draw(0,0)rectangle(2,1.4);\node at(1,.7){冷水 $C$};\foreach \x in{3,3.8,4.6,5.4}{\draw(\x,0)rectangle++(.55,1.4);}\node at(4.5,1.9){热水各 $C/n$};\draw[axis](3,-.4)--(1,-.4);
+}
+\end{example}
+\begin{solution}
+用 $\vartheta_h,\vartheta_0$ 表示摄氏温度。图\ref{fig:batchq}每次接触只用能量守恒，温差和加权平均允许用摄氏温标计算。第 $j$ 次接触后冷水温度满足
+\[
+ C\vartheta_{j-1}+\frac Cn\vartheta_h
+ =\left(C+\frac Cn\right)\vartheta_j,
+ \quad\vartheta_j-\vartheta_h=\frac n{n+1}(\vartheta_{j-1}-\vartheta_h).
+\]
+迭代 $n$ 次，
+\[
+ \vartheta_n=\vartheta_h+
+ \left(\frac n{n+1}\right)^n(\vartheta_0-\vartheta_h).
+\]
+第一次接触后的主体仍只有冷水的热容 $C$，刚使用的一份热水已被移走；第二次并不把它的热容继续加入主体。这是递推分母始终为 $C+C/n$ 的原因。两份方案中，冷水先升到 $100/3\,^\circ\mathrm C$，再与另一份初温 $100\,^\circ\mathrm C$ 的热水接触。若把已经用过的热水也一直混留在容器内，最终是全部冷热水直接混合的能量平均，操作协议与本题不同，不能沿用这里的递推。
+
+\Diagram{fig:batcha}{递推温差按相同因子缩小}{
+ \node[draw]at(0,0){$\vartheta_{j-1}-\vartheta_h$};\draw[axis](1.6,0)--(3.1,0)node[midway,above]{$n/(n+1)$};\node[draw]at(4.8,0){$\vartheta_j-\vartheta_h$};
+}
+图\ref{fig:batcha}中 $n=1$ 得 $50\,^\circ\mathrm C$，$n=2$ 得 $100(1-4/9)=55.56\,^\circ\mathrm C$；$n\to\infty$，因 $(1+1/n)^{-n}\to\ee^{-1}$，最终为 $100(1-\ee^{-1})\,^\circ\mathrm C\approx63.21\,^\circ\mathrm C$。
+
+这个极限对应题设规定的操作：全部冷水保留，热水分份使用后移走。足够长的逆流换热器，或配有储功装置的可逆热机，允许不同的操作方式，其最高可达温度须另行求解。这里的能量式可用摄氏温差，计算熵时则须把温度换成开尔文温度。
+\end{solution}
+
+\begin{example}[等热容流率的并流和逆流换热]\label{ex:heatexchanger}
+两股不混合液流的热容流率相等，均为 $\dot C$，入口温度为 $T_h>T_c$。总传热系数乘面积为 $K$，无对外散热。求并流和逆流时的换热量率及出口温度；讨论 $K/\dot C\to\infty$ 的极限。
+\Diagram{fig:exchangerq}{并流与逆流的流向}{
+ \draw(0,.2)rectangle(4,1.6);\draw[axis](.3,1.2)--(3.7,1.2);\draw[axis](.3,.6)--(3.7,.6);\node at(2,-.3){并流};
+ \begin{scope}[xshift=5.4cm]\draw(0,.2)rectangle(4,1.6);\draw[axis](.3,1.2)--(3.7,1.2);\draw[axis](3.7,.6)--(.3,.6);\node at(2,-.3){逆流};\end{scope}
+}
+\end{example}
+\begin{solution}
+以累计传热能力$k$作长度坐标，$\dd\dot Q=(t_h-t_c)\dd k$。并流两股都沿$k$增大流动，故$\dot C\dd t_h=-\dd\dot Q$、$\dot C\dd t_c=\dd\dot Q$。温差$D=t_h-t_c$满足$\dd D/\dd k=-2D/\dot C$。以$D(0)=T_h-T_c$积分，$\int_{T_h-T_c}^{D_o}\dd D/D=-(2/\dot C)\int_0^K\dd k$，得到$\ln[D_o/(T_h-T_c)]=-2K/\dot C$，故$D_o=(T_h-T_c)\ee^{-2K/\dot C}$。两股温度和保持$T_h+T_c$，所以
+\[
+ \dot Q_{\parallel}=\frac{\dot C}{2}(T_h-T_c)(1-\ee^{-2K/\dot C}).
+\]
+逆流的冷端边界位于热流坐标的末端，而非起点，因此两条温度线沿同一坐标可以同时下降。每一局部的熵产生率为
+\[
+ \dd\dot S_{\rm gen}=
+ (t_h-t_c)\dd k\left(\frac1{t_c}-\frac1{t_h}\right)
+ =\frac{(t_h-t_c)^2}{t_ht_c}\dd k>0.
+\]
+有限 $K$ 下总有正温差。只有传热能力趋于无穷大时，逆流局部温差才可趋零，达到入口温度近乎互换的极限。冷流出口比热流出口热并不表示局部逆向传热，因为这两个出口位于装置的不同端。
+
+\Diagram{fig:exchangera}{沿热流方向观察的温度分布}{
+ \draw[axis](0,0)--(4.4,0)node[right]{$k$};\draw[axis](0,0)--(0,2.8)node[above]{$t$};\draw[curve]plot[domain=0:4](\x,{1.3+1.1*exp(-\x)});\draw[curve]plot[domain=0:4](\x,{1.3-1.1*exp(-\x)});\node at(2.5,2.6){并流};
+ \begin{scope}[xshift=5.8cm]\draw[axis](0,0)--(4.2,0)node[right]{$k$};\draw[axis](0,0)--(0,2.8)node[above]{$t$};\draw[curve](0,2.5)--(3.8,1.3);\draw[curve](0,1.6)--(3.8,.4);\node at(2.2,2.8){逆流};\end{scope}
+}
+逆流时仍以热流方向增大的 $k$ 为坐标，冷流沿反方向运动，所以 $\dd t_c/\dd k=-D/\dot C$，与热流温度斜率相同，图\ref{fig:exchangera}两温度线的差 $D$ 恒定。设换热量率为 $\dot Q$，冷流在热流入口处的温度为 $T_c+\dot Q/\dot C$，于是 $D=T_h-T_c-\dot Q/\dot C$；又 $\dot Q=KD$，解得
+\[
+ \dot Q_{\rm counter}=\dot C(T_h-T_c)\frac{K/\dot C}{1+K/\dot C}.
+\]
+两种情形的热、冷出口分别为 $T_h-\dot Q/\dot C$、$T_c+\dot Q/\dot C$。无限传热能力时，并流两出口趋于算术平均；逆流则趋于交换入口温度。逆流每一局部仍由高温传向低温，并未违反第二定律。
+\end{solution}
+
+\begin{example}[用可逆装置转移温度的可达端点]\label{ex:temperaturetransfer}
+两个不混合物体热容为常量 $C$、$\xi C$，初温 $T_1>T_2$。允许在两者之间运行可逆热机或热泵，并暂存机械功；全过程与外界绝热，结束时储功装置恢复原状，净外功为零。求第二物体能够达到的最高温度的方程，并解 $\xi=1$ 的情形。
+\Diagram{fig:transferq}{可逆装置和临时储功装置都在整体系统内}{
+ \node[draw]at(0,1.3){$C,T_1$};\node[draw]at(4,1.3){$\xi C,T_2$};\node[draw]at(2,0){可逆机／热泵};\node[draw]at(2,-1.3){储功装置};\draw[<->](0,.9)--(1.4,.35);\draw[<->](4,.9)--(2.6,.35);\draw[<->](2,-.35)--(2,-.95);
+}
+\end{example}
+\begin{solution}
+图\ref{fig:transferq}的净外功为零，故两物体总内能不变。设最终 $T_{1f}=xT_1$、$T_{2f}=yT_1$，并记 $\eta=T_2/T_1<1$，有
+\[
+ x+\xi y=1+\xi\eta.
+\]
+对于给定总能量，最终熵随第二物体温度先增加后减少。最高可达 $y$ 位于高温分支与初始总熵相等处；若允许更高温度，总熵将低于初始值，违反第二定律。可逆过程满足
+\[
+ \ln x+\xi\ln\frac y\eta=0,
+ \quad x\left(\frac y\eta\right)^\xi=1.
+\]
+消去 $x$ 得到端点方程
+\begin{equation}\label{eq:transferendpoint}
+ 1+\xi\eta-\xi y=\left(\frac\eta y\right)^\xi.
+\end{equation}
+取 $x=1+\xi\eta-\xi y$，在允许的正温度范围内，终态相对于初态的熵除以 $C$ 为 $F(y)=\ln x+\xi\ln(y/\eta)$。它的导数为
+\[
+ F'(y)=\xi\left(\frac1y-\frac1x\right),\qquad
+ F''(y)=-\frac\xi{y^2}-\frac{\xi^2}{x^2}<0.
+\]
+所以等温点是唯一最大点；初态根位于其左侧，右侧另有唯一的等初熵根。再向右超过该根，总熵会低于初始值，故该根才给最高可达温度。图中的定能量约束针对储功已归零的终态，过程途中两物体还可把一部分能量暂存为机械功。
+
+\Diagram{fig:transfera}{定能量直线上总熵的两个等初熵端点}{
+ \draw[axis](0,0)--(5.3,0)node[right]{$y$};\draw[axis](0,-.8)--(0,2.5)node[above]{$(S-S_i)/C$};
+ \draw[curve]plot[domain=.45:1.05,samples=80]({4*\x},{10*ln(2*\x*(1.5-\x))});\fill(2,0)circle(1.2pt)node[below]{$\eta$};\fill(4,0)circle(1.2pt)node[below]{$y_{\max}$};\draw(-.06,1)--(.06,1);\node[left]at(0,1){$0.1$};\node at(2.8,2.1){示例：$\xi=1,\ \eta=1/2$};
+}
+式\eqref{eq:transferendpoint}已有根 $y=\eta$，对应初态，所求是图\ref{fig:transfera}右侧另一根。$\xi=1$ 时，$x+y=1+\eta$、$xy=\eta$，两根为 $y=\eta,1$，故最高可达温度为 $T_1$，两物体恰好交换温度。
+
+可达过程可分两段：先用热机取得功，直到两体同温；再用储功驱动热泵，把热量向原第二物体集中，直至储功归零。若不允许热泵、临时储功或温度越过相等点，只允许热机一直输出功，则终态应是上一节的共同几何平均温度，不能求本题的另一根。
+\end{solution}
+
+\input{lecture3_work}
+\input{lecture3_models}
+\input{lecture3_depth}
+\section{习题与解答}
+\begin{exercise}[可逆制冷机的功与制热量]
+\enlargethispage{\baselineskip}
+制冷机从温度 $T_c$ 的冷库吸热 $Q_c$，向温度 $T_h>T_c$ 的环境放热。求最小耗功和放热量；若同一装置作为热泵，其制热系数是多少？
+\Diagram{fig:fridgeq}{制冷与制热使用同一能量流}{
+ \node[draw]at(0,1.5){$T_h$};\node[draw,circle]at(0,0){逆};\node[draw]at(0,-1.5){$T_c$};\draw[axis](0,-1.1)--(0,-.45);\draw[axis](0,.45)--(0,1.1);\draw[axis](-2,0)--(-.5,0)node[midway,above]{$W$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:fridgeq}的可逆条件为 $Q_h/T_h=Q_c/T_c$，因此 $Q_h=Q_cT_h/T_c$。由 $Q_h=Q_c+W$，最小耗功 $W_{\min}=Q_c(T_h-T_c)/T_c$。不可逆过程产生熵，需付出更多功才能转移相同冷量。
+最小功的依据也可由熵不等式直接写出：一次循环后热源总熵变 $Q_h/T_h-Q_c/T_c\ge0$，因此给定冷量时至少要向高温源排出 $Q_cT_h/T_c$。第一定律再把多排出的部分与输入功对应。制冷系数用的是搬出的冷量，制热系数用的是送入热端的总热量，后者还包含机械输入最终转化的热，所以两种性能系数恰差1，而不是两种不同的能量守恒规律。
+
+\Diagram{fig:fridgea}{同一耗功对应的两种性能定义}{
+ \node[draw]at(0,0){制冷系数 $Q_c/W$};\node[draw]at(5,0){制热系数 $Q_h/W$};\node at(2.5,-.9){两者相差1};
+}
+图\ref{fig:fridgea}中$\mathrm{COP}_{\rm cool}=T_c/(T_h-T_c)$，$\mathrm{COP}_{\rm heat}=T_h/(T_h-T_c)$。两者比较的是搬运热量与输入功，可以大于1。
+\end{solution}
+
+\begin{exercise}[等热容有限热源与直接传热的损失]
+两个热容均为 $C$ 的物体初温 $T_h,T_c$。比较直接接触与可逆做功的终温，求最大功，并在 $T_h=T_0+\Delta T/2$、$T_c=T_0-\Delta T/2$ 时给出小温差近似。
+\Diagram{fig:equalfiniteq}{初温关于平均温度对称}{
+ \draw[axis](0,0)--(5,0)node[right]{$T$};\foreach \x/\s in{1/T_c,2.5/T_0,4/T_h}{\draw(\x,-.12)--(\x,.12);\node[above]at(\x,.15){$\s$};}\draw[<->](1,-.5)--(4,-.5)node[midway,below]{$\Delta T$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:equalfiniteq}中直接接触终温 $T_d=(T_h+T_c)/2=T_0$，可逆机终温 $T_r=\sqrt{T_hT_c}$。最大功
+\[
+ W_{\max}=C(T_h+T_c-2\sqrt{T_hT_c})
+ =C(\sqrt{T_h}-\sqrt{T_c})^2.
+\]
+最大功中的平方根可以先合成 $T_hT_c=T_0^2-\Delta T^2/4$。当 $|\Delta T|\ll T_0$ 时，展开 $\sqrt{1-z}=1-z/2+O(z^2)$，这里 $z=\Delta T^2/(4T_0^2)$ 已是二阶小量，所以保留它的一次项就足以求出温差二阶的功。初温差为零时，两体本就等温，最大功也为零；两者温度对调则功不变，与结果只含偶次温差相符。
+
+\Diagram{fig:equalfinitea}{温差较小时可用功是二阶小量}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$\Delta T$};\draw[axis](0,0)--(0,2.7)node[above]{$W_{\max}$};\draw[curve]plot[domain=0:4](\x,{.12*\x*\x});\node at(2.7,2.5){$C\Delta T^2/(4T_0)$};
+}
+用 $T_r=T_0\sqrt{1-\Delta T^2/(4T_0^2)}\simeq T_0-\Delta T^2/(8T_0)$，有 $W_{\max}\simeq C\Delta T^2/(4T_0)$。图\ref{fig:equalfinitea}中可用功从温差的二阶项开始增长。热机运行时两个有限物体都在变温，能输出的功远小于直接以 $C\Delta T$ 估算的传热尺度。
+\end{solution}
+
+\begin{exercise}[有限热物体对无限冷源的最大功]
+热容为常量 $C$ 的物体初温 $T_i>T_0$，允许通过可逆热机向温度恒为 $T_0$ 的无限热源放热。求最大功与冷源得到的热量。
+\Diagram{fig:availabilityq}{有限热物体逐渐降至环境温度}{
+ \node[draw]at(0,1.4){$C,T$};\node[draw,circle]at(0,0){机};\node[draw]at(0,-1.4){$T_0$ 恒定};\draw[axis](.5,0)--(2,0)node[right]{$\dd W$};\draw[axis](0,1)--(0,.45);\draw[axis](0,-.45)--(0,-1);
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:availabilityq}中物体降温 $\dd T<0$ 时释放热量 $-C\dd T$，瞬时可逆效率 $1-T_0/T$，所以
+\[
+ W_{\max}=\int_{T_0}^{T_i}C\left(1-\frac{T_0}T\right)\dd T
+ =C[T-T_0\ln T]_{T_0}^{T_i}
+ =C[(T_i-T_0)-T_0\ln(T_i/T_0)].
+\]
+积分变量是热物体当时的温度，因其放热而下降，先将吸热量写成 $-C\dd T$，再反转积分上下限。冷源收到的热量可逐次写为 $(-C\dd T)T_0/T$，从初温积分到环境温度便产生对数项。热物体的温度越接近 $T_0$，瞬时卡诺效率越小；虽然它仍在放热，越来越多的热量必须排给环境，可用于做功的比例趋于零。
+
+\Diagram{fig:availabilitya}{总释放能量分为输出功与向环境放热}{
+ \node[draw]at(0,0){$C(T_i-T_0)$};\draw[->](1.5,.2)--(3,1);\draw[->](1.5,-.2)--(3,-1);\node[right]at(3,1){$W_{\max}$};\node[right]at(3,-1){$CT_0\ln(T_i/T_0)$};
+}
+由图\ref{fig:availabilitya}的能量分配，环境吸热 $Q_0=CT_0\ln(T_i/T_0)$。环境熵增加 $Q_0/T_0$，恰好抵消物体熵减少 $C\ln(T_0/T_i)$，总熵为零。直接把所有 $C(T_i-T_0)$ 视作可用功，忽略了必须排给环境的热量。
+\end{solution}
+
+\begin{exercise}[混合物组成与混合熵]
+温度和压强相同的 $s$ 种不同理想气体混合，总物质的量为 $\nu$，各组分摩尔分数 $x_i$。在总温度、总压强不变的条件下推导混合熵，并求二元混合物何时最大。
+\Diagram{fig:mixfractionq}{各纯组分原来占据与粒子数成正比的体积}{
+ \draw(0,0)rectangle(6,1.6);\draw(1.5,0)--(1.5,1.6);\draw(4,0)--(4,1.6);\node at(.75,.8){$x_1V$};\node at(2.75,.8){$x_2V$};\node at(5,.8){$\cdots$};
+}
+\end{exercise}
+\begin{solution}
+同温同压时图\ref{fig:mixfractionq}的 $V_i=x_iV$。混合后每种组分可达体积由 $x_iV$ 增至 $V$，温度不变，所以
+\[
+ \Delta S_{\rm mix}=\sum_i\nu x_iR\ln\frac1{x_i}
+ =-\nu R\sum_i x_i\ln x_i.
+\]
+体积比$V_i/V=x_i$来自同温同压下的$V_i=\nu_iRT_0/p$与$V=\nu RT_0/p$。组分$i$的体积熵差为$\nu_iR\ln(V/V_i)$，逐组相加便得到上式。交换二元体系的两个组分相当于$x\mapsto1-x$，熵曲线因而关于$x=1/2$对称。
+
+\Diagram{fig:mixfractiona}{二元混合熵随组分比例的变化}{
+ \draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,0)--(0,2.6)node[above]{$\Delta S/(\nu R)$};\draw[curve]plot[domain=.001:.999,samples=70]({4.5*\x},{3*(-\x*ln(\x)-(1-\x)*ln(1-\x))});\node[below]at(2.25,0){$1/2$};
+}
+二元情形 $\Delta S/(\nu R)=-x\ln x-(1-x)\ln(1-x)$，一阶导为 $\ln[(1-x)/x]$，二阶导为 $-1/x-1/(1-x)<0$。故图\ref{fig:mixfractiona}在 $x=1/2$ 取得唯一最大值 $\nu R\ln2$。端点取 $x\ln x\to0$，纯物质没有不同组分的混合熵。
+\end{solution}
+
+\begin{exercise}[三物体的最大做功]
+三个常热容物体 $C_i$、初温 $T_i$ 可通过可逆热机互相交换能量，整体绝热。求最终共同温度和最大输出功。说明先后连接次序是否影响可逆终态。
+\Diagram{fig:threefiniteq}{三有限物体之间允许可逆交换}{
+ \node[draw](a)at(0,1){$C_1,T_1$};\node[draw](b)at(4,1){$C_2,T_2$};\node[draw](c)at(2,-1){$C_3,T_3$};\draw[<->](a)--(b);\draw[<->](b)--(c);\draw[<->](c)--(a);
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:threefiniteq}中的各微循环可逆，总熵保持不变，故 $\sum_iC_i\ln(T_f/T_i)=0$。整理得到
+\[
+ T_f=\prod_{i=1}^3T_i^{C_i/C_\Sigma},\qquad C_\Sigma=\sum_iC_i.
+\]
+各热机作为辅助装置均循环复原，因而整体熵只需统计三个物体。把熵守恒式中的 $\ln T_f$ 合并，其系数是总热容 $C_\Sigma$；除以它后再取指数，得到权重和为1的几何平均。功的能量零点可任选，因为每个物体的参考常数在初末态相减时抵消。若只让其中两个物体先达到共同温度，再与第三个可逆交换，只要没有直接接触损失，所得权重仍会合并为同一组 $C_i/C_\Sigma$。
+
+\Diagram{fig:threefinitea}{最终温度由全部初始熵确定}{
+ \node[draw]at(0,0){$\sum_iC_i\ln T_i$};\draw[axis](2,0)--(3.2,0);\node[draw]at(5,0){$C_\Sigma\ln T_f$};
+}
+初末能量差给 $W_{\max}=\sum_iC_iT_i-C_\Sigma T_f$。图\ref{fig:threefinitea}的熵约束只含端点；全部交换可逆且最终同温时，连接次序不影响 $T_f$ 和总功。若中途直接接触，产生的熵会使最终共同温度升高，相应地减少输出功。
+\end{solution}
+
+\begin{exercise}[接触过程的熵产生随温差的展开]
+两个热容 $C_1,C_2$ 的物体初温均接近 $T_0$，记差值为 $\Delta T$，并令能量加权平均温度恰为 $T_0$。求直接接触的熵增到 $\Delta T^2$ 阶。
+\Diagram{fig:smallentropyq}{偏离平均温度的两端由热容加权约束}{
+ \draw[axis](0,0)--(5.5,0)node[right]{$T$};\node[above]at(1,0){$T_2$};\node[above]at(3,0){$T_0$};\node[above]at(4.5,0){$T_1$};\draw[<->](1,-.5)--(4.5,-.5)node[midway,below]{$\Delta T$};
+}
+\end{exercise}
+\begin{solution}
+按图\ref{fig:smallentropyq}设 $T_1=T_0+\delta_1$、$T_2=T_0+\delta_2$，则 $C_1\delta_1+C_2\delta_2=0$、$\delta_1-\delta_2=\Delta T$。解得 $\delta_1=C_2\Delta T/(C_1+C_2)$、$\delta_2=-C_1\Delta T/(C_1+C_2)$。
+二阶项的系数可先计算分子
+\[
+ C_1\delta_1^2+C_2\delta_2^2
+ =\frac{C_1C_2^2+C_2C_1^2}{(C_1+C_2)^2}\Delta T^2
+ =\frac{C_1C_2}{C_1+C_2}\Delta T^2.
+\]
+一阶项因为加权能量平均取在 $T_0$ 而精确消失，二阶项则保留两热容的组合。对等热容情形，它给 $C\Delta T^2/(4T_0^2)$；乘环境温度 $T_0$ 后，与相应小温差最大功的二阶量级一致。
+
+\Diagram{fig:smallentropya}{对数展开的一阶项因能量约束相消}{
+ \node[draw]at(0,0){$-\sum_iC_i\delta_i/T_0=0$};\node[draw]at(5,0){$\sum_iC_i\delta_i^2/(2T_0^2)>0$};
+}
+熵增 $\Delta S=-\sum_iC_i\ln(1+\delta_i/T_0)$。利用 $\ln(1+x)=x-x^2/2+O(x^3)$，图\ref{fig:smallentropya}的一阶项消去，二阶项为
+\[
+ \Delta S=\frac{C_1C_2}{2(C_1+C_2)T_0^2}\Delta T^2+O(\Delta T^3).
+\]
+熵产随小温差的平方增长，与微元传热公式中的倒温差和累计传热量各贡献一个温差相吻合。
+\end{solution}
+
+\begin{exercise}[有限热源与相变冷源]
+热容为常量 $C$ 的热物体初温 $T_i>T_m$。冷物体处在温度 $T_m$ 的固液共存态，尚可吸收潜热 $L_{
+\rm avail}$ 而不升温。二者之间可逆做功。求热物体降到 $T_m$ 所需冷源潜热，及潜热不足时停止在何温度。
+\Diagram{fig:latentengineq}{相变冷源在潜热耗尽前保持恒温}{
+ \node[draw]at(0,1.4){$C,T$};\node[draw,circle]at(0,0){机};\node[draw]at(0,-1.4){固液共存 $T_m$};\draw[axis](0,1)--(0,.4);\draw[axis](0,-.4)--(0,-1);\draw[axis](.5,0)--(2,0)node[right]{$W$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:latentengineq}中每次从热体取热$-C\dd T$，可逆机向冷源排热$\delta Q_c=(-C\dd T)T_m/T$。降至$T_m$时，总排热为$-CT_m\int_{T_i}^{T_m}\dd T/T=-CT_m[\ln T]_{T_i}^{T_m}$，即
+\[
+ Q_{c,\rm req}=CT_m\ln\frac{T_i}{T_m}.
+\]
+可用潜热不足时，由 $L_{\rm avail}<CT_m\ln(T_i/T_m)$ 立刻得到 $T_*>T_m$，说明热物体尚未降到冷源温度，相变库存就已耗尽。若可用潜热恰为零，公式回到 $T_*=T_i$、这一阶段做功为零；若恰等于所需潜热，则停止温度正好为 $T_m$。这些边界反映的是同一个能量和可逆熵约束，而不是把冷物体在相变后仍无限维持在熔点。
+
+\Diagram{fig:latentenginea}{可逆排热累计到可用潜热上限}{
+ \draw[axis](0,0)--(5,0)node[right]{$\ln(T_i/T)$};\draw[axis](0,0)--(0,2.8)node[above]{$Q_c$};\draw[curve](0,0)--(4.2,2.2);\draw[guide](0,1.5)--(4.4,1.5)node[right]{$L_{\rm avail}$};
+}
+若 $L_{\rm avail}\ge Q_{c,\rm req}$，最大功为 $C(T_i-T_m)-CT_m\ln(T_i/T_m)$。若不足，图\ref{fig:latentenginea}先触及潜热上限，停止温度满足 $CT_m\ln(T_i/T_*)=L_{\rm avail}$，即 $T_*=T_i\ee^{-L_{\rm avail}/(CT_m)}$。在相变冷源模型有效阶段的功为 $C(T_i-T_*)-L_{\rm avail}$；其后是否还能做功，需给出冷源相变结束后的热容，不能继续假定它恒温。
+\end{solution}

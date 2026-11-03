@@ -1,0 +1,254 @@
+\chapter{时空过程、相对论火箭与延迟成像}
+\section{坐标原点与仿射变换}\label{th:m2affine}
+洛伦兹变换作用于事件差。若两系并不把同一个事件取为零点，坐标关系应写为$x'^\mu=\Lambda^\mu{}_\nu x^\nu+C^\mu$。常数$C^\mu$由一件已知事件的坐标确定。平移不改变速度、微分间隔和固有时间，却会改变某个事件的坐标读数。
+
+例如一只钟在事件$B=(ct_B,x_B)$换为速度$-V$匀速运动，并规定它在$B$显示$\tau_B$。以该钟为$x_2=0$原点的返程系可以定义为
+\begin{align}\label{eq:m2return}
+ ct_2&=c\tau_B+\gamma[(ct-ct_B)+\beta(x-x_B)],\\
+ x_2&=\gamma[(x-x_B)+\beta(ct-ct_B)].\notag
+\end{align}
+把$B$代入，得到$(ct_2,x_2)=(c\tau_B,0)$；令$x_2=0$，又得到$x-x_B=-V(t-t_B)$，所以原点世界线确实沿返程运动。这两个代入可以避免把平移常数的符号写反。
+
+\begin{example}\label{ex:m2twins}
+地球与恒星在$S$中相距$l=10$光年。旅行者由地球以$V=0.8c$飞往恒星，立即换向并以同速返回。忽略转向所占时间。求地球和旅行者经过的时间；建立去程、返程坐标，并求转向前后旅行者判定与转向同时的地球时刻。
+\Diagram{fig:m2twinsq}{地球与旅行者的世界线及转向事件}{\draw[axis](-.4,0)--(4,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5.8)node[above]{$ct$};\draw[curve](0,0)--(0,5);\draw[curve](0,0)--(2,2.5)--(0,5);\draw[guide](2,0)--(2,5.2);\node[below]at(2,0){$l$};\fill(2,2.5)circle(1.4pt)node[right]{$B$};\node[left]at(0,5){$C$};\node[below left]at(0,0){$A$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2twinsq}中$B$的坐标为$(cl/V,l)$，$C$的坐标为$(2cl/V,0)$。地球时间$T=2l/V=25$年。每段旅行者时间为$l/(\gamma V)$，$\gamma=5/3$，故总固有时间15年，去返各7.5年。
+
+去程系原点由$A$出发，使用$ct_1=\gamma(ct-\beta x)$、$x_1=\gamma(x-\beta ct)$。在$B$，$ct_{1B}=l/(\gamma\beta)$。返程原点必须经过$B$且沿$-V$运动，钟面连续，故式\eqref{eq:m2return}取$ct_B=l/\beta$、$x_B=l$、$c\tau_B=l/(\gamma\beta)$，整理得
+\[
+ ct_2=\gamma(ct+\beta x)-2\gamma\beta l,
+ \qquad x_2=\gamma(x+\beta ct)-2\gamma l.
+\]
+逆变换为
+\[
+ ct=\gamma(ct_2-\beta x_2),\qquad
+ x=\gamma(x_2-\beta ct_2)+2l.
+\]
+\Diagram{fig:m2twinsa}{转向事件处的两条同时线与地球世界线相交于$D_-,D_+$}{\draw[axis](-.2,0)--(4,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5.7)node[above]{$ct$};\draw[curve](0,0)--(2,2.5)--(0,5);\draw[guide](0,.9)--(3.1,3.38);\draw[guide](0,4.1)--(3.1,1.62);\fill(2,2.5)circle(1.4pt)node[right]{$B$};\node[left]at(0,.9){$D_-$};\node[left]at(0,4.1){$D_+$};}
+去程同时线满足$ct-\beta x=ct_B-\beta l$，与地球$x=0$相交得
+\[
+ t_- =\frac{l}{\beta c}-\frac{\beta l}c=4.5\text{年}.
+\]
+返程同时线满足$ct+\beta x=ct_B+\beta l$，给$t_+=l/(\beta c)+\beta l/c=20.5$年。图\ref{fig:m2twinsa}中两交点相差$2\beta l/c=16$年。这是改变同时性定义后对远处地球时刻的重新赋值，地球钟本身连续走时，旅行者在转向处也没有瞬间看到地球老16年。
+\end{solution}
+
+\begin{example}\label{ex:m2fixed}
+在例\ref{ex:m2twins}的坐标约定下，求同时满足$ct_2=ct$、$x_2=x$的事件。说明它是否位于旅行者转向处。
+\Diagram{fig:m2fixedq}{返程系的坐标网原点世界线经过$B$}{\draw[axis](-.3,0)--(4,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5.6)node[above]{$ct$};\draw[curve](0,0)--(2,2.5)--(0,5);\node[right]at(2,2.5){$B$};\draw[guide](2,0)--(2,5.2);}
+\end{example}
+\begin{solution}
+将相同坐标条件代入逆变换，得到
+\[
+ (\gamma-1)ct=\gamma\beta x,
+ \qquad(\gamma-1)x-\gamma\beta ct=-2l.
+\]
+第一式给$ct=\gamma\beta x/(\gamma-1)$。代入第二式后，$x$的系数为
+\[
+ (\gamma-1)-\frac{\gamma^2\beta^2}{\gamma-1}
+ =(\gamma-1)-(\gamma+1)=-2,
+\]
+所以$x=l$，$ct=l(\gamma+1)/(\gamma\beta)$。取本题参数得到$ct=2l$，即$t=20$年。
+\Diagram{fig:m2fixeda}{坐标不动事件$F$与转向事件$B$不同}{\draw[axis](-.2,0)--(3.8,0)node[right]{$x/l$};\draw[axis](0,-.2)--(0,4.6)node[above]{$ct/l$};\draw[curve](0,0)--(1.5,1.875)--(0,3.75);\fill(1.5,1.875)circle(1.4pt)node[right]{$B:(1.25,1)$};\fill(1.5,3)circle(1.4pt)node[right]{$F:(2,1)$};\draw[guide](1.5,0)--(1.5,3.8);}
+图\ref{fig:m2fixeda}中$B$的地球时刻12.5年，$F$是恒星处更晚的事件。不同坐标系给某件事相同的数字，与该事件处是否有两物体相遇无关；此结果依赖既定的坐标平移约定。
+\end{solution}
+
+\section{共线变换与快度}\label{th:m2rapidity}
+沿同一方向的洛伦兹矩阵在$(ct,x)$子空间内为
+\[
+ \Lambda(\beta)=\begin{pmatrix}\gamma&-\gamma\beta\\-\gamma\beta&\gamma\end{pmatrix}.
+\]
+将两矩阵相乘，其非对角元与对角元之比给
+\[
+ \beta_{12}=\frac{\beta_1+\beta_2}{1+\beta_1\beta_2},\quad
+ \gamma_{12}=\gamma_1\gamma_2(1+\beta_1\beta_2).
+\]
+定义快度$\chi$满足$\beta=\tanh\chi$，于是$\gamma=\cosh\chi$、$\gamma\beta=\sinh\chi$。双曲函数加法公式说明共线快度直接相加。若使用虚数时间$ict$，形式上可把双曲变换写成虚角转动；这里的角度只是代数类比，不表示在普通空间中转动物体。
+
+对一维运动，$u^\mu=c(\cosh\chi,\sinh\chi)$，故
+\[
+ a^\mu=c\frac{\dd\chi}{\dd\tau}(\sinh\chi,\cosh\chi),\quad
+ \alpha=\sqrt{-a^2}=c\left|\frac{\dd\chi}{\dd\tau}\right|.
+\]
+恒定固有加速度对应快度随固有时线性增加。实验室速度则按双曲正切变化。
+
+\begin{example}\label{ex:m2boosts}
+飞船相对地球以$0.6c$前进，在船上又沿前方发射相对船速$0.6c$的探测器。求探测器相对地球的速度、快度和洛伦兹因子。
+\Diagram{fig:m2boostsq}{两次同向速度变换}{\draw[axis](-.3,0)--(6,0)node[right]{$x$};\draw[curve](0,.3)rectangle(2,1);\node[above]at(1,1){飞船};\draw[axis](2.2,.65)--(3.4,.65)node[above]{$0.6c$};\fill(4.3,.65)circle(2pt);\draw[axis](4.4,.65)--(5.6,.65)node[above]{$0.6c$船系};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2boostsq}的两次速度属于不同参考系。令飞船和探测器在各自上一级参考系中的速度为$u_1=u_2=.6c$，实验室速度为
+\[
+ \beta=\frac{.6+.6}{1+.6^2}=\frac{15}{17}.
+\]
+每次变换的快度满足$\ee^{2\chi_1}=(1+.6)/(1-.6)=4$，故$\chi_1=\ln2$，两次同轴变换后$\chi=2\ln2=\ln4$。
+\Diagram{fig:m2boostsa}{能量—动量双曲线上的快度相加}{\draw[axis](0,0)--(4.7,0)node[right]{$p/(mc)$};\draw[axis](0,0)--(0,4.8)node[above]{$E/(mc^2)$};\draw[curve,domain=0:3.8,samples=70]plot(\x,{sqrt(1+\x*\x)});\fill(.75,1.25)circle(1.5pt)node[left]{$\chi_1$};\fill(1.875,2.125)circle(1.5pt)node[above left]{$2\chi_1$};}
+图\ref{fig:m2boostsa}采用$(p/(mc),E/(mc^2))$坐标。由双曲函数定义，
+\[
+ \gamma=\cosh\chi=\frac{4+1/4}{2}=\frac{17}{8},\qquad
+ \gamma\beta=\sinh\chi=\frac{4-1/4}{2}=\frac{15}{8}.
+\]
+也可在第一次变换后的四速度上再作一次变换：$(\gamma_1,\gamma_1\beta_1)=(5/4,3/4)$，因此
+\[
+ \gamma=\frac54\frac54+\frac34\frac34=\frac{17}{8},\quad
+ \gamma\beta=2\frac54\frac34=\frac{15}{8}.
+\]
+两项满足$\gamma^2-(\gamma\beta)^2=1$，商为$15/17$。快度相加以两次共线为前提；非共线速度不能把速度大小各自换成快度后直接相加。
+\end{solution}
+
+\section{从守恒定律推导火箭方程}\label{th:m2rocket}
+火箭喷气是变质量系统，必须先选封闭的微小过程：燃烧前火箭，与燃烧后的火箭加刚排出的燃气。取燃烧前火箭的瞬时静止系，火箭静质量为$m$；燃烧后为$m+\dd m$，其中$\dd m<0$，获得微小速度$\dd v_*$。排出物沿后方以固定速度$u$运动，其静质量为$\dd\mu>0$。
+
+在一阶精度下，火箭动能是$(\dd v_*)^2$阶，可在能量式中略去；燃气自身的相对论因子$\gamma_u$却不能略去。因此
+\begin{align*}
+ mc^2&=(m+\dd m)c^2+\gamma_u\dd\mu c^2,\\
+ 0&=m\dd v_*-\gamma_u u\dd\mu.
+\end{align*}
+第一式给$\gamma_u\dd\mu=-\dd m$，代入第二式得$m\dd v_*=-u\dd m$。火箭在相邻瞬时静止系间的快度变化为$\dd\chi=\dd v_*/c$，所以$\dd\chi=-(u/c)\dd m/m$。用初值$m=M_0,\chi=0$积分，
+\[
+ \int_0^\chi\dd q=-\frac uc\int_{M_0}^{m}\frac{\dd\mu}{\mu}
+ =-\frac uc[\ln\mu]_{M_0}^{m}.
+\]
+由此得到
+\begin{equation}\label{eq:m2rocket}
+ \dd\chi=-\frac uc\frac{\dd m}m,\qquad
+ \chi=\frac uc\ln\frac{M_0}m,\qquad
+ v=c\tanh\left(\frac uc\ln\frac{M_0}m\right).
+\end{equation}
+式中$M_0$包含全部初始燃料和飞船。忽略外力、喷流方向共线、$u$在瞬时火箭系恒定，是此式的适用条件。把排出物静质量误写成$-\dd m$，会漏掉释放为喷流动能的质量能。
+
+\Diagram{fig:m2rocketbalance}{瞬时静止系中，喷流和剩余火箭构成守恒系统}{\draw[curve](2,0)rectangle(4,1);\node at(3,.5){$m+\dd m$};\draw[axis](4.2,.5)--(5.5,.5)node[above]{$\dd v_*$};\fill(1,.5)circle(2pt);\draw[axis](.8,.5)--(-.4,.5)node[above]{$u$};\node[below]at(1,.2){$\dd\mu$};}
+
+\begin{example}\label{ex:m2exhaust}
+排出物在火箭系速度$u=0.8c$。若飞船静质量减少$1\,\mathrm{kg}$，求排出物的静质量、动能和总能量，并求燃烧前质量为$1000\,\mathrm{kg}$的飞船获得的近似快度增量。
+\Diagram{fig:m2exhaustq}{质量能在喷流静能和动能之间分配}{\draw[curve](0,0)rectangle(2.2,1.1);\node at(1.1,.55){$-\dd m=1$ kg};\draw[->](2.4,.55)--(3.5,.55);\draw[curve](3.7,0)rectangle(6.2,1.1);\node at(4.95,.55){喷流总能};}
+\end{example}
+\begin{solution}
+题中的$1\,\mathrm{kg}$损失相对于$1000\,\mathrm{kg}$很小。先按连续喷流的瞬时船系计算。设船的静质量改变$\dd m<0$，排出静质量$\dd\mu>0$。图\ref{fig:m2exhaustq}的一阶能量守恒为
+\[
+ -\dd m=\gamma_u\dd\mu,\qquad \gamma_u=\frac1{\sqrt{1-.8^2}}=\frac53.
+\]
+因此整个燃烧过程中排出静质量的和为$.6\,\mathrm{kg}$；把每一微元在其发射瞬间船系测得的能量相加，总能量为$1\,\mathrm{kg}\,c^2$，其中静能$.6\,\mathrm{kg}\,c^2$、动能$.4\,\mathrm{kg}\,c^2$。
+\Diagram{fig:m2exhausta}{喷流能量分成静能与动能；两部分之和由质量损失决定}{\draw[curve](0,0)rectangle(5,1);\draw[curve](3,0)--(3,1);\node at(1.5,.5){$0.6c^2$ kg};\node at(4,.5){$0.4c^2$ kg};\node[above]at(1.5,1){静能};\node[above]at(4,1){动能};}
+图\ref{fig:m2exhausta}的能量分割采用上述局部计量。喷流在瞬时船系中向后运动，动量大小为$\gamma_u u\dd\mu=-u\dd m$；飞船获得向前的动量$mc\dd\chi$，从而
+\begin{align*}
+ \dd\chi&=-\frac uc\frac{\dd m}{m},\\
+ \Delta\chi&=-.8\int_{1000}^{999}\frac{\dd m}{m}
+ =-.8[\ln m]_{1000}^{999}\\
+ &=.8\ln\frac{1000}{999}=8.0040\times10^{-4}.
+\end{align*}
+若只保留损失比例的一阶，便为$8.0\times10^{-4}$。有限过程在初始实验室系的总喷流能量略有不同：末船能量为$999\,\mathrm{kg}\,c^2\cosh\Delta\chi$，所以
+\[
+ E_{\rm jet}^{\rm lab}
+ =[1000-999\cosh\Delta\chi]\,\mathrm{kg}\,c^2
+ \simeq.999680\,\mathrm{kg}\,c^2.
+\]
+约$.000320\,\mathrm{kg}\,c^2$成为船的反冲动能。各次发射的瞬时船系并不相同，局部能量相加后仍须区别于固定实验室系能量。喷流静质量的和为$.6\,\mathrm{kg}$。
+\end{solution}
+
+\begin{example}\label{ex:m2fuel}
+比较两种火箭由静止达到$0.01c$所需的初末静质量比：一种喷气速度$3000\,\mathrm{m/s}$，另一种把排出能量全部变为向后的光。取$c=3.0\times10^8\,\mathrm{m/s}$。
+\Diagram{fig:m2fuelq}{相同末速度下，喷气和光子排气的动量携带能力不同}{\draw[curve](0,0)rectangle(2,1);\draw[axis](-.1,.5)--(-1.3,.5)node[above]{$u$};\draw[curve](4,0)rectangle(6,1);\draw[decorate,decoration={snake,amplitude=1.2pt,segment length=5pt}](3.9,.5)--(2.7,.5);\node[above]at(3.3,.7){光};}
+\end{example}
+\begin{solution}
+所需快度$\chi=\operatorname{artanh}(.01)=\tfrac12\ln(1.01/.99)\simeq0.01000033$。图\ref{fig:m2fuelq}左侧喷气$u/c=10^{-5}$，所以
+\[
+ \ln\frac{M_0}{M_f}=\frac c u\chi\simeq1000.033,
+ \quad \log_{10}\frac{M_0}{M_f}\simeq434.31.
+\]
+质量比约为$2.0\times10^{434}$，这个模型中的困难来自低喷气速度。不能把$0.01c$称为足够低速就忽略连续变质量过程中质量比的指数。
+\Diagram{fig:m2fuela}{光子火箭初末质量和快度的关系}{\draw[axis](0,0)--(4.7,0)node[right]{$\chi$};\draw[axis](0,0)--(0,3.4)node[above]{$M_0/M_f$};\draw[curve,domain=0:1.05,samples=50]plot({3*\x},{exp(\x)});\node[left]at(0,1){$1$};\node[right]at(3.1,2.8){$\ee^\chi$};}
+光子火箭的排出物没有静质量，应直接以能量$\dd E_\gamma=-c^2\dd m$、动量$\dd E_\gamma/c$写守恒，得到式\eqref{eq:m2rocket}的$u=c$极限。图\ref{fig:m2fuela}给
+\[
+ \frac{M_0}{M_f}=\ee^\chi=\sqrt{\frac{1+\beta}{1-\beta}}\simeq1.01005.
+\]
+这是假定完全定向、完全质量能转化的理想模型，不包含推进装置的质量和效率限制。
+\end{solution}
+
+\begin{example}\label{ex:m2burn}
+理想光子火箭从实验室原点由静止出发，固有质量损失率恒定为$-\dd m/\dd\tau=a>0$。求$m(\tau)$、$v(\tau)$、世界线和固有加速度。初质量为$M_0$。
+\Diagram{fig:m2burnq}{质量在固有时间内线性减少}{\draw[axis](0,0)--(4.5,0)node[right]{$\tau$};\draw[axis](0,0)--(0,3)node[above]{$m$};\draw[curve](0,2.5)--(3.7,0);\node[left]at(0,2.5){$M_0$};\node[below]at(3.7,0){$M_0/a$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2burnq}中$m=M_0-a\tau$，定义$s=m/M_0=1-a\tau/M_0$。物理区间为$0<s\leq1$，实际还须在干质量处停机。由光子火箭式，$\chi=\ln(M_0/m)=-\ln s$，所以
+\[
+ \gamma=\tfrac12(s^{-1}+s),\quad \gamma\beta=\tfrac12(s^{-1}-s),\quad
+ \beta=\frac{1-s^2}{1+s^2}.
+\]
+世界线对固有时的导数为$\dd(ct)/\dd\tau=c\gamma$、$\dd x/\dd\tau=c\gamma\beta$。分别从0积分至$\tau$，利用
+\[
+ \int_0^\tau\frac{\dd q}{1-aq/M_0}
+ =\left[-\frac{M_0}a\ln(1-aq/M_0)\right]_0^\tau
+ =-\frac{M_0}a\ln s,
+\]
+\[
+ \int_0^\tau(1-aq/M_0)\dd q
+ =\left[q-\frac{aq^2}{2M_0}\right]_0^\tau
+ =\tau-\frac{a\tau^2}{2M_0},
+\]
+得到
+\begin{align*}
+ ct&=\frac c2\left[-\frac{M_0}a\ln s+\tau-\frac{a\tau^2}{2M_0}\right],\\
+ x&=\frac c2\left[-\frac{M_0}a\ln s-\tau+\frac{a\tau^2}{2M_0}\right].
+\end{align*}
+\Diagram{fig:m2burna}{世界线趋近光速；接近质量耗尽时固有加速度增大}{\draw[axis](-.2,0)--(4.8,0)node[right]{$ax/(cM_0)$};\draw[axis](0,-.2)--(0,4.8)node[above]{$at/M_0$};\draw[curve,domain=.02:1,samples=90]plot({(-ln(\x)-(1-\x*\x)/2)/2},{(-ln(\x)+(1-\x*\x)/2)/2});\draw[guide](0,.5)--(3.7,4.2);}
+图\ref{fig:m2burna}的两个无量纲坐标之差为$(1-s^2)/2$，趋向有限值$1/2$，而二者各自对数发散。固有加速度
+\[
+ \alpha=c\frac{\dd\chi}{\dd\tau}
+ =-\frac c s\frac{\dd s}{\dd\tau}=\frac{ca}{m},\qquad
+ \frac{\dd v}{\dd t}=\frac{\alpha}{\gamma^3}.
+\]
+初始$\alpha=ca/M_0$，与喷光动量通量除以初质量吻合。若把$\ee^\chi$写成$1+a\tau/M_0$，就不满足质量线性减少的条件。
+\end{solution}
+
+\section{延迟时间与视运动}\label{th:m2retarded}
+固定观察者在$\vct r_D$，物体在发光时刻$t_e$位于$\vct r(t_e)$，接收时刻满足
+\begin{equation}\label{eq:m2retarded}
+ t_o=t_e+\frac{|\vct r_D-\vct r(t_e)|}{c}.
+\end{equation}
+求照片要固定$t_o$解每个发光点的$t_e$，再把光线投影到成像面。求物体长度要固定$t_e$，两种操作不可互换。若观察距离远大于物体尺度，记朝向观察者的单位矢量为$\vct n$，则$\dd t_o=(1-\vct n\cdot\vct v/c)\dd t_e$。这里光程压缩产生的快慢属于接收过程，不改变局部运动速度。
+
+\begin{example}\label{ex:m2super}
+发光斑点以$\beta c$匀速运动，与朝向远处观察者的视线夹角为$\theta$。求视横向速度及其最大值；当$\theta=45^\circ$时，求超过$c$的条件。
+\Diagram{fig:m2superq}{相邻发光点的横向位移和沿视线位移}{\draw[axis](0,0)--(5.3,0)node[right]{朝观察者};\draw[very thick,->](0,0)--(3,2);\draw[guide](3,0)--(3,2);\node[right]at(3,1){$v\dd t_e\sin\theta$};\node[below]at(1.5,0){$v\dd t_e\cos\theta$};\draw(.8,0)arc(0:33.69:.8);\node at(1.2,.35){$\theta$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m2superq}中第二次发光更靠近观察者，接收时间差为$\dd t_o=(1-\beta\cos\theta)\dd t_e$。将横向位移除以它，得到
+\[
+ v_{\rm app}=\frac{\beta c\sin\theta}{1-\beta\cos\theta}.
+\]
+在$45^\circ$时，条件$\beta/\sqrt2>1-\beta/\sqrt2$给$\beta>1/\sqrt2$。
+\Diagram{fig:m2supera}{最大视速度的几何条件$\cos\theta=\beta$}{\draw[axis](0,0)--(4.3,0)node[right]{$\cos\theta$};\draw[axis](0,0)--(0,3)node[above]{$v_{\rm app}/c$};\draw[curve,domain=0:1,samples=90]plot({3.5*\x},{.8*sqrt(1-\x*\x)/(1-.8*\x)});\draw[guide](2.8,0)--(2.8,1.333);\node[below]at(2.8,0){$\beta$};\node[above]at(2.8,1.333){$\beta\gamma$};}
+求导得
+\[
+ \frac1c\frac{\dd v_{\rm app}}{\dd\theta}
+ =\frac{\beta\cos\theta(1-\beta\cos\theta)-\beta^2\sin^2\theta}
+ {(1-\beta\cos\theta)^2}
+ =\frac{\beta(\cos\theta-\beta)}{(1-\beta\cos\theta)^2}.
+\]
+极大满足$\cos\theta=\beta$，代回得$v_{\rm app,max}=\beta\gamma c$，如图\ref{fig:m2supera}。信号本身仍沿光锥传播；视速度是由两次不同位置、不同发光时刻构成的接收投影速度，不能用于发送超光速信号。
+\end{solution}
+
+\begin{example}\label{ex:m2photo}
+半径$r$的圆截面在自身静止系位于$x'y'$平面，以速度$V$沿$x$运动。远处观察者位于$(0,-b,0)$，$b\gg r$。取快门接收时刻$t_o=b/c$。用参数$\varphi$标记圆周，求同时截面、进入照片的发光位置和横向投影，并解释旋转角。
+\Diagram{fig:m2photoq}{运动圆截面及远处沿$-y$方向观察的光线}{\draw[axis](-2,0)--(3,0)node[right]{$x$};\draw[axis](0,-2.7)--(0,2.1)node[above]{$y$};\draw[curve](0,0)ellipse(1.2 and 1.5);\draw[axis](1.5,1.2)--(2.8,1.2)node[above]{$V$};\fill(0,-2.2)circle(2pt)node[right]{$D,\ b\gg r$};\draw[guide](-1,-.8)--(0,-2.2);\draw[guide](1,.8)--(0,-2.2);}
+\end{example}
+\begin{solution}
+圆周在$S'$中是$x'=r\cos\varphi,y'=r\sin\varphi$。在实验室固定$t$，尺缩给$x=Vt+(r/\gamma)\cos\varphi$、$y=r\sin\varphi$，所以同时截面为椭圆。图\ref{fig:m2photoq}中的观察者距发光点约为$b+y$，由式\eqref{eq:m2retarded}及固定$t_o=b/c$得$t_e=-y/c$，从而
+\[
+ x_e=\frac r\gamma\cos\varphi-\beta r\sin\varphi,
+ \qquad y_e=r\sin\varphi.
+\]
+定义$\cos\alpha=1/\gamma$、$\sin\alpha=\beta$，横向投影为
+\[
+ x_{\rm photo}=x_e=r\cos(\varphi+\alpha),\qquad \alpha=\arcsin\beta.
+\]
+\Diagram{fig:m2photoa}{照片横向坐标是两项投影之和；发光点并不同时}{\draw[axis](-2.4,0)--(2.9,0)node[right]{$x_{\rm photo}$};\draw[axis](0,-1.8)--(0,2.2)node[above]{$y$};\draw[curve,domain=0:360,samples=100]plot({1.5*(.8*cos(\x)-.6*sin(\x))},{1.5*sin(\x)});\draw[guide](0,0)--(1.2,0);\node[below]at(1.2,0){$\varphi=0$};\fill(-.9,1.5)circle(1.4pt)node[above left]{$\varphi=\pi/2$};\node[right]at(1.8,1.4){发光位置集合};}
+图\ref{fig:m2photoa}画的是各个延迟发光点在实验室的坐标集合，不是照片上的二维圆形。沿$-y$观察时，$y$是视线深度，成像面只保留$x$和$z$。对有标记的圆柱侧面，$x_{\rm photo}$的参数平移等效于把圆柱旋转$\alpha$后投影；它不表示物体真的转动，也不表示任何有限距离、任意形状物体的照片都恰为刚体旋转。忽略的距离二阶项为物体尺度平方除以$b$。
+\end{solution}
+\input{lecture2_derivations}
+\input{lecture2_extensions}
+\input{lecture2_depth}
+\input{lecture2_connections}
+\input{lecture2_exercises}

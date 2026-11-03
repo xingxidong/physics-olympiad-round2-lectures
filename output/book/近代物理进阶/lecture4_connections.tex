@@ -1,0 +1,32 @@
+\section{自由原子的吸收共振与反冲}
+\subsection{内部能差不是所有过程中的同一个光子能量}
+设自由原子基态、激发态静质量为$M,M_*$，内部能差$\Delta=(M_*-M)c^2>0$。激发态原子在静止时发射一个光子的能量已由两体守恒给出$E_{\rm em}=(M_*^2-M^2)c^2/(2M_*)$。反过来，基态静止原子吸收一个光子而成为同一激发态时，末态原子也要携带光子动量，吸收能量一般不同。
+
+吸收过程初态总四动量平方为$M^2c^4+2Mc^2E_{\rm abs}$，末态为$M_*^2c^4$，所以
+\[
+ E_{\rm abs}=\frac{(M_*^2-M^2)c^2}{2M}
+ =\Delta+\frac{\Delta^2}{2Mc^2}.
+\]
+吸收光子须同时供给内部激发能和反冲动能；发射时，内部能差则由光子与反冲原子分享。两题都把各自的初态原子设为静止，因此所选初末四动量没有互换，时间反演对称性并不要求这两个光子同频。
+
+\begin{example}静止自由原子能否吸收同种静止原子发出的光
+两种完全相同的自由原子最初分别处于激发态和基态，且都在实验室静止。第一原子辐射的单光子沿连线入射第二原子。只考虑同一窄能级跃迁，求发射能量与静止吸收共振能量的差，并估计为补偿该差所需的吸收原子速度。取$\Delta\ll Mc^2$，忽略自然线宽以外的其他展宽机制。
+\ExpansionDiagram{fig:dep-m4-recoil-q}{发射原子与吸收原子各自需要分配反冲能}{
+\fill(0,0)circle(3pt)node[below]{$M_*$};\draw[->,thick](.5,0)--(4.5,0)node[midway,above]{$E_{\rm em}$};\fill(5,0)circle(3pt)node[below]{$M$};\draw[->](0,-.6)--(-1,-.6)node[left]{发射反冲};\draw[->](5,-.6)--(6,-.6)node[right]{吸收反冲};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-m4-recoil-q}中两原子的初态都静止，但两个末态都要反冲。能量差精确为
+\begin{align*}
+ E_{\rm abs}-E_{\rm em}
+ &=\frac{(M_*^2-M^2)c^2}{2}
+ \left(\frac1M-\frac1{M_*}\right)\\
+ &=\frac{\Delta^2(M_*+M)}{2MM_*c^2}
+ \simeq\frac{\Delta^2}{Mc^2}.
+\end{align*}
+这一正差约为两次单原子反冲能$E_R=\Delta^2/(2Mc^2)$之和。若线宽远小于$2E_R$，静止发射源的中心光子不足以达到静止吸收原子的共振能量，尽管两原子内部能级完全相同。
+\ExpansionDiagram{fig:dep-m4-recoil-a}{发射与吸收的中心能量分处内部能差两侧}{
+\draw[->](0,0)--(7,0)node[right]{光子能量};\draw[thick](2,-.4)--(2,1)node[above]{$E_{\rm em}$};\draw[dashed](3.5,-.4)--(3.5,1)node[above]{$\Delta$};\draw[thick](5,-.4)--(5,1)node[above]{$E_{\rm abs}$};\draw[<->](2,-.8)--(5,-.8)node[midway,below]{$\simeq2E_R$};}
+若吸收原子以小速度$u$迎着入射光运动，在原子系测得光子能量约为$E_{\rm em}(1+u/c)$。共振要求$u/c\simeq(E_{\rm abs}-E_{\rm em})/\Delta\simeq\Delta/(Mc^2)$，即$u\simeq\Delta/(Mc)$。这次一阶多普勒蓝移恰好补偿图\ref{fig:dep-m4-recoil-a}中的能量缺口。
+
+若气体处于温度$T$，沿光束方向的速度标准差为$\sqrt{\kb T/M}$，多普勒能量标准差约为$\sigma_E=\Delta\sqrt{\kb T/(Mc^2)}$。它与反冲缺口同量级时，$\kb T\sim\Delta^2/(Mc^2)$。计算完整吸收率还需要线形、速度分布和跃迁强度。原子若受外部结构约束，动量可由更大系统承担，能量和动量守恒也须对这个整体列式。
+\end{solution}

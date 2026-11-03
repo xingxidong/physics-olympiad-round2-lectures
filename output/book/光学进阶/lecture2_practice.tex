@@ -1,0 +1,85 @@
+\begin{exercise}\label{ex:o2coherencenum}
+中心波长600 nm、窄矩形谱宽度0.2 nm的光源用于双束干涉。估计首零光程差及迈克耳孙单镜相对零光程差允许的首零移动量。
+\Diagram{fig:o2cohnumq}{镜移通过往返光程差扫描相干包络}{\draw[very thick](1,-1)--(1,1);\draw[guide](3,-1)--(3,1);\draw[<->](1,-1.5)--(3,-1.5)node[midway,below]{$d$};\draw[->](0,.4)--(2.7,.4);\draw[->](2.7,-.3)--(0,-.3);}
+\end{exercise}
+\begin{solution}
+由$\nu=c/\lambda$求导，$\dd\nu=-c\dd\lambda/\lambda^2$；谱宽取正值，窄谱时$\Delta\nu\simeq c\Delta\lambda/\lambda_0^2$。图\ref{fig:o2cohnumq}的首零光程差为$\mathcal D_0=c/\Delta\nu\simeq\lambda_0^2/\Delta\lambda=(600\,\mathrm{nm})^2/(.2\,\mathrm{nm})=1.8$ mm。
+\Diagram{fig:o2cohnuma}{单镜移动量是扫描光程差的一半}{\draw[axis](0,0)--(5,0)node[right]{毫米};\draw[curve](1,-.4)--(1,.4);\draw[curve](2.8,-.4)--(2.8,.4);\node[below]at(1,-.4){$d=.9$};\node[below]at(2.8,-.4){$\mathcal D=1.8$};}
+图\ref{fig:o2cohnuma}单镜首零移动量$d_0=.9$ mm。此数以光程差零点为起点；若初始已有臂长差，应把它计入，只有从零光程差开始移动，才在.9 mm处首次消失。矩形谱理想模型在首零以外仍有较小旁瓣，可见度不是永久为零。
+\end{solution}
+
+\begin{exercise}\label{ex:o2sourceorientation}
+均匀线光源长度$w$与双缝连线成角$\psi$，距缝$a$。求空间相干可见度，比较光源沿缝长方向和垂直缝长方向的情况。
+\Diagram{fig:o2orientationq}{光源的基线投影决定两缝之间的入射相位散布}{\draw[axis](-.3,0)--(3.7,0)node[right]{双缝基线};\draw[very thick](0,0)--(2.2,1.7);\draw[guide](2.2,0)--(2.2,1.7);\node at(.8,.3){$\psi$};\node[right]at(2.2,1.7){$w$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2orientationq}线源参数$s\in[-w/2,w/2]$，其在双缝基线上的投影为$s\cos\psi$，源元相位为$2\pi d s\cos\psi/(\lambda a)$。将式\eqref{eq:o2rectaverage}中的相位斜率改为$2\pi d\cos\psi/(\lambda a)$，区间长度仍取$w$，得到$\mathcal V=|\operatorname{sinc}(\pi dw\cos\psi/(\lambda a))|$；$\cos\psi=0$时用该定积分的常相位分支，结果为1。
+\Diagram{fig:o2orientationa}{垂直基线延伸时，近轴模型中两缝相位差不随源点改变}{\fill(-1,0)circle(1.5pt)node[below]{$S_-$};\fill(1,0)circle(1.5pt)node[below]{$S_+$};\draw[very thick](0,.7)--(0,2.5);\draw[guide](0,2)--(-1,0);\draw[guide](0,2)--(1,0);\node[right]at(.2,2.5){源的投影示意};}
+沿缝长方向通常垂直双缝基线，$\cos\psi=0$，图\ref{fig:o2orientationa}的源点不引起一阶基线相位差，可见度保持1。沿基线延伸最容易洗掉条纹。实际有限孔径和非近轴高阶项仍可限制可见度，不能把此一阶结论外推为任意大光源都完全相干。
+\end{solution}
+
+\begin{exercise}\label{ex:o2phaseerror}
+两束等强光相位差含随机误差$\epsilon$，服从均值0、方差$s^2$的高斯分布。求长曝光可见度，解释相位抖动对条纹位置和对比度的不同影响。
+\Diagram{fig:o2errorq}{相位随时间在平均位置附近抖动}{\draw[axis](0,0)--(5,0)node[right]{$t$};\draw[axis](0,-1.4)--(0,1.7)node[above]{$\epsilon$};\draw[curve](0,.2)--(.5,-.6)--(1,.8)--(1.5,.2)--(2,-.9)--(2.5,.6)--(3,-.2)--(3.5,1)--(4,.1)--(4.5,-.4);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2errorq}中，瞬时强度可写为$2I_1[1+\cos(\delta_0+\epsilon)]$。长曝光的交叉项由$G=\langle\ee^{i\epsilon}\rangle$控制，其中
+\[
+ G=\frac1{\sqrt{2\pi}s}\int_{-\infty}^\infty
+ \exp[-\epsilon^2/(2s^2)]\ee^{i\epsilon}\dd\epsilon.
+\]
+引入$G(k)=\langle\ee^{ik\epsilon}\rangle$。概率密度的导数为$p'(\epsilon)=-(\epsilon/s^2)p(\epsilon)$；对$k$求导，再分部积分，
+\begin{align*}
+ G'(k)&=i\int_{-\infty}^{\infty}\epsilon p(\epsilon)\ee^{ik\epsilon}\dd\epsilon
+ =-is^2\int_{-\infty}^{\infty}p'(\epsilon)\ee^{ik\epsilon}\dd\epsilon\\
+ &=-is^2[p(\epsilon)\ee^{ik\epsilon}]_{-\infty}^{\infty}
+ +is^2\int_{-\infty}^{\infty}ikp(\epsilon)\ee^{ik\epsilon}\dd\epsilon
+ =-s^2kG(k).
+\end{align*}
+边界项因高斯衰减而为零。以$G(0)=1$分离变量积分，$\int_1^{G(k)}\dd g/g=-s^2\int_0^kq\dd q=-s^2k^2/2$，因此$G(k)=\ee^{-s^2k^2/2}$。
+\Diagram{fig:o2errora}{零均值抖动不移动平均条纹，却降低可见度}{\draw[axis](0,0)--(4.5,0)node[right]{$s$};\draw[axis](0,0)--(0,2.7)node[above]{$\mathcal V$};\draw[curve,domain=0:4,samples=60]plot(\x,{2.3*exp(-\x*\x/2)});}
+取$k=1$得到图\ref{fig:o2errora}的平均强度$2I_1[1+\ee^{-s^2/2}\cos\delta_0]$，因此$\mathcal V=\ee^{-s^2/2}$。平均相位误差为零时亮暗位置不变；若均值为$\bar\epsilon$，则$G=\ee^{i\bar\epsilon}\ee^{-s^2/2}$，条纹另有整体位移。
+
+这里$s$以弧度计，曝光须覆盖足够多次抖动，且误差统计与光强无关。若机械位移$z$使迈克耳孙一臂镜往返程差改变$2z$，则相位标准差为$s=4\pi\sigma_z/\lambda$。同一位置抖动对短波长的对比度损失更大，不能只用$\sigma_z$而不换成相位来比较。
+\end{solution}
+
+\begin{exercise}\label{ex:o2filmangle}
+一薄膜反射具有一次相对半波损失。正常入射某波长$\lambda_0$在膜厚$h$处形成$m$级暗纹。入射角改为$i$，求对应同级暗纹波长，介质色散忽略。
+\Diagram{fig:o2angleq}{斜入射改变膜内法向相位积累}{\draw[curve](-2,0)--(2,0);\draw[curve](-2,-.7)--(2,-.7);\draw[->](-1.6,1.6)--(0,0)--(.4,-.7)--(.8,0)--(2.4,1.6);\node[left]at(-2,-.35){$n$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2angleq}正常暗纹条件为$2nh=m\lambda_0$。对正膜厚$h>0$，取$m\geq1$；斜入射时$2nh\cos r=m\lambda_i$，且$\sin r=\sin i/n$，两暗纹条件相除，得$\lambda_i=\lambda_0\sqrt{1-\sin^2i/n^2}$。若$h=0,m=0$，接触处在该反射相位模型下对所有波长都暗，不能由零级条件选出唯一的$\lambda_i$。
+\Diagram{fig:o2anglea}{同级暗纹波长随角度增加向短波移动}{\draw[axis](0,0)--(4.4,0)node[right]{$i$};\draw[axis](0,0)--(0,2.7)node[above]{$\lambda_i/\lambda_0$};\draw[curve,domain=0:85,samples=60]plot({\x/22},{2.3*sqrt(1-sin(\x)^2/2.25)});\node[left]at(0,2.3){$1$};}
+图\ref{fig:o2anglea}对应$n=1.5$。角度增大使法向波矢减小，暗纹波长蓝移。若两界面反射相位在所扫角度内因$p$偏振过布儒斯特点而改变，原来的暗纹编号规则需要重新讨论，不能只连续追踪$\cos r$。
+\end{solution}
+
+\begin{exercise}\label{ex:o2freespectral}
+平行腔长度$l$、折射率$n$无色散，正常入射。求相邻透射共振的频率间隔，并由精细度$\mathcal F_c$求线宽。
+\Diagram{fig:o2fsrq}{共振要求往返相位为$2m\pi$}{\draw[very thick](0,-1)--(0,1);\draw[very thick](4,-1)--(4,1);\draw[->](.2,.4)--(3.8,.4);\draw[->](3.8,-.4)--(.2,-.4);\node at(2,0){$n,l$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2fsrq}的单程相位为$\phi=2\pi nl\nu/c$，共振要求$2\phi=2\pi m$，因此
+\[
+ \nu_m=\frac{mc}{2nl},\qquad
+ \Delta\nu_{\rm FSR}=\nu_{m+1}-\nu_m=\frac c{2nl}.
+\]
+精细度按相邻峰距除以单峰半高全宽定义，故$\delta\nu=\Delta\nu_{\rm FSR}/\mathcal F_c$。高反射率时再代入$\mathcal F_c\simeq\pi\sqrt R/(1-R)$。
+\Diagram{fig:o2fsra}{峰间距与峰宽是不同的两个频率尺度}{\draw[axis](0,0)--(5.5,0)node[right]{$\nu$};\foreach\x in{1,3,5}{\draw[curve]({\x-.3},0)..controls({\x-.1},2.8)and({\x+.1},2.8)..({\x+.3},0);}\draw[<->](1,-.5)--(3,-.5)node[midway,below]{FSR};}
+图\ref{fig:o2fsra}中增大$R$使单峰变窄，而相邻峰距仍由光学长度决定。若$n$有色散，往返相位应写$\Psi(\nu)=4\pi l\nu n(\nu)/c$，近邻共振满足
+\[
+ 2\pi\simeq\Psi'(\nu)\Delta\nu,
+ \quad \Delta\nu\simeq\frac{c}{2l[n+\nu\dd n/\dd\nu]}
+ =\frac c{2ln_g}.
+\]
+其中$n_g=n-\lambda\dd n/\dd\lambda$是群折射率。若镜的反射相位也随频率变化，还须把两个镜面的反射相位导数加进$\Psi'$；此时有效往返群延迟不再只是$2nl/c$。只要相邻峰之间参数变化足够小，上述导数法仍适用。
+\end{solution}
+
+\begin{exercise}\label{ex:o2Nphasechange}
+$N$束等振幅光相邻相位差由$\delta$均匀增到$\delta+\epsilon$。求主峰中心的相位移动与峰高变化；若只在最后一束附加小相位$\epsilon$，轴上峰高的二阶变化如何？
+\Diagram{fig:o2Nphaseq}{线性相位斜坡与单束相位误差有不同后果}{\draw[axis](0,0)--(4.5,0)node[right]{$j$};\draw[axis](0,0)--(0,2.7)node[above]{附加相位};\draw[curve](0,0)--(3.8,2);\draw[guide](0,0)--(3.8,0)--(3.8,1);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2Nphaseq}线性斜坡只把多束强度函数自变量换成$\delta+\epsilon$，主峰移到$\delta=2m\pi-\epsilon$，峰高仍$N^2I_1$。若只有最后一束出错，原轴上合场为$A[(N-1)+\ee^{i\epsilon}]$。
+\Diagram{fig:o2Nphasea}{单束误差使一条相量偏离其余同向相量}{\draw[->,very thick](0,0)--(3.3,0)node[below]{$(N-1)A$};\draw[->,thick](3.3,0)--(4.1,1)node[right]{$A\ee^{i\epsilon}$};\draw[guide](3.3,0)--(4.5,0);}
+图\ref{fig:o2Nphasea}给$I/I_1=(N-1)^2+1+2(N-1)\cos\epsilon\simeq N^2-(N-1)\epsilon^2$。这是原轴上强度，严格新峰位置还需对$\delta$求极值；不能把它直接当全部角度中已重新寻优的最大值。相位斜坡可用峰位补偿，局部误差一般同时改变旁瓣和峰形。
+\end{solution}

@@ -1,0 +1,30 @@
+\documentclass[UTF8,11pt,twoside,openany]{ctexbook}
+\input{preamble}
+
+% 分册与十编合订本共用的定位页码；局部章、图、题号保持原有对应。
+\newcommand{\CoursePartNumber}{8}
+\geometry{inner=19.5mm,outer=19.5mm,headheight=16pt}
+\AtBeginDocument{%
+  \fancyhead{}\fancyhead[C]{\small 热学进阶}%
+  \fancyfoot[C]{\small\CoursePartNumber-\thepage}%
+  \fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\CoursePartNumber-\thepage}\renewcommand{\headrulewidth}{0pt}}%
+}
+
+\begin{document}
+\frontmatter
+\begin{titlepage}\centering\vspace*{28mm}
+{\Large 物理竞赛二轮讲义\quad 第八编\par}\vspace{8mm}
+{\Huge\bfseries 热学进阶\par}\vspace{12mm}{\Large 物理竞赛二轮讲义\par}\vspace{20mm}{\large 分子分布\quad 热力学关系\quad 熵与热机\quad 相变与外场\par}\vfill\end{titlepage}
+\chapter*{编写说明}
+本编围绕分子运动、热力学状态函数、熵与热机、相变和外场平衡展开。各讲先建立模型与适用条件，再推导关系式，随后用例题讨论计算方法与模型变式。习题均附解答，图中的方向、边界和状态标记贯穿题设与计算。
+
+概率密度与积分测度共同决定区间概率，偏导数的意义则取决于保持不变的变量。开始计算前，还需确定系统边界：粒子能否出入，热量与功怎样交换，外场势能是否计入总能量。这些约定决定了状态关系与过程方程各自的适用范围。
+
+本编用 $N$ 表示粒子数，$\nu$ 表示物质的量，$n=N/V$ 表示数密度；$m$ 为单粒子质量，$M$ 为摩尔质量。热量以传入系统为正，功以系统对外做功为正，故第一定律写为 $\dd U=\delta Q-\delta W$。除非另有说明，温度均为热力学温度。
+\tableofcontents
+\mainmatter
+\input{lecture1}
+\input{lecture2}
+\input{lecture3}
+\input{lecture4}
+\end{document}

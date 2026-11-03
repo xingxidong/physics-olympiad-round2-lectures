@@ -1,0 +1,88 @@
+\section{从离散梯形到有泄漏的连续电阻带}
+\subsection{取连续极限时必须保留单位长度参数}
+把双轨梯形网沿长度分成小格$\Delta x$。每条轨道每格电阻应为$r\Delta x$，其中$r$是单轨单位长度电阻；横档电导应为$g\Delta x$，其中$g$是单位长度轨间电导。若把每格横档电阻保持不变而只让格长趋零，单位长度横向电导将发散，所得不是同一根物理电阻带。
+
+取$V(x)$为上轨相对下轨的电压、$I(x)$为上轨沿$+x$的电流，下轨回流为$-I$。两轨电压降相加，节点电流流失给
+\[
+ \frac{\dd V}{\dd x}=-2rI,\qquad
+ \frac{\dd I}{\dd x}=-gV.
+\]
+所以$V''=\kappa^2V$，其中$\kappa=\sqrt{2rg}$。$1/\kappa$是沿线衰减长度，$Z_0=\sqrt{2r/g}$是电阻尺度；这里没有电感电容，不把它解释为传播波的速度或延迟。
+
+常系数方程的特征方程为$\lambda^2=\kappa^2$，两根为$\pm\kappa$。
+有限长度$L$的通解可绕末端写成
+\[
+ V=A\cosh[\kappa(L-x)]+B\sinh[\kappa(L-x)].
+\]
+求导时内函数导数为$-\kappa$，故
+$V'=-\kappa A\sinh[\kappa(L-x)]-\kappa B\cosh[\kappa(L-x)]$，
+再用$I=-V'/(2r)$及$\kappa/(2r)=1/Z_0$得到电流。
+若$I(L)=I_L$、$V(L)=Z_LI_L$，两端条件分别给$B=Z_0I_L$、$A=Z_LI_L$。
+因此
+\[
+ \begin{aligned}
+ V(0)&=I_L(Z_L\cosh\kappa L+Z_0\sinh\kappa L),\\
+ I(0)&=I_L[(Z_L/Z_0)\sinh\kappa L+\cosh\kappa L].
+ \end{aligned}
+\]
+两式相除，再将分子分母除以$\cosh\kappa L$，得到
+\[
+ Z_{\rm in}=Z_0\frac{Z_L+Z_0\tanh\kappa L}
+ {Z_0+Z_L\tanh\kappa L}.
+\]
+开路极限为$Z_0\coth\kappa L$，短路极限为$Z_0\tanh\kappa L$。$\kappa L\gg1$时两者都趋于$Z_0$，表示远端条件的影响在长带中衰减，而不是远处线路完全没有电压或电流。
+\ExpansionDiagram{fig:dep-c3-line}{每小段保留轴向电阻$r\Delta x$和横向电导$g\Delta x$}{
+\draw(0,0)--(1,0);\Res{1,0}{3,0}{r\Delta x}\Res{3,0}{5,0}{r\Delta x}\draw(5,0)--(6,0);\draw(0,2)--(1,2);\Res{1,2}{3,2}{r\Delta x}\Res{3,2}{5,2}{r\Delta x}\draw(5,2)--(6,2);\Res{1,0}{1,2}{1/(g\Delta x)}\Res{3,0}{3,2}{1/(g\Delta x)}\Res{5,0}{5,2}{1/(g\Delta x)}\draw[->](.2,2.9)--(2.3,2.9)node[midway,above]{$I$};\draw[->](2.3,-.5)--(.2,-.5);\draw[<->](1,-1)--(3,-1)node[midway,below]{$\Delta x$};\node[right]at(6,1){$V$};}
+图\ref{fig:dep-c3-line}中的横档电阻标为$1/(g\Delta x)$；相应电导是$g\Delta x$。横档电阻随格长缩小而增大，才能保持相同的连续介质。
+
+\begin{example}[开路电阻带的能量沿途分配]
+连续双轨带长度$L$，末端开路，输入端保持电压$V_0$。求$V(x),I(x)$、输入电阻，以及轨道发热和横向泄漏发热分别占总功率的比例。特别讨论$\kappa L\ll1$和$\kappa L\gg1$。
+\ExpansionDiagram{fig:dep-c3-open-q}{末端没有外接电阻，但沿途横向泄漏仍使输入电流非零}{
+\draw(0,0)--(1,0);\Res{1,0}{3,0}{r\Delta x}\Res{3,0}{5,0}{r\Delta x}\draw(5,0)--(6,0);\draw(0,2)--(1,2);\Res{1,2}{3,2}{r\Delta x}\Res{3,2}{5,2}{r\Delta x}\draw(5,2)--(6,2);\Res{1,0}{1,2}{1/(g\Delta x)}\Res{3,0}{3,2}{1/(g\Delta x)}\Res{5,0}{5,2}{1/(g\Delta x)}\draw[->](0,2.9)--(1.5,2.9)node[midway,above]{$I(0)$};\node[left]at(-.1,1){$V_0$};\node[right]at(6.2,1){$I(L)=0$};\draw[->](0,-.6)--(6.2,-.6)node[right]{$x$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-c3-open-q}给$V(0)=V_0$、$I(L)=0$，第二个条件等价于$V'(L)=0$。
+在上面的通解中，$V'(L)=-\kappa B=0$要求$B=0$，而$V(0)=A\cosh\kappa L=V_0$给$A=V_0/\cosh\kappa L$。于是
+\[
+ V(x)=V_0\frac{\cosh[\kappa(L-x)]}{\cosh\kappa L},\quad
+ I(x)=\frac{V_0}{Z_0}\frac{\sinh[\kappa(L-x)]}{\cosh\kappa L}.
+\]
+输入电阻为$Z_0\coth\kappa L$。远端电压$V(L)=V_0/\cosh\kappa L$一般不为零；开路只规定末端电流零。
+\ExpansionDiagram{fig:dep-c3-open-a}{开路末端电压非零，电流却降至零；图示$\kappa L=\ln2$}{
+\draw[->](0,0)--(5,0)node[right]{$x/L$};\draw[->](0,0)--(0,2.5)node[above]{归一化量};\draw[thick,domain=0:4,samples=70]plot(\x,{2*cosh(ln(2)*(1-\x/4))/1.25});\draw[dashed,domain=0:4,samples=70]plot(\x,{2*sinh(ln(2)*(1-\x/4))/.75});\node[right]at(4,1.6){$V/V_0$};\node[right]at(3,.5){$I/I(0)$};\node[below]at(4,0){1};\draw(-.08,2)--(.08,2);\node[left]at(0,2){$1$};}
+图\ref{fig:dep-c3-open-a}用相同峰值尺度画电压和电流各自的归一化曲线。以$P(x)=V(x)I(x)$表示沿线传送功率，由两条一阶方程得
+\[
+ P'=V'I+VI'=(-2rI)I+V(-gV)=-2rI^2-gV^2.
+\]
+第一项是上下两轨的发热，第二项是横向泄漏发热，均非负。
+计算总功率时取$s=L-x$，故$\dd x=-\dd s$，积分端点$x=0,L$变为$s=L,0$，翻转积分限后仍为$0$至$L$。
+利用$\sinh^2z=(\cosh2z-1)/2$、$\cosh^2z=(\cosh2z+1)/2$，再令$u=\kappa L$，有
+\[
+ \begin{aligned}
+ \int_0^L\sinh^2\kappa s\dd s
+ &=\left[\frac{\sinh(2\kappa s)}{4\kappa}-\frac s2\right]_0^L
+ =\frac{\sinh2u}{4\kappa}-\frac L2,\\
+ \int_0^L\cosh^2\kappa s\dd s
+ &=\left[\frac{\sinh(2\kappa s)}{4\kappa}+\frac s2\right]_0^L
+ =\frac{\sinh2u}{4\kappa}+\frac L2.
+ \end{aligned}
+\]
+因此
+\[
+ P_{\rm rail}=\frac{gV_0^2}{\cosh^2u}
+ \left(\frac{\sinh2u}{4\kappa}-\frac L2\right),\quad
+ P_{\rm leak}=\frac{gV_0^2}{\cosh^2u}
+ \left(\frac{\sinh2u}{4\kappa}+\frac L2\right).
+\]
+相加为$P_{\rm in}=V_0^2\tanh u/Z_0$，与输入端计算相符。各部分比例为
+\[
+ \frac{P_{\rm rail}}{P_{\rm in}}=\frac12-\frac u{\sinh2u},\qquad
+ \frac{P_{\rm leak}}{P_{\rm in}}=\frac12+\frac u{\sinh2u}.
+\]
+小$u$时，$\sinh2u=2u[1+2u^2/3+O(u^4)]$，取倒数得$u/\sinh2u=1/2-u^2/3+O(u^4)$，故轨道比例为$u^2/3+O(u^4)$，多数热在横档；$u\gg1$时两部分各趋于一半。对于图中的$u=\ln2$，$\sinh2u=15/8$，轨道比例约0.1303、泄漏比例约0.8697。长带极限中各一半是积分结果，不意味着每个位置的两种功率密度都相同。
+\end{solution}
+
+\subsection{离散根与连续衰减长度的接续}
+离散差模若写$V_{j+1}-(2+2rg\Delta x^2)V_j+V_{j-1}=0$，设$V_j\propto\ee^{-\theta j}$，就有$\cosh\theta=1+rg\Delta x^2$。小格极限$\theta\simeq\sqrt{2rg}\Delta x$，所以$\ee^{-\theta j}\to\ee^{-\kappa x}$。该推导说明连续方程保留了哪一条离散衰减分支，也说明格长误差由$\theta/(\kappa\Delta x)$偏离1来衡量。
+
+在固定物理总长下加密网格，$r,g,L$均保持不变，输入阻抗应收敛到同一个值。若增加格数时仍保留每条支路原有的电阻，则总长或材料参数已经改变，计算差异也包含模型变化。比较离散误差前，应先落实这组单位长度参数。

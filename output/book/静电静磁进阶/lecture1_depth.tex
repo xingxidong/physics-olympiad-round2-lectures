@@ -1,0 +1,77 @@
+\providecommand{\ExpansionDiagram}[3]{\begin{figure}[H]\centering\begin{tikzpicture}#3\end{tikzpicture}\caption{#2}\label{#1}\end{figure}}
+\section{由场能到导体表面的电压力}
+\subsection{面电荷所受的场不是单侧总场}
+真空中一层面电荷密度$\sigma$的薄层，两侧法向场之差为$\sigma/\varepsilon_0$。把局部场分成该层自身的奇对称场和其余电荷的平滑场，薄层自身场在两侧分别为$\pm\sigma/(2\varepsilon_0)$，因而其余电荷在薄层处的场是两侧总场的平均值：
+\[
+ \vct E_{\rm other}=\frac{\vct E_++\vct E_-}{2}.
+\]
+单独取外侧场乘$\sigma$，会把该层对自身的作用重复计入。对静电平衡导体，内侧场为零、外侧场为$E_n\vct n$，于是单位面积的电力为
+\[
+ \vct f_s=\sigma\frac{E_n}{2}\vct n
+ =\frac{\varepsilon_0 E_n^2}{2}\vct n
+ =\frac{\sigma^2}{2\varepsilon_0}\vct n.
+\]
+无论局部电荷正负，电压力均沿导体外法线。若表面两侧都是真空场，应分别计算两侧的应力，取它们对同一薄层的合力，而非只取某一侧。
+\ExpansionDiagram{fig:dep-es1-pillbox}{导体表面薄层；外侧场与其余电荷场相差一倍}{
+\fill[gray!15](-3,-1.2)rectangle(3,0);\draw[thick](-3,0)--(3,0);\node at(-1.5,-.8){导体：$E_-=0$};\draw[dashed](-.5,-.3)rectangle(.5,.6);\draw[->,thick](0,.2)--(0,1.8)node[above]{$E_n$};\draw[->](1.7,.2)--(1.7,1)node[above]{$E_n/2$};\node[right]at(1.9,.5){其余源};}
+图\ref{fig:dep-es1-pillbox}中虚线薄盒包住一小块表面。$\varepsilon_0E_n^2/2$也正是真空电场能量密度，但在这里它具有法向压力的力学含义，量纲为$\mathrm{J/m^3=Pa}$。
+
+\subsection{应力张量怎样给任意封闭面的总力}
+若闭合面穿过真空且包住全部受力电荷，可定义静电应力
+\[
+ T_{ij}=\varepsilon_0(E_iE_j-\tfrac12E^2\delta_{ij}),
+ \qquad \vct F=\oint \mathsf T\vct n\,\dd S.
+\]
+其局部依据可逐分量求出，重复指标表示求和。静电无旋给$\partial_jE_i=\partial_iE_j$，故
+\[E_j\partial_jE_i=E_j\partial_iE_j
+=\frac12\partial_i(E_jE_j)=\frac12\partial_iE^2.\]
+对$T_{ij}$使用乘积法则，再代入$\partial_jE_j=\rho/\varepsilon_0$，
+\[\begin{aligned}
+\partial_jT_{ij}
+&=\varepsilon_0\left[(\partial_jE_i)E_j
++E_i\partial_jE_j-\frac12\partial_iE^2\right]\\
+&=\varepsilon_0E_i\partial_jE_j=\rho E_i.
+\end{aligned}\]
+前后两个场强平方的导数相消，余下的是电荷的力密度。再用散度定理，即得闭面积分公式。积分面可选在场较简单的真空区域。
+
+若积分面贴近导体，$\vct E=E_n\vct n$，所以$\mathsf T\vct n=\varepsilon_0E_n^2\vct n/2$，恢复局部压力公式。这里使用真空电磁应力；在可压缩介质中，还要交代材料应力、极化和电致伸缩的模型，不能无条件把$\varepsilon_0$换成$\varepsilon$。
+
+\begin{example}[带电导体球的局部压力与整体受力]
+半径$a$的导体球带总电量$Q$，置于沿$+z$的均匀外场$E_0$。求表面电场和压力分布、整个球的合力，以及外场单独造成的北半球轴向电力。忽略支承结构对场的影响。
+\ExpansionDiagram{fig:dep-es1-sphere-q}{带电球与轴向外场；北半球取$0\leq\theta\leq\pi/2$}{
+\draw[thick](0,0)circle(1.3);\draw[->](0,-1.8)--(0,2.6)node[above]{$z,E_0$};\draw[->](0,0)--(.92,.92)node[midway,below right]{$a$};\draw(0,.45)arc(90:45:.45);\node at(.27,.65){$\theta$};\draw[dashed](-1.3,0)--(1.3,0);\node[left]at(-1.4,.6){北半球};\node at(.5,-.6){$Q$};}
+\end{example}
+\begin{solution}
+在球外把单极势与匀强场中的导体球解叠加：
+\[
+ \phi=\frac{Q}{4\pi\varepsilon_0r}
+ -E_0\left(r-\frac{a^3}{r^2}\right)\cos\theta.
+\]
+在$r=a$角向项为零，球面等势；远处恢复原外场，单极项保证总电量为$Q$，因此满足题设。先保持$\theta$不变作径向微分，
+\[-\partial_r\phi=\frac{Q}{4\pi\varepsilon_0r^2}
++E_0\left(1+\frac{2a^3}{r^3}\right)\cos\theta.\]
+再令$r=a$，得到
+\[
+ E_n=\frac{Q}{4\pi\varepsilon_0a^2}+3E_0\cos\theta
+ \equiv E_Q+3E_0\cos\theta.
+\]
+图\ref{fig:dep-es1-sphere-q}中的北半球外法线有正$z$分量$\cos\theta$，故压力的轴向贡献为$\varepsilon_0(E_Q+3E_0\cos\theta)^2\cos\theta/2$。
+\ExpansionDiagram{fig:dep-es1-sphere-a}{局部压力沿径向；整体轴向力来自交叉项的不对称}{
+\draw[thick](0,0)circle(1.2);\foreach\a in{30,60,90,120,150,210,240,270,300,330}{\draw[->](\a:1.2)--(\a:{1.2+.015*(4+3*sin(\a))^2});}\draw[->](2,-.6)--(2,1.2)node[above]{$Q E_0$};\node[below]at(0,-1.9){图示$E_Q=4E_0$，箭长按压力比例};}
+对整个球积分，令$u=\cos\theta$，方位角积分为$2\pi$：
+\begin{align*}
+ F_z&=\pi\varepsilon_0a^2\int_{-1}^1(E_Q+3E_0u)^2u\dd u\\
+ &=\pi\varepsilon_0a^2\left(6E_QE_0\int_{-1}^1u^2\dd u\right)
+ =6\pi\varepsilon_0a^2E_QE_0\left[\frac{u^3}{3}\right]_{-1}^1
+ =4\pi\varepsilon_0a^2E_QE_0=QE_0.
+\end{align*}
+纯自场的$E_Q^2u$项和纯外场诱导的$9E_0^2u^3$项为奇函数，积分为零；合力来自交叉项。图\ref{fig:dep-es1-sphere-a}仅示意$Q>0$时的压力不对称，$Q<0$时合力反向，局部压力仍向外。
+
+若只取北半球且令$Q=0$，仍有非零轴向电力：
+\[
+ F_{N,z}=9\pi\varepsilon_0a^2E_0^2\int_0^1u^3\dd u
+ =9\pi\varepsilon_0a^2E_0^2\left[\frac{u^4}{4}\right]_0^1
+ =\frac94\pi\varepsilon_0a^2E_0^2.
+\]
+南半球受到大小相同、方向相反的电力，整个球的合力为零，两个半球仍需由内部机械应力维持连接。若要求变形量，还应给出材料弹性或表面张力，把电压力作为载荷求解。
+\end{solution}

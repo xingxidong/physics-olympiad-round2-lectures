@@ -1,0 +1,1775 @@
+\chapter{一元微积分与渐近展开}\label{ch:c1}
+
+求速度与加速度的关系，要沿运动过程求导；计算连续物体的质量和惯量，要对质量元积分。小振动的周期则由平衡位置附近的展开求得。这些计算都须先确定变量的依赖关系，再按初态选取运动分支；采用近似式时，应给出无量纲小参数及其范围。
+
+本讲从一元求导与有限增量讲起，随后讨论复合小量展开、积分换元和连续分布。杆与圆筒的接触几何给出链式求导中的中间变量；圆锥运动中须固定角动量，非线性振子的周期积分则须控制转向点附近的余项。三角函数自变量采用弧度，小参数均先写成无量纲比值。
+
+
+\section{导数、微分与物理过程}\label{sec:c1-foundation}
+有限增量记录真实过程，导数和微分描述局部变化。运动学或输运关系所用的自变量及保留阶数，应在把局部关系累加之前确定。
+
+\subsection{导数、微分与有限增量}
+设$f$在$x$附近有定义。导数是差商的极限：
+\begin{equation}\label{eq:c1-derivative}
+ f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}h.
+\end{equation}
+导数存在等价于有限增量能够写成
+\begin{equation}\Delta f=f'(x)\Delta x+o(\Delta x).
+\end{equation}
+这里$\Delta f$是真实函数增量，$\dd f=f'(x)\dd x$是线性主部。取$\dd x=\Delta x$后，两者一般还相差高阶小量；只有对线性函数，局部微分才在区间内任意有限增量下都等于真实增量。微分公式适合建立局部关系；从一个有限状态走到另一个有限状态，需要积分，或明确保留所需的高阶项。
+
+对运动$x=x(t)$，速度和加速度分别是$\dot x$与$\ddot x$。若加速度连续，则
+\begin{equation}\label{eq:c1-displacement}
+ x(t+\Delta t)-x(t)=v(t)\Delta t+\frac12a(t)(\Delta t)^2+o((\Delta t)^2).
+\end{equation}
+因此$\dd x=v\dd t$中的$v$在同一时刻取值。把末速度$v+\Delta v$直接乘$\Delta t$，会把匀加速情况下的二阶项写成$a(\Delta t)^2$，多出一倍。$\dd v\dd t$可以在只保留一阶量时舍去；若问题要求二阶精度，就必须从有限增量重新展开。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4,0)node[right]{$t$};\draw[axis](0,0)--(0,2.7)node[above]{$v$};\draw[curve](.3,.65)--(3.3,2.15);\fill[gray!18](1,0)--(1,1)--(2.7,1.85)--(2.7,0)--cycle;\draw[guide](1,1)--(2.7,1);\draw[<->](1,-.35)--(2.7,-.35)node[midway,below]{$\Delta t$};\node[left]at(0,1){$v(t)$};\node[right]at(2.7,1.5){$\tfrac12\Delta v\Delta t$};\node at(1.8,.45){$v(t)\Delta t$};
+\end{tikzpicture}
+\caption{速度图下的面积给出真实位移；上方三角形是二阶修正。}\label{fig:c1-differential}
+\end{figure}
+\subsection{求导规则与变量选择}
+
+物理问题中的求导变量由依赖关系确定。例如先写$x=x(\theta)$、$\theta=\theta(t)$，便能区分对角度求导与对时间求导。计算中引入的中间变量也应保留这层依赖，避免在同一次求导中既把它当常数，又让它随时间变化。
+
+导数是一个局部数值。若$y=f(x)$，当$x$发生小变化$h$，有
+\[f(x+h)-f(x)=\{f'(x)+\epsilon(h)\}h,\qquad \epsilon(h)\to0.\]
+因而$y$的变化可分成切线给出的变化与误差。这里趋零的是误差与$h$之比；误差本身小，还不足以说明已找到正确的线性近似。若自变量有长度量纲，判断小量时还要选取问题中的长度尺度$L$，把条件写成$|h|/L\ll1$，而不直接比较有量纲的$h$与数值$1$。
+
+从图~\ref{fig:c1-differential}看，速度曲线下的真实面积与初速矩形的差是一块小三角形。一般变加速运动也可从积分直接得到误差：
+\[\Delta x-v(t)\Delta t
+=\int_0^{\Delta t}\{v(t+s)-v(t)\}\dd s
+=\int_0^{\Delta t}(\Delta t-u)a(t+u)\dd u.\]
+第二个等号先用$v(t+s)-v(t)=\int_0^sa(t+u)\dd u$，再在三角区域$0\le u\le s\le\Delta t$换序：固定$u$后，$s$从$u$积到$\Delta t$，其长度为$\Delta t-u$。这里取$\Delta t>0$；反向时间间隔可按有向积分处理。
+若这段时间内$|a|\le a_{\max}$，便有$|\Delta x-v(t)\Delta t|\le a_{\max}(\Delta t)^2/2$。若$a$连续，提取$a(t)$再积分，就得到式\eqref{eq:c1-displacement}的二阶项：局部速度确定一阶位移，加速度给出首个修正。
+若$u,v$可微，则
+\begin{gather}
+ (u\pm v)'=u'\pm v',\qquad (uv)'=u'v+uv',\\
+ \left(\frac uv\right)'=\frac{u'v-uv'}{v^2}\quad(v\ne0),\qquad
+ \frac{\dd f(u(x))}{\dd x}=\frac{\dd f}{\dd u}\frac{\dd u}{\dd x}.
+\end{gather}
+商的分母是原分母的平方。链式法则中的中间变量可以逐层引入，但所有因子必须在同一状态下取值。若局部存在反函数$x=g(y)$且$g'(y)\ne0$，则
+\begin{equation}\frac{\dd y}{\dd x}=\left(\frac{\dd x}{\dd y}\right)^{-1}.
+\end{equation}
+反函数求导前应选定单值分支。例如$\cosh y$在整个实轴上不是一一映射，$\arcosh x$通常指$y\ge0$、$x\ge1$的分支。
+
+\begin{center}\small
+\begin{tabular}{ll@{\qquad}ll}\toprule
+函数&导数&函数&导数\\\midrule
+$x^a$&$ax^{a-1}$&$\ln x$&$1/x$\\
+$\ee^x$&$\ee^x$&$\sin x$&$\cos x$\\
+$\cos x$&$-\sin x$&$\tan x$&$1/\cos^2x$\\
+$\sinh x$&$\cosh x$&$\cosh x$&$\sinh x$\\
+$\arcsin x$&$1/\sqrt{1-x^2}$&$\arctan x$&$1/(1+x^2)$\\
+$\arsinh x$&$1/\sqrt{1+x^2}$&$\arcosh x$&$1/\sqrt{x^2-1}$\\\bottomrule
+\end{tabular}
+\end{center}
+表中公式均在实函数的可微区间内使用。非整数幂可先限制$x>0$；$\arcsin x$的导数要求$|x|<1$；$\arcosh x$的导数要求$x>1$。双曲函数的定义为
+\begin{equation}\sinh x=\frac{\ee^x-\ee^{-x}}2,\qquad
+\cosh x=\frac{\ee^x+\ee^{-x}}2,\qquad \cosh^2x-\sinh^2x=1.
+\end{equation}
+
+\Needspace{8\baselineskip}
+图~\ref{fig:c1-local-linear}把有限增量分成切线变化与高阶误差。右端两点的竖直差是$\Delta f-f'(x)h$，而不是导数本身；当$h$减小时，这个差相对于$h$趋于零。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.2,0)--(3.4,0)node[right]{$x$};\draw[axis](0,-.1)--(0,3)node[above]{$f$};
+\draw[curve,domain=.2:2.55,samples=60]plot(\x,{.24*(\x)^2+.35*\x+.45});
+\draw[dashed](.25,.5039)--(2.1,1.773);\node[right]at(2.55,2.9){函数曲线};
+\fill(.7,.8126)circle(1.5pt)node[above left]{$P$};\fill(1.8,1.8576)circle(1.5pt)node[above left]{$Q$};
+\fill(1.8,1.5672)circle(1.5pt)node[below left]{$T$};
+\draw[guide](.7,0)--(.7,.8126)--(1.8,.8126);\draw[guide](1.8,0)--(1.8,1.5672);
+\draw[<->](.7,.22)--(1.8,.22)node[midway,above]{$h$};
+\draw[<->](2.25,.8126)--(2.25,1.5672)node[midway,right]{$f'(x)h$};
+\draw[thick](1.8,1.5672)--(1.8,1.8576);\draw(1.83,1.73)--(2.55,2.2)--(3,2.2)node[right]{高阶误差};
+\node[below]at(.7,0){$x$};\node[below]at(1.8,0){$x+h$};
+\end{tikzpicture}
+\caption{切线点$T$给出一阶近似，曲线点$Q$与它的差给出余项。}\label{fig:c1-local-linear}
+\end{figure}
+
+\subsection{求导规则的增量推导}
+乘积在有限增量下满足严格恒等式
+\[\Delta(uv)=u\Delta v+v\Delta u+\Delta u\Delta v.\]
+其中$u,v$取变化前的值。若二者均可微，$\Delta u=u'h+o(h)$、$\Delta v=v'h+o(h)$，最后一项为$O(h^2)$；除以$h$取极限后消失，得到乘积法则。若要把乘积本身保留到二阶，则这一项反而必须留下。因此求一阶导数时可舍去的乘积项，在二阶近似中仍须保留。
+
+商法则可由$u=v(u/v)$推得。设$w=u/v$，则$u'=v'w+vw'$，所以$w'=(u'v-uv')/v^2$。这个推导同时说明$v\ne0$的作用：在分母趋零的边界，商未必有有限导数，应回到原函数的定义域讨论。
+
+链式法则也可用增量说明。写
+\[\Delta f=f_u\Delta u+o(\Delta u),\qquad
+\Delta u=u_xh+o(h).\]
+可微性保证$\Delta u=O(h)$，故代入后$\Delta f=f_uu_xh+o(h)$。若$u_x=0$，乘积仍给出零导数；此时应由更高阶项决定$f$真正从哪一阶开始变化。中间变量的导数可以为零，反函数求导时却需要它非零，因为反函数公式要作除法。
+
+对幂指函数，底数和指数同时变化。若$y=u(x)^{v(x)}$且$u>0$，先取对数，
+\[\ln y=v\ln u,\qquad
+\frac{y'}y=v'\ln u+v\frac{u'}u.\]
+右侧两项分别来自指数变化与底数变化。例~\ref{ex:c1-e1}的$x^x$就是两种贡献同时存在的情形。反双曲函数则先用单调区间选定分支，再由原函数的导数求倒数；符号由选定分支决定。
+
+\subsection{驻点、边界与实际可行区间}
+若$f$在内点$x_*$可微且有局部极值，左右差商的符号迫使$f'(x_*)=0$。这是必要条件，尚未判断驻点两侧究竟上升还是下降。若$f'$从正变负，便为局部最大值；从负变正，则为局部最小值。$f''(x_*)$非零时，Taylor二阶项直接给出同样判断；二阶导为零则须继续考察高阶项或导数符号。
+
+物理量往往只能在闭区间上变化。求全局极值时，要比较区间内所有驻点、不可微点及两端点的函数值。边界最优一般不满足零导数条件。例如习题~\ref{ex:c1-h3}的速率被驱动力非负条件限制；若另有限速，还要把这个限速边界加入可行区间。极值计算中的每一次除法、开方和变量替换，都应保留此前已有的可行范围。
+
+\begin{example}[复合函数与反双曲函数]\label{ex:c1-e1}
+分别求$\ee^{\sin x}$、$\ee^{x\ln x}$、$\arcosh x$和$\arsinh x$的导数，写明实定义域及导数成立的区间。第二个函数也写成$x^x$。 见图~\ref{fig:c1-e1-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.05660cm,y=1.00000cm]\draw[axis](-1.2,0)--(1.45,0)node[right]{$x$};\draw[axis](0,0)--(0,3)node[above]{$\ee^{\sin x}$};\draw[curve,domain=-1.2:1.2,samples=101]plot(\x,{exp(sin(\x r))});\end{scope}\begin{scope}[shift={(4.5,0)}]\begin{scope}[x=1.60000cm,y=1.00000cm]\draw[axis](0,0)--(1.95,0)node[right]{$x$};\draw[axis](0,0)--(0,3)node[above]{$x^x$};\draw[curve,domain=0.2:1.7,samples=101]plot(\x,{(\x)^(\x)});\end{scope}\end{scope}
+\end{tikzpicture}
+\caption{前两个函数的图像；$x^x$在这里取$x>0$的实分支。}\label{fig:c1-e1-q}
+\end{figure}
+\begin{solution}
+先确定四个函数的实定义域：$\ee^{\sin x}$和$\arsinh x$在全实轴有定义；按$\ee^{x\ln x}$定义$x^x$时取$x>0$；$\arcosh x$取双曲余弦的非负反函数分支，定义域为$x\ge1$。图~\ref{fig:c1-e1-q}画出$\ee^{\sin x}$与$x^x$，它们的导数符号仍由内层函数决定。
+
+
+第一式取 $u=\sin x$，则 $\dd u/\dd x=\cos x$、$\dd(\ee^u)/\dd u=\ee^u$，链式法则给出 $\dd(\ee^u)/\dd x=\ee^u\,\dd u/\dd x$，即
+\[\frac{\dd}{\dd x}\ee^{\sin x}=\ee^{\sin x}\cos x,\qquad x\in\mathbb R.\]
+第二式要求$x>0$。指数中的乘积不能只对$\ln x$求导：
+\[\frac{\dd}{\dd x}(x\ln x)=1\cdot\ln x+x\cdot\frac1x=1+\ln x,\qquad
+ (x^x)'=x^x(1+\ln x).\]
+设 $y=\arcosh x$，即 $x=\cosh y$ 且 $y\ge0$。等式两边对 $x$ 求导，$1=\sinh y\,\dd y/\dd x$。由双曲恒等式，$\sinh y=\sqrt{x^2-1}$，故
+\[\frac{\dd y}{\dd x}=\frac1{\sinh y}=\frac1{\sqrt{x^2-1}},\qquad x>1.\]
+函数在$x=1$有值$0$，但右侧斜率发散，不能把端点算作有有限导数的内点。由$\ee^y=x+\sqrt{x^2-1}$还得到
+\[\arcosh x=\ln\bigl(x+\sqrt{x^2-1}\bigr),\qquad x\ge1.\]
+再设 $y=\arsinh x$。此时 $x=\sinh y$ 在实轴上严格递增，求导得 $1=\cosh y\,\dd y/\dd x$；又 $\cosh y=\sqrt{1+x^2}>0$，所以
+\[\frac{\dd y}{\dd x}=\frac1{\sqrt{1+x^2}},\qquad
+\arsinh x=\ln\bigl(x+\sqrt{1+x^2}\bigr),\qquad x\in\mathbb R.\]
+图~\ref{fig:c1-e1-s}左图跨过原点且斜率有限，右图从$x=1$开始，端点切线趋于竖直。导数的分母分别为$\sqrt{1+x^2}$和$\sqrt{x^2-1}$，与上述端点行为一致。
+
+
+双曲反函数的对数形式也可直接从二次方程解出。设$z=\ee^y>0$，由$x=\cosh y=(z+z^{-1})/2$得到
+\[z^2-2xz+1=0,\qquad z=x\pm\sqrt{x^2-1}.\]
+$y\ge0$要求$z\ge1$，所以取加号；另一个正根对应负的$y$分支。由$x=\sinh y=(z-z^{-1})/2$则得到$z=x+\sqrt{x^2+1}$，另一根为负，不能作为$\ee^y$。上述二次方程同时确定了对数式中的根号和实分支。
+
+对$x^x$，导数符号由$1+\ln x$控制：$0<x<\ee^{-1}$时递减，$x>\ee^{-1}$时递增。图中的最低点来自指数$x\ln x$的驻点，指数函数本身始终递增。复合求导因此还给出了函数图像的定性信息。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.00000cm,y=1.00000cm]\draw[axis](-1.5,0)--(1.75,0)node[right]{$x$};\draw[axis](0,-1.5)--(0,1.8)node[above]{$\arsinh x$};\draw[curve,domain=-1.5:1.5,samples=101]plot(\x,{ln(\x+sqrt((\x)^2+1))});\end{scope}\begin{scope}[shift={(4.5,0)}]\begin{scope}[x=1.60000cm,y=1.00000cm]\draw[axis](0,0)--(2.75,0)node[right]{$x$};\draw[axis](0,0)--(0,2)node[above]{$\arcosh x$};\draw[curve,domain=1:2.5,samples=101]plot(\x,{ln(\x+sqrt((\x)^2-1))});\draw[guide](1,0)--(1,1.5);\node[below]at(1,0){$1$};\end{scope}\end{scope}
+\end{tikzpicture}
+\caption{反双曲函数的分支、端点与斜率。}\label{fig:c1-e1-s}
+\end{figure}
+\end{solution}
+\subsection{由速度关于位置的关系求加速度}
+若某一运动分支上$v=v(x)$可微，则
+\begin{equation}\label{eq:c1-vdv}a=\frac{\dd v}{\dd t}=v\frac{\dd v}{\dd x}.
+\end{equation}
+角运动同样有$\ddot\theta=\dot\theta\,\dd\dot\theta/\dd\theta$。在转向点附近，$v$本身可能含平方根，直接求导会出现形式奇点；改对$v^2$求导更稳妥：
+\[a=\frac12\frac{\dd(v^2)}{\dd x},\qquad
+\ddot\theta=\frac12\frac{\dd(\dot\theta^2)}{\dd\theta}.\]
+这两个式子需要沿实际运动分支理解。在静止平衡构形处，能量式只给出允许的速度大小，并不自动保证系统会离开该构形。
+
+\Needspace{8\baselineskip}
+由式\eqref{eq:c1-vdv}可把时间从动力学方程中暂时消去。若$a=a(x)$，则
+\[v\dd v=a(x)\dd x,\qquad
+\left[\frac{u^2}{2}\right]_{v_0}^{v(x)}
+=\int_{x_0}^{x}a(\xi)\dd\xi.\]
+故$v^2(x)=v_0^2+2\int_{x_0}^{x}a(\xi)\dd\xi$。
+右侧先给出速度平方；取平方根时，再由运动方向选正、负支。若需要时间，才计算$t-t_0=\int_{x_0}^{x}\dd\xi/v(\xi)$。因此“先求位置上的速度关系”与“求出时间函数”是两个不同步骤。
+
+在$v=0$处，$v(x)$常含平方根，而$\dd v/\dd x$可能发散。乘积$v\dd v/\dd x$仍可能趋于有限值；对$v^2$求导可直接避免这一形式奇点。对于杆、滚动体等具有几何约束的系统，动能不一定是$m\dot q^2/2$，需先按构形求出正确的惯性系数，再由能量关系消去时间。下面两道例题分别说明能量与几何求导怎样使用同一广义坐标。
+
+\begin{example}[两端沿光滑直槽运动的杆]\label{ex:c1-e2}
+均匀杆$AB$长$l$、质量$m$，两端分别沿水平、竖直光滑直槽运动。令杆与向下竖直方向的夹角为$\theta$。由图示构形$0<\theta_0<\pi/2$静止释放，先讨论两端位于图示正向槽段内的阶段，求$\dot\theta^2$和$\ddot\theta$，再讨论$\theta_0\to0^+$的极限。见图~\ref{fig:c1-e2-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\coordinate(A)at(2.8,0);\coordinate(B)at(0,3.1);\draw[thick](0,3.6)--(O)--(3.6,0);\draw[curve](A)--(B);\fill(A)circle(1.5pt)node[below]{$A$};\fill(B)circle(1.5pt)node[left]{$B$};\node[below left]at(O){$O$};\draw(0,2.5)arc(-90:-48:.6);\node at(.3,2.25){$\theta$};\fill(1.4,1.55)circle(1.3pt)node[right]{$C$};\node[right]at(2,1.5){$l,m$};
+\end{tikzpicture}
+\caption{质心$C$随端点一起运动；角度在上端$B$处定义。}\label{fig:c1-e2-q}
+\end{figure}
+\begin{solution}
+杆的构形由$\theta$确定，两端均在运动。按图~\ref{fig:c1-e2-q}将动能分成质心平动与绕质心转动，两部分都用$\theta,\dot\theta$表示。槽反力不做功，因而可用机械能守恒求角速度。
+
+
+取图中 $O$ 为原点，水平向右、竖直向上为坐标正向。端点坐标为 $A=(l\sin\theta,0)$、$B=(0,l\cos\theta)$，质心为二者的平均，$x_C=l\sin\theta/2$、$y_C=l\cos\theta/2$。分别求导，
+\[
+\dot x_C=\frac l2\cos\theta\,\dot\theta,\qquad
+\dot y_C=-\frac l2\sin\theta\,\dot\theta,
+\]
+所以 $v_C^2=(l^2\dot\theta^2/4)(\cos^2\theta+\sin^2\theta)=l^2\dot\theta^2/4$。均匀杆绕质心的惯量是 $ml^2/12$，总动能为
+\[T=\frac12m\frac{l^2\dot\theta^2}{4}+\frac12\frac{ml^2}{12}\dot\theta^2
+=\frac{ml^2}{6}\dot\theta^2.\]
+图~\ref{fig:c1-e2-s}中，重力作用在$C$，直槽反力垂直于各端速度，不做功。质心降低$l(\cos\theta_0-\cos\theta)/2$，所以
+\[\boxed{\dot\theta^2=\frac{3g}{l}(\cos\theta_0-\cos\theta)}.\]
+沿下落分支 $\dot\theta>0$，对能量关系求导得到 $2\dot\theta\ddot\theta=(3g/l)\sin\theta\dot\theta$。释放瞬间 $\dot\theta=0$，不能用约去角速度的办法单独确定该瞬间加速度；可直接列 Lagrange 方程。取 $\mathcal L=ml^2\dot\theta^2/6-mgl\cos\theta/2$，有
+\[
+\frac{\partial\mathcal L}{\partial\dot\theta}=\frac{ml^2}{3}\dot\theta,\qquad
+\frac{\dd}{\dd t}\frac{\partial\mathcal L}{\partial\dot\theta}=\frac{ml^2}{3}\ddot\theta,\qquad
+\frac{\partial\mathcal L}{\partial\theta}=\frac{mgl}{2}\sin\theta.
+\]
+代入 $\dd(\partial\mathcal L/\partial\dot\theta)/\dd t-\partial\mathcal L/\partial\theta=0$，得
+\[\boxed{\ddot\theta=\frac{3g}{2l}\sin\theta}.\]
+这一式在释放瞬间也成立。取 $\theta_0\to0^+$ 便有 $\dot\theta^2=(3g/l)(1-\cos\theta)$。然而若初态严格为 $\theta=0,\dot\theta=0$，运动方程具有静止解，系统不会在没有扰动时自行滑下。
+
+
+在小角近似下，令 $\kappa=\sqrt{3g/(2l)}$，方程为 $\ddot\theta-\kappa^2\theta=0$。特征根 $\pm\kappa$ 给出通解 $C\cosh\kappa t+D\sinh\kappa t$；由 $\theta(0)=\theta_0$ 得 $C=\theta_0$，由 $\dot\theta(0)=\kappa D=0$ 得 $D=0$，故
+\[\theta(t)\simeq\theta_0\cosh(\kappa t).\]
+到达仍属小角范围的固定角$\theta_1>\theta_0$，所需时间约为$\kappa^{-1}\arcosh(\theta_1/\theta_0)$，随$\theta_0\to0^+$按对数发散。严格竖直静止与任意小扰动释放具有不同的起动过程，取极限时须保留这一区别。
+
+图~\ref{fig:c1-e2-s}中 $A$ 向右、$B$ 向下，对应 $\dot\theta>0$；重力势能随 $\cos\theta$ 减小而下降，所以能量差中应为 $\cos\theta_0-\cos\theta$。若方向或势能差写反，速度平方会在刚释放后变负，便与允许运动不符。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\coordinate(A)at(2.8,0);\coordinate(B)at(0,3.1);\draw[thick](0,3.6)--(O)--(3.6,0);\draw[curve](A)--(B);\fill(A)circle(1.5pt)node[below]{$A$};\fill(B)circle(1.5pt)node[left]{$B$};\node[below left]at(O){$O$};\draw(0,2.5)arc(-90:-48:.6);\node at(.3,2.25){$\theta$};\fill(1.4,1.55)circle(1.3pt)node[right]{$C$};\node[right]at(2,1.5){$l,m$};\draw[axis](1.4,1.55)--(1.4,.5)node[below]{$mg$};\draw[axis](2.8,0)--(3.5,0)node[right]{$v_A$};\draw[axis](0,3.1)--(0,2.2)node[left]{$v_B$};
+\end{tikzpicture}
+\caption{端点速度沿槽，重力通过质心进入能量式。}\label{fig:c1-e2-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{example}[转杆推动圆柱的几何求导]\label{ex:c1-e3}
+半径$r$的圆柱截面同时与水平直线和绕固定交点$O$转动的直杆相切。直杆与水平正向的夹角为$\theta(t)=2\pi/3-\omega t-\beta t^2/2$，其中$\omega,\beta>0$。求圆心横坐标、水平速度和加速度，并写出本分支的几何范围。 见图~\ref{fig:c1-e3-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-.5,0)--(4.2,0);\coordinate(O)at(0,0);\coordinate(C)at(.866,1.5);\draw[curve](C)circle(1.5);\draw[thick](O)--(-1.6,2.771);\draw[guide](C)--(-.433,.75);\fill(O)circle(1.4pt)node[below]{$O$};\fill(C)circle(1.4pt)node[right]{$C$};\draw(.65,0)arc(0:120:.65);\node at(.5,.8){$\theta$};\node[right]at(.9,.75){$r$};
+\end{tikzpicture}
+\caption{初态的夹角为$120^\circ$，圆心位于两条相切直线的内角平分线上。}\label{fig:c1-e3-q}
+\end{figure}
+\begin{solution}
+圆心始终高于地面$r$，水平位置随杆角变化。由接触几何求出$x(\theta)$，再代入$\theta(t)$作链式求导。图~\ref{fig:c1-e3-q}中的$120^\circ$是杆与地面正向的内角，角平分线三角形中使用它的一半。
+
+
+圆心到两条直线的距离均为$r$。图~\ref{fig:c1-e3-s}中的直角三角形给出
+\[x=r\cot\frac\theta2,\qquad y_C=r,\qquad 0<\theta<\pi.\]
+令$q(t)=\omega+\beta t=-\dot\theta$。按链式法则，
+\[\dot x=-\frac r2\csc^2\frac\theta2\,\dot\theta
+=\frac{rq}{2\sin^2(\theta/2)}.\]
+再求一次时间导数。$q$的变化产生第一项，$\theta$的变化产生第二项：
+\begin{align*}
+\ddot x&=\frac r2\left[\beta\csc^2\frac\theta2
++q\left(-\csc^2\frac\theta2\cot\frac\theta2\right)\dot\theta\right]\\
+&=\boxed{\frac{r\{\beta\sin(\theta/2)+q^2\cos(\theta/2)\}}{2\sin^3(\theta/2)}}.
+\end{align*}
+若$\beta=0$，加速度仍不为零：杆的角速度恒定，而圆心位置是转角的非线性函数。初态有
+\[x_0=\frac r{\sqrt3},\qquad v_0^{(C)}=\frac{2r\omega}{3},\qquad
+a_0^{(C)}=\frac{2r\beta}{3}+\frac{2r\omega^2}{3\sqrt3}.\]
+这些量描述由转杆几何强制产生的运动，不涉及圆柱自转或接触摩擦。$\theta\to0^+$时$x$和所需速度趋于无穷，有限装置必在此前离开该几何分支。初态角为$2\pi/3$，因此求导时不能将图示角误当作它的补角。
+
+
+两次求导也可统一写成
+\[\dot x=x_\theta\dot\theta,\qquad
+\ddot x=x_{\theta\theta}\dot\theta^2+x_\theta\ddot\theta.\]
+上面加速度中的 $q^2$ 项来自 $x_{\theta\theta}\dot\theta^2$，$\beta$ 项来自 $x_\theta\ddot\theta$。图~\ref{fig:c1-e3-s}中圆心向右的运动既来自转角速率，也受几何函数曲率影响，所以即使 $\beta=0$ 仍有水平加速度。
+
+本初态下还要满足$\theta(t)>0$，即$\omega t+\beta t^2/2<2\pi/3$。正时间的几何终止值为$[\sqrt{\omega^2+4\pi\beta/3}-\omega]/\beta$；公式只在此前且接触约束仍能维持时使用。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,0)--(3.7,0);\draw[thick](0,0)--(-1.3,2.252);\draw[guide](0,0)--(.866,1.5)--(.866,0);\draw(.55,0)arc(0:60:.55);\node at(.7,.4){$\theta/2$};\draw[<->](.866,-.3)--(0,-.3)node[midway,below]{$x$};\draw[<->](1.25,0)--(1.25,1.5)node[midway,right]{$r$};\fill(.866,1.5)circle(1.5pt)node[right]{$C$};\draw[axis](.866,1.5)--(2.2,1.5)node[right]{$\dot x$};
+\end{tikzpicture}
+\caption{圆心、角平分线与水平投影决定$x=r\cot(\theta/2)$。}\label{fig:c1-e3-s}
+\end{figure}
+\end{solution}
+
+\section{泰勒展开与保留阶数}\label{sec:c1-taylor}
+近似式能否用于求力、求周期或判断稳定性，取决于首个未保留项的大小。先选定展开点和无量纲小参数，再根据所求物理量决定保留阶数。
+
+\subsection{余项控制了近似的含义}
+若$f$在$x_0$附近具有$n+1$阶连续导数，则
+\begin{equation}\label{eq:c1-taylor}
+ f(x_0+h)=\sum_{j=0}^n\frac{f^{(j)}(x_0)}{j!}h^j
++\frac{f^{(n+1)}(\xi)}{(n+1)!}h^{n+1},
+\end{equation}
+其中$\xi$在$x_0$与$x_0+h$之间。只知道$n$阶可微时，可把余项写成$o(h^n)$。$O(h^{n+1})$需要相应的局部有界条件；它表示误差随$h$的量级，而不是一个可以任意忽略的常数。
+
+在零点附近，常用展开为
+\begin{align}
+\sin x&=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7),\\
+\cos x&=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6),\\
+\ee^x&=1+x+\frac{x^2}{2}+\frac{x^3}{6}+O(x^4),\\
+\ln(1+x)&=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4),\\
+(1+x)^a&=1+ax+\frac{a(a-1)}2x^2+\frac{a(a-1)(a-2)}6x^3+O(x^4).
+\end{align}
+最后两式在实数问题中还要求$1+x>0$。若$a$是非负整数，二项式为有限多项式；一般实数$a$的幂级数在$|x|<1$内收敛，端点需另作判断。局部渐近展开的使用范围应由实际小参数与所需误差共同确定。
+
+\subsection{Taylor系数与局部导数}
+设在$x_0$附近用多项式$P_n(x_0+h)=a_0+a_1h+\cdots+a_nh^n$近似$f$，要求二者在$h=0$的函数值及前$n$阶导数相同。逐次求导并令$h=0$，得到$a_j=f^{(j)}(x_0)/j!$。各阶系数由展开点的相应导数确定。
+
+局部展开与在有限区间上收敛的无穷级数应分开使用。对一个给定的阶数，只要有相应光滑性，就能写出有限Taylor式和余项；要把阶数取到无穷并声称级数等于原函数，还要讨论收敛性。竞赛中的小量计算通常只需要有限式，但余项必须在所用区间上受控。
+
+二项式系数可直接由导数得到：$(\dd/\dd x)^j(1+x)^a=a(a-1)\cdots(a-j+1)(1+x)^{a-j}$。在$x=0$取值后除以$j!$，即得前面的通式。对$a=-1/2$、$3/2$分别代入，可得到例~\ref{ex:c1-e4}所需系数。对数展开还可由几何级数$1/(1+x)=1-x+x^2-\cdots$在含零的小区间逐项积分得到；选择积分常数使$\ln(1+0)=0$，便固定了所有低阶项。
+
+如果展开点不是零，先令$h=x-x_0$。如果物理量还带尺度，先提出尺度再展开，例如$\sqrt{L^2+h^2}=L\sqrt{1+(h/L)^2}$。根号内的无量纲比值才是小参数，展开系数也才具有明确的适用范围。
+
+\subsection{复合展开的阶数与交叉项}
+若$\varepsilon=c_1x+c_2x^2$，则$\varepsilon=O(x)$，保留$x^2$时必须保留$\varepsilon^2$；但$\varepsilon^2$中只有$c_1^2x^2$属于二阶。若$\varepsilon=c_2x^2$，则保留$x^2$只需展开到$\varepsilon$的一阶。先确定$\varepsilon$从哪一阶开始，再决定外层函数展开到几阶，能避免遗漏交叉项。
+
+\Needspace{8\baselineskip}
+复合运算中还须追踪乘除法对误差的影响。若$A=a_0+a_1\varepsilon+a_2\varepsilon^2+O(\varepsilon^3)$、$B=b_0+b_1\varepsilon+b_2\varepsilon^2+O(\varepsilon^3)$，乘积的二阶系数为$a_0b_2+a_1b_1+a_2b_0$，交叉项与其余二阶项地位相同。求商时可先对$B^{-1}$展开，但须有$b_0\ne0$；若$b_0=0$，先提取分母的首个非零幂，再重新计阶。
+
+相减会提高首个非零项的阶数。若两个表达式的一次项也相消，分别只保留到一次就不能求出差值的主项。习题~\ref{ex:c1-h14}和~\ref{ex:c1-h20}都需要先观察对称性和抵消，再决定原函数应展开到几阶。余项也要随运算处理：把$O(\varepsilon^3)$的式子除以$\varepsilon$后，余项变为$O(\varepsilon^2)$，其精度并未保留三阶。
+
+实际计算可先保留符号形式的系数，完成抵消后再代入物理关系。圆锥小振动中，一次势能项只有在使用平衡条件后才消失；若过早给各项作数值近似，就难以看清恢复力的来源。
+
+\begin{example}[复合幂函数的二阶与三阶项]\label{ex:c1-e4}
+将$(1+x^2+\cos\theta_0\,x)^{-1/2}$和$(1+x^2+kx)^{3/2}$展开到$x^2$。参数$k,\theta_0$固定。再将第二式展开到$x^3$，解释为什么不能丢掉平方中的交叉项。 见图~\ref{fig:c1-e4-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.69697cm,y=1.38462cm]\draw[axis](-0.7,0)--(0.95,0)node[right]{$x$};\draw[axis](0,0.5)--(0,1.8)node[above]{$f$};\draw[curve,domain=-0.7:0.7,samples=101]plot(\x,{1/sqrt(1+(\x)^2+.5*\x)});\end{scope}
+\end{tikzpicture}
+\caption{第一式取$\cos\theta_0=1/2$的图像，展开点为$x=0$。}\label{fig:c1-e4-q}
+\end{figure}
+\begin{solution}
+固定的参数$c=\cos\theta_0$、$k$均不随$x$变化。所求的是$x$的幂次，而外层二项式首先按$\varepsilon$的幂次展开，因此要把每个$\varepsilon^j$重新写回$x$。图~\ref{fig:c1-e4-q}的具体曲线只用于说明局部近似，系数计算应保留$c,k$的符号形式。
+
+
+令$c=\cos\theta_0$。对$\varepsilon=cx+x^2$，二项式展开给出
+\[(1+\varepsilon)^{-1/2}=1-\frac12\varepsilon+\frac38\varepsilon^2+O(\varepsilon^3).
+\]
+保留到$x^2$，有$\varepsilon^2=c^2x^2+O(x^3)$，故
+\[\boxed{(1+cx+x^2)^{-1/2}=1-\frac c2x+\left(\frac{3c^2}8-\frac12\right)x^2+O(x^3)}.\]
+第二式取 $\varepsilon=kx+x^2$，外层展开为 $1+\tfrac32\varepsilon+\tfrac38\varepsilon^2-\tfrac1{16}\varepsilon^3+O(\varepsilon^4)$。要保留三阶，先算 $\varepsilon^2=k^2x^2+2kx^3+O(x^4)$、$\varepsilon^3=k^3x^3+O(x^4)$，各项对齐为
+\[\begin{aligned}
+\tfrac32\varepsilon&=\tfrac32kx+\tfrac32x^2,\\
+\tfrac38\varepsilon^2&=\tfrac38k^2x^2+\tfrac34kx^3+O(x^4),\\
+-\tfrac1{16}\varepsilon^3&=-\tfrac1{16}k^3x^3+O(x^4).
+\end{aligned}\]
+保留至二阶，得到
+\[\boxed{(1+kx+x^2)^{3/2}=1+\frac32kx+\left(\frac32+\frac38k^2\right)x^2+O(x^3)}.\]
+继续收集三阶项，得到
+\[\left(\frac34k-\frac1{16}k^3\right)x^3.
+\]
+图~\ref{fig:c1-e4-s}在同一尺度上比较第一式的精确函数与二阶多项式，二者在原点具有相同的函数值、斜率和曲率。若$c=0$，原函数为偶函数，三阶项也消失，余项可加强为$O(x^4)$；一般$c\ne0$时不能作这一加强。
+
+
+若 $k=0$，原函数只含 $x^2$，因此线性项与三次项同时消失，精度可写至 $O(x^4)$。若 $k$ 很大，$|x|\ll1$ 本身还不够，必须同时使 $|kx+x^2|$ 足够小。图~\ref{fig:c1-e4-s}中两条曲线的贴合只体现展开点附近的局部性质，不应据此把近似推广到整个实轴。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.69697cm,y=1.38462cm]\draw[axis](-0.7,0)--(0.95,0)node[right]{$x$};\draw[axis](0,0.5)--(0,1.8)node[above]{$f$};\draw[curve,domain=-0.7:0.7,samples=101]plot(\x,{1/sqrt(1+(\x)^2+.5*\x)});\draw[dashed,domain=-.7:.7,samples=101]plot(\x,{1-.25*\x+(.09375-.5)*(\x)^2});\node[right]at(1.4,1.1){实线：精确式};\node[right]at(1.4,.7){虚线：二阶式};\end{scope}
+\end{tikzpicture}
+\caption{二阶近似只在展开点附近逼近原函数。}\label{fig:c1-e4-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{example}[圆锥内壁上的径向小振动]\label{ex:c1-e5}
+质量$m$的小珠在光滑倒圆锥内壁上运动，锥轴竖直，母线与竖直方向夹角为$\alpha\in(0,\pi/2)$。小珠先以速率$v_0$作水平匀速圆周运动，再给微小径向扰动。求原高度$h_0$和小振动周期。 见图~\ref{fig:c1-e5-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(0,4)node[above]{$z$};\draw[thick](-1.8,3.4)--(0,0)--(1.8,3.4);\draw(0,2.5)ellipse(1.324 and .32);\fill(1.324,2.5)circle(1.8pt)node[right]{$P$};\draw[guide](0,2.5)--(1.324,2.5);\node[above]at(.7,2.5){$r$};\draw[<->](-2.1,0)--(-2.1,2.5)node[midway,left]{$h$};\draw(0,.9)arc(90:62.1:.9);\node at(.22,1.1){$\alpha$};
+\end{tikzpicture}
+\caption{高度从锥尖量起，几何约束为$r=h\tan\alpha$。}\label{fig:c1-e5-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-e5-q}给出$r=h\tan\alpha$。圆周运动时，支持力$N$的竖直分量平衡重力，水平分量提供向心力：
+\[N\sin\alpha=mg,\qquad N\cos\alpha=\frac{mv_0^2}{r_0}.
+\]
+两式相除，再代入$r_0=h_0\tan\alpha$，得到
+\[\boxed{h_0=\frac{v_0^2}{g}}.\]
+
+扰动后重力与支持力对竖直轴的力矩均为零，故固定的是$L_z=mr_0v_0$。环向速率随半径变化，不能同时固定$v_\varphi$。在图~\ref{fig:c1-e5-s}的子午截面内，母线速度$v_s=\dot h/\cos\alpha$；垂直截面的环向速度为$v_\varphi=L_z/(mh\tan\alpha)$。能量于是写成
+\[E=\frac12 M_h\dot h^2+U_{\rm eff}(h),\quad
+M_h=\frac m{\cos^2\alpha},\quad
+U_{\rm eff}(h)=mgh+\frac{L_z^2}{2m h^2\tan^2\alpha}.\]
+有效势中的第二项来自仍然存在的环向动能。令$h=h_0(1+\eta)$，并用$gh_0=v_0^2$，则
+\[U_{\rm eff}=mgh_0(1+\eta)+\frac{mv_0^2}{2}(1+\eta)^{-2}.
+\]
+由$(1+\eta)^{-2}=1-2\eta+3\eta^2+O(\eta^3)$，一次项抵消，得到
+\[E=E_0+\frac12\frac{mh_0^2}{\cos^2\alpha}\dot\eta^2
++\frac12(3mv_0^2)\eta^2+O(\eta^3).\]
+因此线性方程和周期为
+\[\ddot\eta+\Omega_r^2\eta=0,\qquad
+\Omega_r^2=\frac{3v_0^2\cos^2\alpha}{h_0^2},\qquad
+\boxed{T_r=\frac{2\pi v_0}{\sqrt3\,g\cos\alpha}}.\]
+
+也可对未展开的有效势直接求导：
+\[
+U_{\rm eff}'=mg-\frac{L_z^2}{m\tan^2\alpha}h^{-3},\qquad
+U_{\rm eff}''=\frac{3L_z^2}{m\tan^2\alpha}h^{-4}.
+\]
+在原圆周上 $L_z=mh_0\tan\alpha\,v_0$，代入得到 $U_{\rm eff}''(h_0)=3mv_0^2/h_0^2$。若改用有量纲坐标 $\delta h=h_0\eta$，动能与势能的二次系数都除以 $h_0^2$：
+\[M_h=\frac m{\cos^2\alpha},\qquad
+K_h=U_{\rm eff}''(h_0)=\frac{3mv_0^2}{h_0^2}.
+\]
+比值$K_h/M_h$与上述$\Omega_r^2$相同。更换坐标会同时改变惯性系数和势能曲率，决定频率的是二者之比。
+
+所得周期描述高度或半径的微小往复变化，要求扰动后的轴向角动量保持原值。若另施环向冲量，应先用新的$L_z$重新求平衡高度。当$\alpha\to\pi/2$，同一高度变化对应的母线路程增大，$M_h$发散，振动变慢。周期中的$1/\cos\alpha$正来自母线路程与高度变化的比例。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(P)at(1,2);\draw[thick](0,0)--(1.6,3.2);
+\draw[axis](P)--(1.45,2.9)node[right]{$v_s$};
+\draw[axis](P)--(.05,2.475)node[left]{$N$};
+\draw[axis](P)--(1,.65)node[below]{$mg$};
+\draw[fill=white](P)circle(2.7pt);\fill(P)circle(.8pt);
+\node[below right]at(1.08,2){$v_\varphi\ \odot$};
+\node[right]at(3,2.1){$v_s=\dot h/\cos\alpha$};
+\node[right]at(3,1.35){$rv_\varphi=r_0v_0$};
+\end{tikzpicture}
+\caption{在子午截面内分解运动与受力；$v_\varphi$垂直纸面向外，与母线速度正交。}\label{fig:c1-e5-s}
+\end{figure}
+\end{solution}
+\begin{exercise}[圆锥上受到环向冲量的小珠]\label{ex:c1-v2}
+
+沿用例~\ref{ex:c1-e5}的圆锥和初始圆周运动。在高度$h_0=v_0^2/g$处，沿原环向给小珠瞬时冲量，使速率变为$(1+\varepsilon)v_0$，$|\varepsilon|\ll1$，冲量没有母线分量。求新的圆周平衡高度、其附近的径向频率，以及冲量后高度的首阶运动。 见图~\ref{fig:c1-v2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[curve](0,0)ellipse(1.55 and .45);\draw[axis](0,-.7)--(0,1.2)node[above]{$z$};
+\fill(1.096,.318)circle(2pt)node[right]{$P$};\draw[guide](0,0)--(1.096,.318)node[midway,below]{$r_0$};
+\draw[axis](1.096,.318)--(.3,.55)node[above right]{$J_\varphi$};
+\node[below,align=center]at(0,-1.1){$v_0\longrightarrow(1+\varepsilon)v_0$\\[4pt]冲量瞬间$h=h_0,\ \dot h=0$};
+
+\end{tikzpicture}
+\caption{环向冲量改变轴向角动量，原来的圆周高度通常不再是平衡位置。}\label{fig:c1-v2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-v2-q}的冲量只改变环向速度，故冲量后
+\[L_*=(1+\varepsilon)mr_0v_0,
+\quad h(0)=h_0,\quad\dot h(0)=0.\]
+此后没有轴向外力矩，固定的是新角动量$L_*$。高度有效势及惯性系数为
+\[U_*(h)=mgh+\frac{L_*^2}{2m h^2\tan^2\alpha},\qquad
+M_h=\frac m{\cos^2\alpha}.\]
+对 $h^{-2}$ 求导产生 $-2h^{-3}$，故 $U_*'(h)=mg-L_*^2/(m h^3\tan^2\alpha)$。新平衡点满足 $U_*'(h_*)=0$，即 $h_*^3=L_*^2/(m^2g\tan^2\alpha)$。用原平衡关系消去常数，得到
+\[\boxed{h_*=h_0(1+\varepsilon)^{2/3}}
+=h_0\left(1+\frac23\varepsilon\right)+O(\varepsilon^2h_0).\]
+这里 $1+\varepsilon>0$，由小扰动条件自动满足。再对 $U_*'$ 求导，$U_*''(h)=3L_*^2/(m h^4\tan^2\alpha)$；用 $L_*^2/(m\tan^2\alpha)=mgh_*^3$，得到
+\[U_*''(h_*)=\frac{3mg}{h_*},\qquad
+\boxed{\omega_*^2=\frac{3g\cos^2\alpha}{h_*}}.\]
+它是新平衡附近的线性频率，$\omega_*=\omega_{r0}(1+\varepsilon)^{-1/3}$。
+
+令 $\xi=h-h_*$，线性方程 $\ddot\xi+\omega_*^2\xi=0$ 的通解为 $\xi=C\cos\omega_*t+D\sin\omega_*t$。冲量后从 $h_0$、零母线速度出发，初值给出 $C=h_0-h_*$、$\omega_*D=0$，因此线性化高度为
+\[h(t)=h_*+(h_0-h_*)\cos(\omega_*t),\]
+在有限个振动周期内，忽略量为$O(\varepsilon^2h_0)$。等价的严格首阶写法是
+\[\boxed{h(t)=h_0+\frac23\varepsilon h_0
+[1-\cos(\omega_{r0}t)]+O(\varepsilon^2h_0)}.\]
+图~\ref{fig:c1-v2-s}示意$\varepsilon>0$时从旧高度出发，在新平衡两侧振动；增加环向速率并不意味着高度瞬间跳变。环向角速度同时满足$\dot\varphi=L_*/(mh^2\tan^2\alpha)$，不能保持为冲量后的初值。小振幅还保证与原圆周接触状态连续，支持力保持为正。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\begin{scope}[x=.8cm,y=7cm]
+\draw[axis](0,.97)--(7,.97)node[right]{$\omega_*t$};\draw[axis](0,.97)--(0,1.17)node[above]{$h/h_0$};
+\draw[guide](0,1.065602)--(6.5,1.065602);\node[left]at(0,1.065602){$h_*/h_0$};
+\draw[curve,domain=0:6.5,samples=121]plot(\x,{1.065602-.065602*cos(\x r)});
+\node[left]at(0,1){$1$};\node[below]at(3.14159,.97){$\pi$};\node[below]at(6.28318,.97){$2\pi$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{取$\varepsilon=0.1$的线性化轨迹；虚线为按新角动量确定的平衡高度。}\label{fig:c1-v2-s}
+\end{figure}
+\end{solution}
+
+
+\section{积分、换元与边界}\label{sec:c1-integral}
+积分把局部关系累加成总量，积分区域则记录物体或运动实际存在的范围。换元须同时改变微元和边界，遇到多支映射时还要分别处理各支。
+
+\subsection{从求和极限到原函数}
+把区间$[a,b]$分成小段，若$f$可积，则
+\[\int_a^b f(x)\dd x=\lim_{\max\Delta x_i\to0}\sum_i f(\xi_i)\Delta x_i.
+\]
+这一定义同时说明了微元的取法：$f$是对$x$定义的密度，必须与$\dd x$配对。若$f$连续，$F'=f$，则牛顿--莱布尼茨公式给出
+\begin{equation}\int_a^b f(x)\dd x=F(b)-F(a).
+\end{equation}
+不定积分表示相差常数的一族原函数。不同连通定义区间上的积分常数可以不同，不能跨过被积函数的奇点，仍沿用同一个表达式而不说明区间。
+
+换元$x=\phi(t)$时，微分与上下限都要同时改变：
+\begin{equation}\label{eq:c1-substitution}
+\int_{\phi(\alpha)}^{\phi(\beta)}f(x)\dd x
+=\int_\alpha^\beta f(\phi(t))\phi'(t)\dd t.
+\end{equation}
+若新变量在整个积分路径上不是单调的，不能只把起点和终点的同一数值写在积分号上，而漏掉路径的往返。可以分段后逐段换元，或直接识别复合原函数。例如$\sin^2\theta\cos\theta$是$\sin^3\theta/3$的导数，虽然$\sin\theta$在一周内不单调，原函数法仍成立。
+
+分部积分来自乘积微分：
+\begin{equation}\label{eq:c1-parts}
+\int_a^b u\dd v=[uv]_a^b-\int_a^b v\dd u.
+\end{equation}
+它适用于把对数、反函数或多项式的一部分转移给导数。边界项是原积分的一部分；无穷限积分中，必须先验证边界项的极限存在。
+
+\Needspace{8\baselineskip}
+\subsection{原函数、定积分与换元的逻辑}
+原函数存在时，定积分只由端点值决定，这是因为微小区间上的增量$F(x+\Delta x)-F(x)$相加会望远镜式消去内部端点。连续性使这些增量与$f(x)\Delta x$之间的误差在细分后趋零。这个联系解释了积分既可表示累计量，又可由求导的逆运算计算。
+
+有向积分中的$\dd x$带有积分方向。对$a>b$，约定$\int_a^bf\dd x=-\int_b^af\dd x$；而几何长度、质量等正测度仍需用正的长度元。若参数$x=\phi(t)$单调下降，带符号换元因子$\phi'$和反向的端点会同时出现，二者共同保证原积分符号正确。曲线弧长的微元则含$|\phi'|$，两种积分不可混用。
+
+对于非单调换元，需要区分两种情形。若整个表达式确已化成单值函数$f(u)\dd u$，复合原函数保证端点代入仍有效，即使路径往返，来回贡献也会抵消。若只代换了函数中的一部分，而$\dd\theta$还须由$\cos\theta$或其他分支量表示，那么不同区间可能对应不同符号，必须分段处理。例~\ref{ex:c1-e7}把一周分成四段，是把这些有向贡献显式写出来。
+
+选择代换的依据是根式或分母的结构。$\sqrt{1-x^2}$适合$x=\sin\theta$，$\sqrt{1+x^2}$适合$x=\sinh u$，$\sqrt{x^2-1}$适合$x=\pm\cosh u$并指定分支。每次都把函数、微分和端点同时代入；只有三者共同化简，才真正完成换元。若结果仍含$\sec\theta$，就应继续积分这个核函数，而不能把它当作已约去的常数。
+
+分部积分是在两个因子之间重新分配一次求导。选取$u$应使$\dd u$较易处理，选取$\dd v$则应使$v$容易写出。用在无穷区间时，可以先在有限区间操作，再取端点极限：只有边界项和剩余积分都存在，所得表达式才有效。原函数中出现对数时，绝对值与连通区间还决定了实分支及积分常数的取法。
+
+\begin{example}[五种积分与反函数]\label{ex:c1-e6}
+求下列不定积分：$\int\dd x/\sqrt{1-x^2}$，$\int\dd x/(1-x^2)$，$\int x\dd x/\sqrt{1-x^2}$，$\int\dd x/\sqrt{1+x^2}$，$\int x\dd x/\sqrt{1+x^2}$。另写出$\int\dd x/\sqrt{x^2-1}$的实原函数分支。 见图~\ref{fig:c1-e6-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.36585cm,y=1.00000cm]\draw[axis](-0.9,0)--(1.15,0)node[right]{$x$};\draw[axis](0,0)--(0,2.7)node[above]{$(1-x^2)^{-1/2}$};\draw[curve,domain=-0.9:0.9,samples=101]plot(\x,{1/sqrt(1-(\x)^2)});\end{scope}\begin{scope}[shift={(4.5,0)}]\begin{scope}[x=1.00000cm,y=1.20000cm]\draw[axis](-1.5,0)--(1.75,0)node[right]{$x$};\draw[axis](0,0)--(0,1.5)node[above]{$(1+x^2)^{-1/2}$};\draw[curve,domain=-1.5:1.5,samples=101]plot(\x,{1/sqrt(1+(\x)^2)});\end{scope}\end{scope}
+\end{tikzpicture}
+\caption{平方根内的正负号决定实定义区间及端点奇性。}\label{fig:c1-e6-q}
+\end{figure}
+\begin{solution}
+这些核函数外形相近，但积分变量和根号内部的符号决定了不同反函数。先判断实定义域，再选能使根式简化的代换。图~\ref{fig:c1-e6-q}中两个核在原点同为$1$，一个向端点增大、另一个随$|x|$增大而减小，说明它们的原函数斜率变化不同。
+
+
+第一式令$x=\sin\theta$，并选$-\pi/2<\theta<\pi/2$，从而$\cos\theta>0$。于是$\dd x=\cos\theta\dd\theta$，$\sqrt{1-x^2}=\cos\theta$，得
+\[\int\frac{\dd x}{\sqrt{1-x^2}}=\int\dd\theta=\theta+C=\arcsin x+C,\qquad |x|<1.
+\]
+第二式先作部分分式分解：
+\[\frac1{1-x^2}=\frac12\left(\frac1{1+x}+\frac1{1-x}\right).
+\]
+注意第二项的原函数为$-\ln|1-x|$，故
+\[\int\frac{\dd x}{1-x^2}
+=\frac12\bigl(\ln|1+x|-\ln|1-x|\bigr)+C
+=\frac12\ln\left|\frac{1+x}{1-x}\right|+C.
+\]
+这一公式分别用于 $(-\infty,-1)$、$(-1,1)$、$(1,\infty)$，中间区间也可写成 $\artanh x+C$。第三式令 $u=1-x^2$，$\dd u=-2x\dd x$，于是
+\[
+\int\frac{x\dd x}{\sqrt{1-x^2}}=-\frac12\int u^{-1/2}\dd u
+=-\frac12\frac{u^{1/2}}{1/2}+C=-\sqrt{1-x^2}+C.
+\]
+
+第四式令 $x=\sinh u$。此时 $\dd x=\cosh u\dd u$ 且 $\sqrt{1+x^2}=\cosh u>0$，所以
+\[
+\int\frac{\dd x}{\sqrt{1+x^2}}=\int\dd u=u+C=\arsinh x+C.
+\]
+用 $x=\tan\theta$ 也能得到结果，但会留下 $\int\sec\theta\dd\theta$，并不会直接化成 $\int\dd\theta$；后者对应的是 $\int\dd x/(1+x^2)$。第五式令 $u=1+x^2$，$\dd u=2x\dd x$，故
+\[
+\int\frac{x\dd x}{\sqrt{1+x^2}}=\frac12\int u^{-1/2}\dd u
+=\frac12\frac{u^{1/2}}{1/2}+C=\sqrt{1+x^2}+C.
+\]
+
+图~\ref{fig:c1-e6-s}左图的两条原函数都从原点出发，但斜率变化不同，正对应题图的两个核函数。对于最后补充的积分，$x>1$时为$\arcosh x+C$，$x<-1$时为$-\arcosh(-x)+C$；统一写法为
+\[\int\frac{\dd x}{\sqrt{x^2-1}}=\ln|x+\sqrt{x^2-1}|+C,\qquad |x|>1.
+\]
+图右侧用两个不连通区间标明其定义域；跨过$[-1,1]$不能沿用同一实积分路径。
+
+
+第三式与第五式的分子已经与根式内部的导数成正比，无须再用三角或双曲代换。两式的正负号由各自的微分关系固定。
+
+最后一个积分在$x<-1$处，可直接对统一对数式求导。设$s=\sqrt{x^2-1}$，则
+\[\frac{\dd}{\dd x}\ln|x+s|=\frac{1+x/s}{x+s}=\frac1s.\]
+$x+s$虽为负，绝对值使对数仍为实数，导数公式也仍成立。图~\ref{fig:c1-e6-s}的空段说明两个实分支之间没有实积分路径，左右常数可以独立选取。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(-2.8,0)},x=1.15cm,y=.9cm]
+\draw[axis](-1.15,0)--(1.35,0)node[right]{$x$};\draw[axis](0,-1.55)--(0,1.7)node[above]{$F$};
+\draw[curve,domain=-.95:.95,samples=101]plot(\x,{asin(\x)*pi/180});
+\draw[dashed,domain=-.95:.95,samples=101]plot(\x,{ln(\x+sqrt(1+(\x)^2))});
+\end{scope}
+\node[align=left]at(-2.8,-2.05){实线：$\arcsin x$\\虚线：$\arsinh x$};
+\begin{scope}[shift={(2.8,0)}]
+\draw[axis](-2,0)--(2,0)node[right]{$x$};
+\draw[line width=1.3pt](-1.85,0)--(-1,0) (1,0)--(1.85,0);
+\draw[fill=white](-1,0)circle(1.7pt) (1,0)circle(1.7pt);
+\node[below]at(-1,0){$-1$};\node[below]at(1,0){$1$};
+\node[align=center]at(0,1.1){$1/\sqrt{x^2-1}$\\的实定义域};
+\node at(0,-1.15){$(-\infty,-1)\cup(1,\infty)$};\end{scope}
+\end{tikzpicture}
+\caption{两条原函数曲线与最后一个积分的实定义域。图例移至曲线下方，端点$\pm1$均排除。}\label{fig:c1-e6-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{example}[一周内的五个三角积分]\label{ex:c1-e7}
+在$[0,2\pi]$上分别积分$\sin\theta\cos\theta$、$\sin^2\theta\cos\theta$、$\sin^2\theta$、$\sin^3\theta$和$\sin^4\theta$。第二式用$u=\sin\theta$逐段换元一次，指出只写$0\to0$为什么不足以说明过程。 见图~\ref{fig:c1-e7-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=0.65000cm,y=0.65000cm]\draw[axis](0,0)--(6.533185307179586,0)node[right]{$\theta$};\draw[axis](0,-1.3)--(0,1.5)node[above]{$f$};\draw[curve,domain=0:6.283185307179586,samples=101]plot(\x,{sin(\x r)});\draw[dashed,domain=0:6.283185,samples=101]plot(\x,{(sin(\x r))^2});\node at(4.8,1.25){$\sin^2\theta$};\node at(4.7,-.8){$\sin\theta$};\end{scope}
+\end{tikzpicture}
+\caption{一周内正负半波的抵消与平方后的非负面积。}\label{fig:c1-e7-q}
+\end{figure}
+\begin{solution}
+奇数次正弦在半周平移后反号，正弦平方和四次方则非负；含$\cos\theta\dd\theta$的积分可用$u=\sin\theta$。图~\ref{fig:c1-e7-q}中，正弦一周的平均值为零，平方的平均值却为正，两个平均过程因而不能互换。
+
+
+记五个积分为 $I_1,\ldots,I_5$。第一式令 $u=\sin\theta$，其原函数为 $u^2/2=\sin^2\theta/2$，所以 $I_1=[\sin^2\theta/2]_0^{2\pi}=0$。第二式的原函数为 $\sin^3\theta/3$；下面用逐段换元把区间方向写清楚。
+
+若坚持换元$u=\sin\theta$，图~\ref{fig:c1-e7-s}中的四段依次是$0\to1$、$1\to0$、$0\to-1$、$-1\to0$，所以
+\[I_2=\int_0^1u^2\dd u+\int_1^0u^2\dd u+
+\int_0^{-1}u^2\dd u+\int_{-1}^0u^2\dd u
+=\frac13-\frac13-\frac13+\frac13=0.
+\]
+四段有向积分两两抵消，故总和为零。第三式由降幂公式得
+\[I_3=\int_0^{2\pi}\frac{1-\cos2\theta}{2}\dd\theta
+=\left[\frac\theta2-\frac{\sin2\theta}{4}\right]_0^{2\pi}=\pi.
+\]
+对于 $I_4$，将后半周平移 $\pi$，$\sin^3(\theta+\pi)=-\sin^3\theta$，故两段抵消。具体原函数可令 $u=\cos\theta$、$\dd u=-\sin\theta\dd\theta$ 求出：
+\[
+\int\sin^3\theta\dd\theta=-\int(1-u^2)\dd u=-u+\frac{u^3}{3}+C.
+\]
+因此 $I_4=[-\cos\theta+\cos^3\theta/3]_0^{2\pi}=0$，与对称性一致。
+
+第五式先用 $\sin^4\theta=\sin^2\theta(1-\cos^2\theta)$，以及 $\sin^2\theta\cos^2\theta=\sin^22\theta/4$。后一项降幂积分为
+\[
+\int_0^{2\pi}\sin^22\theta\dd\theta
+=\left[\frac\theta2-\frac{\sin4\theta}{8}\right]_0^{2\pi}=\pi.
+\]
+因此 $I_5=I_3-\pi/4=\boxed{3\pi/4}$。频率加倍并不改变整周期内的均方值。由这些结果，正弦量的周期平均满足 $\langle\sin\theta\rangle=0$、$\langle\sin^2\theta\rangle=1/2$、$\langle\sin^4\theta\rangle=3/8$。求电流或速度平方的平均时，不能先把一次平均取零再平方。
+
+
+第五式的降幂恒等式也可直接写为
+\[\sin^4\theta=\frac38-\frac12\cos2\theta+\frac18\cos4\theta\]
+后两项在整周内的积分均为零，常数项 $3/8$ 即为周期平均值。
+
+图~\ref{fig:c1-e7-s}中的往返箭头只适用于已经完全化成$u^2\dd u$的第二式。对于$\int\sin^2\theta\dd\theta$，变换后还会留下$1/\cos\theta$的分支因子，不能照搬同一条$0\to0$路径便断定积分为零。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(6,0)node[right]{$u$};\foreach\x/\lab in {1/{-1},3/0,5/1}{\draw(\x,-.08)--(\x,.08);\node[below]at(\x,-.08){$\lab$};}\draw[axis](3,.5)--(5,.5)node[midway,above]{$0\to\pi/2$};\draw[axis](5,1.2)--(3,1.2)node[midway,above]{$\pi/2\to\pi$};\draw[axis](3,1.9)--(1,1.9)node[midway,above]{$\pi\to3\pi/2$};\draw[axis](1,2.6)--(3,2.6)node[midway,above]{$3\pi/2\to2\pi$};
+\end{tikzpicture}
+\caption{非单调换元沿$u$轴往返四次，箭头记录每段的积分方向。}\label{fig:c1-e7-s}
+\end{figure}
+\end{solution}
+图~\ref{fig:c1-signed-integral}区分有向累积和几何面积。曲线在轴下方时，$f(x)\dd x$对定积分给负贡献；若物理量要求累加路程或非负面积，须先按零点分段再取适当的绝对值。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!22,domain=0:2,samples=70](0,0)--plot(\x,{sin(90*\x)})--(2,0)--cycle;
+\fill[gray!10,domain=2:4,samples=70](2,0)--plot(\x,{sin(90*\x)})--(4,0)--cycle;
+\draw[axis](-.3,0)--(4.6,0)node[right]{$x$};\draw[axis](0,-1.4)--(0,1.5)node[above]{$f(x)$};
+\draw[curve,domain=0:4,samples=100]plot(\x,{sin(90*\x)});\node at(1,.45){$+$};\node at(3,-.45){$-$};
+\node[below]at(0,0){$a$};\node[above]at(2,0){$c$};\node[below]at(4,0){$b$};
+\node[below]at(2,-1.65){$\displaystyle\int_a^bf\dd x=\int_a^cf\dd x+\int_c^bf\dd x$};
+\end{tikzpicture}
+\caption{相反符号的积分可以抵消，几何面积则需分别取非负贡献。}\label{fig:c1-signed-integral}
+\end{figure}
+
+\subsection{参数方程与旋转体的微元}
+平面曲线$x=x(t),y=y(t)$的弧长元为$\dd s=\sqrt{\dot x^2+\dot y^2}\dd t$，面积投影却使用$\dd y=\dot y\dd t$。把绕$y$轴的实心旋转体切成薄圆盘，盘厚为$\dd y$，半径为$R(y)$，则
+\[\dd V=\pi R^2\dd y,\qquad \dd I_y=\frac12R^2\dd m=\frac12\rho\pi R^4\dd y.
+\]
+体积与惯量的同一薄层分别按$R^2$与$R^4$加权。若参数曲线在同一个高度出现多个点，应先分清它们是同一截面的两条边界，还是代表不同的材料部分；不能把同一个圆盘重复积分。
+
+\Needspace{8\baselineskip}
+同一个几何对象可采用不同微元，而物理量决定每个微元的权重。绕$y$轴旋转时，若截面是实心圆盘，用$\dd V=\pi R^2\dd y$；若截面有内孔，便应取$\pi(R_{\rm out}^2-R_{\rm in}^2)\dd y$。若原材料只位于旋转曲面上，则不能使用体积元，应以曲面面积和面密度计算质量。
+
+盘内每一点的转动半径不同。把薄盘再分成同心环，环半径记为$s$，则环质量为$2\pi\rho s\dd s\dd y$。积分$s^2\dd m$得到
+\[\dd I_y=2\pi\rho\dd y\int_0^Rs^3\dd s
+=2\pi\rho\dd y\left[\frac{s^4}{4}\right]_0^R
+=\frac12\rho\pi R^4\dd y.\]
+这就是惯量比体积多出两次半径幂的原因。若求关于水平轴的惯量，还会多出高度平方项，不能把同一公式直接改写下标后使用。
+
+参数曲线的遍历次数与实体的覆盖次数也要分开。例~\ref{ex:c1-e8}中同一高度的左、右两个边界旋转后生成同一个圆盘。沿闭曲线从右边界上行、再沿左边界下行，带符号的$\dd y$会抵消，但实体体积应按每个高度的截面计一次。建立积分前先从参数关系消去$t$，写出$R(y)$及其高度范围，能把这一几何信息固定下来。
+
+\begin{example}[参数曲线旋转体的体积与惯量]\label{ex:c1-e8}
+曲线$x=a\sin2t,\ y=b\sin t$，$0\le t\le2\pi$，其中$a,b>0$。将两叶所围区域绕$y$轴旋转，形成密度为$\rho$的均匀实心体。求体积$V$、质量$M$和绕$y$轴的转动惯量$I_y$。 见图~\ref{fig:c1-e8-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve]plot coordinates{(0.0000000,0.0000000) (0.0785039,0.0523539) (0.1567927,0.1046719) (0.2346517,0.1569182) (0.3118675,0.2090569) (0.3882286,0.2610524) (0.4635255,0.3128689) (0.5375519,0.3644711) (0.6101050,0.4158234) (0.6809857,0.4668907) (0.7500000,0.5176381) (0.8169586,0.5680307) (0.8816779,0.6180340) (0.9439806,0.6676137) (1.0036959,0.7167359) (1.0606602,0.7653669) (1.1147172,0.8134733) (1.1657189,0.8610222) (1.2135255,0.9079810) (1.2580059,0.9543175) (1.2990381,1.0000000) (1.3365098,1.0449971) (1.3703182,1.0892781) (1.4003706,1.1328125) (1.4265848,1.1755705) (1.4488887,1.2175229) (1.4672214,1.2586408) (1.4815325,1.2988961) (1.4917828,1.3382612) (1.4979443,1.3767092) (1.5000000,1.4142136) (1.4979443,1.4507487) (1.4917828,1.4862897) (1.4815325,1.5208119) (1.4672214,1.5542919) (1.4488887,1.5867067) (1.4265848,1.6180340) (1.4003706,1.6482524) (1.3703182,1.6773411) (1.3365098,1.7052803) (1.2990381,1.7320508) (1.2580059,1.7576342) (1.2135255,1.7820130) (1.1657189,1.8051706) (1.1147172,1.8270909) (1.0606602,1.8477591) (1.0036959,1.8671609) (0.9439806,1.8852830) (0.8816779,1.9021130) (0.8169586,1.9176395) (0.7500000,1.9318517) (0.6809857,1.9447398) (0.6101050,1.9562952) (0.5375519,1.9665098) (0.4635255,1.9753767) (0.3882286,1.9828897) (0.3118675,1.9890438) (0.2346517,1.9938347) (0.1567927,1.9972591) (0.0785039,1.9993146) (0.0000000,2.0000000) (-0.0785039,1.9993146) (-0.1567927,1.9972591) (-0.2346517,1.9938347) (-0.3118675,1.9890438) (-0.3882286,1.9828897) (-0.4635255,1.9753767) (-0.5375519,1.9665098) (-0.6101050,1.9562952) (-0.6809857,1.9447398) (-0.7500000,1.9318517) (-0.8169586,1.9176395) (-0.8816779,1.9021130) (-0.9439806,1.8852830) (-1.0036959,1.8671609) (-1.0606602,1.8477591) (-1.1147172,1.8270909) (-1.1657189,1.8051706) (-1.2135255,1.7820130) (-1.2580059,1.7576342) (-1.2990381,1.7320508) (-1.3365098,1.7052803) (-1.3703182,1.6773411) (-1.4003706,1.6482524) (-1.4265848,1.6180340) (-1.4488887,1.5867067) (-1.4672214,1.5542919) (-1.4815325,1.5208119) (-1.4917828,1.4862897) (-1.4979443,1.4507487) (-1.5000000,1.4142136) (-1.4979443,1.3767092) (-1.4917828,1.3382612) (-1.4815325,1.2988961) (-1.4672214,1.2586408) (-1.4488887,1.2175229) (-1.4265848,1.1755705) (-1.4003706,1.1328125) (-1.3703182,1.0892781) (-1.3365098,1.0449971) (-1.2990381,1.0000000) (-1.2580059,0.9543175) (-1.2135255,0.9079810) (-1.1657189,0.8610222) (-1.1147172,0.8134733) (-1.0606602,0.7653669) (-1.0036959,0.7167359) (-0.9439806,0.6676137) (-0.8816779,0.6180340) (-0.8169586,0.5680307) (-0.7500000,0.5176381) (-0.6809857,0.4668907) (-0.6101050,0.4158234) (-0.5375519,0.3644711) (-0.4635255,0.3128689) (-0.3882286,0.2610524) (-0.3118675,0.2090569) (-0.2346517,0.1569182) (-0.1567927,0.1046719) (-0.0785039,0.0523539) (-0.0000000,0.0000000) (0.0785039,-0.0523539) (0.1567927,-0.1046719) (0.2346517,-0.1569182) (0.3118675,-0.2090569) (0.3882286,-0.2610524) (0.4635255,-0.3128689) (0.5375519,-0.3644711) (0.6101050,-0.4158234) (0.6809857,-0.4668907) (0.7500000,-0.5176381) (0.8169586,-0.5680307) (0.8816779,-0.6180340) (0.9439806,-0.6676137) (1.0036959,-0.7167359) (1.0606602,-0.7653669) (1.1147172,-0.8134733) (1.1657189,-0.8610222) (1.2135255,-0.9079810) (1.2580059,-0.9543175) (1.2990381,-1.0000000) (1.3365098,-1.0449971) (1.3703182,-1.0892781) (1.4003706,-1.1328125) (1.4265848,-1.1755705) (1.4488887,-1.2175229) (1.4672214,-1.2586408) (1.4815325,-1.2988961) (1.4917828,-1.3382612) (1.4979443,-1.3767092) (1.5000000,-1.4142136) (1.4979443,-1.4507487) (1.4917828,-1.4862897) (1.4815325,-1.5208119) (1.4672214,-1.5542919) (1.4488887,-1.5867067) (1.4265848,-1.6180340) (1.4003706,-1.6482524) (1.3703182,-1.6773411) (1.3365098,-1.7052803) (1.2990381,-1.7320508) (1.2580059,-1.7576342) (1.2135255,-1.7820130) (1.1657189,-1.8051706) (1.1147172,-1.8270909) (1.0606602,-1.8477591) (1.0036959,-1.8671609) (0.9439806,-1.8852830) (0.8816779,-1.9021130) (0.8169586,-1.9176395) (0.7500000,-1.9318517) (0.6809857,-1.9447398) (0.6101050,-1.9562952) (0.5375519,-1.9665098) (0.4635255,-1.9753767) (0.3882286,-1.9828897) (0.3118675,-1.9890438) (0.2346517,-1.9938347) (0.1567927,-1.9972591) (0.0785039,-1.9993146) (0.0000000,-2.0000000) (-0.0785039,-1.9993146) (-0.1567927,-1.9972591) (-0.2346517,-1.9938347) (-0.3118675,-1.9890438) (-0.3882286,-1.9828897) (-0.4635255,-1.9753767) (-0.5375519,-1.9665098) (-0.6101050,-1.9562952) (-0.6809857,-1.9447398) (-0.7500000,-1.9318517) (-0.8169586,-1.9176395) (-0.8816779,-1.9021130) (-0.9439806,-1.8852830) (-1.0036959,-1.8671609) (-1.0606602,-1.8477591) (-1.1147172,-1.8270909) (-1.1657189,-1.8051706) (-1.2135255,-1.7820130) (-1.2580059,-1.7576342) (-1.2990381,-1.7320508) (-1.3365098,-1.7052803) (-1.3703182,-1.6773411) (-1.4003706,-1.6482524) (-1.4265848,-1.6180340) (-1.4488887,-1.5867067) (-1.4672214,-1.5542919) (-1.4815325,-1.5208119) (-1.4917828,-1.4862897) (-1.4979443,-1.4507487) (-1.5000000,-1.4142136) (-1.4979443,-1.3767092) (-1.4917828,-1.3382612) (-1.4815325,-1.2988961) (-1.4672214,-1.2586408) (-1.4488887,-1.2175229) (-1.4265848,-1.1755705) (-1.4003706,-1.1328125) (-1.3703182,-1.0892781) (-1.3365098,-1.0449971) (-1.2990381,-1.0000000) (-1.2580059,-0.9543175) (-1.2135255,-0.9079810) (-1.1657189,-0.8610222) (-1.1147172,-0.8134733) (-1.0606602,-0.7653669) (-1.0036959,-0.7167359) (-0.9439806,-0.6676137) (-0.8816779,-0.6180340) (-0.8169586,-0.5680307) (-0.7500000,-0.5176381) (-0.6809857,-0.4668907) (-0.6101050,-0.4158234) (-0.5375519,-0.3644711) (-0.4635255,-0.3128689) (-0.3882286,-0.2610524) (-0.3118675,-0.2090569) (-0.2346517,-0.1569182) (-0.1567927,-0.1046719) (-0.0785039,-0.0523539) (-0.0000000,-0.0000000)};\draw[axis](-2,0)--(2,0)node[right]{$x$};\draw[axis](0,-2.4)--(0,2.5)node[above]{$y$};\draw[thick](-1.426,1.175)--(1.426,1.175);\node[right]at(1.426,1.175){$R(y)$};\node[left]at(0,2){$b$};\node[left]at(0,-2){$-b$};
+\end{tikzpicture}
+\caption{两叶在原点相接。水平线段的半长是旋转薄圆盘的半径。}\label{fig:c1-e8-q}
+\end{figure}
+\begin{solution}
+求旋转实体时，先按高度识别截面。参数$t$在一周内反复经过同一个高度，直接沿整条参数曲线积分会重复或抵消同一圆盘。图~\ref{fig:c1-e8-q}的双叶关于横轴对称。消去参数得到$R(y)$后，每个高度只需计入一个圆盘截面。
+
+
+令$u=y/b$。由$\sin2t=2\sin t\cos t$，同一高度的左右边界满足
+\[R^2(y)=x^2=4a^2u^2(1-u^2),\qquad -1\le u\le1.
+\]
+图~\ref{fig:c1-e8-s}中的薄圆盘在给定$y$处只计一次。上下两叶对称，因此
+\begin{align*}
+V&=2\pi\int_0^b R^2(y)\dd y
+=8\pi a^2b\int_0^1(u^2-u^4)\dd u\\
+&=8\pi a^2b\left[\frac{u^3}{3}-\frac{u^5}{5}\right]_0^1\\
+&=\boxed{\frac{16}{15}\pi a^2b},\qquad M=\rho V.
+\end{align*}
+若用参数$t$，上叶右边界可选$0\le t\le\pi/2$，这时$y$从$0$单调增至$b$，$\dd y=b\cos t\dd t$，
+\[V=2\pi a^2b\int_0^{\pi/2}\sin^22t\cos t\dd t.
+\]
+再令$u=\sin t$即回到上式；沿整条闭曲线直接使用带符号的$\dd y$，会把左右边界相互抵消。
+
+为求薄圆盘的轴向惯量，在盘内取半径为 $s$ 的同心圆环，$\dd m=2\pi\rho s\dd s\dd y$。盘内先积分：
+\[
+\dd I_y=2\pi\rho\dd y\int_0^{R(y)}s^3\dd s
+=2\pi\rho\dd y\left[\frac{s^4}{4}\right]_0^{R(y)}
+=\frac12\rho\pi R^4(y)\dd y.
+\]
+再对高度积分，上下两叶对称，得到
+\begin{align*}
+I_y&=\rho\pi\int_0^b R^4(y)\dd y
+=16\rho\pi a^4b\int_0^1(u^4-2u^6+u^8)\dd u\\
+&=16\rho\pi a^4b\left[\frac{u^5}{5}-\frac{2u^7}{7}+\frac{u^9}{9}\right]_0^1\\
+&=16\rho\pi a^4b\left(\frac15-\frac27+\frac19\right)
+=\boxed{\frac{128}{315}\rho\pi a^4b=\frac8{21}Ma^2}.
+\end{align*}
+原点处截面半径为零，并不影响两个叶体各自的体积积分。截面最大半径为$a$，故$I_y<Ma^2$；结果中的系数$8/21$与质量分布的范围相符。
+
+
+图中的 $R(y)$ 是圆盘外半径，盘内质量元的转动半径 $s$ 从零变化至 $R(y)$。积分这些半径平方后，才得到圆盘惯量 $R^2\dd m/2$。
+
+由$R^2=4a^2(u^2-u^4)$求导，极大截面满足$2u-4u^3=0$。除去原点后，$|u|=1/\sqrt2$，确有$R_{\max}=a$。这也确定了图中最宽截面的位置：$y=\pm b/\sqrt2$，而非上下端点$\pm b$。
+
+在最后一步把 $I_y$ 除以 $M=16\rho\pi a^2b/15$，$\rho,b$ 抵消，剩下 $I_y/M=(128/315)(15/16)a^2=8a^2/21$，具有长度平方量纲。图~\ref{fig:c1-e8-s}的薄盘同时用于两种积分，但两种权重不能混用。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,-1.5)--(0,2.2)node[above]{$y$};\draw(0,.55)ellipse(1.5 and .32);\draw(0,.8)ellipse(1.5 and .32);\draw(-1.5,.55)--(-1.5,.8) (1.5,.55)--(1.5,.8);\draw[guide](0,.8)--(1.5,.8)node[midway,above]{$R$};\draw[<->](1.9,.55)--(1.9,.8)node[right]{$\dd y$};\node[right,align=left]at(2.7,.9){$\dd V=\pi R^2\dd y$\\[6pt]$\dd I_y=\rho\pi R^4\dd y/2$};
+\end{tikzpicture}
+\caption{薄圆盘的半径与轴向厚度分别决定体积和惯量的加权。}\label{fig:c1-e8-s}
+\end{figure}
+\end{solution}
+
+\section{展开、积分与小参数的配合}
+小参数展开与积分的先后并非总能交换。以下把余项估计、变动边界和局部奇性放在同一模型中讨论，明确近似对整个积分区域是否成立。
+
+\subsection{余项怎样决定近似的适用范围}
+若$f$在零附近有$n+1$阶连续导数，Taylor公式的积分余项为
+\[f(x)=\sum_{j=0}^n\frac{f^{(j)}(0)}{j!}x^j+\frac1{n!}\int_0^x(x-t)^nf^{(n+1)}(t)\dd t.
+\]
+这一形式可由分部积分逐阶得到。记最后的积分为$R_n$；当$n\ge1$时，将$f^{(n+1)}(t)\dd t$积分为$f^{(n)}(t)$，核函数求导为$-n(x-t)^{n-1}$，故
+\[
+\begin{aligned}
+ R_n&=\left[\frac{(x-t)^n}{n!}f^{(n)}(t)\right]_0^x
+ +\frac1{(n-1)!}\int_0^x(x-t)^{n-1}f^{(n)}(t)\dd t\\
+ &=-\frac{f^{(n)}(0)}{n!}x^n+R_{n-1}.
+\end{aligned}
+\]
+起始式是$R_0=\int_0^xf'(t)\dd t=f(x)-f(0)$。将递推关系从$n$展开至$0$，得到$R_n=f(x)-\sum_{j=0}^nf^{(j)}(0)x^j/j!$，即上面的积分余项公式。
+当区间内$|f^{(n+1)}|\le M$，取核函数的绝对值并将积分方向统一，得到
+\[|R_n|\le\frac{M}{n!}\int_0^{|x|}s^n\dd s
+=\frac{M}{n!}\left[\frac{s^{n+1}}{n+1}\right]_0^{|x|}
+=\frac{M|x|^{n+1}}{(n+1)!}.\]
+渐近符号$O(x^{n+1})$隐藏了某个与$x$无关的常数；若函数还含参数，这个常数可能依赖参数，不能自动在全部参数范围内通用。
+
+例如$(1-\varepsilon x)^{-1}=1+\varepsilon x+\varepsilon^2x^2+\cdots$在固定$x$处是小$\varepsilon$展开，但若积分上限同时增长至$1/\varepsilon$，端点接近极点，逐项积分就可能失效。先确定展开变量及其在整个积分域上的最大值，再判断能否交换展开和积分。单摆周期积分先换元固定转向端点，再展开剩余的光滑因子，便可控制整个区间上的余项。
+
+逐项积分所需的误差估计可以直接写出。若在固定区间$[a,b]$上
+\[f(x,\varepsilon)=\sum_{j=0}^n a_j(x)\varepsilon^j+R_n(x,\varepsilon),\quad
+|R_n(x,\varepsilon)|\le M(x)|\varepsilon|^{n+1},\]
+且$\int_a^bM(x)\dd x<\infty$，则积分后的余项绝对值不超过$|\varepsilon|^{n+1}\int_a^bM(x)\dd x$。这个可积控制条件说明，局部展开要能在整段积分域共同成立；只在每个固定$x$处都成立的估计，未必足以交换展开与积分。
+
+周期积分还常遇到运动端点。若能量差$E-U(x)$在转向点为零，时间积分中便有平方根分母。转向点又随振幅变化时，直接展开会同时改变分母和奇点的位置。单摆与硬弹簧题先以振幅作尺度，再用正弦变量把端点固定；端点的平方根因子由微分约去之后，剩余被积函数才适合在整个积分区间展开。把边界变化包括在近似中，是这类周期计算的必要步骤。
+
+\begin{example}[单摆周期的振幅修正]\label{ex:c1-h7}
+单摆摆长$l$，最大摆角$0<A\ll1$，无阻尼。由能量积分求周期，并推导$T=2\pi\sqrt{l/g}[1+A^2/16+O(A^4)]$。角度用弧度。见图~\ref{fig:c1-h7-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,2.6);\coordinate(P)at(1.2,.4);\draw[guide](O)--(0,0);\draw[curve](O)--(P);\fill(O)circle(1.5pt)node[above]{$O$};\fill(P)circle(2pt)node[right]{$m$};\draw(0,1.9)arc(-90:-61.39:.7);\node at(.25,1.6){$\theta$};\node[right]at(.7,1.5){$l$};\draw[guide](1.2,.4)arc(-61.39:-118.61:2.506);
+\end{tikzpicture}
+\caption{四分之一周期从最低点走到摆角$A$的转向点。}\label{fig:c1-h7-q}
+\end{figure}
+\begin{solution}
+周期是从最低点到最大摆角所用时间的四倍。能量差在转向点为零，若直接对$\cos\theta-\cos A$展开，端点奇性也会随$A$变化。图~\ref{fig:c1-h7-q}先固定几何振幅，再用半角代换把积分端点变成与振幅无关的常数。
+
+
+由最低点取零势能，$\dot\theta^2=(2g/l)(\cos\theta-\cos A)$。周期是四倍上行时间：
+\[T=4\sqrt{\frac l{2g}}\int_0^A\frac{\dd\theta}{\sqrt{\cos\theta-\cos A}}.
+\]
+直接展开分母会使余项在转向点附近失去一致控制。先令 $k=\sin(A/2)$，再作 $\sin(\theta/2)=k\sin u$。上下限 $\theta=0,A$ 分别对应 $u=0,\pi/2$；对代换式求微分，
+\[
+\frac12\cos(\theta/2)\dd\theta=k\cos u\dd u,\qquad
+\dd\theta=\frac{2k\cos u}{\sqrt{1-k^2\sin^2u}}\dd u.
+\]
+能量差同时化为 $\cos\theta-\cos A=2[\sin^2(A/2)-\sin^2(\theta/2)]=2k^2\cos^2u$。在所取区间 $\cos u\ge0$，分子与分母中的 $k\cos u$ 约去，得到
+\[T=4\sqrt{\frac lg}\int_0^{\pi/2}\frac{\dd u}{\sqrt{1-k^2\sin^2u}}.
+\]
+图~\ref{fig:c1-h7-s}中的新变量把转向点固定在 $u=\pi/2$，分母对小 $k$ 可一致展开：$(1-k^2\sin^2u)^{-1/2}=1+\tfrac12k^2\sin^2u+O(k^4)$。其中
+\[
+\int_0^{\pi/2}\sin^2u\dd u
+=\left[\frac u2-\frac{\sin2u}{4}\right]_0^{\pi/2}=\frac\pi4.
+\]
+保留 $k^2$，
+\[T=4\sqrt{\frac lg}\left[\frac\pi2+\frac{k^2}{2}\int_0^{\pi/2}\sin^2u\dd u+O(k^4)\right]
+=2\pi\sqrt{\frac lg}\left[1+\frac{k^2}{4}+O(k^4)\right].
+\]
+又$k=A/2+O(A^3)$，便得到所求式。周期随小振幅增大而增长，是因为$\sin\theta$小于线性回复项$\theta$。这里将积分边界同时换元，正是保证余项阶数不被端点奇性破坏的步骤。
+
+
+代换后得到的是固定区间上的完全椭圆积分。只要 $k$ 足够小，其分母在整个区间都有统一的正下界，因此展开的余项可以统一控制。
+
+若再保留一阶，核函数增加 $3k^4\sin^4u/8$。降幂后积分为
+\[
+\int_0^{\pi/2}\sin^4u\dd u
+=\left[\frac{3u}{8}-\frac{\sin2u}{4}+\frac{\sin4u}{32}\right]_0^{\pi/2}
+=\frac{3\pi}{16}.
+\]
+记 $T_0=2\pi\sqrt{l/g}$，则 $T/T_0=1+k^2/4+9k^4/64+O(k^6)$。振幅换算也须保留同阶：由 $k=A/2-A^3/48+O(A^5)$，得 $k^2=A^2/4-A^4/48+O(A^6)$、$k^4=A^4/16+O(A^6)$，所以
+\[
+\frac{T}{T_0}=1+\frac{A^2}{16}
++\left(-\frac1{192}+\frac9{1024}\right)A^4+O(A^6)
+=1+\frac{A^2}{16}+\frac{11A^4}{3072}+O(A^6).
+\]
+首阶题目只要求 $A^2/16$；更高阶修正仍须同时处理核函数和半角参数的展开。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.53779cm,y=1.20000cm]\draw[axis](0,0)--(1.8207963267948966,0)node[right]{$u$};\draw[axis](0,0)--(0,1.5)node[above]{$(1-k^2\sin^2u)^{-1/2}$};\draw[curve,domain=0:1.5707963267948966,samples=101]plot(\x,{1/sqrt(1-.36*(sin(\x r))^2)});\node[below]at(1.570796,0){$\pi/2$};\node[right]at(2.2,.7){图取$k=0.6$};\end{scope}
+\end{tikzpicture}
+\caption{换元后的核函数在固定区间上有界，适合按$k^2$展开。}\label{fig:c1-h7-s}
+\end{figure}
+\end{solution}
+
+\subsection{相消后的精度与共同小参数}
+复合展开先决定各项的阶数，积分中的展开还要控制整个积分域的余项。若最后要求两个近似量之差，则应把误差与差值的量级比较。例如$A(\varepsilon)=A_0+a\varepsilon+b\varepsilon^2+O(\varepsilon^3)$、$B(\varepsilon)=A_0+a\varepsilon+c\varepsilon^2+O(\varepsilon^3)$，各自的一阶近似完全相同，而差值为$(b-c)\varepsilon^2+O(\varepsilon^3)$；一阶结果不能回答差值的首项。
+
+参数本身也趋零时，应先规定它与主小量的关系。例~\ref{ex:c1-e4}按固定参数展开；若改为$c=\kappa x$且$\kappa$固定，则$cx$已属于二阶，展开的分组随之改变。下面的变式具体比较这两个极限。转向点问题的处理顺序则是先用振幅换元固定区域，再展开并积分；例~\ref{ex:c1-h7}和习题~\ref{ex:c1-h8}可按同一原则比较。
+
+
+
+\begin{exercise}[同时变小的参数]\label{ex:c1-v1}
+
+设$x\to0$，$c=\kappa x$，其中$\kappa$固定。求$F=(1+cx+x^2)^{-1/2}$到$x^4$的展开，并给出余项阶数。若进一步令$\kappa=-1+\lambda x^2$且$\lambda$固定，求$F-1$的首项。比较这两个极限与例~\ref{ex:c1-e4}的固定$c$展开。 见图~\ref{fig:c1-v1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\begin{scope}[x=3cm,y=2.4cm]
+\draw[axis](-.65,0)--(.75,0)node[right]{$x$};\draw[axis](0,-.05)--(0,1.3)node[above]{$F$};
+\draw[curve,domain=-.6:.6,samples=81]plot(\x,{1/sqrt(1+2*(\x)^2)});
+\draw[dashed,domain=-.6:.6,samples=81]plot(\x,{1/sqrt(1+(\x)^2)});
+\draw[guide](-.6,1)--(.6,1);\node[above left]at(0,1){$1$};\node[right,align=left]at(.9,.75){实线：$\kappa=1$\\[5pt]虚线：$\kappa=0$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{两条曲线都在原点取$1$且斜率为零，固定参数改变的是二次项。}\label{fig:c1-v1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-v1-q}中没有线性项，因为代入$c=\kappa x$后，外层函数的增量已是二阶量：
+\[u=cx+x^2=(1+\kappa)x^2.\]
+对$u$展开到二阶即可控制$x^4$项：
+\[\boxed{F=1-\frac{1+\kappa}{2}x^2
++\frac{3(1+\kappa)^2}{8}x^4+O(x^6)}.\]
+对任意固定有界的 $\kappa$ 区间，可在足够小的 $x$ 邻域使 $|u|\le\eta<1$。外层函数 $f(u)=(1+u)^{-1/2}$ 的导数依次为 $f'=-\tfrac12(1+u)^{-3/2}$、$f''=\tfrac34(1+u)^{-5/2}$、$f'''=-\tfrac{15}{8}(1+u)^{-7/2}$，在此区间一致有界。因此外层余项为 $O(u^3)=O(x^6)$，原式在此邻域内也始终为实数。
+
+若$\kappa=-1+\lambda x^2$，应重新代入未展开的原式，得到$u=\lambda x^4$，故
+\[F-1=-\frac\lambda2x^4+\frac{3\lambda^2}{8}x^8+O(x^{12}).\]
+当$\lambda\ne0$，首项为$-\lambda x^4/2$；$\lambda=0$时原式恒等于$1$。图~\ref{fig:c1-v1-s}取$\lambda=1$，把差值除以$x^4$后趋于$-1/2$，直接显示首项阶数。
+
+固定$c$公式中的$O(x^3)$只能保证较低精度，代入$c=\kappa x$后不能仅凭这个余项宣称结果已精确到$x^4$。例如固定$c$展开的三次项含$3cx^3/4$，代入后正好贡献$3\kappa x^4/4$。将$c$与$x$的关系先代入原式，再按$x$收集各项，即可保留这些四阶贡献。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\begin{scope}[x=5cm,y=10cm]
+\draw[axis](0,-.55)--(.68,-.55)node[right]{$x$};\draw[axis](0,-.56)--(0,-.3)node[above]{$(F-1)/x^4$};
+\draw[curve,domain=.08:.6,samples=91]plot(\x,{-1/(sqrt(1+(\x)^4)*(1+sqrt(1+(\x)^4)))});
+\draw[guide](0,-.5)--(.6,-.5);\node[left]at(0,-.5){$-1/2$};
+\node[right]at(.77,-.4){$\kappa=-1+x^2$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{相消使二阶项消失；以$x^4$缩放差值后得到有限非零极限。}\label{fig:c1-v1-s}
+\end{figure}
+\end{solution}
+
+
+\subsection{变上限积分与参数求导}
+设$J(a)=\int_{u(a)}^{v(a)}f(x,a)\dd x$，两端点函数可微，$f$及$\partial_af$在相关有限积分区域内连续。记$u=u(a),v=v(a)$、$u_h=u(a+h),v_h=v(a+h)$，把增量分成三段：
+\[\begin{aligned}
+J(a+h)-J(a)
+&=\int_u^v[f(x,a+h)-f(x,a)]\dd x\\
+&\quad+\int_v^{v_h}f(x,a+h)\dd x
+-\int_u^{u_h}f(x,a+h)\dd x.
+\end{aligned}\]
+除以$h$取极限。第一项由连续参数偏导给出积分内求导；后两项的区间长度除以$h$分别趋于$v'(a),u'(a)$，被积函数则趋于相应端点值。得到Leibniz公式
+\[\boxed{J'(a)=f(v(a),a)v'(a)-f(u(a),a)u'(a)+\int_{u(a)}^{v(a)}\partial_af(x,a)\dd x}.
+\]
+固定端点时只剩积分项；被积函数不显含参数时只剩边界项。功、累计电荷和随边界膨胀的质量都常出现这种结构。若端点处被积函数无界，公式的直接使用需要额外条件，可先换元固定区域并消除端点奇性。
+
+\subsection{从有效势得到小振动方程}
+
+这里的有效势来自先消去其他守恒自由度。若某角坐标对应守恒角动量，环向动能仍随径向坐标改变，消元后它表现为一个位置相关的项。这个项必须与重力势、弹簧势一起求极值；只展开原来的重力势，通常找不到稳定平衡。
+若一维系统的能量为$E=\frac12M(q)\dot q^2+U(q)$，在正则平衡坐标$q_0$附近有$M(q_0)>0$，取$\eta=q-q_0$，$U'(q_0)=0$。保留到二阶时，$M(q)\dot\eta^2=M(q_0)\dot\eta^2+O(\eta\dot\eta^2)$，所以线性化的惯性系数取$M(q_0)$，而势能取$U(q_0)+U''(q_0)\eta^2/2$。于是
+\[\omega^2=U''(q_0)/M(q_0).
+\]
+这里能量要保留二阶，是因为对能量求导后才得到一阶小量的运动方程。若只把势能展开到一阶，平衡点处的这一阶项恰好为零，会丢掉回复力。圆锥小振动中沿母线的运动与高度变化之间有尺度因子，必须先把动能也化成同一广义坐标。
+
+从完整运动方程看，若$L=M(q)\dot q^2/2-U(q)$，则
+\[\frac{\partial L}{\partial\dot q}=M(q)\dot q,\qquad
+\frac{\dd}{\dd t}\frac{\partial L}{\partial\dot q}
+=M(q)\ddot q+M'(q)\dot q^2,\]
+\[\frac{\partial L}{\partial q}=\frac12M'(q)\dot q^2-U'(q).\]
+两项相减，Euler--Lagrange方程成为
+\[M(q)\ddot q+\tfrac12M'(q)\dot q^2+U'(q)=0.\]
+令$q=q_0+\eta$，并将$\eta,\dot\eta,\ddot\eta$都按一阶小量计数。$M'(q)\dot\eta^2$为二阶，$[M(q)-M(q_0)]\ddot\eta$也为二阶，故线性方程只留下$M(q_0)\ddot\eta+U''(q_0)\eta=0$。因此在线性方程中，惯性系数只需取平衡值；它随位置变化带来的贡献已属于二阶。
+
+当$U''(q_0)>0$时得到振荡；小于零时得到指数增长；等于零时线性方程不能判断原平衡的回复性质，须保留势能的更高阶。即使稳定，线性周期也只适用于振幅足够小的范围。单摆和硬弹簧的周期修正正是从相应的高阶势能项产生的。计算实际振幅下的周期，仍以能量积分为起点，再进行受控展开。
+
+
+\section{习题与解答}\label{sec:c1-exercises}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[位移中的二阶项]\label{ex:c1-h1}
+质点在$t=0$的速度为$v_0$，加速度恒为$a$。比较时间$\tau$内的实际位移、初速度乘$\tau$及末速度乘$\tau$。若允许相对误差不超过$\varepsilon$，用初速度估算的时间范围如何确定？取$v_0>0,a>0$。 见图~\ref{fig:c1-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.24444cm,y=1.00000cm]\draw[axis](0,0)--(2.25,0)node[right]{$t$};\draw[axis](0,0)--(0,2)node[above]{$v$};\draw[curve,domain=0:2,samples=101]plot(\x,{.6+.5*\x});\end{scope}
+\end{tikzpicture}
+\caption{速度直线下的面积对应时间区间内的位移。}\label{fig:c1-h1-q}
+\end{figure}
+\begin{solution}
+位移是速度对时间的积分。图~\ref{fig:c1-h1-q}中速度随时间线性增长，因此初速与末速乘时间都对应矩形估算，真实值位于两者之间。相对误差的分母须先约定，本题以实际位移为准，不能在同一推导中改用估计值作分母。
+
+
+恒加速度方程先积分为 $v(t)-v_0=\int_0^ta\dd s=at$，再积分速度：
+\[
+S=\int_0^\tau(v_0+at)\dd t
+=\left[v_0t+\frac12at^2\right]_0^\tau
+=v_0\tau+\frac12a\tau^2.
+\]
+图~\ref{fig:c1-h1-s}中，初速度矩形少算上方三角形，末速度矩形则多算同样大小的三角形。因此两种估计分别为
+\[S_i=v_0\tau,\qquad S_f=(v_0+a\tau)\tau,
+\qquad S_i-S=-\frac12a\tau^2,\quad S_f-S=\frac12a\tau^2.
+\]
+相对于实际位移的初速估计误差为
+\[\frac{|S_i-S|}{S}=\frac{a\tau}{2v_0+a\tau}.
+\]
+若$0<\varepsilon<1$，要求该量不超过$\varepsilon$，便得到
+\[\boxed{0\le\tau\le\frac{2\varepsilon v_0}{a(1-\varepsilon)}}.
+\]
+当$\varepsilon\ll1$时可简化为$\tau\lesssim2\varepsilon v_0/a$。误差阶数为$O(\tau^2)$只说明绝对误差；相对误差还与初始速度有关。若$v_0=0$，初速估计恒为零，不能获得任何小于$100\%$的相对精度。
+
+
+对$\tau>0$，误差条件可逐步变形为
+\[\frac{a\tau}{2v_0+a\tau}\le\varepsilon
+\ \Longleftrightarrow\ a\tau\le2\varepsilon v_0+\varepsilon a\tau
+\ \Longleftrightarrow\ (1-\varepsilon)a\tau\le2\varepsilon v_0.\]
+因为$0<\varepsilon<1$，最后除以正数不会改变不等号方向。$\tau=0$处相对误差原式为$0/0$，上述时间区间的左端按$\tau\to0^+$的连续极限理解。
+
+若改以初速估值为分母，误差将是$a\tau/(2v_0)$，对应另一条时间界限。图~\ref{fig:c1-h1-s}中的三角形面积相同，但相对误差分母不同会改变允许时长；应用近似式前应明确这一约定。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!20](0,.6)--(2,1.6)--(2,.6)--cycle;\draw[axis](0,0)--(2.5,0)node[right]{$t$};\draw[axis](0,0)--(0,2)node[above]{$v$};\draw[curve](0,.6)--(2,1.6);\draw[guide](0,.6)--(2,.6)--(2,0);\node at(1.3,1.05){$a\tau^2/2$};\node[below]at(2,0){$\tau$};
+\end{tikzpicture}
+\caption{被初速度矩形漏掉的三角形面积就是位移修正。}\label{fig:c1-h1-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[反函数的分支与切线]\label{ex:c1-h2}
+设$x=\cosh y$。分别讨论$y\ge0$和$y\le0$两条反函数分支，求它们在$x=\cosh1$处的斜率。说明$x=1$处为何没有有限斜率。 见图~\ref{fig:c1-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.00000cm,y=1.00000cm]\draw[axis](-1.6,0)--(1.85,0)node[right]{$y$};\draw[axis](0,0)--(0,3)node[above]{$x$};\draw[curve,domain=-1.6:1.6,samples=101]plot(\x,{(exp(\x)+exp(-\x))/2});\end{scope}
+\end{tikzpicture}
+\caption{同一$x>1$对应正、负两个$y$，求反函数前须选支。}\label{fig:c1-h2-q}
+\end{figure}
+\begin{solution}
+原关系$x=\cosh y$在$y=0$两侧对称，整条曲线不能反解成单值$y(x)$。图~\ref{fig:c1-h2-q}把自变量取为$y$，先在$y\ge0$或$y\le0$的一侧选支，再交换横、纵坐标，才得到两条反函数。
+
+
+图~\ref{fig:c1-h2-s}中，两条反函数关于$x$轴对称，分别为$y_+(x)=\arcosh x$及$y_-(x)=-\arcosh x$，定义域均为$x\ge1$。由$\dd x/\dd y=\sinh y$，在$x=\cosh1$处有
+\[y_+'=\frac1{\sinh1},\qquad y_-'=-\frac1{\sinh1}.
+\]
+在 $y=0$ 附近，$x=1+y^2/2+O(y^4)$。令 $\delta=x-1>0$，则 $y^2=2\delta+O(\delta^2)$，取两个分支分别得 $y_\pm=\pm\sqrt{2\delta}[1+O(\delta)]$。原函数的导数 $\sinh y\sim y$，反函数导数因而按 $\pm[2(x-1)]^{-1/2}$ 发散。函数值趋于零与斜率无界可以同时成立，两支在端点仍连续。
+
+
+两条切线的切点分别为$(\cosh1,1)$与$(\cosh1,-1)$，故方程为
+\[y-1=\frac{x-\cosh1}{\sinh1},\qquad
+y+1=-\frac{x-\cosh1}{\sinh1}.\]
+它们在解答图中互为镜像。讨论端点时则应使用单侧差商：$[y_+(1+h)-y_+(1)]/h\sim\sqrt{2/h}$，它发散，故即使只从定义域内部趋近也没有有限的端点导数。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[axis](0,-1.8)--(0,1.9)node[above]{$y$};\draw[guide](1,-1.7)--(1,1.7);
+\draw[curve,domain=1:3.6,samples=121]plot(\x,{ln(\x+sqrt((\x)^2-1))});
+\draw[dashed,domain=1:3.6,samples=121]plot(\x,{-ln(\x+sqrt((\x)^2-1))});
+\fill({cosh(1)},1)circle(1.5pt)node[above left]{$P_+$};
+\fill({cosh(1)},-1)circle(1.5pt)node[below left]{$P_-$};
+\draw[thin,domain=1.06:2.25]plot(\x,{1+(\x-cosh(1))/sinh(1)});
+\draw[thin,domain=1.06:2.25]plot(\x,{-1-(\x-cosh(1))/sinh(1)});
+\node[below right]at(1,0){$1$};
+\node[align=left,right]at(4.3,.1){$P_+=(\cosh1,1)$\\[4pt]$P_-=(\cosh1,-1)$};
+\end{tikzpicture}
+\caption{上下反函数分支及其在$x=\cosh1$处的切线；两条切线互为镜像。}\label{fig:c1-h2-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[有效功率的最大值]\label{ex:c1-h3}
+某一维运动模型中，可用驱动力随速率变化为$F(v)=A-Bv^2$，$A,B>0$。求有效功率$P=Fv$的最大值及对应速率，限制在$0\le v\le\sqrt{A/B}$。 见图~\ref{fig:c1-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.68248cm,y=1.12500cm]\draw[axis](0,0)--(1.6642135623730951,0)node[right]{$v$};\draw[axis](0,0)--(0,1.6)node[above]{$P$};\draw[curve,domain=0:1.4142135623730951,samples=101]plot(\x,{2*\x-(\x)^3});\end{scope}
+\end{tikzpicture}
+\caption{功率在允许区间两端为零，中间出现极值。}\label{fig:c1-h3-q}
+\end{figure}
+\begin{solution}
+功率取决于速率和驱动力的乘积。速率增大会提高$v$因子，却同时减小$F=A-Bv^2$，所以应对整个乘积求极值。图~\ref{fig:c1-h3-q}的可行区间由$F\ge0$确定，区间两端也必须参与比较。
+
+
+功率为 $P(v)=Av-Bv^3$，求导得 $P'=A-3Bv^2$、$P''=-6Bv$。区间内唯一驻点为 $v_* =\sqrt{A/(3B)}$，且 $P''(v_*)<0$，所以它是局部极大点。图~\ref{fig:c1-h3-s}还标出两个边界；两端功率都为零，故该驻点也是全区间最大点。代回时先用驻点关系 $Bv_*^2=A/3$，有
+\[
+F(v_*)=A-\frac A3=\frac{2A}{3},\qquad
+P(v_*)=\frac{2A}{3}\sqrt{\frac{A}{3B}},
+\]
+即
+\[\boxed{P_{\max}=\frac{2A^{3/2}}{3\sqrt{3B}},\qquad
+F(v_*)=\frac{2A}3}.\]
+零导数条件只用于内部点。若装置另有速率上限$v_c<v_*$，则功率在$[0,v_c]$上单调增加，最大值应取边界$P(v_c)$；不能把不可达到的$v_*$仍作为答案。令$u=v/\sqrt{A/B}$，功率归一化为$P/[A\sqrt{A/B}]=u-u^3$，极值位置$u_*=1/\sqrt3$与参数的数值无关。
+
+
+归一化曲线的导数为 $1-3u^2$，在 $u=1/\sqrt3$ 前正、后负。图~\ref{fig:c1-h3-s}中的峰点 $E$ 因此给出全部允许速率中的最大功率。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.24000cm,y=3.00000cm]\draw[axis](0,0)--(1.25,0)node[right]{$u$};\draw[axis](0,0)--(0,0.6)node[above]{$P/[A\sqrt{A/B}]$};\draw[curve,domain=0:1,samples=101]plot(\x,{\x-(\x)^3});\fill(.5773503,.3849002)circle(1.5pt)node[above]{$E$};\draw[guide](.5773503,0)--(.5773503,.3849002);\node[below]at(.5773503,0){$1/\sqrt3$};\end{scope}
+\end{tikzpicture}
+\caption{无量纲功率曲线的内部最大点与两端边界。}\label{fig:c1-h3-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[对数力的功]\label{ex:c1-h4}
+质点沿$x$轴从$0$移到$L>0$，受沿运动方向的力$F(x)=F_0\ln(1+x/a)$，$F_0,a>0$。求此力做的功，并展开到$L/a$的三阶。 见图~\ref{fig:c1-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.24444cm,y=1.20000cm]\draw[axis](0,0)--(2.25,0)node[right]{$x/a$};\draw[axis](0,0)--(0,1.5)node[above]{$F/F_0$};\draw[curve,domain=0:2,samples=101]plot(\x,{ln(1+\x)});\end{scope}
+\end{tikzpicture}
+\caption{功为力曲线下从$0$到$L/a$的面积。}\label{fig:c1-h4-q}
+\end{figure}
+\begin{solution}
+力始终沿正$x$方向，位移也向右，功应为正。图~\ref{fig:c1-h4-q}的横轴采用$x/a$，提醒计算中的自然小参数是$L/a$。先求精确积分，再展开，可保留有限长度下的结果，也便于判断近似的正负。
+
+
+由图~\ref{fig:c1-h4-s}中的有向面积，$W=F_0\int_0^L\ln(1+x/a)\dd x$。令 $u=1+x/a$，则 $\dd x=a\dd u$，边界由 $1$ 变为 $1+L/a$。分部积分时取 $\ln u$ 为被微分项、$\dd u$ 为被积分项，得到
+\[
+\int\ln u\dd u=u\ln u-\int u\frac{\dd u}{u}=u\ln u-u+C.
+\]
+代入两端，
+\[
+\begin{aligned}
+W&=F_0a[u\ln u-u]_1^{1+L/a}\\
+&=F_0a\left[(1+L/a)\ln(1+L/a)-(1+L/a)+1\right],
+\end{aligned}
+\]
+整理得
+\[\boxed{W=F_0\{(a+L)\ln(1+L/a)-L\}}.
+\]
+令 $\eta=L/a$，先用 $\ln(1+\eta)=\eta-\eta^2/2+\eta^3/3+O(\eta^4)$，再乘 $1+\eta$ 并减去 $\eta$：
+\[
+(1+\eta)\ln(1+\eta)-\eta
+=\left(1-\frac12\right)\eta^2+\left(\frac13-\frac12\right)\eta^3+O(\eta^4).
+\]
+因此
+\[W=F_0a\left(\frac{\eta^2}{2}-\frac{\eta^3}{6}+O(\eta^4)\right).
+\]
+同样可以先展开力再积分：$F/F_0=x/a-x^2/(2a^2)+O(x^3/a^3)$，积分后正好得到$F_0L^2/(2a)-F_0L^3/(6a^2)$。力从零线性增加，故功从$L^2$阶开始；结果中若出现非零的一次项，就与图示小区间面积不符。
+
+
+小$L$时力近似为$F_0x/a$，图~\ref{fig:c1-h4-s}的面积接近三角形，首项为$F_0L^2/(2a)$。对数的凹性使真实力低于这条初始切线，因此首个修正项应为负，恰与$-F_0L^3/(6a^2)$一致。$L$与$a$同量级时则使用精确式，三阶展开不再给出受控精度。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!20](0,0)--plot[domain=0:2,samples=101](\x,{ln(1+\x)})--(2,0)--cycle;\begin{scope}[x=1.24444cm,y=1.20000cm]\draw[axis](0,0)--(2.25,0)node[right]{$x/a$};\draw[axis](0,0)--(0,1.5)node[above]{$F/F_0$};\draw[curve,domain=0:2,samples=101]plot(\x,{ln(1+\x)});\node[below]at(2,0){$L/a$};\end{scope}
+\end{tikzpicture}
+\caption{阴影面积乘$F_0a$为功，边界项不能省去。}\label{fig:c1-h4-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[位置相关加速度与逃逸条件]\label{ex:c1-h5}
+质点沿正$x$方向发射，初始$x=0$、$v=v_0>0$，加速度为$a(x)=-g_0/(1+x/a_0)^2$，其中$g_0,a_0>0$。求$v^2(x)$及能够到达任意大$x$的条件。 见图~\ref{fig:c1-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.00000cm,y=1.12500cm]\draw[axis](0,0)--(3.25,0)node[right]{$x/a_0$};\draw[axis](0,-1.3)--(0,0.3)node[above]{$a/g_0$};\draw[curve,domain=0:3,samples=101]plot(\x,{-1/(1+\x)^2});\end{scope}
+\end{tikzpicture}
+\caption{加速度始终反向，但其大小随$x$增加而减小。}\label{fig:c1-h5-q}
+\end{figure}
+\begin{solution}
+加速度只随位置变化，所以先用$a=v\dd v/\dd x$求$v^2(x)$，比先求$x(t)$更直接。图~\ref{fig:c1-h5-q}中加速度始终为负，运动沿正向时速率应下降；能否逃逸取决于从零到无穷远累计损失的速度平方是否超过初值。
+
+
+使用 $a=\tfrac12\dd(v^2)/\dd x$，从初态积分到 $x$：
+\[
+\frac12(v^2-v_0^2)=-g_0\int_0^x\frac{\dd\xi}{(1+\xi/a_0)^2}.
+\]
+右侧令 $u=1+\xi/a_0$、$\dd\xi=a_0\dd u$，上下限为 $1$、$1+x/a_0$，则
+\[
+\int_0^x\frac{\dd\xi}{(1+\xi/a_0)^2}
+=a_0\int_1^{1+x/a_0}u^{-2}\dd u
+=a_0[-u^{-1}]_1^{1+x/a_0}
+=a_0\left(1-\frac1{1+x/a_0}\right).
+\]
+代入并乘以 $2$，得到
+\[\boxed{v^2(x)=v_0^2-2g_0a_0\frac{x}{a_0+x}}.
+\]
+图~\ref{fig:c1-h5-s}表示三个不同初速。若 $v_0^2<2g_0a_0$，令 $v^2(x_t)=0$，移项得 $v_0^2(a_0+x_t)=2g_0a_0x_t$，再合并为 $v_0^2a_0=x_t(2g_0a_0-v_0^2)$，所以转向点为
+\[x_t=\frac{a_0v_0^2}{2g_0a_0-v_0^2}.
+\]
+若$v_0^2=2g_0a_0$，$v^2=2g_0a_0^2/(a_0+x)>0$对每个有限$x$都成立，但$v\to0$；若$v_0^2>2g_0a_0$，无穷远仍有余速。因而逃逸阈值为$\boxed{v_0\ge\sqrt{2g_0a_0}}$。速度平方公式只用于可达的分支，不能把转向点外的负值解释成实际速率。
+
+
+临界逃逸的时间也可求出。此时正根为 $v=a_0\sqrt{2g_0/(a_0+x)}$。从 $t(0)=0$ 开始积分，
+\[
+\begin{aligned}
+t(x)&=\int_0^x\frac{\dd\xi}{v(\xi)}
+=\frac1{a_0\sqrt{2g_0}}\int_0^x(a_0+\xi)^{1/2}\dd\xi\\
+&=\frac1{a_0\sqrt{2g_0}}\left[\frac23(a_0+\xi)^{3/2}\right]_0^x
+=\frac{2\{(a_0+x)^{3/2}-a_0^{3/2}\}}{3a_0\sqrt{2g_0}}.
+\end{aligned}
+\]
+任一有限位置都在有限时间内到达，而$x\to\infty$需要无限时间。解答图中临界曲线始终位于横轴上方，正对应这一结论。亚临界曲线触轴后应连接返程的负速度分支，不能继续沿负的$v^2$曲线运动。
+
+加速度核函数从 $0$ 到 $x$ 的积分随 $x$ 增加而趋于 $a_0$，所以全部向外运动最多损失 $2g_0a_0$ 的速度平方。
+
+图~\ref{fig:c1-h5-s}中的三类曲线由同一累计积分产生。超临界时余速为$\sqrt{v_0^2-2g_0a_0}$；临界时余速仅在无限远趋零；亚临界时可达分支在触轴处结束。转向后若继续研究返回运动，应在同一能量关系中改取负速度支。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.3,0)node[right]{$X$};\draw[axis](0,-.2)--(0,2.8)node[above]{$v^2/(g_0a_0)$};\draw[curve,domain=0:2.333333,samples=101]plot(\x,{1.4-2*\x/(1+\x)});\fill(2.333333,0)circle(1.5pt)node[below]{$X_{\max}$};\draw[dashed,domain=0:3,samples=101]plot(\x,{2-2*\x/(1+\x)});\draw[dotted,domain=0:3,samples=101]plot(\x,{2.5-2*\x/(1+\x)});
+\end{tikzpicture}
+\caption{低于、等于及高于逃逸阈值的速度平方；低能支在转向点终止，虚线只在无穷远趋零。}\label{fig:c1-h5-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[相对论动能的低速展开]\label{ex:c1-h6}
+质点的相对论动能为$K=mc^2[(1-v^2/c^2)^{-1/2}-1]$。展开到$v^4/c^4$，求相对经典动能$mv^2/2$的首项相对修正。 见图~\ref{fig:c1-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.66667cm,y=1.63636cm]\draw[axis](0,0)--(1.05,0)node[right]{$\beta=v/c$};\draw[axis](0,0)--(0,1.1)node[above]{$K/(mc^2)$};\draw[curve,domain=0:0.8,samples=101]plot(\x,{1/sqrt(1-(\x)^2)-1});\end{scope}
+\end{tikzpicture}
+\caption{精确动能在低速区接近二次曲线。}\label{fig:c1-h6-q}
+\end{figure}
+\begin{solution}
+相对论动能的自变量是无量纲速率$\beta=v/c$。根号内首先出现$\beta^2$，因此保留到$\beta^4$只需二项式的二次项。图~\ref{fig:c1-h6-q}中的曲线在低速区接近抛物线，所求修正就是二者开始分离的首个非零项。
+
+
+取$\varepsilon=-v^2/c^2=-\beta^2$。因为它从$\beta^2$阶开始，要保留$\beta^4$只需把外层函数展开到$\varepsilon^2$：
+\[(1-\beta^2)^{-1/2}=1+\frac12\beta^2+\frac38\beta^4+O(\beta^6).
+\]
+减去静能项后，
+\[\boxed{K=\frac12mv^2+\frac38\frac{mv^4}{c^2}+O\!\left(\frac{mv^6}{c^4}\right)}.
+\]
+相对修正须除以 $K_{\rm cl}=mc^2\beta^2/2$。图~\ref{fig:c1-h6-s}中，精确曲线位于二次近似之上，四次项为正；具体比值为
+
+
+\[\frac{K-K_{\rm cl}}{K_{\rm cl}}
+=\frac{mc^2(3\beta^4/8+O(\beta^6))}{mc^2\beta^2/2}
+=\frac34\beta^2+O(\beta^4).\]
+绝对动能的四阶项变成相对修正的二阶项，是因为分母本身从二阶开始。在 $v=0$ 处这个比值原式未定义，但可以按极限连续补为零。若首项修正要求小于 $\varepsilon$，低速估计为 $|v|/c\lesssim\sqrt{4\varepsilon/3}$，接近光速时不能继续采用该估计。
+
+图~\ref{fig:c1-h6-s}中二次近似与加入四次项的曲线都从原点出发，后者在低速区更接近精确式。由于精确函数在$|\beta|=1$有奇性，任何固定阶低速多项式都不能用于光速附近；误差要求应在$|\beta|\ll1$的范围内解释。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.66667cm,y=1.63636cm]\draw[axis](0,0)--(1.05,0)node[right]{$\beta$};\draw[axis](0,0)--(0,1.1)node[above]{$K/(mc^2)$};\draw[curve,domain=0:0.8,samples=101]plot(\x,{1/sqrt(1-(\x)^2)-1});\draw[dashed,domain=0:.8,samples=101]plot(\x,{.5*(\x)^2});\draw[dotted,domain=0:.8,samples=101]plot(\x,{.5*(\x)^2+.375*(\x)^4});\end{scope}
+\end{tikzpicture}
+\caption{实线为精确动能，虚线、点线分别保留二阶和四阶项。}\label{fig:c1-h6-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+
+
+\Needspace{8\baselineskip}
+\begin{exercise}[硬弹簧的周期（选做）]\label{ex:c1-h8}
+质量$m$的一维振子受力$F=-kx-\lambda x^3$，$k>0,\lambda>0$，振幅$A>0$，且$\lambda A^2/k\ll1$。求周期的一阶振幅修正。见图~\ref{fig:c1-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.00000cm,y=1.00000cm]\draw[axis](-1.5,0)--(1.75,0)node[right]{$x$};\draw[axis](0,0)--(0,2.3)node[above]{$U$};\draw[curve,domain=-1.5:1.5,samples=101]plot(\x,{.5*(\x)^2+.1*(\x)^4});\end{scope}
+\end{tikzpicture}
+\caption{四次势能项使势阱在大位移处变陡。}\label{fig:c1-h8-q}
+\end{figure}
+\begin{solution}
+这是能量随振幅变化的一维束缚运动。势能为偶函数，所以一个周期可由$0\to A$的四分之一周期得到。与单摆相同，先处理转向点，再展开小参数$\eta=\lambda A^2/k$，可避免在端点附近出现不一致近似。
+
+
+势能为$U=kx^2/2+\lambda x^4/4$。由图~\ref{fig:c1-h8-s}，能量$E=U(A)$，四分之一周期为
+\[\frac T4=\sqrt{\frac m2}\int_0^A\frac{\dd x}{\sqrt{U(A)-U(x)}}.
+\]
+分解能量差：
+\[U(A)-U(x)=\frac k2(A^2-x^2)\left[1+\frac\lambda{2k}(A^2+x^2)\right].
+\]
+令 $x=A\sin u$，则 $\dd x=A\cos u\dd u$，$x=0,A$ 对应 $u=0,\pi/2$。在此区间 $\sqrt{A^2-x^2}=A\cos u$，分子分母约去同一因子。记 $\eta=\lambda A^2/k$，有
+\[T=4\sqrt{\frac mk}\int_0^{\pi/2}
+\left[1+\frac\eta2(1+\sin^2u)\right]^{-1/2}\dd u.
+\]
+按 $\eta$ 展开，核函数为 $1-\eta(1+\sin^2u)/4+O(\eta^2)$。其中修正积分为
+\[
+-\frac\eta4\int_0^{\pi/2}(1+\sin^2u)\dd u
+=-\frac\eta4\left[\frac{3u}{2}-\frac{\sin2u}{4}\right]_0^{\pi/2}
+=-\frac{3\pi\eta}{16}.
+\]
+无扰动积分为 $\pi/2$，修正除以它得到相对系数 $-3\eta/8$，故
+\[\boxed{T=2\pi\sqrt{\frac mk}\left(1-\frac38\frac{\lambda A^2}{k}+O(\eta^2)\right)}.
+\]
+修正为负，说明回复力变硬使振动加快。若$\lambda<0$，小振幅修正变号，但还必须限制振幅在局部势阱以内；四次近似不能在势能已失去束缚的区间上继续使用周期积分。
+
+
+若转求角频率，应对周期取倒数，用 $(1-3\eta/8)^{-1}=1+3\eta/8+O(\eta^2)$，得到 $\omega=\sqrt{k/m}[1+3\eta/8+O(\eta^2)]$。
+
+图~\ref{fig:c1-h8-s}中水平能量线与势能交于$\pm A$；$\lambda>0$时势阱在外侧更陡，因此振幅增加会提高频率。对负四次系数，需额外限制$A<\sqrt{k/|\lambda|}$以留在原点附近的局部势阱内；小参数条件又比这个束缚条件更强。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.00000cm,y=1.00000cm]\draw[axis](-1.5,0)--(1.75,0)node[right]{$x$};\draw[axis](0,0)--(0,2.3)node[above]{$U$};\draw[curve,domain=-1.5:1.5,samples=101]plot(\x,{.5*(\x)^2+.1*(\x)^4});\draw[guide](-1.2,.92736)--(1.2,.92736)node[right]{$E$};\fill(1.2,.92736)circle(1.3pt)node[above]{$A$};\fill(-1.2,.92736)circle(1.3pt)node[above]{$-A$};\end{scope}
+\end{tikzpicture}
+\caption{等能线与势阱交于转向点，周期积分在两交点之间进行。}\label{fig:c1-h8-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[非均匀杆的质心与反力]\label{ex:c1-h9}
+细杆长$L$，线密度$\mu(x)=\mu_0(1+x/L)$，$0\le x\le L$。两端简支于等高支座，重力加速度为$g$。求质量、质心及两支座反力。 见图~\ref{fig:c1-h9-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,0)--(4,0);\draw(0,0)--(-.2,-.4)--(.2,-.4)--cycle;\draw(4,0)--(3.8,-.4)--(4.2,-.4)--cycle;\node[below]at(0,-.4){$A$};\node[below]at(4,-.4){$B$};\draw[axis](0,-.8)--(4.5,-.8)node[right]{$x$};\node at(2,1){$\mu=\mu_0(1+x/L)$};\foreach\x in{0,.5,...,4}{\draw(\x,.15)--(\x,{.4+.1*\x});}
+\end{tikzpicture}
+\caption{密度相对于杆长坐标$x$定义，细竖线示意其沿杆增大。}\label{fig:c1-h9-q}
+\end{figure}
+\begin{solution}
+求支座反力前，先由真实密度求质量与一阶矩。图~\ref{fig:c1-h9-q}中右侧载荷更大，质心应偏右，右支座反力也应较大。把分布重力等效成作用于质心的合力后，可用两个整体平衡方程求反力。
+
+
+取$\dd m=\mu_0(1+x/L)\dd x$。质量与一阶矩分别为
+\[
+\begin{aligned}
+M&=\mu_0\int_0^L(1+x/L)\dd x
+=\mu_0\left[x+\frac{x^2}{2L}\right]_0^L=\frac32\mu_0L,\\
+\int_0^Lx\dd m&=\mu_0\int_0^L\left(x+\frac{x^2}{L}\right)\dd x
+=\mu_0\left[\frac{x^2}{2}+\frac{x^3}{3L}\right]_0^L
+=\frac56\mu_0L^2.
+\end{aligned}
+\]
+一阶矩除以质量，得$\boxed{x_C=(5/6)/(3/2)\,L=5L/9}$，偏向密度较大的一端。这个比值具有长度量纲。图~\ref{fig:c1-h9-s}把分布重力等效为经过$C$的合力$Mg$；此等效只用于总力与力矩，整体平衡条件为
+\[R_A+R_B=Mg,\qquad R_BL=Mg\,x_C.
+\]
+解得$\boxed{R_A=4Mg/9=2\mu_0Lg/3,\quad R_B=5Mg/9=5\mu_0Lg/6}$。两反力之和及关于任一端的力矩都满足原分布载荷的积分。取中点当作质心会得到相等反力，从而漏掉密度变化带来的偏移。
+
+
+按图~\ref{fig:c1-h9-s}对左支座取矩，$R_A$无力矩，$R_B$的力臂为$L$，重力合力的力臂为$x_C$。也可直接对分布载荷取矩：$R_BL=\int_0^Lgx\mu(x)\dd x$。这两种写法完全相同，说明质心等效在求整体静力反力时保留了原分布的总力矩。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,0)--(4,0);\draw[axis](0,0)--(0,1)node[above]{$R_A$};\draw[axis](4,0)--(4,1.25)node[above]{$R_B$};\draw[axis](2.222,0)--(2.222,-1.4)node[below]{$Mg$};\node[above]at(2.222,0){$C$};\draw[<->](0,-1.9)--(2.222,-1.9)node[midway,below]{$5L/9$};
+\end{tikzpicture}
+\caption{重力合力的位置由一阶矩确定；质心偏右，两支座反力不相等。}\label{fig:c1-h9-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[抛物线轨道的弧长]\label{ex:c1-h10}
+轨道方程为$y=x^2/(2p)$，$p>0$。求从$O$到横坐标$L>0$处的弧长，并给出$L/p\ll1$时前三个非零项。 见图~\ref{fig:c1-h10-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.24444cm,y=1.00000cm]\draw[axis](0,0)--(2.25,0)node[right]{$x/p$};\draw[axis](0,0)--(0,2.5)node[above]{$y/p$};\draw[curve,domain=0:2,samples=101]plot(\x,{(\x)^2/2});\end{scope}
+\end{tikzpicture}
+\caption{弧长微元与水平投影微元的长度不同。}\label{fig:c1-h10-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h10-q}的斜率由$x/p$决定，$L/p$既是无量纲积分上限，也控制小斜率近似。以下沿曲线累计弧长，再按$L/p$展开。
+
+
+图~\ref{fig:c1-h10-s}的微分三角形满足$\dd s^2=\dd x^2+\dd y^2$。由$y'=x/p$，有$\dd y=(x/p)\dd x$，故$\dd s=\sqrt{1+(x/p)^2}\dd x$。令$u=x/p$，弧长为$p\int_0^{L/p}\sqrt{1+u^2}\dd u$。再令$u=\sinh t$，则$\dd u=\cosh t\dd t$、$\sqrt{1+u^2}=\cosh t$，上下限为$0$、$t_L=\arsinh(L/p)$。降幂积分为
+\[
+s=p\int_0^{t_L}\cosh^2t\dd t
+=p\int_0^{t_L}\frac{1+\cosh2t}{2}\dd t
+=p\left[\frac t2+\frac{\sinh2t}{4}\right]_0^{t_L}.
+\]
+用 $\sinh2t_L=2(L/p)\sqrt{1+L^2/p^2}$ 还原，得到
+\[\boxed{s(L)=\frac12\left[L\sqrt{1+\frac{L^2}{p^2}}+p\arsinh\frac Lp\right]}.
+\]
+图~\ref{fig:c1-h10-s}中的短直角三角形说明 $\dd s\ge\dd x$，故结果应大于 $L$。令 $\eta=L/p$，先展开核函数 $\sqrt{1+u^2}=1+u^2/2-u^4/8+O(u^6)$，再逐项积分：
+\[s=p\left[u+\frac{u^3}{6}-\frac{u^5}{40}\right]_0^\eta+O(p\eta^7)
+=\boxed{L+\frac{L^3}{6p^2}-\frac{L^5}{40p^4}+O(L^7/p^6)}.
+\]
+展开的修正从$L^3$阶开始，是因为局部斜率平方为$x^2/p^2$。若直接用端点连线长度代替弧长，其三阶系数为$1/8$而不是$1/6$，不能达到这里的精度。
+
+
+端点弦长为$\sqrt{L^2+L^4/(4p^2)}=L+L^3/(8p^2)+\cdots$，弧长与弦长之差首项为$L^3/(24p^2)>0$。这个差值来自轨道曲率，在线性近似中看不到；要求三阶精度时便需要真正的弧长积分。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,domain=0:2,samples=101]plot(\x,{(\x)^2/2});\draw[guide](1.1,.605)--(1.4,.605)--(1.4,.98);\draw[thick](1.1,.605)--(1.4,.98)node[midway,above left]{$\dd s$};\node[below]at(1.25,.605){$\dd x$};\node[right]at(1.4,.79){$\dd y$};\node[right]at(2.7,.7){$\dd s^2=\dd x^2+\dd y^2$};
+\end{tikzpicture}
+\caption{弧长由局部切线三角形求和，不能由一条总弦长代替。}\label{fig:c1-h10-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[速率密度变为能量密度]\label{ex:c1-h11}
+粒子速率的概率密度为$f_v(v)=3v^2/v_0^3$，$0\le v\le v_0$，区间外为零。质量均为$m$，令$E=mv^2/2$。求动能密度和平均动能。 见图~\ref{fig:c1-h11-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.24000cm,y=1.00000cm]\draw[axis](0,0)--(1.25,0)node[right]{$v/v_0$};\draw[axis](0,0)--(0,3.5)node[above]{$v_0 f_v$};\draw[curve,domain=0:1,samples=101]plot(\x,{3*(\x)^2});\end{scope}
+\end{tikzpicture}
+\caption{等宽速率区间所含概率随速率增大而增加。}\label{fig:c1-h11-q}
+\end{figure}
+\begin{solution}
+概率本身不随变量命名改变，但“每单位速率”的密度与“每单位能量”的密度不同。由于本题速率非负，$E=mv^2/2$在允许区间内单调，可以用一条反函数分支变换。图~\ref{fig:c1-h11-q}表示原速率密度，横轴变为能量后还需改变微元宽度。
+
+
+在单调分支$v\ge0$上，同一概率微元满足$f_E(E)\dd E=f_v(v)\dd v$。由于$\dd E=mv\dd v$，
+\[f_E(E)=\frac{f_v(v(E))}{mv(E)}.
+\]
+令$E_0=mv_0^2/2$，代入$v/v_0=\sqrt{E/E_0}$可得
+\[\boxed{f_E(E)=\frac3{2E_0}\sqrt{\frac E{E_0}}},\qquad0<E<E_0.
+\]
+图~\ref{fig:c1-h11-s}以 $E_0f_E$ 为纵轴；能量密度随 $E^{1/2}$ 增长，在原点趋零。令 $u=E/E_0$，上下限化为 $0,1$，归一化积分为
+\[
+\int_0^{E_0}f_E(E)\dd E=\frac32\int_0^1u^{1/2}\dd u
+=\frac32\left[\frac23u^{3/2}\right]_0^1=1.
+\]
+平均动能则多一个 $E=E_0u$ 因子：
+\[\langle E\rangle=E_0\frac32\int_0^1u^{3/2}\dd u
+=E_0\frac32\left[\frac25u^{5/2}\right]_0^1=\boxed{\frac35E_0}.
+\]
+变量变换保持概率微元$f_v\dd v=f_E\dd E$。因而代入$v(E)$时还须乘$\dd v/\dd E$，所得密度才具有正确的量纲和归一化。
+
+
+从分布函数也能得到能量密度。对$0\le E\le E_0$，
+\begin{align*}
+\Pr(E'\le E)&=\Pr\!\left(v\le v_0\sqrt{E/E_0}\right)\\
+&=\int_0^{v_0\sqrt{E/E_0}}\frac{3v^2}{v_0^3}\dd v\\
+&=\left[\frac{v^3}{v_0^3}\right]_0^{v_0\sqrt{E/E_0}}
+=(E/E_0)^{3/2}.
+\end{align*}
+对 $E$ 求导，外层幂次产生 $\tfrac32(E/E_0)^{1/2}$、内层产生 $1/E_0$，便得到相同的 $f_E$。区间外的密度为零，端点单个点的取值不影响连续概率积分。
+
+平均能量还可在原变量中算：$\langle E\rangle=(3m/2v_0^3)[v^5/5]_0^{v_0}=3mv_0^2/10$，与图~\ref{fig:c1-h11-s}的能量密度积分相等。两种积分中概率微元保持一致。若原变量是可正可负的速度，反求同一能量时会有两支，这时须把两支概率密度相加。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.24000cm,y=1.00000cm]\draw[axis](0,0)--(1.25,0)node[right]{$E/E_0$};\draw[axis](0,0)--(0,1.9)node[above]{$E_0f_E$};\draw[curve,domain=0:1,samples=101]plot(\x,{1.5*sqrt(\x)});\end{scope}
+\end{tikzpicture}
+\caption{能量密度由速率密度乘换元因子得到。}\label{fig:c1-h11-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[有限观测窗口的均方值]\label{ex:c1-h12}
+电阻$R$中电流$I(t)=I_0\sin(\omega t+\phi)$。求任意观测时长$\tau>0$内的平均焦耳功率，讨论整半周期窗口和长时间极限。 见图~\ref{fig:c1-h12-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=0.70000cm,y=1.38462cm]\draw[axis](0,0)--(6.533185307179586,0)node[right]{$\omega t$};\draw[axis](0,0)--(0,1.3)node[above]{$I^2/I_0^2$};\draw[curve,domain=0:6.283185307179586,samples=101]plot(\x,{(sin(\x r))^2});\end{scope}
+\end{tikzpicture}
+\caption{功率随电流平方变化，不随电流本身的正负改变。}\label{fig:c1-h12-q}
+\end{figure}
+\begin{solution}
+焦耳功率与电流平方成正比，观测窗口未必包含整数周期。图~\ref{fig:c1-h12-q}显示$I^2$的周期只有电流周期的一半；因此应先对给定窗口积分，最后再讨论周期平均与长时间极限。
+
+
+若 $\omega=0$，电流为常量 $I_0\sin\phi$，任意窗口内都有 $\overline P=RI_0^2\sin^2\phi$。以下取 $\omega\ne0$，平均功率为 $\overline P=RI_0^2\tau^{-1}\int_0^\tau\sin^2(\omega t+\phi)\dd t$。用降幂公式逐项积分，
+\[
+\int_0^\tau\sin^2(\omega t+\phi)\dd t
+=\left[\frac t2-\frac{\sin(2\omega t+2\phi)}{4\omega}\right]_0^\tau.
+\]
+其中余弦积分的 $1/(2\omega)$ 来自内层相位的导数。代入两端，得到
+\[\boxed{\overline P=\frac{RI_0^2}{2}-
+\frac{RI_0^2}{4\omega\tau}\{\sin(2\omega\tau+2\phi)-\sin2\phi\}}.
+\]
+图~\ref{fig:c1-h12-s}中的水平虚线表示整半周期平均值。若 $\omega\tau=N\pi$，两端正弦相同，修正严格为零，对任意初相位均有 $\overline P=RI_0^2/2$。若窗口长度任意，修正的绝对值不超过 $RI_0^2/(2|\omega|\tau)$，因此固定非零频率的长时间平均同样趋于该值。
+
+短窗口则保留对初相位的依赖。例如 $\phi=0$ 且 $|\omega|\tau\ll1$ 时，$I\simeq I_0\omega t$，所以 $\overline P\simeq(RI_0^2\omega^2/\tau)\int_0^\tau t^2\dd t=(RI_0^2\omega^2/\tau)[t^3/3]_0^\tau=RI_0^2\omega^2\tau^2/3$。不能直接套用周期平均，窗口边界项刻画了尚未完成正弦平方周期的那部分面积。
+
+
+用正弦差公式 $\sin a-\sin b=2\sin[(a-b)/2]\cos[(a+b)/2]$，边界修正还可整理为
+\[\overline P=\frac{RI_0^2}{2}\left[1-
+\frac{\sin(\omega\tau)}{\omega\tau}\cos(2\phi+\omega\tau)\right].\]
+这个形式显示，固定窗口长度时，初相位只通过一个余弦因子进入；边界误差包络由$|\sin(\omega\tau)/(\omega\tau)|$控制。
+
+当$\tau\to0^+$，该式趋于$RI_0^2\sin^2\phi$，正是窗口起点的瞬时功率。图~\ref{fig:c1-h12-s}中的$1/2$虚线对应整半周期或长窗口的平均，而对任意短窗口，曲线下的局部面积仍保留初相位信息。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=0.70000cm,y=1.38462cm]\draw[axis](0,0)--(6.533185307179586,0)node[right]{$\omega t$};\draw[axis](0,0)--(0,1.3)node[above]{$P/(RI_0^2)$};\draw[curve,domain=0:6.283185307179586,samples=101]plot(\x,{(sin(\x r))^2});\draw[guide](0,.5)--(6.283185,.5);\node[right]at(6.283185,.5){$1/2$};\end{scope}
+\end{tikzpicture}
+\caption{有限窗口的平均值与两端相位有关；整半周期时边界项相消。}\label{fig:c1-h12-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[高度变化中的重力势能]\label{ex:c1-h13}
+设某球形天体表面半径$R$，表面重力加速度$g$。外部高度$h\ge0$处的重力加速度为$gR^2/(R+h)^2$。求质量$m$从表面缓慢升至$H$时的势能增量，给出$H/R$的三阶展开。 见图~\ref{fig:c1-h13-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.24444cm,y=1.38462cm]\draw[axis](0,0)--(2.25,0)node[right]{$h/R$};\draw[axis](0,0)--(0,1.3)node[above]{$g(h)/g$};\draw[curve,domain=0:2,samples=101]plot(\x,{1/(1+\x)^2});\end{scope}
+\end{tikzpicture}
+\caption{随着高度增加，重力减小，所需功小于恒取表面重力的估计。}\label{fig:c1-h13-q}
+\end{figure}
+\begin{solution}
+势能差等于准静态提升外力的功。高度增加时重力逐渐减小，故图~\ref{fig:c1-h13-q}中的精确积分应小于按表面重力计算的$mgH$。本题先保留$H/R$的精确依赖，再展开为近地公式。
+
+
+缓慢提升时，外力在每个高度抵消重力，势能增量等于外力的功：
+\[\begin{aligned}
+\Delta U&=mgR^2\int_0^H(R+h)^{-2}\dd h
+=mgR^2[-(R+h)^{-1}]_0^H\\
+&=mgR^2\left(\frac1R-\frac1{R+H}\right)
+=\boxed{mgR\frac{H}{R+H}}.
+\end{aligned}
+\]
+图~\ref{fig:c1-h13-s}中，恒重力矩形的面积$mgH$在曲线面积之上。令$\eta=H/R$，利用$\eta/(1+\eta)=\eta-\eta^2+\eta^3+O(\eta^4)$，得到
+\[\Delta U=mgH-\frac{mgH^2}{R}+\frac{mgH^3}{R^2}+O(mgH^4/R^3).
+\]
+若把势能零点放在无穷远，则$U(h)=-mgR^2/(R+h)$，与上式相减一致。当$H\to\infty$时，精确势能增量趋于有限值$mgR$；近地展开不能用于这一极限。
+
+
+因为外力随高度连续变化，图~\ref{fig:c1-h13-s}中曲线面积才是提升功，右上方矩形只是恒重力估值。
+
+以精确值为分母时，相对高估为$mgH/\Delta U-1=H/R$；若以恒重力估值为分母，则为$(mgH-\Delta U)/(mgH)=H/(R+H)$。两种误差在近地首阶相同，有限高度下则不同，使用时应保留各自的分母约定。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!20](0,0)--plot[domain=0:2,samples=101](\x,{1/(1+\x)^2})--(2,0)--cycle;\begin{scope}[x=1.24444cm,y=1.38462cm]\draw[axis](0,0)--(2.25,0)node[right]{$h/R$};\draw[axis](0,0)--(0,1.3)node[above]{$g(h)/g$};\draw[curve,domain=0:2,samples=101]plot(\x,{1/(1+\x)^2});\draw[dashed](0,1)--(2,1)--(2,0);\end{scope}
+\end{tikzpicture}
+\caption{实际积分面积与恒重力矩形的比较。}\label{fig:c1-h13-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[路程差中的小量抵消]\label{ex:c1-h14}
+两条信号路径的长度分别为$L$和$\sqrt{L^2+h^2}$，传播速率均为$c$。求时间差，并在$h/L\ll1$时展开到四阶。给出避免两相近数直接相减的等价表达式。 见图~\ref{fig:c1-h14-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(B)at(4,0);\coordinate(C)at(4,1.2);\draw[curve](A)--(B)--(C)--cycle;\node[below]at(2,0){$L$};\node[right]at(4,.6){$h$};\node[above,sloped]at(2,.6){$\sqrt{L^2+h^2}$};\node[left]at(A){$A$};\node[right]at(C){$C$};
+\end{tikzpicture}
+\caption{长路径为直角三角形的斜边，差值远小于两条路径本身。}\label{fig:c1-h14-q}
+\end{figure}
+\begin{solution}
+两条路程有共同的大尺度$L$，时间差来自相近数的相减。直接分别近似各自长度再相减，会把想求的小量隐藏在余项中。图~\ref{fig:c1-h14-q}给出直角三角形关系，先有理化或提出$L$，都能把差值的小参数显露出来。
+
+
+时间差为$\Delta t=[\sqrt{L^2+h^2}-L]/c$。图~\ref{fig:c1-h14-s}用同一起点标出两条路程；相近大数的相减可以先有理化：
+\[\boxed{\Delta t=\frac{h^2}{c(\sqrt{L^2+h^2}+L)}}.
+\]
+有理化后的式子与原式严格相等，并能避免$h\ll L$时相近大数相减造成的有效数字损失。再令$\eta=h/L$，有
+\[\boxed{\Delta t=\frac Lc\left(\frac{\eta^2}{2}-\frac{\eta^4}{8}+O(\eta^6)\right)}.
+\]
+时间差是偶函数，首项从$h^2$开始。若只把斜边展开成$L+O(h^2/L)$，减去$L$后无法得到首项系数；应预先根据抵消关系决定保留阶数。反过来，若测得很小的$\Delta t$并反求$h$，精确关系为$h^2=2Lc\Delta t+c^2(\Delta t)^2$，可用于区分首阶估计与更高阶修正。
+
+
+有理化只使用平方差恒等式：
+\[(\sqrt{L^2+h^2}-L)(\sqrt{L^2+h^2}+L)=h^2.\]
+分母始终正，因此$\Delta t\ge0$，且$h=0$时为零。提出尺度后，二项式的自变量是$\eta^2$，所以二项式的二次项已经给出$h/L$的四阶项。
+
+图~\ref{fig:c1-h14-s}把路程差放大显示。首阶反演为$h\simeq\sqrt{2Lc\Delta t}$，固定$L,c$后取对数微分，有$\dd h/h\simeq\dd(\Delta t)/(2\Delta t)$。因此小测量误差引起的$h$相对误差约为时间差相对误差的一半。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.9,0)node[right]{路程};\draw[line width=1pt](0,.55)--(3.8,.55);\draw[line width=1pt](0,1.15)--(4.15,1.15);\draw[guide](3.8,.3)--(3.8,1.5);\draw[guide](4.15,.3)--(4.15,1.5);\draw[<->](3.8,1.65)--(4.15,1.65)node[above]{$c\Delta t$};\node[left]at(0,.55){$L$};\node[left]at(0,1.15){$\sqrt{L^2+h^2}$};
+\end{tikzpicture}
+\caption{小路程差由两条近等长线段的端点间距表示，图中差值放大。}\label{fig:c1-h14-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[非匀强引力中的小位移]\label{ex:c1-h15}
+一质量$m$的质点在距固定引力中心$r_0$附近作径向位移$x$，$|x|\ll r_0$。令$g_0=GM/r_0^2$，求引力势能差的三阶展开，比较直接积分力与先展开势能两种方法。 见图~\ref{fig:c1-h15-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$r$};\fill(0,0)circle(2pt)node[below]{$M$};\fill(2.7,0)circle(1.5pt)node[above]{$r_0$};\fill(4,0)circle(1.5pt)node[above]{$r_0+x$};\draw[<->](2.7,-.5)--(4,-.5)node[midway,below]{$x$};
+\end{tikzpicture}
+\caption{坐标$x$向外为正，引力仍指向中心。}\label{fig:c1-h15-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h15-q}中的$x$沿径向向外为正，末态半径为$r_0+x$。先从精确势能求差：
+\[
+ \Delta U=GMm\left(\frac1{r_0}-\frac1{r_0+x}\right)
+ =mg_0r_0\left[1-\left(1+\frac{x}{r_0}\right)^{-1}\right].
+\]
+在$|x|/r_0\ll1$时展开括号，
+\[
+ \boxed{\Delta U=mg_0\left(x-\frac{x^2}{r_0}
+ +\frac{x^3}{r_0^2}\right)+O\left(\frac{mg_0x^4}{r_0^3}\right)}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.07407cm,y=1.00000cm]\draw[axis](-0.4,0)--(0.95,0)node[right]{$x/r_0$};\draw[axis](0,0)--(0,3)node[above]{$-F/(mg_0)$};\draw[curve,domain=-0.4:0.7,samples=101]plot(\x,{1/(1+\x)^2});\draw[dashed,domain=-.4:.7]plot(\x,{1-2*\x+3*(\x)^2});\end{scope}
+\end{tikzpicture}
+\caption{实线为精确引力大小，虚线为二阶近似，离展开点越远误差越大。}\label{fig:c1-h15-s}
+\end{figure}
+另一种方法直接积分力。引入沿途位移$\xi$，图~\ref{fig:c1-h15-s}中的精确引力及其二阶展开为
+\[
+ F(\xi)=-mg_0(1+\xi/r_0)^{-2}
+ =-mg_0\left[1-\frac{2\xi}{r_0}
+ +\frac{3\xi^2}{r_0^2}+O((\xi/r_0)^3)\right].
+\]
+沿$0$到$x$积分，势能差等于引力功的负值：
+\[
+ \begin{aligned}
+ \Delta U&=-\int_0^x F(\xi)\dd\xi\\
+ &=mg_0\left[\xi-\frac{\xi^2}{r_0}
+ +\frac{\xi^3}{r_0^2}\right]_0^x
+ +O\left(\frac{mg_0x^4}{r_0^3}\right),
+ \end{aligned}
+\]
+与势能展开一致。求三阶势能只需将力保留到二阶；图中的力多项式也只在$r_0$附近适用。精确函数在$|x|<r_0$解析，因而这里的逐项积分及反向求导均有依据。
+
+实际半径须满足$r_0+x>0$。当$x<0$时，积分限反向，且$-F(\xi)>0$，积分本身便给出$\Delta U<0$。向外位移时$\Delta U>0$，等于准静态外力所做的功。
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[积分限变化产生的边界项]\label{ex:c1-h16}
+设权函数$k(x)=k_0(1+\alpha x/L)$，定义$J(a)=\int_0^a k(x)(a-x)\dd x$。求$J,J^{\prime},J^{\prime\prime}$，说明为何直接求导时上限的边界项第一次为零而第二次非零。 见图~\ref{fig:c1-h16-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[curve](0,1.5)--(3,0);\draw[guide](3,0)--(3,1.8);\node[below]at(3,0){$a$};\node[right]at(1.3,1.2){权重$a-x$};
+\end{tikzpicture}
+\caption{移动上限处的权重恰为零。}\label{fig:c1-h16-q}
+\end{figure}
+\begin{solution}
+参数$a$出现了两次：它既是上限，又出现在权重$a-x$中。对$a$求导时，区间内部的每个权重都会变化，端点也会移动。图~\ref{fig:c1-h16-q}画的是三角形权重，求导后变成积分$k(x)$本身，正好与解答图中的新增窄条相接。
+
+
+先将被积函数展开为 $k_0[a-x+(\alpha/L)(ax-x^2)]$，逐项积分：
+\[
+\begin{aligned}
+J(a)&=k_0\left[ax-\frac{x^2}{2}+\frac\alpha L\left(\frac{ax^2}{2}-\frac{x^3}{3}\right)\right]_0^a\\
+&=k_0\left[\frac{a^2}{2}+\frac{\alpha a^3}{6L}\right].
+\end{aligned}
+\]
+对所得多项式连续求导，$J'=k_0[2a/2+3\alpha a^2/(6L)]$，再求导 $J''=k_0[1+2\alpha a/(2L)]$，即
+\[\boxed{J'=k_0[a+\alpha a^2/(2L)],\qquad J''=k_0(1+\alpha a/L)=k(a)}.\]
+用Leibniz公式，第一次求导的上限项为$k(a)(a-a)=0$，因此$J'=\int_0^ak(x)\dd x$。再次求导时，被积函数不含$a$，但上限移动给出$J''=k(a)$。图~\ref{fig:c1-h16-s}中新增窄条的宽度为$\dd a$，其贡献正是$k(a)\dd a$。
+
+上限项是否消失取决于端点权重。例如改为$\int_0^ak(x)(a+x)\dd x$，第一次求导便有上限项$2ak(a)$。
+
+
+其中 $\alpha$ 项含 $1/L$，与首项具有相同量纲。第二次求导给出的 $k(a)$ 是移动端点处的权函数值。
+
+从有限增量看，第一次新增区间$a<x<a+\Delta a$中的权重至多为$\Delta a$，宽度也是$\Delta a$，其贡献为二阶，故不进入$J'$。但$J'$的被积函数不再含这个零端点权重，新增区间贡献为$k(a)\Delta a+o(\Delta a)$，所以它进入$J''$。这解释了两次求导的边界项为何不同。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[axis](0,0)--(0,2)node[above]{$k(x)$};\draw[curve](0,.8)--(3.4,1.48);\fill[gray!20](2.7,0)--(2.7,1.34)--(3,1.4)--(3,0)--cycle;\node[below]at(2.4,0){$a$};\draw[guide](3,0)--(3,-.55);\node[below]at(3.3,-.55){$a+\dd a$};
+\end{tikzpicture}
+\caption{第二次求导对应普通变上限积分的新增薄条。}\label{fig:c1-h16-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[接近转向点的时间积分]\label{ex:c1-h17}
+质点在一维光滑势中，转向点为$x=A$且$U^{\prime}(A)>0$。由能量积分求从$A-\varepsilon$到$A$的首阶用时，并说明速度在转向点为零为何不使时间发散。 见图~\ref{fig:c1-h17-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.5,0)node[right]{$x$};\draw[axis](0,0)--(0,2.5)node[above]{$U$};\draw[curve,domain=0:3]plot(\x,{.25*(\x)^2});\draw[guide](0,1.5625)--(3.2,1.5625)node[right]{$E$};\draw[guide](2.5,0)--(2.5,1.5625);\fill(2.5,1.5625)circle(1.5pt);\node[below]at(2.5,0){$A$};
+\end{tikzpicture}
+\caption{转向点附近的势能斜率非零，能量差近似正比于距离。}\label{fig:c1-h17-q}
+\end{figure}
+\begin{solution}
+转向点处速度为零，判断时间是否发散需要看速度趋零的幂次。题设$U'(A)>0$保证在左侧邻域$E-U(x)>0$，因此$A-\varepsilon\to A$确为可达的向右分支。图~\ref{fig:c1-h17-q}的水平能量线在$A$与势能曲线相交，交点处斜率非零。
+
+
+设$u=A-x>0$。由$E=U(A)$，Taylor展开得$E-U(A-u)=U'(A)u+O(u^2)$。于是
+\[
+\begin{aligned}
+\Delta t&=\sqrt{m/2}\int_0^\varepsilon\frac{\dd u}{\sqrt{U'(A)u+O(u^2)}}\\
+&\sim\sqrt{\frac{m}{2U'(A)}}\int_0^\varepsilon u^{-1/2}\dd u
+=\sqrt{\frac{m}{2U'(A)}}[2\sqrt u]_0^\varepsilon
+=\boxed{\sqrt{\frac{2m\varepsilon}{U'(A)}}}.
+\end{aligned}
+\]
+余项中的常数含势能导数比及相应长度尺度。图~\ref{fig:c1-h17-s}的核函数按$u^{-1/2}$发散，但该奇性可积，故到达时间有限。若转向点同时满足$U'(A)=0$，能量差可能按$u^2$消失，时间核变为$1/u$，这时才会出现对数发散。
+
+例如在势垒顶附近以精确势垒能量运动，轨迹可以无限趋近不稳定平衡，而永不到达；这与普通有非零加速度的转向点应分开讨论。
+
+
+若$U$在$A$附近三阶连续，可把首项后的修正也写明。设$K=U'(A)>0$，则
+\[E-U(A-u)=Ku-\tfrac12U''(A)u^2+O(u^3).\]
+提取 $\sqrt{Ku}$，对括号的负二分之一次幂展开，得到
+\[
+\frac1{\sqrt{E-U(A-u)}}
+=\frac1{\sqrt{Ku}}\left[1+\frac{U''(A)}{4K}u+O(u^2)\right].
+\]
+再分别积分两个幂次：
+\[
+\begin{aligned}
+\Delta t&=\sqrt{\frac{m}{2K}}\left[2u^{1/2}+\frac{U''(A)}{4K}\frac23u^{3/2}+O(u^{5/2})\right]_0^\varepsilon\\
+&=\sqrt{\frac{2m\varepsilon}{K}}\left[1+\frac{U''(A)}{12K}\varepsilon+O(\varepsilon^2)\right].
+\end{aligned}
+\]
+上述表达式中的余项系数具有相应的长度量纲；展开要求 $|U''(A)\varepsilon/K|\ll1$，且更高阶项受控。若 $K=0$，先由 $E-U>0$ 确定可达侧，再按能量差的首个非零幂判断时间积分是否收敛。
+
+从速度平方出发，$v^2=2[E-U(x)]/m\simeq2K(A-x)/m$，故$v\propto\sqrt{A-x}$。令$u=A-x$，当质点向右接近$A$时$u$减小；时间积分中$\dd x=-\dd u$与反向边界共同给出正的用时。
+
+若能量差更一般地满足 $E-U(A-u)\sim Cu^p$，$C>0$，则时间核按 $u^{-p/2}$ 变化。引入下端截断 $\delta>0$，有
+\[
+\int_\delta^\varepsilon u^{-p/2}\dd u
+=\begin{cases}
+\left[u^{1-p/2}/(1-p/2)\right]_\delta^\varepsilon,&p\ne2,\\
+[\ln u]_\delta^\varepsilon,&p=2.
+\end{cases}
+\]
+令 $\delta\downarrow0$，$p<2$ 时可积，$p=2$ 时对数发散，$p>2$ 时幂次发散。图~\ref{fig:c1-h17-s}对应 $p=1$，势垒顶的临界能量常对应 $p=2$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.2cm,y=.8cm]
+\fill[gray!16](.04,0)--plot[domain=.04:.8,samples=121](\x,{1/sqrt(\x)})--(.8,0)--cycle;
+\draw[axis](0,0)--(2.8,0)node[right]{$u=A-x$};\draw[axis](0,0)--(0,5.25)node[above]{$u^{-1/2}$};
+\draw[curve,domain=.04:2.5,samples=151]plot(\x,{1/sqrt(\x)});
+\draw[guide](.8,0)--(.8,{1/sqrt(.8)});\node[below]at(.8,0){$\varepsilon$};
+\node[align=left,right]at(1.3,3.3){$\displaystyle\int_0^\varepsilon u^{-1/2}\dd u$\\[4pt]$\displaystyle=2\sqrt\varepsilon$};
+\end{scope}
+\end{tikzpicture}
+\caption{阴影表示转向点附近的可积奇性；曲线在$u=0$处无界，绘图仅截取有限高度。}\label{fig:c1-h17-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[密度奇点与有限质量]\label{ex:c1-h18}
+长$L$的细线密度$\lambda(x)=\lambda_0(x/L)^{-p}$，$0<x\le L$。分类讨论质量与关于原点的一阶矩是否有限；质量有限时求质心。 见图~\ref{fig:c1-h18-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=2.39316cm,y=1.00000cm]\draw[axis](0,0)--(1.25,0)node[right]{$x/L$};\draw[axis](0,0)--(0,4)node[above]{$\lambda/\lambda_0$};\draw[curve,domain=0.08:1,samples=101]plot(\x,{(\x)^(-.5)});\end{scope}
+\end{tikzpicture}
+\caption{图示 $p>0$ 时密度在左端发散，积分是否收敛取决于幂次。}\label{fig:c1-h18-q}
+\end{figure}
+\begin{solution}
+总质量与一阶矩对奇点的权重不同：前者积密度本身，后者还乘距离$x$，会减弱左端奇性。图~\ref{fig:c1-h18-q}中的无界曲线并不足以判断积分发散，需把下限暂取为正的截断值，再考察其趋零极限。
+
+
+令 $u=x/L$，质量与一阶矩分别为 $M=\lambda_0L\int_0^1u^{-p}\dd u$、$J=\lambda_0L^2\int_0^1u^{1-p}\dd u$。先引入无量纲截断 $\delta=\epsilon/L>0$。对 $p\ne1$，质量原函数是 $u^{1-p}/(1-p)$，所以
+\[
+M_\delta=\lambda_0L\left[\frac{u^{1-p}}{1-p}\right]_\delta^1
+=\lambda_0L\frac{1-\delta^{1-p}}{1-p}.
+\]
+$p=1$ 时改为 $\lambda_0L[\ln u]_\delta^1=-\lambda_0L\ln\delta$。一阶矩同理，对 $p\ne2$ 有
+\[
+J_\delta=\lambda_0L^2\left[\frac{u^{2-p}}{2-p}\right]_\delta^1
+=\lambda_0L^2\frac{1-\delta^{2-p}}{2-p},
+\]
+$p=2$ 时则为 $-\lambda_0L^2\ln\delta$。令 $\delta\downarrow0$，质量当且仅当 $p<1$ 时有限，值为 $\lambda_0L/(1-p)$；一阶矩当且仅当 $p<2$ 时有限，值为 $\lambda_0L^2/(2-p)$。
+
+因此质量有限时
+\[\boxed{x_C=L\frac{1-p}{2-p}\qquad(p<1)}.\]
+图~\ref{fig:c1-h18-s}中$p\to1^-$时，质量越来越集中在左端，质心趋零。$1\le p<2$虽有有限的一阶矩，却没有有限总质量，通常的有限物体质心定义不能直接使用。若先引入下端截断$\epsilon$再取极限，可以讨论截断分布的极限，但应明确那是另一层定义。
+
+
+在有限质量区间，$x_C/L=(1-p)/(2-p)$。对 $p$ 用商法则求导，
+\[
+\frac{\dd}{\dd p}\frac{1-p}{2-p}
+=\frac{-(2-p)+(1-p)}{(2-p)^2}=-\frac1{(2-p)^2}<0.
+\]
+所以 $p$ 越大，密度越集中于左端，质心越靠左；$p=0$ 恢复均匀线的中点。图~\ref{fig:c1-h18-s}只画这条有限质量分支。若研究截断线的极限，须连同 $M_\delta$ 和 $J_\delta$ 一起取极限，不能把发散质量直接当作普通有限物体的质量使用。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.25000cm,y=1.80000cm]\draw[axis](-1,0)--(1.24,0)node[right]{$p$};\draw[axis](0,0)--(0,1)node[above]{$x_C/L$};\draw[curve,domain=-1:0.99,samples=101]plot(\x,{(1-\x)/(2-\x)});\end{scope}
+\end{tikzpicture}
+\caption{在质量可积的$p<1$范围内，质心随左端奇性增强而左移。}\label{fig:c1-h18-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[近圆轨道的径向小振动]\label{ex:c1-h19}
+单位质量质点在中心势$V(r)=-\mu/r$中运动，角动量每单位质量为$h>0$。用有效势求圆轨道半径与径向小振动频率，并与圆周角速度比较。 见图~\ref{fig:c1-h19-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.5);\fill(0,0)circle(2pt)node[below]{$O$};\fill(1.5,0)circle(1.5pt)node[right]{$P$};\draw[axis](0,0)--(1.5,0)node[midway,above]{$r$};\draw[axis](1.5,0)--(1.5,.9)node[right]{$v_\varphi$};
+\end{tikzpicture}
+\caption{角动量固定时，径向运动受到引力势和离心项共同约束。}\label{fig:c1-h19-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h19-q}中中心力矩为零，单位质量角动量$h=r^2\dot\varphi$守恒。消去角速度后，单位质量能量为
+\[E=\frac12\dot r^2+V_{\rm eff}(r),\qquad
+V_{\rm eff}(r)=\frac{h^2}{2r^2}-\frac\mu r.\]
+圆轨道半径由零径向加速度确定：
+\[V_{\rm eff}'(r_0)=-\frac{h^2}{r_0^3}+\frac\mu{r_0^2}=0,
+\qquad \boxed{r_0=\frac{h^2}{\mu}}.\]
+这一条件等价于$r_0\Omega^2=\mu/r_0^2$与$h=r_0^2\Omega$联立，故有效势的驻点仍是通常的向心平衡。
+
+令$r=r_0+\eta$，$|\eta|\ll r_0$，在固定$h$时求二阶导数：
+\[V_{\rm eff}''(r_0)=\frac{3h^2}{r_0^4}-\frac{2\mu}{r_0^3}
+=\frac\mu{r_0^3}>0.\]
+图~\ref{fig:c1-h19-s}的虚线是势阱底的局部二次式，因而
+\[E=V_{\rm eff}(r_0)+\frac12\dot\eta^2+
+\frac{\mu}{2r_0^3}\eta^2+O(\eta^3),\qquad
+\ddot\eta+\frac\mu{r_0^3}\eta=O(\eta^2).\]
+径向小振动为$\eta=A\cos(\omega_rt+\phi)$，其中
+\[\boxed{\omega_r^2=\frac\mu{r_0^3}=\Omega^2},\qquad \Omega=\frac h{r_0^2}.\]
+角速度本身仍随半径变化：$\dot\varphi=h/(r_0+\eta)^2$。在线性近圆近似的一轮径向振动中，$\eta$的时间平均为零，方位角增量为$2\pi\Omega/\omega_r=2\pi$；故在线性近圆近似中，近心点没有进动。
+
+对一般单位质量中心势 $V(r)$，同样先固定 $h$。有效势导数为 $V_{\rm eff}'=-h^2/r^3+V'(r)$，二阶导数为 $V_{\rm eff}''=3h^2/r^4+V''(r)$。圆轨道先满足 $V_{\rm eff}'(r_0)=0$，再将所得 $h^2=r_0^3V'(r_0)$ 代入二阶导数，得到
+\[h^2=r_0^3V'(r_0),\qquad
+\boxed{\omega_r^2=V''(r_0)+\frac{3V'(r_0)}{r_0}},\qquad
+\Omega^2=\frac{V'(r_0)}{r_0}.\]
+只有$\omega_r^2>0$才存在径向线性稳定性，且一般不与$\Omega$相等。不能把逆距离势的等频关系推广到其他中心势，也不能在径向扰动中同时固定$h$和$v_\varphi$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.4cm,y=2cm]
+\draw[axis](.25,0)--(3.2,0)node[right]{$r/r_0$};\draw[axis](.25,-.65)--(.25,.85)node[above]{$V_{\rm eff}/(\mu/r_0)$};
+\draw[curve,domain=.4:3,samples=151]plot(\x,{1/(2*(\x)^2)-1/\x});
+\draw[dashed,domain=.65:1.45]plot(\x,{-.5+.5*(\x-1)^2});
+\draw[guide](1,0)--(1,-.5);\fill(1,-.5)circle(1.6pt);\node[above]at(1,0){$1$};
+\node[right]at(1.65,-.15){虚线：局部二次式};\end{scope}
+\end{tikzpicture}
+\caption{归一化半径$1$对应$r_0$。最低点附近的二次式给出径向小振动，不能代替远离圆轨道的精确势。}\label{fig:c1-h19-s}
+\end{figure}
+\end{solution}
+
+\Needspace{8\baselineskip}
+\begin{exercise}[两个小量接近抵消]\label{ex:c1-h20}
+设$0<\varepsilon\ll1$，比较$A(\varepsilon)=\sqrt{1+\varepsilon}-1$与$B(\varepsilon)=\sqrt{1+\varepsilon}-\sqrt{1-\varepsilon}$。求各自前三个非零项，说明相同展开阶数为何不一定足够。 见图~\ref{fig:c1-h20-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.5,0)node[right]{数值位置};\draw[curve](1.5,-.15)--(1.5,.6)node[above]{$\sqrt{1-\varepsilon}$};\draw[curve](2.5,-.15)--(2.5,.6)node[above]{$1$};\draw[curve](3.5,-.15)--(3.5,.6)node[above]{$\sqrt{1+\varepsilon}$};
+\end{tikzpicture}
+\caption{两个差值发生不同的奇偶项抵消。}\label{fig:c1-h20-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h20-q}中，$A$是函数值相对$1$的偏移，$B$比较零点两侧的函数值。两者的主项都是一阶，后一个反对称组合却消去全部偶次幂，因此求相同数目的非零项，需要保留到不同的最高幂次。
+
+
+二项式展开给出$\sqrt{1+u}=1+u/2-u^2/8+u^3/16-5u^4/128+7u^5/256+O(u^6)$。于是
+\[\boxed{A=\varepsilon/2-\varepsilon^2/8+\varepsilon^3/16+O(\varepsilon^4)},\]
+\[\boxed{B=\varepsilon+\varepsilon^3/8+7\varepsilon^5/128+O(\varepsilon^7)}.\]
+图~\ref{fig:c1-h20-s}中$B$对应在零点两侧的反对称差，偶次项全部抵消。要得到三个非零项，$A$展开到三次已够，$B$须保留到五次。这里$B$的余项写成七阶，还利用了其解析且为奇函数的性质。
+
+数值计算可用$A=\varepsilon/(\sqrt{1+\varepsilon}+1)$，$B=2\varepsilon/(\sqrt{1+\varepsilon}+\sqrt{1-\varepsilon})$，避免近数相减。本题所需展开阶数由差值中保留下来的非零项决定。
+
+
+将$\varepsilon$换成$-\varepsilon$，可直接看出$B(-\varepsilon)=-B(\varepsilon)$。因此其解析展开只能含奇次项。由五次二项式系数，两个根号的差在五次上为$2(7/256)\varepsilon^5=7\varepsilon^5/128$；四次项则因符号相同而相消。
+
+$A$不具有这一奇对称性，所以一次、二次、三次都保留。图~\ref{fig:c1-h20-s}中的$B$在原点附近近似一条斜率为$1$的直线，三次项才给出首个偏离。若只把两个根号各写成$1+O(\varepsilon)$，相减后只能知道量级，无法得到任何主项系数；保留阶数应由最终非零项的要求反推。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1.93103cm,y=1.12500cm]\draw[axis](-0.6,0)--(0.85,0)node[right]{$\varepsilon$};\draw[axis](0,-0.8)--(0,0.8)node[above]{$B$};\draw[curve,domain=-0.6:0.6,samples=101]plot(\x,{sqrt(1+\x)-sqrt(1-\x)});\draw[dashed,domain=-.6:.6]plot(\x,{\x+(\x)^3/8});\end{scope}
+\end{tikzpicture}
+\caption{实线是精确反对称差，虚线保留到三次；五次项给出下一修正。}\label{fig:c1-h20-s}
+\end{figure}
+\end{solution}

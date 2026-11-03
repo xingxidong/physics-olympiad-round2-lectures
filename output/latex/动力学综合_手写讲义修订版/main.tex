@@ -1,0 +1,57 @@
+% !TEX program = xelatex
+\documentclass[11pt,openany,fontset=fandol]{ctexbook}
+\usepackage[paperwidth=176mm,paperheight=250mm,inner=21mm,outer=18mm,top=20mm,bottom=20mm,headheight=14pt,headsep=6mm,footskip=10mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,bm,mathtools,booktabs,array,enumitem,float}
+\usepackage{tikz,fancyhdr,hyperref}
+\usetikzlibrary{arrows.meta,calc,patterns,angles,quotes,decorations.pathmorphing,decorations.markings}
+\hypersetup{hidelinks,pdftitle={动力学综合：手写讲义修订版},pdfauthor={}}
+\setlength{\parindent}{2em}\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{2em}\linespread{1.18}\raggedbottom
+\setcounter{tocdepth}{1}
+\ctexset{chapter={name={第,讲},number=\chinese{chapter},format=\LARGE\bfseries\centering,beforeskip=16pt,afterskip=22pt},section={format=\Large\bfseries},subsection={format=\large\bfseries}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[LO]{\small 动力学综合}\fancyhead[RE]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\theoremstyle{definition}\newtheorem{example}{例}[chapter]\newtheorem{exercise}{习题}[chapter]
+\newdimen\LectureSpaceDim
+\newcommand{\LectureNeedspace}[1]{\par\penalty-100\begingroup\LectureSpaceDim=\dimexpr\pagegoal-\pagetotal\relax\ifdim\LectureSpaceDim<#1\relax\newpage\fi\endgroup}
+\newcommand{\SolutionStart}{\par\medskip\ifdim\pagetotal>0pt\ifdim\dimexpr\pagegoal-\pagetotal\relax<3\baselineskip\newpage\fi\fi\noindent\textbf{解}\quad\ignorespaces}
+\newenvironment{solution}{\SolutionStart}{\par\medskip}
+\newcommand{\dd}{\mathop{}\!\mathrm d}\newcommand{\vct}[1]{\bm{#1}}
+\tikzset{axis/.style={->,>=Stealth,line width=.4pt},curve/.style={line width=.7pt},guide/.style={dashed,line width=.35pt},every node/.style={font=\small},spring/.style={decorate,decoration={coil,aspect=.45,segment length=4pt,amplitude=3pt}}}
+
+\newcommand{\ee}{\mathrm e}
+\tikzset{flow/.style={curve,postaction={decorate},decoration={markings,mark=at position .22 with {\arrow{Stealth}},mark=at position .68 with {\arrow{Stealth}}}}}
+\providecommand{\ExpansionDiagram}[3]{\begin{figure}[H]\centering\begin{tikzpicture}#3\end{tikzpicture}\caption{#2}\label{#1}\end{figure}}
+
+% 分册与十编合订本共用的定位页码；局部章、图、题号保持原有对应。
+\newcommand{\CoursePartNumber}{3}
+\geometry{inner=19.5mm,outer=19.5mm,headheight=16pt}
+\AtBeginDocument{%
+  \fancyhead{}\fancyhead[C]{\small 动力学综合}%
+  \fancyfoot[C]{\small\CoursePartNumber-\thepage}%
+  \fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\CoursePartNumber-\thepage}\renewcommand{\headrulewidth}{0pt}}%
+}
+
+\begin{document}\frontmatter
+\begin{titlepage}
+\centering\vspace*{30mm}
+{\Large 物理竞赛二轮讲义\quad 第三编\par}\vspace{8mm}
+
+{\Huge\bfseries 动力学综合\par}
+\vspace{12mm}{\Large 物理竞赛二轮讲义\par}
+\vspace{10mm}{\large 第一讲至第八讲\par}
+\vfill{\large 2026\par}
+\end{titlepage}
+
+\begingroup\small\setlength{\parskip}{0pt}\linespread{1}\selectfont\tableofcontents\endgroup\let\cleardoublepage\clearpage\mainmatter
+\input{lecture1}
+\input{lecture2}
+\input{lecture3}
+\input{lecture4}
+\input{lecture5}
+\input{lecture6}
+\input{lecture7}
+\input{lecture8}
+\end{document}

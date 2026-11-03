@@ -1,0 +1,77 @@
+\section{边界几何造成的场增强与角模衰减}
+\subsection{尖角的局部指数与能量可积性}
+在导体尖角附近，远处电极的形状首先决定展开系数，局部夹角决定允许指数。取导体外的真空楔形区域$0<\theta<\Omega$，两边同为零势。局部可分离解的最低非零项为
+\[
+ \phi\simeq A r^\lambda\sin(\lambda\theta),
+ \qquad \lambda=\pi/\Omega.
+\]
+其中排除了顶点处发散的势分支，也假定最低角模系数$A$不为零。场分量是$E_r=-A\lambda r^{\lambda-1}\sin\lambda\theta$、$E_\theta=-A\lambda r^{\lambda-1}\cos\lambda\theta$。因此$|E|=|A|\lambda r^{\lambda-1}$。
+
+当导体是凸角时，其外部角$\Omega>\pi$，所以$\lambda<1$，场在理想尖点发散。尽管如此，每单位轴长的局部场能仍为
+\[
+ U(0,\rho)=\frac{\varepsilon_0A^2\lambda^2\Omega}{2}
+ \int_0^\rho r^{2\lambda-1}\dd r
+ =\frac{\varepsilon_0A^2\lambda^2\Omega}{2}
+ \left[\frac{r^{2\lambda}}{2\lambda}\right]_0^\rho
+ =\frac{\varepsilon_0A^2\lambda\Omega}{4}\rho^{2\lambda},
+\]
+对任意$\lambda>0$，这个积分都有限，因此尖角附近的局部场可以无界，而该处的场能仍可积。实际场增强会受到圆角、材料击穿和微观尺度的限制；在圆角之外的适当距离范围内，仍可采用楔形几何给出的幂律。
+
+\begin{example}[直角金属边缘的场增强]
+一长导体的横截面有$90^\circ$凸角，尖角外侧是真空。远处电极使最低角模非零。在距角点$\ell$的局部幂律区域测得场强$E_\ell$。把尖角磨成半径$r_0\ll\ell$的圆角，估算最大场强的尺度，并求原理想尖角附近半径$\rho$内的场能随$\rho$的幂次。
+\ExpansionDiagram{fig:dep-es2-corner-q}{导体内角为$\pi/2$，场所占的外部角为$3\pi/2$}{
+\fill[gray!20](-2,-2)rectangle(0,0);\draw[thick](-2,0)--(0,0)--(0,-2);\draw[->](0,0)--(2.6,0)node[right]{$r$};\draw[dashed](0,0)circle(1.6);\node[right]at(1.5,1.5){真空};\node at(-1,-1){导体};\draw[->](-.6,0)arc(180:-90:.6);\node[right]at(.65,.65){$\Omega$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-es2-corner-q}中的外部角是$2\pi-\pi/2=3\pi/2$，所以$\lambda=2/3$。理想场随$r^{-1/3}$增强，用在$r=\ell$处的数值定标，
+\[
+ E(r)\simeq E_\ell(\ell/r)^{1/3}.
+\]
+圆角处的精确系数依赖圆弧与两直边的接续，但最大值尺度为$E_{\max}\sim E_\ell(\ell/r_0)^{1/3}$。例如$r_0$缩小八倍，最大场约增加两倍，不是八倍。
+\ExpansionDiagram{fig:dep-es2-corner-a}{圆角截断幂律；直线段上仍保留尖角场的尺度}{
+\draw[->](0,0)--(6,0)node[right]{$\ln r$};\draw[->](0,0)--(0,3.4)node[above]{$\ln E$};\draw[thick](.5,2.8)--(1.5,2.8)--(5.5,1.47);\draw[dashed](1.5,0)--(1.5,2.8);\node[below]at(1.5,0){$\ln r_0$};\node[above]at(4,2.4){斜率$-1/3$};}
+图\ref{fig:dep-es2-corner-a}画的是尺度关系，圆角内并不继续使用尖点幂律。每单位轴长的能量积分为
+\[U(0,\rho)=\frac{\varepsilon_0\Omega E_\ell^2\ell^{2/3}}2
+\int_0^\rho r^{1/3}\dd r
+=\frac{3\varepsilon_0\Omega E_\ell^2\ell^{2/3}}8\rho^{4/3},\]
+其中面积元的$r$与场强平方的$r^{-2/3}$合成$r^{1/3}$，原函数为$3r^{4/3}/4$。故$\rho\to0$时该部分能量趋零。若一条直边上$\sigma=Kr^{-1/3}$，则所积累的每单位轴长电量为$\int_0^\rho Kr^{-1/3}\dd r=K[3r^{2/3}/2]_0^\rho=3K\rho^{2/3}/2$，也有限。局部场强很大时，击穿风险应看最大场而非仅看总场能。
+\end{solution}
+
+\subsection{环域把角向细结构限制在边界附近}
+圆边界的第$m$角模含角尺度$\Delta\theta\sim1/m$。在半径为$a,b$的环域内，内边界接地、外边界为$V_m\cos m\theta$，解为
+\[
+ \phi_m=V_m\frac{\sinh[m\ln(r/a)]}{\sinh[m\ln(b/a)]}\cos m\theta,
+ \qquad a<r<b.
+\]
+具体地，令径向系数为$Ar^m+Br^{-m}$。内壁零势给$B=-Aa^{2m}$；外壁系数为$V_m$，给$A=V_m/(b^m-a^{2m}b^{-m})$。代回后将分子、分母分别写成
+\[r^m-a^{2m}r^{-m}=2a^m\sinh[m\ln(r/a)],\qquad
+b^m-a^{2m}b^{-m}=2a^m\sinh[m\ln(b/a)],\]
+约去共同因子便得上式。对数径向坐标$u=\ln(r/a)$使径向函数成为双曲正弦；角模阶数越高，其径向变化越快。零模$m=0$须另取$\ln(r/a)/\ln(b/a)$的极限，不能把$m=0$直接代进尚未取极限的$0/0$。
+
+\begin{example}[环域电势的内壁响应]
+长同轴结构的内壁$r=a$接地，外边界$r=b$由相互绝缘的小电极近似维持$V\cos m\theta$，$m\geq1$。忽略轴向端部效应，求内壁面电荷密度、总电量及每单位轴长场能。
+\ExpansionDiagram{fig:dep-es2-annulus-q}{外边界角模由分段电极维持，内圆柱为接地导体}{
+\draw[thick](0,0)circle(.8);\draw[thick](0,0)circle(1.9);\draw[->](0,0)--(.8,0)node[midway,below]{$a$};\draw[->](0,0)--(1.34,1.34)node[midway,above left]{$b$};\node at(0,2.3){$V\cos m\theta$};\node at(-.1,-.35){$0$};}
+\end{example}
+\begin{solution}
+把前述环域解中的$V_m$取为$V$。由于$\partial_r\ln(r/a)=1/r$，链式求导给出
+\[\partial_r\phi=\frac{mV}{r}\frac{\cosh[m\ln(r/a)]}{\sinh[m\ln(b/a)]}\cos m\theta.\]
+图\ref{fig:dep-es2-annulus-q}内导体的外法线指向$+r$，在$r=a$处$\cosh0=1$，故
+\[
+ E_r(a,\theta)=-\frac{mV}{a\sinh[m\ln(b/a)]}\cos m\theta,
+ \quad\sigma_a=\varepsilon_0E_r(a,\theta).
+\]
+正负角区的面电荷积分相消，因为$\int_0^{2\pi}\cos m\theta\dd\theta=0$，所以内导体总电量为零。接地只规定电势为零，并不逐点规定面电荷为零。
+\ExpansionDiagram{fig:dep-es2-annulus-a}{内壁感应电荷随角模变号；高阶模式的响应受到双曲正弦分母抑制}{
+\draw[thick](0,0)circle(1);\foreach\a in{0,20,160,180,200,340}{\node at(\a:1.25){$-$};}\foreach\a in{70,90,110,250,270,290}{\node at(\a:1.25){$+$};}\node[right]at(2,0){图示$m=2,V>0$};}
+图\ref{fig:dep-es2-annulus-a}在$\cos2\theta>0$方向画负电荷，与向内的径向场一致。场能可用边界积分$U=\varepsilon_0\oint\phi\,\partial_n\phi\,\dd l/2$。内边界势为零，只有外边界贡献；$\partial_r\phi(b)=mV\coth[m\ln(b/a)]\cos m\theta/b$，故
+\[
+ U=\frac{\pi\varepsilon_0mV^2}{2}\coth[m\ln(b/a)].
+\]
+这里外壁线元为$b\dd\theta$，因此实际角积分是
+\[U=\frac{\varepsilon_0mV^2}{2}\coth[m\ln(b/a)]\int_0^{2\pi}\cos^2m\theta\dd\theta,
+\]
+\[\int_0^{2\pi}\cos^2m\theta\dd\theta
+=\left[\frac\theta2+\frac{\sin2m\theta}{4m}\right]_0^{2\pi}=\pi.\]
+当$m\ln(b/a)\gg1$时，内壁感应电荷约按$\exp[-m\ln(b/a)]$衰减，场能却约为$\pi\varepsilon_0mV^2/2$。高阶角模主要把能量集中在外边界附近，并非整个场都变弱。若外边界实际为一整块导体，则不能维持非恒定角向电势，本题的分段电极条件不可省略。
+\end{solution}

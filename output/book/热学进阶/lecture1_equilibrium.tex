@@ -1,0 +1,64 @@
+\subsection{平衡权重的来源与能量零点}
+\label{th:reservoirweight}
+Boltzmann 因子可由粒子与热库的能量交换推导。把两者组成孤立整体，忽略耦合所占的能量，总能量记为 $E_{\rm tot}$。粒子处于能量为 $E_i$ 的一个微观状态时，热库能量为 $E_{\rm tot}-E_i$；该状态的概率与热库在此能量下的可占据状态数 $\Omega_b(E_{\rm tot}-E_i)$ 成正比。用 $S_b=\kb\ln\Omega_b$ 表示热库熵，在参考能量附近展开，
+\[
+ S_b(E_b-E_i)=S_b(E_b)-\frac{E_i}{T}
+ -\frac{E_i^2}{2C_bT^2}+\cdots.
+\]
+这里用到$\partial S_b/\partial E_b=1/T$。对它再用链式法则，并用$C_b=\partial E_b/\partial T$，
+\[\frac{\partial^2S_b}{\partial E_b^2}
+=\frac{\dd(T^{-1})}{\dd T}\frac{\partial T}{\partial E_b}
+=-\frac1{T^2}\frac1{C_b}.\]
+热库的热容$C_b$足够大时，粒子交换的有限能量对热库温度的改变可忽略，指数中保留一次项便得到$\ee^{-E_i/(\kb T)}$。这里的温度是共同平衡温度。若热库很小，二次项不可忽略，单一的正则指数权重便只是近似。
+
+\Diagram{fig:reservoirweight}{粒子的状态权重由热库可占据状态数决定}{
+ \node[draw,minimum width=2cm,minimum height=1.2cm](a)at(0,0){粒子 $E_i$};
+ \node[draw,minimum width=3.3cm,minimum height=1.5cm](b)at(5,0){热库 $E_b-E_i$};
+ \draw[<->](a)--(b)node[midway,above]{能量交换};
+ \node at(2.5,-1.35){整体能量固定；热库温度近似不变};
+}
+图\ref{fig:reservoirweight}比较的是单个微观状态的权重。同一能级有若干状态时，将各状态概率相加便出现简并度因子。连续能量情形相应地乘以态密度，因此能量分布的峰值由态密度与指数权重共同决定。
+
+设单粒子配分和为 $Z_1=\sum_i r_i\ee^{-\beta E_i}$，其中 $\beta=1/(\kb T)$。若所有能级同时平移常数 $E_\ast$，则
+\[
+ Z_1'= \ee^{-\beta E_\ast}Z_1,\qquad
+ \frac{r_i\ee^{-\beta(E_i+E_\ast)}}{Z_1'}
+ =\frac{r_i\ee^{-\beta E_i}}{Z_1}.
+\]
+占有概率不变，平均能量只增加 $E_\ast$。粒子数固定时，能量差、做功和热容都不受这一平移影响；粒子数变化的开口系统则须在储能和粒子携带能量两处采用同一零点。
+
+\subsection{由各向同性与分量独立性确定高斯形状}
+各向同性规定分布只能依赖 $v_x^2+v_y^2+v_z^2$；分量独立性又规定联合密度可写成三个一维因子的乘积。这两个条件共同限制了函数形状。写成
+\[
+ f(\vct v)=\phi(v_x)\phi(v_y)\phi(v_z)
+ =\Psi(v_x^2+v_y^2+v_z^2).
+\]
+在密度为正、二次连续可微的区域取对数，记 $L(s)=\ln\Psi(s)$。对 $v_x$ 求导，再对 $v_y$ 求导，
+\[
+ \frac{\partial^2\ln f}{\partial v_y\partial v_x}
+ =4v_xv_yL''(v^2)=0.
+\]
+左端为零是因为乘积的对数中没有同时含$v_x,v_y$的项。任取非零的$v_x,v_y$可知$L''(s)=0$。两次积分分别给$L'(s)=-\alpha$、$L(s)=a-\alpha s$，其中$a,\alpha$为常数。归一化要求$\alpha>0$，于是得到高斯形状。由其二阶矩可得$m\langle v_x^2\rangle=m/(2\alpha)$；与平衡态的热能尺度$\kb T$对应，便有$\alpha=m/(2\kb T)$。
+
+各向同性单独并不保证高斯分布。例如，速率固定而方向均匀的粒子群也是各向同性的，但其三个速度分量受 $v_x^2+v_y^2+v_z^2=v_0^2$ 约束，彼此不独立。后文固定速率背景的碰撞题正属于这种分布，不能把它的某一分量再当成 Maxwell 高斯分量。
+
+\subsection{高斯积分的缩放、递推与边界}
+已有的 $I_s$ 表可以由一个无量纲积分统一使用。令 $y=\sqrt\alpha\,x$，则
+\[
+ I_s(\alpha)=\alpha^{-(s+1)/2}
+ \int_0^\infty y^s\ee^{-y^2}\dd y.
+\]
+幂次 $\alpha^{-(s+1)/2}$ 同时包含变量幂的缩放和微分 $\dd x$ 的缩放。它可先用来判断答案的温度、质量依赖，再计算常数系数。对连续参数求导时，积分区间须与该参数无关，并要求导数的积分收敛；本讲的 $\alpha>0$ 高斯积分满足这些条件。
+
+若下限为非零阈值 $a$，则定义
+$J_s(a)=\int_a^\infty x^s\ee^{-\alpha x^2}\dd x$。分部积分保留下限项，得到
+\[
+\begin{aligned}
+ J_{s+2}(a)&=-\frac1{2\alpha}[x^{s+1}e^{-\alpha x^2}]_a^\infty
++\frac{s+1}{2\alpha}\int_a^\infty x^se^{-\alpha x^2}\dd x\\
+&=\frac{a^{s+1}\ee^{-\alpha a^2}}{2\alpha}
+ +\frac{s+1}{2\alpha}J_s(a).
+\end{aligned}
+\]
+取 $a=0$ 才回到 $I_s$ 的递推。阈值问题出现的“指数乘多项式”，正是反复保留下限项的结果；半轴归一化积分中的边界项为零，并不意味着截断积分的边界项也为零。
+

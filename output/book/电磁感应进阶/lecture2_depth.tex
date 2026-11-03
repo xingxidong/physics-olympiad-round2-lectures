@@ -1,0 +1,152 @@
+\section{非线性磁链与有损副边的反作用}
+\subsection{割线电感、微分电感和磁能}
+在线性无磁滞元件中，磁链$\lambda=Li$，磁能为$Li^2/2$。若铁芯的磁响应非线性但仍单值、可逆，则应从完整的$\lambda(i,x)$关系出发；$x$表示机械位置。固定$x$时有两个不同电感：
+\[
+ L_{\rm sec}=\frac{\lambda}{i},\qquad
+ L_{\rm diff}=\left(\frac{\partial\lambda}{\partial i}\right)_x.
+\]
+缓慢建立磁场时，电源输送的电磁功为$i\,\dd\lambda$，所以磁能及共能分别为
+\[
+ W(\lambda,x)=\int_0^\lambda i(\tilde\lambda,x)\,\dd\tilde\lambda,
+ \quad
+ W'(i,x)=\int_0^i\lambda(\tilde i,x)\,\dd\tilde i.
+\]
+两者满足$W+W'=i\lambda$。这里$W'$是共能的记号，不是对某个变量求导。
+\ExpansionDiagram{fig:dep-i2-nonlinear}{单值磁化曲线下的共能面积及其互补的磁能面积}{
+\draw[->](0,0)--(5.3,0)node[right]{$i$};\draw[->](0,0)--(0,3.5)node[above]{$\lambda$};
+\fill[gray!10](0,0)rectangle(4,2.88);
+\fill[gray!35,domain=0:4,samples=60](0,0)--plot(\x,{.4*\x+.02*\x^3})--(4,0)--cycle;
+\draw[thick,domain=0:4.3,samples=60]plot(\x,{.4*\x+.02*\x^3});
+\draw[dashed](4,0)--(4,2.88)--(0,2.88);
+\node at(2.7,.6){$W'$};\node at(1.4,2){$W$};}
+图\ref{fig:dep-i2-nonlinear}的横轴为$i$、纵轴为$\lambda$，故曲线下的面积为$\int\lambda\,\dd i$，即共能；矩形的另一部分才是磁能。它们只有在线性关系下相等。
+
+包含机械位移时，能量平衡为
+\[
+ \dd W=i\,\dd\lambda-F\,\dd x,\qquad
+ \dd W'=\lambda\,\dd i+F\,\dd x.
+\]
+因此恒磁链取$F=-(\partial W/\partial x)_\lambda$，恒电流取$F=(\partial W'/\partial x)_i$。这两个公式由同一微分式得到，并不对应两种不同的磁力。
+
+\begin{example}[位置相关非线性电感的力和小信号响应]
+某可逆、无磁滞磁元件的磁链关系为
+\[
+ \lambda(i,x)=L(x)i+\alpha(x)i^3,
+\]
+在讨论范围内$L>0,\alpha>0$。求磁能、共能和沿$x$方向的力；再求固定位置、偏置电流$I$附近小扰动的端口方程。导线电阻为$R$。
+\ExpansionDiagram{fig:dep-i2-cubic-q}{机械位置影响整条磁链曲线，电流偏置附近使用局部斜率}{
+\draw[->](0,0)--(5,0)node[right]{$i$};\draw[->](0,0)--(0,3.7)node[above]{$\lambda$};
+\draw[thick,domain=0:4.2,samples=70]plot(\x,{.35*\x+.025*\x^3});
+\draw[dashed,domain=0:3.9,samples=70]plot(\x,{.5*\x+.025*\x^3});
+\node[right]at(4,3.5){$x+\dd x$};\fill(2.8,1.5288)circle(2pt);
+\draw(1.8,.5908)--(3.8,2.4668);\draw[dashed](2.8,0)--(2.8,1.5288);\node[below]at(2.8,0){$I$};}
+\end{example}
+\begin{solution}
+按图\ref{fig:dep-i2-cubic-q}的横轴从零电流积分，位置$x$保持不变：
+\[
+ W'(i,x)=\int_0^i[L(x)s+\alpha(x)s^3]\dd s
+ =\left[\frac12L(x)s^2+\frac14\alpha(x)s^4\right]_0^i
+ =\frac12L(x)i^2+\frac14\alpha(x)i^4.
+\]
+再由$W=i\lambda-W'$得到
+\[
+ W=\frac12L(x)i^2+\frac34\alpha(x)i^4.
+\]
+此式以$i$为参数表示磁能；做恒磁链求导时，$i$仍随$x$改变。为避免漏掉这项，直接使用恒电流共能公式：
+\[
+ \boxed{F=\frac12\frac{\dd L}{\dd x}i^2+
+ \frac14\frac{\dd\alpha}{\dd x}i^4.}
+\]
+若改用磁能，恒$\lambda$条件给出
+\[
+ 0=(L+3\alpha i^2)\frac{\dd i}{\dd x}
+ +L_xi+\alpha_xi^3.
+\]
+解出$\dd i/\dd x=-(L_xi+\alpha_xi^3)/(L+3\alpha i^2)$。再对参数式$W(i,x)$求全导数，
+\[\begin{aligned}
+-\left(\frac{\dd W}{\dd x}\right)_\lambda
+&=-\frac12L_xi^2-\frac34\alpha_xi^4
+-i(L+3\alpha i^2)\frac{\dd i}{\dd x}\\
+&=-\frac12L_xi^2-\frac34\alpha_xi^4
++i(L_xi+\alpha_xi^3)
+=\frac12L_xi^2+\frac14\alpha_xi^4.
+\end{aligned}\]
+这与共能公式相同。用恒$i$的$-\partial_xW$会遗漏电源功，连力的符号也可能错误。
+\ExpansionDiagram{fig:dep-i2-cubic-a}{偏置附近的割线斜率与微分斜率不同}{
+\draw[->](0,0)--(5,0)node[right]{$i$};\draw[->](0,0)--(0,3.6)node[above]{$\lambda$};
+\draw[thick,domain=0:4.2,samples=60]plot(\x,{.35*\x+.025*\x^3});
+\draw[dashed](0,0)--(4.2,2.2932);\draw(1.8,.5908)--(3.8,2.4668);
+\fill(2.8,1.5288)circle(2pt);\node[left]at(1.8,.65){$L_{\rm sec}$};
+\node[right]at(3.6,2.3){$L_{\rm diff}$};}
+令$i=I+\delta i$，固定$x$，忽略$(\delta i)^2$及更高阶项，
+\[
+ \delta\lambda=(L+3\alpha I^2)\delta i,\qquad
+ \boxed{\delta v=R\,\delta i+
+ (L+3\alpha I^2)\frac{\dd\,\delta i}{\dd t}.}
+\]
+图\ref{fig:dep-i2-cubic-a}中的割线对应$L_{\rm sec}=L+\alpha I^2$，切线对应$L_{\rm diff}=L+3\alpha I^2$。若端口扰动电压为零，方程成为$L_{\rm diff}\delta\dot i+R\delta i=0$。从初值$\delta i_0$积分，
+\[\int_{\delta i_0}^{\delta i(t)}\frac{\dd s}s=-\frac{R}{L_{\rm diff}}\int_0^t\dd t',\qquad
+[\ln|s|]_{\delta i_0}^{\delta i(t)}=-\frac{Rt}{L_{\rm diff}}.\]
+非零解保持初始符号，取指数得
+\[\delta i(t)=\delta i_0e^{-Rt/L_{\rm diff}},\]
+所以衰减时间为$L_{\rm diff}/R$；零初扰动给恒零解。若机械位置也扰动，还应加上$(L_xI+\alpha_xI^3)\delta\dot x$产生的电压项。这里的磁化关系单值，不包含磁滞损耗。
+\end{solution}
+
+\subsection{短路副边使主边同时呈现电抗和电阻}
+两线性线圈的位置固定，电流参考方向取使互感项为$+M$，电感矩阵正定：$M^2<L_1L_2$。副边由自身电感$L_2$和串联电阻$R_2>0$闭合，主边电阻为$R_1$。采用$\ee^{\mathrm i\omega t}$相量约定，有
+\[
+ V_1=(R_1+\mathrm i\omega L_1)I_1+\mathrm i\omega MI_2,
+ \quad
+ 0=(R_2+\mathrm i\omega L_2)I_2+\mathrm i\omega MI_1.
+\]
+由第二式先解出$I_2=-\mathrm i\omega MI_1/(R_2+\mathrm i\omega L_2)$，再代入第一式。因$(\mathrm i\omega M)(-\mathrm i\omega M)=\omega^2M^2$，得到
+\[
+ Z_{\rm in}=R_1+\mathrm i\omega L_1+
+ \frac{\omega^2M^2}{R_2+\mathrm i\omega L_2}.
+\]
+把分母乘以共轭，可分别读出主边增加的实部及减少的电感：
+\[
+ \Delta R=\frac{\omega^2M^2R_2}{R_2^2+\omega^2L_2^2}>0,\quad
+ L_{\rm eff}=L_1-\frac{\omega^2M^2L_2}{R_2^2+\omega^2L_2^2}.
+\]
+有限电阻使副边电流与主边电流之间存在相位差。主边因此同时感受到附加电阻和电感的变化，单用反向电流的实数关系无法描述这一反作用。
+
+\begin{example}[副边耗散怎样反映到主边]
+上列耦合线圈满足$L_1=L_2=L$、$M=kL$，$0<k<1$，主边电阻忽略。求$\omega L=R_2$时的输入阻抗、副边电流与主边电流之比，并证明主边获得的平均有功功率全部耗散在$R_2$上。相量幅值统一取有效值。
+\ExpansionDiagram{fig:dep-i2-secondary-q}{闭合副边通过互感向主边反映耗散}{
+\draw[thick](0,.6)--(0,0)--(1.2,0)--(1.2,.1);
+\draw[thick](0,1.4)--(0,2)--(1.2,2)--(1.2,1.9);
+\draw[thick](0,1)circle(.4);\draw[domain=-.25:.25,samples=30]plot(\x,{1+.12*sin(720*\x)});
+\draw[thick](3,.1)--(3,0)--(4.2,0)--(4.2,.5);
+\draw[thick](4.2,.5)--(4.05,.65)--(4.35,.85)--(4.05,1.05)--(4.35,1.25)--(4.2,1.4)--(4.2,2)--(3,2)--(3,1.9);
+\foreach \y in {.1,.46,.82,1.18,1.54}{\draw[thick](1.2,\y)arc(-90:90:.18);\draw[thick](3,\y)arc(270:90:.18);}
+\fill(1.2,1.98)circle(1.5pt);\fill(3,1.98)circle(1.5pt);
+\draw[->](.2,2.12)--(.9,2.12)node[midway,above]{$I_1$};\draw[->](4,2.12)--(3.3,2.12)node[midway,above]{$I_2$};
+\node[left]at(-.4,1){$V_1$};\node[right]at(4.45,1){$R_2$};
+\draw[<->](1.6,2.3)--(2.7,2.3)node[midway,above]{$M$};\node[below]at(.6,0){$L$};\node[below]at(3.6,0){$L$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:dep-i2-secondary-q}中，两线圈按互感项为正的约定接线。由副边方程及$\omega L=R_2$，
+\[
+ \frac{I_2}{I_1}=-\frac{\mathrm i\omega kL}{R_2+\mathrm i\omega L}
+ =-\frac{k}{2}(1+\mathrm i).
+\]
+所以$|I_2|^2=k^2|I_1|^2/2$。主边增加的实部为$k^2R_2/2$，有效电感为$L(1-k^2/2)$：
+\[
+ \boxed{Z_{\rm in}=\frac{k^2R_2}{2}
+ +\mathrm iR_2\left(1-\frac{k^2}{2}\right)}.
+\]
+\ExpansionDiagram{fig:dep-i2-secondary-a}{以主边电流为实轴，副边电流含反相及正交分量}{
+\draw[->](-2.2,0)--(2.3,0)node[right]{实部};\draw[->](0,-2)--(0,1.3)node[above]{虚部};
+\draw[->,thick](0,0)--(1.7,0)node[above]{$I_1$};
+\draw[->,thick](0,0)--(-1.25,-1.25)node[below left]{$I_2$};
+\draw[dashed](-1.25,0)--(-1.25,-1.25)--(0,-1.25);
+\node[above]at(-1.25,0){$-kI_1/2$};}
+图\ref{fig:dep-i2-secondary-a}取$I_1$为实数参考。由于相量为有效值，主边平均输入功率不再乘$1/2$：
+\[
+ P_{\rm in}=|I_1|^2\operatorname{Re}Z_{\rm in}
+ =\frac{k^2R_2}{2}|I_1|^2
+ =R_2|I_2|^2.
+\]
+互感本身没有耗散；主边的实阻抗反映了副边的电阻热。低频$\omega L_2\ll R_2$时，$\Delta R$按$\omega^2$趋零、$L_{\rm eff}\to L_1$；高频$\omega L_2\gg R_2$时，$L_{\rm eff}\to L_1-M^2/L_2>0$。最后的不等式来自电感矩阵正定，保证这个无源回路不会给出负的有效电感。
+\end{solution}

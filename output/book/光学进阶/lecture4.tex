@@ -1,0 +1,254 @@
+\chapter{偏振、晶体与界面电磁波}
+\section{Jones矢量与偏振椭圆}\label{th:o4jones}
+在均匀各向同性介质中，平面波为横波。取传播方向$+z$，固定相位约定$\exp[i(kz-\omega t)]$，省略公共相位后的Jones矢量为
+\[
+ \vct e=\begin{pmatrix}a\\b\ee^{i\delta}\end{pmatrix},\quad a,b\geq0.
+\]
+某固定位置以$\omega t$为时间变量，可写$E_x=a\cos\omega t$、$E_y=b\cos(\omega t-\delta)$。Jones矢量只适用于确定的完全偏振分量；自然光的随机偏振不能用一个恒定Jones矢量替代。
+
+若$\delta=0$或$\pi$，两分量同相或反相，末端沿直线运动。若$a=b$且$\delta=\pm\pi/2$，轨迹为圆。一般情形为椭圆。取$a=b,\delta=\pi/2$时，在$t=0$电场沿$+x$，随后转向$+y$。从$+z$端朝光源看、且把$x$向右$y$向上画在纸上，此旋转为逆时针；换观察方向会改变名称，故以下均以这个时序说明旋向。
+
+\Diagram{fig:o4states}{同一观察约定下的线、圆和椭圆轨迹}{\begin{scope}[xshift=-3cm]\draw[axis](-1.1,0)--(1.2,0);\draw[axis](0,-1.1)--(0,1.2);\draw[very thick](-.8,-.8)--(.8,.8);\node[below]at(0,-1.3){线};\end{scope}\draw[axis](-1.1,0)--(1.2,0);\draw[axis](0,-1.1)--(0,1.2);\draw[curve](0,0)circle(.9);\draw[->](.9,0)arc(0:50:.9);\node[below]at(0,-1.3){圆};\begin{scope}[xshift=3cm]\draw[axis](-1.1,0)--(1.2,0);\draw[axis](0,-1.1)--(0,1.2);\draw[curve,rotate=25](0,0)ellipse(1 and .5);\node[below]at(0,-1.3){椭圆};\end{scope}}
+
+\subsection{消元方程与主轴}\label{th:o4ellipse}
+由$E_x/a=\cos\omega t$和$E_y/b=\cos\omega t\cos\delta+\sin\omega t\sin\delta$消去时间，得
+\begin{equation}\label{eq:o4ellipse}
+ \frac{E_x^2}{a^2}+\frac{E_y^2}{b^2}
+ -\frac{2E_xE_y\cos\delta}{ab}=\sin^2\delta.
+\end{equation}
+若$a$或$b$为零，应直接回到参数式，避免除零。设主轴相对$x$转角为$\psi$，令$E_\xi=E_x\cos\psi+E_y\sin\psi$、$E_\eta=-E_x\sin\psi+E_y\cos\psi$。对一个周期取平均，$\langle E_x^2\rangle=a^2/2$、$\langle E_y^2\rangle=b^2/2$、$\langle E_xE_y\rangle=ab\cos\delta/2$，于是
+\[
+ 2\langle E_\xi E_\eta\rangle
+ =ab\cos\delta\cos2\psi+\frac{b^2-a^2}{2}\sin2\psi.
+\]
+非退化椭圆的两主轴分量相差$\pm\pi/2$，其相关平均为零；令右边为零得到
+\[
+ \tan2\psi=\frac{2ab\cos\delta}{a^2-b^2}.
+\]
+实际应由$\operatorname{atan2}(2ab\cos\delta,a^2-b^2)$确定$2\psi$。半轴平方是矩阵$2\langle\vct E\vct E^{\mathsf T}\rangle$的两个本征值$\Lambda$，其方程为
+\[
+ (a^2-\Lambda)(b^2-\Lambda)-a^2b^2\cos^2\delta=0,
+ \qquad \Lambda^2-(a^2+b^2)\Lambda+a^2b^2\sin^2\delta=0.
+\]
+解这个二次方程，长短半轴平方分别为
+\[
+ A_\pm^2=\frac{a^2+b^2\pm\sqrt{(a^2-b^2)^2+4a^2b^2\cos^2\delta}}2.
+\]
+这是时间参数轨迹的最大、最小场强平方，不是分别把$x,y$分量振幅当成半轴。只有$\cos\delta=0$或特殊对称情形，坐标轴才直接就是椭圆主轴。
+
+\begin{example}\label{ex:o4ellipse}
+Jones矢量为$(2,\ee^{i\pi/3})^{\mathsf T}E_0$。求椭圆方程、主轴方向、半轴及旋转时序。
+\Diagram{fig:o4ellipseq}{两正交分量的振幅和相位差}{\draw[axis](-2.5,0)--(2.7,0)node[right]{$E_x/E_0$};\draw[axis](0,-1.5)--(0,1.7)node[above]{$E_y/E_0$};\draw[guide](-2,-1)rectangle(2,1);\node[above]at(1.5,2.3){$a=2,\ b=1,\ \delta=\pi/3$};}
+\end{example}
+\begin{solution}
+采用实场$\operatorname{Re}(\vct E\ee^{-i\omega t})$。图\ref{fig:o4ellipseq}中$X=E_x/E_0=2\cos\omega t$、$Y=E_y/E_0=\cos(\omega t-\pi/3)$。由$Y=X/4+(\sqrt3/2)\sin\omega t$消去时间，
+\[
+ (Y-X/4)^2=\tfrac34(1-X^2/4)
+ \quad\Longrightarrow\quad X^2/4+Y^2-XY/2=3/4.
+\]
+二次型矩阵为$Q=\bigl(\begin{smallmatrix}1/4&-1/4\\-1/4&1\end{smallmatrix}\bigr)$，其特征方程$\lambda^2-(5/4)\lambda+3/16=0$，得$\lambda_\pm=(5\pm\sqrt{13})/8$。
+\Diagram{fig:o4ellipsea}{倾斜椭圆的长短轴；箭头表示由参数方程确定的运动方向}{\draw[axis](-2.5,0)--(2.7,0)node[right]{$X$};\draw[axis](0,-1.6)--(0,1.8)node[above]{$Y$};\draw[curve,domain=0:360,samples=100]plot({2*cos(\x)},{cos(\x-60)});\draw[guide](-2.1,-.636)--(2.1,.636);\draw[guide](-.4,1.32)--(.4,-1.32);\draw[->,thick](2,.5)--(1.97,.643);}
+图\ref{fig:o4ellipsea}的半轴平方为右侧常数$3/4$除以相应特征值，故长短半轴分别满足
+\[
+ A^2/E_0^2=(5+\sqrt{13})/2,\qquad
+ B^2/E_0^2=(5-\sqrt{13})/2.
+\]
+长轴对应较小的二次型特征值。旋转坐标消去交叉项给$\tan2\psi=2/3$；结合较小特征值的特征向量，取$\psi=\tfrac12\arctan(2/3)=16.85^\circ$，而非相差$90^\circ$的短轴方向。
+
+判断旋向须回到时间参数：$t=0$处$(X,Y)=(2,1/2)$，$\dot X=0$、$\dot Y=(\sqrt3/2)\omega>0$，所以电场从右侧向上运动，与图中箭头一致。几何方程只含$\cos\delta$和$\sin^2\delta$，对$\delta$与$-\delta$给出同一几何轨迹，旋向须由时间参数确定。
+\end{solution}
+
+\section{自然光、部分偏振与检偏}\label{th:o4partial}
+理想线偏振片透过轴单位矢量$\vct p$，其Jones矩阵为$P=\vct p\vct p^{\mathsf T}$。线偏振入射与轴成$\theta$时，振幅乘$\cos\theta$，光强满足马吕斯定律$I=I_0\cos^2\theta$。自然光在任意正交方向平均等分能量，故理想偏振片透过$I_0/2$，与透过轴角无关。
+
+圆偏振经过线偏振片也透过一半，与转角无关，但出射变成线偏振。椭圆偏振转动检偏器一般有非零最大和最小值，分别正比$A_+^2,A_-^2$。自然光叠加线偏振光时，$I(\theta)=I_u/2+I_p\cos^2(\theta-\theta_0)$，所以$I_{\max}=I_u/2+I_p$、$I_{\min}=I_u/2$，偏振度$I_p/(I_u+I_p)=(I_{\max}-I_{\min})/(I_{\max}+I_{\min})$。
+
+若光中含圆偏振分量，旋转单个线偏振片得到的只是线偏振调制度。完整偏振度还需测量圆偏振信息。定义强度单位一致的斯托克斯量$S_0=\langle|E_x|^2+|E_y|^2\rangle$、$S_1=\langle|E_x|^2-|E_y|^2\rangle$、$S_2=2\operatorname{Re}\langle E_x^*E_y\rangle$、$S_3=2\operatorname{Im}\langle E_x^*E_y\rangle$，则完全偏振$S_1^2+S_2^2+S_3^2=S_0^2$；一般偏振度为$\sqrt{S_1^2+S_2^2+S_3^2}/S_0$。
+
+\begin{example}\label{ex:o4malus}
+两理想偏振片透过轴正交，自然光先经过第一片，再在中间插入轴与第一片成$\theta$角的第三片。求透过强度及最优角度。
+\Diagram{fig:o4malusq}{三片顺序为$0,\theta,\pi/2$}{\foreach\x/\t in{0/0,2/\theta,4/{\pi/2}}{\draw[curve](\x,-1)--(\x,1);\node[above]at(\x,1){$\t$};}\draw[axis](-1,0)--(5,0)node[right]{光};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4malusq}中，自然光的横向偏振方向均匀分布，第一片透过强度为$I_0\langle\cos^2\varphi\rangle=I_0/2$。它之后的光沿第一片轴线偏振，不再是自然光。中间片与该轴成$\theta$角，透过场投影乘$\cos\theta$，强度乘$\cos^2\theta$；最后片与中间轴夹角为$\pi/2-\theta$，再乘$\sin^2\theta$，故
+\[
+ I=\frac{I_0}{2}\cos^2\theta\sin^2\theta
+ =\frac{I_0}{8}\sin^22\theta.
+\]
+\Diagram{fig:o4malusa}{逐次投影后偏振方向改变，不能把中间片视为单纯削弱光强}{\draw[axis](0,0)--(2.2,0)node[right]{$P_1$};\draw[axis](0,0)--(1.6,1.6)node[right]{$P_2$};\draw[axis](0,0)--(0,2.2)node[above]{$P_3$};\draw[guide](2,0)--(1,1)--(0,1);}
+图\ref{fig:o4malusa}按传播次序标为$P_1,P_2,P_3$，中间插入片为$P_2$，末片为$P_3$。由$\sin^22\theta\leq1$，最大透过强度为$I_0/8$，取$\theta=\pi/4$模$\pi/2$；在$0\leq\theta\leq\pi/2$内唯一最优角为45度。
+
+逐段能量也可核对：最优时$I_1=I_0/2$、$I_2=I_0/4$、$I_3=I_0/8$，每片都吸收部分功率。没有中间片时两轴正交，最后为零；插入后中间片把输出偏振改为45度，使它在最后轴上有非零投影。透过增加来自偏振态改变，整个过程仍有$I_3<I_2<I_1<I_0$，并未由吸收元件产生能量。
+\end{solution}
+
+\section{单轴晶体中的普通光与非普通光}\label{th:o4crystal}
+各向异性介质的线性关系为$\vct D=\varepsilon_0\boldsymbol\varepsilon\vct E$，主轴系中介电张量可对角化。一般$\vct D$与$\vct E$不平行。无自由电荷仍要求$\vct k\cdot\vct D=0$，却不能直接推为$\vct k\cdot\vct E=0$。
+
+单轴晶体取光轴为$z$，$\boldsymbol\varepsilon=\operatorname{diag}(n_o^2,n_o^2,n_e^2)$，这里$n_e$是传播方向垂直光轴时的非普通主折射率。波矢与光轴夹角为$\vartheta$。普通光电场垂直由$\vct k$和光轴张成的主截面，折射率恒为$n_o$。非普通光的$\vct D$在主截面内并垂直$\vct k$，其色散曲面为
+\[
+ \frac{k_x^2}{n_e^2}+\frac{k_z^2}{n_o^2}=\frac{\omega^2}{c^2},
+\]
+所以有效折射率
+\[
+ \frac1{n_{e,\rm eff}^2(\vartheta)}=
+ \frac{\cos^2\vartheta}{n_o^2}+\frac{\sin^2\vartheta}{n_e^2}.
+\]
+沿光轴两种波简并，都为$n_o$；垂直光轴时分别为$n_o,n_e$。非普通光的能流方向由群速度或坡印廷矢量决定，一般不平行于波矢，产生走离。相位匹配用波矢，光线方向与光束分离则要用能流，二者不能混写。
+
+\Diagram{fig:o4crystal}{波矢与位移矢量垂直，电场和能流可偏斜}{\draw[axis](-.3,0)--(3.4,0)node[right]{$x$};\draw[axis](0,-.3)--(0,3.3)node[above]{光轴$z$};\draw[axis](0,0)--(2,2.4)node[right]{$\vct k$};\draw[axis](0,0)--(-1.8,1.5)node[left]{$\vct D_e$};\draw[axis](0,0)--(-1,1.9)node[above]{$\vct E_e$};\draw[guide](0,0)--(2.85,1.5)node[right]{$\vct S_e$};}
+
+\section{波片及偏振态变换}\label{th:o4plates}
+波片正常入射，两个本征偏振轴在片面内，取快轴折射率$n_f$、慢轴$n_s>n_f$，厚度$h$。删去共同相位$\exp(ik_0n_fh)$后，Jones矩阵为$J=\operatorname{diag}(1,\ee^{i\delta})$，$\delta=2\pi(n_s-n_f)h/\lambda_0$。四分之一波片$\delta=\pi/2$模$2\pi$；半波片$\delta=\pi$模$2\pi$。共同相位不影响单束偏振，但在干涉仪中仍可能影响两臂相位。
+
+如果波片快轴相对实验室$x$转角$\alpha$，先用$R(-\alpha)$把分量投到快慢轴，再乘对角矩阵，最后转回：$J(\alpha)=R(\alpha)\operatorname{diag}(1,\ee^{i\delta})R(-\alpha)$，其中$R(\alpha)=\bigl(\begin{smallmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{smallmatrix}\bigr)$。矩阵顺序代表实际操作，交换两片的顺序一般改变结果。
+
+\begin{example}\label{ex:o4quarter}
+线偏振入射与四分之一波片快轴成$\theta$，求输出Jones矢量、椭圆轴及旋转方向，特别讨论$\theta=45^\circ$。
+\Diagram{fig:o4quarterq}{输入线偏振在快慢轴上的投影}{\draw[axis](0,0)--(3,0)node[right]{快$x$};\draw[axis](0,0)--(0,2.8)node[above]{慢$y$};\draw[axis](0,0)--(2,2)node[right]{输入};\node at(.9,.35){$\theta$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4quarterq}输入为$E_0(\cos\theta,\sin\theta)^{\mathsf T}$，输出为$E_0(\cos\theta,i\sin\theta)^{\mathsf T}$。两个分量正交相差$\pi/2$，所以主轴就是快慢轴，半轴绝对值$E_0|\cos\theta|$和$E_0|\sin\theta|$。
+\Diagram{fig:o4quartera}{45度输入产生圆偏振，固定位置由$+x$转向$+y$}{\draw[axis](-1.5,0)--(1.7,0)node[right]{$x$};\draw[axis](0,-1.5)--(0,1.7)node[above]{$y$};\draw[curve](0,0)circle(1.1);\draw[->,thick](1.1,0)arc(0:65:1.1);\node[right]at(2,.5){$(1,i)/\sqrt2$};}
+若$0<\theta<\pi/2$，固定位置$t=0$电场沿$+x$，随时间向$+y$转，图\ref{fig:o4quartera}按此方向画箭头。$\theta=45^\circ$为圆；$\theta=0,90^\circ$仍是线偏振。把片转90度等效交换快慢轴，会反转圆偏振旋向，不能只说“经过四分之一波片必变圆”。
+\end{solution}
+
+\begin{example}\label{ex:o4half}
+入射线偏振方向相对实验室$x$为$\theta$，半波片快轴方向为$\alpha$。求出射偏振方向，并求将偏振方向由10度转到70度的快轴位置。
+\Diagram{fig:o4halfq}{半波片快轴与输入偏振的夹角}{\draw[axis](0,0)--(3,0)node[right]{$x$};\draw[axis](0,0)--(2.5,1)node[right]{$\theta$};\draw[guide](0,0)--(1.6,2.5)node[above]{$\alpha$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:o4halfq}的快慢轴基底，输入为$(\cos(\theta-\alpha),\sin(\theta-\alpha))$。半波片把慢轴分量反号，成为$(\cos(\theta-\alpha),-\sin(\theta-\alpha))$，这仍是线偏振，方向在快轴另一侧。
+\Diagram{fig:o4halfa}{半波片把输入方向关于快轴作镜面对称}{\draw[axis](0,0)--(3,0)node[right]{$x$};\draw[axis](0,0)--(2.8,.49)node[right]{10度};\draw[guide](0,0)--(2.3,1.93)node[right]{快轴40度};\draw[axis](0,0)--(1.03,2.82)node[above]{70度};}
+转回实验室，输出方向$\theta_o=2\alpha-\theta$模$\pi$。故图\ref{fig:o4halfa}可取$\alpha=40^\circ$；快轴再转90度得到同一线偏振方向但共同相位可能不同。半波片旋转$\Delta\alpha$，输出线偏振方向转$2\Delta\alpha$。
+\end{solution}
+
+\begin{example}\label{ex:o4identify}
+未知光可能为完全线、圆、椭圆偏振，或自然光。给出理想线偏振片和可转四分之一波片的鉴别程序，说明部分偏振光需要怎样补充。
+\Diagram{fig:o4identifyq}{先测线检偏响应，再加入可转波片}{\draw[axis](-1,0)--(6,0);\draw[curve](0,-1)--(0,1);\draw[curve](2,-1)--(2,1);\draw[curve](4,-1)--(4,1);\node[above]at(0,1){波片};\node[above]at(2,1){检偏器};\node[above]at(4,1){功率计};}
+\end{example}
+\begin{solution}
+先移去图\ref{fig:o4identifyq}的波片，转检偏器：周期变化且能消光为完全线偏振；变化但不能消光可能为完全椭圆偏振，也可能为部分偏振；不变化可能是圆偏振或自然光，不能立即下结论。
+\Diagram{fig:o4identifya}{波片把相位信息转成可由线检偏器测出的强度差}{\draw[curve](0,0)rectangle(2.2,1.2);\node at(1.1,.6){相位差};\draw[->](2.3,.6)--(3.3,.6);\draw[curve](3.5,0)rectangle(6,1.2);\node at(4.75,.6){旋转后的强度差};}
+加入四分之一波片，转片和检偏器：圆偏振可变成线偏振而消光，自然光经过理想无损波片仍不随检偏角变化。完全椭圆偏振可把波片轴对准椭圆主轴，抵消$\pm\pi/2$相差而变线。图\ref{fig:o4identifya}说明波片提供的是原来缺少的相位信息。一般部分偏振不能靠“是否消光”完整确定，应测$0,90,45,135$度线偏振强度，以及两种圆偏振分析强度，构成$S_0,S_1,S_2,S_3$。若入射光含非零自然成分，仅转动这块无损波片和随后的一片检偏器，不能使总透射光完全消失。
+\end{solution}
+
+\section{界面边界条件与菲涅耳公式}\label{th:o4fresnel}
+取界面$z=0$，介质1在$z<0$、介质2在$z>0$，无自由面电荷和面电流。入射面为$xz$面，入射、反射、透射波矢单位方向依次为$(\sin i,0,\cos i)$、$(\sin i,0,-\cos i)$、$(\sin r,0,\cos r)$。沿界面相位匹配给$n_1\sin i=n_2\sin r$，反射角等于入射角。
+
+以下取无损非磁性介质。$s$偏振统一取电场单位矢量$\hat{\vct y}$；每条光线的$p$单位矢量取$\hat{\vct s}\times\hat{\vct k}$，使$\hat{\vct k}\times\hat{\vct p}=\hat{\vct s}$。于是入射$p$电场为$(\cos i,0,-\sin i)$，反射为$(-\cos i,0,-\sin i)$，两者在正入射极限的切向基方向相反。
+
+\subsection{$s$偏振}
+切向电场连续给$1+r_s=t_s$。磁场$\vct H=(n/\mu_0c)\hat{\vct k}\times\vct E$，切向磁场连续给$n_1\cos i(1-r_s)=n_2\cos r\,t_s$。消元得
+\[
+ r_s=\frac{n_1\cos i-n_2\cos r}{n_1\cos i+n_2\cos r},\quad
+ t_s=\frac{2n_1\cos i}{n_1\cos i+n_2\cos r}.
+\]
+\subsection{$p$偏振}
+在上述局部基约定下，切向电场给$\cos i(1-r_p)=\cos r\,t_p$，磁场给$n_1(1+r_p)=n_2t_p$。由后式取$t_p=n_1(1+r_p)/n_2$代入前式，整理为
+\[
+ n_2\cos i-n_1\cos r=(n_2\cos i+n_1\cos r)r_p,
+\]
+再回代求$t_p$，得
+\[
+ r_p=\frac{n_2\cos i-n_1\cos r}{n_2\cos i+n_1\cos r},\quad
+ t_p=\frac{2n_1\cos i}{n_2\cos i+n_1\cos r}.
+\]
+正入射时$r_s=-r_p$，只是反射$p$基反向的结果；用同一固定切向电场比较，两物理反射系数相同。若$\mu_r\ne1$，磁场系数$n$应改用相应波导纳，不能把非磁性公式直接照搬。
+
+\section{能流、互易与布儒斯特角}\label{th:o4energy}
+反射率是反射法向能流与入射法向能流之比，故$R=|r|^2$。透射率为
+\[
+ T=\frac{n_2\cos r}{n_1\cos i}|t|^2.
+\]
+无损界面在存在传播透射波时$R+T=1$。若只取沿各自光线定义的强度比$I_t/I_i=(n_2/n_1)|t|^2$，斜入射时它与$R$之和一般不为1，因为比较的截面面积不同，不能据此宣称斜入射能量不守恒。
+
+\begin{example}\label{ex:o4stokes}
+对$s$偏振，正向界面振幅系数为$r,t$，反向入射为$r',t'$。证明$r'=-r$、$tt'=1-r^2$，并解释斯托克斯关系中各束光的相位方向。
+\Diagram{fig:o4stokesq}{同一界面的正反向散射}{\draw[curve](-2,0)--(2,0);\draw[->](-1.5,-1.5)--(0,0);\draw[->](0,0)--(1.5,-1.5)node[right]{$r$};\draw[->](0,0)--(1.1,1.5)node[right]{$t$};\node[left]at(-2,-.6){$n_1$};\node[left]at(-2,.6){$n_2$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4stokesq}取$s$偏振的共同切向电场方向作为振幅基底，令$a=n_1\cos i$、$b=n_2\cos r$。电场、磁场切向连续分别给$1+r=t$、$a(1-r)=bt$。将首式代入次式，解得
+\[
+ r=\frac{a-b}{a+b},\qquad t=\frac{2a}{a+b}.
+\]
+反向入射时交换$a,b$，因此$r'=(b-a)/(a+b)=-r$、$t'=2b/(a+b)$。
+\Diagram{fig:o4stokesa}{时间反演的两束入射共同恢复原来的入射光}{\draw[curve](-2,0)--(2,0);\draw[->](-1.5,-1.5)--(0,0)node[midway,left]{$r$};\draw[->](1.1,1.5)--(0,0)node[midway,right]{$t$};\draw[->](0,0)--(1.5,-1.5)node[midway,right]{$1$};\node[above]at(-1.6,1.5){另一输出相消};}
+图\ref{fig:o4stokesa}的两束反向入射按原反、透射振幅$r,t$取值。在恢复原入射光的输出端，合振幅为$r\,r+t\,t'$；另一端为$r\,t+t\,r'$。代入上述系数，
+\[
+ r^2+tt'=\frac{(a-b)^2+4ab}{(a+b)^2}=1,
+ \qquad rt+tr'=t(r+r')=0.
+\]
+所以原波被恢复，另一输出相消。$r'=-r$表示反向反射相位相差$\pi$，不是反射率变成负数。能量透射率应为$T=(b/a)|t|^2$，由此$R+T=1$；不能直接令$T=t^2$。这里的时间反演图解采用无损传播及实系数的两侧入射端口。全反射的倏逝支、复系数或吸收介质须连同共轭、通道与能流条件重新处理。
+\end{solution}
+
+\subsection{布儒斯特角}\label{th:o4brewster}
+$p$反射为零需$n_2\cos i=n_1\cos r$，再与$n_1\sin i=n_2\sin r$联立，非平凡折射率差时得到$i+r=\pi/2$，所以$\tan i_B=n_2/n_1$。这时反射光只含$s$偏振。若$n_1=n_2$，所有角度都没有界面反射，不能把它误解成只有45度一个布儒斯特角。
+
+地面或水面的近布儒斯特反射主要为平行表面的$s$偏振，所以让眼镜透过轴接近竖直可削弱这部分眩光。实际粗糙表面、金属和吸收介质不能全部用理想介质界面的单一布儒斯特角描述。
+
+\section{全反射相位与倏逝波}\label{th:o4tir}
+设$n_1>n_2$，入射角超过$i_c=\arcsin(n_2/n_1)$。切向波矢$k_x=k_0n_1\sin i$不变，介质2的法向分量满足$k_{z2}^2=k_0^2n_2^2-k_x^2<0$。介质2位于$z>0$，为使场远离界面不发散，取$k_{z2}=i\kappa$，其中
+\[
+ \kappa=k_0\sqrt{n_1^2\sin^2i-n_2^2},\quad
+ E_t\propto\ee^{ik_xx-\kappa z-i\omega t}.
+\]
+振幅衰减长度为$1/\kappa$，强度衰减长度为$1/(2\kappa)$。令$q=\sqrt{n_1^2\sin^2i-n_2^2}$，在菲涅耳系数中取$n_2\cos r=iq$，得
+\[
+ r_s=\frac{n_1\cos i-iq}{n_1\cos i+iq},\quad
+ r_p=\frac{n_2^2\cos i-in_1q}{n_2^2\cos i+in_1q}.
+\]
+分子分母互为共轭，模均为1，但相位依角度和偏振而不同。全反射可改变偏振态；“反射率1”不等于“相位不变”。单界面介质2中存在倏逝场，时间平均法向能流为零，但沿界面可有非零能流。
+
+\begin{example}\label{ex:o4tir}
+玻璃$n_1=1.5$向空气$n_2=1$以45度入射，波长$\lambda_0$。求$s,p$反射相位及倏逝振幅衰减长度，并判断能否把一次反射等同于四分之一波片。
+\Diagram{fig:o4tirq}{超过临界角后无传播折射光，但有衰减场}{\draw[curve](-2.5,0)--(2.5,0);\draw[guide](0,-2)--(0,2);\draw[->](-1.8,-1.8)--(0,0);\draw[->](0,0)--(1.8,-1.8);\foreach\y/\l in{.3/2,.7/1.3,1.1/.8,1.5/.5}{\draw[curve](-\l,\y)--(\l,\y);}\node[right]at(2,.7){倏逝场};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4tirq}中$q=\sqrt{2.25/2-1}=1/(2\sqrt2)$，$n_1\cos i=3/(2\sqrt2)$，所以$\phi_s=-2\arctan(1/3)\simeq-36.87^\circ$。$p$系数相位为$\phi_p=-2\arctan[n_1q/(n_2^2\cos i)]=-2\arctan(3/4)\simeq-73.74^\circ$。
+\Diagram{fig:o4tira}{两偏振的单位模反射系数具有不同相位}{\draw[axis](-.3,0)--(2.6,0)node[right]{实部};\draw[axis](0,-2.5)--(0,.5)node[above]{虚部};\draw[curve](2,0)arc(0:-90:2);\draw[->,thick](0,0)--(1.6,-1.2)node[right]{$r_s$};\draw[->,thick](0,0)--(.56,-1.92)node[below]{$r_p$};}
+图\ref{fig:o4tira}的相对相差为$-36.87^\circ$，不是$-90^\circ$，所以一次反射不等于四分之一波片。衰减常数$\kappa=2\pi q/\lambda_0=\pi/(\sqrt2\lambda_0)$，振幅长度$\ell=\sqrt2\lambda_0/\pi$。在给定基向量约定下比较两分量相位，还需同步追踪反射$p$基与实验室固定横向轴的关系。
+\end{solution}
+
+\begin{example}\label{ex:o4frustrated}
+两块相同高折射率玻璃间隔空气层厚度$d$，入射角在单个玻璃—空气界面满足全反射。说明为何第二块玻璃足够靠近时可有透射，并给出厚间隙极限下的主要衰减尺度。
+\Diagram{fig:o4frustratedq}{有限低折射率层中的倏逝耦合；间隙内不画传播光线}{
+\draw[curve](-2.2,0)--(2.4,0);\draw[curve](-2.2,1.1)--(2.4,1.1);
+\node[left]at(-2.2,-.6){$n_1$};\node[left]at(-2.2,.55){$n_2$};\node[left]at(-2.2,1.7){$n_1$};
+\draw[->](-1.6,-1.6)--(0,0);\draw[->](0,0)--(1.6,-1.6);
+\draw[->](.8,1.1)--(2.1,2.4);
+\foreach\y/\l in{.23/1.1,.51/.8,.82/.55}{\draw[densely dotted](-\l,\y)--(\l,\y);}
+\node[right]at(1.1,.55){倏逝场};
+\draw[<->](2.8,0)--(2.8,1.1)node[midway,right]{$d$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:o4frustratedq}间隙内仍有相同实切向波矢和虚法向波矢$\pm i\kappa$。单界面半无限介质只许衰减支；有限间隙必须同时满足两端边界，场通常含$A\ee^{-\kappa z}+B\ee^{\kappa z}$。增长支在有限区间不发散，不能提前删去。
+\Diagram{fig:o4frustrateda}{有限层两指数支叠加，可把能流耦合到右侧传播波}{\draw[axis](0,0)--(5.4,0)node[right]{$z$};\draw[guide](1,0)--(1,2.8);\draw[guide](4,0)--(4,2.8);\draw[curve,domain=1:4,samples=60]plot(\x,{2.2*exp(-.65*(\x-1))});\node[below]at(1,0){$0$};\node[below]at(4,0){$d$};\draw[->](4.2,.6)--(5,.6);}
+先对$s$偏振完成匹配。令$k_0=2\pi/\lambda_0$、$a=n_1\cos i$、$b=\sqrt{n_1^2\sin^2i-n_2^2}$，于是$\kappa=k_0b$。把右界面场幅记为$t$，右侧只有出射波，故$E(d)=t$、$E'(d)=ik_0at$。间隙方程$E''=\kappa^2E$给
+\[
+ E(z)=t\left[\cosh\kappa(d-z)
+ -i\frac ab\sinh\kappa(d-z)\right].
+\]
+它满足右界面的函数、导数两个条件。左侧入射幅归一为1，有$E(0)=1+r$、$E'(0)=ik_0a(1-r)$。代入上式，把导数条件除以$ik_0a$，再与场条件相加，得到
+\[
+ 2=t\left[2\cosh\kappa d
+ +i\left(\frac ba-\frac ab\right)\sinh\kappa d\right].
+\]
+左右传播介质相同，透射率为$|t|^2$。使用$\cosh^2u=1+\sinh^2u$，整理为
+\[
+ T_s=\left[1+\frac{(a^2+b^2)^2}{4a^2b^2}
+ \sinh^2\kappa d\right]^{-1}.
+\]
+对$p$偏振，以磁场幅为未知量，界面连续的是$H$和$H'/n^2$。相同消元给上式的$a=\cos i/n_1$、$b=\sqrt{n_1^2\sin^2i-n_2^2}/n_2^2$，指数中的$\kappa$仍取原值。
+
+当$d\to0$，两块同种玻璃接合，$T\to1$。当$\kappa d\gg1$，$\sinh\kappa d\simeq\ee^{\kappa d}/2$，所以
+\[
+ T\simeq\frac{16a^2b^2}{(a^2+b^2)^2}\ee^{-2\kappa d}.
+\]
+图\ref{fig:o4frustrateda}示意厚间隙中的主要衰减包络。单界面零法向平均能流的结论针对单一衰减支；有限层中两支场的交叉项可以传递实的法向平均能流，第二块玻璃因而接收到传播波。
+\end{solution}
+\input{lecture4_derivations}
+\input{lecture4_extensions}
+\input{lecture4_depth}
+\input{lecture4_connections}
+\input{lecture4_exercises}

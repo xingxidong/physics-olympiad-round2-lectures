@@ -1,0 +1,84 @@
+\section{流束偏转中的动量通量与功率}
+\subsection{流入率由相对速度决定}
+质量输运还包括物质流入以后再流出的情形。设一股截面积$S$、密度$\rho$的水平水流以实验室速度$u$射向小车，小车速度为$v<u$。随车控制面在单位时间内截获的体积为$S(u-v)$，故
+\[
+ \dot m=\rho S(u-v).
+\]
+喷嘴每秒排出$\rho Su$的水，小车则以较小的流率截获。两者之差积存在喷嘴与小车之间不断增长的流束中，因此车的受力和功率均应按随车控制面的流率计算。
+
+假定车上的光滑导流器使水相对于车保持速率$w=u-v$，出流方向与来流方向夹角为$\theta$。忽略导流器内存水质量，并采用水流穿过导流器所需时间远小于小车速度变化时间的近似，则
+\[
+ u_{{\rm out},x}=v+w\cos\theta,\qquad
+ F_x=\dot m(u-u_{{\rm out},x})
+ =\rho S(u-v)^2(1-\cos\theta).
+\]
+这是水对小车的推力。入、出口压强均取环境压强时，没有额外的压强推力。对完整返向$\theta=\pi$，推力为$2\rho S(u-v)^2$，比同流率下黏附捕获的瞬时推力大一倍。
+\ExpansionDiagram{fig:dep-d3-flux}{随车控制面中的流率和出流速度}{
+\draw[dashed](-.3,-1.1)rectangle(6.2,1.3);
+\draw[->,very thick](-1,.7)--(2.2,.7)node[midway,above]{$u$};
+\draw[thick](2.2,.7)..controls(4.4,.7)and(4.4,-.6)..(2.2,-.6);
+\draw[->,very thick](2.3,-.6)--(.6,-.6)node[midway,below]{$u_{\rm out}=2v-u$};
+\draw[thick](2,-1.3)--(5.2,-1.3);\draw(2.5,-1.5)circle(.2);\draw(4.7,-1.5)circle(.2);
+\draw[->](4.5,1)--(5.8,1)node[midway,above]{$v$};
+\node[right]at(4.2,-.2){光滑返流器};}
+图\ref{fig:dep-d3-flux}中的出流箭头画的是$v<u/2$时的实验室方向；$v>u/2$时水在实验室中仍向右，只是向右速度低于小车，因而相对小车向后流出。
+
+\subsection{水流能量的减少怎样转为车的功}
+完整返向时，流入和流出水的实验室速度分别为$u$和$2v-u$。忽略高度差，水流减少的动能率为
+\[
+ \frac{\dot m}{2}\bigl[u^2-(2v-u)^2\bigr]
+ =2\dot m\,v(u-v)=F_xv.
+\]
+理想导流器中没有黏附损失，这部分能量全部成为小车的机械功。若水与车黏附，车载物质质量增长，除平动动能变化外还有$\dot m(u-v)^2/2$转为内能。两种模型的能量方程应分别建立。
+
+\begin{example}[水流推动返流小车]
+质量$M$的小车在无摩擦水平轨道上从静止出发。恒定水流参数为$\rho,S,u$，车上装有图\ref{fig:dep-d3-flux}所示的理想返流器。水不积存在车内。求$v(t)$、位移$x(t)$，以及机械功率相对于喷嘴出流动能功率的最大比例。取$x(0)=0$。
+\ExpansionDiagram{fig:dep-d3-cart-q}{小车的质量保持不变，推力随追上水流而减小}{
+\draw[thick](0,0)--(6,0);\draw[thick](2,.3)rectangle(4,1.2);
+\draw(2.4,.15)circle(.15);\draw(3.6,.15)circle(.15);\node at(3,.75){$M$};
+\draw[->,thick](.1,.8)--(1.8,.8)node[midway,above]{$u$};
+\draw[->,thick](4.1,.8)--(5.8,.8)node[midway,above]{$F_x$};\node[above]at(3,1.4){$v(0)=0$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-d3-cart-q}中车的质量没有增长，所以用$M\dot v=F_x$，不再加$\dot Mv$。代入截获流率，
+\[
+ M\frac{\dd v}{\dd t}=2\rho S(u-v)^2.
+\]
+令 $w=u-v$，则 $\dot w=-2\rho Sw^2/M$。分离变量，使用 $w(0)=u$，
+\[
+\int_u^{w(t)}\frac{\dd\zeta}{\zeta^2}
+=-\frac{2\rho S}{M}\int_0^t\dd\tau,
+\qquad [-\zeta^{-1}]_u^{w(t)}=-\frac{2\rho S}{M}t.
+\]
+因此
+\[
+ \frac1w-\frac1u=\frac{2\rho S}{M}t.
+\]
+定义 $t_c=M/(2\rho Su)$，则 $w=u/(1+t/t_c)$。由 $v=u-w$ 恢复速度，位移则由
+\[
+x=u\int_0^t\left(1-\frac{t_c}{\tau+t_c}\right)\dd\tau
+=u[\tau-t_c\ln(\tau+t_c)]_0^t
+\]
+求得。代入上下限，
+\[
+ \boxed{v(t)=u\frac{t}{t+t_c}},\qquad
+ \boxed{x(t)=u\left[t-t_c\ln(1+t/t_c)\right]}.
+\]
+初始加速度为$u/t_c$；随着$t$增大，$u-v$下降，小车在有限时刻始终达不到$u$。
+
+\ExpansionDiagram{fig:dep-d3-cart-a}{返流器的机械功率在$v/u=1/3$处最大}{
+\draw[->](0,0)--(5.8,0)node[right]{$z=v/u$};\draw[->](0,0)--(0,2.4)node[above]{$P/P_0$};
+\draw[thick,domain=0:1,samples=70]plot({5*\x},{3.5*4*\x*(1-\x)^2});
+\draw[dashed](1.6667,0)--(1.6667,2.0741)--(0,2.0741);
+\node[below]at(1.6667,0){$1/3$};\node[below]at(5,0){$1$};\node[left]at(0,2.0741){$16/27$};}
+喷嘴的恒定动能输出功率为$P_0=\rho Su^3/2$。令$z=v/u$，其中$0\le z<1$。车获得的功率由图\ref{fig:dep-d3-flux}中出、入流能量差给出：
+\[
+ P=F_xv=2\rho S(u-v)^2v,\qquad
+ \eta(z)=\frac P{P_0}=4z(1-z)^2.
+\]
+求导得$\eta'(z)=4(1-z)(1-3z)$。在$0\leq z<1$内，唯一的内部极大值位于$z=1/3$，故
+\[
+ \boxed{\eta_{\max}=\frac{16}{27}},\qquad t_{\max}=\frac{t_c}{2}.
+\]
+图\ref{fig:dep-d3-cart-a}画的是相对于喷嘴功率的比例。若只以车正在截获的水流入射动能率$\dot m u^2/2$作分母，则比例为$4z(1-z)$，其极大值为1，位于$z=1/2$。此时出流水在实验室中瞬时静止。这两个分母对应不同的控制面，不能混用。
+\end{solution}

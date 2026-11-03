@@ -1,0 +1,203 @@
+\chapter{近轴成像、渐变介质与光程}
+\section{符号与单球面光焦度}\label{th:o1power}
+取光沿$z$正向传播，高度$y$向上，近轴倾角$\theta\simeq\dd y/\dd z$有正负。球面顶点为坐标原点，曲率中心在$+z$侧时$R>0$，否则$R<0$。物方、像方折射率为$n_1,n_2$，定义球面光焦度
+\[
+ \Phi=\frac{n_2-n_1}{R}.
+\]
+球面高度$y$处法线倾角近似$-y/R$，斯涅尔定律线性化给$n_1(\theta_1+y/R)=n_2(\theta_2+y/R)$，所以
+\begin{equation}\label{eq:o1surface}
+ n_2\theta_2=n_1\theta_1-\Phi y.
+\end{equation}
+若另把朝物方的几何半径记为$r>0$，该面$R=-r$，同式就写为$\Phi=(n_1-n_2)/r$。只要曲率和角度约定一致，两种写法给出同一折射方向。
+
+取实物距$u>0$为物点到顶点沿传播方向的距离，实像距$v>0$为顶点到像点的距离，虚物、虚像用负值。轴上物点发出的近轴光有$\theta_1\simeq y/u$，会聚到轴上像点需$\theta_2\simeq-y/v$。代入式\eqref{eq:o1surface}得
+\begin{equation}\label{eq:o1gauss}
+ \frac{n_1}u+\frac{n_2}v=\Phi.
+\end{equation}
+前焦距$f_a=n_1/\Phi$，后焦距$f_b=n_2/\Phi$。它们一般不等，二者符号都由$\Phi$确定。将$n_1=\Phi f_a$、$n_2=\Phi f_b$代入成像式并乘$uv/\Phi$，得$f_av+f_bu=uv$，即$(u-f_a)(v-f_b)=f_af_b$。令$x_u=u-f_a$、$x_v=v-f_b$，就有牛顿式$x_ux_v=f_af_b$。这里$x_u,x_v$是相对焦点的偏移，已不是顶点物像距。
+
+\Diagram{fig:o1surface}{球面折射的近轴光线和有向曲率}{\OptAxis\draw[curve](3,-1.6)arc(205:155:3.785);\fill(0,0)circle(1.3pt)node[below]{物点};\fill(6.4,0)circle(1.3pt)node[below]{$C$};\draw[guide](2.7,1)--(6.4,0);\draw[->](0,0)--(2.7,1);\draw[->](2.7,1)--(5.5,.7);\node at(1.2,1.6){$n_1$};\node at(4.8,1.6){$n_2$};}
+
+\begin{example}\label{ex:o1surface}
+折射率$n_1=1$的空气中有轴上点光源，位于顶点左方$u=30\,\mathrm{cm}$。右侧玻璃折射率$n_2=1.5$，界面曲率中心在右侧，$R=10\,\mathrm{cm}$。求像距、焦距，并求物距改为10 cm时的像。
+\Diagram{fig:o1surfaceq}{空气射入凸球面，曲率中心在玻璃侧}{\OptAxis\draw[curve](3,-1.4)..controls(2.3,-.5)and(2.3,.5)..(3,1.4);\fill(0,0)circle(1.4pt)node[below]{$S$};\fill(4,0)circle(1.4pt)node[below]{$C$};\node at(1.2,1.2){空气};\node at(4.9,1.2){玻璃};}
+\end{example}
+\begin{solution}
+采用图\ref{fig:o1surfaceq}的有向半径：曲率中心在右，故$R=+10\,\mathrm{cm}$。球面光焦度及前后主焦距大小为
+\[
+ \Phi=\frac{n_2-n_1}R=.05\,\mathrm{cm}^{-1},\quad
+ f_a=\frac{n_1}\Phi=20\,\mathrm{cm},\quad
+ f_b=\frac{n_2}\Phi=30\,\mathrm{cm}.
+\]
+其中前焦点在顶点左侧20 cm，后焦点在右侧30 cm，两侧折射率不同，两个焦距大小一般不等。物距为30 cm时，
+\[
+ \frac{n_2}v=\Phi-\frac{n_1}u
+ =\frac1{20}-\frac1{30}=\frac1{60}\,\mathrm{cm}^{-1},
+\]
+所以$v=90\,\mathrm{cm}>0$，折射光在玻璃中会聚。
+\Diagram{fig:o1surfacea}{物点移至前焦点内，折射后仍发散，反向延长得到虚像}{\OptAxis\draw[curve](3,-1.5)..controls(2.4,-.5)and(2.4,.5)..(3,1.5);\fill(1.5,0)circle(1.4pt)node[below]{$S$};\draw[->](1.5,0)--(2.55,.8);\draw[->](2.55,.8)--(5.8,1.65);\draw[guide](2.55,.8)--(-.5,0);\node[below]at(-.5,0){虚像方向};}
+物距改为10 cm时，同一成像方程给$1.5/v=.05-.1=-.05\,\mathrm{cm}^{-1}$，故$v=-30\,\mathrm{cm}$。图\ref{fig:o1surfacea}中的虚像由折射光反向延长而成，其坐标在物侧，但整束折射后光线仍属于$n_2$一侧的传播解，成像方程仍使用像方折射率$n_2$。
+
+可用任意近轴高度$y$核对：入射倾角近似为$\theta_1=y/u$，出射约化倾角为$n_2\theta_2=n_1y/u-\Phi y=-n_2y/v$。对实像$v>0$，出射角与$y$反号，向轴靠拢；对虚像$v<0$，出射角与$y$同号，向外发散。这个符号判断直接连接图中的光线走向与成像方程。
+\end{solution}
+
+\section{约化光线矩阵与复合系统}\label{th:o1matrix}
+用列向量$\vct q=(y,n\theta)^{\mathsf T}$表示近轴光线。厚度$d$、折射率$n$的均匀层只改变高度；球面只改变约化倾角，所以
+\[
+ T(d,n)=\begin{pmatrix}1&d/n\\0&1\end{pmatrix},\quad
+ S(\Phi)=\begin{pmatrix}1&0\\-\Phi&1\end{pmatrix}.
+\]
+光先经历的矩阵写在最右侧。各矩阵行列式均为1。两折射面相隔$d$、中间折射率$n_3$时，
+\[
+ M=S(\Phi_2)T(d,n_3)S(\Phi_1)
+ =\begin{pmatrix}1-d\Phi_1/n_3&d/n_3\\-\Phi&1-d\Phi_2/n_3\end{pmatrix},
+\]
+其中$\Phi=\Phi_1+\Phi_2-d\Phi_1\Phi_2/n_3$。厚度项来自第一面改变倾角，进而改变第二面入射高度；简单相加光焦度只在$d=0$或该项可忽略时成立。
+
+\subsection{主平面的位置}
+一般近轴系统写成$M=\bigl(\begin{smallmatrix}A&B\\C&D\end{smallmatrix}\bigr)$。若$C\ne0$，等效光焦度为$\Phi=-C$。设第一主面在第一顶点右方$h_1$，第二主面在最后顶点右方$h_2$，则
+\[
+ M=T(-h_2,n_2)S(\Phi)T(h_1,n_1).
+\]
+比较$A,D$得$h_1=n_1(1-D)/\Phi$、$h_2=-n_2(1-A)/\Phi$。主面物像距满足$n_1/u_H+n_2/v_H=\Phi$，而不是从镜筒边缘量距离。
+
+若$C=0$，系统无焦，不能用无穷大焦距加上发散的主面位置来计算实际光线。此时应直接使用有限的$A,B,D$矩阵，研究角放大率、束径与光束传播。无焦系统仍由束高、倾角之间的有限矩阵关系确定。
+
+\begin{example}\label{ex:o1pair}
+空气中两个薄透镜焦距为$f_1,f_2$，间隔$d=f_1+f_2+\Delta$。求等效焦距、两主面位置及其有向间距；讨论$\Delta=0$。
+\Diagram{fig:o1pairq}{两薄透镜间隔$d$及各自焦点的间隔$\Delta$}{\OptAxis\draw[<->](1,-1.3)--(1,1.3);\draw[<->](5,-1.3)--(5,1.3);\node[above]at(1,1.3){$f_1$};\node[above]at(5,1.3){$f_2$};\draw[<->](1,-1.8)--(5,-1.8)node[midway,below]{$d$};\fill(2.7,0)circle(1.3pt)node[above]{$F'_1$};\fill(3.8,0)circle(1.3pt)node[above]{$F_2$};}
+\end{example}
+\begin{solution}
+将图\ref{fig:o1pairq}的两透镜作为$\Phi_i=1/f_i$代入，
+\[
+ \Phi=\frac{f_1+f_2-d}{f_1f_2}=-\frac\Delta{f_1f_2},\quad f=-\frac{f_1f_2}\Delta.
+\]
+若$\Delta\ne0$，$A=1-d/f_1$、$D=1-d/f_2$，故从第一透镜位置$z=0$计，$z_{H_1}=fd/f_2$、$z_{H_2}=d-fd/f_1$。两主面的有向间距为
+\begin{align*}
+ z_{H_2}-z_{H_1}
+ &=d-fd(1/f_1+1/f_2)\\
+ &=d\left[1-\frac{f_1+f_2}{f_1+f_2-d}\right]
+ =\frac{d^2}\Delta.
+\end{align*}
+\Diagram{fig:o1paira}{主面可能在实体透镜外侧；示例取$f_1=f_2=1,d=3$}{\draw[axis](-3.7,0)--(6.7,0)node[right]{$z$};\foreach\x/\t in{0/L_1,3/L_2}{\draw[<->](\x,-.8)--(\x,.8);\node[above]at(\x,.8){$\t$};}\foreach\x/\t in{-3/H_1,6/H_2}{\draw[guide](\x,-1.2)--(\x,1.2);\node[above]at(\x,1.2){$\t$};}}
+图\ref{fig:o1paira}取$\Delta=1$，于是$f=-1$、$H_1$在$-3$、$H_2$在6，主面间隔9。主面是等效光学基准，允许在系统外甚至交叉。若$\Delta=0$，$\Phi=0$，矩阵仍有限，形成无焦系统；主面公式分母为零，已失去适用条件。
+\end{solution}
+
+\begin{example}\label{ex:o1ball}
+空气中有半径$r$、折射率$n>1$的玻璃球。求等效焦距、主面及背焦距。轴上物点位于球心左方$nr$，求其像的位置并讨论$n=3/2$两侧的情况。
+\Diagram{fig:o1ballq}{玻璃球的两个顶点与球心}{\OptAxis\draw[curve](3,0)circle(1.3);\fill(3,0)circle(1.2pt)node[below]{$O$};\fill(.2,0)circle(1.4pt)node[below]{$S$};\node[above]at(3,1.3){$n$};\node[below]at(1.7,0){$V_1$};\node[below]at(4.3,0){$V_2$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1ballq}的第一面$R_1=r$、$n_1=1,n_2=n$，第二面$R_2=-r$、$n_1=n,n_2=1$，两面光焦度都是$(n-1)/r$。厚度$2r$、中间折射率$n$，所以
+\[
+ \Phi=\frac{2(n-1)}r-\frac{2r}n\frac{(n-1)^2}{r^2}
+ =\frac{2(n-1)}{nr},\quad f=\frac{nr}{2(n-1)}.
+\]
+$A=D=(2-n)/n$，主面位置$h_1=r,h_2=-r$，两主面均经过球心。背焦距从后顶点起算为$f-r=r(2-n)/[2(n-1)]$。
+\Diagram{fig:o1balla}{从球心主面量物像距，图示$3/2<n<3$时的球外实像}{\OptAxis\draw[curve](2.8,0)circle(1);\draw[guide](2.8,-1.4)--(2.8,1.5);\fill(0,0)circle(1.4pt)node[below]{$S$};\fill(6.1,0)circle(1.4pt)node[below]{$S'$};\draw[<->](0,-1.8)--(2.8,-1.8)node[midway,below]{$nr$};\draw[<->](2.8,-1.8)--(6.1,-1.8)node[midway,below]{$nr/(2n-3)$};}
+图\ref{fig:o1balla}的主面物距$u_H=nr$。由$1/u_H+1/v_H=1/f$，得$v_H=nr/(2n-3)$。主面位于球心，判断出射束的实虚像还须改从后顶点量距：
+\[
+ v_{V_2}=v_H-r=\frac{(3-n)r}{2n-3}.
+\]
+当$3/2<n<3$，$v_{V_2}>0$，折射光在球外会聚成实像。$n=3/2$时出射平行、像在无穷远；$1<n<3/2$时像在球心左侧，为虚像。$n=3$时近轴像落在后顶点。若$n>3$，$0<v_H<r$，像虽在球心右侧，却位于后顶点之前，出射束反向延长相交于球内，仍为虚像。主面像距的正负不能单独代替出射束的会聚、发散判断。
+\end{solution}
+
+\section{费马原理与力学类比}\label{th:o1analogy}
+在静态、各向同性介质中，几何光线使光程$\int n\dd s$取驻值。变分得到
+\begin{equation}\label{eq:o1ray}
+ \frac{\dd}{\dd s}(n\vct t)=\nabla n,
+\end{equation}
+其中$\vct t=\dd\vct r/\dd s$是单位切向量。对分层界面切向积分，由平移对称方向的“广义动量”连续，得$n\sin\theta$守恒，正是折射定律。
+
+为了求轨迹，可以引入虚拟力学粒子，势能$U=-mv_0^2n^2/2$、总能量为零。它的虚拟速度为$|\dot{\vct r}|=v_0n$，运动方程$\ddot{\vct r}=v_0^2\nabla(n^2)/2$。零能量轨道的缩减作用量$\int p\dd s=mv_0\int n\dd s$，所以轨迹与光线相同。但虚拟速度与真实光速$c/n$成反比，不能把虚拟时间当传播时间。若虚拟参数为$q$，
+\[
+ \dd t_{\rm phys}=\frac{n\dd s}{c}=
+ \frac{v_0n^2}{c}\dd q.
+\]
+对于水波等其他波，$n$可定义为参考波速除以局部相速度；真实时间应按当地群速度计算，浅水非色散模型中群速度等于相速度。
+
+\begin{example}\label{ex:o1graded}
+介质折射率满足$n^2(y)=n_0^2(1-y^2/a^2)$，只讨论$|y|\ll a$的近轴光线。一束光在$z=0$处高度$y_0$、倾角$\theta_0$。求轨迹和周期；若改为加号，轨迹有什么变化？
+\Diagram{fig:o1gradedq}{中心折射率较大，光线弯向轴线}{\OptAxis\draw[guide](0,1.3)--(6,1.3);\draw[guide](0,-1.3)--(6,-1.3);\fill(0,.8)circle(1.4pt)node[left]{$y_0$};\draw[axis](0,.8)--(1,1.1)node[above]{$\theta_0$};\node[above]at(3,1.3){$|y|$增大时$n$减小};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1gradedq}的虚拟参数取$q$，其方程为$\ddot z=0$、$\ddot y=-v_0^2n_0^2y/a^2$。轴向速度为常数$\dot z=v_0n_i\cos\theta_0$，其中$n_i=n(y_0)$。链式法则给$\ddot y=(\dot z)^2y''(z)$，所以有限初角的精确射线方程为
+\[
+ y''+g^2y=0,\qquad g=\frac{n_0}{a n_i\cos\theta_0}.
+\]
+方程的通解为$y=A\cos gz+B\sin gz$，其导数为$y'=-gA\sin gz+gB\cos gz$。初值$y(0)=y_0$、$y'(0)=\tan\theta_0$给$A=y_0$、$B=\tan\theta_0/g$。取$|y_0|/a\ll1$、$|\theta_0|\ll1$，有$g\simeq1/a$、$\tan\theta_0\simeq\theta_0$，才得到题设近轴解
+\[
+ y=y_0\cos(z/a)+a\theta_0\sin(z/a),\qquad\Lambda_z=2\pi a.
+\]
+\Diagram{fig:o1gradeda}{负二次项产生周期聚焦，正二次项产生离轴增长}{\draw[axis](0,0)--(6.7,0)node[right]{$z/a$};\draw[axis](0,-1.5)--(0,2.5)node[above]{$y$};\draw[curve,domain=0:6.28,samples=100]plot(\x,{cos(\x r)});\draw[guide,domain=0:1.5,samples=40]plot(\x,{cosh(\x)});\node[right]at(1.6,2.3){加号};}
+图\ref{fig:o1gradeda}把折射率平方改为加号。$y$方向虚拟加速度随之变号，近轴方程为$y''-y/a^2=0$。特征根为$\pm1/a$，通解为$C\ee^{z/a}+D\ee^{-z/a}$。初值给$C+D=y_0$、$(C-D)/a=\theta_0$，故$C=(y_0+a\theta_0)/2$、$D=(y_0-a\theta_0)/2$，合并为
+\[
+ y(z)=y_0\cosh(z/a)+a\theta_0\sinh(z/a).
+\]
+负号分布中折射率由轴向外减小，射线受回复作用；加号分布则把光线推向轴外。对负号分布，近轴振幅为$\sqrt{y_0^2+a^2\theta_0^2}$，须始终远小于$a$，因此不仅要检查初始高度，还要约束初始倾角引起的振幅。对加号分布，即使初始条件近轴，振幅也可能随传播增长而失效；应在实际截面和近轴允许长度内使用双曲解。
+\end{solution}
+
+\subsection{径向介质的角动量}\label{th:o1central}
+若$n=n(r)$，虚拟力为中心力，$\vct r\times m\dot{\vct r}$守恒。除以$mv_0$得到
+\[
+ b=n(r)r\sin\psi,
+\]
+其中$\psi$是光线切向与径向的夹角，选取$\varphi$递增的绕行方向使$b>0$。弧长参数沿传播方向增加，有
+\[
+ \frac{\dd r}{\dd s}=\cos\psi
+ =\sigma\sqrt{1-\frac{b^2}{n^2r^2}},\qquad
+ r\frac{\dd\varphi}{\dd s}=\sin\psi=\frac b{nr},
+\]
+其中向外支$\sigma=+1$、向内支$\sigma=-1$。在$\dd r/\dd s\ne0$处，两式相除得到
+\[
+ \frac{\dd\varphi}{\dd r}
+ =\sigma\frac{b}{r\sqrt{n^2(r)r^2-b^2}}.
+\]
+若有孤立最近点，则该点$\cos\psi=0$，故$b=n(r_t)r_t$；转点处不能继续用$r$作单调参数，应接续向内、向外两支。这一等式也可能对应圆轨道等退化情形，须代回射线方程判断。$b=0$为径向光线，直接使用$\dd\varphi/\dd s=0$。若根号内为负，则该区域没有此几何射线；波的穿透须由波动方程处理。
+
+\begin{example}\label{ex:o1wake}
+浅水区水深$h(y)=4h_0/(5-y^2/y_0^2)$，岸线$y=0$，船沿$y=y_0$向$+x$以$V_b=2\sqrt{gh_0}$运动。船在$t=0$经过$A=(0,y_0)$。由该处向岸传播的稳态船行波射线与岸线法向夹角$\theta_0$满足$\sin\theta_0=c_A/V_b$，$c_A=\sqrt{gh_0}$。求射线首先到岸的位置、传播时间及届时船的位置。
+\Diagram{fig:o1wakeq}{船道、水深变化与向岸初始射线}{\draw[axis](-.3,0)--(6,0)node[right]{$x$};\draw[axis](0,-.2)--(0,3.2)node[above]{$y$};\draw[guide](0,2)--(5.5,2);\fill(0,2)circle(1.6pt)node[left]{$A$};\draw[axis](.2,2.4)--(1.7,2.4)node[above]{$V_b$};\draw[axis](0,2)--(.9,.45);\node[left]at(0,1){$y_0$};\node[below]at(3,0){岸线};}
+\end{example}
+\begin{solution}
+局部浅水波速$c_w(y)=\sqrt{gh(y)}$。取相对折射率$n(y)=c_A/c_w(y)=\tfrac12\sqrt{5-y^2/y_0^2}$，在$A$处$n_A=1$。图\ref{fig:o1wakeq}初始$\sin\theta_0=1/2$，所以$n\sin\theta=1/2$守恒，射线向$+x,-y$运动。
+
+虚拟运动满足$\ddot x=0$、$\ddot y=-v_0^2y/(4y_0^2)$，且$\dot x=v_0/2$。消去虚拟时间得$y''(x)=-y/y_0^2$。正弦型通解为$A\cos(x/y_0)+B\sin(x/y_0)$；由$y(0)=y_0$得$A=y_0$，由$y'(0)=B/y_0=-\cot\theta_0=-\sqrt3$得$B=-\sqrt3y_0$，故
+\[
+ y(x)=y_0\cos(x/y_0)-\sqrt3y_0\sin(x/y_0)
+ =2y_0\cos(x/y_0+\pi/3).
+\]
+首个$y=0$在$x_B=\pi y_0/6$。
+\Diagram{fig:o1wakea}{射线先到岸，船继续前进；横轴按$y_0$归一化}{\draw[axis](0,0)--(6.2,0)node[right]{$x/y_0$};\draw[axis](0,-.1)--(0,2.7)node[above]{$y/y_0$};\draw[guide](0,2)--(5.4,2);\draw[curve,domain=0:.5235988,samples=50]plot({2*\x},{4*cos((\x+pi/3) r)});\fill(1.0472,0)circle(1.5pt)node[below]{$B:\pi/6$};\fill(4.8736,2)circle(1.5pt)node[above]{$A':(\pi+\sqrt3)/2$};\node[left]at(0,2){$1$};}
+图\ref{fig:o1wakea}的真实传播时间不可用虚拟周期直接代替。由$\dd s/\dd x=1/\sin\theta=2n$、$c_w=c_A/n$，得
+\begin{align*}
+ T&=\int_0^{x_B}\frac{\dd s}{c_w}
+ =\frac2{c_A}\int_0^{x_B}n^2(x)\dd x\\
+ &=\frac1{2c_A}\int_0^{\pi y_0/6}
+ [5-4\cos^2(x/y_0+\pi/3)]\dd x\\
+ &=\frac1{2c_A}\left[3x-y_0\sin(2x/y_0+2\pi/3)\right]_0^{\pi y_0/6}\\
+ &=\frac1{2c_A}\left(\frac{\pi y_0}{2}+\frac{\sqrt3y_0}{2}\right)
+ =\frac{y_0}{4c_A}(\pi+\sqrt3).
+\end{align*}
+最后一步用$4\cos^2u=2+2\cos2u$逐项积分。船位置$x_{A'}=V_bT=y_0(\pi+\sqrt3)/2$。图为清楚显示船位置，横纵采用同一缩放因子2；$B$的横坐标与船到岸时的横坐标不能互换。
+\end{solution}
+
+\section{复振幅与光程相位}\label{th:o1phase}
+固定时间约定为$\ee^{-i\omega t}$。实电场是$\operatorname{Re}[\mathcal E(\vct r)\ee^{-i\omega t}]$，复振幅$\mathcal E=A\ee^{i\phi}$同时存储幅度和空间相位。同频同偏振光相加时，先加复振幅再求模平方：$I\propto|\sum_j\mathcal E_j|^2$。不同频率或不相关随机相位的交叉项，经足够长时间平均后可以消失。
+
+几何光学中沿射线传播产生相位$k_0\int n\dd s$，$k_0=2\pi/\lambda_0$。若两光束起始相位相同，传播部分相位差为$2\pi\Delta\mathcal L/\lambda_0$；反射、焦散或其他元件的相位须另加。薄片正常插入一束空气光路，以厚$h$的折射率$n$介质替换同厚空气，附加光程$(n-1)h$。斜入射时路径和出射点都改变，不能继续把物理厚度直接代入正常入射公式。
+
+\begin{example}\label{ex:o1plate}
+两等振幅相干光原本在某点相长，一束中垂直插入折射率$n$、厚度$h$的平行薄片。求该点光强及使其第一次变暗的最小正厚度。忽略反射损失。
+\Diagram{fig:o1plateq}{一束光中以薄片替换同厚空气}{\draw[->](0,1)--(5,1);\draw[->](0,0)--(5,0);\draw[curve](2,.6)rectangle(2.7,1.4);\node[above]at(2.35,1.4){$n,h$};\node[right]at(5,.5){合束};}
+\end{example}
+\begin{solution}
+图\ref{fig:o1plateq}中两复振幅可取$A$、$A\ee^{i\delta}$，$\delta=2\pi(n-1)h/\lambda_0$。合振幅$2A\ee^{i\delta/2}\cos(\delta/2)$，故$I=4I_1\cos^2[\pi(n-1)h/\lambda_0]$。
+\Diagram{fig:o1platea}{两相量夹角为$\delta$，合相量沿角平分线}{\draw[axis](0,0)--(3,0)node[right]{$A$};\draw[axis](0,0)--(1.5,2.598076)node[above left]{$A\ee^{i\delta}$};\draw[very thick,->](0,0)--(4.5,2.598076)node[right]{$\mathcal E$};\draw[guide](3,0)--(4.5,2.598076)--(1.5,2.598076);\node at(.9,.4){$\delta$};}
+图\ref{fig:o1platea}的两相量首次反向时$\delta=\pi$，所以$h_{\min}=\lambda_0/[2(n-1)]$，$n>1$。若两束振幅不等，反向时仍有残余强度，不能称完全变暗。若频率不相同，静态薄片也不能把随时间移动的拍频图样变成永久暗点。
+\end{solution}
+\input{lecture1_derivations}
+\input{lecture1_extensions}
+\input{lecture1_depth}
+\input{lecture1_connections}
+\input{lecture1_exercises}

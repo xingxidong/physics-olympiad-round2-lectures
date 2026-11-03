@@ -1,0 +1,73 @@
+\section{腔内损耗、耦合匹配与相位测量}
+\subsection{把振幅损耗与能量损耗分别保留}
+腔的透射峰取决于两端耦合和内部损耗。设两镜能量反射率为$0\leq R_1,R_2\leq1$，镜本身无吸收，腔内单程的能量存活率为$0\leq\eta\leq1$。一次往返的振幅模为$q=\eta\sqrt{R_1R_2}$，以下稳态级数要求$q<1$。用$\delta$表示包括镜相移在内的往返相位，略去各束共有的单程相位后，透射场为
+\[
+ E_t=\sqrt{(1-R_1)(1-R_2)\eta}\,E_{
+ \rm in}\sum_{j=0}^{\infty}q^j\ee^{\mathrm i j\delta}.
+\]
+因此
+\[
+ T(\delta)=\frac{(1-R_1)(1-R_2)\eta}
+ {(1-q)^2+4q\sin^2(\delta/2)}.
+\]
+此处$\sqrt\eta$是单程振幅因子，$\eta$才是往返振幅因子。两者混用会使峰高和线宽同时错误。
+
+在$\delta=2m\pi$附近取$\delta=2m\pi+\epsilon$，若$q$接近1，则半高点满足$q\epsilon^2=(1-q)^2$，故往返相位全宽为$2(1-q)/\sqrt q$。精确半高点要求$\sin^2(\epsilon/2)=(1-q)^2/(4q)$；右边超过1时，一个自由光谱区内没有下降到峰值一半的位置，便不宜继续套用高精细度线宽公式。
+
+\ExpansionDiagram{fig:dep-o2-roundtrip}{每次新增透射束比前一束多一次往返及其损耗}{
+\draw[very thick](0,-1)--(0,1);\draw[very thick](4,-1)--(4,1);\node[above]at(0,1){$R_1$};\node[above]at(4,1){$R_2$};
+\draw[->](-1,.6)--(4,.6);\draw[->](4,.2)--(0,.2);\draw[->](0,-.2)--(5,-.2);\node[below]at(2,-.6){单程能量因子$\eta$};}
+图\ref{fig:dep-o2-roundtrip}中的一次往返含两次单程衰减，但振幅每次只乘$\sqrt\eta$。把它们与两镜反射振幅相乘，才得到$q$。
+
+\begin{example}有内损耗的腔怎样消除入射端反射
+采用上述模型，入射端的振幅反射系数取
+\[
+ r_{\rm cav}(\delta)=\frac{\sqrt{R_1}-\eta\sqrt{R_2}\ee^{\mathrm i\delta}}
+ {1-\eta\sqrt{R_1R_2}\ee^{\mathrm i\delta}}.
+\]
+求共振时反射为零的条件、此时透射率与腔内吸收率。解释反射为零是否意味着全部透射。
+\ExpansionDiagram{fig:dep-o2-match-q}{入射端反射由直接反射和腔内返回光相干组成}{
+\draw[very thick](1,-1)--(1,1);\draw[very thick](5,-1)--(5,1);
+\draw[->](-1,.5)--(1,.5);\draw[->](1,.1)--(-1,.1)node[left]{直接反射};\draw[->](5,-.3)--(-1,-.3)node[left]{返回光};\node[above]at(3,1){有损腔};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o2-match-q}中的两项在共振时反相，其模相等要求$\sqrt{R_1}=\eta\sqrt{R_2}$，即
+\[
+ R_1=\eta^2R_2.
+\]
+这就是给定输出镜与内损耗时的入射耦合匹配条件。代入透射公式，注意$q=\eta^2R_2$，有
+\[
+ T_{\rm res}=\frac{\eta(1-R_2)}{1-\eta^2R_2},\qquad
+ A_{\rm res}=1-T_{\rm res}
+ =\frac{(1-\eta)(1+\eta R_2)}{1-\eta^2R_2}.
+\]
+这里镜无吸收，$A_{\rm res}$全是介质内部损耗。$\eta=1$时匹配变为$R_1=R_2$，此时全部透射；$R_2=1$且$\eta<1$时没有透射口，共振入射能量全部在腔内耗散。
+\ExpansionDiagram{fig:dep-o2-match-a}{共振匹配时，外部能量分成透射和内部损耗}{
+\draw[->,thick](0,0)--(2,0)node[midway,above]{$P$};\draw(2,-.6)rectangle(4,.6)node[midway]{腔};\draw[->,thick](4,0)--(6,0)node[midway,above]{$TP$};\draw[->,thick](3,-.6)--(3,-1.6)node[below]{$AP$};\node[above]at(3,.8){反射为零};}
+例如$\eta=0.9,R_2=0.8$，所需$R_1=0.648$，得到$T_{\rm res}=0.18/0.352\simeq0.5114$、$A_{\rm res}\simeq0.4886$。图\ref{fig:dep-o2-match-a}说明反射消失是相干抵消条件，能量的最终去向还须由透射和吸收分别计算。若镜面也吸收，应重新区分镜的透射率与$1-R_j$，不能直接使用本题的分子。
+\end{solution}
+
+\subsection{从四次强度测量还原复干涉项}
+只测一次强度不能同时确定振幅和相位。给一臂施加已知附加相位$\alpha$，强度写成
+\[
+ I(\alpha)=B+C\cos(\phi+\alpha),\qquad B=I_1+I_2,
+ \quad C=2\sqrt{I_1I_2}|\gamma|.
+\]
+$\gamma$是两路的复相干度，其辐角已并入$\phi$。在四个等间隔相位$0,\pi/2,\pi,3\pi/2$测量，余弦项和正弦项可以分别提取；这与把两幅条纹的位置目测相减不同。
+
+\begin{example}四步移相与相位的象限
+某点四次强度依次为$14,6,2,10$。已知附加相位顺序为$0,\pi/2,\pi,3\pi/2$。求$B,C,\phi$与可见度；若单独遮挡两臂测得$I_1=I_2=4$，求$|\gamma|$。
+\ExpansionDiagram{fig:dep-o2-step-q}{参考臂的已知移相使同一测量点获得四个强度样本}{
+\draw(0,0)--(1,1)--(4,1)--(5,0);\draw(0,0)--(1,-1)--(4,-1)--(5,0);\draw[thick](3,-1.35)--(3,-.65);\node[below right]at(3,-1.35){$\alpha$};\fill(5,0)circle(1.4pt)node[right]{$P$};\node[above]at(2,1){物臂};\node[below]at(1,-1){参考臂};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o2-step-q}中两臂功率不变，只有参考臂相位变化。用相差$\pi$的样本相加，有$B=(I_0+I_\pi)/2=8$，另一对也给$(6+10)/2=8$。相减得到
+\[
+ X=\frac{I_0-I_\pi}{2}=C\cos\phi=6,\qquad
+ Y=\frac{I_{3\pi/2}-I_{\pi/2}}2=C\sin\phi=2.
+\]
+于是$C=\sqrt{X^2+Y^2}=2\sqrt{10}$，$\phi=\operatorname{atan2}(2,6)\simeq18.435^\circ$，而不是仅由一个反余弦随意选分支。
+\ExpansionDiagram{fig:dep-o2-step-a}{强度差给出干涉项在复平面上的两个分量}{
+\draw[->](0,0)--(4,0)node[right]{$X$};\draw[->](0,0)--(0,2.4)node[above]{$Y$};\draw[->,thick](0,0)--(3,1)node[above right]{$6+2\mathrm i$};\draw[dashed](3,0)--(3,1)--(0,1);\node[below]at(3,0){$6$};\node[left]at(0,1){$2$};}
+由图\ref{fig:dep-o2-step-a}的模得到可见度$\mathcal V=C/B=\sqrt{10}/4\simeq0.7906$。单臂测量给$2\sqrt{I_1I_2}=8$，所以$|\gamma|=C/8=\sqrt{10}/4$。若不知道单臂强度，仅凭四步数据只能得$B,C$，不能区分可见度降低来自功率不等还是相干度不足。两对样本和相等是该模型的一个数据相容条件；漂移、移相误差或探测非线性会破坏它。
+\end{solution}

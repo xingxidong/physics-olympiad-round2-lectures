@@ -1,0 +1,551 @@
+\section{习题与解答}
+
+\begin{exercise}[磁场减弱而总磁通不变]\label{ex:i1-h1}
+一个半径可变的材料圆环位于$xy$平面，外磁场为$B_0\ee^{-t/\tau}\vct e_z$。初始半径$a_0$，要求总电动势始终为零。求$a(t)$，并分别写出感生与动生贡献。 见图~\ref{fig:i1-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.3);\draw[guide](0,0)circle(1.65);\draw[->](1.3,0)--(1.65,0);\node at(0,0){$\odot\ B_0\ee^{-t/\tau}$};\node[above]at(0,1.9){$a(t)$};
+\end{tikzpicture}
+\caption{虚线表示稍晚时刻的材料圆环。}\label{fig:i1-h1-q}
+\end{figure}
+\begin{solution}
+沿图~\ref{fig:i1-h1-q}的逆时针方向积分，磁通为$\Phi=\pi a^2B_0\ee^{-t/\tau}$。总电动势为零要求其全时间导数为零，而不是要求磁场和面积分别不变。因此
+\[\frac{\dd\Phi}{\dd t}=\pi B_0\ee^{-t/\tau}
+\left(2a\dot a-\frac{a^2}{\tau}\right)=0,\qquad
+\frac{\dot a}{a}=\frac1{2\tau}.
+\]
+从初始半径$a_0$与时刻$0$分别积分，
+\[\int_{a_0}^{a(t)}\frac{\dd s}s=\int_0^t\frac{\dd t'}{2\tau},\qquad
+[\ln s]_{a_0}^{a(t)}=\frac{t}{2\tau},\qquad
+\ln\frac{a(t)}{a_0}=\frac{t}{2\tau}.\]
+取指数得
+\[\boxed{a(t)=a_0\ee^{t/(2\tau)}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t/\tau$};\draw[axis](0,-.1)--(0,2.5)node[above]{$a/a_0$};
+\draw[curve,domain=0:2.1,samples=71]plot(\x,{exp(\x/2)});
+\node[above left]at(1.6,2.25){$\ee^{t/(2\tau)}$};
+\end{tikzpicture}
+\caption{半径的增长时标是磁场衰减时标的两倍。}\label{fig:i1-h1-s}
+\end{figure}
+
+图~\ref{fig:i1-h1-s}画出的扩大速度越来越大。场的减弱与面积的增加严格补偿，使$\pi a^2B=\pi a_0^2B_0$保持常量。
+
+分别计算两种贡献也得到相同结论：感生项$\mathcal E_{\rm tr}=+\pi a^2B/\tau$，动生项$\mathcal E_{\rm mot}=-2\pi aB\dot a=-\pi a^2B/\tau$。因此忽略自感且初始无电流时，电阻环中始终没有环流。环上局部仍可能有非零电场与表面电荷分布；总电动势为零只约束沿整个回路的积分。若外磁场只在有限磁区内满足给定规律，解还要求圆环在所讨论时段内没有越出该区域。
+\end{solution}
+
+\begin{exercise}[环形磁区与空心区域]\label{ex:i1-h2}
+轴对称磁场仅在$a<r<b$的圆环区域随时间变化，$\partial_tB_z=-\alpha$；其他区域$\partial_tB_z=0$。求全部三个区域的感生电场，并讨论两个边界与$a\to0$极限。 见图~\ref{fig:i1-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.6);\draw[curve](0,0)circle(.75);\fill[even odd rule,gray!12](0,0)circle(1.6)(0,0)circle(.75);\draw[axis](-2,0)--(2.1,0)node[right]{$x$};\node at(0,.25){$O$};\node at(1.1,.75){$-\dot B_z=\alpha$};\node[below]at(.75,0){$a$};\node[below]at(1.6,0){$b$};
+\end{tikzpicture}
+\caption{阴影为变化磁场的截面，内孔不含该场。}\label{fig:i1-h2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h2-q}中的变化磁场只存在于环形区域。对半径$r$的逆时针圆周用Faraday定律，左端均为$2\pi rE_\theta$，但右端的有效面积分三段。
+
+当$r<a$时，没有包围变化磁通，$E_\theta=0$。当$a<r<b$时，包围面积为$\pi(r^2-a^2)$；当$r>b$时，该面积固定为$\pi(b^2-a^2)$。所以
+\[\boxed{E_\theta(r)=\begin{cases}
+0,&r<a,\\
+\dfrac\alpha2\left(r-\dfrac{a^2}{r}\right),&a<r<b,\\
+\dfrac{\alpha(b^2-a^2)}{2r},&r>b.
+\end{cases}}
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$r$};\draw[axis](0,-.1)--(0,2.5)node[above]{$E_\theta$};
+\draw[curve](0,0)--(1,0);
+\draw[curve,domain=1:2,samples=60]plot(\x,{.9*(\x-1/\x)});
+\draw[curve,domain=2:4.1,samples=60]plot(\x,{2.7/\x});
+\node[below]at(1,0){$a$};\node[below]at(2,0){$b$};\draw[guide](2,0)--(2,1.35);
+
+\end{tikzpicture}
+\caption{积分面积分成三段，电场在两个边界连续。}\label{fig:i1-h2-s}
+\end{figure}
+
+图~\ref{fig:i1-h2-s}中两处连接都连续：在$a$处为零，在$b$处为$\alpha(b^2-a^2)/(2b)$。圆周切向场不需要发生跳跃。
+
+区内旋度也可分段复算。在环形区域，
+\[\frac1r\frac{\dd(rE_\theta)}{\dd r}
+=\frac\alpha{2r}\frac{\dd(r^2-a^2)}{\dd r}
+=\frac\alpha{2r}(2r)=\alpha.\]
+其他两区的$rE_\theta$都是常数，径向导数为零。内孔不含变化磁通，所以中心附近没有感生场；外区虽没有局域变化磁场，却包围了整个变化环带，故电场不为零。令$a\to0$即可恢复实心圆磁区的内外解，这个极限也核对了分母与因子$1/2$。
+\end{solution}
+
+\begin{exercise}[磁场变化率随半径增大]\label{ex:i1-h3}
+在$r<R$内，$\partial_tB_z=-\alpha r^2/R^2$，区外为零。求感生电场，比较它与均匀变化圆磁区在边界处的场，并用局部方程核对。 见图~\ref{fig:i1-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!8](0,0)circle(1.45);\draw[curve](0,0)circle(1.45);
+\draw[axis](-1.9,0)--(2.1,0)node[right]{$x$};\draw[axis](0,-1.8)--(0,1.9)node[above]{$y$};
+\node[below left]at(0,0){$O$};\draw[->](0,0)--(40:1.45)node[midway,above left]{$R$};
+\node at(-.65,.65){$\dot B_z$};\fill(1,0)circle(1.5pt)node[below right]{$P$};\node[below]at(0,-2.1){$-\dot B_z=\alpha r^2/R^2\quad(r<R)$};
+\end{tikzpicture}
+\caption{边缘变化率与均匀模型相同，盘内平均值不同。}\label{fig:i1-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h3-q}仍有轴对称性，但磁通变化率在圆内不均匀。对$r<R$的圆盘，应逐个环带积分：
+\[2\pi rE_\theta=\int_0^r\frac{\alpha s^2}{R^2}\,2\pi s\dd s
+=\frac{2\pi\alpha}{R^2}\left[\frac{s^4}4\right]_0^r
+=\frac{\alpha\pi r^4}{2R^2}.
+\]
+从而$E_\theta=\alpha r^3/(4R^2)$。在$r>R$时把积分上限固定为$R$，得到$2\pi rE_\theta=\alpha\pi R^2/2$。全解为
+\[\boxed{E_\theta=\begin{cases}
+\alpha r^3/(4R^2),&r<R,\\
+\alpha R^2/(4r),&r>R.
+\end{cases}}
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$r/R$};\draw[axis](0,-.1)--(0,2.5)node[above]{$4E_\theta/(\alpha R)$};
+\draw[curve,domain=0:1,samples=51]plot(\x,{(\x)^3});\draw[curve,domain=1:4,samples=61]plot(\x,{1/\x});
+\draw[guide](1,0)--(1,1);\node[below]at(1,0){$1$};
+\end{tikzpicture}
+\caption{三次幂内解在边界接上反比外解。}\label{fig:i1-h3-s}
+\end{figure}
+
+图~\ref{fig:i1-h3-s}表明内区先按三次幂增长，再接外区的反比曲线。边界值为$\alpha R/4$，只有同样边界变化率的均匀圆磁区的一半。
+
+差别来自面积平均：圆盘内$r^2/R^2$的面积平均为$1/2$，以边缘变化率代替面内平均值会多算一倍。将内解代入旋度式，
+\[\frac1r\frac{\partial(rE_\theta)}{\partial r}
+=\frac\alpha{4R^2r}\frac{\dd r^4}{\dd r}
+=\frac\alpha{4R^2r}\,4r^3=\frac{\alpha r^2}{R^2},\]
+恢复给定的局部源；外解的$rE_\theta$为常量，旋度为零。一般轴对称分布也应先求$\int_0^r[-\dot B_z(s)]s\dd s$，再除以$r$。
+\end{solution}
+
+\begin{exercise}[从圆磁区的矢势恢复感生场]\label{ex:i1-h4}
+半径$R$圆柱内的匀强磁场为$B(t)\vct e_z$，区外磁场为零。选仅有环向分量的磁矢势，要求轴上正则。求内外$A_\theta$，再在无附加电荷场的约定下恢复$E_\theta$。 见图~\ref{fig:i1-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.5);\draw[axis](-1.9,0)--(2,0);\draw[->](0,0)--(45:1.5)node[midway,above]{$R$};\node at(-.65,.6){$\odot\ B(t)$};\draw[->](1.2,0)arc(0:70:1.2)node[above]{$A_\theta$};
+\end{tikzpicture}
+\caption{环向矢势的环量必须给出圆柱内的磁通。}\label{fig:i1-h4-q}
+\end{figure}
+\begin{solution}
+对图~\ref{fig:i1-h4-q}选$\vct A=A_\theta(r,t)\vct e_\theta$，并要求轴上无奇点。由柱坐标旋度，
+\[B_z=\frac1r\frac{\partial}{\partial r}(rA_\theta).
+\]
+固定时刻后，圆内满足$\partial_r(rA_\theta)=rB(t)$，故
+\[rA_\theta(r,t)-\lim_{s\to0}sA_\theta(s,t)
+=B(t)\int_0^rs\dd s=B(t)[s^2/2]_0^r.\]
+轴上正则使左端极限为零，于是$A_\theta=Br/2$。圆外$\partial_r(rA_\theta)=0$，通解为$A_\theta=C_o(t)/r$；由$r=R$处连续得$C_o=BR^2/2$。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$r/R$};\draw[axis](0,-.1)--(0,2.5)node[above]{$2A_\theta/(BR)$};
+\draw[curve](0,0)--(1,1);\draw[curve,domain=1:4,samples=61]plot(\x,{1/\x});
+\node[below]at(1,0){$1$};\node[right]at(2.1,1.5){$E_\theta=-\partial_tA_\theta$};
+\end{tikzpicture}
+\caption{矢势的内外分段与磁通相容，其时间导数给出感生场。}\label{fig:i1-h4-s}
+\end{figure}
+
+因此图~\ref{fig:i1-h4-s}的两段为
+\[\boxed{A_\theta=\begin{cases}Br/2,&r<R,\\BR^2/(2r),&r>R.\end{cases}}
+\]
+在这个对称、无附加电荷场的规范下可取$\varphi=0$，于是$E_\theta=-\partial_tA_\theta$，立即得到圆内$-\dot Br/2$、圆外$-\dot BR^2/(2r)$。
+
+外区$B=0$并不允许把$A_\theta$也随意取零。沿外圆的矢势环量为$2\pi rA_\theta=\pi R^2B$，等于管内磁通；若改成零便改变了这一全域量。只有局部、可缩的小邻域内，才可把这样的无旋矢势写成梯度。计算感生电场时，还必须保留与规范同时变换的电势。
+\end{solution}
+
+\begin{exercise}[时间依赖规范不能只改变矢势]\label{ex:i1-h5}
+匀强磁场$B(t)\vct e_z$采用对称规范$\vct A=\tfrac12B(-y,x,0)$、$\varphi=0$。改用$\vct A'=(-By,0,0)$，求规范函数和新电势，并逐分量说明总电场不变。 见图~\ref{fig:i1-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-1.8,0)--(2,0)node[right]{$x$};\draw[axis](0,-1.4)--(0,1.8)node[above]{$y$};\fill(1,1)circle(1.5pt)node[above right]{$P$};\node at(-1,.8){$\odot\ B(t)$};\draw[->](1,1)--(1.5,.5);\node[below]at(0,-1.8){两种势表示同一个物理电场};
+\end{tikzpicture}
+\caption{取一般点P，比较电场矢量而非某个势的数值。}\label{fig:i1-h5-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h5-q}中的对称规范为$\vct A=\tfrac12B(-y,x,0)$、$\varphi=0$。要变到$\vct A'=(-By,0,0)$，两矢势之差为$(-By/2,-Bx/2,0)$，所以可取
+\[\chi=-\frac12B(t)xy,\qquad
+\varphi'=\varphi-\partial_t\chi=\frac12\dot Bxy.
+\]
+在原规范中，$\vct E=-\partial_t\vct A=(\dot By/2,-\dot Bx/2,0)$。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.2,0)--(3.8,0)node[right]{$E_x$};\draw[axis](0,-1.6)--(0,1.3)node[above]{$E_y$};
+\draw[->,thick](0,0)--(2,-1)node[right]{$-\partial_t\vct A-\nabla\varphi$};\draw[->](0,0)--(3,0)node[above]{$-\partial_t\vct A'$};\draw[->](3,0)--(2,-1)node[midway,right]{$-\nabla\varphi'$};
+\end{tikzpicture}
+\caption{新规范中的梯度场补偿矢势时间导数的变化。}\label{fig:i1-h5-s}
+\end{figure}
+
+图~\ref{fig:i1-h5-s}将新规范中的两项分别画出。逐项计算，
+\[-\partial_t\vct A'=(\dot By,0,0),\qquad
+-\nabla\varphi'=(-\dot By/2,-\dot Bx/2,0).
+\]
+相加仍为
+\[\boxed{\vct E=(\dot By/2,-\dot Bx/2,0)}.
+\]
+规范变换重新分配了电场的两项表示，新电势恰好补偿矢势改变的部分，物理电荷分布保持不变。总场的散度仍为零，旋度为$-\dot B\vct e_z$。若在新规范中仍令$\varphi'=0$，所得$(\dot By,0,0)$虽有同一旋度，却改变了总电场。Faraday方程给定旋度后，电场的梯度部分还须由其他条件确定。
+\end{solution}
+
+\begin{exercise}[非均匀静磁场中的有效势]\label{ex:i1-h6}
+在平面内，$\vct B=B_0(1+y^2/a^2)\vct e_z$，$B_0>0$。质量$m$、电荷$q\ne0$的粒子无外力运动。用循环坐标将轨迹约化为一个$y$方向有效势问题，写出转向点条件。 见图~\ref{fig:i1-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-1.8,0)--(2,0)node[right]{$x$};\draw[axis](0,-1.6)--(0,1.7)node[above]{$y$};\foreach\y in{-1,-.5,0,.5,1}{\node at(-1.1,\y){$\odot$};}\node[right]at(.35,1.25){$B_z=B_0(1+y^2/a^2)$};\draw[->](.3,.3)--(1.2,.7)node[right]{$\vct v_0$};
+\end{tikzpicture}
+\caption{静磁场保持速率，不保持回旋半径。}\label{fig:i1-h6-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h6-q}中的磁场只依赖$y$，可选$A_x=-F(y)$、$A_y=0$，其中
+\[F(y)=\int_0^yB_z(s)\dd s
+=B_0\left[s+\frac{s^3}{3a^2}\right]_0^y
+=B_0\left(y+\frac{y^3}{3a^2}\right).
+\]
+拉格朗日量不显含$x$，因此$P_x=mv_x-qF(y)=p$为常量，且磁场不做功，平面总动能$E_\perp$为常量。消去$v_x$，
+\[\frac12m\dot y^2+\frac{[p+qF(y)]^2}{2m}=E_\perp.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$y$};\draw[axis](0,-.1)--(0,2.5)node[above]{$U_{\rm eff}$};
+\draw[curve,domain=-1.2:1.2,samples=91]plot({1.8+\x},{.7*(\x+(\x)^3/3)^2});\draw[guide](.3,1)--(3.4,1);
+\node[right]at(3.4,1){$E_\perp$};\node[below]at(.8,0){$y_-$};\node[below]at(2.8,0){$y_+$};
+\end{tikzpicture}
+\caption{图示p=0的有效势，水平能量线确定两个转向点。}\label{fig:i1-h6-s}
+\end{figure}
+
+图~\ref{fig:i1-h6-s}中的一维有效势为
+\[\boxed{U_{\rm eff}(y)=\frac{[p+qB_0(y+y^3/3a^2)]^2}{2m}}.
+\]
+转向点满足$p+qF(y)=\pm\sqrt{2mE_\perp}$。因为$F'(y)=B_z(y)>0$且$F$的值域为全体实数，当$E_\perp>0$时，两种符号各对应一个实根，两个根之间是允许的$y$区间。若$E_\perp=0$，两根合并为$F(y_0)=-p/q$，平面速度为零，粒子保持静止。图中取$p=0$以突出对称形状。一般$p$使势阱最低点移至$y_0$；$F$的非线性还会改变势阱形状。
+
+对有效势求导可核对约化后的动力学：
+\[U_{\rm eff}'(y)=\frac{2[p+qF(y)]qF'(y)}{2m}
+=qB_z(y)v_x,\qquad m\ddot y=-qB_z(y)v_x.\]
+这与图~\ref{fig:i1-h6-q}中洛伦兹力的$y$分量相同。在最低点再求一次导数，乘积法则给
+\[U_{\rm eff}''(y_0)
+=\left.\frac{q^2[F'(y)]^2+q[p+qF(y)]F''(y)}m\right|_{y_0}
+=\frac{q^2B_z(y_0)^2}{m}.\]
+因此最低点附近的曲率也取决于$p$所确定的$y_0$，不能将整族曲线理解为同一曲线的平移。
+
+这里不能仍把轨道当作固定半径圆：磁场的大小随位置改变，机械速度方向的角速率也改变。所得有效势并非真实静电势，而是将守恒的正则动量代回机械能后形成的单坐标描述。允许区间内再由$v_x=[p+qF(y)]/m$与$\dot y$的正负支积分，才能得到具体轨迹。
+\end{solution}
+
+\begin{exercise}[由中心电场反求磁区长宽比]\label{ex:i1-h7}
+无附加电荷场的矩形磁区内$\partial_tB_z=-\alpha$。在中心附近测得$E_x=-ay+O(r^3)$、$E_y=bx+O(r^3)$，且$a=3b$。求矩形沿$x$方向全长与沿$y$方向全宽之比，并说明测量范围的要求。 见图~\ref{fig:i1-h7-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-.7)rectangle(2,.7);\draw[axis](-2.3,0)--(2.4,0)node[right]{$x$};\draw[axis](0,-1)--(0,1.2)node[above]{$y$};\fill(.3,.3)circle(1.4pt)node[above right]{$P$};\node[below]at(0,-1.3){中心线性场：$E_x=-ay,\ E_y=bx$};
+\end{tikzpicture}
+\caption{用中心极限的系数比反演几何形状。}\label{fig:i1-h7-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h7-q}给的是中心场的线性系数。局部Faraday方程要求$a+b=\alpha$，而$a=3b$，所以$a=3\alpha/4$、$b=\alpha/4$。
+
+设矩形的两半边长为$D/2,H/2$。例~\ref{ex:i1-e5}已经由磁区面积核积分得到中心系数，直接用其中的关系
+\[a=\frac{2\alpha}{\pi}\arctan\frac DH,\qquad
+b=\frac{2\alpha}{\pi}\arctan\frac HD.\]
+这里反演的是同一中心极限，无须再作一次面积核积分。
+
+将$a/\alpha=3/4$代入，得到
+\[\arctan\frac DH=\frac{3\pi}{8},\qquad
+\boxed{\frac DH=\tan\frac{3\pi}{8}=1+\sqrt2}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$D/H$};\draw[axis](0,-.1)--(0,2.5)node[above]{$a/\alpha$};
+\draw[curve,domain=.05:4.2,samples=91]plot(\x,{2*atan(\x)/180});
+\draw[guide](2.414,0)--(2.414,.75)--(0,.75);\node[below]at(2.414,0){$1+\sqrt2$};\node[left]at(0,.75){$3/4$};
+\end{tikzpicture}
+\caption{纵坐标采用弧度定义的反正切函数，交点给出长宽比。}\label{fig:i1-h7-s}
+\end{figure}
+
+图~\ref{fig:i1-h7-s}的水平线在$3/4$处与系数曲线相交，由此确定长宽比。磁场变化率的绝对大小则由$\alpha=a+b$给出。
+
+测量点必须足够接近中心，使三次及更高项可忽略。若在同一个有限离轴点用$-E_x/y$和$E_y/x$当作中心系数，得到的比值会受高阶项污染。实际可在几个递减距离上作线性拟合，再外推到中心；不能把上述局部反演公式用于整个矩形边界。另有附加静电场时，也须先分离该场，否则同一个磁区形状未必给出这里的系数。
+\end{solution}
+
+\begin{exercise}[干涉路径的绕数]\label{ex:i1-h8}
+电子沿两条无磁场路径从同一点到同一终点，绕不可进入的磁通管的有向次数分别为$2$和$-1$。求磁通引起的相位差与条纹复现周期，并说明周期为什么不能单独决定载流子电荷。 见图~\ref{fig:i1-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!20](0,0)circle(.3);\node at(0,0){$\Phi$};\draw[curve,->](0,1.1)arc(90:420:1.1);\draw[curve,->](0,1.4)arc(90:420:1.4);\draw[guide,->](0,-1.7)arc(-90:-420:1.7);\node[right]at(2,.7){$n_1=2$};\node[right]at(2,0){$n_2=-1$};
+\end{tikzpicture}
+\caption{实线与虚线只示意绕数，端点相同。}\label{fig:i1-h8-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h8-q}中的两条路径具有相同端点，绕管次数分别为$2$和$-1$。相减得到的闭合曲线不是只绕一周，而是净绕$\Delta n=3$周，所以其矢势环量为$3\Phi$。
+
+电子$q=-e$的相位差为$\Delta\phi=-3e\Phi/\hbar$。若只关心条纹复现的磁通增量，应取相位变化的绝对值为$2\pi$，得到
+\[\boxed{\Delta\Phi=\frac{2\pi\hbar}{3e}=\frac h{3e}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$\Phi$};\draw[axis](0,-.1)--(0,2.5)node[above]{$\Delta\phi$};
+\draw[curve](0,0)--(3.6,2.1);\draw[guide](0,1.2)--(2.057,1.2)--(2.057,0);
+\node[left]at(0,1.2){$2\pi$};\node[below]at(2.057,0){$h/(3e)$};
+\end{tikzpicture}
+\caption{净绕数为三，磁通周期缩为单绕数构形的三分之一。}\label{fig:i1-h8-s}
+\end{figure}
+
+图~\ref{fig:i1-h8-s}画的是相位变化的幅值，斜率比净绕一周的构形增大三倍。负电荷只改变斜率的方向，不改变周期大小。
+
+在任一单值规范变换下，两条路径各自增加同样的端点相位$q[\chi(D)-\chi(S)]/\hbar$，相减仍为零。因此增加的三倍灵敏度来自路径绕数，而不是改变粒子的电荷。若实验中只看到较小磁通周期，必须同时知道干涉路径的拓扑，不能单靠周期把载流子的电荷解释成$3e$。若部分轨迹穿过磁场区，还会出现经典轨道和其他相位的改变，本题的无场路径假设不再适用。
+\end{solution}
+
+\begin{exercise}[带有限电刷半径的同极圆盘]\label{ex:i1-h9}
+厚度$d$、电阻率$\rho$的导电圆盘以角速度$\omega>0$绕正$z$轴转动，轴向匀强磁场为$B\vct e_z$，$B>0$。内外电刷分别接在半径$0<a<R$与$R$处，经电阻$R_0$闭合。求电动势、盘内电阻、电流与维持匀速的转矩，忽略自感。 见图~\ref{fig:i1-h9-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](0,0)circle(1.5);\draw[curve](0,0)circle(1.5);\draw[curve](0,0)circle(.45);\draw[line width=1pt](.45,0)--(1.5,0);\node[above]at(.7,0){径向电流};\node at(-.7,.6){$\odot B$};\draw[->](1.75,0)arc(0:60:1.75)node[above]{$\omega$};\node[below]at(.45,0){$a$};\node[below]at(1.5,0){$R$};\node[right]at(2,0){两电刷经$R_0$接通};
+\end{tikzpicture}
+\caption{盘内电流径向流动，外接导线与电刷不随盘转动。}\label{fig:i1-h9-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h9-q}的圆盘材料速度为$\vct u=\omega r\vct e_\theta$，磁场为$B\vct e_z$。因此$\vct u\times\vct B=B\omega r\vct e_r$，正电荷受力朝外。内刷到外刷的动生电动势为
+\[\boxed{\mathcal E=\int_a^RB\omega r\dd r
+=B\omega\left[\frac{r^2}2\right]_a^R
+=\frac{B\omega}{2}(R^2-a^2)}.
+\]
+图~\ref{fig:i1-h9-s}中的梯形面积给出这个积分。电刷固定并不使材料速度为零，几何外电路的面积不变也不能抹去该项。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.7,0)node[right]{$r$};\draw[axis](0,0)--(0,2.3)node[above]{$B\omega r$};\fill[gray!12](.6,0)--(.6,.36)--(3,1.8)--(3,0)--cycle;\draw[curve](0,0)--(3.3,1.98);\draw[guide](.6,0)--(.6,.36);\draw[guide](3,0)--(3,1.8);\node[below]at(.6,0){$a$};\node[below]at(3,0){$R$};\node[right]at(1.6,.4){面积为$\mathcal E$};
+\end{tikzpicture}
+\caption{洛伦兹力沿径向的积分，与盘面是否围成固定回路无关。}\label{fig:i1-h9-s}
+\end{figure}
+
+圆盘中半径$r$的环带截面为$2\pi rd$，径向电阻元为$\dd R=\rho\dd r/(2\pi rd)$，故
+\[R_{\rm disk}=\frac\rho{2\pi d}\int_a^R\frac{\dd r}r
+=\frac\rho{2\pi d}[\ln r]_a^R=\frac\rho{2\pi d}\ln\frac Ra,\qquad
+I=\frac{\mathcal E}{R_0+R_{\rm disk}}.
+\]
+电流在盘内沿径向向外。磁力对径向电流元的转矩为$\dd\tau_z=-IBr\dd r$，于是所需驱动转矩大小
+\[\begin{aligned}
+\tau_{\rm drive}&=IB\int_a^Rr\dd r
+=IB[r^2/2]_a^R=\frac{IB}{2}(R^2-a^2),\\
+\tau_{\rm drive}\omega&=I\mathcal E=I^2(R_0+R_{\rm disk}).
+\end{aligned}\]
+驱动转矩与转动方向相同，外界输入的机械功全部转化为焦耳热。理想点接触$a\to0$时，盘内电阻对数发散；若要保持有限电流，不能同时把中心电刷面积取零又忽略接触附近的电阻。
+\end{solution}
+
+\begin{exercise}[滚轮上三个端点的电动势]\label{ex:i1-h10}
+沿用双半径滚轮，外半径$b$、内半径$a<b$，顺时针纯滚动，磁场朝纸内。除最低点$A$与内圆最高点$B$外，再取外圆最高点$D$。求$A\to D$与$B\to D$的动生电动势。 见图~\ref{fig:i1-h10-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.45);\draw[curve](0,0)circle(.75);\draw[curve](-2,-1.45)--(2,-1.45);\fill(0,-1.45)circle(1.4pt)node[below]{$A$};\fill(0,.75)circle(1.4pt)node[left]{$B$};\fill(0,1.45)circle(1.4pt)node[above]{$D$};\draw[->](0,0)--(.9,0)node[below]{$\omega b$};\node at(-.9,-.45){$\otimes\,\vct B$};
+\end{tikzpicture}
+\caption{三个端点距瞬心的距离不同。}\label{fig:i1-h10-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h10-q}中，$A$仍为瞬心；$B,D$到瞬心的距离分别为$a+b$与$2b$。取磁场朝纸内、轮顺时针纯滚动，动生场可写成$\nabla\chi$，其中$\chi=B\omega[x^2+(y+b)^2]/2$。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,-1.3)--(0,1.8)node[above]{$y$};\draw[axis](0,-1.3)--(3,-1.3)node[right]{$\chi$};\draw[curve,domain=-1.3:1.4,samples=81]plot({.32*(\x+1.3)^2},\x);\node[left]at(0,-1.3){$A$};\draw[guide](0,.7)--(1.28,.7);\draw[guide](0,1.3)--(2.163,1.3);\node[left]at(0,.7){$B$};\node[left]at(0,1.3){$D$};\node[right]at(2.2,1.4){$\chi=B\omega(y+b)^2/2$};
+\end{tikzpicture}
+\caption{辅助函数的端点差可避免重复计算曲线路径。}\label{fig:i1-h10-s}
+\end{figure}
+
+图~\ref{fig:i1-h10-s}在竖直直径上画出该辅助函数。沿任何导电路径的开放积分等于端点函数值之差，所以
+\[\mathcal E_{A\to D}=2B\omega b^2,
+\qquad
+\boxed{\mathcal E_{B\to D}=\frac{B\omega}{2}\bigl[4b^2-(a+b)^2\bigr]}.
+\]
+由于$a<b$，后一个值为正，即正电荷沿轮内从$B$向$D$受到正的动生驱动。也可先算$A\to D$再减$A\to B$；开放线积分的方向必须随路径相减一起改变。
+
+这里的$\chi$是动生项$\vct u\times\vct B$的积分辅助函数；整个系统的总电场还取决于电荷分布与电路状态。若电路开路并达到导电平衡，表面电荷会建立相应的电场；若有电流，盘内还存在欧姆压降。改变电刷接点并不等于改变轮的转速，计算时应重新代入端点到瞬心的距离，不能只把原答案中的一段几何长度随意替换。
+\end{solution}
+
+\begin{exercise}[无阻滚柱的非零初始电流]\label{ex:i1-h11}
+均匀实心圆柱内固定面积$S$、自感$L$的无阻线圈，在水平面上纯滚动。初始法向平行竖直磁场$B$，但回路已有电流$I_0$。求转角$\psi=0$附近的稳定性，并在可作线性小振动时求频率。 见图~\ref{fig:i1-h11-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1)--(2,-1);\draw[curve](0,0)circle(1);\draw[->](0,0)--(0,1.8)node[above]{$\vct B$};\draw[guide](-.8,-.4)--(.8,.4);\node[right]at(1.2,.5){$I(0)=I_0$};\draw[->](1.25,.8)arc(35:-30:1.4)node[right]{$\psi$};
+\end{tikzpicture}
+\caption{正I0对应初始磁矩与外磁场同向。}\label{fig:i1-h11-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h11-q}的圆柱放在水平面上，因此没有沿坡重力项。初始磁链是$LI_0+BS$，不是$BS$。转角为$\psi$时，
+\[LI+BS\cos\psi=LI_0+BS,\qquad
+I=I_0+\frac{BS}{L}(1-\cos\psi).
+\]
+减去初始磁能后，有效势为
+\[U-U_0=\frac L2\left[I_0+\frac{BS}{L}(1-\cos\psi)\right]^2-\frac L2I_0^2.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2,0)--(2.1,0)node[right]{$\psi$};\draw[axis](0,-1.1)--(0,2.1)node[above]{$U-U_0$};\draw[curve,domain=-1.3:1.3]plot(\x,{.7*(\x)^2});\draw[guide,domain=-1.3:1.3]plot(\x,{-.5*(\x)^2});\draw[densely dotted,domain=-1.3:1.3]plot(\x,{.3*(\x)^4});\node[right]at(1.3,1.3){$I_0>0$};\node[right]at(1.3,-.85){$I_0<0$};\node[right]at(1.4,.5){$I_0=0$};
+\end{tikzpicture}
+\caption{三种初始电流分别给出正二次、负二次或正四次首项。}\label{fig:i1-h11-s}
+\end{figure}
+
+图~\ref{fig:i1-h11-s}中的三种局部形状，来自$1-\cos\psi=\psi^2/2+O(\psi^4)$，故
+\[U-U_0=\frac{I_0BS}{2}\psi^2+O(\psi^4).
+\]
+有效惯量由平动与转动动能相加得到：
+\[
+T=\frac12m(r\dot\psi)^2+\frac12\left(\frac12mr^2\right)\dot\psi^2
+=\frac12J_{\rm eff}\dot\psi^2,\qquad J_{\rm eff}=\frac32mr^2.
+\]
+记$I(\psi)=I_0+(BS/L)(1-\cos\psi)$。链式法则给$I'(\psi)=(BS/L)\sin\psi$，故
+\[\frac{\dd U}{\dd\psi}=LI(\psi)I'(\psi)
+=BS\left[I_0+\frac{BS}{L}(1-\cos\psi)\right]\sin\psi.\]
+代入$J_{\rm eff}\ddot\psi=-U'(\psi)$，原运动方程为
+\[
+J_{\rm eff}\ddot\psi
+=-BS\left[I_0+\frac{BS}{L}(1-\cos\psi)\right]\sin\psi.
+\]
+保留一阶项后是$J_{\rm eff}\ddot\psi=-I_0BS\psi$。
+
+对$I_0>0$，二阶系数为正，$J_{\rm eff}=3mr^2/2$给出小振动角频率
+\[\boxed{\omega_0^2=\frac{I_0BS}{J_{\rm eff}}=\frac{2I_0BS}{3mr^2}}.
+\]
+对$I_0<0$，该构形不稳定。对$I_0=0$，二阶项消失，但首项为$B^2S^2\psi^4/(8L)>0$，因此仍是非线性稳定的平衡；振动频率依赖振幅，不能把二阶频率为零解释成完全没有回复作用。式中$I_0$按初始法向与磁场同向为正，若改变电流符号约定，稳定性判断须随物理磁矩一起转换。
+\end{solution}
+
+\begin{exercise}[圆磁区外沿螺线运动的功]\label{ex:i1-h12}
+圆磁区半径$R$，区内$\partial_tB_z=-\alpha$、区外$B=0$。正电荷$q$、质量$m$的珠子从静止沿光滑绝缘螺线$r(\theta)=2R\exp[(\ln2)\theta/\pi]$运动，$0\le\theta\le\pi$。求电场作功与末速，并说明多绕一周的变化。 见图~\ref{fig:i1-h12-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide](0,0)circle(.55);\fill[gray!10](0,0)circle(.55);\draw[curve,domain=0:180,samples=101]plot({1.1*exp(ln(2)*\x/180)*cos(\x)},{1.1*exp(ln(2)*\x/180)*sin(\x)});\fill(1.1,0)circle(1.5pt)node[right]{$A$};\fill(-2.2,0)circle(1.5pt)node[left]{$D$};\node at(0,0){$R$};\draw[axis](-2.5,0)--(1.7,0);
+\end{tikzpicture}
+\caption{轨迹半径从2R增至4R，始终在磁区外。}\label{fig:i1-h12-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h12-q}的螺线全在圆磁区外，故$E_\theta=\alpha R^2/(2r)$、$E_r=0$。沿任意平面曲线，线元可分成$\dd\vct l=\vct e_r\dd r+\vct e_\theta r\dd\theta$，因此
+\[\dd W=q\vct E\cdot\dd\vct l
+=\frac{q\alpha R^2}{2}\dd\theta.
+\]
+半径$r(\theta)$完全消去。沿图中路径由$0$积到$\pi$，
+\[W=\frac{q\alpha R^2}{2}\int_0^\pi\dd\theta
+=\frac{q\alpha R^2}{2}[\theta]_0^\pi.\]
+再用$mv_D^2/2=W$，得到
+\[\boxed{W=\frac{q\alpha R^2\pi}{2}},\qquad
+\boxed{v_D=\sqrt{\frac{q\alpha R^2\pi}{m}}}.
+\]
+第二式使用初始静止、光滑约束不做功，且外区没有其他做功力。图~\ref{fig:i1-h12-s}中功随展开极角线性增长，和螺线在外侧绕得更远并不矛盾：电场随$r$减弱，角向线元却随$r$增大。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.2,0)node[right]{$\theta$};\draw[axis](0,0)--(0,2.1)node[above]{$W$};\draw[curve](0,0)--(3.5,1.65);\draw[guide](3.5,0)--(3.5,1.65);\node[below]at(3.5,0){$\pi$};\node[right]at(3.5,1.65){$q\alpha R^2\pi/2$};
+\end{tikzpicture}
+\caption{在给定场中，功由展开的极角决定。}\label{fig:i1-h12-s}
+\end{figure}
+
+若将同一螺线再延长一周到$\theta=3\pi$，终点半径为$2R\exp(3\ln2)=16R$，不会回到原终点。新增功为
+\[\Delta W=\frac{q\alpha R^2}{2}\int_\pi^{3\pi}\dd\theta
+=\frac{q\alpha R^2}{2}[\theta]_\pi^{3\pi}
+=q\alpha\pi R^2.\]
+若另选一条始终位于磁区外的轨道，多绕一周后仍到达原终点，则展开极角也比原路径多$2\pi$，新增功相同。两种比较的终点几何不同，功的变化都由连续展开的极角确定。式中角度须用弧度。
+\end{solution}
+
+\begin{exercise}[在静态梯度磁场中平移的圆环]\label{ex:i1-h13}
+半径$a$、电阻$R$的圆环以速度$V\vct e_x$在$xy$平面内平移，外场$B_z=B_0+Gx$不随时间变。忽略自感，求电动势、电流和沿运动方向的净磁力，并核对机械功率。 见图~\ref{fig:i1-h13-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-.7,0)circle(1.05);\draw[guide](.1,0)circle(1.05);\draw[->](-.7,0)--(.4,0)node[above]{$V$};\draw[axis](-2.1,-1.5)--(2.4,-1.5)node[right]{$x$};\node[below]at(-.7,-1.5){$X$};\node at(1.7,.8){$B_z=B_0+Gx$};\draw[->](-.7,0)--++(15:1.05)node[midway,below]{$a$};
+\end{tikzpicture}
+\caption{磁通变化来自圆环位置改变，而非外场的时间偏导。}\label{fig:i1-h13-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h13-q}的外场不随时间变化，但圆环中心$X$在运动。圆盘关于自身中心对称，$x-X$的面积积分为零，所以
+\[\Phi=\int_SB_z\dd S=\pi a^2(B_0+GX),\qquad
+\mathcal E=-\pi a^2GV.
+\]
+记$A=\pi a^2$，忽略自感时$I=-AGV/R$。该式按逆时针为正；$G,V>0$时，图~\ref{fig:i1-h13-s}中的电流为顺时针。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.1);\draw[->](1.1,0)arc(0:-70:1.1);\draw[->](0,-.3)--(-1,-.3)node[left]{$F_x$};\draw[->](0,.3)--(1,.3)node[right]{$V$};\node at(0,0){$I<0$};\node[below]at(0,-1.6){$-F_xV=I^2R$};
+\end{tikzpicture}
+\caption{梯度场中的感应电流产生与速度相反的净磁力。}\label{fig:i1-h13-s}
+\end{figure}
+
+净磁力可直接对导线积分。其$x$分量为
+\[F_x=I\oint B_z\dd y
+=IG\oint x\dd y=IGA,
+\]
+在圆周上取$x=X+a\cos\theta$、$y=Y+a\sin\theta$，则$\dd y=a\cos\theta\dd\theta$，所以
+\[\begin{aligned}
+\oint x\dd y
+&=Xa\int_0^{2\pi}\cos\theta\dd\theta
++a^2\int_0^{2\pi}\cos^2\theta\dd\theta\\
+&=Xa[\sin\theta]_0^{2\pi}
++a^2\left[\frac\theta2+\frac{\sin2\theta}4\right]_0^{2\pi}
+=\pi a^2=A.
+\end{aligned}\]
+其中均匀场项$IB_0\oint\dd y=IB_0[y]_{\text{一周}}=0$。代入$I$，
+\[\boxed{F_x=-\frac{A^2G^2}{R}V},\qquad
+-F_xV=\frac{A^2G^2V^2}{R}=I^2R.
+\]
+线性磁场使面积平均恰等于中心值，故这里不需假设$a$极小；但整个环必须处于给定的线性场范围内。若$G=0$，匀强场中的刚性整体平移没有闭路电动势，净磁阻力也为零。局部导线上的动生力仍可能存在，它们的完整回路积分互相抵消。
+\end{solution}
+
+\begin{exercise}[旋度、散度与中心值是否足够]\label{ex:i1-h14}
+在整个平面给定$\partial_tB_z=-\alpha$，且知道$E_z=0$、$\nabla\cdot\vct E=0$、$\vct E(O)=0$。这些条件能否唯一推出$\vct E=(\alpha/2)\vct e_z\times\vct r$？构造一族满足同样条件的场，并说明还需要何种物理信息。 见图~\ref{fig:i1-h14-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-1.7,0)--(1.9,0)node[right]{$x$};\draw[axis](0,-1.5)--(0,1.7)node[above]{$y$};\node at(-.8,.8){$-\dot B_z=\alpha$};\fill(0,0)circle(1.5pt)node[below left]{$O$};\node[below]at(0,-1.9){已知：散度零、旋度固定、中心场零};
+\end{tikzpicture}
+\caption{局部方程与单点值并不等于完整边值问题。}\label{fig:i1-h14-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i1-h14-q}所列条件仍只给出局部方程与一个点值。先取一个解
+\[\vct E_0=(\alpha/2)(-y,x,0).\]
+任取常数$\eta$，函数$f=\eta xy$满足$\nabla^2f=0$，且原点梯度为零，因此
+\[\vct E_\eta=\vct E_0-\nabla f
+=\left[-\left(\frac\alpha2+\eta\right)y,
+\left(\frac\alpha2-\eta\right)x,0\right]
+\]
+对所有$\eta$都满足$\nabla\cdot\vct E_\eta=0$、$\nabla\times\vct E_\eta=\alpha\vct e_z$和$\vct E_\eta(O)=0$。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[xshift=-2.4cm]\draw[axis](-1.2,0)--(1.3,0);\draw[line width=.4pt](0,-1.2)--(0,0);\draw[->](.9,0)--(.9,.5);\draw[->](-.9,0)--(-.9,-.5);\draw[->](0,.9)--(-.5,.9);\node[below]at(0,-1.5){纯旋流};\end{scope}
+\begin{scope}[xshift=2.4cm]\draw[axis](-1.2,0)--(1.3,0);\draw[line width=.4pt](0,-1.2)--(0,0);\draw[->](.8,0)--(.8,-.5);\draw[->](0,.8)--(-.5,.8);\draw[->](-.8,0)--(-.8,.5);\node[below]at(0,-1.5){可叠加$-\nabla(\eta xy)$};\end{scope}
+\end{tikzpicture}
+\caption{调和梯度分量改变局部电场，但不改变给定旋度。}\label{fig:i1-h14-s}
+\end{figure}
+
+图~\ref{fig:i1-h14-s}把纯旋流与可添加的调和梯度场分开画出。它们的环量相同，但一般点的电场方向与大小不同，所以题给条件不足以唯一确定电场。
+
+若再要求整个物理源及边界具有连续轴对称，$\eta$项会破坏这种对称，才被排除。在有限区域中，也可以用完整的电势或电场边界条件消除该自由度。只说“没有体电荷”并不等于没有外部电极或表面电荷产生的调和场。无限空间均匀变化磁场的场本来随距离增长，不能再把不相容的“远处电场为零”作为补充条件；应回到一个有限源模型说明远区行为。
+\end{solution}

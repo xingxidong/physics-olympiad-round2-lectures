@@ -1,0 +1,36 @@
+\begin{exercise}\label{ex:o4twohalf}
+两块理想半波片的快轴方向依次为$\alpha_1,\alpha_2$。求合成Jones矩阵和线偏振转角，说明为何要保留本征轴方向而不能只给光场乘一个共同相位。
+\Diagram{fig:o4twohalfq}{两半波片的先后轴方向决定合成旋转}{\draw[axis](-1,0)--(5.5,0);\draw[curve](0,-1)--(0,1);\draw[curve](3,-1)--(3,1);\node[above]at(0,1){$H(\alpha_1)$};\node[above]at(3,1){$H(\alpha_2)$};}
+\end{exercise}
+\begin{solution}
+删去每片的共同相位，图\ref{fig:o4twohalfq}半波片矩阵为
+\[
+ H(\alpha)=\begin{pmatrix}\cos2\alpha&\sin2\alpha\\
+ \sin2\alpha&-\cos2\alpha\end{pmatrix}.
+\]
+令$c_j=\cos2\alpha_j$、$s_j=\sin2\alpha_j$，按传播顺序相乘得到
+\[
+ H(\alpha_2)H(\alpha_1)=
+ \begin{pmatrix}c_2c_1+s_2s_1&c_2s_1-s_2c_1\\
+ s_2c_1-c_2s_1&s_2s_1+c_2c_1\end{pmatrix}
+ =R[2(\alpha_2-\alpha_1)].
+\]
+其中$R(\theta)=\bigl(\begin{smallmatrix}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{smallmatrix}\bigr)$。因此任意线偏振方向转过$2(\alpha_2-\alpha_1)$，椭圆的长轴同样旋转，旋向经两次翻转后恢复。
+\Diagram{fig:o4twohalfa}{图取$\alpha_1=20^\circ,\alpha_2=60^\circ$，合成旋转$80^\circ$}{\draw[axis](0,0)--(3,0)node[right]{原方向};\draw[guide](0,0)--(2.53717,.92345)node[right]{$\alpha_1$};\draw[guide](0,0)--(1.5,2.59808)node[above]{$\alpha_2$};\draw[axis](0,0)--(.45149,2.56050)node[above left]{输出};\draw[->](1,0)arc(0:80:1);\node[below]at(1,-.6){$2(\alpha_2-\alpha_1)$};}
+图\ref{fig:o4twohalfa}反映两次镜像的几何关系。交换波片顺序会使旋转角反号；快轴平行时合成为单位矩阵。半波片的相对延迟为$\pi$，不是对所有输入都加同一个标量相位；忽略本征轴会丢失整个旋转效应。
+\end{solution}
+
+\begin{exercise}\label{ex:o4geometricphase}
+干涉仪两臂输入同一正圆偏振态$(1,i)^{\mathsf T}/\sqrt2$。一臂无偏振元件，另一臂依次通过快轴0度和$\alpha$的两块半波片。普通传播相位已补偿，两臂等强。求输出偏振、相对相位和合束强度。
+\Diagram{fig:o4geometricq}{两臂最终偏振相同，波片组合仍可改变干涉相位}{\draw[->](0,1)--(5.5,1);\draw[->](0,-.5)--(5.5,-.5);\draw[curve](1.5,-1)--(1.5,0);\draw[curve](3.5,-1)--(3.5,0);\node[below]at(1.5,-1){$H(0)$};\node[below]at(3.5,-1){$H(\alpha)$};\node[right]at(5.5,.3){合束};}
+\end{exercise}
+\begin{solution}
+由上一题，图\ref{fig:o4geometricq}测试臂的矩阵为$R(2\alpha)$。对圆Jones矢量直接作用，
+\[
+ R(2\alpha)\frac1{\sqrt2}\begin{pmatrix}1\\i\end{pmatrix}
+ =\ee^{-2i\alpha}\frac1{\sqrt2}\begin{pmatrix}1\\i\end{pmatrix}.
+\]
+所以输出仍是同一正圆偏振，公共相位相对参考臂却改变$-2\alpha$。若单臂强度为$I_1$，两臂合场比例$1+\ee^{-2i\alpha}$，强度为$4I_1\cos^2\alpha$。
+\Diagram{fig:o4geometrica}{两臂振幅相等，圆态的公共相位可由干涉测出}{\draw[axis](0,0)--(2.5,0)node[right]{参考相量};\draw[axis](0,0)--(1,-2.291288)node[right]{测试相量};\draw[guide](2.5,0)arc(0:-66.42182:2.5);\node at(1.4,-.5){$-2\alpha$};}
+图\ref{fig:o4geometrica}的相位随波片转角改变，$\alpha=0$相长，$\alpha=\pi/2$相消。单臂的偏振椭圆保持不变，两臂的干涉强度却随这个公共相位变化。计算中删去的两片材料本身公共传播相位必须确已补偿，本题只隔离随轴角变化的部分。
+\end{solution}

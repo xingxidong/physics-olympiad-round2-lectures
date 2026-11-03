@@ -1,0 +1,107 @@
+\subsection{环境约束下的可用功与势函数}
+\label{th:availabilityprinciple}
+设封闭系统与温度 $T_0$ 的大热库交换热量 $Q$，从初态变化到终态，对外输出总机械功 $W$。第一定律与整体熵不减分别给
+\[
+ W=Q-\Delta U,\qquad
+ \Delta S-\frac Q{T_0}=S_{\rm gen}\ge0.
+\]
+消去 $Q$，得到
+\[
+ W=-\Delta(U-T_0S)-T_0S_{\rm gen}.
+\]
+在端点给定的条件下，可逆过程的输出功最大；实际功少去的量正是 $T_0S_{\rm gen}$。这里 $T_0$ 是外界恒温热库的温度，即使系统初态与热库不同温，该式也成立。只有系统端点本身处于 $T_0$ 时，$U-T_0S$ 才直接等于这些端点的 Helmholtz 自由能。
+
+若系统还需推动压强为 $p_0$ 的环境，体积变化占用的功为 $p_0\Delta V$。定义可供负载使用的功为 $W_{\rm use}=W-p_0\Delta V$，则
+\[
+ W_{\rm use}
+ =-\Delta(U+p_0V-T_0S)-T_0S_{\rm gen}.
+\]
+因此在同一 $T_0,p_0$ 下比较初末平衡态，最大有用功为 $-\Delta G$。没有其他功输出的自发过程满足 $\Delta G\le0$。固定体积、同一温度下则得到 $\Delta F\le0$。使用势函数判据时，应同时保留其恒温、定容或定压的环境条件。
+
+\Diagram{fig:availabilitybalance}{能量变化、环境排热与有用功的分配}{
+ \node[draw](s)at(0,0){系统初态 $\to$ 终态};
+ \node[draw](e)at(4,1.4){环境 $T_0,p_0$};
+ \node[draw](w)at(4,-1.3){机械负载};
+ \draw[<->](s)--(e)node[midway,above left]{$Q,\ p_0\Delta V$};
+ \draw[axis](s)--(w)node[midway,below left]{$W_{\rm use}$};
+}
+图\ref{fig:availabilitybalance}中，推动环境的功与负载取得的有用功分开计数。负载获得的功须扣除推动环境所占用的部分。指定端点和环境后，势函数差已经确定；实际过程中的熵产生再使有用输出减少。
+
+\begin{example}[给定输入功对两个有限物体制冷]
+\label{ex:finitefridge}
+两个相同物体的热容均为常数 $C$，初温均为 $T_0$。用可逆装置在两者之间传热，同时向整体输入机械功 $W_{\rm in}>0$，外界不供热。求冷物体能达到的最低温度及热物体终温。
+\Diagram{fig:finitefridgeq}{输入功使原先同温的两物体分离为冷热端}{
+ \node[draw](c)at(0,0){$C,T_c$};
+ \node[draw](m)at(3,0){可逆装置};
+ \node[draw](h)at(6,0){$C,T_h$};
+ \draw[axis](c)--(m);\draw[axis](m)--(h);
+ \draw[axis](3,-1.6)--(m)node[midway,right]{$W_{\rm in}$};
+ \node at(3,1.1){初始均为 $T_0$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:finitefridgeq}中机械功最终全部增加两物体总内能。装置循环复原，故
+$C(T_h+T_c-2T_0)=W_{\rm in}$。令 $w=W_{\rm in}/C$，能量约束给 $T_h+T_c=2T_0+w$。可逆过程使两物体总熵不变，
+\[
+ C\ln\frac{T_h}{T_0}+C\ln\frac{T_c}{T_0}=0,
+ \qquad T_hT_c=T_0^2.
+\]
+把 $T_h=2T_0+w-T_c$ 代入第二式，得到
+$T_c^2-(2T_0+w)T_c+T_0^2=0$，较小根为冷端，
+\[
+ T_{c,\min}=T_0+\frac w2-\sqrt{T_0w+\frac{w^2}{4}},
+ \qquad
+ T_h=T_0+\frac w2+\sqrt{T_0w+\frac{w^2}{4}}.
+\]
+\Diagram{fig:finitefridgea}{能量直线与等熵曲线确定最冷端点}{
+ \draw[axis](0,0)--(5,0)node[right]{$T_c$};
+ \draw[axis](0,0)--(0,4.5)node[above]{$T_h$};
+ \draw[curve]plot[domain=.6:4.4](\x,{2.25/\x});
+ \draw[curve](.55,3.45)--(3.45,.55);
+ \fill(.677,3.323)circle(1.4pt)node[right]{$A$};
+ \fill(1.5,1.5)circle(1.3pt)node[below left]{$(T_0,T_0)$};
+ \node at(3.25,3.5){$T_cT_h=T_0^2$};
+}
+图\ref{fig:finitefridgea}用一个正输入功的能量直线示意端点 $A$。若存在不可逆性，则同一输入功下仍固定温度和，而熵不减要求 $T_hT_c\ge T_0^2$。在冷支 $T_c<(T_h+T_c)/2$ 上，乘积随 $T_c$ 增加而增加，故任何不可逆终态的冷端温度都不低于上述小根。$W_{\rm in}\to0$ 时两根合并为 $T_0$；有限正功给正的冷端温度。在模型中要使 $T_c\to0$，所需输入功趋于无穷，且常热容近似在极低温前通常已失效。
+\end{solution}
+
+\begin{example}[有限供热速率下的最大功率]
+\label{ex:finiteconductance}
+恒温热源为 $T_h$，冷源为 $T_c<T_h$。热源通过热导 $K$ 向一台内部可逆热机供热，热机吸热端温度为 $T_x$，排热端与冷源可逆接触。假定供热率为 $\dot Q_h=K(T_h-T_x)$，忽略其他损失。求稳态最大输出功率及相应效率，说明它与卡诺效率上界的关系。
+\Diagram{fig:finiteconductanceq}{有限温差供热与内部可逆热机}{
+ \node[draw](h)at(0,0){$T_h$};
+ \node[draw](x)at(3,0){热机 $T_x,T_c$};
+ \node[draw](c)at(6,0){$T_c$};
+ \draw[axis](h)--(x);\node at(1.5,.8){$K(T_h-T_x)$};
+ \draw[axis](x)--(c);
+ \draw[axis](3,-.4)--(3,-1.5)node[below]{$P$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:finiteconductanceq}中，热机本体在 $T_x,T_c$ 间可逆循环，效率为 $1-T_c/T_x$。供热接触层却跨越有限温差，故整个装置不可逆。功率为
+\[
+ P(T_x)=K(T_h-T_x)\left(1-\frac{T_c}{T_x}\right)
+ =K\left(T_h+T_c-T_x-\frac{T_hT_c}{T_x}\right).
+\]
+允许区间为 $T_c<T_x<T_h$。求导，
+\[
+ P'=K\left(-1+\frac{T_hT_c}{T_x^2}\right),\qquad
+ P''=-\frac{2KT_hT_c}{T_x^3}<0.
+\]
+唯一极大点是 $T_x=\sqrt{T_hT_c}$，故
+\[
+ P_{\max}=K(\sqrt{T_h}-\sqrt{T_c})^2,\qquad
+ \eta_{\rm mp}=1-\sqrt{\frac{T_c}{T_h}}.
+\]
+\Diagram{fig:finiteconductancea}{最大功率位于两个零功率边界之间}{
+ \draw[axis](0,0)--(5.5,0)node[right]{$T_x$};
+ \draw[axis](0,0)--(0,2.5)node[above]{$P$};
+ \draw[curve]plot[domain=1:4](\x,{2*(5-\x-4/\x)});
+ \draw[guide](2,0)--(2,2);
+ \node[below]at(1,0){$T_c$};
+ \node[below]at(2,0){$\sqrt{T_hT_c}$};
+ \node[below]at(4,0){$T_h$};
+}
+图\ref{fig:finiteconductancea}示意 $T_h/T_c=4$。当 $T_x\to T_h$，效率趋近卡诺上界，但供热率趋于零；当 $T_x\to T_c$，效率趋零。最大功率介于两者之间。所得 $\eta_{\rm mp}$ 只属于题设的单侧线性传热模型，若冷端也有有限热导或传热律改变，最优温度与效率均须重新求解。
+\end{solution}
+

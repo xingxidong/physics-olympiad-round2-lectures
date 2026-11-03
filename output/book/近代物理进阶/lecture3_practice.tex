@@ -1,0 +1,90 @@
+\begin{exercise}\label{ex:m3fizeau}
+透明介质在自身静止系的非色散折射率为$n$，光沿介质运动方向传播，介质相对实验室速度$V$。求实验室相速度，并展开至$V/c$一阶。
+\Diagram{fig:m3fizeauq}{介质系光速为$c/n$，介质整体沿同向运动}{\draw[curve](0,-.6)rectangle(4,1);\draw[axis](.4,.2)--(2.8,.2)node[above]{$c/n$};\draw[axis](4.2,.2)--(5.5,.2)node[above]{$V$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3fizeauq}的波面速度沿$x$，由相位变换或速度合成都有$v_{\rm ph}=(c/n+V)/(1+V/(nc))$。低速把分母倒数展开为$1-V/(nc)+O(V^2/c^2)$，得$v_{\rm ph}=c/n+V(1-1/n^2)+O(V^2/c)$。
+\Diagram{fig:m3fizeaua}{拖曳系数在$n=1$时为零}{\draw[axis](0,0)--(4.5,0)node[right]{$n$};\draw[axis](0,0)--(0,2.8)node[above]{$1-1/n^2$};\draw[curve,domain=1:4,samples=70]plot(\x,{2.4*(1-1/(\x*\x))});\node[below]at(1,0){$1$};}
+图\ref{fig:m3fizeaua}在$n=1$时恢复真空光速$c$。本题采用非色散近似；真实色散介质中，变换也改变频率，应在相应介质静止频率处取$n$，一阶展开还会出现色散修正。
+\end{solution}
+
+\begin{exercise}\label{ex:m3currentrest}
+某区域总电荷密度为零、电流密度$\vct j=j\hat{\vct x}\ne0$。是否存在使总电流为零的惯性系？解释为什么四电流不总能写为某个实固有密度乘四速度。
+\Diagram{fig:m3currentq}{等量正负电荷相反运动，密度相消而电流相加}{\foreach\x in{0,1,2,3}{\node at(\x,.5){$+$};\node at(\x,-.5){$-$};}\draw[axis](.5,1)--(2,1);\draw[axis](2,-1)--(.5,-1);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3currentq}中，总四电流为$J^\mu=(0,j,0,0)$，不变量$J^2=-j^2<0$。假设某惯性系有$\vct j'=0$，则$J'^2=c^2\rho'^2\geq0$，与不变量符号矛盾，所以任何方向的惯性变换都不能消去总电流。
+
+若仅沿$x$变换，可逐项看到$\rho'=-\gamma Vj/c^2$、$j'_x=\gamma j$。电中性不保持，但电流仍不为零。
+\Diagram{fig:m3currenta}{类空四电流无法通过亚光速变换转到纯时间方向}{\draw[axis](-2,0)--(2.6,0)node[right]{$j_x$};\draw[axis](0,-1.8)--(0,2.4)node[above]{$c\rho$};\draw[guide](-1.8,-1.8)--(2,2);\draw[guide](-1.8,1.8)--(1.8,-1.8);\draw[->,thick](0,0)--(2,0);}
+图\ref{fig:m3currenta}的四电流位于光锥外。单一带电成分共同运动时，$J^\mu=\rho_0U^\mu$且$J^2=\rho_0^2c^2\geq0$；中性电流却可能由正负两组四流相加。例如实验室密度为$+\rho$的正电荷静止，密度为$-\rho$的负电荷以$-u\hat{\vct x}$运动，总电荷为零、总电流为$+\rho u\hat{\vct x}$。各组分别有自己的静止系，总和没有共同电流静止系。
+
+更一般地，只有$J^2>0$的非零四电流才可变到纯时间方向；$J^2<0$可变到纯空间方向，$J^2=0$且非零时两种静止化都不可行。总四电流按带符号电荷加权，与物质总能量动量不同；其类空性质不要求任何载体超光速。
+\end{solution}
+
+\begin{exercise}\label{ex:m3obliquewave}
+平面波实验室传播方向与$x$成60度，观察系以$0.6c$沿$x$运动。求频率比和新方向角，核对横向波矢不变。
+\Diagram{fig:m3obliquewaveq}{斜向波矢的纵横分解}{\draw[axis](0,0)--(3.8,0)node[right]{$x$};\draw[axis](0,0)--(1.5,2.598)node[right]{$\vct k$};\draw[guide](1.5,0)--(1.5,2.598);\node at(.9,.4){60度};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3obliquewaveq}有$\gamma=1.25$、$\cos\theta=.5$，频率比$\omega'/\omega=1.25(1-.6\times.5)=.875$。方向余弦$\cos\theta'=(.5-.6)/(1-.3)=-1/7$，所以$\theta'\simeq98.21^\circ$，略向后。
+\Diagram{fig:m3obliquewavea}{两系采用相同波矢比例，横向分量的高度相同}{
+\draw[axis](-1.8,0)--(2.2,0)node[right]{$k'_x$};\draw[axis](0,0)--(0,3.2)node[above]{$k'_y$};
+\draw[->,thick](0,0)--(-.375,2.598)node[above left]{$\vct k'$};
+\draw[guide](-.375,0)--(-.375,2.598)--(1.5,2.598)--(1.5,0);
+\draw[->,dashed](0,0)--(1.5,2.598)node[above right]{$\vct k$};
+\node[right]at(1.6,1.7){$k'_y=k_y$};}
+新系$\sin\theta'=\sqrt{48}/7=4\sqrt3/7$，因此$k'_y=(\omega'/c)\sin\theta'=(7/8)(\omega/c)(4\sqrt3/7)=\sqrt3\omega/(2c)=k_y$。图\ref{fig:m3obliquewavea}的角度必须用负余弦判断象限，不能把正弦反求成81.79度。
+\end{solution}
+
+\begin{exercise}\label{ex:m3recoilphoton}
+静止质量$M$的理想镜被能量$E$的单个光子正向撞击，光子反向弹回，镜的静质量不变。求反射光能量和镜反冲动能。
+\Diagram{fig:m3recoilq}{有限质量镜不能视为预先给定速度的无限重反射面}{\draw[very thick](2,-1)--(2,1.2);\draw[->](0,.5)--(1.9,.5)node[midway,above]{$E$};\draw[->](1.9,-.3)--(0,-.3)node[midway,below]{$E_r$};\node[right]at(2.3,0){$M$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3recoilq}镜末能量$Mc^2+E-E_r$，末动量$(E+E_r)/c$。代入镜的质壳关系，
+\[
+ (Mc^2+E-E_r)^2-(E+E_r)^2=M^2c^4.
+\]
+展开得$2Mc^2(E-E_r)=4EE_r$，所以$E_r=E/[1+2E/(Mc^2)]$。
+\Diagram{fig:m3recoila}{镜的反冲动能等于光子损失能量}{\draw[axis](0,0)--(4.3,0)node[right]{$E/(Mc^2)$};\draw[axis](0,0)--(0,2.6)node[above]{$E_r/E$};\draw[curve,domain=0:3.5,samples=70]plot(\x,{2.2/(1+2*\x)});}
+反冲动能$K_M=E-E_r=2E^2/(Mc^2+2E)$。图\ref{fig:m3recoila}在$M\to\infty$趋无频移；有限质量时必红移。这里不能先选某个“镜速”代入两次多普勒式，因为速度在单次碰撞中改变，需用全程守恒确定。
+\end{solution}
+
+\begin{exercise}\label{ex:m3invariantfields}
+在某系有$\vct E=E_0\hat{\vct y}$、$\vct B=2E_0\hat{\vct z}/c$。求消电场的速度、剩余磁场和该系中粒子静止时对应实验室的速度。
+\Diagram{fig:m3invariantq}{磁占优正交场}{\draw[axis](0,0)--(3.5,0)node[right]{$x$};\draw[axis](0,0)--(0,2.1)node[above]{$E_0$};\draw(1.6,1)circle(.15);\fill(1.6,1)circle(1pt);\node[right]at(1.9,1){$2E_0/c$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3invariantq}给出$E=E_0$、$B=2E_0/c$，且$\vct E\perp\vct B$，磁占优。沿$+x$变换，有$E_y'=\gamma(E_0-V\,2E_0/c)$。令其为零，得到$V=c/2$、$\gamma=2/\sqrt3$。再求剩余磁场，
+\[
+ B_z'=\frac2{\sqrt3}\left(\frac{2E_0}c-\frac{E_0}{2c}\right)
+ =\frac{\sqrt3E_0}c.
+\]
+也可由$B'^2=B^2-E^2/c^2=3E_0^2/c^2$独立核对其大小，方向由具体变换保留为$+z$。
+\Diagram{fig:m3invarianta}{消场系中静止对应实验室匀速漂移}{\fill(0,0)circle(2pt);\draw[axis](0,.5)--(2.5,.5)node[right]{$V=c/2$};\node[below]at(1,-.4){$\vct E+\vct V\times\vct B=0$};}
+图\ref{fig:m3invarianta}中的粒子在新系静止，逆速度变换给实验室$\vct v=(c/2)\hat{\vct x}$。其磁力方向为$\hat{\vct x}\times\hat{\vct z}=-\hat{\vct y}$，大小$q(c/2)(2E_0/c)=qE_0$，正好与电力相抵。
+
+若只要求新系粒子沿$z'$运动而非静止，则逆变换仍有$v_x=c/2$，还允许$v_z=v_z'/\gamma$，范围$|v_z|<\sqrt3c/2$。这进一步说明消电场不等于消去所有粒子的力：沿$\vct B'$运动仍零力，垂直$\vct B'$运动却受磁力并回旋。参考系选择由场决定，具体粒子是否无偏转还要代入其速度。
+\end{solution}
+
+\begin{exercise}\label{ex:m3properpower}
+粒子静质量不变，某实验室三力始终平行瞬时速度。证明四力模等于三力模，并说明这并不意味着四力时间分量为零。
+\Diagram{fig:m3properq}{三力与速度平行而功率非零}{\draw[axis](0,0)--(3.5,0)node[right]{$\vct v$};\draw[axis](0,.6)--(2.5,.6)node[right]{$\vct f$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3properq}中，取瞬时速度沿$x$正向，平行三力的有向分量为$f$。四力为
+\[
+ F^\mu=\gamma_v(\beta_v f,f,0,0),\qquad
+ F^2=\gamma_v^2f^2(\beta_v^2-1)=-f^2.
+\]
+故固有三力大小$f_0=\sqrt{-F^2}=|f|$。这里所谓四力模是类空四力的$\sqrt{-F^2}$，不是四个分量平方和的欧氏模。
+\Diagram{fig:m3propera}{类空四力可有非零时间分量；零功率参考系中的时间分量为零}{\draw[axis](0,0)--(3.5,0)node[right]{$F^x$};\draw[axis](0,0)--(0,2.6)node[above]{$F^0$};\draw[->,thick](0,0)--(2.8,1.4);\draw[guide](0,0)--(2.4,2.4);\node[right]at(2.8,1.4){$F^0/F^x=v/c$};}
+图\ref{fig:m3propera}中$F^0=\gamma_vfv/c$，只要$fv\ne0$便非零。变到粒子瞬时静止系后，
+\[
+ F_*^0=\gamma_v(F^0-\beta_vF^x)=0,\qquad F_*^x=f.
+\]
+但零时间分量并非瞬时静止系独有。以该静止系为起点，再沿$y$以任意$w<c$变换：原四力$(0,f,0,0)$的$0,y$分量均为零，变换后仍是$(0,f,0,0)$；粒子却以$-w\hat{\vct y}$运动。此系三力为$(f/\gamma_w,0,0)$，与粒子速度垂直，功率仍为零。
+
+一般判据是$F^0=\gamma\vct f\cdot\vct v/c=0$，即该系中瞬时功率为零。四维正交$u\cdot F=0$则在所有参考系成立，它不要求每个参考系中的时间分量都为零。
+\end{solution}

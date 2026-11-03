@@ -1,0 +1,2029 @@
+\chapter{能量解法问题}
+
+
+能量方程给出速度与位置的关系。对单自由度系统，这个关系还可以用来求加速度；对多自由度系统，则须配合动量积分或其他运动方程。计算动能时，质心平动与绕质心转动须分别计入，速度关系则由约束确定。纯滚动中的静摩擦是否做功，要看接触面的运动。
+
+本讲采用地面惯性系。轻绳不可伸长，轻杆视为刚性；滑轮是否有转动惯量、接触面是否允许滑动，均在题设中另行说明。图中的力矢量只表示作用点和方向，长度不代表力的大小。
+
+
+
+\section{能量积分、坐标加速度与约束反力}
+
+可动支承和连杆系统中的坐标加速度，往往不同于质点的实际加速度。各质点的位置与速度由约束确定；能量方程给出运动后，反力仍由受力方程求出。
+
+
+
+\subsection{由能量积分求运动方程}
+\subsubsection{坐标、速度和惯性系数}
+设固定理想约束下的系统只有一个自由度，取坐标 $q$。质点的位置为 $\vct r_i(q)$，速度为
+\[
+\vct v_i=\frac{\dd\vct r_i}{\dd q}\dot q.
+\]
+若含刚体，还须加上绕质心的转动动能。将全部动能合并后，写成
+\begin{equation}\label{sup1:eq:d1-A}
+T=\frac12 A(q)\dot q^2,\qquad
+A(q)=\sum_i m_i\left|\frac{\dd\vct r_i}{\dd q}\right|^2
++\sum_j I_j\left(\frac{\dd\varphi_j}{\dd q}\right)^2.
+\end{equation}
+$A(q)$ 是相对于坐标 $q$ 的惯性系数。若 $q$ 为长度，它具有质量量纲；若 $q$ 为角度，它具有转动惯量量纲。换用另一坐标后，$A$ 的表达式随之改变；它由各物体的速度关联决定。
+
+设保守力势能为 $U(q)$，非保守广义力为 $Q$，则功率方程为
+\[
+\frac{\dd}{\dd t}(T+U)=Q\dot q.
+\]
+将动能和势能分别对时间求导，
+\[
+\frac{\dd T}{\dd t}=\frac12A'(q)\dot q^3+A(q)\dot q\ddot q,
+\qquad \frac{\dd U}{\dd t}=U'(q)\dot q.
+\]
+代入功率方程，在 $\dot q\ne0$ 的区间约去 $\dot q$，得
+\begin{equation}\label{sup1:eq:d1-one}
+A(q)\ddot q+\frac12 A'(q)\dot q^2+U'(q)=Q.
+\end{equation}
+其中 $\tfrac12A'\dot q^2$ 来自构形变化，常出现在连杆机构和曲线轨道中。即使外力只依赖位置，坐标加速度也可能依赖速度。
+
+式\eqref{sup1:eq:d1-one}也可以由拉格朗日方程直接推出。令 $L=A(q)\dot q^2/2-U(q)$，则
+\[
+\begin{aligned}
+\frac{\partial L}{\partial\dot q}&=A\dot q,
+&\frac{\dd}{\dd t}\frac{\partial L}{\partial\dot q}&=A\ddot q+A'\dot q^2,\\
+\frac{\partial L}{\partial q}&=\frac12A'\dot q^2-U',
+&\frac{\dd}{\dd t}\frac{\partial L}{\partial\dot q}-\frac{\partial L}{\partial q}
+&=A\ddot q+\frac12A'\dot q^2+U'.
+\end{aligned}
+\]
+这一推导未除以速度，因此在普通构形的瞬时静止点仍成立。只凭某一瞬间的 $\dot E=0$ 不能约去零速度；应使用邻近运动的连续极限，或直接代入运动方程。若 $A=0$ 或约束本身发生改变，则须重新分析。
+
+\subsubsection{速度平方与转折点}
+机械能守恒时
+\begin{equation}\label{sup1:eq:d1-speed}
+\dot q^2=F(q)=\frac{2[E-U(q)]}{A(q)}.
+\end{equation}
+在速度不为零的一段运动中，
+\[
+2\dot q\ddot q=F'(q)\dot q,
+\qquad\boxed{\ddot q=\frac12F'(q)}.
+\]
+其中按商法则，
+\[
+F'(q)=\frac{-2U'(q)A(q)-2[E-U(q)]A'(q)}{A(q)^2}
+=-\frac{2U'}A-\frac{A'}A\dot q^2.
+\]
+所得加速度与式\eqref{sup1:eq:d1-one}在 $Q=0$ 时一致。这一写法使往返运动的两个速度分支得到同一个加速度。运动方向仍由初始条件决定：$\dot q=\pm\sqrt{F(q)}$，符号在普通转折点改变。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-0.1,0)--(4.3,0)node[right]{$q$};\draw[axis](0,-0.15)--(0,2.5)node[above]{$U$};\draw[curve,domain=0:3.9,samples=140]plot(\x,{.45*(\x-1)^2*(4-\x)+.2});\draw[guide](0,1.15)--(4.05,1.15)node[right]{$E_1$};\draw[guide](0,2)--(4.05,2)node[right]{$E_2$};\node at(1.5,-.75){允许区间由 $U\le E$ 决定};\node at(3.1,2.65){势垒};
+\fill(0.249719483,1.15)circle(1.2pt);\draw[guide](0.249719483,0)--(0.249719483,1.15);\node[below]at(0.249719483,0){$q_-$};\fill(2.037053995,1.15)circle(1.2pt);\draw[guide](2.037053995,0)--(2.037053995,1.15);\node[below]at(2.037053995,0){$q_+$};\fill(3,2)circle(1.2pt);\draw[guide](3,0)--(3,2);\node[below]at(3,0){$q_b$};\end{tikzpicture}
+\caption{$E_1$ 在势阱内对应转折点 $q_-,q_+$；$E_2$ 等于势垒顶 $q_b$ 处的势能。}\label{sup1:fig:d1-energy}
+\end{figure}
+
+若 $U(q_t)=E$ 且 $U'(q_t)\ne0$，则转折点加速度为 $-U'(q_t)/A(q_t)$，粒子在有限时间内到达并反向。若 $U'(q_t)=0$ 且该点是光滑势垒顶点，临界轨道通常需无限长时间接近它。因而“能量等于势垒高度”与“在有限时间越过势垒”须加以区分。
+
+需要时间时，再作积分
+\[
+t-t_0=\int_{q_0}^{q}\frac{\dd\xi}{\pm\sqrt{F(\xi)}}.
+\]
+积分上下限和速度分支应随运动方向选取，不能将含转折点的整段运动强行使用同一个正号。
+
+
+\subsection{坐标加速度与实际受力}
+\label{sec:complete1}
+单自由度系统中，位置矢量的二阶导数为
+\[
+ \vct a_i=\vct r_i'(q)\ddot q+\vct r_i''(q)\dot q^2.
+\]
+第一项随坐标加速度变化，第二项来自速度方向或速度比例随构形的变化。例\ref{ex:hw1-3}中，即使五个质点只受重力和杆的约束力，加速度仍含端点速率的平方。这些速度项由几何关系确定；仅对速度大小求导会漏掉方向变化。
+
+固定理想约束下，允许的虚位移为$\delta\vct r_i=\vct r_i'\delta q$。将各质点的牛顿方程投影到这一允许方向，并相加，约束力的总虚功为零。惯性项满足
+\[
+ \sum_i m_i\vct a_i\cdot\vct r_i'
+ =\left(\sum_i m_i|\vct r_i'|^2\right)\ddot q
+ +\frac12\frac{\dd}{\dd q}\left(\sum_i m_i|\vct r_i'|^2\right)\dot q^2.
+\]
+这里使用了平方模的求导关系
+\[
+\frac{\dd}{\dd q}|\vct r_i'|^2
+=\vct r_i''\cdot\vct r_i'+\vct r_i'\cdot\vct r_i''
+=2\vct r_i'\cdot\vct r_i''.
+\]
+加入刚体的转动惯性项，即得到$A\ddot q+A'\dot q^2/2+U'=Q$。这个推导没有除以$\dot q$，所以普通转向点与释放瞬间也可使用。在这些点使用能量积分时，须沿保持同一约束的连续运动取极限。
+
+非保守广义力由实际作用点求出。若第$j$个外力作用于$P_j$，另有平面力偶$\tau_j$，则
+\[
+ Q=\sum_j\vct F_j\cdot\frac{\partial\vct r_{P_j}}{\partial q}
+   +\sum_j\tau_j\frac{\partial\varphi_j}{\partial q}.
+\]
+因而$Q\dot q$等于这些力和力偶的实际功率。力作用点与质心不重合时，用质心速度计算其功率会漏掉转动部分。例\ref{ex:hw1-7}的动摩擦就须同时计入平动与自转的功率。
+
+\subsubsection{由运动方程恢复反力}
+求得$q,\dot q,\ddot q$后，先按上式恢复各质心加速度，再对需要的子系统列平动和转动方程。对滚轮，$I_C\dot\omega$给出轮地摩擦力矩；对车身与车轮的整体，沿斜面的合力给出共同加速度。将二者联立，才能判断所需静摩擦是否超过$\mu_sN$。
+
+能量式所得的接触解须满足反力与摩擦条件。运动首次达到允许边界时，保留该处的位置和速度，再按改变后的约束列方程。例\ref{ex:hw1-8}中的最高位置还要保留外筒的反冲动能，不能把小筒相对外筒的转向误当成全系统静止。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[固定端轻绳约束下的可动斜面]\label{ex:hw1-1}
+
+质量为$M$、倾角为$\alpha$的斜面放在光滑水平地面上，质量为$m$的物块在斜面上无摩擦滑动。轻绳由物块沿斜面绕过固定在斜面顶端的轻滑轮，再水平连接到右侧固定墙上，如图\ref{fig:hw1-1-q}。斜面和绳足够长，求斜面的加速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(3,1.8)--cycle;\node at(2.7,.55){$M$};\draw(.65,0)arc(0:30.963756:.65)node[midway,right]{$\alpha$};\begin{scope}[shift={(1.5,.9)},rotate=30.963756]\draw[fill=white](-.25,0)rectangle(.25,.4);\end{scope}\node[above left]at(1.3971,1.0715){$m$};\draw(1.3971,1.0715)--(2.8971,1.9715)--(5,1.9715);\draw(2.8971,1.9715)circle(.08);\draw[thick](5,1.6)--(5,2.35);\fill[pattern=north east lines](5,1.6)rectangle(5.12,2.35);
+\end{tikzpicture}
+\caption{固定墙、轻绳与可动斜面}\label{fig:hw1-1-q}
+\end{figure}
+
+\begin{solution}
+取斜面向右位移为$x$，物块相对斜面向下位移为$s$。图\ref{fig:hw1-1-s}中水平绳段缩短$x$，斜绳段必须伸长同样的量，因此$s=x+\text{常量}$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(3,1.8)--cycle;\node at(2.7,.55){$M$};\draw(.65,0)arc(0:30.963756:.65)node[midway,right]{$\alpha$};\begin{scope}[shift={(1.5,.9)},rotate=30.963756]\draw[fill=white](-.25,0)rectangle(.25,.4);\end{scope}\node[below right]at(1.58,1.12){$m$};\draw(1.3971,1.0715)--(2.8971,1.9715)--(5,1.9715);\draw(2.8971,1.9715)circle(.08);\draw[thick](5,1.6)--(5,2.35);\fill[pattern=north east lines](5,1.6)rectangle(5.12,2.35);\draw[axis](2,-.4)--(3,-.4)node[above]{$x$};\draw[axis](1.2,1.4)--(.5,.98)node[above left]{$s$};
+\end{tikzpicture}
+\caption{绳长不变给出两段位移的关系}\label{fig:hw1-1-s}
+\end{figure}
+
+物块的地面系速度为
+\[
+ \vct v_m=\dot x(1-\cos\alpha)\vct e_x-\dot x\sin\alpha\vct e_y,
+ \quad v_m^2=2(1-\cos\alpha)\dot x^2.
+\]
+物块下降$x\sin\alpha$，故
+\[
+ T=\frac12[M+2m(1-\cos\alpha)]\dot x^2,
+ \qquad V=-mgx\sin\alpha+\text{常量}.
+\]
+惯性系数为常数，广义动量为 $\partial T/\partial\dot x=[M+2m(1-\cos\alpha)]\dot x$，而 $\partial T/\partial x=0$、$\partial V/\partial x=-mg\sin\alpha$。对广义动量求时间导数，运动方程为
+\[
+[M+2m(1-\cos\alpha)]\ddot x-mg\sin\alpha=0,
+\]
+所以
+\[
+ \boxed{a=\ddot x=\frac{mg\sin\alpha}{M+2m(1-\cos\alpha)}}.
+\]
+为确认轻绳保持绷紧，再沿斜面写物块的运动方程。物块在地面系中的加速度沿斜面向下的分量为$a(1-\cos\alpha)$，故绳张力满足
+\[
+ mg\sin\alpha-T=m a(1-\cos\alpha).
+\]
+将能量法求得的$a$代入，得$T=mg\sin\alpha[M+m(1-\cos\alpha)]/[M+2m(1-\cos\alpha)]>0$，与轻绳保持绷紧相容。
+
+加速度与初速度无关。墙通过轻绳向系统施加水平力，因此系统水平动量不守恒。若$M\gg m$，分母近于$M$，所得加速度也相应减小。
+
+
+物块贴着斜面运动，还要求支持力非负。取斜面外法向为$\vct n=(-\sin\alpha,\cos\alpha)$，由上面的地面系加速度可得$\vct a_m\cdot\vct n=-a\sin\alpha$。图\ref{fig:review1-contact}中张力沿斜面，不参加法向方程，故
+\[
+ N-mg\cos\alpha=-ma\sin\alpha,
+ \qquad
+ N=mg\frac{M\cos\alpha-m(1-\cos\alpha)^2}
+ {M+2m(1-\cos\alpha)}.
+\]
+因此，所求贴面运动要求
+\[
+ \boxed{M\cos\alpha\ge m(1-\cos\alpha)^2}.
+\]
+等号为法向力恰好降至零的临界状态；若不满足该式，斜面不能向内拉住物块，须从脱离时刻起另列绳约束下的运动方程。例如$\alpha=60^\circ$时，保持接触要求$M\ge m/2$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(O)at(0,0);\draw[guide](-1.7,-.98)--(1.7,.98);\fill(O)circle(2pt)node[below right]{$m$};\draw[axis](O)--(1.25,.72)node[right]{$T$};\draw[axis](O)--(-.72,1.25)node[above]{$N$};\draw[axis](O)--(0,-1.6)node[below]{$mg$};\draw[axis](2.6,.2)--(3.6,.2)node[right]{$a$};\node[align=left]at(3.15,1.15){外法向：$\vct n$};
+\end{tikzpicture}
+\caption{物块的受力与斜面加速度；外法向上的加速度分量为负}\label{fig:review1-contact}
+\end{figure}
+
+
+\end{solution}
+
+
+
+\begin{example}[光滑夹具中的六圆柱堆]\label{ex:hw1-2}
+
+六个均匀实心圆柱质量均为$m$，半径可不同，在质量为$M$的光滑夹具中保持图\ref{fig:hw1-2-q}所示的接触构形，沿倾角为$\theta$的固定斜面运动。夹具足够重，各接触不脱离；圆柱之间及圆柱与斜面间均不滑动。求沿斜面向下的加速度。图仅示意堆放位置，圆柱半径取满足这些接触约束的值。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[rotate=-20]\draw[thick](-3,0)--(3,0);\draw[curve](-2.5,0)--(-2.5,2.200220688)--(2.5,2.200220688)--(2.5,0);\node at(2.05,1.8){$M$};\foreach \x/\y/\r/\i in {-1.8/.7/.7/1,0/.3/.3/2,1.8/.7/.7/3,-.571236611/.929435250/.55/4,.571236611/.929435250/.55/5,0/1.750220688/.45/6}{\draw(\x,\y)circle(\r);\node at(\x,\y){$\i$};}\end{scope}
+\draw[guide](2.81908,-1.02606)--(1.3,-1.02606);
+\draw(1.61908,-1.02606)arc(180:160:1.2);\node at(1.35,-.8){$\theta$};
+\end{tikzpicture}
+\caption{六圆柱与光滑夹具的接触构形}\label{fig:hw1-2-q}
+\end{figure}
+
+\begin{solution}
+所有圆柱的圆心随夹具以速度$\dot x$平移，$x$沿斜面向下为正。以逆时针为角速度正向，两圆柱接触点的平动速度相同，转动速度相等要求$r_i\omega_i+r_j\omega_j=0$。与斜面接触的底层圆柱满足$r_i\omega_i=-\dot x$；沿接触链传递，便有$r_i|\omega_i|=|\dot x|$，相邻圆柱转向相反。图\ref{fig:hw1-2-s}按$\dot x>0$画出一个圆柱的平动、转动。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1,0)--(1,0);
+\draw(0,.6)circle(.6);\draw(0,1.8)circle(.6);
+\fill(0,.6)circle(1pt);\node[font=\scriptsize]at(-.05,.38){$C_i$};\fill(0,1.8)circle(1pt)node[below]{$C_j$};
+\draw[axis](0,.6)--(1.15,.6)node[right]{$\dot x$};
+\draw[axis](0,1.8)--(1.15,1.8)node[right]{$\dot x$};
+\draw[axis](-.39,.825)arc(150:-90:.45);\node[left]at(-.6,.25){$\omega_i$};
+\draw[axis](.39,1.575)arc(-30:210:.45);\node[left]at(-.6,2.15){$\omega_j$};
+\fill(0,1.2)circle(1.4pt)node[right]{$P$};
+\node[align=left]at(3.6,1.9){$r_i\omega_i+r_j\omega_j=0$\\[5pt]$r_i|\omega_i|=r_j|\omega_j|=|\dot x|$};
+\node[align=left]at(3.6,.5){$T_{i,\text{平}}=m\dot x^2/2$\\[5pt]$T_{i,\text{转}}=m\dot x^2/4$};
+\end{tikzpicture}
+\caption{相邻圆柱在接触点的速度相同，转向相反}\label{fig:hw1-2-s}
+\end{figure}
+
+图\ref{fig:review1-graph}把每个圆柱缩为一个顶点，只保留实际接触的圆柱对。底层$1,2,3$与斜面无滑动，其$r_i\omega_i$均为$-\dot x$；从这些顶点出发，沿每一条接触边换一次符号，得到$4,5$为$+\dot x$、$6$为$-\dot x$。图中的闭合接触链有偶数条边，沿不同路径传递约束会得到相同转向。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\foreach \n/\x/\y in {1/0/0,2/2/0,3/4/0,4/1/1.25,5/3/1.25,6/2/2.5}{\coordinate(P\n)at(\x,\y);}
+\foreach \a/\b in {1/4,2/4,2/5,3/5,4/6,5/6}{\draw(P\a)--(P\b);}
+\foreach \n in {1,2,3,6}{\node[circle,draw,fill=gray!15,minimum size=6mm]at(P\n){$\n$};}
+\foreach \n in {4,5}{\node[circle,draw,fill=white,minimum size=6mm]at(P\n){$\n$};}
+\node[right,align=left]at(4.5,1.8){灰点：$r_i\omega_i=-\dot x$\\白点：$r_i\omega_i=+\dot x$};
+\node[below]at(2,-.45){连线只表示实际接触；$4,5$之间没有接触边};
+\end{tikzpicture}
+\caption{圆柱接触图与各圆柱的转向}\label{fig:review1-graph}
+\end{figure}
+
+
+每个圆柱的动能为
+\[
+ \frac12m\dot x^2+\frac12\left(\frac12mr_i^2\right)
+ \frac{\dot x^2}{r_i^2}=\frac34m\dot x^2.
+\]
+半径虽在动能中消去，无滑动条件仍依赖接触构形。以下计算以图中接触关系彼此相容为前提。全系统有
+\[
+ T=\frac12(M+9m)\dot x^2,\qquad
+ V=-(M+6m)gx\sin\theta+\text{常量}.
+\]
+广义动量为 $(M+9m)\dot x$，对时间求导并与重力广义力 $(M+6m)g\sin\theta$ 相等，得到
+\[
+(M+9m)\ddot x=(M+6m)g\sin\theta,
+\qquad
+ \boxed{a=\frac{M+6m}{M+9m}g\sin\theta}.
+\]
+夹具质量很大时$a\to g\sin\theta$，圆柱转动对总惯性的影响相对减小。接触是否保持、摩擦是否足以维持无滑动，仍须由各接触点的受力另行判断。
+
+
+\end{solution}
+
+
+
+\begin{example}[五质点双杆的速度项]\label{ex:hw1-3}
+
+两根长度均为$l$的轻杆铰接成图\ref{fig:hw1-3-q}的对称构形，两个底端、两个杆中点和顶端各固定一个质量为$m$的质点，底端在光滑水平地面上运动。某瞬间两底端分别以速率$v$向外运动，杆与竖直方向夹角$\theta=30^\circ$。求五个质点的加速度，并说明加速度为何与$v$有关。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-1.2,0);\coordinate(B)at(1.2,0);\coordinate(C)at(0,2.08);\draw[curve](A)--(C)--(B);\draw[thick](-2,0)--(2,0);\foreach \p in {A,B,C}{\fill(\p)circle(2pt)node[above right]{$\p$};}\fill(-.6,1.04)circle(2pt)node[left]{$D$};\fill(.6,1.04)circle(2pt)node[right]{$E$};\draw[guide](C)--(0,0);\draw(0,1.5)arc(-90:-120:.58)node[midway,below]{$\theta$};
+\end{tikzpicture}
+\caption{五个等质量质点组成的双杆装置}\label{fig:hw1-3-q}
+\end{figure}
+
+\begin{solution}
+以对称轴为$y$轴，置$A=(-x,0)$、$B=(x,0)$、$C=(0,y)$。图\ref{fig:hw1-3-s}中$x=l\sin\theta$、$y=l\cos\theta$，两中点坐标分别为$(-x/2,y/2)$、$(x/2,y/2)$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-1.2,0);\coordinate(B)at(1.2,0);\coordinate(C)at(0,2.08);\draw[curve](A)--(C)--(B);\draw[thick](-2,0)--(2,0);\foreach \p in {A,B,C}{\fill(\p)circle(2pt)node[above right]{$\p$};}\fill(-.6,1.04)circle(2pt)node[left]{$D$};\fill(.6,1.04)circle(2pt)node[right]{$E$};\draw[guide](C)--(0,0);\draw(0,1.5)arc(-90:-120:.58)node[midway,below]{$\theta$};\draw[axis](1.2,-.3)--(2,-.3)node[below]{$v$};\draw[axis](-1.2,-.3)--(-2,-.3)node[below]{$v$};\node at(0,-.85){$x=l\sin\theta,\quad y=l\cos\theta$};
+\draw[axis](-1.2,0)--(-1.2,.7)node[left]{$N$};\draw[axis](1.2,0)--(1.2,.7)node[right]{$N$};
+\end{tikzpicture}
+\caption{底端位移与杆倾角的几何关系}\label{fig:hw1-3-s}
+\end{figure}
+
+五质点的动能、势能为
+\[
+ T=\frac54m\dot x^2+\frac34m\dot y^2
+ =\frac{ml^2}{4}(5\cos^2\theta+3\sin^2\theta)\dot\theta^2,
+ \quad V=2mgl\cos\theta.
+\]
+将动能写成$T=B(\theta)\dot\theta^2/2$，有
+\[
+\begin{aligned}
+B&=\frac{ml^2}{2}(5\cos^2\theta+3\sin^2\theta),\\
+B'&=\frac{ml^2}{2}(-10\sin\theta\cos\theta+6\sin\theta\cos\theta)
+=-2ml^2\sin\theta\cos\theta,\\
+V'&=-2mgl\sin\theta.
+\end{aligned}
+\]
+代入$B\ddot\theta+B'\dot\theta^2/2+V'=0$，整理得
+\[
+ \ddot\theta=\frac{4(g/l)\sin\theta+
+ 2\sin\theta\cos\theta\dot\theta^2}
+ {5\cos^2\theta+3\sin^2\theta}.
+\]
+给定瞬间$\dot\theta=v/(l\cos30^\circ)$，所以
+\[
+ \ddot\theta=\frac{4g}{9l}+\frac{4\sqrt3v^2}{27l^2}.
+\]
+再对底端和顶点的几何关系各求两次时间导数：
+\[
+\ddot x=l\cos\theta\,\ddot\theta-l\sin\theta\,\dot\theta^2,
+\qquad
+\ddot y=-l\sin\theta\,\ddot\theta-l\cos\theta\,\dot\theta^2.
+\]
+角速度平方项来自杆方向随时间的转动。代入$\theta=30^\circ$以及刚求得的$\dot\theta,\ddot\theta$，得到
+\begin{align*}
+ a_x:=\ddot x&=\frac{2\sqrt3}{9}g-\frac{4v^2}{9l},\\
+ a_y:=\ddot y&=-\frac29g-\frac{20\sqrt3v^2}{27l}.
+\end{align*}
+因此
+\begin{align*}
+ \vct a_A&=(-a_x,0),&\vct a_B&=(a_x,0),&\vct a_C&=(0,a_y),\\
+ \vct a_D&=(-a_x/2,a_y/2),&\vct a_E&=(a_x/2,a_y/2).
+\end{align*}
+
+还须核对两个底端是否仍接地。由对称性，两端支持力均为$N$，五质点竖直加速度的质量加权和为$2m a_y$，故
+\[
+ 2N-5mg=2ma_y,\qquad
+ N=\frac{41}{18}mg-\frac{20\sqrt3}{27}\frac{mv^2}{l}.
+\]
+因此本题接触模型要求$v^2\le123gl/(40\sqrt3)$。若超过该值，地面无法提供负支持力，不能继续沿用底端高度恒为零的解。
+
+速度平方项来自曲线几何的二阶导数。即使重力保持不变，改变瞬时速率也会改变杆所需的法向加速度和约束力；当$v$足够大时，底端虽仍向外运动，其水平加速度可以向内。
+
+
+\end{solution}
+
+
+
+\begin{example}[固定端折杆的支承力]\label{ex:hw1-4}
+
+两根长度为$2l$的轻杆在$C$处铰接，$A$端固定在墙角，$B$端在光滑地面上滑动。$A$端及$AC$中点各有质量$m$的小球，$C$、$CB$中点、$B$各有质量$M$的小球，如图\ref{fig:hw1-4-q}。系统由接近$90^\circ$的角度$\theta_0<\pi/2$从静止开始下落。求$AC$与水平夹角为$\theta$时$B$端支持力，并取$\theta_0\to\pi/2$的极限。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(C)at(2,1.5);\coordinate(B)at(4,0);\draw[curve](A)--(C)--(B);\draw[thick](0,2.2)--(0,0)--(4.8,0);\foreach \x/\y/\s in {1/.75/m,3/.75/M}{\fill(\x,\y)circle(2pt)node[above]{$\s$};}\node[below]at(A){$A$};\fill(C)circle(2pt)node[above left]{$C$};\node[above right]at(C){$M$};\node[below]at(B){$B$};\draw(.7,0)arc(0:37:.7)node[midway,right]{$\theta$};\fill(A)circle(2pt)node[above left]{$m$};\fill(B)circle(2pt);\node at(4.45,.27){$M$};
+\end{tikzpicture}
+\caption{固定端折杆及五个质点的质量分布}\label{fig:hw1-4-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw1-4-s}中令 $s=\sin\theta$、$c=\cos\theta$，$C=(2lc,2ls)$、$B=(4lc,0)$。左、右中点分别为 $(lc,ls)$ 和 $(3lc,ls)$，固定在 $A$ 的质点没有动能。左中点、$C$、右中点和 $B$ 的坐标逐项求导，速度依次为
+\[
+l\dot\theta(-s,c),\quad 2l\dot\theta(-s,c),\quad
+l\dot\theta(-3s,c),\quad l\dot\theta(-4s,0).
+\]
+相应的速度平方为
+\[
+l^2\dot\theta^2,\quad4l^2\dot\theta^2,\quad
+l^2(9s^2+c^2)\dot\theta^2,\quad16l^2s^2\dot\theta^2.
+\]
+分别乘以$m/2,M/2,M/2,M/2$后相加，得到
+\[
+ T=\frac12l^2K\dot\theta^2,\quad
+ V=(m+3M)gls,\quad K=m+5M+24Ms^2.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(C)at(2,1.5);\coordinate(B)at(4,0);\draw[curve](A)--(C)--(B);\draw[thick](0,2.2)--(0,0)--(4.8,0);\foreach \x/\y/\s in {1/.75/m,3/.75/M}{\fill(\x,\y)circle(2pt)node[above]{$\s$};}\node[below]at(A){$A$};\fill(C)circle(2pt)node[above left]{$C$};\node[above right]at(C){$M$};\node[below]at(B){$B$};\draw(.7,0)arc(0:37:.7)node[midway,right]{$\theta$};\fill(A)circle(2pt)node[above left]{$m$};\fill(B)circle(2pt);\node at(4.45,.27){$M$};\draw[axis](4,0)--(4,1.05)node[right]{$N$};\draw[axis](-.45,.15)arc(30:290:.32);\node at(-.8,-.6){$L_A$};
+\end{tikzpicture}
+\caption{绕固定点取矩求底端支持力}\label{fig:hw1-4-s}
+\end{figure}
+
+记$s_0=\sin\theta_0$，初态能量为$(m+3M)gls_0$。因此
+\[
+\dot\theta^2=\frac{2(m+3M)g(s_0-s)}{lK}.
+\]
+为得到也适用于释放瞬间的角加速度，使用单自由度方程。由$K'=48Msc$，
+\[
+l^2K\ddot\theta+24Ml^2sc\dot\theta^2+(m+3M)glc=0.
+\]
+代入速度平方，得
+\[
+\ddot\theta=-\frac{(m+3M)gc[K+48Ms(s_0-s)]}{lK^2}.
+\]
+支持力不直接出现在能量中。对整个系统绕固定点$A$取矩，$A$端作用力的力矩为零。由各球坐标与速度逐项计算，有
+\[
+ L_A=(m+7M)l^2\dot\theta,\qquad
+ \dot L_A=4lcN-(m+9M)glc.
+\]
+上述角动量的四个活动质点贡献依次为
+\[
+ ml^2\dot\theta,\quad4Ml^2\dot\theta,\quad
+ 3Ml^2\dot\theta,\quad0.
+\]
+最后一个质点$B$始终沿通过$A$的水平线运动，故其绕$A$的角动量为零。动能中的$K$随构形变化，而角动量的系数$m+7M$保持不变；两者不能互相代替。
+
+当$c\ne0$时，代入角加速度得到
+\[
+ \boxed{N=\frac g4\left[(m+9M)-
+ \frac{(m+7M)(m+3M)[K+48Ms(s_0-s)]}{K^2}\right]}.
+\]
+令$\theta_0\to\pi/2$，即$s_0\to1$，便得到由近竖直位置释放的极限公式。竖直构形处的支持力也应由此连续运动取极限；在原取矩式中直接置$c=0$，已无法再约去该因子。若恰从$\theta_0=\pi/2$且角速度严格为零开始，理想运动方程还保留静止解，不能据此断言系统自行下落。若计算得$N<0$，说明地面接触约束已经失效。上述下落解只适用于$N\ge0$的阶段。
+
+
+\end{solution}
+
+
+
+\begin{example}[抛物线轨道中的变惯性系数]\label{sup1:problem-example-2}\label{sup1:example:d1-e2}
+质点 $m$ 套在固定的光滑细轨道上，轨道位于竖直平面内，方程为 $y=x^2/(2a)$，$a>0$。质点从 $x=x_0>0$ 处静止释放。求任意位置的 $\dot x^2$、$\ddot x$ 以及轨道对质点的法向力大小。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-2.1,0)--(2.6,0)node[right]{$x$};\draw[axis](0,-0.3)--(0,2.8)node[above]{$y$};\draw[curve,domain=-1.9:1.9,samples=100]plot(\x,{.5*(\x)^2});\fill(1.00000,0.50000)circle(1.3pt)node[right]{$P$};
+\node at(-1.15,2.25){$y=x^2/(2a)$};\fill(1.70000,1.44500)circle(1.3pt)node[right]{$P_0$};
+\draw[guide](1.7,1.445)--(1.7,0)node[below]{$x_0$};
+\end{tikzpicture}
+\caption{以横坐标描述抛物线轨道，释放点为 P$_0$。}\label{sup1:fig:d1-e2-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+由图\ref{sup1:fig:d1-e2-q}的轨道方程，$\dot y=(x/a)\dot x$，所以
+\[
+T=\frac m2\left(1+\frac{x^2}{a^2}\right)\dot x^2,
+\quad U=\frac{mgx^2}{2a},\quad E=\frac{mgx_0^2}{2a}.
+\]
+于是
+\begin{equation}\label{sup1:eq:d1-parabola}
+\boxed{\dot x^2=\frac{g(x_0^2-x^2)}{a(1+x^2/a^2)}}.
+\end{equation}
+在初次下降阶段取负的速度分支。这里$M(x)=m(1+x^2/a^2)$，$M'(x)=2mx/a^2$、$U'(x)=mgx/a$。把这些量代入式\eqref{sup1:eq:d1-one}，即
+\[
+M(x)\ddot x+\frac12M'(x)\dot x^2+U'(x)=0
+\]
+并解出加速度，得到
+\[
+\boxed{\ddot x=-\frac{gx/a+(x/a^2)\dot x^2}{1+x^2/a^2}}.
+\]
+这个过程不需要在释放点除以$\dot x=0$。将速度平方进一步代回，还可化为只含位置的表达式：
+\[
+\ddot x=-\frac{ga x(a^2+x_0^2)}{(a^2+x^2)^2}.
+\]
+在右半轨道 $x>0$ 时，水平加速度向左；通过最低点后 $x<0$，它反向向右。
+
+分子中的速度平方项来自 $M\prime(x)$。以 $x$ 描述曲线运动时，即使支持力不做功，它仍会影响地面水平方向的加速度。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-2.1,0)--(2.6,0)node[right]{$x$};\draw[axis](0,-0.3)--(0,2.8)node[above]{$y$};\draw[curve,domain=-1.9:1.9,samples=100]plot(\x,{.5*(\x)^2});\fill(1.00000,0.50000)circle(1.3pt)node[right]{$P$};
+\node at(-1.15,2.25){$y=x^2/(2a)$};\draw[axis](1.00000,0.50000)--(0.30000,1.20000)node[above right]{$N$};
+\draw[axis](1.00000,0.50000)--(1.00000,-0.50000)node[below]{$mg$};
+\draw[axis](1.00000,0.50000)--(0.30000,-0.20000)node[below left]{$\vct v$};
+\draw[guide](.45,-.05)--(1.8,1.3);\node[right]at(1.95,1.4){切线};
+\end{tikzpicture}
+\caption{P 点的速度沿切线，法向力指向轨道凹侧。}\label{sup1:fig:d1-e2-s}
+\end{figure}
+
+图\ref{sup1:fig:d1-e2-s}中 P 点的切线斜率为 $p=y'=x/a$，二阶导数为 $y''=1/a$。指向凹侧的单位法向量为
+\[
+\vct n=\frac{(-p,1)}{\sqrt{1+p^2}}.
+\]
+曲率和实际速率分别为
+\[
+\kappa_c=\frac{1/a}{(1+p^2)^{3/2}},\qquad
+v^2=(1+p^2)\dot x^2.
+\]
+沿法向投影，$N-mg/\sqrt{1+p^2}=m\kappa_c v^2$，故
+\[
+\boxed{N=\frac{m(g+\dot x^2/a)}{\sqrt{1+x^2/a^2}}}.
+\]
+质点将在$-x_0$与$x_0$之间往复运动，法向力始终指向凹侧。
+法向力也可整理为
+\[
+N=\frac{mga(a^2+x_0^2)}{(a^2+x^2)^{3/2}}.
+\]
+在两个转向点 $x=\pm x_0$，速率为零，但重力仍有法向分量；到达最低点时，向心加速度使支持力增大。两处的数值分别为
+\[
+N(\pm x_0)=\frac{mg}{\sqrt{1+x_0^2/a^2}},\qquad
+N(0)=mg\left(1+\frac{x_0^2}{a^2}\right).
+\]
+这与图\ref{sup1:fig:d1-e2-s}中法向加速度指向凹侧相符，且全过程 $N>0$。
+
+能量式只给出 $\dot x^2$。初次下降取 $\dot x<0$，到达 $-x_0$ 后应改取 $\dot x>0$，不能把负根用于整个往复过程。在两个转向点，运动方程仍给出指向轨道最低处的加速度，质点由此沿原轨道返回。
+
+\end{solution}
+
+
+
+\section{纯滚动系统的动能与接触条件}
+
+带轮小车的平动与车轮转动由接触条件联系。只有确认各处均无滑动，才能把转动动能折合到同一个惯性系数中；所得运动还须满足静摩擦上限。
+
+
+
+\subsection{纯滚动系统的动能与约束力}
+\subsubsection{固定接触面上的静摩擦}
+刚体在固定表面上纯滚动时，接触点的瞬时速度为零，静摩擦力的瞬时功率也是零。质心所受摩擦力可以不为零，质心平动动能与绕质心的转动动能之间仍会发生能量分配。
+
+对半径 $r$、质量 $m$、绕轴转动惯量 $I=\kappa mr^2$ 的滚动物体，若质心沿固定直线运动且 $v=r\omega$，则
+\[
+T=\frac12mv^2+\frac12I\omega^2
+=\frac12m(1+\kappa)v^2.
+\]
+接触面本身运动时，先在地面系写出质心速度，再由接触点的相对速度确定自转角速度。此时动能系数须重新计算。
+
+\subsubsection{理想约束与实际接触条件}
+能量法消去静摩擦力后，仍须用转动方程恢复所需摩擦力，并与 $|f_s|\le\mu_sN$ 比较。支持力还应满足 $N\ge0$。这两项限制决定所求轨道能否由实际接触实现。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[固定斜面与可动斜面上的带轮小车]\label{ex:hw1-5}
+
+倾角为$\theta$的斜面上有一小车，车身质量为$M$，两个车轮均为均匀实心圆柱，每轮质量$m$、半径$r$，轮轴无摩擦，轮与斜面间纯滚动。(1)斜面固定，求小车下坡加速度；(2)斜面质量为$M^\prime$，可在光滑水平地面上平移，求小车相对斜面的加速度和斜面加速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(0,1.6)--cycle;\node at(1,.35){$M^\prime$};\begin{scope}[shift={(1.6,.96)},rotate=-21.801409]\draw[fill=white](-.7,.4)rectangle(.7,.95);\node at(0,.68){$M$};\draw(-.45,.2)circle(.2);\draw(.45,.2)circle(.2);\node[right]at(.8,.4){$m,r$};\end{scope}\draw[thick](-.5,-.05)--(4.8,-.05);
+\draw(3.45,0)arc(180:158.198591:.55);\node at(2.95,.25){$\theta$};
+\end{tikzpicture}
+\caption{带轮小车与可平移的斜面}\label{fig:hw1-5-q}
+\end{figure}
+
+\begin{solution}
+令 $q$ 为小车相对斜面的下坡位移，$X$ 为斜面向右的位移，$B=M+2m$ 为小车总质量。图\ref{fig:hw1-5-s}中的速度合成为 $\vct v_C=(\dot X+\dot q\cos\theta,-\dot q\sin\theta)$，轮的绝对角速度大小为 $|\dot q|/r$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(0,1.6)--cycle;\node at(1,.35){$M^\prime$};\begin{scope}[shift={(1.6,.96)},rotate=-21.801409]\draw[fill=white](-.7,.4)rectangle(.7,.95);\node at(0,.68){$M$};\draw(-.45,.2)circle(.2);\draw(.45,.2)circle(.2);\node[right]at(.8,.4){$m,r$};\end{scope}\draw[thick](-.5,-.05)--(4.8,-.05);\draw[axis](1.5,2)--(2.5,1.6)node[above]{$\dot q$};\draw[axis](1,-.55)--(2,-.55)node[above]{$\dot X$};
+\draw(3.45,0)arc(180:158.198591:.55);\node at(2.95,.25){$\theta$};
+\end{tikzpicture}
+\caption{小车相对斜面的速度及斜面速度}\label{fig:hw1-5-s}
+\end{figure}
+
+固定斜面时，车轮平动已计入$B$，再加两个车轮的转动动能：
+\[
+ T=\frac12(M+3m)\dot q^2,\quad V=-Bgq\sin\theta,
+ \quad\boxed{\ddot q=\frac{M+2m}{M+3m}g\sin\theta}.
+\]
+可动斜面时
+\[
+ \mathcal L=\tfrac12(M^\prime+B)\dot X^2+B\cos\theta\dot X\dot q
+ +\tfrac12(B+m)\dot q^2+Bgq\sin\theta.
+\]
+分别对两个广义速度求偏导，
+\[
+\frac{\partial\mathcal L}{\partial\dot q}=(B+m)\dot q+B\cos\theta\dot X,
+\qquad
+\frac{\partial\mathcal L}{\partial\dot X}=(M^\prime+B)\dot X+B\cos\theta\dot q.
+\]
+再用 $\partial\mathcal L/\partial q=Bg\sin\theta$、$\partial\mathcal L/\partial X=0$，列式为
+\[
+ (B+m)\ddot q+B\cos\theta\ddot X=Bg\sin\theta,
+ \quad(M^\prime+B)\ddot X+B\cos\theta\ddot q=0.
+\]
+置$D=(B+m)(M^\prime+B)-B^2\cos^2\theta>0$，解得
+\[
+ \boxed{\ddot q=\frac{B(M^\prime+B)g\sin\theta}{D},\qquad
+ \ddot X=-\frac{B^2g\sin\theta\cos\theta}{D}}.
+\]
+第二个方程也可由水平动量守恒得到：地面只给斜面竖直支持力，因此$P_x=(M^\prime+B)\dot X+B\cos\theta\dot q$为常量。消去$\ddot X$后，小车沿$q$的惯性系数为
+\[
+ B+m-\frac{B^2\cos^2\theta}{M^\prime+B}=\frac{D}{M^\prime+B}>0.
+\]
+它小于斜面固定时的$B+m$，所以可动斜面会增大小车相对下坡的加速度。
+
+若所问为小车在地面系中的加速度，则应再组成$(\ddot X+\ddot q\cos\theta,-\ddot q\sin\theta)$。让$M^\prime\to\infty$，第二种模型回到第一种。
+
+
+\end{solution}
+
+
+
+\begin{example}[两组车轮的转动惯性]\label{ex:hw1-6}
+
+将上一题的斜面改为一辆大车：大车车身质量$M^\prime$，小车车身质量$M$，两车各有两个相同的实心圆柱轮，每轮质量$m$、半径$r$。大车轮在水平地面纯滚动，小车轮在大车的倾角$\theta$斜面上纯滚动。求小车相对斜面的下坡加速度$a_1$与大车向右的加速度$a_2$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(0,1.6)--cycle;\node at(1,.35){$M^\prime$};\begin{scope}[shift={(1.6,.96)},rotate=-21.801409]\draw[fill=white](-.7,.4)rectangle(.7,.95);\node at(0,.68){$M$};\draw(-.45,.2)circle(.2);\draw(.45,.2)circle(.2);\node[right]at(.8,.4){$m,r$};\end{scope}\draw(.6,-.2)circle(.2);\draw(3.2,-.2)circle(.2);\draw[thick](-.5,-.4)--(4.8,-.4);
+\draw(3.45,0)arc(180:158.198591:.55);\node at(2.95,.25){$\theta$};
+\end{tikzpicture}
+\caption{大小两车的车身与四个车轮}\label{fig:hw1-6-q}
+\end{figure}
+
+\begin{solution}
+仍用图\ref{fig:hw1-6-s}中的$q,X$。小车总平动质量$B=M+2m$；大车自身总平动质量为$M^\prime+2m$。四个轮的转动动能必须按各自承托面计算。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(0,1.6)--cycle;\node at(1,.35){$M^\prime$};\begin{scope}[shift={(1.6,.96)},rotate=-21.801409]\draw[fill=white](-.7,.4)rectangle(.7,.95);\node at(0,.68){$M$};\draw(-.45,.2)circle(.2);\draw(.45,.2)circle(.2);\node[right]at(.8,.4){$m,r$};\end{scope}\draw(.6,-.2)circle(.2);\draw(3.2,-.2)circle(.2);\draw[thick](-.5,-.4)--(4.8,-.4);\draw[axis](1.5,2)--(2.5,1.6)node[above]{$a_1$};\draw[axis](1,-.8)--(2,-.8)node[above]{$a_2$};\node at(2,-1.4){$C=M^\prime+M+5m$};
+\draw(3.45,0)arc(180:158.198591:.55);\node at(2.95,.25){$\theta$};
+\end{tikzpicture}
+\caption{两组滚动约束；$a_1,a_2$箭头表示所取正向，实际$a_2<0$}\label{fig:hw1-6-s}
+\end{figure}
+
+小车两轮的转动项为$m\dot q^2/2$，大车两轮的转动项为$m\dot X^2/2$。因此
+\[
+ T=\frac12(M^\prime+M+5m)\dot X^2
+ +B\cos\theta\dot X\dot q+\frac12(M+3m)\dot q^2,
+ \quad V=-Bgq\sin\theta.
+\]
+令 $C=M^\prime+M+5m$、$A=M+3m$。两个广义动量分别为 $\partial T/\partial\dot q=A\dot q+B\cos\theta\dot X$、$\partial T/\partial\dot X=C\dot X+B\cos\theta\dot q$。对时间求导，并用 $V_q=-Bg\sin\theta$、$V_X=0$，得到
+\[
+ A\ddot q+B\cos\theta\ddot X=Bg\sin\theta,
+ \qquad C\ddot X+B\cos\theta\ddot q=0.
+\]
+消去$\ddot X$即得
+\[
+ \boxed{a_1=\frac{BCg\sin\theta}{AC-B^2\cos^2\theta},\quad
+ a_2=-\frac{B^2g\sin\theta\cos\theta}{AC-B^2\cos^2\theta}}.
+\]
+与上一题相比，$C$多出大车两轮的平动质量$2m$及转动惯性折合质量$m$。循环坐标对应的守恒量为$C\dot X+B\cos\theta\dot q$；实际水平动量的$\dot X$系数只有$M^\prime+M+4m$，二者相差$m\dot X$，这正是地面静摩擦传递水平动量的结果。
+
+
+图\ref{fig:hw1-6-s}中 $a_2$ 的箭头表示选取的正方向。对于 $0<\theta<\pi/2$，$AC-B^2\cos^2\theta>0$，因而 $a_1>0$、$a_2<0$：小车沿斜面向右下方运动，大车实际向左加速。这里的大车轮角速度满足 $r\omega_{\text{大}}=-\dot X$，小车轮相对斜面的滚动角速度大小为 $|\dot q|/r$；把后一式误写成小车地面速度除以 $r$，会使动能交叉项和最终加速度同时出错。
+
+\end{solution}
+
+
+
+\begin{example}[斜面纯滚动与最小静摩擦系数]\label{sup1:problem-example-4}\label{sup1:example:d1-e4}
+质量为 $m$、半径为 $r$、转动惯量为 $I=\kappa mr^2$ 的轴对称刚体，从固定斜面上静止释放。斜面倾角为 $\alpha$。先假定刚体始终纯滚动，求质心加速度、下降竖直高度 $h$ 后的速率，以及该假定所需的最小静摩擦系数。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[rotate=-24]\draw[curve](-1.6,0)--(3.4,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw(0,.7)--(0.520201378,1.168391424)node[midway,above]{$r$};\draw[axis](1.20000,0.70000)--(2.10000,0.70000)node[above]{$s$};
+\node at(1.8,1.4){$I=\kappa mr^2$};\end{scope}\draw[guide](1.3060545559848429,-1.3829045864577207)--(3.306054555984843,-1.3829045864577207);\draw(2.456054555984843,-1.3829045864577207)arc(180:156:.65);\node at(2.126054555984843,-1.1529045864577208){$\alpha$};
+\end{tikzpicture}
+\caption{刚体沿固定斜面滚动，P 为瞬时接触点。}\label{sup1:fig:d1-e4-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+本题先用纯滚动约束计算运动，再由受力方程核对约束能否实现。绕质心的转动惯量为 $\kappa mr^2$；纯滚动使平动速率与自转角速度的大小满足 $v=r|\omega|$，所以自转动能可以改写为 $\kappa mv^2/2$。下降势能应同时分配给平动和自转。
+
+取沿斜面向下的位移 $s$，纯滚动关系为 $\dot\varphi=\dot s/r$，其中 $\varphi$ 以沿下行滚动方向为正。由图\ref{sup1:fig:d1-e4-q}，质心下降高度为 $s\sin\alpha$，故
+\[
+\frac12m(1+\kappa)\dot s^2-mgs\sin\alpha=0.
+\]
+于是
+\[
+\boxed{v^2=\frac{2gh}{1+\kappa}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[rotate=-24]\draw[curve](-1.6,0)--(3.4,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw(0,.7)--(0.520201378,1.168391424)node[midway,above]{$r$};\draw[axis](0.00000,0.70000)--(1.00000,0.70000)node[above]{$a$};
+\draw[axis](0.00000,0.00000)--(-1.05000,0.00000)node[above]{$f_s$};
+\draw[axis](0.00000,0.00000)--(0.00000,1.85000)node[above left]{$N$};
+\end{scope}\draw[guide](1.3060545559848429,-1.3829045864577207)--(3.306054555984843,-1.3829045864577207);\draw(2.456054555984843,-1.3829045864577207)arc(180:156:.65);\node at(2.126054555984843,-1.1529045864577208){$\alpha$};\draw[axis](0.2847157,0.6394818)--(0.2847157,-0.8105182)node[below right]{$mg$};
+
+\end{tikzpicture}
+\caption{支持力作用于接触点，静摩擦沿上坡方向；重力作用于质心。}\label{sup1:fig:d1-e4-s}
+\end{figure}
+
+图\ref{sup1:fig:d1-e4-s}中，重力和法向力对质心均不产生绕轴力矩，使刚体自转加快的力矩由沿斜面向上的静摩擦提供。分别列平动与绕质心的转动方程，
+\[
+mg\sin\alpha-f_s=ma,\qquad f_s r=I\frac a r.
+\]
+第二式给$f_s=\kappa ma$，代入第一式即有$(1+\kappa)ma=mg\sin\alpha$。因此
+\[
+\boxed{a=\frac{g\sin\alpha}{1+\kappa}},\qquad
+N=mg\cos\alpha.
+\]
+上述消元没有约去速度，适用于释放瞬间。所需静摩擦及其上限条件为
+\[
+f_s=\frac{\kappa}{1+\kappa}mg\sin\alpha,
+\qquad
+\boxed{\mu_s\ge\frac{\kappa}{1+\kappa}\tan\alpha}.
+\]
+均匀实心圆柱 $\kappa=1/2$，薄圆环 $\kappa=1$。同样的竖直落差下，转动惯量系数较大的物体质心速率较小，更多能量分配给自转。纯滚动接触不产热。摩擦在平动与转动之间传递能量，整体能量收支中不再另扣 $f_s s$。
+相应能量分配为
+\[
+T_{\text{平动}}=\frac{mgh}{1+\kappa},\qquad
+T_{\text{转动}}=\frac{\kappa mgh}{1+\kappa}.
+\]
+图\ref{sup1:fig:d1-e4-s}的摩擦对质心平动贡献功率 $-f_s v$，对自转贡献功率 $f_s r|\omega|=f_s v$，二者相消。
+
+当 $\kappa=1/2$，$a=2g\sin\alpha/3$、$v^2=4gh/3$、$\mu_{s,\min}=\tan\alpha/3$；当 $\kappa=1$，三者分别为 $g\sin\alpha/2$、$gh$、$\tan\alpha/2$。这些数值均须先满足各自的静摩擦条件，才是实际运动解。
+
+\end{solution}
+
+
+
+\section{多自由度、循环坐标与整体反冲}
+
+内部运动会带动可动支承反冲。对称性对应的守恒量允许消去部分速度，但内外两物体的接触速度关系仍须保留。
+
+
+
+\subsection{多自由度系统与循环坐标}
+\subsubsection{交叉动能与第二个方程}
+当斜面也能移动时，小车轮心速度是斜面平移速度与相对斜面速度的矢量和。两者一般不正交，动能中会出现 $\dot X\dot s$ 项。两个自由度只有一个能量积分，通常不足以求解；还须使用对应的运动方程或守恒量。
+
+对固定理想约束，拉格朗日函数为 $L=T-U$，
+\begin{equation}\label{sup1:eq:d1-lagrange}
+\frac{\dd}{\dd t}\frac{\partial L}{\partial\dot q_j}
+-\frac{\partial L}{\partial q_j}=Q_j.
+\end{equation}
+若 $L$ 不显含某个坐标 $X$ 且 $Q_X=0$，则 $P=\partial L/\partial\dot X$ 守恒。它是与所选坐标共轭的广义动量。若该坐标只表示所有质点的同向平移，它等于该方向的总平动动量；若改变该坐标还带动车轮转动，则须计入相应的转动项。
+
+\subsubsection{消去循环速度}
+常见的动能形式为
+\[
+T=\frac12D\dot X^2+C(q)\dot X\dot q+\frac12B(q)\dot q^2,
+\qquad U=U(q),
+\]
+其中 $D$ 为正常量。守恒量与配方结果为
+\begin{align*}
+P&=D\dot X+C(q)\dot q,\\
+T&=\frac{P^2}{2D}+\frac12\left[B(q)-\frac{C(q)^2}{D}\right]\dot q^2.
+\end{align*}
+令 $B_{\text{eff}}=B-C^2/D$。无非保守力做功时，能量积分化为
+\begin{equation}\label{sup1:eq:d1-reduced}
+\frac12B_{\text{eff}}(q)\dot q^2+U(q)
+=E-\frac{P^2}{2D}.
+\end{equation}
+$B_{\text{eff}}>0$ 是动能正定性的要求。在这一常 $D$ 情形，内坐标仍满足变惯性系数方程。求出 $q(t)$ 后，再由 $\dot X=[P-C(q)\dot q]/D$ 恢复整体运动。
+
+直接把循环速度代回原拉格朗日函数，然后当作新的拉格朗日函数变分，一般会得到错误的方程。若要在拉格朗日层面消元，应先作劳斯变换 $\mathcal R=L-P\dot X$，再代入循环速度：
+\[
+\begin{aligned}
+\mathcal R&=\frac12B\dot q^2-U-\frac{(P-C\dot q)^2}{2D}\\
+&=\frac12B_{\rm eff}\dot q^2-U-\frac{P^2}{2D}+\frac{PC}{D}\dot q.
+\end{aligned}
+\]
+最后一项是 $\dd[\int^q PC(\xi)/D\,\dd\xi]/\dd t$，不改变内坐标方程；常量项也不参与变分。因此约化后的方程确为
+\[
+B_{\rm eff}\ddot q+\frac12B_{\rm eff}'\dot q^2+U'=Q_q,
+\qquad B_{\rm eff}'=B'-\frac{2CC'}D,
+\]
+其中保留的非保守广义力为 $Q_q$，且消元仍要求 $Q_X=0$。本讲用式\eqref{sup1:eq:d1-reduced}求速度，并与原来的两条方程对应。
+
+
+\subsection{内滚圆筒与整体反冲}
+圆筒在另一圆筒内部滚动时，圆心的公转与自身转动由接触条件联系。若外筒也能沿地面滚动，还会出现第三个角速度；各角速度应先统一正方向，再从接触点速度相等建立关系。直接套用 $v=r\omega$ 容易漏掉外筒的运动。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[小车上的有限振幅摆]\label{sup1:problem-example-8}\label{sup1:example:d1-e8}
+质量为 $M$ 的小车可在光滑水平轨道上平移，车轮惯量忽略。车上固定铰点 O，通过长为 $l$ 的刚性轻杆连接质点 $m$。取摆角 $\theta$ 从竖直向下方向量起。系统总水平动量为零。在 $\theta=0$ 处给予系统一组内力冲量，使摆角速度为 $\omega_0>0$。求 $\dot\theta$ 与 $\theta$ 的关系，并给出小振动角频率。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.8,0)--(3.3,0);\draw[fill=white,curve](-.8,.35)rectangle(.8,.95);\node at(0,.65){$M$};\draw(-.55,.175)circle(.175);\draw(.55,.175)circle(.175);\draw[curve](-.68,.95)--(-.68,3.9)--(0,3.9);\fill(0.0000000,3.9000000)circle(1.3pt)node[above right]{$O$};
+\draw[line width=.8pt](0,3.9)--(1.469463131,1.877457514);\fill(1.4694631,1.8774575)circle(1.3pt)node[right]{$m$};
+\draw[guide](0,3.9)--(0,1.2);\draw(0,3.28)arc(-90:-54:.62);\node at(.27,3.0){$\theta$};\node at(0.9847315653655915,2.9887287570313155){$l$};\draw[guide](0,1.4)arc(-90:-54:2.5);\draw[fill=white](0,1.4)circle(1.4pt);\node[right]at(.12,1.22){最低位置};\draw[axis](-1.8500000,1.2500000)--(-1.0500000,1.2500000)node[above]{$X$};
+\node[right]at(2.3,3.1){刚性轻杆};
+\end{tikzpicture}
+\caption{摆球的最低位置高于车身，支架位于摆动平面的后方。}\label{sup1:fig:d1-e8-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+摆球地面坐标为 $x=X+l\sin\theta$、$y=y_O-l\cos\theta$。由图\ref{sup1:fig:d1-e8-s}的速度分解，
+\begin{align*}
+T&=\frac12(M+m)\dot X^2+ml\cos\theta\dot X\dot\theta
++\frac12ml^2\dot\theta^2,\\
+U&=mgl(1-\cos\theta).
+\end{align*}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.8,0)--(3.3,0);\draw[fill=white,curve](-.8,.35)rectangle(.8,.95);\node at(0,.65){$M$};\draw(-.55,.175)circle(.175);\draw(.55,.175)circle(.175);\draw[curve](-.68,.95)--(-.68,3.9)--(0,3.9);\fill(0.0000000,3.9000000)circle(1.3pt)node[above right]{$O$};
+\draw[line width=.8pt](0,3.9)--(1.469463131,1.877457514);\fill(1.4694631,1.8774575)circle(1.3pt)node[right]{$m$};
+\draw[guide](0,3.9)--(0,1.2);\draw(0,3.28)arc(-90:-54:.62);\node at(.27,3.0){$\theta$};\node at(0.9847315653655915,2.9887287570313155){$l$};\draw[guide](0,1.4)arc(-90:-54:2.5);\draw[fill=white](0,1.4)circle(1.4pt);\node[right]at(.12,1.22){最低位置};\draw[axis](-1.8500000,1.2500000)--(-1.0500000,1.2500000)node[above]{$X$};
+\fill(5,2.3)circle(1.3pt)node[below]{$m$};\node at(5,3.9){摆球速度分解};\draw[axis](5.0000000,2.3000000)--(4.0000000,2.3000000)node[above left]{$\dot X$};
+\draw[axis](5.0000000,2.3000000)--(5.8899187,2.9465638)node[above right]{$l\dot\theta$};
+
+\end{tikzpicture}
+\caption{右侧在同一摆球处画出小车平移速度与相对转动速度。}\label{sup1:fig:d1-e8-s}
+\end{figure}
+
+水平动量为零，故
+\[
+\dot X=-\frac{ml\cos\theta}{M+m}\dot\theta.
+\]
+代回动能后得到
+\[
+B_{\text{eff}}(\theta)=ml^2\left(1-\frac{m}{M+m}\cos^2\theta\right).
+\]
+最低点刚受内力冲量以后，小车也已有速度：
+\[
+\dot X_0=-\frac{ml}{M+m}\omega_0,
+\qquad v_{m,x}(0)=\dot X_0+l\omega_0=\frac{Ml}{M+m}\omega_0.
+\]
+这两个速度使水平动量相消。将小车和摆球的动能相加，才得到下面的初始能量。
+
+初态能量为 $E=\tfrac12ml^2M\omega_0^2/(M+m)$，因此
+\begin{equation}\label{sup1:eq:d1-cartpend}
+\boxed{\dot\theta^2=
+\frac{\dfrac{M}{M+m}\omega_0^2-\dfrac{2g}{l}(1-\cos\theta)}
+{1-\dfrac{m}{M+m}\cos^2\theta}}.
+\end{equation}
+转折角满足分子为零。到达转折角时 $\dot\theta=0$，由零动量关系可知小车也瞬时静止。
+
+在 $\theta$ 很小时，$B_{\text{eff}}(0)=ml^2M/(M+m)$，$U\simeq\tfrac12mgl\theta^2$。保留一阶项，
+\[
+\ddot\theta+\frac{(M+m)g}{Ml}\theta=0,
+\quad\boxed{\Omega=\sqrt{\frac{(M+m)g}{Ml}}}.
+\]
+减小 M 会增强小车反冲，并提高小振动频率。若需有限振幅的周期，则设振幅为 $\theta_m<\pi$，由能量积分写成
+\[
+\boxed{\mathcal T=4\int_0^{\theta_m}
+\sqrt{\frac{B_{\text{eff}}(\theta)}{2[U(\theta_m)-U(\theta)]}}\,\dd\theta}.
+\]
+分母在转折点为零，但普通转折点的平方根奇性可积。振幅趋近 $\pi$ 时转折点接近势垒顶，周期发散。
+令 $\rho=m/(M+m)$。在任意普通位置，完整的约化角运动方程为
+\[
+(1-\rho\cos^2\theta)\ddot\theta
++\rho\sin\theta\cos\theta\dot\theta^2+\frac gl\sin\theta=0.
+\]
+这里 $B_{\rm eff}'=ml^2[-2\rho\cos\theta(-\sin\theta)]=2ml^2\rho\sin\theta\cos\theta$，势能导数为 $U'=mgl\sin\theta$。代入 $B_{\rm eff}\ddot\theta+B_{\rm eff}'\dot\theta^2/2+U'=0$，便得到上式的速度平方项；它在小角度线性化时才成为高阶项而被舍去。
+
+若初始能量满足 $0<E<2mgl$，摆角在两侧转向，最大正角由
+\[
+\cos\theta_m=1-\frac{Ml\omega_0^2}{2(M+m)g}
+\]
+确定。位置关系也能由零动量方程直接积分：
+\[
+X-X_0=-\frac{ml}{M+m}\int_0^\theta\cos u\dd u
+=-\frac{ml}{M+m}[\sin u]_0^\theta
+=-\frac{ml}{M+m}\sin\theta.
+\]
+图\ref{sup1:fig:d1-e8-s}中摆球相对小车向右偏移时，小车向左反冲；到 $\theta=\theta_m$ 时二者同时瞬时静止。若 $E\ge2mgl$，便不能使用普通有限振幅的转向周期积分，临界与越顶情形须按习题\ref{sup1:exercise:d1-p8}区分。
+
+小振幅周期可由所给积分取极限。此时 $B_{\rm eff}\simeq ml^2M/(M+m)$、$U(\theta_m)-U(\theta)\simeq mgl(\theta_m^2-\theta^2)/2$，积分化为
+\[
+\begin{aligned}
+\mathcal T&\longrightarrow4\sqrt{\frac{Ml}{(M+m)g}}
+\int_0^{\theta_m}\frac{\dd\theta}{\sqrt{\theta_m^2-\theta^2}}\\
+&=4\sqrt{\frac{Ml}{(M+m)g}}\left[\arcsin\frac\theta{\theta_m}\right]_0^{\theta_m}
+=2\pi\sqrt{\frac{Ml}{(M+m)g}},
+\end{aligned}
+\]
+与线性化频率相符。
+
+\end{solution}
+
+
+
+\begin{example}[大圆筒内的小圆筒]\label{ex:hw1-8}
+
+薄壁大圆筒质量$M$、半径$R$，内有薄壁小圆筒质量$m$、半径$r<R$，两筒接触处不滑动。初始小筒在最低处，给予其质心沿水平方向的速度$v_0$；初始大筒静止，初速度满足接触处纯滚动条件。$v_0$足够小，小筒始终保持接触。(1)大筒固定；(2)大筒在地面上纯滚动。分别求小筒质心能上升的最大高度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.8);\coordinate(C)at(0,0);\coordinate(P)at(.8660254,-.5);\draw(P)circle(.8);\draw[guide](0,0)--(0,-1.8);\draw(0,0)--(P);\node[above]at(C){$C$};\fill(P)circle(1pt)node[above right]{$P$};\node at(-1.2,.5){$M,R$};\node at(.85,-.77){$m,r$};\draw[thick](-2.5,-1.8)--(2.5,-1.8);
+\end{tikzpicture}
+\caption{内部相切的两个薄壁圆筒}\label{fig:hw1-8-q}
+\end{figure}
+
+\begin{solution}
+令$a=R-r$，$\theta$从向下铅直线量起，$X$为大筒圆心的水平位移。图\ref{fig:hw1-8-s}标出小筒质心高度增量$h=a(1-\cos\theta)$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}
+\draw(0,0)circle(1.8);\coordinate(P)at(.8660254,-.5);\draw(P)circle(.8);
+\draw[guide](0,0)--(0,-1.8);\draw(0,0)--(P);
+\node[above]at(0,0){$C$};\fill(P)circle(1pt)node[above right]{$P$};
+\node at(-1.2,.5){$M,R$};\node at(.85,-.77){$m,r$};
+\draw[thick](-2.2,-1.8)--(2.4,-1.8);\node[above]at(.43,-.25){$a$};
+\draw(0,-.45)arc(-90:-30:.45)node[midway,below]{$\theta$};
+\draw[guide](.8660254,-.5)--(2.5,-.5);\draw[guide](0,-1)--(2.5,-1);
+\draw[<->](2.3,-1)--(2.3,-.5)node[midway,right]{$h$};
+\end{scope}
+\begin{scope}[shift={(5.6,0)}]
+\draw(0,0)circle(1.4);\draw(.69282,-.4)circle(.6);\draw[thick](-1.9,-1.4)--(2,-1.4);
+\fill(0,0)circle(1pt)node[above left]{$C$};\fill(.69282,-.4)circle(1pt)node[left]{$P$};
+\draw[axis](0,0)--(1.05,0)node[above]{$\dot X$};
+\draw[axis](.69282,-.4)--(1.75,-.4)node[below]{$\dot X$};
+\node at(0,1.8){转向瞬间：$\dot\theta=0$};
+\node[align=center]at(.1,-2.05){$\Omega=-\dot X/R$\\[4pt]$\omega=-\dot X/r$};
+\end{scope}
+\end{tikzpicture}
+\caption{上升高度与转向瞬间仍保留的平动、自转}\label{fig:hw1-8-s}
+\end{figure}
+
+大筒固定时，小筒质心速率为 $a|\dot\theta|$，自身角速度大小为 $a|\dot\theta|/r$。薄壁筒 $I=mr^2$，因此 $T=ma^2\dot\theta^2$。初态 $a\dot\theta=v_0$，动能为 $mv_0^2$；转向点两项动能都为零，能量关系为 $mv_0^2=mgh$，所以
+\[
+ \boxed{h_{\text{固定}}=\frac{v_0^2}{g}}.
+\]
+大筒滚动时，$\Omega=-\dot X/R$。由接触点速度相等，小筒的有向角速度为 $\omega=-(\dot X+a\dot\theta)/r$。相加两筒平动、转动动能，得到
+\[
+ T=(M+m)\dot X^2+ma(1+\cos\theta)\dot X\dot\theta
+ +ma^2\dot\theta^2.
+\]
+$X$为循环坐标。初态$\dot X=0$、$a\dot\theta=v_0$，故
+\[
+ 2(M+m)\dot X+ma(1+\cos\theta)\dot\theta=2mv_0.
+\]
+在相对运动转向点$\dot\theta=0$，却仍有$\dot X=mv_0/(M+m)$；不能把全部动能置零。代入能量方程：
+\[
+ mv_0^2=\frac{m^2v_0^2}{M+m}+mgh,
+ \qquad\boxed{h_{\text{滚动}}=\frac{M}{M+m}\frac{v_0^2}{g}}.
+\]
+在转向构形中，两个圆心的速度都为$\dot X\vct e_x$，但两筒仍有$\Omega=-\dot X/R$、$\omega=-\dot X/r$。图\ref{fig:hw1-8-s}右侧画出这一状态。此时的$2(M+m)\dot X$是循环坐标的广义动量；两筒的实际水平动量只有$(M+m)\dot X$，不能把地面静摩擦的水平作用删去。
+
+转向时，两筒的共同平移和约束所要求的自转仍有动能。$M\to\infty$时，大筒的运动趋于消失，第二式回到固定大筒的结果。
+
+
+\end{solution}
+
+
+
+\section{滑动摩擦与滚动状态的转换}
+
+滑动摩擦的耗散取决于接触点的相对速度。滑动与纯滚动采用不同的方程，两阶段由速度连续及接触条件连接。
+
+
+
+\subsection{滑动摩擦与滚动过渡}
+\subsubsection{摩擦功率取决于相对接触速度}
+设刚体与接触面的接触点速度分别为 $\vct v_P$、$\vct v_S$，接触面施于刚体的摩擦力为 $\vct f$。这一对摩擦力对两个物体的总功率为
+\[
+\mathcal P_f=\vct f\cdot(\vct v_P-\vct v_S).
+\]
+纯滚动时接触点速度相同，总功率为零；若接触面也在运动，单个刚体所受静摩擦的功率则可以不为零。出现相对滑动时，库仑动摩擦模型给出
+\begin{equation}\label{sup1:eq:d1-dissipation}
+\mathcal P_f=-\mu_kN|u|,\qquad
+Q_{\text{热}}=\int\mu_kN|u|\,\dd t,
+\end{equation}
+其中 $u$ 为切向相对滑动速度。热量对应相对滑移路程，不对应质心的总路程。
+
+\subsubsection{接触状态的分段处理}
+先根据相对滑动速度决定摩擦方向，分别写平动和转动方程。若随后 $u$ 到达零，再检验维持 $u=0$ 所需的静摩擦是否可实现。若可以，转入纯滚动方程；若不能，须根据新的相对滑动趋势继续列式。动摩擦力不能在 $u=0$ 后仍机械地保持原方向。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[圆柱边滚边滑]\label{ex:hw1-7}
+
+质量$m$、半径$r$的均匀实心圆柱在倾角$\varphi$的固定斜面上运动，动摩擦因数为$\mu$。求发生滑动时圆柱的质心加速度和角加速度，并判断滑动何时可能结束。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[rotate=-20]\draw[thick](-1,0)--(3.5,0);\draw(1,.65)circle(.65);\fill(1,.65)circle(1pt)node[above]{$C$};\node at(2.8,1){$m,r$};\end{scope}
+\draw[axis](1.16201,.26887)--(2.1017,-.07315)node[above]{$v$};
+\draw[axis](1.38701,.65858)arc(60:-180:.45);\node[left]at(.55,.68){$\omega$};
+\draw[guide](3.28892,-1.19707)--(1.4,-1.19707);\draw(1.98892,-1.19707)arc(180:160:1.3);\node at(1.68,-.94){$\varphi$};
+\end{tikzpicture}
+\caption{在固定斜面上滑动的实心圆柱}\label{fig:hw1-7-q}
+\end{figure}
+
+\begin{solution}
+取下坡为$x$正向，正转向使$r\omega$也沿下坡。图\ref{fig:hw1-7-s}中接触点相对斜面的切向速度为$w=v-r\omega$，摩擦方向由$w$决定。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[rotate=-20]\draw[thick](-1,0)--(3.5,0);\draw(1,.65)circle(.65);\fill(1,.65)circle(1pt)node[left]{$C$};\node at(2.8,1){$m,r$};\end{scope}\begin{scope}[rotate=-20]\draw[axis](1,0)--(.05,0)node[above left]{$f$};\draw[axis](1,0)--(1,1.65)node[above]{$N$};\end{scope}\node at(1.5,-1.65){$w=v-r\omega$};\draw[axis](1.16201,.26887)--(1.16201,-.85)node[left]{$mg$};\node at(3,-1.3){$w>0$};
+\end{tikzpicture}
+\caption{接触点向下滑动时的摩擦方向}\label{fig:hw1-7-s}
+\end{figure}
+
+令$\sigma=\operatorname{sgn}w$。滑动时$N=mg\cos\varphi$，摩擦的下坡分量为$-\sigma\mu mg\cos\varphi$，故
+\[
+ \boxed{a=g\sin\varphi-\sigma\mu g\cos\varphi,\qquad
+ \beta=\frac{2\sigma\mu g\cos\varphi}{r}}.
+\]
+于是
+\[
+\dot w=\dot v-r\dot\omega
+=g\sin\varphi-\sigma\mu g\cos\varphi-2\sigma\mu g\cos\varphi
+=g\sin\varphi-3\sigma\mu g\cos\varphi.
+\]
+在同一滑动支上 $\sigma$ 固定，故 $\dot w$ 为常数，$w=w_0+\int_0^t\dot w\dd s=w_0+\dot w\,t$。只有 $t_*=-w_0/\dot w>0$ 时才会到达 $w=0$。随后若能维持纯滚动，所需静摩擦为 $mg\sin\varphi/3$，还须满足 $\mu_s\ge\tan\varphi/3$；否则应按新的滑动方向继续计算。
+
+例如$w_0>0$时，只有$3\mu\cos\varphi>\sin\varphi$才能消除这一方向的滑动，此时
+\[
+ t_* =\frac{w_0}{g(3\mu\cos\varphi-\sin\varphi)}.
+\]
+$w_0<0$时，$\dot w=g(\sin\varphi+3\mu\cos\varphi)>0$，可在有限时间到达零点。到达零点后，用纯滚动条件重新求静摩擦，并检验它是否超过静摩擦极限。图中的$f$画的是$w>0$这一支的实际方向。
+
+取机械能 $E=mv^2/2+I\omega^2/2-mgx\sin\varphi$。逐项求导，并用平动、转动方程代换，
+\[
+\begin{aligned}
+\dot E&=mv\dot v+I\omega\dot\omega-mgv\sin\varphi\\
+&=-\sigma\mu mg\cos\varphi\,v
++\sigma\mu mgr\cos\varphi\,\omega\\
+&=-\mu mg\cos\varphi|v-r\omega|.
+\end{aligned}
+\]
+耗散率涉及接触点相对速度；若仅用质心位移计算摩擦损失，会漏掉摩擦对转动动能的贡献。
+
+
+\end{solution}
+
+
+
+\begin{example}[圆柱从滑动转为纯滚动]\label{sup1:problem-example-9}\label{sup1:example:d1-e9}
+质量为 $m$、半径为 $r$、转动惯量 $I=\kappa mr^2$ 的圆柱形刚体，在倾角为 $\alpha$ 的固定斜面上向下运动。初始质心速率为 $v_0>0$，自转角速度为零。动摩擦系数为 $\mu_k$，静摩擦系数为 $\mu_s$，并有
+\[
+\mu_s\ge\mu_k>\frac{\kappa}{1+\kappa}\tan\alpha.
+\]
+求开始纯滚动的时刻、该时刻的速率和此前产生的热量。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[rotate=-24]\draw[curve](-1.6,0)--(3.4,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw(0,.7)--(0.520201378,1.168391424)node[midway,above]{$r$};\draw[axis](1.20000,0.70000)--(2.10000,0.70000)node[above]{$v_0$};
+\node at(1.8,1.4){$I=\kappa mr^2$};\draw[axis](0.0000000,0.0000000)--(-1.0500000,0.0000000)node[above]{$f_k$};
+\end{scope}\draw[guide](1.3060545559848429,-1.3829045864577207)--(3.306054555984843,-1.3829045864577207);\draw(2.456054555984843,-1.3829045864577207)arc(180:156:.65);\node at(2.126054555984843,-1.1529045864577208){$\alpha$};\node at(-1.1,2.1){$v_0>0,\quad\omega_0=0$};
+\end{tikzpicture}
+\caption{初始相对滑动沿下坡方向，动摩擦力 $f_k$ 沿上坡方向。}\label{sup1:fig:d1-e9-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+取向下平动和顺下坡滚动的自转为正，接触滑动速度为 $u=v-r\omega$。初始 $u=v_0>0$，所以动摩擦沿上坡。平动和转动方程为
+\[
+\dot v=g(\sin\alpha-\mu_k\cos\alpha)=a_k,
+\qquad
+\dot\omega=\frac{\mu_kg\cos\alpha}{\kappa r}.
+\]
+因此
+\[
+\dot u=-K,\qquad
+K=g\left[\left(1+\frac1\kappa\right)\mu_k\cos\alpha-\sin\alpha\right]>0.
+\]
+图\ref{sup1:fig:d1-e9-s}右图中的 $u(t)$ 为一直线，首次到零的时刻为
+\[
+\boxed{t_*=\frac{v_0}{K}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[rotate=-24]\draw[curve](-1.6,0)--(3.4,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw(0,.7)--(0.520201378,1.168391424)node[midway,above]{$r$};\draw[axis](1.20000,0.70000)--(2.10000,0.70000)node[above]{$v_0$};
+\node at(1.8,1.4){$I=\kappa mr^2$};\draw[axis](0.0000000,0.0000000)--(-1.0500000,0.0000000)node[above]{$f_k$};
+\end{scope}\draw[guide](1.3060545559848429,-1.3829045864577207)--(3.306054555984843,-1.3829045864577207);\draw(2.456054555984843,-1.3829045864577207)arc(180:156:.65);\node at(2.126054555984843,-1.1529045864577208){$\alpha$};\node at(-1.1,2.1){$v_0>0,\quad\omega_0=0$};\begin{scope}[shift={(5.4,0.2)}]
+\draw[axis](-0.15,0)--(3.4,0)node[right]{$t$};\draw[axis](0,-0.2)--(0,1.8)node[above]{$u$};\draw[curve](0,1.4)--(2.8,0);\draw[guide](0,1.4)--(-.15,1.4)node[left]{$v_0$};\node[below]at(2.8,0){$t_*$};\draw[guide](2.8,0)--(3.25,0);\node at(1.5,-.6){$Q_{\text{热}}\propto$ 面积};
+\end{scope}
+
+\end{tikzpicture}
+\caption{滑动阶段的相对速度线性减小；曲线下的面积为相对滑移路程。}\label{sup1:fig:d1-e9-s}
+\end{figure}
+
+在 $0\le t\le t_*$ 内，速度的完整表达式为
+\[
+\begin{aligned}
+v&=v_0+\int_0^t a_k\dd s=v_0+a_kt,\\
+r\omega&=\frac{\mu_kg\cos\alpha}{\kappa}\int_0^t\dd s
+=\frac{\mu_kg\cos\alpha}{\kappa}t,\\
+u&=v_0-Kt\ge0.
+\end{aligned}
+\]
+这验证了整个滑动阶段的摩擦始终沿上坡方向。即使 $\mu_k>\tan\alpha$ 使 $a_k<0$，下式给出的 $v_*$ 仍为正，质心不会在达到纯滚动以前先倒向上坡。
+
+在 $t=t_*$，接触滑动速度首次为零，即 $v_*=r\omega_*$。代入任一速度式得
+\[
+\boxed{v_*=v_0+a_kt_*
+=\frac{\mu_kg\cos\alpha}{\kappa K}v_0}.
+\]
+维持纯滚动所需的摩擦系数正是例\ref{sup1:example:d1-e4}所得下限，题设保证静摩擦足够，因此 $t>t_*$ 后的加速度为 $g\sin\alpha/(1+\kappa)$。
+
+由式\eqref{sup1:eq:d1-dissipation}，热量等于相对滑移路程乘以摩擦力。图\ref{sup1:fig:d1-e9-s}右图的三角形面积也可直接积分为
+\[
+\int_0^{t_*}(v_0-Kt)\dd t
+=\left[v_0t-\frac K2t^2\right]_0^{t_*}
+=v_0t_*-\frac12Kt_*^2=\frac12v_0t_*.
+\]
+其中用到了 $Kt_*=v_0$，故
+\[
+\boxed{Q_{\text{热}}=\frac12\mu_kmg\cos\alpha\,v_0t_*
+=\frac{\mu_kmg\cos\alpha}{2K}v_0^2}.
+\]
+质心在这段时间沿斜面走过 $s_*=v_0t_*+\tfrac12a_kt_*^2$，但相对滑移路程只有 $v_0t_*/2$。完整能量关系为
+\[
+\frac12mv_0^2+mgs_*\sin\alpha
+=\frac12m(1+\kappa)v_*^2+Q_{\text{热}}.
+\]
+若 $\mu_k\le\kappa\tan\alpha/(1+\kappa)$，则 $K\le0$，在本题初态下 $u$ 不会降到零，上述有限过渡时刻也就不存在。
+令 $a_r=g\sin\alpha/(1+\kappa)$。过渡后的运动应另写一段：
+\[
+\begin{aligned}
+v(t)&=v_*+a_r(t-t_*),\qquad \omega(t)=v(t)/r,\\
+s(t)&=s_*+v_*(t-t_*)+\frac12a_r(t-t_*)^2,
+\qquad t\ge t_*.
+\end{aligned}
+\]
+此时静摩擦取所需值 $\kappa mg\sin\alpha/(1+\kappa)$，不再固定为 $\mu_kmg\cos\alpha$；接触不继续滑动，故此前产生的热量保持不变。
+
+图\ref{sup1:fig:d1-e9-s}的面积对应 $\int_0^{t_*}u\,\dd t$。若改用质心路程来算热量，会漏掉摩擦同时增加自转动能的部分。这一分段解成立需要两项条件：滑动阶段的 K 为正，保证 u 能降到零；达到零后静摩擦足够，保证新约束能持续。题设已分别给出了这两项保证。
+
+\end{solution}
+
+
+
+\section{习题与解答}
+
+\begin{exercise}[螺旋轨道上的下滑]\label{sup1:problem-exercise-1}\label{sup1:exercise:d1-p1}
+光滑螺旋细管固定在空间，中心线为 $x=R\cos\varphi$、$y=R\sin\varphi$、$z=z_0-b\varphi$，其中 $R,b>0$。质点 $m$ 从 $\varphi=0$ 处静止释放。求 $\ddot\varphi$、运动一整圈所需时间，以及该时刻的实际速率。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve]plot coordinates{(1.200000,3.700000)(1.198355,3.712031)(1.193426,3.723990)(1.185226,3.735806)(1.173777,3.747407)(1.159111,3.758724)(1.141268,3.769685)(1.120297,3.780224)(1.096255,3.790271)(1.069208,3.799761)(1.039230,3.808628)(1.006405,3.816811)(0.970820,3.824247)(0.932575,3.830877)(0.891774,3.836645)(0.848528,3.841496)(0.802957,3.845378)(0.755184,3.848241)(0.705342,3.850039)(0.653567,3.850729)(0.600000,3.850269)(0.544789,3.848623)(0.488084,3.845755)(0.430042,3.841635)(0.370820,3.836236)(0.310583,3.829534)(0.249494,3.821507)(0.187721,3.812141)(0.125434,3.801420)(0.062803,3.789337)(0.000000,3.775885)(-0.062803,3.761063)(-0.125434,3.744872)(-0.187721,3.727318)(-0.249494,3.708410)(-0.310583,3.688162)(-0.370820,3.666590)(-0.430042,3.643715)(-0.488084,3.619560)(-0.544789,3.594154)(-0.600000,3.567526)(-0.653567,3.539711)(-0.705342,3.510747)(-0.755184,3.480675)(-0.802957,3.449537)(-0.848528,3.417381)(-0.891774,3.384256)(-0.932575,3.350213)(-0.970820,3.315309)(-1.006405,3.279598)(-1.039230,3.243142)(-1.069208,3.206000)(-1.096255,3.168236)(-1.120297,3.129914)(-1.141268,3.091101)(-1.159111,3.051865)(-1.173777,3.012274)(-1.185226,2.972399)(-1.193426,2.932309)(-1.198355,2.892075)(-1.200000,2.851770)(-1.198355,2.811465)(-1.193426,2.771231)(-1.185226,2.731141)(-1.173777,2.691265)(-1.159111,2.651675)(-1.141268,2.612438)(-1.120297,2.573626)(-1.096255,2.535304)(-1.069208,2.497540)(-1.039230,2.460398)(-1.006405,2.423942)(-0.970820,2.388231)(-0.932575,2.353327)(-0.891774,2.319284)(-0.848528,2.286159)(-0.802957,2.254003)(-0.755184,2.222865)(-0.705342,2.192792)(-0.653567,2.163829)(-0.600000,2.136014)(-0.544789,2.109386)(-0.488084,2.083980)(-0.430042,2.059825)(-0.370820,2.036950)(-0.310583,2.015378)(-0.249494,1.995130)(-0.187721,1.976222)(-0.125434,1.958668)(-0.062803,1.942477)(-0.000000,1.927655)(0.062803,1.914203)(0.125434,1.902120)(0.187721,1.891399)(0.249494,1.882033)(0.310583,1.874006)(0.370820,1.867304)(0.430042,1.861905)(0.488084,1.857785)(0.544789,1.854917)(0.600000,1.853271)(0.653567,1.852811)(0.705342,1.853500)(0.755184,1.855299)(0.802957,1.858162)(0.848528,1.862044)(0.891774,1.866895)(0.932575,1.872663)(0.970820,1.879293)(1.006405,1.886729)(1.039230,1.894912)(1.069208,1.903779)(1.096255,1.913269)(1.120297,1.923316)(1.141268,1.933854)(1.159111,1.944816)(1.173777,1.956133)(1.185226,1.967734)(1.193426,1.979550)(1.198355,1.991509)(1.200000,2.003540)(1.198355,2.015571)(1.193426,2.027530)(1.185226,2.039346)(1.173777,2.050947)(1.159111,2.062264)(1.141268,2.073225)(1.120297,2.083764)(1.096255,2.093811)(1.069208,2.103301)(1.039230,2.112168)(1.006405,2.120351)(0.970820,2.127787)(0.932575,2.134417)(0.891774,2.140185)(0.848528,2.145036)(0.802957,2.148918)(0.755184,2.151781)(0.705342,2.153579)(0.653567,2.154269)(0.600000,2.153809)(0.544789,2.152163)(0.488084,2.149295)(0.430042,2.145175)(0.370820,2.139776)(0.310583,2.133074)(0.249494,2.125047)(0.187721,2.115681)(0.125434,2.104960)(0.062803,2.092877)(0.000000,2.079425)(-0.062803,2.064603)(-0.125434,2.048412)(-0.187721,2.030858)(-0.249494,2.011950)(-0.310583,1.991702)(-0.370820,1.970130)(-0.430042,1.947255)(-0.488084,1.923100)(-0.544789,1.897694)(-0.600000,1.871066)(-0.653567,1.843251)(-0.705342,1.814287)(-0.755184,1.784215)(-0.802957,1.753077)(-0.848528,1.720921)(-0.891774,1.687796)(-0.932575,1.653753)(-0.970820,1.618849)(-1.006405,1.583138)(-1.039230,1.546682)(-1.069208,1.509540)(-1.096255,1.471776)(-1.120297,1.433454)(-1.141268,1.394641)(-1.159111,1.355405)(-1.173777,1.315814)(-1.185226,1.275939)(-1.193426,1.235849)(-1.198355,1.195615)(-1.200000,1.155310)(-1.198355,1.115005)(-1.193426,1.074771)(-1.185226,1.034681)(-1.173777,0.994805)(-1.159111,0.955215)(-1.141268,0.915978)(-1.120297,0.877166)(-1.096255,0.838844)(-1.069208,0.801080)(-1.039230,0.763938)(-1.006405,0.727482)(-0.970820,0.691771)(-0.932575,0.656867)(-0.891774,0.622824)(-0.848528,0.589699)(-0.802957,0.557543)(-0.755184,0.526405)(-0.705342,0.496332)(-0.653567,0.467368)(-0.600000,0.439554)(-0.544789,0.412926)(-0.488084,0.387520)(-0.430042,0.363365)(-0.370820,0.340490)(-0.310583,0.318918)(-0.249494,0.298670)(-0.187721,0.279762)(-0.125434,0.262208)(-0.062803,0.246017)(-0.000000,0.231195)(0.062803,0.217743)(0.125434,0.205660)(0.187721,0.194939)(0.249494,0.185572)(0.310583,0.177546)(0.370820,0.170844)(0.430042,0.165445)(0.488084,0.161325)(0.544789,0.158457)(0.600000,0.156811)(0.653567,0.156351)(0.705342,0.157040)(0.755184,0.158839)(0.802957,0.161702)(0.848528,0.165584)(0.891774,0.170435)(0.932575,0.176203)(0.970820,0.182833)(1.006405,0.190269)(1.039230,0.198452)(1.069208,0.207319)(1.096255,0.216809)(1.120297,0.226856)(1.141268,0.237394)(1.159111,0.248356)(1.173777,0.259673)(1.185226,0.271274)(1.193426,0.283090)(1.198355,0.295049)(1.200000,0.307080)};
+\draw[axis](2.1,.15)--(2.1,4.25)node[above]{$z$};\draw[guide](0,.1)--(0,4.15);\draw(0,3.7)--(1.2,3.7)node[midway,below]{$R$};\fill(-1.14127,2.61244)circle(1.3pt)node[above left]{$P$};
+\node[right]at(2.75,2.9){$z=z_0-b\varphi$};\node[right]at(2.75,1.9){$b>0$};
+\end{tikzpicture}
+\caption{螺旋轴竖直；图作斜投影，$\varphi$ 增大时高度降低。}\label{sup1:fig:d1-p1-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+图\ref{sup1:fig:d1-p1-s}中的竖直下降与沿螺旋的运动由同一个 $\varphi$ 决定，坐标求导给出 $\vct v=\dot\varphi(-R\sin\varphi,R\cos\varphi,-b)$。平方相加，
+\[
+v^2=R^2\dot\varphi^2+b^2\dot\varphi^2,
+\quad T=\frac12m(R^2+b^2)\dot\varphi^2,
+\quad U=-mgb\varphi.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve]plot coordinates{(1.200000,3.700000)(1.198355,3.712031)(1.193426,3.723990)(1.185226,3.735806)(1.173777,3.747407)(1.159111,3.758724)(1.141268,3.769685)(1.120297,3.780224)(1.096255,3.790271)(1.069208,3.799761)(1.039230,3.808628)(1.006405,3.816811)(0.970820,3.824247)(0.932575,3.830877)(0.891774,3.836645)(0.848528,3.841496)(0.802957,3.845378)(0.755184,3.848241)(0.705342,3.850039)(0.653567,3.850729)(0.600000,3.850269)(0.544789,3.848623)(0.488084,3.845755)(0.430042,3.841635)(0.370820,3.836236)(0.310583,3.829534)(0.249494,3.821507)(0.187721,3.812141)(0.125434,3.801420)(0.062803,3.789337)(0.000000,3.775885)(-0.062803,3.761063)(-0.125434,3.744872)(-0.187721,3.727318)(-0.249494,3.708410)(-0.310583,3.688162)(-0.370820,3.666590)(-0.430042,3.643715)(-0.488084,3.619560)(-0.544789,3.594154)(-0.600000,3.567526)(-0.653567,3.539711)(-0.705342,3.510747)(-0.755184,3.480675)(-0.802957,3.449537)(-0.848528,3.417381)(-0.891774,3.384256)(-0.932575,3.350213)(-0.970820,3.315309)(-1.006405,3.279598)(-1.039230,3.243142)(-1.069208,3.206000)(-1.096255,3.168236)(-1.120297,3.129914)(-1.141268,3.091101)(-1.159111,3.051865)(-1.173777,3.012274)(-1.185226,2.972399)(-1.193426,2.932309)(-1.198355,2.892075)(-1.200000,2.851770)(-1.198355,2.811465)(-1.193426,2.771231)(-1.185226,2.731141)(-1.173777,2.691265)(-1.159111,2.651675)(-1.141268,2.612438)(-1.120297,2.573626)(-1.096255,2.535304)(-1.069208,2.497540)(-1.039230,2.460398)(-1.006405,2.423942)(-0.970820,2.388231)(-0.932575,2.353327)(-0.891774,2.319284)(-0.848528,2.286159)(-0.802957,2.254003)(-0.755184,2.222865)(-0.705342,2.192792)(-0.653567,2.163829)(-0.600000,2.136014)(-0.544789,2.109386)(-0.488084,2.083980)(-0.430042,2.059825)(-0.370820,2.036950)(-0.310583,2.015378)(-0.249494,1.995130)(-0.187721,1.976222)(-0.125434,1.958668)(-0.062803,1.942477)(-0.000000,1.927655)(0.062803,1.914203)(0.125434,1.902120)(0.187721,1.891399)(0.249494,1.882033)(0.310583,1.874006)(0.370820,1.867304)(0.430042,1.861905)(0.488084,1.857785)(0.544789,1.854917)(0.600000,1.853271)(0.653567,1.852811)(0.705342,1.853500)(0.755184,1.855299)(0.802957,1.858162)(0.848528,1.862044)(0.891774,1.866895)(0.932575,1.872663)(0.970820,1.879293)(1.006405,1.886729)(1.039230,1.894912)(1.069208,1.903779)(1.096255,1.913269)(1.120297,1.923316)(1.141268,1.933854)(1.159111,1.944816)(1.173777,1.956133)(1.185226,1.967734)(1.193426,1.979550)(1.198355,1.991509)(1.200000,2.003540)(1.198355,2.015571)(1.193426,2.027530)(1.185226,2.039346)(1.173777,2.050947)(1.159111,2.062264)(1.141268,2.073225)(1.120297,2.083764)(1.096255,2.093811)(1.069208,2.103301)(1.039230,2.112168)(1.006405,2.120351)(0.970820,2.127787)(0.932575,2.134417)(0.891774,2.140185)(0.848528,2.145036)(0.802957,2.148918)(0.755184,2.151781)(0.705342,2.153579)(0.653567,2.154269)(0.600000,2.153809)(0.544789,2.152163)(0.488084,2.149295)(0.430042,2.145175)(0.370820,2.139776)(0.310583,2.133074)(0.249494,2.125047)(0.187721,2.115681)(0.125434,2.104960)(0.062803,2.092877)(0.000000,2.079425)(-0.062803,2.064603)(-0.125434,2.048412)(-0.187721,2.030858)(-0.249494,2.011950)(-0.310583,1.991702)(-0.370820,1.970130)(-0.430042,1.947255)(-0.488084,1.923100)(-0.544789,1.897694)(-0.600000,1.871066)(-0.653567,1.843251)(-0.705342,1.814287)(-0.755184,1.784215)(-0.802957,1.753077)(-0.848528,1.720921)(-0.891774,1.687796)(-0.932575,1.653753)(-0.970820,1.618849)(-1.006405,1.583138)(-1.039230,1.546682)(-1.069208,1.509540)(-1.096255,1.471776)(-1.120297,1.433454)(-1.141268,1.394641)(-1.159111,1.355405)(-1.173777,1.315814)(-1.185226,1.275939)(-1.193426,1.235849)(-1.198355,1.195615)(-1.200000,1.155310)(-1.198355,1.115005)(-1.193426,1.074771)(-1.185226,1.034681)(-1.173777,0.994805)(-1.159111,0.955215)(-1.141268,0.915978)(-1.120297,0.877166)(-1.096255,0.838844)(-1.069208,0.801080)(-1.039230,0.763938)(-1.006405,0.727482)(-0.970820,0.691771)(-0.932575,0.656867)(-0.891774,0.622824)(-0.848528,0.589699)(-0.802957,0.557543)(-0.755184,0.526405)(-0.705342,0.496332)(-0.653567,0.467368)(-0.600000,0.439554)(-0.544789,0.412926)(-0.488084,0.387520)(-0.430042,0.363365)(-0.370820,0.340490)(-0.310583,0.318918)(-0.249494,0.298670)(-0.187721,0.279762)(-0.125434,0.262208)(-0.062803,0.246017)(-0.000000,0.231195)(0.062803,0.217743)(0.125434,0.205660)(0.187721,0.194939)(0.249494,0.185572)(0.310583,0.177546)(0.370820,0.170844)(0.430042,0.165445)(0.488084,0.161325)(0.544789,0.158457)(0.600000,0.156811)(0.653567,0.156351)(0.705342,0.157040)(0.755184,0.158839)(0.802957,0.161702)(0.848528,0.165584)(0.891774,0.170435)(0.932575,0.176203)(0.970820,0.182833)(1.006405,0.190269)(1.039230,0.198452)(1.069208,0.207319)(1.096255,0.216809)(1.120297,0.226856)(1.141268,0.237394)(1.159111,0.248356)(1.173777,0.259673)(1.185226,0.271274)(1.193426,0.283090)(1.198355,0.295049)(1.200000,0.307080)};
+\draw[axis](2.1,.15)--(2.1,4.25)node[above]{$z$};\draw[guide](0,.1)--(0,4.15);\draw(0,3.7)--(1.2,3.7)node[midway,below]{$R$};\fill(-1.14127,2.61244)circle(1.3pt)node[above left]{$P$};
+\draw[axis](-1.14127,2.61244)--(-1.14127,1.61244)node[below]{$mg$};
+\node[right]at(2.75,3.25){$v^2=(R^2+b^2)\dot\varphi^2$};\node[right]at(2.75,2.2){$U=-mgb\varphi$};
+\end{tikzpicture}
+\caption{重力势能只由螺旋的竖直下降量决定；动能含水平绕转与竖直运动两项。}\label{sup1:fig:d1-p1-s}
+\end{figure}
+
+广义动量为 $m(R^2+b^2)\dot\varphi$，其时间导数等于广义重力 $mgb$。令 $A_\varphi=gb/(R^2+b^2)$，从零初角速度积分，$\dot\varphi=\int_0^t A_\varphi\dd s=A_\varphi t$；再从零初角度积分，$\varphi=A_\varphi\int_0^t s\dd s=A_\varphi[s^2/2]_0^t$。因此
+\[
+\boxed{\ddot\varphi=\frac{gb}{R^2+b^2}},\qquad
+\varphi=\frac{gb}{2(R^2+b^2)}t^2.
+\]
+一整圈为 $\varphi=2\pi$，所以
+\[
+\boxed{t_1=\sqrt{\frac{4\pi(R^2+b^2)}{gb}}},\qquad
+\boxed{v_1=\sqrt{4\pi gb}}.
+\]
+后一结果也可由下降高度 $2\pi b$ 直接得到。改变 $R$ 会改变运动时间，但不改变同一竖直落差所对应的实际速率。
+图\ref{sup1:fig:d1-p1-s}中，参数角增加 $\dd\varphi$ 时，水平绕转路程为 $R\dd\varphi$，竖直下降量为 $b\dd\varphi$。实际弧长微元因而为
+\[
+\dd s_h=\sqrt{R^2+b^2}\,\dd\varphi,
+\qquad s_h=\sqrt{R^2+b^2}\,\varphi.
+\]
+等效直线斜坡的下降高度与弧长之比为 $b/\sqrt{R^2+b^2}$，所以切向加速度为 $a_t=gb/\sqrt{R^2+b^2}$。再由 $a_t=\sqrt{R^2+b^2}\ddot\varphi$，恢复前面的角加速度。
+
+到一整圈时，弧长为 $2\pi\sqrt{R^2+b^2}$。由 $s_h=a_tt_1^2/2$ 或 $v_1=a_tt_1$ 都能得到相同结果。轨道反力还须提供水平绕转所需的向心加速度，因此实际加速度还含法向分量，但轨道法向力对速度正交，不进入能量损失。
+
+\end{solution}
+
+
+\begin{exercise}[铰接细杆的角速度与铰链力]\label{sup1:problem-exercise-2}\label{sup1:exercise:d1-p2}
+长为 $l$、质量为 $m$ 的均匀细杆，一端铰接在固定点 O，可在竖直平面内转动。细杆从水平位置静止释放。取图\ref{sup1:fig:d1-p2-q}的 $\theta$ 为杆与竖直向下方向夹角。求下降过程中 $\dot\theta^2$、$\ddot\theta$，以及杆到达最低处时铰链的作用力。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.7,.15)--(.7,.15);\draw(0,.15)--(0,0);\draw[guide](0,0)--(0,-3.2);\draw[line width=2pt](0,0)--(1.8038095242655348,-2.1415581243965676);\fill(0.00000,0.00000)circle(1.3pt)node[above left]{$O$};
+\fill(0.90190,-1.07078)circle(1.3pt)node[left]{$G$};
+\draw(0,-.65)arc(-90:-49.893:.65);\node at(.33,-.84){$\theta$};\node[right]at(2.5,0){均匀细杆 $m,l$};\node[right]at(2.5,-.75){从水平静止释放};
+\end{tikzpicture}
+\caption{杆下降时 $\theta$ 从 $\pi/2$ 减小到零。}\label{sup1:fig:d1-p2-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+绕 O 的转动惯量为 $I_O=ml^2/3$，质心 G 距 O 为 $l/2$。以初始水平位置为势能零点，
+\[
+\frac12I_O\dot\theta^2-\frac12mgl\cos\theta=0.
+\]
+因此
+\[
+\boxed{\dot\theta^2=\frac{3g}{l}\cos\theta},\qquad
+\boxed{\ddot\theta=-\frac{3g}{2l}\sin\theta}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.7,.15)--(.7,.15);\draw(0,.15)--(0,0);\draw[guide](0,0)--(0,-3.2);\draw[line width=2pt](0,0)--(1.8038095242655348,-2.1415581243965676);\fill(0.00000,0.00000)circle(1.3pt)node[above left]{$O$};
+\fill(0.90190,-1.07078)circle(1.3pt)node[left]{$G$};
+\draw(0,-.65)arc(-90:-49.893:.65);\node at(.33,-.84){$\theta$};\draw[axis](0.90190,-1.07078)--(0.90190,-2.02078)node[below]{$mg$};
+\draw[axis](0.00000,0.00000)--(1.00000,0.00000)node[above]{$H_x$};
+\draw[axis](0.00000,0.00000)--(0.00000,1.00000)node[right]{$H_y$};
+
+\end{tikzpicture}
+\caption{恢复铰链力时对整杆使用质心加速度；图示一般位置的作用点和分力正方向。}\label{sup1:fig:d1-p2-s}
+\end{figure}
+
+下降时 $\theta$ 由 $\pi/2$ 减小到 0，故实际取 $\dot\theta=-\sqrt{3g\cos\theta/l}$。角加速度可直接由重力矩得到
+\[
+I_O\ddot\theta=-\frac{mgl}{2}\sin\theta,
+\]
+这一列式也适用于释放瞬间，避免对能量求导后在 $\dot\theta=0$ 处约去速度。
+
+取 O 为原点、水平向右和竖直向上为正，质心坐标为
+\[
+x_G=\frac l2\sin\theta,\qquad y_G=-\frac l2\cos\theta.
+\]
+先按乘积法则保留两类项，
+\[
+a_{Gx}=\frac l2(\cos\theta\ddot\theta-\sin\theta\dot\theta^2),
+\qquad
+a_{Gy}=\frac l2(\sin\theta\ddot\theta+\cos\theta\dot\theta^2).
+\]
+再代入角速度、角加速度，得到
+\[
+a_{Gx}=-\frac{9g}{4}\sin\theta\cos\theta,
+\qquad a_{Gy}=\frac{3g}{4}(3\cos^2\theta-1).
+\]
+因此一般位置的铰链力为
+\[
+H_x=-\frac94mg\sin\theta\cos\theta,
+\qquad H_y=\frac{mg}{4}(1+9\cos^2\theta).
+\]
+图\ref{sup1:fig:d1-p2-s}中的两个箭头只定义正分量方向；例如 $H_x<0$ 表示实际向左。
+
+图\ref{sup1:fig:d1-p2-s}中铰链力作用于 O，重力作用于 G。到最低点时 $\dot\theta^2=3g/l$，$\ddot\theta=0$。质心只有指向 O 的法向加速度，大小为 $(l/2)\dot\theta^2=3g/2$。于是
+\[
+H_x=0,\qquad H_y-mg=m\frac{3g}{2},
+\quad\boxed{\vct H=(0,\tfrac52mg)}.
+\]
+绕 O 的能量方程消去了铰链力，恢复该力时应使用质心的平动方程，不能把整根杆视为集中在末端的质点。
+在水平释放点，$\dot\theta=0$、$a_{Gy}=-3g/4$，于是 $H_y=mg/4$；到最低点，切向加速度为零而向心加速度最大，铰链竖直力增大到 $5mg/2$。这两个位置的铰链力不同，是因为质心加速度发生了变化。最低点的角加速度虽为零，质心仍有向心加速度，故不能作静力平衡。
+
+\end{solution}
+
+
+\begin{exercise}[有转动惯量的滑轮]\label{sup1:problem-exercise-6}\label{sup1:exercise:d1-p6}
+轻绳跨过轴固定的滑轮，绳两端悬挂 $m_1,m_2$，其中 $m_2>m_1$。滑轮半径为 $r$，转动惯量为 $I$，轴承无摩擦，绳与滑轮之间不滑动。系统从静止释放，求加速度及绳两侧张力。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.5,3.3)--(1.6,3.3);\draw(0,3.3)--(0,2.5);\draw[curve,fill=white](0,2.5)circle(.5);\draw[curve](-.5,.65)--(-.5,2.5)arc(180:0:.5)--(.5,.05);\draw[fill=white](-0.825,0.09999999999999998)rectangle(-0.175,0.65);\node at(-0.5,0.375){$m_1$};\draw[fill=white](0.175,-0.5)rectangle(0.825,0.05000000000000002);\node at(0.5,-0.225){$m_2$};\draw(0,2.5)--(.35,2.85)node[midway,left]{$r$};\node at(1.5,2.7){$I$};\draw[axis](1.80000,1.00000)--(1.80000,0.00000)node[right]{$q$};
+
+\end{tikzpicture}
+\caption{两端位移大小相等，滑轮自转由绳速决定。}\label{sup1:fig:d1-p6-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+取 $m_2$ 向下位移为 $q$，绳速为 $\dot q$，滑轮角速度大小为 $\dot q/r$。于是
+\[
+T=\frac12\left(m_1+m_2+\frac I{r^2}\right)\dot q^2,
+\quad U=-(m_2-m_1)gq.
+\]
+能量方程给出
+\[
+\boxed{a=\frac{(m_2-m_1)g}{m_1+m_2+I/r^2}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.5,3.3)--(1.6,3.3);\draw(0,3.3)--(0,2.5);\draw[curve,fill=white](0,2.5)circle(.5);\draw[curve](-.5,.65)--(-.5,2.5)arc(180:0:.5)--(.5,.05);\draw[fill=white](-0.825,0.09999999999999998)rectangle(-0.175,0.65);\node at(-0.5,0.375){$m_1$};\draw[fill=white](0.175,-0.5)rectangle(0.825,0.05000000000000002);\node at(0.5,-0.225){$m_2$};\draw(0,2.5)--(.35,2.85)node[midway,left]{$r$};\node at(1.5,2.7){$I$};\draw[axis](-0.50000,0.65000)--(-0.50000,1.60000)node[left]{$T_1$};
+\draw[axis](0.50000,0.05000)--(0.50000,1.00000)node[right]{$T_2$};
+\draw[axis](1.80000,0.50000)--(1.80000,-0.40000)node[right]{$a$};
+
+\end{tikzpicture}
+\caption{由重物平动恢复两个张力，二者的力矩差驱动滑轮转动。}\label{sup1:fig:d1-p6-s}
+\end{figure}
+
+图\ref{sup1:fig:d1-p6-s}中轻绳两侧张力不相等，差值提供滑轮角加速度。对两个重物分别列式，
+\[
+\boxed{T_1=m_1(g+a)},\qquad
+\boxed{T_2=m_2(g-a)}.
+\]
+二者确实满足 $(T_2-T_1)r=I a/r$。轻绳内部任一不跨越滑轮接触区的自由段张力相同，但轻绳绕过有转动惯量的滑轮后，两自由端的张力可以不同。
+若从受力直接消元，三个方程为
+\[
+T_1-m_1g=m_1a,\qquad m_2g-T_2=m_2a,
+\qquad T_2-T_1=\frac I{r^2}a.
+\]
+前两式相加再用第三式，得到 $[(m_1+m_2)+I/r^2]a=(m_2-m_1)g$。由此看出，$I/r^2$ 只增加运动惯性，并不增加悬挂物的重力驱动。
+
+两个张力的显式形式为
+\[
+T_1=\frac{m_1(2m_2+I/r^2)}{m_1+m_2+I/r^2}g,
+\qquad
+T_2=\frac{m_2(2m_1+I/r^2)}{m_1+m_2+I/r^2}g.
+\]
+因此，$I>0$ 时 $T_2>T_1>0$；$I=0$ 时两张力相等，恢复无质量滑轮。$I$ 很大时，加速度趋零，两张力分别接近各自重物的重量，但仍有张力差提供很小的角加速度。图\ref{sup1:fig:d1-p6-s}中滑轮与绳的接触可传递切向力，理想无摩擦轴承并不意味着这一接触区也没有切向作用。
+
+\end{solution}
+
+
+\begin{exercise}[水平地面上的滑滚转换]\label{sup1:problem-exercise-9}\label{sup1:exercise:d1-p9}
+刚体质量为 $m$、半径为 $r$、转动惯量为 $\kappa mr^2$，在粗糙水平地面上运动。初始质心速度 $v_0\ge0$ 向右，初始自转角速度 $\omega_0\ge0$ 按图示顺时针方向为正。动摩擦系数为 $\mu_k>0$。求最终纯滚动速度、转换所需时间和产热。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.7,0)--(3,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw[axis](0.00000,0.70000)--(1.30000,0.70000)node[above]{$v$};
+\draw[axis](-0.845723359,1.007818129)arc(160:20:0.9);\node at(0,1.95){$\omega$};\node at(2.3,1.8){$I=\kappa mr^2$};
+\end{tikzpicture}
+\caption{向右平动与顺时针自转取正；初始接触滑动可向左也可向右。}\label{sup1:fig:d1-p9-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+设 $u_0=v_0-r\omega_0$。若 $u_0=0$，初态已是纯滚动，转换时间和热量均为零。以下取 $u_0\ne0$。图\ref{sup1:fig:d1-p9-s}画的是 $u>0$ 的情形；$u<0$ 时摩擦方向反向。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.7,0)--(3,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw[axis](0.00000,0.70000)--(1.30000,0.70000)node[above]{$v$};
+\draw[axis](-0.845723359,1.007818129)arc(160:20:0.9);\node at(0,1.95){$\omega$};\draw[axis](0.00000,0.00000)--(-1.05000,0.00000)node[below]{$f$};
+\node[right]at(2.2,1.75){$u=v-r\omega$};\node[right]at(2.2,.85){图取 $u>0$};
+\end{tikzpicture}
+\caption{摩擦方向由接触滑动速度决定，顺时针自转对应接触点相对轮心向左的速度。}\label{sup1:fig:d1-p9-s}
+\end{figure}
+
+以 $\sigma=\operatorname{sgn}u_0$ 表示摩擦方向，滑动阶段有
+\[
+\dot v=-\mu_kg\sigma,\qquad
+\dot\omega=\frac{\mu_kg}{\kappa r}\sigma.
+\]
+两式相加时，$\dd(v+\kappa r\omega)/\dd t=-\mu_kg\sigma+\mu_kg\sigma=0$，故该组合为常量。相减则有 $\dot u=-(1+1/\kappa)\mu_kg\sigma$，用初值 $u(0)=u_0$ 积分，得到
+\[
+u=u_0-\left(1+\frac1\kappa\right)\mu_kg\sigma t.
+\]
+首次达到 $u=0$ 的时间及速率为
+\[
+\boxed{t_*=\frac{\kappa|v_0-r\omega_0|}{(1+\kappa)\mu_kg}},\qquad
+\boxed{v_f=\frac{v_0+\kappa r\omega_0}{1+\kappa}}.
+\]
+以后无需水平摩擦即可保持匀速纯滚动。在滑动阶段 $|u(t)|=|u_0|(1-t/t_*)$，产热为
+\[
+Q_{\text{热}}=\mu_kmg|u_0|\int_0^{t_*}\left(1-\frac t{t_*}\right)\dd t
+=\mu_kmg|u_0|\left[t-\frac{t^2}{2t_*}\right]_0^{t_*}
+=\frac12\mu_kmg|u_0|t_*.
+\]
+这也等于相对滑动速度图下的三角形面积乘以摩擦力。代入 $t_*$，得到
+\[
+\boxed{Q_{\text{热}}=\frac12m\frac{\kappa}{1+\kappa}
+(v_0-r\omega_0)^2}.
+\]
+这一结果也等于初始总动能与 $\tfrac12m(1+\kappa)v_f^2$ 的差。$\mu_k$ 改变转换时间，却不改变给定初态的最终速度和总产热。
+用摩擦冲量也能独立求出最终速度。记滑动阶段摩擦的有向冲量为 J，则
+\[
+m(v_f-v_0)=J,\qquad I(\omega_f-\omega_0)=-rJ.
+\]
+代入 $r\omega_f=v_f$，可得 $J=-m\kappa(v_0-r\omega_0)/(1+\kappa)$。由 $|J|=\mu_kmg t_*$ 恢复同一转换时间。自转过快时 $u_0<0$，摩擦向右，质心加速而自转减慢；这类初态下，摩擦将部分自转能量转入质心平动。
+
+动能还可精确分解为
+\[
+T=\frac{m}{2(1+\kappa)}(v+\kappa r\omega)^2
++\frac{m\kappa}{2(1+\kappa)}(v-r\omega)^2.
+\]
+第一项由滑动阶段的守恒组合决定，第二项在 $u\to0$ 时全部耗散，因此直接给出前述总热量。图\ref{sup1:fig:d1-p9-speeds}画出两种相反滑动初态，v 与 $r\omega$ 在 $t=t_*$ 相遇后共同保持常量。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.1,0)--(3.6,0)node[right]{$t/t_*$};\draw[axis](0,-.1)--(0,1.9)node[above]{速度$/U_0$};
+\draw[curve](0,1.5)--(2.4,1)--(3.3,1);\draw[guide](0,0)--(2.4,1)--(3.3,1);
+\node[left]at(0,1.5){$1$};\node[left]at(0,1){$2/3$};\node[below]at(2.4,0){$1$};\draw[guide](2.4,0)--(2.4,1);
+\node at(.75,1.6){$v$};\node at(1.3,.35){$r\omega$};
+\begin{scope}[shift={(5.5,0)}]
+\draw[axis](-.1,0)--(3.6,0)node[right]{$t/t_*$};\draw[axis](0,-.1)--(0,1.9)node[above]{速度$/U_0$};
+\draw[guide](0,1.5)--(2.4,.5)--(3.3,.5);\draw[curve](0,0)--(2.4,.5)--(3.3,.5);
+\node[left]at(0,1.5){$1$};\node[left]at(0,.5){$1/3$};\node[below]at(2.4,0){$1$};\draw[guide](2.4,0)--(2.4,.5);
+\node at(.6,1.6){$r\omega$};\node at(1.3,.12){$v$};
+\end{scope}
+\end{tikzpicture}
+\caption{取 $\kappa=1/2$、$U_0>0$。左图初态为 $v_0=U_0,\omega_0=0$；右图为 $v_0=0,r\omega_0=U_0$。实线表示平动速率，虚线表示轮缘自转速率。}\label{sup1:fig:d1-p9-speeds}
+\end{figure}
+
+\end{solution}
+
+
+\begin{exercise}[摆杆越过最高点的条件（选做）]\label{sup1:problem-exercise-8}\label{sup1:exercise:d1-p8}
+沿用例\ref{sup1:example:d1-e8}的小车与刚性轻杆摆。系统总水平动量为零，摆从最低点 $\theta=0$ 以角速度 $\omega_0>0$ 开始运动。求在有限时间内越过最高点所需的 $\omega_0$ 条件，并说明临界等号对应的运动。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.8,0)--(3.3,0);\draw[fill=white,curve](-.8,.35)rectangle(.8,.95);\node at(0,.65){$M$};\draw(-.55,.175)circle(.175);\draw(.55,.175)circle(.175);\draw[curve](-.68,.95)--(-.68,3.9)--(0,3.9);\fill(0.0000000,3.9000000)circle(1.3pt)node[above right]{$O$};
+\draw[line width=.8pt](0,3.9)--(1.469463131,1.877457514);\fill(1.4694631,1.8774575)circle(1.3pt)node[right]{$m$};
+\draw[guide](0,3.9)--(0,1.2);\draw(0,3.28)arc(-90:-54:.62);\node at(.27,3.0){$\theta$};\node at(0.9847315653655915,2.9887287570313155){$l$};\draw[guide](0,1.4)arc(-90:-54:2.5);\draw[fill=white](0,1.4)circle(1.4pt);\node[right]at(.12,1.22){最低位置};\draw[axis](-1.8500000,1.2500000)--(-1.0500000,1.2500000)node[above]{$X$};
+\node[right]at(2.3,3.1){刚性轻杆};
+\end{tikzpicture}
+\caption{图示摆杆上升时的位置。支架位于摆动平面后方，摆球的整周轨迹高于车身。}\label{sup1:fig:d1-p8-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+消去循环速度后的惯性系数为
+\[
+B_{\text{eff}}(\theta)=ml^2\left(1-\frac{m}{M+m}\cos^2\theta\right)>0.
+\]
+初态可用能量为 $E=ml^2M\omega_0^2/[2(M+m)]$。图\ref{sup1:fig:d1-p8-s}中势能在 $\theta=\pi$ 处达到 $2mgl$。有限时间越过该势垒须有 $E>2mgl$，即
+\[
+\boxed{\omega_0^2>\frac{4(M+m)g}{Ml}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-0.1,0)--(3.6,0)node[right]{$\theta$};\draw[axis](0,-0.2)--(0,2.8)node[above]{$U/(mgl)$};\draw[curve]plot coordinates{(0.000000,0.000000)(0.031416,0.000493)(0.062832,0.001973)(0.094248,0.004438)(0.125664,0.007885)(0.157080,0.012312)(0.188496,0.017713)(0.219911,0.024083)(0.251327,0.031417)(0.282743,0.039706)(0.314159,0.048943)(0.345575,0.059119)(0.376991,0.070224)(0.408407,0.082245)(0.439823,0.095173)(0.471239,0.108993)(0.502655,0.123693)(0.534071,0.139258)(0.565487,0.155672)(0.596903,0.172919)(0.628319,0.190983)(0.659734,0.209845)(0.691150,0.229487)(0.722566,0.249889)(0.753982,0.271031)(0.785398,0.292893)(0.816814,0.315453)(0.848230,0.338688)(0.879646,0.362576)(0.911062,0.387093)(0.942478,0.412215)(0.973894,0.437917)(1.005310,0.464173)(1.036726,0.490959)(1.068142,0.518246)(1.099557,0.546010)(1.130973,0.574221)(1.162389,0.602852)(1.193805,0.631875)(1.225221,0.661262)(1.256637,0.690983)(1.288053,0.721009)(1.319469,0.751310)(1.350885,0.781857)(1.382301,0.812619)(1.413717,0.843566)(1.445133,0.874667)(1.476549,0.905892)(1.507964,0.937209)(1.539380,0.968589)(1.570796,1.000000)(1.602212,1.031411)(1.633628,1.062791)(1.665044,1.094108)(1.696460,1.125333)(1.727876,1.156434)(1.759292,1.187381)(1.790708,1.218143)(1.822124,1.248690)(1.853540,1.278991)(1.884956,1.309017)(1.916372,1.338738)(1.947787,1.368125)(1.979203,1.397148)(2.010619,1.425779)(2.042035,1.453990)(2.073451,1.481754)(2.104867,1.509041)(2.136283,1.535827)(2.167699,1.562083)(2.199115,1.587785)(2.230531,1.612907)(2.261947,1.637424)(2.293363,1.661312)(2.324779,1.684547)(2.356194,1.707107)(2.387610,1.728969)(2.419026,1.750111)(2.450442,1.770513)(2.481858,1.790155)(2.513274,1.809017)(2.544690,1.827081)(2.576106,1.844328)(2.607522,1.860742)(2.638938,1.876307)(2.670354,1.891007)(2.701770,1.904827)(2.733186,1.917755)(2.764602,1.929776)(2.796017,1.940881)(2.827433,1.951057)(2.858849,1.960294)(2.890265,1.968583)(2.921681,1.975917)(2.953097,1.982287)(2.984513,1.987688)(3.015929,1.992115)(3.047345,1.995562)(3.078761,1.998027)(3.110177,1.999507)(3.141593,2.000000)};
+\draw[guide](0,2)--(3.35,2)node[right]{$E_c/(mgl)=2$};\draw[guide](0,2.5)--(3.35,2.5)node[right]{$E>E_c$};\draw[guide](3.14159,0)--(3.14159,2);\node[below]at(3.14159,0){$\pi$};
+\end{tikzpicture}
+\caption{临界能量恰过势垒顶，超临界能量曲线在全程保留正的动能。}\label{sup1:fig:d1-p8-s}
+\end{figure}
+
+等号时，在最高点附近令 $\varepsilon=\pi-\theta$，有
+\[
+E-U\simeq\frac12mgl\varepsilon^2,\qquad
+B_{\text{eff}}(\pi)=\frac{ml^2M}{M+m}.
+\]
+故 $\dot\theta\simeq\Omega\varepsilon$，其中 $\Omega=\sqrt{(M+m)g/(Ml)}$。以接近顶点的某时刻 $t_1$ 为起点，分离变量并积分，得
+\[
+t-t_1\simeq\frac1\Omega\int_{\varepsilon(t)}^{\varepsilon(t_1)}\frac{\dd\xi}{\xi}
+=\frac1\Omega[\ln\xi]_{\varepsilon(t)}^{\varepsilon(t_1)}
+=\frac1\Omega\ln\frac{\varepsilon(t_1)}{\varepsilon(t)}.
+\]
+当 $\varepsilon(t)\to0$ 时，时间呈对数发散。系统只渐近接近最高点，不会在有限时间越过。因为连接物是刚性杆，途中不必另加绳张力非负的限制；若改为软绳，能量超过势垒并不一定足以保证绳始终绷紧。
+超临界时，将 $\theta=\pi$ 代入能量积分，可直接得到过顶角速度
+\[
+\dot\theta_{\rm top}^2=
+\omega_0^2-\frac{4(M+m)g}{Ml}>0.
+\]
+由于全过程 $B_{\rm eff}>0$，而 $U\le2mgl<E$，角速度沿上升过程始终不为零。故确实可以连续越过最高点，并且行程时间在这一有限角度区间内为有限值。
+
+将临界情况下的时间关系反解为偏角，得到
+\[
+\varepsilon(t)\simeq\varepsilon(t_1)\ee^{-\Omega(t-t_1)}.
+\]
+摆球越来越接近顶点，却在任意有限时刻保留一个非零偏角。若初始能量更低，转向角已在 $\pi$ 以前出现，此时不能把能量式继续延伸到负的角速度平方区域。
+
+图\ref{sup1:fig:d1-p8-s}中的势能曲线在顶端是极大值，过顶条件的严格不等号由这一势垒附近的时间积分决定。本题的刚性轻杆不另设拉压强度限制。
+
+\end{solution}
+
+
+\begin{exercise}[牵连斜面的接触余量]\label{deep1:problem-exercise-3}\label{deep1:exercise:d1-p3}
+沿用例\ref{ex:hw1-1}的装置，取 $M=m$、$\alpha=60^\circ$，各接触面光滑。求斜面加速度、绳张力和物块所受支持力。再求该角度下允许维持接触的最小斜面质量。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.4,.1)--(5.5,.1);\draw[curve](5.1,.1)--(5.1,3.35);\draw[curve](2.070132856636795,0.1)--(3.5192820323027556,2.61)--(3.5192820323027556,0.1)--cycle;\begin{scope}[shift={(2.3942820323027556,0.6614428414850132)},rotate=60]\draw[fill=white](-.36,0)rectangle(.36,.48);\node at(0,.24){$m$};\end{scope}\draw[curve](2.366435935,1.093211987)--(3.31143593539449,2.73)arc(150.0:90:.16)--(5.1,2.81);\draw[fill=white](3.45,2.65)circle(.16);\draw(3.45,2.65)--(3.5192820323027556,2.61);\fill(3.45000,2.65000)circle(1.3pt)node[above right]{$P$};
+\node at(3.0362323070807684,0.9366666666666666){$M$};\draw(2.720132856636795,.1)arc(0:60:.65);\node at(3.0201328566367946,.38){$\alpha$};\draw[axis](3.75000,0.45000)--(4.75000,0.45000)node[above]{$X$};
+\draw[axis](1.3936156,1.0082378)--(1.0186156,0.3587187)node[above left]{$s$};
+
+\end{tikzpicture}
+\caption{斜面与物块由固定绳端关联，沿用 $s=X$ 的坐标。}\label{deep1:fig:d1-p3-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+图\ref{deep1:fig:d1-p3-s}中物块的地面加速度有水平和竖直分量。惯性系数为
+\[
+M+2m(1-\cos60^\circ)=2m,
+\]
+故
+\[
+\boxed{a=\frac{\sqrt3}{4}g}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.4,.1)--(5.5,.1);\draw[curve](5.1,.1)--(5.1,3.35);\draw[curve](2.070132856636795,0.1)--(3.5192820323027556,2.61)--(3.5192820323027556,0.1)--cycle;\begin{scope}[shift={(2.3942820323027556,0.6614428414850132)},rotate=60]\draw[fill=white](-.36,0)rectangle(.36,.48);\node at(0,.24){$m$};\end{scope}\draw[curve](2.366435935,1.093211987)--(3.31143593539449,2.73)arc(150.0:90:.16)--(5.1,2.81);\draw[fill=white](3.45,2.65)circle(.16);\draw(3.45,2.65)--(3.5192820323027556,2.61);\fill(3.45000,2.65000)circle(1.3pt)node[above right]{$P$};
+\node at(3.0362323070807684,0.9366666666666666){$M$};\draw(2.720132856636795,.1)arc(0:60:.65);\node at(3.0201328566367946,.38){$\alpha$};\draw[axis](3.75000,0.45000)--(4.75000,0.45000)node[above]{$X$};
+\draw[axis](1.3936156,1.0082378)--(1.0186156,0.3587187)node[above left]{$s$};
+\begin{scope}[shift={(7.1,1.2)}]
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$C$};
+\draw[axis](0.00000,0.00000)--(-0.69282,0.40000)node[above left]{$N$};
+\draw[axis](0.00000,0.00000)--(0.42500,0.73612)node[above right]{$T$};
+\draw[axis](0.00000,0.00000)--(0.00000,-1.00000)node[below]{$mg$};
+\node at(0,1.6){物块受力};
+\end{scope}
+
+\end{tikzpicture}
+\caption{加速度求出后，分别沿斜面与法线方向恢复张力和支持力。}\label{deep1:fig:d1-p3-s}
+\end{figure}
+
+沿图中法向与斜面方向投影，代入例\ref{ex:hw1-1}所得受力式，得到
+\[
+\boxed{N=mg\cos60^\circ-ma\sin60^\circ=\frac18mg},
+\]
+\[
+\boxed{T=mg\sin60^\circ-ma(1-\cos60^\circ)
+=\frac{3\sqrt3}{8}mg}.
+\]
+两者均为正，当前运动能够保持绳绷紧和接触。令 $N=0$，接触边界为
+\[
+M\cos60^\circ=m(1-\cos60^\circ)^2,
+\quad\boxed{M_{\min}=\frac m2}.
+\]
+绳长关系确定运动关联，单侧接触条件则给出这一质量下限。
+物块的地面加速度由坐标关系给出：
+\[
+\vct a_C=a(1-\cos60^\circ,-\sin60^\circ)
+=\left(\frac{\sqrt3}{8}g,-\frac38g\right).
+\]
+其外法线分量为 $-a\sin60^\circ=-3g/8$，所以法向方程为 $N-mg/2=-3mg/8$，只剩 $N=mg/8$。若将相对斜面的法向加速度为零，误当成地面系中也为零，就会错误地得到 $mg/2$。
+
+固定该角度，以 $\lambda=M/m$ 表示质量比，三个结果可统一写成
+\[
+a=\frac{\sqrt3g}{2(\lambda+1)},\qquad
+N=\frac{(2\lambda-1)mg}{4(\lambda+1)},\qquad
+T=\frac{\sqrt3(2\lambda+1)mg}{4(\lambda+1)}.
+\]
+张力对所有 $\lambda>0$ 均为正，支持力则仅在 $\lambda\ge1/2$ 时允许。当前质量比 $\lambda=1$ 大于临界值 $1/2$，故支持力为正；减轻斜面会增大牵连加速度、减小法向接触余量。$\lambda=1/2$ 给出 N 为零的临界约束解，$\lambda<1/2$ 则已要求负支持力，不能再沿用贴面运动公式。
+
+\end{solution}
+
+
+\begin{exercise}[圆弧轨道上的滚动]\label{deep1:problem-exercise-5}\label{deep1:exercise:d1-p5}
+轴对称刚体的质量为 $m$、半径为 $r$，转动惯量为 $\kappa mr^2$。刚体在固定圆弧轨道内侧纯滚动，质心 C 的轨迹半径为 $\rho$。从 $\theta=\theta_0$ 处静止释放，其中 $0<\theta_0<\pi/2$，$\theta$ 从竖直向下方向量起。求下降时的质心速率、$\ddot\theta$ 和法向力 $N$。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](2.15,0)arc(0:-180:2.15);\draw[guide](-1.9,0)arc(180:360:1.9);\draw(0,0)--(-1.343502884,-1.343502884)node[midway,above left]{$\rho$};\draw[guide](0,.2)--(0,-2.4);\fill(0.0000000,0.0000000)circle(1.3pt)node[above left]{$O$};
+\draw[guide](1.645448267,-0.950000000)circle(0.25);\draw[guide](0,0)--(1.645448267,-0.950000000);\fill(1.6454483,-0.9500000)circle(1.3pt)node[right=10pt]{$C_0$};
+\draw[fill=white,curve](1.089795229,-1.556388884)circle(0.25);\fill(1.0897952,-1.5563889)circle(1.3pt)node[left=10pt,yshift=-2pt,fill=white,inner sep=1pt]{$C$};
+\draw(0,0)--(1.089795229,-1.556388884);\draw(0,-.62)arc(-90:-55:.62);\node at(.2,-.8){$\theta$};\draw(0,-1.1)arc(-90:-30:1.1);\node at(.55,-1.2){$\theta_0$};\fill(1.2331893,-1.7611769)circle(1.3pt)node[below right]{$P$};
+
+\end{tikzpicture}
+\caption{实线圆与虚线圆分别表示当前状态和释放状态，圆心为 $C$、$C_0$。两角均从 $O$ 处的竖直向下方向量起。}\label{deep1:fig:d1-p5-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+接触点相对固定轨道静止，故 $|\omega|=\rho|\dot\theta|/r$。由图\ref{deep1:fig:d1-p5-s}中 C$_0$ 与 C 的高度差，能量关系为
+\[
+\frac12m(1+\kappa)\rho^2\dot\theta^2
+=mg\rho(\cos\theta-\cos\theta_0).
+\]
+由 $v^2=\rho^2\dot\theta^2$，先得
+\[
+\boxed{v^2=\frac{2g\rho(\cos\theta-\cos\theta_0)}{1+\kappa}}.
+\]
+求角加速度时，取 $U=mg\rho(1-\cos\theta)$，有
+\[
+\frac{\partial T}{\partial\dot\theta}=m(1+\kappa)\rho^2\dot\theta,
+\qquad \frac{\partial U}{\partial\theta}=mg\rho\sin\theta.
+\]
+将第一式对时间求导，代入拉格朗日方程，
+\[
+m(1+\kappa)\rho^2\ddot\theta+mg\rho\sin\theta=0,
+\qquad\boxed{\ddot\theta=-\frac{g\sin\theta}{(1+\kappa)\rho}}.
+\]
+这一推导不需要除以 $\dot\theta$，在静止释放点同样成立。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](2.15,0)arc(0:-180:2.15);\draw[guide](-1.9,0)arc(180:360:1.9);\draw(0,0)--(-1.343502884,-1.343502884)node[midway,above left]{$\rho$};\draw[guide](0,.2)--(0,-2.4);\fill(0.0000000,0.0000000)circle(1.3pt)node[above left]{$O$};
+\draw[guide](1.645448267,-0.950000000)circle(0.25);\draw[guide](0,0)--(1.645448267,-0.950000000);\fill(1.6454483,-0.9500000)circle(1.3pt)node[right=10pt]{$C_0$};
+\draw[fill=white,curve](1.089795229,-1.556388884)circle(0.25);\fill(1.0897952,-1.5563889)circle(1.3pt)node[left=10pt,yshift=-2pt,fill=white,inner sep=1pt]{$C$};
+\draw(0,0)--(1.089795229,-1.556388884);\draw(0,-.62)arc(-90:-55:.62);\node at(.2,-.8){$\theta$};\draw(0,-1.1)arc(-90:-30:1.1);\node at(.55,-1.2){$\theta_0$};\fill(1.2331893,-1.7611769)circle(1.3pt)node[below right]{$P$};
+\draw[axis](1.2331893,-1.7611769)--(0.7169705,-1.0239401)node[right=5pt]{$N$};
+\draw[axis](1.0897952,-1.5563889)--(1.0897952,-2.4563889)node[below]{$mg$};
+\draw[axis](1.2331893,-1.7611769)--++({.8*cos(35)},{.8*sin(35)})node[below right,xshift=2pt]{$f_s$};
+\node[right]at(2.9,-1.65){$v^2=\rho^2\dot\theta^2$};
+\end{tikzpicture}
+\caption{支持力 $N$ 由接触点 $P$ 沿半径指向 $O$，重力作用于质心 $C$；静摩擦 $f_s$ 在 $P$ 沿角度增大的切向作用。}\label{deep1:fig:d1-p5-s}
+\end{figure}
+
+图\ref{deep1:fig:d1-p5-s}中法向力指向 O。沿 C 到 O 方向列式，
+\[
+N-mg\cos\theta=m\frac{v^2}{\rho},
+\quad\boxed{N=mg\left[\cos\theta+
+\frac{2(\cos\theta-\cos\theta_0)}{1+\kappa}\right]}.
+\]
+在下降区间 $0\le\theta\le\theta_0$，支持力为正。上述角加速度只适用于保持纯滚动的阶段，不能用于因静摩擦不足而发生滑动的轨道。
+沿图\ref{deep1:fig:d1-p5-s}中角度增大的切向取正，重力切向分量为 $-mg\sin\theta$。由角加速度可得质心切向加速度 $a_t=\rho\ddot\theta=-g\sin\theta/(1+\kappa)$。于是摩擦的有向分量为
+\[
+f_s-mg\sin\theta=m\rho\ddot\theta,
+\qquad f_s=\frac{\kappa}{1+\kappa}mg\sin\theta>0.
+\]
+在初次下降中 $\dot\theta<0$，这个方向沿轨道向上，所产生的力矩恰好维持相应自转。轨道曲率进入质心法向加速度时使用的是 $\rho$，自转约束使用的滚动物体半径则是 r，两者不可互换。
+
+如需核对纯滚动条件，
+\[
+\frac{|f_s|}{N}=\frac{\kappa\sin\theta}
+{(\kappa+3)\cos\theta-2\cos\theta_0}.
+\]
+记分母为 $D(\theta)=(\kappa+3)\cos\theta-2\cos\theta_0$。在 $0\le\theta\le\theta_0$ 上，$D\ge(\kappa+1)\cos\theta_0>0$，按商法则求导，
+\[
+\begin{aligned}
+\frac{\dd}{\dd\theta}\frac{|f_s|}{N}
+&=\frac{\kappa\cos\theta\,D(\theta)+\kappa(\kappa+3)\sin^2\theta}{D(\theta)^2}\\
+&=\frac{\kappa[(\kappa+3)-2\cos\theta_0\cos\theta]}{D(\theta)^2}>0.
+\end{aligned}
+\]
+所以最大比值出现在释放点，所需 $\mu_s\ge\kappa\tan\theta_0/(1+\kappa)$。这一条件满足后，下降过程中所需摩擦比值反而减小，且 N 保持为正。
+
+\end{solution}
+
+
+\begin{exercise}[带内部阻尼的可动斜面]\label{deep1:problem-exercise-7}\label{deep1:exercise:d1-p7}
+沿用例\ref{ex:hw1-5}的自由斜面与带轮小车，另在小车和斜面之间安装阻尼器。本题将斜面质量记为 $M_w$、倾角记为 $\alpha$；车身质量为 $M$，两个均匀实心轮的质量各为 $m$、半径各为 $r$，每个轮的转动惯量为 $\kappa mr^2$，其中 $\kappa=1/2$。按图\ref{deep1:fig:d1-p7-q}，取沿坡向下的相对位移为 $s$，斜面向右的位移为 $X$。阻尼器对小车的力沿斜面，大小为 $b|\dot s|$，方向与相对速度相反；对斜面的反作用力与其等大反向。$b>0$。系统从静止释放，滚动始终保持。求 $\dot s(t)$、$\dot X(t)$ 和单位时间产热，并给出长期速度极限。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.7,0)--(6.6,0);\draw[curve](0,0)--(0,3)--(6,0.20215405107000795)--(6,0)--cycle;\begin{scope}[shift={(2.15,1.997438534966753)},rotate=-25]\draw[curve,fill=white](-.9,.7)rectangle(1.1,1.5);\node at(.1,1.1){$M$};\draw[curve,fill=white](-0.6,.35)circle(.35);\draw(-0.6,.35)--(-0.6,.7);\fill(-0.6,.35)circle(1pt);\draw[curve,fill=white](0.8,.35)circle(.35);\draw(0.8,.35)--(0.8,.7);\fill(0.8,.35)circle(1pt);\node at(2,1.2){$m,r$};\draw[axis](1.5,.4)--(2.5,.4)node[right]{$s$};\end{scope}\begin{scope}[shift={(2.15,1.997438534966753)},rotate=-25]\draw(-2.2,0)--(-2.2,1.1)--(-1.8,1.1);\draw(-1.8,.94)rectangle(-1.45,1.26);\draw(-1.6,.98)--(-1.6,1.22);\draw(-1.6,1.1)--(-.9,1.1);\node[above]at(-1.7,1.4){$b$};\end{scope}\draw[guide](4.7,0.20215405107000795)--(6.2,0.20215405107000795);\draw(5.3,0.20215405107000795)arc(180:155:.7);\node at(5.03,0.5621540510700079){$\alpha$};\node at(2.5,.7){$M_w$};\draw[axis](5.40000,1.30000)--(6.40000,1.30000)node[above]{$X$};
+
+\end{tikzpicture}
+\caption{阻尼器阻碍小车相对斜面的运动，其作用力和反作用力均属于系统内部。}\label{deep1:fig:d1-p7-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+阻尼器的两力对 $X$ 的广义力相消，对 $s$ 的广义力为 $-b\dot s$，所以总水平动量仍为零。沿用题设的质量和倾角符号，记
+\[
+A=M+2m,\ B=A+2\kappa m,\ D=M_w+A,
+\quad B_{\text{eff}}=B-\frac{A^2\cos^2\alpha}{D}.
+\]
+其中 $A$ 是小车及两轮的总质量，$B$ 还计入轮子的转动惯性。系统动能与水平动量方程为
+\[
+T=\frac12D\dot X^2+A\cos\alpha\,\dot X\dot s
++\frac12B\dot s^2,\qquad
+D\dot X+A\cos\alpha\,\dot s=0.
+\]
+沿 $s$ 的运动方程为
+\[
+A\cos\alpha\,\ddot X+B\ddot s=Ag\sin\alpha-b\dot s.
+\]
+将水平动量方程对时间求导，得到
+$\ddot X=-A\cos\alpha\,\ddot s/D$。代回上式，合并 $\ddot s$ 的系数，得
+\[
+B_{\text{eff}}\ddot s+b\dot s=Ag\sin\alpha.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](-0.1,0)--(4.5,0)node[right]{$t/\tau$};\draw[axis](0,-0.2)--(0,2.2)node[above]{$\dot s/V$};\draw[curve]plot coordinates{(0.000000,0.000000)(0.040000,0.062737)(0.080000,0.123014)(0.120000,0.180927)(0.160000,0.236570)(0.200000,0.290031)(0.240000,0.341395)(0.280000,0.390746)(0.320000,0.438162)(0.360000,0.483718)(0.400000,0.527488)(0.440000,0.569542)(0.480000,0.609947)(0.520000,0.648767)(0.560000,0.686065)(0.600000,0.721901)(0.640000,0.756332)(0.680000,0.789413)(0.720000,0.821196)(0.760000,0.851734)(0.800000,0.881074)(0.840000,0.909263)(0.880000,0.936347)(0.920000,0.962370)(0.960000,0.987371)(1.000000,1.011393)(1.040000,1.034473)(1.080000,1.056647)(1.120000,1.077952)(1.160000,1.098422)(1.200000,1.118089)(1.240000,1.136985)(1.280000,1.155140)(1.320000,1.172584)(1.360000,1.189343)(1.400000,1.205445)(1.440000,1.220916)(1.480000,1.235780)(1.520000,1.250061)(1.560000,1.263782)(1.600000,1.276966)(1.640000,1.289632)(1.680000,1.301802)(1.720000,1.313494)(1.760000,1.324728)(1.800000,1.335522)(1.840000,1.345892)(1.880000,1.355856)(1.920000,1.365429)(1.960000,1.374627)(2.000000,1.383464)(2.040000,1.391954)(2.080000,1.400112)(2.120000,1.407949)(2.160000,1.415480)(2.200000,1.422715)(2.240000,1.429666)(2.280000,1.436345)(2.320000,1.442762)(2.360000,1.448928)(2.400000,1.454851)(2.440000,1.460543)(2.480000,1.466011)(2.520000,1.471265)(2.560000,1.476312)(2.600000,1.481162)(2.640000,1.485822)(2.680000,1.490299)(2.720000,1.494600)(2.760000,1.498733)(2.800000,1.502704)(2.840000,1.506519)(2.880000,1.510184)(2.920000,1.513706)(2.960000,1.517090)(3.000000,1.520341)(3.040000,1.523464)(3.080000,1.526465)(3.120000,1.529349)(3.160000,1.532119)(3.200000,1.534780)(3.240000,1.537338)(3.280000,1.539795)(3.320000,1.542155)(3.360000,1.544424)(3.400000,1.546603)(3.440000,1.548697)(3.480000,1.550708)(3.520000,1.552641)(3.560000,1.554498)(3.600000,1.556282)(3.640000,1.557996)(3.680000,1.559643)(3.720000,1.561226)(3.760000,1.562746)(3.800000,1.564207)(3.840000,1.565610)(3.880000,1.566959)(3.920000,1.568254)(3.960000,1.569499)(4.000000,1.570695)};
+\draw[guide](0,1.6)--(4.1,1.6);\node[left]at(0,1.6){$1$};\node at(2.6,.3){$\dot Q=b\dot s^2$};
+\end{tikzpicture}
+\caption{相对速度按指数规律接近终端速度；阻尼只消耗相对运动的机械能。}\label{deep1:fig:d1-p7-s}
+\end{figure}
+
+取 $\tau=B_{\text{eff}}/b$、$V=Ag\sin\alpha/b$，令相对速度为 $w=\dot s$，方程变为一阶线性方程
+\[
+\dot w+\frac w\tau=\frac V\tau,\qquad
+\frac{\dd}{\dd t}(\ee^{t/\tau}w)=\frac V\tau\ee^{t/\tau}.
+\]
+对第二式从 0 积分至 $t$，使用 $w(0)=0$，
+\[
+\ee^{t/\tau}w(t)=\frac V\tau\int_0^t\ee^{u/\tau}\dd u
+=\frac V\tau[\tau\ee^{u/\tau}]_0^t
+=V(\ee^{t/\tau}-1).
+\]
+这里 $\tau$ 表示速度接近极限的时间尺度，$V$ 则由重力沿坡驱动与阻尼力平衡决定。
+
+满足初始静止条件的解为
+\[
+\boxed{\dot s=V(1-\ee^{-t/\tau})},\qquad
+\boxed{\dot X=-\frac{A\cos\alpha}{D}V(1-\ee^{-t/\tau})}.
+\]
+图\ref{deep1:fig:d1-p7-s}中相对速度趋于 $V$，相对位移为
+\[
+s=V\int_0^t(1-\ee^{-u/\tau})\dd u
+=V[u+\tau\ee^{-u/\tau}]_0^t
+=V\big[t-\tau(1-\ee^{-t/\tau})\big].
+\]
+阻尼器功率为两力总功率的相反数，故
+\[
+\boxed{\dot Q=b\dot s^2=bV^2(1-\ee^{-t/\tau})^2}.
+\]
+其长期极限为 $\dot s\to V$、$\dot X\to-A\cos\alpha V/D$、$\dot Q\to bV^2$。极限状态中小车和斜面均匀运动，重力势能的下降率恰好等于产热率，转动动能和平动动能均不再增长。
+阻尼器两力的总功率为
+\[
+\mathcal P_b=-b\dot s\,\vct e_s\cdot(\vct v_C-\vct v_w)
+=-b\dot s^2.
+\]
+共同的平移速度相消，因而产热取决于相对速度。把瞬时产热率展开后积分，
+\[
+\begin{aligned}
+Q(t)&=bV^2\int_0^t(1-2\ee^{-u/\tau}+\ee^{-2u/\tau})\dd u\\
+&=bV^2\left[u+2\tau\ee^{-u/\tau}-\frac\tau2\ee^{-2u/\tau}\right]_0^t.
+\end{aligned}
+\]
+代入上下限，得到
+\[
+Q(t)=bV^2\left[t-2\tau(1-\ee^{-t/\tau})
++\frac\tau2(1-\ee^{-2t/\tau})\right].
+\]
+它满足 $Q(0)=0$、$\dot Q\ge0$。从静止开始的整体能量收支为
+\[
+Ags\sin\alpha=\frac12B_{\rm eff}\dot s^2+Q(t).
+\]
+左侧是下降势能，右侧已同时计入斜面、小车和轮子自转的动能。在短时间 $t\ll\tau$，$\dot s\simeq(Ag\sin\alpha/B_{\rm eff})t$，恢复无阻尼释放时的初始加速度；达到长期状态后，势能下降率才全部转化为产热率。
+
+\end{solution}
+
+
+\begin{exercise}[摩擦不足时会不会自行滚起来]\label{deep1:problem-exercise-10}\label{deep1:exercise:d1-p10}
+刚体参数为 $m,r,I=\kappa mr^2$，从倾角为 $\alpha$ 的固定粗糙斜面上静止释放。静摩擦系数和动摩擦系数满足
+\[
+0<\mu_k\le\mu_s<\frac{\kappa}{1+\kappa}\tan\alpha.
+\]
+求释放后的质心加速度、角加速度和接触滑动速度 $u(t)$，并判断是否会在以后自动转为纯滚动。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[rotate=-24]\draw[curve](-1.6,0)--(3.4,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw(0,.7)--(0.520201378,1.168391424)node[midway,above]{$r$};\draw[axis](1.20000,0.70000)--(2.10000,0.70000)node[above]{$s$};
+\node at(1.8,1.4){$I=\kappa mr^2$};\end{scope}\draw[guide](1.3060545559848429,-1.3829045864577207)--(3.306054555984843,-1.3829045864577207);\draw(2.456054555984843,-1.3829045864577207)arc(180:156:.65);\node at(2.126054555984843,-1.1529045864577208){$\alpha$};
+\end{tikzpicture}
+\caption{从静止释放不代表能保持纯滚动，所需静摩擦首先受到上限限制。}\label{deep1:fig:d1-p10-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+若假定纯滚动，所需摩擦系数为 $\kappa\tan\alpha/(1+\kappa)$，超过题设静摩擦上限，所以接触立即向下滑动。图\ref{deep1:fig:d1-p10-s}中取沿斜面向下与下行自转为正，动摩擦沿上坡，
+\[
+\boxed{a=g(\sin\alpha-\mu_k\cos\alpha)},\qquad
+\boxed{\beta=\frac{\mu_kg\cos\alpha}{\kappa r}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[shift={(0,0)}]
+\begin{scope}[rotate=-24]\draw[curve](-1.6,0)--(3.4,0);\draw[fill=white,curve](0,.7)circle(.7);\fill(0.00000,0.70000)circle(1.3pt)node[above left]{$C$};
+\fill(0.00000,0.00000)circle(1.3pt)node[below left]{$P$};
+\draw(0,.7)--(0.520201378,1.168391424)node[midway,above]{$r$};\draw[axis](0.00000,0.70000)--(1.00000,0.70000)node[above]{$a$};
+\draw[axis](0.00000,0.00000)--(-1.05000,0.00000)node[above]{$f_k$};
+\draw[axis](0.00000,0.00000)--(0.00000,1.85000)node[above left]{$N$};
+\end{scope}\draw[guide](1.3060545559848429,-1.3829045864577207)--(3.306054555984843,-1.3829045864577207);\draw(2.456054555984843,-1.3829045864577207)arc(180:156:.65);\node at(2.126054555984843,-1.1529045864577208){$\alpha$};\draw[axis](0.2847157,0.6394818)--(0.2847157,-0.8105182)node[below right]{$mg$};
+
+\end{scope}
+\begin{scope}[shift={(5.4,0.2)}]
+\draw[axis](-0.1,0)--(2.8,0)node[right]{$t$};\draw[axis](0,-0.1)--(0,2.2)node[above]{$u$};\draw[curve](0,0)--(2.3,1.8);\node at(1.2,2.2){$\dot u>0$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{动摩擦力 $f_k$ 沿上坡方向，右图中的相对滑动速度 $u$ 随时间增大。}\label{deep1:fig:d1-p10-s}
+\end{figure}
+
+加速度均为常量，使用静止初值分别积分，
+\[
+v(t)=\int_0^t a\,\dd\xi=[a\xi]_0^t=at,
+\qquad \omega(t)=\int_0^t\beta\,\dd\xi=[\beta\xi]_0^t=\beta t.
+\]
+接触滑动速度为
+\[
+\boxed{u(t)=v-r\omega=
+g\left[\sin\alpha-\left(1+\frac1\kappa\right)\mu_k\cos\alpha\right]t}.
+\]
+题设保证方括号为正，故滑动速度随时间增大，系统不会自行转入纯滚动。本题中自转虽在加快，质心平动增加得更快，接触处的相对滑动因而继续增大。
+
+记上述正的滑动加速度为 $\gamma=\dot u=a-r\beta$。若运动持续至时刻 $t$，累计相对滑移为
+\[
+\int_0^t u(\xi)\dd\xi=\int_0^t\gamma\xi\dd\xi
+=\gamma[\xi^2/2]_0^t=\frac12\gamma t^2.
+\]
+动摩擦力大小为 $\mu_kmg\cos\alpha$，乘以相对滑移，得到产热
+\[
+Q_{\text{热}}=\frac12\mu_kmg^2\cos\alpha
+\left[\sin\alpha-\left(1+\frac1\kappa\right)\mu_k\cos\alpha\right]t^2.
+\]
+这一表达式为正，与重力势能损失扣除平动、自转动能后的结果相符。
+从静止释放时 u 也为零，但静摩擦已不足以维持 $u=0$。应先假定向下滑动，按上坡动摩擦求解，再检验该方向是否自洽。题设给出
+\[
+\left(1+\frac1\kappa\right)\mu_k\cos\alpha
+\le\left(1+\frac1\kappa\right)\mu_s\cos\alpha<\sin\alpha,
+\]
+所以求出的 $\dot u>0$，确实立即进入并始终保持向下滑动。
+
+对任意 $t>0$，平动、自转的增长比为常量：
+\[
+\frac{r\omega}{v}
+=\frac{\mu_k\cos\alpha}{\kappa(\sin\alpha-\mu_k\cos\alpha)}<1.
+\]
+故两种速度的差值始终为正，并按图\ref{deep1:fig:d1-p10-s}的直线增大。在当前坡度、摩擦条件及静止初态下，不会自行转为纯滚动；这一结论不适用于另加外力或改变初态的情况。
+
+
+\end{solution}
+
+
+\begin{exercise}[固定外筒的支持力与摩擦上限]\label{deep1:problem-exercise-11}\label{deep1:exercise:d1-p11}
+薄壁大圆筒固定，小薄壁圆筒在其内侧纯滚动。记 $a=R-r$。初始小筒在最低处，其圆心速度为 $v_0=\sqrt{ga/2}$。求最高位置的摆角、内接触法向力 $N(\theta)$，以及全程保持纯滚动所需的最小静摩擦系数。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.2);\draw[fill=white,curve](1.2639733311463137,-1.06059955598279)circle(0.55);\fill(0.00000,0.00000)circle(1.3pt)node[above left]{$O$};
+\fill(1.26397,-1.06060)circle(1.3pt)node[below left]{$C$};
+\draw[guide](0,0)--(0,-2.4000000000000004);\draw(0,0)--(1.2639733311463137,-1.06059955598279);\draw(0,-.65)arc(-90:-40.0:.65);\node at(.3,-.86){$\theta$};\draw(0,0)--(-1.6852977748617515,1.414132741310387)node[midway,above]{$R$};\draw(1.2639733311463137,-1.06059955598279)--(1.8139733311463138,-1.06059955598279)node[midway,above]{$r$};\fill(1.68530,-1.41413)circle(1.3pt)node[below right]{$P$};
+\draw[guide](0,-1.6500000000000001)circle(0.55);\draw[axis](0.00000,-1.65000)--(1.20000,-1.65000)node[below]{$v_0$};
+\node at(-1.7,-1.15){初态};
+\end{tikzpicture}
+\caption{外筒固定，圆心 C 沿半径 $a$ 的圆运动；接触点为 P。}\label{deep1:fig:d1-p11-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+由例\ref{ex:hw1-8}固定外筒的能量关系，
+\[
+v_C^2=v_0^2-ga(1-\cos\theta)
+=ga(\cos\theta-\tfrac12).
+\]
+故最高位置满足 $\cos\theta_m=1/2$，即
+\[
+\boxed{\theta_m=\pi/3}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.2);\draw[fill=white,curve](1.4289419162443238,-0.8250000000000003)circle(0.55);\fill(0.00000,0.00000)circle(1.3pt)node[above left]{$O$};
+\fill(1.42894,-0.82500)circle(1.3pt)node[below left]{$C$};
+\draw[guide](0,0)--(0,-2.4000000000000004);\draw(0,0)--(1.4289419162443238,-0.8250000000000003);\draw(0,-.65)arc(-90:-30.000000000000007:.65);\node at(.3,-.86){$\theta$};\draw(0,0)--(-1.6852977748617515,1.414132741310387)node[midway,above]{$R$};\draw(1.4289419162443238,-0.8250000000000003)--(1.9789419162443238,-0.8250000000000003)node[midway,above]{$r$};\fill(1.90526,-1.10000)circle(1.3pt)node[below right]{$P$};
+\draw[guide](0,-1.6500000000000001)circle(0.55);\draw[axis](0.00000,-1.65000)--(1.20000,-1.65000)node[below]{$v_0$};
+\node at(-1.7,-1.15){初态};\draw[axis](1.90526,-1.10000)--(0.69282,-0.40000)node[above right]{$N$};
+\draw[axis](1.90526,-1.10000)--++(.4,.69282)node[above right]{$f_s$};
+\begin{scope}[shift={(5.4,-1.2)}]
+\draw[axis](-0.1,0)--(2.7,0)node[right]{$\theta$};\draw[axis](0,-0.1)--(0,2.1)node[above]{$N/(mg)$};\draw[curve]plot coordinates{(0.000000,1.500000)(0.020944,1.499890)(0.041888,1.499561)(0.062832,1.499013)(0.083776,1.498246)(0.104720,1.497259)(0.125664,1.496053)(0.146608,1.494629)(0.167552,1.492986)(0.188496,1.491124)(0.209440,1.489044)(0.230383,1.486746)(0.251327,1.484229)(0.272271,1.481496)(0.293215,1.478545)(0.314159,1.475377)(0.335103,1.471992)(0.356047,1.468391)(0.376991,1.464575)(0.397935,1.460542)(0.418879,1.456295)(0.439823,1.451834)(0.460767,1.447158)(0.481711,1.442269)(0.502655,1.437166)(0.523599,1.431852)(0.544543,1.426325)(0.565487,1.420587)(0.586431,1.414639)(0.607375,1.408481)(0.628319,1.402113)(0.649262,1.395537)(0.670206,1.388753)(0.691150,1.381762)(0.712094,1.374564)(0.733038,1.367161)(0.753982,1.359553)(0.774926,1.351741)(0.795870,1.343726)(0.816814,1.335509)(0.837758,1.327091)(0.858702,1.318472)(0.879646,1.309654)(0.900590,1.300638)(0.921534,1.291424)(0.942478,1.282013)(0.963422,1.272407)(0.984366,1.262607)(1.005310,1.252613)(1.026254,1.242428)(1.047198,1.232051)(1.068142,1.221484)(1.089085,1.210729)(1.110029,1.199785)(1.130973,1.188656)(1.151917,1.177341)(1.172861,1.165842)(1.193805,1.154161)(1.214749,1.142298)(1.235693,1.130256)(1.256637,1.118034)(1.277581,1.105635)(1.298525,1.093060)(1.319469,1.080310)(1.340413,1.067387)(1.361357,1.054292)(1.382301,1.041026)(1.403245,1.027592)(1.424189,1.013990)(1.445133,1.000222)(1.466077,0.986290)(1.487021,0.972194)(1.507964,0.957937)(1.528908,0.943520)(1.549852,0.928945)(1.570796,0.914214)(1.591740,0.899327)(1.612684,0.884286)(1.633628,0.869094)(1.654572,0.853752)(1.675516,0.838261)(1.696460,0.822624)(1.717404,0.806841)(1.738348,0.790915)(1.759292,0.774848)(1.780236,0.758641)(1.801180,0.742296)(1.822124,0.725814)(1.843068,0.709198)(1.864012,0.692450)(1.884956,0.675571)(1.905900,0.658562)(1.926843,0.641427)(1.947787,0.624167)(1.968731,0.606783)(1.989675,0.589278)(2.010619,0.571654)(2.031563,0.553912)(2.052507,0.536054)(2.073451,0.518083)(2.094395,0.500000)};
+\draw[guide](2.0944,0)--(2.0944,.5)--(0,.5);\node[left]at(0,.5){$1/2$};\node[left]at(0,1.5){$3/2$};\node[below]at(2.0944,0){$\pi/3$};\node at(1.6,1.9){$N>0$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{左图画出最高位置的法向力和静摩擦，后者沿角度增大的切向；右图为法向力随角度的变化。}\label{deep1:fig:d1-p11-s}
+\end{figure}
+
+图\ref{deep1:fig:d1-p11-s}中的法向力沿 C 到 O 方向。法向方程为
+\[
+N-mg\cos\theta=m\frac{v_C^2}{a},
+\quad\boxed{N=mg(2\cos\theta-\tfrac12)}.
+\]
+在 $0\le\theta\le\pi/3$ 内，最小法向力为最高处的 $mg/2$，因此不会失去接触。初始平动与自转动能各为 $mv_0^2/2$，总能量为 $mv_0^2=mga/2$。最高处的速度虽为零，接触压力仍为正，小筒将在轨道上反向运动。
+
+在习题\ref{deep1:exercise:d1-p5}已推导的滚动方程中取 $\kappa=1$、$\rho=a$，得 $\ddot\theta=-g\sin\theta/(2a)$。绕小筒圆心的转动方程则给出切向静摩擦大小
+\[
+|f_s|=\frac12mg\sin\theta.
+\]
+于是
+\[
+\frac{|f_s|}{N}=\frac{\sin\theta}{4\cos\theta-1}.
+\]
+按商法则求导，
+\[
+\frac{\dd}{\dd\theta}\frac{\sin\theta}{4\cos\theta-1}
+=\frac{\cos\theta(4\cos\theta-1)+4\sin^2\theta}{(4\cos\theta-1)^2}
+=\frac{4-\cos\theta}{(4\cos\theta-1)^2}>0.
+\]
+最大值出现在最高处，故
+\[
+\boxed{\mu_{s,\min}=\frac{\sqrt3}{2}}.
+\]
+小筒在最高处瞬时静止，但重力切向分量不为零，所以维持随后的滚动反向仍需非零静摩擦。
+摩擦方向可用切向方程明确确定。沿 $\theta$ 增大方向取正，
+\[
+f_s-mg\sin\theta=ma\ddot\theta=-\frac12mg\sin\theta,
+\qquad f_s=\frac12mg\sin\theta.
+\]
+所以初次上升时摩擦沿切向向上，虽与圆心速度同向，却使自转减慢；到转向点，摩擦方向仍不立即改变。摩擦方向取决于滚动约束所需的角加速度。
+
+图\ref{deep1:fig:d1-p11-friction}按 $\sin\theta/(4\cos\theta-1)$ 绘出所需比值。端点 $\theta=\pi/3$ 处，$f_s=\sqrt3mg/4$、$N=mg/2$，两者的比正是 $\sqrt3/2$。最大摩擦需求恰发生在转向点。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+\draw[axis](-.1,0)--(3.6,0)node[right]{$\theta$};\draw[axis](0,-.1)--(0,1.9)node[above]{$|f_s|/N$};
+\draw[curve,domain=0:60,samples=110]plot({3*\x/60},{1.6*sin(\x)/(4*cos(\x)-1)});
+\fill(3,{.8*sqrt(3)})circle(1.4pt);\draw[guide](0,{.8*sqrt(3)})--(3,{.8*sqrt(3)})--(3,0);
+\node[left]at(0,{.8*sqrt(3)}){$\sqrt3/2$};\node[below]at(1.5,0){$\pi/6$};\node[below]at(3,0){$\pi/3$};
+\node[anchor=west]at(4.1,1.1){$\mu_s\ge\max |f_s|/N$};
+\end{tikzpicture}
+\caption{全程纯滚动所需的摩擦比值。最高处为本题的控制位置，曲线只取保持接触的上升分支。}\label{deep1:fig:d1-p11-friction}
+\end{figure}
+
+\end{solution}
+
+
+\begin{exercise}[任意转动惯量的内滚系统（选做）]\label{deep1:problem-exercise-12}\label{deep1:exercise:d1-p12}
+将例\ref{ex:hw1-8}的两个圆筒推广为轴对称滚动物体。外物体质量 $M$、外接触半径 $R$、轴向转动惯量 $I_o=\kappa_oMR^2$；内物体质量 $m$、接触半径 $r$、转动惯量 $I_i=\kappa_imr^2$。外物体的内侧圆轨道半径也为 $R$，可用不妨碍内滚运动的轴向配重改变其转动惯量。外物体在水平地面纯滚动。初始外物体静止，内物体位于最低处，圆心向右速率为 $v_0$。设各接触在上升阶段均保持，求内物体圆心的最大上升高度。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.2);\draw[fill=white,curve](1.4289419162443238,-0.8250000000000003)circle(0.55);\fill(0.00000,0.00000)circle(1.3pt)node[above left]{$O$};
+\fill(1.42894,-0.82500)circle(1.3pt)node[below left]{$C$};
+\draw[guide](0,0)--(0,-2.4000000000000004);\draw(0,0)--(1.4289419162443238,-0.8250000000000003);\draw(0,-.65)arc(-90:-30.000000000000007:.65);\node at(.3,-.86){$\theta$};\draw(0,0)--(-1.6852977748617515,1.414132741310387)node[midway,above]{$R$};\draw(1.4289419162443238,-0.8250000000000003)--(1.9789419162443238,-0.8250000000000003)node[midway,above]{$r$};\fill(1.90526,-1.10000)circle(1.3pt)node[below right]{$P$};
+\draw[curve](-2.65,-2.2)--(3.1,-2.2);\draw[axis](-1.70000,-2.75000)--(-0.60000,-2.75000)node[above]{$X$};
+\draw[guide](0,-1.6500000000000001)circle(0.55);\draw[axis](0.00000,-1.65000)--(1.20000,-1.65000)node[below]{$v_0$};
+\node at(-1.7,-1.15){初态};
+\end{tikzpicture}
+\caption{内外接触半径决定速度关联，质量分布由两个惯量系数表示。}\label{deep1:fig:d1-p12-q}
+\end{figure}
+\par\medskip
+\begin{solution}
+仍取 $a=R-r$。图\ref{deep1:fig:d1-p12-s}中两个自转角速度的约束与质量分布无关，
+\[
+\Omega=-\frac{\dot X}{R},\qquad
+\omega=-\frac{\dot X+a\dot\theta}{r}.
+\]
+因此动能为
+\[
+T=\frac12D\dot X^2+ma(\cos\theta+\kappa_i)\dot X\dot\theta
++\frac12ma^2(1+\kappa_i)\dot\theta^2,
+\]
+其中 $D=(1+\kappa_o)M+(1+\kappa_i)m$。势能为 $mga(1-\cos\theta)$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)circle(2.2);\draw[fill=white,curve](1.4289419162443238,-0.8250000000000003)circle(0.55);\fill(0.00000,0.00000)circle(1.3pt)node[above left]{$O$};
+\fill(1.42894,-0.82500)circle(1.3pt)node[below left]{$C$};
+\draw[guide](0,0)--(0,-2.4000000000000004);\draw(0,0)--(1.4289419162443238,-0.8250000000000003);\draw(0,-.65)arc(-90:-30.000000000000007:.65);\node at(.3,-.86){$\theta$};\draw(0,0)--(-1.6852977748617515,1.414132741310387)node[midway,above]{$R$};\draw(1.4289419162443238,-0.8250000000000003)--(1.9789419162443238,-0.8250000000000003)node[midway,above]{$r$};\fill(1.90526,-1.10000)circle(1.3pt)node[below right]{$P$};
+\draw[curve](-2.65,-2.2)--(3.1,-2.2);\draw[axis](-1.70000,-2.75000)--(-0.60000,-2.75000)node[above]{$X$};
+\draw[axis](1.90526,-1.10000)--(0.69282,-0.40000)node[above right]{$N$};
+\node at(0,2.65){相对转折：$\dot\theta=0$};\draw[axis](0.00000,0.00000)--(1.00000,0.00000)node[above]{$V_*$};
+\draw[axis](1.42894,-0.82500)--(2.42894,-0.82500)node[below right]{$V_*$};
+\begin{scope}[shift={(5.7,0)}]
+\node at(0,1.25){$E=\tfrac12m(1+\kappa_i)v_0^2$};\draw[axis](0,.8)--(0,.15);\node at(0,-.25){$\tfrac12D V_*^2+mgh$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{若内物体在圆轨道最高点之前发生相对转向，此时两圆心速度相同，能量分为共同运动的动能与重力势能。}\label{deep1:fig:d1-p12-s}
+\end{figure}
+
+循环动量及初态能量分别为
+\[
+P=D\dot X+ma(\cos\theta+\kappa_i)\dot\theta
+=m(1+\kappa_i)v_0,
+\]
+\[
+E=\frac12m(1+\kappa_i)v_0^2.
+\]
+几何高度为 $h=a(1-\cos\theta)$，最多为 $2a$。因此必须先判断内物体在上升途中转向，还是具有越过轨道最高点的能量。令
+\[
+C(\theta)=ma(\cos\theta+\kappa_i),\qquad
+B=ma^2(1+\kappa_i).
+\]
+动能配方为
+\[
+T=\frac D2\left(\dot X+\frac CD\dot\theta\right)^2
++\frac12\left(B-\frac{C^2}{D}\right)\dot\theta^2.
+\]
+第一个平方项等于常量 $P^2/(2D)$，剩余的相对运动能量为
+\[
+E_{\rm rel}=E-\frac{P^2}{2D}
+=\frac{m(1+\kappa_i)(1+\kappa_o)M}{2D}v_0^2.
+\]
+记 $K(\theta)=B-C^2/D$，约化能量式为
+\[
+\frac12K(\theta)\dot\theta^2+mga(1-\cos\theta)=E_{\rm rel}.
+\]
+因为 $|\cos\theta+\kappa_i|\le1+\kappa_i$ 且 $D>m(1+\kappa_i)$，有 $K(\theta)>0$。故能否到达某一位置，只需比较 $E_{\rm rel}$ 与该处的势能。
+
+当 $0<E_{\rm rel}<2mga$ 时，在 $0<\theta_*<\pi$ 处有 $\dot\theta=0$，因此
+\[
+\cos\theta_*=1-\frac{E_{\rm rel}}{mga},\qquad
+\boxed{h_{\max}=\frac{E_{\rm rel}}{mg}
+=\frac{(1+\kappa_i)(1+\kappa_o)M}{2D}\frac{v_0^2}{g}}.
+\]
+这正是图\ref{deep1:fig:d1-p12-s}所示的转向情况。此时两圆心速度均为 $V_*=P/D$，但两物体仍在自转：$\Omega_*=-V_*/R$、$\omega_*=-V_*/r$。平动和自转动能之和为 $DV_*^2/2$，不能将最高处的全部动能置零。
+
+当 $E_{\rm rel}=2mga$ 时，内物体渐近接近 $\theta=\pi$。令 $\delta=\pi-\theta$，在最高点附近有
+\[
+E_{\rm rel}-mga(1-\cos\theta)
+=\frac12mga\delta^2+O(\delta^4),\qquad
+\dot\delta\simeq-\sqrt{\frac{mga}{K(\pi)}}\,\delta.
+\]
+记 $\lambda=\sqrt{mga/K(\pi)}$，分离变量，从接近最高点的时刻 $t_1$ 积分至 $t$，
+\[
+\int_{\delta(t_1)}^{\delta(t)}\frac{\dd\xi}{\xi}
+=[\ln\xi]_{\delta(t_1)}^{\delta(t)}
+\simeq-\lambda(t-t_1).
+\]
+所以 $\delta(t)\simeq\delta(t_1)\ee^{-\lambda(t-t_1)}$，在有限时间内不等于零；高度的上确界为 $2a$。
+
+当 $E_{\rm rel}>2mga$ 时，内物体越过轨道最高点。在该点
+\[
+h_{\max}=2a,\qquad
+\dot\theta_{\rm top}^{\,2}
+=\frac{2(E_{\rm rel}-2mga)}{K(\pi)}>0.
+\]
+最高位置由 $\dd h/\dd\theta=a\sin\theta=0$ 决定，此时相对角速度并不为零。三种情况可合写为
+\[
+\boxed{\sup h(t)=\min\!\left\{
+\frac{(1+\kappa_i)(1+\kappa_o)M}{2D}\frac{v_0^2}{g},\ 2(R-r)\right\}}.
+\]
+除临界能量外，式中的上确界都能实际达到；$v_0=0$ 时系统保持初始状态。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=2.4cm,y=1.8cm]
+\draw[axis](0,0)--(2.35,0)node[right]{$\eta$};
+\draw[axis](0,0)--(0,1.4)node[above]{$\sup h/(2a)$};
+\draw[curve](0,0)--(1,1)--(2.1,1);
+\draw[guide](1,0)--(1,1)--(0,1);
+\node[below]at(1,0){$1$};\node[left]at(0,1){$1$};
+\node[above,rotate=37]at(.48,.55){上升后转向};
+\node[above]at(1.7,1){越过最高点};
+\fill(1,1)circle(1.2pt);
+\draw[guide](1,1)--(1.15,.55);
+\node[below right,align=left]at(1.05,.55){临界：仅渐近到达};
+\end{tikzpicture}
+\caption{以 $\eta=E_{\rm rel}/(2mga)$ 为横坐标。转向高度随能量增加，达到轨道几何上限后保持为 $2a$。}\label{deep1:fig:d1-p12-height}
+\end{figure}
+
+图\ref{deep1:fig:d1-p12-height}中的折点给出两类运动的分界。取 $\kappa_o=\kappa_i=1$，在 $E_{\rm rel}<2mga$ 的分支恢复两个薄壁圆筒的转向高度；令 $M\to\infty$，该分支趋于 $h=(1+\kappa_i)v_0^2/(2g)$。半径在转向高度公式中消去，但仍通过 $2(R-r)$ 限制几何高度。上述各分支均以接触不脱离、各处维持纯滚动为前提；若实际摩擦或支持力不足，应在约束先失效的位置转入新的运动模型。
+
+\end{solution}
+

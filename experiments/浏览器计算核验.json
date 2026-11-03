@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "case": "pendulum",
+      "deg": 5,
+      "periodRatio": 1.0004761729048182,
+      "relativeDrift": 5.285175940300154e-10
+    },
+    {
+      "case": "pendulum",
+      "deg": 30,
+      "periodRatio": 1.017408797978724,
+      "relativeDrift": 5.04579343735011e-10
+    },
+    {
+      "case": "pendulum",
+      "deg": 60,
+      "periodRatio": 1.0731820074487486,
+      "relativeDrift": 4.723210711432558e-10
+    },
+    {
+      "case": "pendulum",
+      "deg": 90,
+      "periodRatio": 1.1803405992498868,
+      "relativeDrift": 4.721409929686616e-10
+    },
+    {
+      "case": "pendulum",
+      "deg": 120,
+      "periodRatio": 1.372880500878327,
+      "relativeDrift": 5.11882388328407e-10
+    },
+    {
+      "case": "coupled",
+      "d": 0,
+      "maxError": 0.0000010801982276709143,
+      "relativeDrift": 4.576620281006441e-8
+    },
+    {
+      "case": "coupled",
+      "d": 0.02,
+      "maxError": 7.990379985514662e-7,
+      "relativeDrift": 3.429636894993247e-8
+    },
+    {
+      "case": "coupled",
+      "d": 0.06,
+      "maxError": 3.8719227419149044e-7,
+      "relativeDrift": 1.7164230530713414e-8
+    },
+    {
+      "case": "projectile",
+      "b": 0,
+      "optimum": 44.999954760752345,
+      "maxRange": 0.9999999999987158,
+      "balanceError": 2.7755575615628914e-16
+    },
+    {
+      "case": "projectile",
+      "b": 0.2,
+      "optimum": 43.912331739191906,
+      "maxRange": 0.8686068077939468,
+      "balanceError": 2.107203300738547e-13
+    },
+    {
+      "case": "projectile",
+      "b": 1,
+      "optimum": 40.97753190115875,
+      "maxRange": 0.5936070464553357,
+      "balanceError": 3.60694807355344e-11
+    },
+    {
+      "case": "projectile",
+      "b": 3,
+      "optimum": 37.298889182107885,
+      "maxRange": 0.35770967000302956,
+      "balanceError": 1.934139404191626e-9
+    }
+  ]
+}

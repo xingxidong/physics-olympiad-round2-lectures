@@ -1,0 +1,1274 @@
+\chapter{电像法、电容与导电类比}\label{ch:es3}
+电像法用所求区域以外的虚拟电荷满足导体边界，再由唯一性确定区域内的场。像的位置和电量由边界决定。计算真实电荷受力时可使用像场，计算体系能量时则需计入感应电荷随源建立的过程。
+
+本讲从平面、球面和楔形边界出发，逐步处理无限像链、偏心电容和椭球电容。最后把同一个Laplace方程用于稳恒导电。此时边界可能规定电势，也可能规定无电流穿过；边界类型改变，等效偶极的符号和系数也随之改变。
+
+
+\section{电像法的构造与物理区域}\label{sec:es3-images}
+像电荷用来满足真实边界，通常位于所求物理区域之外。真实区域与导体边界确定后逐一验证电势条件，求力和能量仍按真实电荷系统处理。
+
+构造像法解时，应逐项核对：物理区域内真实源的奇性是否保留，像源是否全部放在区域之外，导体边界是否等势，远场和各孤立导体的总电量是否满足题设。最后两项能区分接地导体与孤立导体。只在一张边界上验证零势，却忽略另一张边界，所得叠加一般还不是解。
+
+接地问题的相互作用能为$W=\tfrac12\sum_iq_i\varphi_{\rm ind}(\vct r_i)$，其中感应势不含真实源自势。其半因子来自建立源时感应电荷也随之增长。求某个真实电荷的力则直接取$q\vct E_{\rm ind}$，不再乘一半；用能量求导时像位置与像电量随真实源位置改变，必须一并求导。
+
+
+\subsection{电像势、表面电量和机械功}
+对接地边界，先把真实电荷从零缓慢增大到最终值。线性静电中，感应势随源电量按同一比例增长。若源从$tq$增长到$(t+\dd t)q$，加入电量所受的既有感应势为$t\varphi_{\rm ind}$，于是
+\[W=q\varphi_{\rm ind}\int_0^1t\dd t
+=q\varphi_{\rm ind}[t^2/2]_0^1=\tfrac12q\varphi_{\rm ind}.\]
+源的自由自能须另外扣除。
+
+求真实电荷的力时，应在固定导体几何和电连接条件下计算全部感应场。若用像势，梯度先对观察坐标求，像参数暂时作为所构造场的给定参数；最后把观察点放回真实源位置。若改用体系能量$W(\vct r_q)$求导，源位置是构型参数，所有像电量、像位置随它变化的关系都已包含在$W$中。把这两种导数混在一起，是像法能量出现错误倍数的常见原因。
+
+对包围导体的封闭面，像源虽是虚拟的，物理区域内的场却与真实场一致，故可由通量计算真实导体总电量。只有这个总量可直接用像电量之和替代，真实表面密度仍须由边界法向场求出。内部像分布与导体内的真实电荷分布没有逐点对应关系。
+
+\subsection{非零固定势的补偿项}
+若球面规定电势$U$，可以在接地球像解上加球心电荷$4\pi\epsilon_0RU$的势。这个附加项在球面是常数，在外域衰减，不破坏等势性。若球孤立而总电量给定，则球心补偿项应由总量确定，球面势随后算出。先给电势与先给电量是不同边界问题，即使某个瞬时构型有相同数值，也不能在移动电荷时把两条控制条件同时保持。
+
+\begin{example}[接地平面的力与能量]\label{ex:es3-e1}
+点电荷$q$位于接地无限平面上方高度$h$，介质为真空。求上半空间电势、平面感应面电荷、作用力和相互作用能，并核对总感应电量。 见图~\ref{fig:es3-e1-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\fill[gray!15](-2.4,-.22)rectangle(2.4,0);\draw[axis](0,-1.7)--(0,2.2)node[above]{$z$};\fill(0,1.4)circle(1.8pt)node[right]{$q,h$};
+
+\end{tikzpicture}
+\caption{物理区域为$z>0$，导体占下半空间。}\label{fig:es3-e1-q}
+\end{figure}
+\begin{solution}
+在$z=-h$放像电荷$-q$。对$s=\sqrt{x^2+y^2}$，
+\[\varphi=\ke q\left[\frac1{\sqrt{s^2+(z-h)^2}}-\frac1{\sqrt{s^2+(z+h)^2}}\right].\]
+它在$z=0$为零，像源位于被排除的下半空间，远处趋零。由唯一性，这就是上半空间解。导体外法向为$+\vct e_z$，因此
+\[\sigma_f=\epsilon_0E_z(0^+)=-\frac{qh}{2\pi(s^2+h^2)^{3/2}}.
+\]
+这里$\partial_z[s^2+(z\mp h)^2]^{-1/2}=-(z\mp h)[s^2+(z\mp h)^2]^{-3/2}$；对两个源分别取负导数后令$z=0$，两项均为$-\ke qh/(s^2+h^2)^{3/2}$，即得所列密度。令$u=s^2+h^2$，$\dd u=2s\dd s$，总感应电量为
+\[Q_{\rm ind}=-qh\int_0^\infty\frac{s\dd s}{(s^2+h^2)^{3/2}}
+=-\frac{qh}{2}\int_{h^2}^\infty u^{-3/2}\dd u
+=-\frac{qh}{2}[-2u^{-1/2}]_{h^2}^\infty=-q.\]
+
+图~\ref{fig:es3-e1-s}中的真实电荷与像相距$2h$，所以$\vct F=-\ke q^2\vct e_z/(4h^2)$。感应势在真实源处为$-\ke q/(2h)$，故$W=\tfrac12q[-\ke q/(2h)]=-\ke q^2/(4h)$。取负导数，$-\dd W/\dd h=(\ke q^2/4)(-h^{-2})$，恰得上述力。若使用成对能$-\ke q^2/(2h)$，就把随源建立的像当成独立真实电荷，会多计一倍。
+
+当$h$缓慢减小时，电场做正功，相互作用能降低。理想点电荷与理想平面的接触极限会发散，实际有限尺寸与材料性质限制这一模型的适用范围。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\fill[gray!15](-2.4,-.22)rectangle(2.4,0);\draw[axis](0,-1.7)--(0,2.2)node[above]{$z$};\fill(0,1.4)circle(1.8pt)node[right]{$q,h$};\fill(0,-1.4)circle(1.7pt)node[right]{$-q$（像）};\draw[axis](0,1.4)--(0,.7)node[left]{$F$};\draw[<->](-.7,-1.4)--(-.7,1.4)node[midway,left]{$2h$};
+
+\end{tikzpicture}
+\caption{虚拟像只用于上半空间的场；力由感应场直接计算，能量有半因子。}\label{fig:es3-e1-s}
+\end{figure}
+
+
+若只取半径$S$的圆区，上述积分的上限改为$S^2+h^2$，得到$Q(S)=-q[1-h/\sqrt{S^2+h^2}]$，其余电量分布在更远处。$h$变大时同样的总感应电量铺得更宽，不能用总量不变推断局部密度不变。
+\end{solution}
+
+
+\begin{example}[接地平面附近的永久电偶极]\label{ex:es3-e-plane-dipole}
+永久电偶极的中心$C$距无限接地平面为$h$，偶极矩大小$p$固定，与平面外法向的夹角为$\theta$。偶极实际尺寸远小于$h$。构造像偶极，求相互作用能、平移力和转动力矩，并讨论固定高度时的方向稳定性。 见图~\ref{fig:es3-e-plane-dipole-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!12](-2,-.2)rectangle(2,0);\draw[thick](-2,0)--(2,0);
+\draw[axis](0,-.3)--(0,2.7)node[above]{$z$};\fill(0,1.3)circle(1.6pt)node[left]{$C$};
+\draw[->,thick](0,1.3)--(.8,2.1)node[right]{$\vct p$};
+\draw(0,1.85)arc(90:45:.55)node[midway,above right]{$\theta$};
+\draw[<->](-1.25,0)--(-1.25,1.3)node[midway,left]{$h$};\draw[guide](-1.25,1.3)--(0,1.3);
+\node[below]at(1,-.2){$\varphi=0$};
+\end{tikzpicture}
+\caption{角度从正$z$法向量起；$h$从偶极中心量到平面。}\label{fig:es3-e-plane-dipole-q}
+\end{figure}
+\begin{solution}
+将永久偶极先看成间距很小的$\pm q$。每个真实电荷在平面下有反号像，反射改变法向位置，又使电量换号，因此像偶极的切向分量反向、法向分量同向：
+\[\vct p'= -\vct p_{\parallel}+p_z\vct e_z,
+\quad \vct p_{\parallel}=\vct p-p_z\vct e_z,
+\quad p_z=p\cos\theta.
+\]
+像中心为图~\ref{fig:es3-e-plane-dipole-s}的$C'$，与$C$相距$2h$。此像系在物理上半空间没有额外奇点，平面上的势逐点抵消。将第一讲点偶极场代入连心方向$\vct n=\vct e_z$，
+\[\begin{aligned}
+\vct E_{\rm im}(C)
+&=\frac{\ke}{(2h)^3}[3(\vct p'\cdot\vct e_z)\vct e_z-\vct p']\\
+&=\frac{\ke}{8h^3}(\vct p_{\parallel}+2p_z\vct e_z).
+\end{aligned}\]
+永久偶极的大小和方向在组装外源时保持给定，平面感应源随之线性建立，所以物理相互作用能为
+\[\boxed{U=-\frac12\vct p\cdot\vct E_{\rm im}
+=-\frac{\ke p^2}{16h^3}(1+\cos^2\theta)}.
+\]
+上式不含自由偶极的自身能。像偶极由平面感应产生，随真实偶极改变；若按两个独立永久偶极取势能$-\vct p\cdot\vct E_{\rm im}$，平移受力会多出一倍。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[xshift=-2.2cm]
+\draw[thick](-1.35,0)--(1.4,0);\draw[guide](0,-2.1)--(0,2.3);
+\fill(0,1.35)circle(1.6pt)node[left]{$C$};\fill(0,-1.35)circle(1.6pt)node[right]{$C'$};
+\draw[->,thick](0,1.35)--(.6,1.95)node[right]{$\vct p$};
+\draw[->,thick](0,-1.35)--(-.6,-.75)node[left]{$\vct p'$};
+\draw[->](1,1.35)--(1,.6)node[right]{$F_z$};\node[right]at(1.45,0){$z=0$};\end{scope}
+\begin{scope}[xshift=2.5cm,yshift=1.1cm]
+\draw[axis](0,0)--(3.3,0)node[right]{$\theta$};\draw[axis](0,-2.35)--(0,.25)node[above]{$16h^3U/(\ke p^2)$};
+\draw[curve,domain=0:180,samples=101]plot({\x/60},{-1-(cos(\x))^2});
+\foreach\x in{0,1.5,3}{\draw(\x,0)--(\x,.06);}
+\node[above]at(0,.08){$0$};\node[above]at(1.5,.08){$\pi/2$};\node[above]at(3,.08){$\pi$};
+\node[below]at(1.5,-2.5){垂直排列取势能极小值};\end{scope}
+\end{tikzpicture}
+\caption{像偶极在被排除的下半空间；右图按实际能量公式画出方向依赖。}\label{fig:es3-e-plane-dipole-s}
+\end{figure}
+
+保持$\theta$不变，对$h$求负导数，
+\[F_z=-\frac{\partial U}{\partial h}
+=\frac{\ke p^2}{16}(1+\cos^2\theta)(-3h^{-4})
+=-\frac{3\ke p^2}{16h^4}(1+\cos^2\theta)<0.
+\]
+图~\ref{fig:es3-e-plane-dipole-s}左图的力朝向平面。平行平移不改变能量，故$F_x=F_y=0$；任意倾角都受到吸引。
+
+再对方向求导，取$\theta$增大为正转向，
+\[\tau_\theta=-\frac{\partial U}{\partial\theta}
+=\frac{\ke p^2}{16h^3}(2\cos\theta)(-\sin\theta)
+=-\frac{\ke p^2}{8h^3}\sin\theta\cos\theta.
+\]
+直接用$\vct\tau=\vct p\times\vct E_{\rm im}$也得到同一力矩。虽然能量含$1/2$，像场本身也随偶极方向改变，求导时这两部分共同给出完整力矩。
+
+在$\theta=0$附近，$U=-\ke p^2/(8h^3)+\ke p^2\theta^2/(16h^3)+\cdots$，二次项为正；$\theta=\pi$同理稳定。令$\theta=\pi/2+\delta$则$U=-\ke p^2/(16h^3)-\ke p^2\delta^2/(16h^3)+\cdots$，平行排列不稳定。这只是固定$h$时的转动稳定性，竖直方向仍有吸引，不存在无支承的平移平衡。
+
+\end{solution}
+
+
+\begin{example}[接地球与中性孤立球]\label{ex:es3-e2}
+半径$R$的导体球外，点电荷$q$位于距球心$d>R$的轴上。分别求球接地及球孤立中性时的势、球电量和点电荷所受力。 见图~\ref{fig:es3-e2-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](-1.6,0)--(3.3,0)node[right]{$z$};\fill(2.6,0)circle(1.8pt)node[above]{$q,d$};\node at(-.4,.55){$R$};
+\end{tikzpicture}
+\caption{球外区域保留真实点电荷，球内仅放构造解所需的虚拟像。}\label{fig:es3-e2-q}
+\end{figure}
+\begin{solution}
+设像位于同轴$b=R^2/d$，电量$q'=-Rq/d$。球面任一点到两源的距离满足$r'= (R/d)r$，故$q/r+q'/r'=0$，接地边界成立。因此$\varphi=\ke(q/r_q+q'/r_{q'})$，球上总电量为$q'$。后者可用包围球而不包围真实源的Gauss面验证。
+
+真实源与像的距离$d-b=(d^2-R^2)/d$，所以接地情形
+\[F_z=-\frac{\ke q^2Rd}{(d^2-R^2)^2},\quad
+W=-\frac{\ke q^2R}{2(d^2-R^2)}.
+\]
+图~\ref{fig:es3-e2-s}再在球心添加$q_0=+Rq/d$，像总电量变为零，球面势增为常数$\ke q_0/R=\ke q/d$。这便满足孤立中性球的条件，外势是前两项再加$\ke q_0/r$。
+
+孤立球作用力为
+\[F_z=-\frac{\ke q^2Rd}{(d^2-R^2)^2}+\frac{\ke q^2R}{d^3}<0.
+\]
+第一项来自偏心负像，第二项来自球心正像。令$u=R^2/d^2\ll1$，将两项合写为$F_z=(\ke q^2R/d^3)[1-(1-u)^{-2}]$。由$(1-u)^{-2}=1+2u+3u^2+\cdots$，首项为$-2\ke q^2R^3/d^5$。孤立球表面的正、负感应电荷产生非零合力，远处的衰减幂次与诱导偶极模型一致。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](-1.6,0)--(3.3,0)node[right]{$z$};\fill(2.6,0)circle(1.8pt)node[above]{$q,d$};\node at(-.75,.8){$R$};\fill(.60096,0)circle(1.6pt)node[below]{$q^{\prime}$};\fill(0,0)circle(1.8pt)node[above left]{$q_0$};\draw[guide](0,-.6)--(.60096,-.6)node[midway,below]{$b$};
+\end{tikzpicture}
+\caption{偏心像保证球面等势，球心补像用于满足孤立球的总电量。}\label{fig:es3-e2-s}
+\end{figure}
+
+
+对接地球，可从球面距离比反算密度，结果见本讲习题。对孤立中性球，球心补像只给表面增加均匀密度$q/(4\pi Rd)$，并不消除偏心负像造成的非均匀部分。远侧甚至可变成正面电荷，近侧仍被吸引的负电荷占据。总量约束改变的是零阶球谐，非均匀的高阶角模由外源继续决定。
+\end{solution}
+
+\begin{example}[接地平面上的半球凸起]\label{ex:es3-e3}
+接地无限平面$z=0$上有半径$R$、球心在原点的导体半球凸起。点电荷$q$位于正轴$z=H>R$。构造空气区域的势并说明每个像对应哪一张边界。 见图~\ref{fig:es3-e3-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\fill[gray!15](-2.4,-.22)rectangle(2.4,0);
+\draw[curve](1.1,0)arc(0:180:1.1);\draw[axis](0,-.4)--(0,2.3)node[above]{$z$};
+\fill(0,1.85)circle(1.8pt)node[right]{$q$};\fill(0,0)circle(1pt)node[below left]{$O$};
+\draw[<->](1.85,0)--(1.85,1.85)node[midway,right]{$H$};
+\draw[guide](0,1.85)--(1.85,1.85);\draw[->](0,0)--(135:1.1)node[midway,left]{$R$};
+\node[below]at(-1.65,-.3){接地};
+\end{tikzpicture}
+\caption{真实源距平面的高度为$H>R$，物理区域在半球外、平面上方。}\label{fig:es3-e3-q}
+\end{figure}
+\begin{solution}
+先对平面反射，在$-H$放$-q$，这保证平面零势。再对半径$R$的球面对这两个源分别作反演，得到$z=R^2/H$处的$-Rq/H$，以及$z=-R^2/H$处的$+Rq/H$。
+
+图~\ref{fig:es3-e3-s}把四个点分为两对。位于$\pm H$的一对关于平面反对称，位于$\pm R^2/H$的一对也反对称，所以平面零势保留；真实源$q$与正半轴内像组成球面零势的一对，负半轴的另两像也组成球面零势的一对。因此平面与半球同时满足边界。
+
+若用$\vct e_z$标轴，所求势明确为
+\[\begin{split}\varphi=\ke q\bigg(&\frac1{|\vct r-H\vct e_z|}-\frac1{|\vct r+H\vct e_z|}\\
+&-\frac{R/H}{|\vct r-(R^2/H)\vct e_z|}+\frac{R/H}{|\vct r+(R^2/H)\vct e_z|}\bigg).
+\end{split}\]
+除真实源外，三个像均处于导体或下半空间。新增球像后，还要补入它的平面反射像，才能维持平面零势。该例有限闭合的原因是球心位于平面上，反射与球反演能够相互配合；一般偏置球面未必只需三个像。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(2,0);\draw[curve](1.1,0)arc(0:180:1.1);\draw[axis](0,-2)--(0,2.2)node[above]{$z$};\fill(0,1.8)circle(1.6pt)node[right]{$q,H$};\fill(0,-1.8)circle(1.6pt)node[right]{$-q,-H$};\fill(0,.67222)circle(1.6pt)node[right]{$-Rq/H,R^2/H$};\fill(0,-.67222)circle(1.6pt)node[right]{$+Rq/H,-R^2/H$};
+\end{tikzpicture}
+\caption{两次配对同时验证平面和球面，不能在新增像破坏旧边界时停止构造。}\label{fig:es3-e3-s}
+\end{figure}
+
+
+若需计算轴上真实电荷的力，应分别叠加三个像：平面像给$-\ke q^2/(4H^2)$，球内上像给$-\ke q^2RH/(H^2-R^2)^2$，球内下正像给$+\ke q^2RH/(H^2+R^2)^2$，方向以向上为正。三项的和是完整反作用力，不能只保留离真实电荷最近的球像。$R\to0$时后两项相消到更高阶，恢复平面结果；$H\gg R$时凸起影响也迅速减弱。
+\end{solution}
+
+\begin{example}[六十度与四十五度的接地楔形]\label{ex:es3-e4}
+两接地导体半平面夹角$\alpha=\pi/n$，$n=3$或$4$，点电荷位于楔内柱坐标$(r_0,\theta_0,z_0)$，$0<\theta_0<\alpha$。列出有限像组并证明两边均为零势。 见图~\ref{fig:es3-e4-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(3,0);\draw[curve](0,0)--(1.5,2.598);\fill(1.8,1)circle(1.7pt)node[right]{$q,\theta_0$};\draw[guide](0,0)--(1.8,1);\draw(.8,0)arc(0:60:.8);\node at(.95,.55){$\alpha$};
+\end{tikzpicture}
+\caption{点到楔边的距离不为零，图示$\alpha=\pi/3$。}\label{fig:es3-e4-q}
+\end{figure}
+\begin{solution}
+在相同$r_0,z_0$上放两列角位置：$+q$位于$\theta_0+2k\alpha$，$-q$位于$-\theta_0+2k\alpha$，$k=0,\ldots,n-1$。其中$k=0$的正电荷就是原真实源，其他$2n-1$个才是像。
+
+反射$\theta\mapsto-\theta$把每个正源换成等距负源，故$\theta=0$边界势为零。反射$\theta\mapsto2\alpha-\theta$同样把两列相互交换，故另一边也为零。所有像均在物理楔外，且叠加势在无穷远趋零，由唯一性确定楔内解。
+
+图~\ref{fig:es3-e4-s}并列展示$n=3$的六点轨道与$n=4$的八点轨道。六十度时总计六个源，其中五像；四十五度时总计八个源，其中七像。把“六个源”写成“六个像”会多算一次真实电荷。这组像在$\alpha=\pi/n$、源位于主楔内时有限闭合。其他夹角的反射轨道需要重新判断，通常不能在有限步后停止。对一般边界，可回到分离变量或积分表示。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[xshift=-2.4cm]\fill[gray!12](0,0)--(2,0)arc(0:60.0:2)--cycle;\draw[guide](0,0)circle(1.5);\fill(22.8:1.5)circle(2.4pt)node[above right]{$q$};\fill(-22.8:1.5)circle(1.6pt)node[below left]{$-$};\fill(142.8:1.5)circle(1.6pt)node[above right]{$+$};\fill(97.2:1.5)circle(1.6pt)node[below left]{$-$};\fill(262.8:1.5)circle(1.6pt)node[above right]{$+$};\fill(217.2:1.5)circle(1.6pt)node[below left]{$-$};\draw[thick](0,0)--(2.15,0);\draw[thick](0,0)--(60.0:2.15);\node[below]at(0,-1.95){$\alpha=60^\circ$：5个像};\end{scope}\begin{scope}[xshift=2.4cm]\fill[gray!12](0,0)--(2,0)arc(0:45.0:2)--cycle;\draw[guide](0,0)circle(1.5);\fill(17.1:1.5)circle(2.4pt)node[above right]{$q$};\fill(-17.1:1.5)circle(1.6pt)node[below left]{$-$};\fill(107.1:1.5)circle(1.6pt)node[above right]{$+$};\fill(72.9:1.5)circle(1.6pt)node[below left]{$-$};\fill(197.1:1.5)circle(1.6pt)node[above right]{$+$};\fill(162.9:1.5)circle(1.6pt)node[below left]{$-$};\fill(287.1:1.5)circle(1.6pt)node[above right]{$+$};\fill(252.9:1.5)circle(1.6pt)node[below left]{$-$};\draw[thick](0,0)--(2.15,0);\draw[thick](0,0)--(45.0:2.15);\node[below]at(0,-1.95){$\alpha=45^\circ$：7个像};\end{scope}
+\end{tikzpicture}
+\caption{阴影为物理主楔，粗点$q$是真实源；其余点按反射交替取号。}\label{fig:es3-e4-s}
+\end{figure}
+
+
+每一对相反号源到同一楔边上的任意点等距，这一验证对任意$z$成立，所以截面中的镜像图足以构造完整三维点源势，而不是把源误作无限线电荷。若真实源恰落在角平分线上，会出现角度对称，但在严格楔内仍有$2n$个不同位置。源趋向导体边界时，真实源与某个反号像距离趋零，力随最近距离反平方增大，理想边界极限需保持在物理域内理解。
+\end{solution}
+
+\subsection{双导体的两个电势模与电容定义}\label{sec:es-capacitance-modes}
+给定导体的位置后，静电方程对电势是线性的。对两个导体，以无穷远为零势，可写
+\[\begin{pmatrix}Q_1\\Q_2\end{pmatrix}
+=\begin{pmatrix}C_{11}&C_{12}\\C_{21}&C_{22}\end{pmatrix}
+\begin{pmatrix}U_1\\U_2\end{pmatrix}.
+\]
+系数由几何和介质决定。互易关系给$C_{12}=C_{21}$；两个等大球又因交换对称有$C_{11}=C_{22}=C_s$，记交叉系数为$C_m$。通常$C_s>0$、$C_m<0$，因为一球升高正势会在接地的另一球上引入负电量。
+
+将电势分成同势与反势两部分，
+\[U_+=\frac{U_1+U_2}{2},\qquad U_-=\frac{U_1-U_2}{2},
+\]
+代回得
+\[Q_1=(C_s+C_m)U_++(C_s-C_m)U_-,
+\quad Q_2=(C_s+C_m)U_+-(C_s-C_m)U_-.
+\]
+同势和反势条件对应不同的电量与电压之比。同势$U_1=U_2=U$时，整体对无穷远电容为
+\[C_{\infty}=\frac{Q_1+Q_2}{U}=2(C_s+C_m).
+\]
+反势$U_1=-U_2=U$时，$Q_1=-Q_2=Q$，两端电压为$2U$，两端电容为
+\[C_{12}^{\rm two\,terminal}=\frac Q{2U}=\frac{C_s-C_m}{2}.
+\]
+下标$12$在这里表示两端器件，不能与矩阵中的交叉系数$C_m$混用。前面两球同势接触后的有限电容，与后面反势近接时的发散电容，控制的是这两个不同的电势模。
+
+将两种电势模代入场能，得
+\[W=\frac12(Q_1U_1+Q_2U_2)
+=(C_s+C_m)U_+^2+(C_s-C_m)U_-^2.
+\]
+两球分离时两个系数都为正。同势模的缝隙电压为零，反势模的缝隙电压非零，窄缝高场只在后一种问题中产生。计算电像级数前应确定同势或反势边界，再据此选择像电荷的符号。
+
+
+
+\section{双球的无限像链}\label{sec:es3-double}
+一个球的像电荷通常会破坏另一个球的边界条件，因此需要连续反射。先给出一次反射的映射，再说明像链的收敛及两球电势、总电荷之间的关系。
+
+球面反演把外点变成内点，并按半径与距离比缩放电量。两个球面反复影响对方，便出现无穷像链。对每一步应同时记录位置与电量；只看位置趋于接触点，不足以判断电量级数是否收敛。
+
+\begin{example}[相接等球对无穷远的电容]\label{ex:es3-e5}
+两个半径$R$的导体球恰好外切，连接为同一电势$U$，无穷远势为零。求整体电容。用像链解释交替符号与$\ln2$的出现。 见图~\ref{fig:es3-e5-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.2,0)circle(1.2);\draw[curve](1.2,0)circle(1.2);\node at(-1.2,.5){$U$};\node at(1.2,.5){$U$};\draw[axis](-2.8,0)--(2.8,0)node[right]{$z$};\node[below]at(0,0){接点};
+\end{tikzpicture}
+\caption{两球同势，讨论的是整体对无穷远的电容。}\label{fig:es3-e5-q}
+\end{figure}
+\begin{solution}
+先在两球心各放$q_0=4\pi\epsilon_0RU$。每个球心源单独在本球表面产生$U$，却影响另一球；对另一球作反演放反号像，继续交替补偿。以接点为坐标原点，第$n$层在两侧球内的距离和电量为
+\[z_n=\pm\frac R{n+1},\qquad q_n=\frac{(-1)^nq_0}{n+1},\quad n=0,1,\ldots.
+\]
+由反演递推可以验证：若本侧点距接点$R/(n+1)$，它到另一球心的距离为$R+R/(n+1)$，其像缩放系数为$(n+1)/(n+2)$，位置恰变为另一侧的$R/(n+2)$。
+
+图~\ref{fig:es3-e5-s}中，相邻两球内的一正一负层在某一球面互相抵消；除本球球心项外，所有外来影响均被其内像抵消。因此两球维持同势。每球总电量为$q_0(1-1/2+1/3-\cdots)=q_0\ln2$，整体
+\[\boxed{C=\frac{2q_0\ln2}{U}=8\pi\epsilon_0R\ln2}.
+\]
+求和也可不用先引用对数级数。对有限项逐项积分，
+\[S_N=\int_0^1\sum_{j=0}^{N-1}(-t)^j\dd t
+=\int_0^1\frac{1-(-t)^N}{1+t}\dd t.
+\]
+余项积分绝对值不超过
+\[\int_0^1t^N\dd t=\left[\frac{t^{N+1}}{N+1}\right]_0^1=\frac1{N+1}.\]
+故令 $N\to\infty$，
+\[\lim S_N=\int_0^1\frac{\dd t}{1+t}
+=[\ln(1+t)]_0^1=\ln2.
+\]接触点附近的逐点收敛需要取极限理解，但总电量的交替和有确定极限。结果比孤立单球电容大，比两个相距无穷远且并联的$8\pi\epsilon_0R$小，符合相互屏蔽使给定势下总电量减少的趋势。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.3,0)circle(1.3);\draw[curve](1.3,0)circle(1.3);\draw[axis](-2.9,0)--(2.9,0);\foreach\n in{1,2,3,4}{\fill({1.3/\n},0)circle(1.5pt);\fill({-1.3/\n},0)circle(1.5pt);}\node[above]at(-1.3,.1){$q_0$};\node[below]at(-.65,-.1){$-q_0/2$};\node[above]at(.4333,.1){$q_0/3$};\node[below]at(1.3,-.1){$q_0$};
+\end{tikzpicture}
+\caption{两侧均为交替像链，接近接点时像电量按调和级数的交替形式求和。}\label{fig:es3-e5-s}
+\end{figure}
+
+
+固定$U$时，另一球的同号电荷也贡献正势，因而每球所需电量降为$q_0\ln2$。直接相加两个孤立球的电容会得到$8\pi\epsilon_0R$；它遗漏了两球之间的相互势。
+\end{solution}
+
+\begin{example}[近接双球的两端电容]\label{ex:es3-e6}
+两个等半径$R$导体球间最小缝隙$\Delta>0$，电势分别为$+U,-U$。求像位置和像电量递推，写出两端电容$C=Q/(2U)$的级数，并求$\Delta/R\to0$时对数项的系数。 见图~\ref{fig:es3-e6-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.3,0)circle(1.2);\draw[curve](1.3,0)circle(1.2);\draw[axis](-3,0)--(3,0)node[right]{$z$};\node at(-1.3,.6){$+U$};\node at(1.3,.6){$-U$};\draw[<->](-.1,-.3)--(.1,-.3)node[midway,below]{$\Delta$};
+\end{tikzpicture}
+\caption{两球反对称带电，电压是$2U$，不能与前例的整体对地电容混用。}\label{fig:es3-e6-q}
+\end{figure}
+\begin{solution}
+两球电压是$2U$，一球电量记作$Q>0$，因而最后应取$C=Q/(2U)$。先在两球心各放大小
+\[q_0=4\pi\epsilon_0RU\]
+的异号电荷。球心源在本球表面单独产生所需电势，来自另一球的势则用球反演逐次抵消。同侧像始终同号；以下$q_n$均表示像电量的正大小，跨球反演时实际符号改变。
+
+记$\varepsilon=\Delta/R$。图~\ref{fig:es3-e6-rec}中，本侧像距近缝球面为$Rx_n$，距另一球心为
+\[L_n=Rx_n+\Delta+R=R(1+\varepsilon+x_n).\]
+它关于另一球的反演像距该球心$R^2/L_n$，所以距该球近缝表面为$R-R^2/L_n$。逐项除以$R$，得到
+\[x_{n+1}=1-\frac{R}{L_n}=1-\frac1{1+\varepsilon+x_n}
+=\frac{\varepsilon+x_n}{1+\varepsilon+x_n},\quad x_0=1.
+\]
+球像的电量大小乘$R/L_n$，因此
+\[q_{n+1}=\frac{q_n}{1+\varepsilon+x_n},\qquad q_0=4\pi\epsilon_0RU.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[curve](-1.2,0)circle(1);\draw[curve](1.2,0)circle(1);
+\draw[guide](-2.4,0)--(2.5,0);\fill(-1.2,0)circle(1.2pt)node[below]{$O_-$};\fill(1.2,0)circle(1.2pt)node[below]{$O_+$};
+\fill(-.8,0)circle(1.8pt)node[above left]{$q_n$};\fill(.7,0)circle(1.8pt)node[above right]{$-q_{n+1}$};
+\draw[<->](-.2,.45)--(.2,.45)node[midway,above]{$\Delta$};
+\draw[<->](-.8,-.55)--(-.2,-.55);\draw[guide](-.5,-.6)--(-.75,-1.1)node[left]{$Rx_n$};
+\draw[<->](.2,-.55)--(.7,-.55);\draw[guide](.45,-.6)--(.85,-1.1)node[right]{$Rx_{n+1}$};
+\draw[<->](-.8,-1.8)--(1.2,-1.8)node[midway,below]{$L_n=R(1+\varepsilon+x_n)$};
+\node at(-1.2,.7){$+U$};\node at(1.2,.7){$-U$};
+
+\end{tikzpicture}
+\caption{一次跨球反演：从对球球心量$L_n$，从近缝球面量$Rx_n$。图中的$q_n$表示正侧像的大小。}\label{fig:es3-e6-rec}
+\end{figure}
+
+先把位置递推解清楚。固定点满足$x=(\varepsilon+x)/(1+\varepsilon+x)$，即$x^2+\varepsilon x-\varepsilon=0$，故
+\[x_\pm=\frac{-\varepsilon\pm\sqrt{\varepsilon^2+4\varepsilon}}2.
+\]
+令$T(x)=(\varepsilon+x)/(1+\varepsilon+x)$。直接通分有
+\[T(x)-x_\pm=\frac{(1-x_\pm)(x-x_\pm)}{1+\varepsilon+x}.
+\]
+又因固定点满足$1-x_\pm=(1+\varepsilon+x_\pm)^{-1}$，所以交比
+\[w_n=\frac{x_n-x_+}{x_n-x_-},\qquad
+\frac{w_{n+1}}{w_n}=\frac{1+\varepsilon+x_-}{1+\varepsilon+x_+}.
+\]
+设$\cosh\alpha=1+\varepsilon/2$，$\alpha>0$。两分母分别为$\ee^{\pm\alpha}$，从而$w_n=\ee^{-2n\alpha}w_0$；若需要显式位置，可由$w_n(x_n-x_-)=x_n-x_+$解得$x_n=(x_+-w_nx_-)/(1-w_n)$。
+
+电量求和更适合用连分式的分母。定义
+\[D_{-1}=0,\quad D_0=1,\quad D_{n+1}=(2+\varepsilon)D_n-D_{n-1}.
+\]
+若$1+\varepsilon+x_n=D_{n+1}/D_n$，下一步便有
+\[1+\varepsilon+x_{n+1}=2+\varepsilon-\frac1{1+\varepsilon+x_n}
+=\frac{(2+\varepsilon)D_{n+1}-D_n}{D_{n+1}}=\frac{D_{n+2}}{D_{n+1}}.
+\]
+初始$n=0$时两边均为$2+\varepsilon$，归纳成立。特征方程$t^2-2\cosh\alpha\,t+1=0$的根为$\ee^{\pm\alpha}$，代入初值，得
+\[D_n=\frac{\sinh((n+1)\alpha)}{\sinh\alpha}.
+\]
+于是电量的连乘逐项约去：
+\[\frac{q_n}{q_0}=\prod_{j=0}^{n-1}\frac{D_j}{D_{j+1}}
+=\frac{D_0}{D_n}=\frac{\sinh\alpha}{\sinh((n+1)\alpha)}.
+\]
+图~\ref{fig:es3-e6-s}中同侧所有像均计入本球总电量，故
+\[Q=q_0\sinh\alpha\sum_{j=1}^\infty\frac1{\sinh(j\alpha)},\qquad
+\boxed{C=2\pi\epsilon_0R\sinh\alpha\sum_{j=1}^\infty\frac1{\sinh(j\alpha)}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.3,0)circle(1.2);\draw[curve](1.3,0)circle(1.2);\draw[axis](-3,0)--(3,0)node[right]{$z$};\node at(-1.3,.6){$+U$};\node at(1.3,.6){$-U$};\draw[<->](-.1,-.3)--(.1,-.3)node[midway,below]{$\Delta$};\foreach\x in{.3,.55,.9,1.3}{\fill(-\x,0)circle(1.4pt);\fill(\x,0)circle(1.4pt);}\node[below]at(-1.5,-1.5){同侧各像同号};\node[below]at(1.5,-1.5){$Q/(2U)$};
+\end{tikzpicture}
+\caption{像在缝隙两侧聚集；对数发散来自中间尺度的近似调和项。}\label{fig:es3-e6-s}
+\end{figure}
+最后求近接极限。令$N=\lfloor1/\alpha\rfloor$。对$1\le j\le N$，由$\sinh t=t[1+O(t^2)]$，
+\[\frac{\sinh\alpha}{\sinh(j\alpha)}
+=\frac1j+O(\alpha^2/j)+O(j\alpha^2).
+\]
+两类误差求和均为$O(1)$。对$j>N$，$1/\sinh(j\alpha)\le C_1\ee^{-j\alpha}$，故尾和乘$\sinh\alpha=O(\alpha)$后也是$O(1)$。因而
+\[\frac Q{q_0}=\sum_{j=1}^N\frac1j+O(1)=\ln(1/\alpha)+O(1).
+\]
+再由$\varepsilon=2(\cosh\alpha-1)=\alpha^2+O(\alpha^4)$，有$\ln(1/\alpha)=\tfrac12\ln(R/\Delta)+O(\Delta/R)$，所以
+\[\boxed{C=\pi\epsilon_0R\ln(R/\Delta)+O(\epsilon_0R)}.
+\]
+同一系数也可从窄缝场求出。距轴$s$处的间隙是$d(s)=\Delta+s^2/R+O(s^4/R^3)$，局部环面积为$2\pi s\dd s$。在$\sqrt{R\Delta}\ll s_0\ll R$内，
+\[\begin{aligned}
+C_{\rm gap}&\simeq2\pi\epsilon_0\int_0^{s_0}\frac{s\dd s}{\Delta+s^2/R}\\
+&=\pi\epsilon_0R\int_\Delta^{\Delta+s_0^2/R}\frac{\dd u}u\\
+&=\pi\epsilon_0R[\ln u]_\Delta^{\Delta+s_0^2/R}
+=\pi\epsilon_0R\ln\left(1+\frac{s_0^2}{R\Delta}\right).
+\end{aligned}
+\]
+这里$u=\Delta+s^2/R$、$\dd u=2s\dd s/R$。
+它给出同一对数系数。局部截断$s_0$不能确定整体的有界常数，远处球面区域补足该项。像链需要约$1/\alpha$层后才进入指数尾部，主导对数正来自这些中间层的电量积累。
+\end{solution}
+
+\begin{example}[两接地平面之间的带电摆]\label{ex:es3-e7}
+两无限接地竖直平面相距$2l$。质量$m$、电荷$q$的小球由长$h$的绝缘轻杆悬挂，平衡时位于中面，重力加速度$g$。摆动发生在垂直于两平面的竖直面内。求中面对称位置附近的小振动频率和线性稳定条件。 见图~\ref{fig:es3-e7-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1.6,-1.7)--(-1.6,1.8) (1.6,-1.7)--(1.6,1.8);\draw[<->](-1.6,-2)--(1.6,-2)node[midway,below]{$2l$};\fill(0,1.3)circle(1.4pt);\draw[curve](0,1.3)--(.4,-.7);\fill(.4,-.7)circle(2pt)node[right]{$q,m$};\node[right]at(.25,.4){$h$};\draw[axis](0,-1.2)--(.9,-1.2)node[right]{$x$};
+\end{tikzpicture}
+\caption{两板法向为水平$x$方向，板的位置为$x=\pm l$。}\label{fig:es3-e7-q}
+\end{figure}
+\begin{solution}
+设小球水平位移$x$，镜像在同高处延伸成两列。相隔$4nl$的同号像对真实电荷作用成对抵消；反号像距真实源为$2nl\mp2x$，$n=1,3,5,\ldots$。故电力水平分量为
+\[F_e=\frac{\ke q^2}{4}\sum_{n\ {\rm odd}>0}
+\left[\frac1{(nl-x)^2}-\frac1{(nl+x)^2}\right].\]
+对$|x|\ll l$展开，括号为$4x/(n^3l^3)+O(x^3/l^5)$，于是
+\[F_e=\frac{\ke q^2x}{l^3}\sum_{n\ {\rm odd}>0}\frac1{n^3}+O(x^3)
+=\frac{7\zeta(3)\ke q^2}{8l^3}x+O(x^3).
+\]
+电力朝靠近的板，属于失稳项。图~\ref{fig:es3-e7-s}中重力沿摆的切向投影提供回复，在线性阶$x=h\theta$、$F_{g,t}=-mgx/h$。将两项相加并除以$m$，运动方程为
+\[\ddot x+\left[\frac gh-\frac{7\zeta(3)\ke q^2}{8ml^3}\right]x=0.\]
+与$\ddot x+\omega^2x=0$比较，
+\[\boxed{\omega^2=\frac gh-\frac{7\zeta(3)\ke q^2}{8ml^3}}.
+\]
+右侧正时有线性小振动，负时不稳定。两板无限延伸，像与真实球总处在同一高度，所以电像力没有竖直分量；轻杆的支持力不进入切向方程。
+
+等号处二次势能消失，须继续展开。对每个奇数$n$使用$(1\mp t)^{-2}=1\pm2t+3t^2\pm4t^3+O(t^4)$，电力的下一项为$2\ke q^2x^3\sum n^{-5}/l^5$。因此
+\[U_e(x)-U_e(0)=-\int_0^xF_e(s)\dd s
+=-\frac{\ke q^2S_3}{l^3}\left[\frac{s^2}2\right]_0^x
+-\frac{2\ke q^2S_5}{l^5}\left[\frac{s^4}4\right]_0^x+O(x^6),\]
+其中$S_j=\sum_{n\ {\rm odd}>0}n^{-j}$。重力势$mgh[1-\sqrt{1-x^2/h^2}]$的四次项为$mgx^4/(8h^3)$，故临界时总四次系数为$mg/(8h^3)-\ke q^2(31\zeta(5)/32)/(2l^5)$；其进一步判定见后面的习题。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1.6,-1.7)--(-1.6,1.8) (1.6,-1.7)--(1.6,1.8);\draw[<->](-1.6,-2)--(1.6,-2)node[midway,below]{$2l$};\fill(.35,0)circle(2pt)node[above]{$q$};\draw[axis](.35,0)--(1.15,0)node[above]{$F_e$};\draw[axis](.35,-.3)--(-.4,-.3)node[below]{$F_{g,t}$};\node[above]at(0,2.15){奇数像列贡献失稳斜率};
+\end{tikzpicture}
+\caption{电像力向近板，重力切向分量指向中面；两者的一阶系数相减。}\label{fig:es3-e7-s}
+\end{figure}
+
+
+奇数倒数和来自排除偶数项：$\sum_{n\ {\rm odd}}n^{-3}=\zeta(3)-2^{-3}\zeta(3)=7\zeta(3)/8$。最近一对像贡献系数1，远处其余像只再增加约$0.0518$，但这一小修正是原两板边界的完整结果。若靠近失稳临界，百分之几的系数误差就会改变$\omega^2$的符号，因此不能把最近像近似用来判断临界值。
+\end{solution}
+
+\section{两族圆与偏心圆柱电容}\label{sec:es3-capacitance}
+偏心边界破坏径向对称性，但适当坐标可使两条边界成为坐标面。等势线族联系几何参数，场的通量再给出单位长度电荷及电容。
+
+电容定义为给定导体几何下的电量与电压之比。两端电容$C=Q/(V_1-V_2)$，整体对地电容$C=Q/V$，单位长度电容$c=\lambda/(V_1-V_2)$，三者必须区分。固定电量时场能为$Q^2/(2C)$；固定电压时电源也作功，机械力可写为$F=\tfrac12V^2\,\partial C/\partial x$。
+
+\begin{example}[偏心圆柱电容与横向力]\label{ex:es3-e8}
+无限长圆柱电容器，外圆半径$R$接地，内圆半径$a$，轴距$d$满足$0<d<R-a$。求单位长度电容，以及内柱带单位长度电量$\lambda$时所受横向力；给出同轴极限。 见图~\ref{fig:es3-e8-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](.65,0)circle(.65);\fill(0,0)circle(1.3pt)node[below left]{$O$};\fill(.65,0)circle(1.3pt)node[below]{$O^{\prime}$};\draw[axis](-2.2,0)--(2.3,0)node[right]{$x$};\node at(-1.5,.7){$R$};\node at(.8,.45){$a$};\draw[<->](0,-.9)--(.65,-.9)node[midway,below]{$d$};
+\end{tikzpicture}
+\caption{所求区域为外圆内、内圆外的偏心环域。}\label{fig:es3-e8-q}
+\end{figure}
+\begin{solution}
+令外圆心$O$为$x=0$，内圆心$O'$为$x=d$，内柱带电量每长度为$\lambda$。寻找两条虚拟线源$+\lambda,-\lambda$，轴截点为$u<v$，使两导体圆周都是$r_v/r_u=\kappa$的距离比圆。
+
+先确定焦点。一个圆周若使到两点的距离比不变，两点相对该圆互为反演。因此图~\ref{fig:es3-e8-s}中的焦点须同时满足
+\[uv=R^2,\qquad(u-d)(v-d)=a^2.
+\]
+第二式展开再用第一式，得$R^2-d(u+v)+d^2=a^2$。定义
+\[c=\frac{u+v}{2}=\frac{R^2+d^2-a^2}{2d},\quad
+b=\sqrt{c^2-R^2},\quad u=c-b,\ v=c+b.
+\]
+将$b$通分并因式分解，有
+\[b=\frac{\sqrt K}{2d},\qquad
+K=[(R+a)^2-d^2][(R-a)^2-d^2]>0.
+\]
+在$0<d<R-a$时，$u$位于内导体内，$v$位于外导体外；物理间隙中没有虚拟源。两线源的势为
+\[\varphi=\frac\lambda{2\pi\epsilon_0}\ln\frac{r_v}{r_u}+C_0.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](.65,0)circle(.65);\draw[axis](-2.1,0)--(4.7,0)node[right]{$x$};\fill(0,0)circle(1.3pt)node[below left]{$O$};\fill(.65,0)circle(1.3pt)node[below]{$O^{\prime}$};\fill(.76847544,0)circle(1.7pt);\draw[guide](.76847544,0)--(1.8,1.25)node[above]{$u,+\lambda$};\fill(4.21613994,0)circle(1.7pt)node[above]{$v,-\lambda$};\draw[axis](1.2,-.6)--(2.1,-.6)node[right]{$f_d$};\node[left]at(-1.2,1.35){$R$};
+\end{tikzpicture}
+\caption{两焦点分别在被排除的内外区域，物理间隙中无虚拟源。}\label{fig:es3-e8-s}
+\end{figure}
+下面直接求电压，避免只引用双圆坐标公式。对外圆取$x=-R$，由$R^2=uv$，
+\[\kappa_o=\frac{v+R}{u+R}=\sqrt{\frac vu}.
+\]
+对内圆取其左端$x=d-a$，同理由$(u-d)(v-d)=a^2$得到
+\[\kappa_i=\sqrt{\frac{v-d}{u-d}}.
+\]
+两圆的电势差为$V=\lambda\eta/(2\pi\epsilon_0)$，其中
+\[\eta=\ln\frac{\kappa_i}{\kappa_o}
+=\frac12\ln\frac{u(v-d)}{v(u-d)}>0.
+\]
+用$\cosh(\tfrac12\ln A)=(A+1)/(2\sqrt A)$整理，
+\[\begin{aligned}
+\cosh\eta
+&=\frac{u(v-d)+v(u-d)}{2\sqrt{uv(u-d)(v-d)}}\\
+&=\frac{2R^2-d(u+v)}{2Ra}
+=\frac{R^2+a^2-d^2}{2Ra}.
+\end{aligned}\]
+由此
+\[\boxed{c_{\!L}=\frac\lambda V=\frac{2\pi\epsilon_0}{\eta}},\qquad
+\eta=\arcosh\frac{R^2+a^2-d^2}{2Ra}.
+\]
+这里用$c_{\!L}$表示单位长度电容，以免与前面的焦点中点$c$混淆。
+
+固定电量时，单位长度场能$w=\lambda^2/(2c_{\!L})=\lambda^2\eta/(4\pi\epsilon_0)$。对$\cosh\eta$求导，
+\[\sinh\eta\,\eta'=-\frac d{Ra},\qquad
+\sinh\eta=\sqrt{\cosh^2\eta-1}=\frac{\sqrt K}{2Ra},
+\quad\eta'=-\frac{2d}{\sqrt K}.
+\]
+于是图中增大$d$方向的单位长度力为
+\[\boxed{f_d=-\frac{\partial w}{\partial d}\bigg|_\lambda
+=\frac{\lambda^2d}{2\pi\epsilon_0\sqrt K}}>0.
+\]
+固定电压时需计入电源的功。此时
+\[\frac{\dd c_{\!L}}{\dd d}=-\frac{2\pi\epsilon_0\eta'}{\eta^2}
+=\frac{4\pi\epsilon_0d}{\eta^2\sqrt K},\quad
+f_d=\frac12V^2c_{\!L}'=\frac{2\pi\epsilon_0V^2d}{\eta^2\sqrt K}.
+\]
+代入$\lambda=2\pi\epsilon_0V/\eta$，便与固定电量的瞬时力相同。两种控制过程的能量函数不同，力都指向较近的外壁。
+
+当$d\to0$，$\cosh\eta\to(R^2+a^2)/(2Ra)=\cosh\ln(R/a)$，正根给$\eta\to\ln(R/a)$，故$c_{\!L}\to2\pi\epsilon_0/\ln(R/a)$、$f_d\to0$。小偏移后力推动偏移增大，因此同轴零力位置不稳定。数值求焦点时可先算$v=c+b$再用$u=R^2/v$，避免$c-b$在小$d$时的大数相减。
+\end{solution}
+
+\section{旋转椭球与圆盘的电容}\label{sec:es3-ellipsoid}
+孤立导体的电容由总电荷与相对无穷远的电势之比确定。椭球坐标先适应表面边界，圆盘则由几何极限得到，取极限时需保留边缘电荷的贡献。
+
+椭球的等势性可由适当的连续源构造。长旋转椭球对应均匀焦线电荷；扁旋转椭球可由实积分计算，也可对长椭球表达作解析延拓。计算极限时应保持半轴的几何含义，而不能只替换字母。
+
+\subsection{共焦椭球积分的推导}\label{sec:es3-confocal}
+设椭球三个半轴为$A,B,C$，外部共焦面参数$t\ge0$由
+\[\frac{x^2}{A^2+t}+\frac{y^2}{B^2+t}+\frac{z^2}{C^2+t}=1
+\]
+定义，其中$(a_1,a_2,a_3)=(A,B,C)$、$(x_1,x_2,x_3)=(x,y,z)$。记
+\[q_i=a_i^2+t,\qquad S=\sum_i\frac{x_i^2}{q_i^2},\qquad
+U=\sum_i\frac{x_i^2}{q_i^3},\qquad \Delta(t)=\sqrt{q_1q_2q_3}.\]
+对隐式关系$\sum_jx_j^2/q_j=1$按$x_i$求导，必须同时计入$t$随位置的变化：
+\[0=\frac{2x_i}{q_i}-\left(\sum_j\frac{x_j^2}{q_j^2}\right)t_i,
+\qquad t_i\equiv\partial_it=\frac{2x_i}{q_iS}.\]
+于是$|\nabla t|^2=\sum_i4x_i^2/(q_i^2S^2)=4/S$。为计算二阶导数，先求
+\[\partial_iS=\frac{2x_i}{q_i^2}-2\sum_j\frac{x_j^2}{q_j^3}t_i
+=\frac{2x_i}{q_i^2}-2Ut_i.\]
+再对$t_i$作乘积求导，
+\[\begin{aligned}
+t_{ii}&=\frac2{q_iS}-\frac{2x_i}{q_i^2S}t_i
+-\frac{2x_i}{q_iS^2}\partial_iS\\
+&=\frac2{q_iS}-\frac{8x_i^2}{q_i^3S^2}
++\frac{8Ux_i^2}{q_i^2S^3}.
+\end{aligned}\]
+逐项求和，后两项分别为$-8U/S^2$与$8US/S^3$，恰好相消。因此
+\[\nabla^2t=\frac2S\sum_i\frac1{q_i}.\]
+对仅依赖$t$的势应用两次链式法则，
+\[\partial_i\varphi=\varphi't_i,\qquad
+\partial_{ii}\varphi=\varphi''t_i^2+\varphi't_{ii},\]
+所以$\nabla^2\varphi=0$等价于
+\[\varphi''+\frac12\left(\sum_i\frac1{q_i}\right)\varphi'=0.\]
+另一方面，$\ln\Delta=\tfrac12\sum_i\ln q_i$，故$\Delta'/\Delta=\tfrac12\sum_iq_i^{-1}$。乘以积分因子$\Delta$，方程成为$(\Delta\varphi')'=0$。第一次积分给$\Delta\varphi'=-K$；第二次从$t$积到无穷远，并用$\varphi(\infty)=0$，
+\[0-\varphi(t)=-K\int_t^\infty\frac{\dd u}{\Delta(u)},\qquad
+\varphi(t)=K\int_t^\infty\frac{\dd u}{\Delta(u)}.\]
+远处$t\sim r^2$，且$1/\Delta(u)=u^{-3/2}[1+O(u^{-1})]$，因此
+\[\int_t^\infty\frac{\dd u}{\Delta(u)}
+=[-2u^{-1/2}]_t^\infty+O(t^{-3/2})
+=\frac2{\sqrt t}+O(t^{-3/2})\sim\frac2r.\]
+与$Q/(4\pi\epsilon_0r)$比较得$K=Q/(8\pi\epsilon_0)$。令$t=0$求表面势，再取$C=Q/\varphi(0)$，即得椭球电容积分。
+
+这里的椭球导体与均匀实心带电椭球不是同一个源问题。导体内部场为零，电荷在表面；用于外势的共焦积分只确定该等势边界问题。用不同模型的内部场来推电容，会混淆源与边界。
+
+
+\begin{example}[长旋转椭球的焦线构造]\label{ex:es3-e9}
+导体长旋转椭球的轴向半轴为$a$、横向半轴为$b<a$，置于真空，无穷远为零势。求其电容，并给出球形极限和细长极限。 见图~\ref{fig:es3-e9-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(1 and 2);\draw[axis](0,-2.3)--(0,2.4)node[above]{$z$};\draw[guide](-1.4,0)--(1.4,0);\node[right]at(0,2){$a$};\node[above]at(1,0){$b$};
+\end{tikzpicture}
+\caption{轴向较长，焦距参数为$c=\sqrt{a^2-b^2}$。}\label{fig:es3-e9-q}
+\end{figure}
+\begin{solution}
+在焦线$-c<z'<c$上放均匀线电量密度$\lambda$。距两焦点的距离为$r_+,r_-$，沿线积分得到
+\[\varphi=\ke\lambda\ln\frac{r_++r_-+2c}{r_++r_--2c}.
+\]
+为写出积分过程，令$r_+=\sqrt{s^2+(z-c)^2}$、$r_-=\sqrt{s^2+(z+c)^2}$。取$u=z-z'$，则
+\[\begin{split}
+\int_{-c}^c\frac{\dd z'}{\sqrt{s^2+(z-z')^2}}
+&=\int_{z-c}^{z+c}\frac{\dd u}{\sqrt{s^2+u^2}}\\
+&=\left[\ln\left(u+\sqrt{s^2+u^2}\right)\right]_{z-c}^{z+c}\\
+&=\ln\frac{z+c+r_-}{z-c+r_+}.
+\end{split}\]
+由 $r_-^2-r_+^2=4zc$，交叉相乘可验证该比等于 $(r_++r_-+2c)/(r_++r_--2c)$，从而得到所列对数式。椭球面上 $r_++r_-=2a$，故它确为等势面；焦线处在导体内部，外域的源与边界均合适。
+
+图~\ref{fig:es3-e9-s}给出两段焦距。总电量$Q=2c\lambda$，表面势$U=\ke\lambda\ln[(a+c)/(a-c)]$，所以
+\[\boxed{C=\frac{8\pi\epsilon_0c}{\ln[(a+c)/(a-c)]}
+=\frac{4\pi\epsilon_0c}{\artanh(c/a)}}.
+\]
+当$b\to a$，$c/a\to0$，利用$\artanh t\sim t$得$C\to4\pi\epsilon_0a$。当$b\ll a$，$a-c\simeq b^2/(2a)$，对数为$2\ln(2a/b)$，故$C\simeq4\pi\epsilon_0a/\ln(2a/b)$。
+
+这里电量均匀的是虚拟焦线，导体表面的面电荷并不均匀，尖端曲率较大处场更强。若把焦线电量密度误当成真实表面密度，虽可能碰巧算对总电容，却会算错局部场与电压力。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(1.3 and 2);\draw[very thick](0,-1.5199)--(0,1.5199);\fill(1.04,1.2)circle(1.6pt)node[right]{$P$};\draw[guide](0,1.5199)--(1.04,1.2)node[midway,above]{$r_+$};\draw[guide](0,-1.5199)--(1.04,1.2)node[midway,below right]{$r_-$};\node[left]at(0,1.5199){$c$};\node[left]at(0,-1.5199){$-c$};
+\end{tikzpicture}
+\caption{椭球上的焦距和保持$2a$，使焦线势积分成为常数。}\label{fig:es3-e9-s}
+\end{figure}
+
+
+在 $z>a$ 的轴上，将一般点势取 $s\downarrow0$ 的极限，得 $\varphi=\ke\lambda\ln[(z+c)/(z-c)]$；在顶点 $z=a$ 处恢复表面势。球极限中，焦线长度与等效密度分别趋零、趋无穷，但总量 $Q=2c\lambda$ 固定，外场平滑恢复点电荷。
+\end{solution}
+
+\begin{example}[扁旋转椭球与薄圆盘]\label{ex:es3-e10}
+导体扁旋转椭球的轴向半轴为$a$、赤道半轴为$b>a$。由实积分求电容，并说明把长椭球公式作解析延拓时如何取实值。求$a\to0$的薄圆盘极限。 见图~\ref{fig:es3-e10-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(2 and .7);\draw[axis](-2.3,0)--(2.4,0)node[right]{$s$};\draw[axis](0,-1)--(0,1.3)node[above]{$z$};\node[below]at(2,0){$b$};\node[right]at(0,.7){$a$};
+\end{tikzpicture}
+\caption{赤道半径大于轴向半轴，最后令厚度趋于零。}\label{fig:es3-e10-q}
+\end{figure}
+\begin{solution}
+一般半轴$A,B,C$的导体椭球，对无穷电容可写为
+\[C_{\rm ell}=\frac{8\pi\epsilon_0}{I},\quad
+I=\int_0^\infty\frac{\dd t}{\sqrt{(A^2+t)(B^2+t)(C^2+t)}}.
+\]
+该积分来自前述共焦椭球调和势。这里取$A=B=b,C=a$，令$u=\sqrt{a^2+t}$、$c_o=\sqrt{b^2-a^2}$，则$\dd t=2u\dd u$，分母为$u(u^2+c_o^2)$，原端点$t=0,\infty$变为$u=a,\infty$。因此
+\[I=2\int_a^\infty\frac{\dd u}{u^2+c_o^2}
+=\frac2{c_o}\left[\arctan\frac{u}{c_o}\right]_a^\infty
+=\frac2{c_o}\left(\frac\pi2-\arctan\frac a{c_o}\right)
+=\frac2{c_o}\arctan(c_o/a).
+\]
+所以
+\[\boxed{C=\frac{4\pi\epsilon_0c_o}{\arctan(c_o/a)}}.
+\]
+图~\ref{fig:es3-e10-s}中虚线共焦面说明积分参数的几何含义。若从长椭球公式延拓，令$c=\ii c_o$，使用$\artanh(\ii t)=\ii\arctan t$，虚因子相消，得到同一实数式。不能直接把虚焦点解释为真实电荷位置，实积分已提供无此歧义的计算。
+
+当$a\to b$，恢复球电容；当$a\to0$，$c_o\to b$、反正切趋$\pi/2$，得$\boxed{C_{\rm disk}=8\epsilon_0b}$。圆盘的两面属于同一导体，总电量已经同时包含两面，无须额外乘二。边缘场虽然奇异，总电量和电容仍有限。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(2 and .7);\draw[guide](0,0)ellipse(2.3 and 1.3342);\draw[guide](0,0)ellipse(2.6 and 1.80277564);\node[right]at(2.4,.4){共焦等势面};\draw[<->](-2,-1)--(2,-1)node[midway,below]{$2b$};
+
+\end{tikzpicture}
+\caption{实积分随共焦面参数累加；薄圆盘极限保留同一导体的两面总电量。}\label{fig:es3-e10-s}
+\end{figure}
+
+
+在实积分中令$a=b$，有$I=2[-1/u]_a^\infty=2/a$，代电容式得$4\pi\epsilon_0a$；令$a=0$，有$I=(2/b)[\arctan(u/b)]_0^\infty=\pi/b$，得到$8\epsilon_0b$。两个端点都直接由收敛实积分给出。薄盘边缘的面电荷可积奇性，与楔形域的边缘幂次相联系。
+\end{solution}
+
+
+\section{稳恒导电与绝缘空穴}\label{sec:es3-conduction}
+导电势与静电势可满足同一类方程，但界面条件由实际材料决定。先区分等势电极和绝缘边界，再使用类比构造电流分布。
+
+均匀各向同性导体中$\vct j=\sigma\vct E=-\sigma\nabla\varphi$。稳恒时电荷不在体内持续积累，$\nabla\cdot\vct j=0$，于是$\nabla^2\varphi=0$。理想绝缘孔壁无电流穿过，故$\partial_n\varphi=0$；孔壁给定的是Neumann法向导数条件。按这类条件构造等效源的解法，也称第二类电像法。
+
+若导电率分段变化，应改用$\nabla\cdot(\sigma\nabla\varphi)=0$，界面势连续、法向电流连续。在不额外引入电动势和接触电阻时，这些条件确定电流分布。导电类比主要对应方程和边界，不能把介电常数与导电率混进同一量纲的公式。
+
+
+\subsection{从势场到电阻与耗散}\label{sec:es-conduction-energy}
+稳恒导电先由电荷守恒确定$\nabla\cdot\vct j=0$，再用局部本构关系$\vct j=-\sigma\nabla\varphi$，得到
+\[\nabla\cdot(\sigma\nabla\varphi)=0.
+\]
+当$\sigma$分段常数时，各块内部是Laplace方程，导电接触面上须同时满足势连续和法向电流连续。绝缘外壁规定$\partial_n\varphi=0$；理想金属电极规定同一电极处处等势。只给两个端点的势而不说明侧壁条件，尚不能确定电流怎样在整个区域内流动。
+
+设两电极的势分别为$V$、$0$，总电流为$I$。对$\nabla\cdot(\varphi\vct j)$积分，由侧壁不漏流和$\nabla\cdot\vct j=0$，有
+\[\int_{\partial\Omega}\varphi\vct j\cdot\vct n\dd S
+=\int_\Omega\nabla\varphi\cdot\vct j\dd V
+=-\int_\Omega\sigma E^2\dd V.
+\]
+高势电极处电流流入导电域，外法向通量为$-I$；低势电极的势为零。因此左边为$-VI$，得到
+\[\boxed{\mathcal P=VI=I^2R=GV^2
+=\int_\Omega\sigma|\nabla\varphi|^2\dd V}.
+\]
+电阻由整个场分布决定。绝缘孔使孔外电流绕行，电阻增量因而包含场重新分布的贡献，不能只按缺失体积计算。
+
+若相同区域内介电常数与电导率分别为常数$\epsilon,\sigma$，并采用相同的电极和绝缘边界，则静电势与稳恒导电势满足同一个归一化边值问题。由
+\[C=\frac\epsilon{V^2}\int_\Omega|\nabla\varphi|^2\dd V,
+\qquad G=\frac\sigma{V^2}\int_\Omega|\nabla\varphi|^2\dd V,
+\]
+可得$G=(\sigma/\epsilon)C$。介质或电导率不均匀时，只有各区两参数保持同一比例且边界条件对应，才能作这种替换。电场势的数学形式相似，不意味着自由电荷、导电电流以及孔内静电场的物理意义可以互换。
+
+耗散的比较还要固定控制量。同一几何变化使$R$增大时，固定$I$有$\delta\mathcal P=I^2\delta R>0$；固定$V$则有$\delta\mathcal P=-V^2\delta R/R^2<0$。二者比较的是不同的供电过程。小孔计算中的正电阻增量与固定电压下总耗散下降相容。
+
+
+\begin{example}[均匀导体中的球形绝缘孔]\label{ex:es3-e11}
+无限均匀导体电导率为$\sigma$，远处电场$E_0\vct e_z$。内部有半径$a$的绝缘球孔，孔不含自由体电荷。求孔外势和电流线；若孔与导体的静电介电常数均取$\epsilon_0$，求孔内场，并解释反向偶极。 见图~\ref{fig:es3-e11-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.9)--(0,2)node[above]{$z$};\node at(0,.5){绝缘孔};\node[right]at(1.5,.7){$\sigma$};\draw[axis](-2,-1.2)--(-2,-.1)node[above]{$E_0$};
+\draw[axis](0,0)--(1.02394,-.71697)node[midway,below]{$a$};
+\end{tikzpicture}
+\caption{导电场绕过球孔，孔壁法向电流为零。}\label{fig:es3-e11-q}
+\end{figure}
+\begin{solution}
+以球孔中心为原点，极轴沿外场。题设关于轴旋转对称，远势为$-E_0r\cos\theta$。球外附加势须衰减且只含同一个$l=1$角模，故写成
+\[\varphi_o=-E_0r\cos\theta+B\frac{\cos\theta}{r^2}.
+\]
+沿$r$求负导数得$E_r=(E_0+2B/r^3)\cos\theta$。孔壁绝缘，$j_r(a)=\sigma E_r(a)=0$，对任意角度都须成立，因此
+\[E_0+2B/a^3=0,\quad B=-E_0a^3/2.
+\]
+得到
+\[\boxed{\varphi_o=-E_0(r+a^3/(2r^2))\cos\theta},
+\]
+\[\boxed{E_r=E_0(1-a^3/r^3)\cos\theta,\quad
+E_\theta=-E_0(1+a^3/(2r^3))\sin\theta}.
+\]
+在$r=a$上径向场为零，赤道处角向场沿正$z$方向，大小为$3E_0/2$。图~\ref{fig:es3-e11-s}的箭头表示实际绕流方向。附加势与点偶极势$p\cos\theta/(4\pi\epsilon_0r^2)$比较，给出$\vct p_{\rm eq}=-2\pi\epsilon_0a^3E_0\vct e_z$，与外场反向。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,fill=gray!8](0,0)circle(1);\draw[axis](0,-2.1)--(0,2.2)node[above]{$z$};\draw[curve]plot coordinates{(-0.21355,-2.00000)(-0.21432,-1.96667)(-0.21515,-1.93333)(-0.21604,-1.90000)(-0.21702,-1.86667)(-0.21808,-1.83333)(-0.21923,-1.80000)(-0.22049,-1.76667)(-0.22187,-1.73333)(-0.22338,-1.70000)(-0.22505,-1.66667)(-0.22689,-1.63333)(-0.22894,-1.60000)(-0.23122,-1.56667)(-0.23376,-1.53333)(-0.23662,-1.50000)(-0.23985,-1.46667)(-0.24351,-1.43333)(-0.24768,-1.40000)(-0.25248,-1.36667)(-0.25804,-1.33333)(-0.26451,-1.30000)(-0.27213,-1.26667)(-0.28117,-1.23333)(-0.29200,-1.20000)(-0.30509,-1.16667)(-0.32102,-1.13333)(-0.34049,-1.10000)(-0.36417,-1.06667)(-0.39254,-1.03333)(-0.42552,-1.00000)(-0.46229,-0.96667)(-0.50137,-0.93333)(-0.54116,-0.90000)(-0.58036,-0.86667)(-0.61812,-0.83333)(-0.65396,-0.80000)(-0.68768,-0.76667)(-0.71926,-0.73333)(-0.74873,-0.70000)(-0.77616,-0.66667)(-0.80166,-0.63333)(-0.82533,-0.60000)(-0.84726,-0.56667)(-0.86754,-0.53333)(-0.88626,-0.50000)(-0.90349,-0.46667)(-0.91928,-0.43333)(-0.93371,-0.40000)(-0.94681,-0.36667)(-0.95865,-0.33333)(-0.96924,-0.30000)(-0.97864,-0.26667)(-0.98687,-0.23333)(-0.99395,-0.20000)(-0.99991,-0.16667)(-1.00476,-0.13333)(-1.00852,-0.10000)(-1.01120,-0.06667)(-1.01280,-0.03333)(-1.01333,0.00000)(-1.01280,0.03333)(-1.01120,0.06667)(-1.00852,0.10000)(-1.00476,0.13333)(-0.99991,0.16667)(-0.99395,0.20000)(-0.98687,0.23333)(-0.97864,0.26667)(-0.96924,0.30000)(-0.95865,0.33333)(-0.94681,0.36667)(-0.93371,0.40000)(-0.91928,0.43333)(-0.90349,0.46667)(-0.88626,0.50000)(-0.86754,0.53333)(-0.84726,0.56667)(-0.82533,0.60000)(-0.80166,0.63333)(-0.77616,0.66667)(-0.74873,0.70000)(-0.71926,0.73333)(-0.68768,0.76667)(-0.65396,0.80000)(-0.61812,0.83333)(-0.58036,0.86667)(-0.54116,0.90000)(-0.50137,0.93333)(-0.46229,0.96667)(-0.42552,1.00000)(-0.39254,1.03333)(-0.36417,1.06667)(-0.34049,1.10000)(-0.32102,1.13333)(-0.30509,1.16667)(-0.29200,1.20000)(-0.28117,1.23333)(-0.27213,1.26667)(-0.26451,1.30000)(-0.25804,1.33333)(-0.25248,1.36667)(-0.24768,1.40000)(-0.24351,1.43333)(-0.23985,1.46667)(-0.23662,1.50000)(-0.23376,1.53333)(-0.23122,1.56667)(-0.22894,1.60000)(-0.22689,1.63333)(-0.22505,1.66667)(-0.22338,1.70000)(-0.22187,1.73333)(-0.22049,1.76667)(-0.21923,1.80000)(-0.21808,1.83333)(-0.21702,1.86667)(-0.21604,1.90000)(-0.21515,1.93333)(-0.21432,1.96667)(-0.21355,2.00000)};\draw[->](-0.25804,-1.33333)--(-0.30509,-1.16667);\draw[->](-0.61812,0.83333)--(-0.42552,1.00000);\draw[curve]plot coordinates{(0.21355,-2.00000)(0.21432,-1.96667)(0.21515,-1.93333)(0.21604,-1.90000)(0.21702,-1.86667)(0.21808,-1.83333)(0.21923,-1.80000)(0.22049,-1.76667)(0.22187,-1.73333)(0.22338,-1.70000)(0.22505,-1.66667)(0.22689,-1.63333)(0.22894,-1.60000)(0.23122,-1.56667)(0.23376,-1.53333)(0.23662,-1.50000)(0.23985,-1.46667)(0.24351,-1.43333)(0.24768,-1.40000)(0.25248,-1.36667)(0.25804,-1.33333)(0.26451,-1.30000)(0.27213,-1.26667)(0.28117,-1.23333)(0.29200,-1.20000)(0.30509,-1.16667)(0.32102,-1.13333)(0.34049,-1.10000)(0.36417,-1.06667)(0.39254,-1.03333)(0.42552,-1.00000)(0.46229,-0.96667)(0.50137,-0.93333)(0.54116,-0.90000)(0.58036,-0.86667)(0.61812,-0.83333)(0.65396,-0.80000)(0.68768,-0.76667)(0.71926,-0.73333)(0.74873,-0.70000)(0.77616,-0.66667)(0.80166,-0.63333)(0.82533,-0.60000)(0.84726,-0.56667)(0.86754,-0.53333)(0.88626,-0.50000)(0.90349,-0.46667)(0.91928,-0.43333)(0.93371,-0.40000)(0.94681,-0.36667)(0.95865,-0.33333)(0.96924,-0.30000)(0.97864,-0.26667)(0.98687,-0.23333)(0.99395,-0.20000)(0.99991,-0.16667)(1.00476,-0.13333)(1.00852,-0.10000)(1.01120,-0.06667)(1.01280,-0.03333)(1.01333,0.00000)(1.01280,0.03333)(1.01120,0.06667)(1.00852,0.10000)(1.00476,0.13333)(0.99991,0.16667)(0.99395,0.20000)(0.98687,0.23333)(0.97864,0.26667)(0.96924,0.30000)(0.95865,0.33333)(0.94681,0.36667)(0.93371,0.40000)(0.91928,0.43333)(0.90349,0.46667)(0.88626,0.50000)(0.86754,0.53333)(0.84726,0.56667)(0.82533,0.60000)(0.80166,0.63333)(0.77616,0.66667)(0.74873,0.70000)(0.71926,0.73333)(0.68768,0.76667)(0.65396,0.80000)(0.61812,0.83333)(0.58036,0.86667)(0.54116,0.90000)(0.50137,0.93333)(0.46229,0.96667)(0.42552,1.00000)(0.39254,1.03333)(0.36417,1.06667)(0.34049,1.10000)(0.32102,1.13333)(0.30509,1.16667)(0.29200,1.20000)(0.28117,1.23333)(0.27213,1.26667)(0.26451,1.30000)(0.25804,1.33333)(0.25248,1.36667)(0.24768,1.40000)(0.24351,1.43333)(0.23985,1.46667)(0.23662,1.50000)(0.23376,1.53333)(0.23122,1.56667)(0.22894,1.60000)(0.22689,1.63333)(0.22505,1.66667)(0.22338,1.70000)(0.22187,1.73333)(0.22049,1.76667)(0.21923,1.80000)(0.21808,1.83333)(0.21702,1.86667)(0.21604,1.90000)(0.21515,1.93333)(0.21432,1.96667)(0.21355,2.00000)};\draw[->](0.25804,-1.33333)--(0.30509,-1.16667);\draw[->](0.61812,0.83333)--(0.42552,1.00000);\draw[curve]plot coordinates{(-0.58319,-2.00000)(-0.58490,-1.96667)(-0.58672,-1.93333)(-0.58867,-1.90000)(-0.59076,-1.86667)(-0.59301,-1.83333)(-0.59542,-1.80000)(-0.59801,-1.76667)(-0.60081,-1.73333)(-0.60382,-1.70000)(-0.60707,-1.66667)(-0.61059,-1.63333)(-0.61439,-1.60000)(-0.61851,-1.56667)(-0.62298,-1.53333)(-0.62783,-1.50000)(-0.63310,-1.46667)(-0.63883,-1.43333)(-0.64506,-1.40000)(-0.65184,-1.36667)(-0.65921,-1.33333)(-0.66722,-1.30000)(-0.67593,-1.26667)(-0.68536,-1.23333)(-0.69557,-1.20000)(-0.70658,-1.16667)(-0.71841,-1.13333)(-0.73107,-1.10000)(-0.74454,-1.06667)(-0.75879,-1.03333)(-0.77374,-1.00000)(-0.78933,-0.96667)(-0.80544,-0.93333)(-0.82196,-0.90000)(-0.83875,-0.86667)(-0.85568,-0.83333)(-0.87262,-0.80000)(-0.88943,-0.76667)(-0.90600,-0.73333)(-0.92222,-0.70000)(-0.93800,-0.66667)(-0.95325,-0.63333)(-0.96791,-0.60000)(-0.98193,-0.56667)(-0.99526,-0.53333)(-1.00786,-0.50000)(-1.01971,-0.46667)(-1.03078,-0.43333)(-1.04106,-0.40000)(-1.05054,-0.36667)(-1.05920,-0.33333)(-1.06705,-0.30000)(-1.07407,-0.26667)(-1.08027,-0.23333)(-1.08565,-0.20000)(-1.09019,-0.16667)(-1.09391,-0.13333)(-1.09681,-0.10000)(-1.09887,-0.06667)(-1.10011,-0.03333)(-1.10053,0.00000)(-1.10011,0.03333)(-1.09887,0.06667)(-1.09681,0.10000)(-1.09391,0.13333)(-1.09019,0.16667)(-1.08565,0.20000)(-1.08027,0.23333)(-1.07407,0.26667)(-1.06705,0.30000)(-1.05920,0.33333)(-1.05054,0.36667)(-1.04106,0.40000)(-1.03078,0.43333)(-1.01971,0.46667)(-1.00786,0.50000)(-0.99526,0.53333)(-0.98193,0.56667)(-0.96791,0.60000)(-0.95325,0.63333)(-0.93800,0.66667)(-0.92222,0.70000)(-0.90600,0.73333)(-0.88943,0.76667)(-0.87262,0.80000)(-0.85568,0.83333)(-0.83875,0.86667)(-0.82196,0.90000)(-0.80544,0.93333)(-0.78933,0.96667)(-0.77374,1.00000)(-0.75879,1.03333)(-0.74454,1.06667)(-0.73107,1.10000)(-0.71841,1.13333)(-0.70658,1.16667)(-0.69557,1.20000)(-0.68536,1.23333)(-0.67593,1.26667)(-0.66722,1.30000)(-0.65921,1.33333)(-0.65184,1.36667)(-0.64506,1.40000)(-0.63883,1.43333)(-0.63310,1.46667)(-0.62783,1.50000)(-0.62298,1.53333)(-0.61851,1.56667)(-0.61439,1.60000)(-0.61059,1.63333)(-0.60707,1.66667)(-0.60382,1.70000)(-0.60081,1.73333)(-0.59801,1.76667)(-0.59542,1.80000)(-0.59301,1.83333)(-0.59076,1.86667)(-0.58867,1.90000)(-0.58672,1.93333)(-0.58490,1.96667)(-0.58319,2.00000)};\draw[->](-0.65921,-1.33333)--(-0.70658,-1.16667);\draw[->](-0.85568,0.83333)--(-0.77374,1.00000);\draw[curve]plot coordinates{(0.58319,-2.00000)(0.58490,-1.96667)(0.58672,-1.93333)(0.58867,-1.90000)(0.59076,-1.86667)(0.59301,-1.83333)(0.59542,-1.80000)(0.59801,-1.76667)(0.60081,-1.73333)(0.60382,-1.70000)(0.60707,-1.66667)(0.61059,-1.63333)(0.61439,-1.60000)(0.61851,-1.56667)(0.62298,-1.53333)(0.62783,-1.50000)(0.63310,-1.46667)(0.63883,-1.43333)(0.64506,-1.40000)(0.65184,-1.36667)(0.65921,-1.33333)(0.66722,-1.30000)(0.67593,-1.26667)(0.68536,-1.23333)(0.69557,-1.20000)(0.70658,-1.16667)(0.71841,-1.13333)(0.73107,-1.10000)(0.74454,-1.06667)(0.75879,-1.03333)(0.77374,-1.00000)(0.78933,-0.96667)(0.80544,-0.93333)(0.82196,-0.90000)(0.83875,-0.86667)(0.85568,-0.83333)(0.87262,-0.80000)(0.88943,-0.76667)(0.90600,-0.73333)(0.92222,-0.70000)(0.93800,-0.66667)(0.95325,-0.63333)(0.96791,-0.60000)(0.98193,-0.56667)(0.99526,-0.53333)(1.00786,-0.50000)(1.01971,-0.46667)(1.03078,-0.43333)(1.04106,-0.40000)(1.05054,-0.36667)(1.05920,-0.33333)(1.06705,-0.30000)(1.07407,-0.26667)(1.08027,-0.23333)(1.08565,-0.20000)(1.09019,-0.16667)(1.09391,-0.13333)(1.09681,-0.10000)(1.09887,-0.06667)(1.10011,-0.03333)(1.10053,0.00000)(1.10011,0.03333)(1.09887,0.06667)(1.09681,0.10000)(1.09391,0.13333)(1.09019,0.16667)(1.08565,0.20000)(1.08027,0.23333)(1.07407,0.26667)(1.06705,0.30000)(1.05920,0.33333)(1.05054,0.36667)(1.04106,0.40000)(1.03078,0.43333)(1.01971,0.46667)(1.00786,0.50000)(0.99526,0.53333)(0.98193,0.56667)(0.96791,0.60000)(0.95325,0.63333)(0.93800,0.66667)(0.92222,0.70000)(0.90600,0.73333)(0.88943,0.76667)(0.87262,0.80000)(0.85568,0.83333)(0.83875,0.86667)(0.82196,0.90000)(0.80544,0.93333)(0.78933,0.96667)(0.77374,1.00000)(0.75879,1.03333)(0.74454,1.06667)(0.73107,1.10000)(0.71841,1.13333)(0.70658,1.16667)(0.69557,1.20000)(0.68536,1.23333)(0.67593,1.26667)(0.66722,1.30000)(0.65921,1.33333)(0.65184,1.36667)(0.64506,1.40000)(0.63883,1.43333)(0.63310,1.46667)(0.62783,1.50000)(0.62298,1.53333)(0.61851,1.56667)(0.61439,1.60000)(0.61059,1.63333)(0.60707,1.66667)(0.60382,1.70000)(0.60081,1.73333)(0.59801,1.76667)(0.59542,1.80000)(0.59301,1.83333)(0.59076,1.86667)(0.58867,1.90000)(0.58672,1.93333)(0.58490,1.96667)(0.58319,2.00000)};\draw[->](0.65921,-1.33333)--(0.70658,-1.16667);\draw[->](0.85568,0.83333)--(0.77374,1.00000);\draw[curve]plot coordinates{(-0.99569,-2.00000)(-0.99765,-1.96667)(-0.99972,-1.93333)(-1.00189,-1.90000)(-1.00419,-1.86667)(-1.00660,-1.83333)(-1.00915,-1.80000)(-1.01184,-1.76667)(-1.01468,-1.73333)(-1.01767,-1.70000)(-1.02082,-1.66667)(-1.02415,-1.63333)(-1.02766,-1.60000)(-1.03136,-1.56667)(-1.03525,-1.53333)(-1.03935,-1.50000)(-1.04367,-1.46667)(-1.04820,-1.43333)(-1.05297,-1.40000)(-1.05797,-1.36667)(-1.06322,-1.33333)(-1.06871,-1.30000)(-1.07444,-1.26667)(-1.08042,-1.23333)(-1.08665,-1.20000)(-1.09312,-1.16667)(-1.09982,-1.13333)(-1.10675,-1.10000)(-1.11388,-1.06667)(-1.12122,-1.03333)(-1.12873,-1.00000)(-1.13639,-0.96667)(-1.14418,-0.93333)(-1.15208,-0.90000)(-1.16005,-0.86667)(-1.16806,-0.83333)(-1.17607,-0.80000)(-1.18406,-0.76667)(-1.19199,-0.73333)(-1.19983,-0.70000)(-1.20753,-0.66667)(-1.21507,-0.63333)(-1.22241,-0.60000)(-1.22953,-0.56667)(-1.23639,-0.53333)(-1.24296,-0.50000)(-1.24922,-0.46667)(-1.25515,-0.43333)(-1.26072,-0.40000)(-1.26591,-0.36667)(-1.27071,-0.33333)(-1.27510,-0.30000)(-1.27906,-0.26667)(-1.28258,-0.23333)(-1.28566,-0.20000)(-1.28827,-0.16667)(-1.29042,-0.13333)(-1.29210,-0.10000)(-1.29331,-0.06667)(-1.29403,-0.03333)(-1.29427,0.00000)(-1.29403,0.03333)(-1.29331,0.06667)(-1.29210,0.10000)(-1.29042,0.13333)(-1.28827,0.16667)(-1.28566,0.20000)(-1.28258,0.23333)(-1.27906,0.26667)(-1.27510,0.30000)(-1.27071,0.33333)(-1.26591,0.36667)(-1.26072,0.40000)(-1.25515,0.43333)(-1.24922,0.46667)(-1.24296,0.50000)(-1.23639,0.53333)(-1.22953,0.56667)(-1.22241,0.60000)(-1.21507,0.63333)(-1.20753,0.66667)(-1.19983,0.70000)(-1.19199,0.73333)(-1.18406,0.76667)(-1.17607,0.80000)(-1.16806,0.83333)(-1.16005,0.86667)(-1.15208,0.90000)(-1.14418,0.93333)(-1.13639,0.96667)(-1.12873,1.00000)(-1.12122,1.03333)(-1.11388,1.06667)(-1.10675,1.10000)(-1.09982,1.13333)(-1.09312,1.16667)(-1.08665,1.20000)(-1.08042,1.23333)(-1.07444,1.26667)(-1.06871,1.30000)(-1.06322,1.33333)(-1.05797,1.36667)(-1.05297,1.40000)(-1.04820,1.43333)(-1.04367,1.46667)(-1.03935,1.50000)(-1.03525,1.53333)(-1.03136,1.56667)(-1.02766,1.60000)(-1.02415,1.63333)(-1.02082,1.66667)(-1.01767,1.70000)(-1.01468,1.73333)(-1.01184,1.76667)(-1.00915,1.80000)(-1.00660,1.83333)(-1.00419,1.86667)(-1.00189,1.90000)(-0.99972,1.93333)(-0.99765,1.96667)(-0.99569,2.00000)};\draw[->](-1.06322,-1.33333)--(-1.09312,-1.16667);\draw[->](-1.16806,0.83333)--(-1.12873,1.00000);\draw[curve]plot coordinates{(0.99569,-2.00000)(0.99765,-1.96667)(0.99972,-1.93333)(1.00189,-1.90000)(1.00419,-1.86667)(1.00660,-1.83333)(1.00915,-1.80000)(1.01184,-1.76667)(1.01468,-1.73333)(1.01767,-1.70000)(1.02082,-1.66667)(1.02415,-1.63333)(1.02766,-1.60000)(1.03136,-1.56667)(1.03525,-1.53333)(1.03935,-1.50000)(1.04367,-1.46667)(1.04820,-1.43333)(1.05297,-1.40000)(1.05797,-1.36667)(1.06322,-1.33333)(1.06871,-1.30000)(1.07444,-1.26667)(1.08042,-1.23333)(1.08665,-1.20000)(1.09312,-1.16667)(1.09982,-1.13333)(1.10675,-1.10000)(1.11388,-1.06667)(1.12122,-1.03333)(1.12873,-1.00000)(1.13639,-0.96667)(1.14418,-0.93333)(1.15208,-0.90000)(1.16005,-0.86667)(1.16806,-0.83333)(1.17607,-0.80000)(1.18406,-0.76667)(1.19199,-0.73333)(1.19983,-0.70000)(1.20753,-0.66667)(1.21507,-0.63333)(1.22241,-0.60000)(1.22953,-0.56667)(1.23639,-0.53333)(1.24296,-0.50000)(1.24922,-0.46667)(1.25515,-0.43333)(1.26072,-0.40000)(1.26591,-0.36667)(1.27071,-0.33333)(1.27510,-0.30000)(1.27906,-0.26667)(1.28258,-0.23333)(1.28566,-0.20000)(1.28827,-0.16667)(1.29042,-0.13333)(1.29210,-0.10000)(1.29331,-0.06667)(1.29403,-0.03333)(1.29427,0.00000)(1.29403,0.03333)(1.29331,0.06667)(1.29210,0.10000)(1.29042,0.13333)(1.28827,0.16667)(1.28566,0.20000)(1.28258,0.23333)(1.27906,0.26667)(1.27510,0.30000)(1.27071,0.33333)(1.26591,0.36667)(1.26072,0.40000)(1.25515,0.43333)(1.24922,0.46667)(1.24296,0.50000)(1.23639,0.53333)(1.22953,0.56667)(1.22241,0.60000)(1.21507,0.63333)(1.20753,0.66667)(1.19983,0.70000)(1.19199,0.73333)(1.18406,0.76667)(1.17607,0.80000)(1.16806,0.83333)(1.16005,0.86667)(1.15208,0.90000)(1.14418,0.93333)(1.13639,0.96667)(1.12873,1.00000)(1.12122,1.03333)(1.11388,1.06667)(1.10675,1.10000)(1.09982,1.13333)(1.09312,1.16667)(1.08665,1.20000)(1.08042,1.23333)(1.07444,1.26667)(1.06871,1.30000)(1.06322,1.33333)(1.05797,1.36667)(1.05297,1.40000)(1.04820,1.43333)(1.04367,1.46667)(1.03935,1.50000)(1.03525,1.53333)(1.03136,1.56667)(1.02766,1.60000)(1.02415,1.63333)(1.02082,1.66667)(1.01767,1.70000)(1.01468,1.73333)(1.01184,1.76667)(1.00915,1.80000)(1.00660,1.83333)(1.00419,1.86667)(1.00189,1.90000)(0.99972,1.93333)(0.99765,1.96667)(0.99569,2.00000)};\draw[->](1.06322,-1.33333)--(1.09312,-1.16667);\draw[->](1.16806,0.83333)--(1.12873,1.00000);\draw[curve]plot coordinates{(-1.44892,-2.00000)(-1.45058,-1.96667)(-1.45230,-1.93333)(-1.45409,-1.90000)(-1.45595,-1.86667)(-1.45787,-1.83333)(-1.45986,-1.80000)(-1.46193,-1.76667)(-1.46408,-1.73333)(-1.46629,-1.70000)(-1.46859,-1.66667)(-1.47097,-1.63333)(-1.47342,-1.60000)(-1.47596,-1.56667)(-1.47858,-1.53333)(-1.48128,-1.50000)(-1.48407,-1.46667)(-1.48694,-1.43333)(-1.48989,-1.40000)(-1.49292,-1.36667)(-1.49603,-1.33333)(-1.49922,-1.30000)(-1.50248,-1.26667)(-1.50582,-1.23333)(-1.50922,-1.20000)(-1.51269,-1.16667)(-1.51622,-1.13333)(-1.51980,-1.10000)(-1.52342,-1.06667)(-1.52709,-1.03333)(-1.53079,-1.00000)(-1.53452,-0.96667)(-1.53826,-0.93333)(-1.54200,-0.90000)(-1.54575,-0.86667)(-1.54947,-0.83333)(-1.55318,-0.80000)(-1.55685,-0.76667)(-1.56047,-0.73333)(-1.56403,-0.70000)(-1.56753,-0.66667)(-1.57094,-0.63333)(-1.57426,-0.60000)(-1.57747,-0.56667)(-1.58057,-0.53333)(-1.58354,-0.50000)(-1.58637,-0.46667)(-1.58906,-0.43333)(-1.59159,-0.40000)(-1.59395,-0.36667)(-1.59614,-0.33333)(-1.59814,-0.30000)(-1.59995,-0.26667)(-1.60157,-0.23333)(-1.60298,-0.20000)(-1.60419,-0.16667)(-1.60518,-0.13333)(-1.60595,-0.10000)(-1.60651,-0.06667)(-1.60684,-0.03333)(-1.60695,0.00000)(-1.60684,0.03333)(-1.60651,0.06667)(-1.60595,0.10000)(-1.60518,0.13333)(-1.60419,0.16667)(-1.60298,0.20000)(-1.60157,0.23333)(-1.59995,0.26667)(-1.59814,0.30000)(-1.59614,0.33333)(-1.59395,0.36667)(-1.59159,0.40000)(-1.58906,0.43333)(-1.58637,0.46667)(-1.58354,0.50000)(-1.58057,0.53333)(-1.57747,0.56667)(-1.57426,0.60000)(-1.57094,0.63333)(-1.56753,0.66667)(-1.56403,0.70000)(-1.56047,0.73333)(-1.55685,0.76667)(-1.55318,0.80000)(-1.54947,0.83333)(-1.54575,0.86667)(-1.54200,0.90000)(-1.53826,0.93333)(-1.53452,0.96667)(-1.53079,1.00000)(-1.52709,1.03333)(-1.52342,1.06667)(-1.51980,1.10000)(-1.51622,1.13333)(-1.51269,1.16667)(-1.50922,1.20000)(-1.50582,1.23333)(-1.50248,1.26667)(-1.49922,1.30000)(-1.49603,1.33333)(-1.49292,1.36667)(-1.48989,1.40000)(-1.48694,1.43333)(-1.48407,1.46667)(-1.48128,1.50000)(-1.47858,1.53333)(-1.47596,1.56667)(-1.47342,1.60000)(-1.47097,1.63333)(-1.46859,1.66667)(-1.46629,1.70000)(-1.46408,1.73333)(-1.46193,1.76667)(-1.45986,1.80000)(-1.45787,1.83333)(-1.45595,1.86667)(-1.45409,1.90000)(-1.45230,1.93333)(-1.45058,1.96667)(-1.44892,2.00000)};\draw[->](-1.49603,-1.33333)--(-1.51269,-1.16667);\draw[->](-1.54947,0.83333)--(-1.53079,1.00000);\draw[curve]plot coordinates{(1.44892,-2.00000)(1.45058,-1.96667)(1.45230,-1.93333)(1.45409,-1.90000)(1.45595,-1.86667)(1.45787,-1.83333)(1.45986,-1.80000)(1.46193,-1.76667)(1.46408,-1.73333)(1.46629,-1.70000)(1.46859,-1.66667)(1.47097,-1.63333)(1.47342,-1.60000)(1.47596,-1.56667)(1.47858,-1.53333)(1.48128,-1.50000)(1.48407,-1.46667)(1.48694,-1.43333)(1.48989,-1.40000)(1.49292,-1.36667)(1.49603,-1.33333)(1.49922,-1.30000)(1.50248,-1.26667)(1.50582,-1.23333)(1.50922,-1.20000)(1.51269,-1.16667)(1.51622,-1.13333)(1.51980,-1.10000)(1.52342,-1.06667)(1.52709,-1.03333)(1.53079,-1.00000)(1.53452,-0.96667)(1.53826,-0.93333)(1.54200,-0.90000)(1.54575,-0.86667)(1.54947,-0.83333)(1.55318,-0.80000)(1.55685,-0.76667)(1.56047,-0.73333)(1.56403,-0.70000)(1.56753,-0.66667)(1.57094,-0.63333)(1.57426,-0.60000)(1.57747,-0.56667)(1.58057,-0.53333)(1.58354,-0.50000)(1.58637,-0.46667)(1.58906,-0.43333)(1.59159,-0.40000)(1.59395,-0.36667)(1.59614,-0.33333)(1.59814,-0.30000)(1.59995,-0.26667)(1.60157,-0.23333)(1.60298,-0.20000)(1.60419,-0.16667)(1.60518,-0.13333)(1.60595,-0.10000)(1.60651,-0.06667)(1.60684,-0.03333)(1.60695,0.00000)(1.60684,0.03333)(1.60651,0.06667)(1.60595,0.10000)(1.60518,0.13333)(1.60419,0.16667)(1.60298,0.20000)(1.60157,0.23333)(1.59995,0.26667)(1.59814,0.30000)(1.59614,0.33333)(1.59395,0.36667)(1.59159,0.40000)(1.58906,0.43333)(1.58637,0.46667)(1.58354,0.50000)(1.58057,0.53333)(1.57747,0.56667)(1.57426,0.60000)(1.57094,0.63333)(1.56753,0.66667)(1.56403,0.70000)(1.56047,0.73333)(1.55685,0.76667)(1.55318,0.80000)(1.54947,0.83333)(1.54575,0.86667)(1.54200,0.90000)(1.53826,0.93333)(1.53452,0.96667)(1.53079,1.00000)(1.52709,1.03333)(1.52342,1.06667)(1.51980,1.10000)(1.51622,1.13333)(1.51269,1.16667)(1.50922,1.20000)(1.50582,1.23333)(1.50248,1.26667)(1.49922,1.30000)(1.49603,1.33333)(1.49292,1.36667)(1.48989,1.40000)(1.48694,1.43333)(1.48407,1.46667)(1.48128,1.50000)(1.47858,1.53333)(1.47596,1.56667)(1.47342,1.60000)(1.47097,1.63333)(1.46859,1.66667)(1.46629,1.70000)(1.46408,1.73333)(1.46193,1.76667)(1.45986,1.80000)(1.45787,1.83333)(1.45595,1.86667)(1.45409,1.90000)(1.45230,1.93333)(1.45058,1.96667)(1.44892,2.00000)};\draw[->](1.49603,-1.33333)--(1.51269,-1.16667);\draw[->](1.54947,0.83333)--(1.53079,1.00000);\draw[->,thick](-2.1,-.65)--(-2.1,.1)node[above]{$\vct E_0$};\node at(0,-.3){绝缘孔};\draw[->](0,0)--(40:1)node[midway,above left]{$a$};\node[right]at(1.8,.75){$\vct j=\sigma\vct E$};\draw[->,thick](1.04,-.25)--(1.04,.35)node[right]{$\vct j_t$};
+\end{tikzpicture}
+\caption{按通量不变量计算的绕孔流线；孔壁法向电流为零，赤道电流沿正$z$方向。}\label{fig:es3-e11-s}
+\end{figure}
+电流线可由微分方程完整积分。因$\vct j=\sigma\vct E$，其切线满足
+\[\frac{\dd r}{r\dd\theta}=\frac{E_r}{E_\theta}
+=-\frac{2(r^3-a^3)}{2r^3+a^3}\cot\theta.
+\]
+把变量分开，
+\[\left(\frac{3r^2}{r^3-a^3}-\frac1r\right)\dd r=-2\cot\theta\dd\theta.
+\]
+两边分别是$\dd\ln[(r^3-a^3)/r]$与$-2\dd\ln\sin\theta$，故
+\[\boxed{(r^2-a^3/r)\sin^2\theta=C}.
+\]
+这里取$r>a,0<\theta<\pi$。除法时排除的极轴以及$C=0$的孔壁须另保留；前后极点是场为零的停滞点，电流不穿过球孔。
+
+通量法给出同一常数。球冠上的电场通量为
+\[\begin{aligned}
+\Psi&=2\pi\int_0^\theta E_r(r,u)r^2\sin u\dd u\\
+&=2\pi E_0(r^2-a^3/r)\int_0^\theta\cos u\sin u\dd u\\
+&=2\pi E_0(r^2-a^3/r)[\sin^2u/2]_0^\theta
+=\pi E_0(r^2-a^3/r)\sin^2\theta.
+\end{aligned}\]
+无源场管的$\Psi$不变，所以恢复刚才的场线。反过来，$E_r=\Psi_\theta/(2\pi r^2\sin\theta)$、$E_\theta=-\Psi_r/(2\pi r\sin\theta)$也逐项恢复两个分量。
+
+再求孔内场。壁面电势为$-(3/2)E_0a\cos\theta$，孔内无源且原点正则，故只能取一次正则模
+\[\varphi_i=-C_i r\cos\theta,\qquad C_i=\frac32E_0.
+\]
+因此$\vct E_i=(3/2)E_0\vct e_z$。孔内电场不为零，导电电流却因电导率为零而为零。
+
+等效偶极层可由两个均匀带电球微小错位理解。球的电量为$Q_v=4\pi\rho a^3/3$，错位$\vct h$给偶极矩$Q_v\vct h$。单个均匀带电球内部场为$\rho\vct r/(3\epsilon_0)$，正负两球相减后留下均匀场$-\rho\vct h/(3\epsilon_0)$。代$Q_v\vct h=\vct p_{\rm eq}$，附加内场为$+E_0\vct e_z/2$，与总内场$3E_0/2$一致。这个等效源只用于复现孔内外的电势，不表示孔内真实存在体电荷。
+\end{solution}
+
+\begin{example}[小球孔引起的导线电阻增量]\label{ex:es3-e12}
+长圆柱导线半径$R$、长度$H$、电导率$\sigma$，内部有半径$a\ll R$的绝缘球孔，孔距侧壁和两端均远大于$a$。求电阻增量的首项，并说明为何不能只扣除孔的体积来估算。 见图~\ref{fig:es3-e12-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-3,-.8)rectangle(3,.8);\draw[curve](0,0)circle(.4);\draw[axis](-2.8,0)--(-1.6,0)node[above]{$I$};\draw[<->](-3,-1.1)--(3,-1.1)node[midway,below]{$H$};\node[right]at(3,0){$R$};\node[above right]at(.4,.3){$a$};
+\end{tikzpicture}
+\caption{孔尺寸小于所有外边界距离，局部场可用无限导体球孔解。}\label{fig:es3-e12-q}
+\end{figure}
+\begin{solution}
+导线截面积记作$A=\pi R^2$。无孔时，给定电流$I$对应$E_0=I/(\sigma A)$和$R_0=H/(\sigma A)$。以孔心为原点取$\varphi_0=-E_0z$，电极的参考电压差为$V_0=E_0H$。有孔时的势记作$\varphi$，在同一总电流$I$下电压差变成$V=V_0+\Delta V$。
+
+在有孔的导电区域$\Omega$中，两势都满足Laplace方程。Green第二恒等式给
+\[\iint_{\partial\Omega}(\varphi\partial_n\varphi_0-
+\varphi_0\partial_n\varphi)\dd S=0.
+\]
+外法向统一指向导电域之外。侧壁绝缘，两项法向导数均为零。两端电极分别等势，且两解有相同总电流：在上游端$\sigma\int\partial_n\varphi\dd S=+I$，下游端为$-I$，参考解同样成立。因此两端贡献逐项为
+\[\sigma\int_{\rm ends}\varphi\partial_n\varphi_0\dd S=I(\varphi_L-\varphi_R)=IV,
+\]
+\[\sigma\int_{\rm ends}\varphi_0\partial_n\varphi\dd S=IV_0.
+\]
+孔壁上实际电流法向分量为零，即$\partial_n\varphi=0$。于是恒等式化为
+\[I\Delta V=-\sigma\iint_{\rm hole}\varphi\partial_n\varphi_0\dd S.
+\]
+这一步在相同电流而非相同端电压下比较，才有$\Delta R=\Delta V/I$。
+
+孔远小于各外边界距离，可用前例的局部解。图~\ref{fig:es3-e12-s}中孔壁的导电域外法向为$-\vct e_r$，所以
+\[\varphi(a,\theta)=-\frac32E_0a\cos\theta,
+\qquad\partial_n\varphi_0=-\partial_r(-E_0r\cos\theta)=E_0\cos\theta.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.3);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.8)--(0,1.9)node[above]{$z$};\draw[axis](1.04,.78)--(.64,.48)node[above left]{$\vct n=-\vct e_r$};\node[right]at(1.5,-.5){$\varphi=-(3/2)E_0a\cos\theta$};\node[left]at(-1.4,.5){积分在孔壁};
+\end{tikzpicture}
+\caption{互易积分使用导电域的外法向，正号电阻增量由孔壁角积分确定。}\label{fig:es3-e12-s}
+\end{figure}
+代入壁面积分，每一步的符号和面积元为
+\[\begin{aligned}
+I^2\Delta R
+&=-\sigma\int_0^{2\pi}\!\int_0^\pi
+\left(-\frac32E_0a\cos\theta\right)(E_0\cos\theta)
+a^2\sin\theta\dd\theta\dd\phi\\
+&=3\pi\sigma E_0^2a^3\int_0^\pi\cos^2\theta\sin\theta\dd\theta\\
+&=3\pi\sigma E_0^2a^3\int_{-1}^{1}u^2\dd u
+=3\pi\sigma E_0^2a^3\left[\frac{u^3}3\right]_{-1}^1
+=2\pi\sigma E_0^2a^3.
+\end{aligned}\]
+再代$I=\sigma AE_0$，消去背景场，得到首项
+\[\boxed{\Delta R=\frac{2\pi a^3}{\sigma A^2}
+=\frac{2a^3}{\pi\sigma R^4}},\qquad
+\boxed{\frac{\Delta R}{R_0}=\frac{2a^3}{HR^2}=\frac32\frac{V_h}{AH}},
+\quad V_h=\frac{4\pi a^3}{3}.
+\]
+所有结果均取小孔相对各外边界距离趋零的首阶。增量为正；它包含孔本身失去的导电体积和孔外绕流的附加耗散，因此不是只按体积扣除得到的系数$1$。
+
+若孔位于导线轴线上，用等效偶极作端部匹配也能得到同一电压增量。孔外扰动势为
+\[\delta\varphi=-\frac{E_0a^3z}{2(s^2+z^2)^{3/2}}.
+\]
+在$a\ll|z|\ll R$的横截面上，它的平均值可把侧壁的局部修正暂时忽略，取
+\[\begin{aligned}
+\overline{\delta\varphi}(z)
+&=-\frac{\pi E_0a^3z}{A}\int_0^R\frac{s\dd s}{(s^2+z^2)^{3/2}}\\
+&=-\frac{\pi E_0a^3z}{A}\left[-\frac1{\sqrt{s^2+z^2}}\right]_0^R\\
+&=-\frac{\pi E_0a^3}{A}\left[\sgn z-\frac z{\sqrt{R^2+z^2}}\right]
+\simeq-\frac{\pi E_0a^3}{A}\sgn z.
+\end{aligned}\]
+孔上、下游的匹配常数因而相差$2\pi E_0a^3/A$。固定$I$时这对应额外电压降$\Delta V=2\pi E_0a^3/A=2E_0a^3/R^2$，再除以$I$恢复电阻增量。无限域偶极势在无穷远本身趋零，有限导线的端部电压修正来自横截面平均值的匹配，不能直接把无限远点势当作端电压。
+\end{solution}
+
+\input{lecture3_depth}
+\section{习题与解答}
+同一几何在固定电量与固定电压下可以有不同的能量表达。以下题目的力、能量和电容均按各题明确的控制条件计算。
+
+\begin{exercise}[带总电量的孤立球]\label{ex:es3-h1}
+例\ref{ex:es3-e2}中球的给定总电量为$Q_s$，不接地。构造球外势并求球面电势和点电荷受力。 见图~\ref{fig:es3-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](-1.6,0)--(3.3,0)node[right]{$z$};\fill(2.6,0)circle(1.8pt)node[above]{$q,d$};\node at(-.4,.55){$R$};
+\end{tikzpicture}
+\caption{带总电量的孤立球与外点电荷}\label{fig:es3-h1-q}
+\end{figure}
+\begin{solution}
+偏心像仍为$q'=-Rq/d$、$b=R^2/d$，它负责抵消真实源在球面的非均匀势。球心补像改为$q_0=Q_s+Rq/d$，于是像总电量恰为$Q_s$。外势为真实源、偏心像和球心像的库仑势之和。
+
+图~\ref{fig:es3-h1-s}中球面势只剩球心补像贡献，$U=\ke Q_s/R+\ke q/d$。真实源受力为$F_z=-\ke q^2Rd/(d^2-R^2)^2+\ke qQ_s/d^2+\ke q^2R/d^3$。中间项可吸引也可排斥，另两项合为中性球的诱导吸引。只有当所给$Q_s$恰使$q_0=0$时，孤立球的该瞬时解才与接地解相同；接地球总电量会随$d$改变。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](-1.6,0)--(3.3,0)node[right]{$z$};\fill(2.6,0)circle(1.8pt)node[above]{$q,d$};\node at(-.4,.55){$R$};\fill(.60096,0)circle(1.6pt)node[below]{$-Rq/d$};\draw[guide](0,0)--(-1.3,1.5)node[above]{$Q_s+Rq/d$};
+
+\end{tikzpicture}
+\caption{偏心像与球心补像分别满足两类条件}\label{fig:es3-h1-s}
+\end{figure}
+
+
+若求相互作用能，给定球总电量$Q_s$的部分贡献$\ke qQ_s/d$，诱导部分为中性球相互作用能$-\ke q^2R^3/[2d^2(d^2-R^2)]$。第一部分不取半，因为$Q_s$是预先存在的固定电量；第二部分取半，因为诱导分布随$q$建立。将后者写成
+\[U_{\rm ind}=-\frac{\ke q^2R}{2}\left(\frac1{d^2-R^2}-\frac1{d^2}\right),\]
+逐项求负导数得
+\[-U_{\rm ind}'=\frac{\ke q^2R}{2}\left[-\frac{2d}{(d^2-R^2)^2}+\frac2{d^3}\right].\]
+固定源项的负导数为$\ke qQ_s/d^2$，两者相加即为所列力。同一个球心补像包含固定源与诱导源，组装能须按这两部分分别处理。
+\end{solution}
+
+\begin{exercise}[接地球的面电荷]\label{ex:es3-h2}
+接地球半径$R$，正点电荷$q$位于轴上$d>R$。求球面感应电荷密度，并判断最近点与最远点的符号及强弱。 见图~\ref{fig:es3-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](-1.6,0)--(3.3,0)node[right]{$z$};\fill(2.6,0)circle(1.8pt)node[above]{$q,d$};\node at(-.4,.55){$R$};
+\end{tikzpicture}
+\caption{接地球外的轴上点电荷}\label{fig:es3-h2-q}
+\end{figure}
+\begin{solution}
+对真实源与球像势取$r$导数，再令$r=R$。记$L(\theta)=\sqrt{R^2+d^2-2Rd\cos\theta}$，真实源对外法向场的贡献为$\ke q(R-d\cos\theta)/L^3$。像的贡献为$\ke q'(R-b\cos\theta)/L'^3$，其中$b=R^2/d$、$q'=-Rq/d$、$L'=RL/d$。因此
+\[\begin{split}
+E_r(R,\theta)&=\frac{\ke q}{L^3}
+\left[(R-d\cos\theta)-\frac{d^2}{R^2}
+\left(R-\frac{R^2}{d}\cos\theta\right)\right]\\
+&=-\frac{\ke q(d^2-R^2)}{RL^3}.
+\end{split}\]
+最后乘$\epsilon_0$，得到
+\[\sigma(\theta)=-\frac{q(d^2-R^2)}{4\pi R[L(\theta)]^3}.
+\]
+图~\ref{fig:es3-h2-s}中$\theta=0$是最近点，$L=d-R$最小，负面电荷最密；$\theta=\pi$最远，仍为负但较稀。对球面积分得$-Rq/d$，与偏心像总电量一致。$d\to R^+$时最近点密度急剧增大，而远端趋小；不能把局部密度发散误认为整球电量也无限大，整球电量趋向$-q$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](-1.6,0)--(3.3,0)node[right]{$z$};\fill(2.6,0)circle(1.8pt)node[above]{$q,d$};\node at(-.4,.55){$R$};\fill(1.25,0)circle(1.8pt)node[below right]{$\theta=0$};\fill(-1.25,0)circle(1.8pt)node[above left]{$\theta=\pi$};
+\end{tikzpicture}
+\caption{近、远两端的感应面电荷比较}\label{fig:es3-h2-s}
+\end{figure}
+
+
+积分验证时，令$u=R^2+d^2-2Rd\cos\theta$，$\sin\theta\dd\theta=\dd u/(2Rd)$。端点$0,\pi$分别变为$(d-R)^2,(d+R)^2$，于是
+\[\begin{aligned}
+\int_0^\pi\frac{\sin\theta\dd\theta}{L^3}
+&=\frac1{2Rd}\int_{(d-R)^2}^{(d+R)^2}u^{-3/2}\dd u\\
+&=\frac1{2Rd}[-2u^{-1/2}]_{(d-R)^2}^{(d+R)^2}
+=\frac2{d(d^2-R^2)}.
+\end{aligned}\]
+乘$2\pi R^2$和密度系数即得$-Rq/d$。最近、最远点密度大小之比为$[(d+R)/(d-R)]^3$，其三次幂来自面密度中的距离三次反比。
+\end{solution}
+
+\begin{exercise}[球内点电荷与接地腔壁]\label{ex:es3-h3}
+半径$R$的接地球形空腔内有点电荷$q$，距心$h<R$。求腔内势、作用力及相互作用能。 见图~\ref{fig:es3-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.5);\fill(0,0)circle(1.4pt)node[below left]{$O$};\fill(.5,0)circle(1.8pt)node[above]{$q,h$};\draw[axis](-1.8,0)--(2.3,0);
+\end{tikzpicture}
+\caption{接地球腔内的偏心电荷}\label{fig:es3-h3-q}
+\end{figure}
+\begin{solution}
+反演公式仍给$q'=-Rq/h$、$b=R^2/h$，但像这次位于球外，恰好排除于腔内物理域。势为两源叠加，在腔壁零势。像到真实源的距离$b-h=(R^2-h^2)/h$，故
+\[F_h=\frac{\ke q^2Rh}{(R^2-h^2)^2},\qquad W=-\frac{\ke q^2R}{2(R^2-h^2)}.
+\]
+由能量求力也可核实方向：$\dd(R^2-h^2)^{-1}/\dd h=2h/(R^2-h^2)^2$，故$-W'=\ke q^2Rh/(R^2-h^2)^2$。图~\ref{fig:es3-h3-s}中的力朝较近腔壁，中心平衡不稳定。$h\to0$时像电量和像距离同时趋于无穷，其在腔内留下有限常数势$-\ke q/R$，反作用场趋零；发散的是像参数，物理场有确定极限。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.3);\fill(0,0)circle(1.4pt)node[below left]{$O$};\fill(.45,0)circle(1.7pt)node[above]{$q$};\fill(3.7556,0)circle(1.7pt)node[above]{$q^{\prime}$};\draw[axis](.45,0)--(1.05,0)node[below]{$F_h$};\draw[guide](1.3,0)--(3.7556,0);
+\end{tikzpicture}
+\caption{球外反演像与朝近壁的吸力}\label{fig:es3-h3-s}
+\end{figure}
+
+
+近中心展开能量$W=-\ke q^2/(2R)-\ke q^2h^2/(2R^3)+O(h^4)$，二次系数为负，故$F_h=\ke q^2h/R^3+O(h^3)$。与外部球像问题相比，反演公式形式相同，力的几何方向却不同：腔内像在真实源外侧，吸力把它拉向近壁；球外像在源的内侧，吸力拉向球心。先标明物理区域，再谈“向内”或“向外”，可以避免这类语言歧义。
+\end{solution}
+
+\begin{exercise}[直角接地二面角]\label{ex:es3-h4}
+两互相垂直的接地平面$x=0,y=0$，真实电荷$q$位于$(a,b,0)$，$a,b>0$。求作用力的两个分量。 见图~\ref{fig:es3-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,-1)--(0,2.2);\draw[curve](-1,0)--(2.7,0);\fill(1.6,1.2)circle(1.8pt)node[right]{$q,(a,b)$};
+\end{tikzpicture}
+\caption{直角接地边界内的真实电荷}\label{fig:es3-h4-q}
+\end{figure}
+\begin{solution}
+像分别是$-q$位于$(-a,b)$、$-q$位于$(a,-b)$、$+q$位于$(-a,-b)$。两个负像各吸向对应平面，正像贡献斜向排斥。令$s=\sqrt{a^2+b^2}$，得
+\[F_x=-\frac{\ke q^2}{4a^2}+\frac{\ke q^2a}{4s^3},\quad
+F_y=-\frac{\ke q^2}{4b^2}+\frac{\ke q^2b}{4s^3}.
+\]
+图~\ref{fig:es3-h4-s}中的双反射像用于恢复单反射破坏的另一张边界。因为$s>a,b$，两分量均指向近边界。能量为$W=\ke q^2[-1/a-1/b+1/s]/4$，其中$\partial_a(s^{-1})=-a/s^3$、$\partial_b(s^{-1})=-b/s^3$，故
+\[-\partial_aW=-\frac{\ke q^2}{4}(a^{-2}-a/s^3),\qquad
+-\partial_bW=-\frac{\ke q^2}{4}(b^{-2}-b/s^3),\]
+与三个像的直接受力相符。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,-1.8)--(0,1.8);\draw[curve](-2.2,0)--(2.2,0);\foreach\x/\y/\lab in{1.2/1/q,-1.2/1/-q,1.2/-1/-q,-1.2/-1/+q}{\fill(\x,\y)circle(1.6pt)node[above]{$\lab$};}
+\end{tikzpicture}
+\caption{单反射与双反射的三个像}\label{fig:es3-h4-s}
+\end{figure}
+
+
+若$a=b$，两分量相等，合力沿角平分线指向顶角；但其大小不是两个单平面力的简单矢量和，因为双反射正像削弱了吸引。若$b\to\infty$且$a$固定，与$y=0$平面有关的两像作用趋零，$F_x$恢复单平面值。几何退化极限能够识别遗漏双反射像或把它符号写反的错误。
+\end{solution}
+
+\begin{exercise}[接触双球的截断误差]\label{ex:es3-h5}
+用前$N$项像电量近似相接等球电容。给出绝对误差上界，并说明为何不能把该交替和换成全部正项的调和和。 见图~\ref{fig:es3-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1,0)circle(1);\draw[curve](1,0)circle(1);\node at(0,1.5){$1-1/2+1/3-\cdots$};
+\end{tikzpicture}
+\caption{同势接触双球的交替像电量}\label{fig:es3-h5-q}
+\end{figure}
+\begin{solution}
+每球电量的无量纲和为$S_N=\sum_{j=1}^N(-1)^{j-1}/j$。交替级数余项不超过首个舍去项，$|S_N-\ln2|\le1/(N+1)$。所以整体电容的绝对误差满足$|C_N-C|\le8\pi\epsilon_0R/(N+1)$，奇偶截断分别位于真实值两侧。
+
+图~\ref{fig:es3-h5-s}中上下两列截断值夹住极限。全部取正对应另一种电势反对称的近接像链，并且在零缝隙时发散，物理问题已经改变。电量符号不是为了收敛而人为加入，而是逐次零势补偿所决定。若要数值加速，可对交替和成对相加或直接积分$\int_0^1\dd t/(1+t)$，但不得改变边界对应的符号。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.2,0)node[right]{$N$};\draw[axis](0,0)--(0,2.15)node[above]{$S_N$};\draw[curve]plot coordinates{(0.45000,1.80000)(0.90000,0.90000)(1.35000,1.50000)(1.80000,1.05000)(2.25000,1.41000)(2.70000,1.11000)(3.15000,1.36714)(3.60000,1.14214)(4.05000,1.34214)(4.50000,1.16214)};\fill(0.45000,1.80000)circle(1.2pt);\fill(0.90000,0.90000)circle(1.2pt);\fill(1.35000,1.50000)circle(1.2pt);\fill(1.80000,1.05000)circle(1.2pt);\fill(2.25000,1.41000)circle(1.2pt);\fill(2.70000,1.11000)circle(1.2pt);\fill(3.15000,1.36714)circle(1.2pt);\fill(3.60000,1.14214)circle(1.2pt);\fill(4.05000,1.34214)circle(1.2pt);\fill(4.50000,1.16214)circle(1.2pt);\draw[guide](0,1.24766)--(4.8,1.24766)node[right]{$\ln2$};\foreach\x in{1,5,10}{\draw({.45*\x},0)--({.45*\x},-.06)node[below]{$\x$};}
+\end{tikzpicture}
+\caption{交替调和和$S_N$的前十个真实截断值；奇数截断在上，偶数截断在下。}\label{fig:es3-h5-s}
+\end{figure}
+
+
+成对求和可写$S_{2M}=\sum_{j=1}^M[1/(2j-1)-1/(2j)]$，每对为正且按$j^{-2}$减小，便于计算尾项界。这里的邻项抵消来自同势边界要求的反号补偿，求和时须保留这一符号关系。
+\end{solution}
+
+\begin{exercise}[近接双球的局部积分]\label{ex:es3-h6}
+用$d(s)=\Delta+s^2/R$近似两球间隙，对半径$s_0$以内的窄缝求电容贡献。说明哪些常数不能由这个局部计算确定。 见图~\ref{fig:es3-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.3,0)circle(1.2);\draw[curve](1.3,0)circle(1.2);\draw[axis](-3,0)--(3,0)node[right]{$z$};\node at(-1.3,.6){$+U$};\node at(1.3,.6){$-U$};\draw[<->](-.1,-.3)--(.1,-.3)node[midway,below]{$\Delta$};
+\end{tikzpicture}
+\caption{反对称近接双球的窄缝}\label{fig:es3-h6-q}
+\end{figure}
+\begin{solution}
+窄缝内场近似沿局部法向，电压为$V=2U$，圆环微元电容为$\dd C=2\pi\epsilon_0s\dd s/(\Delta+s^2/R)$。令$w=\Delta+s^2/R$，$\dd w=2s\dd s/R$，则
+\[C_{\rm local}=\pi\epsilon_0R\int_\Delta^{\Delta+s_0^2/R}\frac{\dd w}w
+=\pi\epsilon_0R[\ln w]_\Delta^{\Delta+s_0^2/R}
+=\pi\epsilon_0R\ln\left(1+\frac{s_0^2}{R\Delta}\right).\]
+
+图~\ref{fig:es3-h6-s}要求$\sqrt{R\Delta}\ll s_0\ll R$，既包含对数区又仍可把球面写成抛物面。于是局部式含$\pi\epsilon_0R\ln(R/\Delta)$加依赖$s_0/R$的常数。真实电容不依赖人为截断$s_0$，外区的贡献会消去该依赖，所以局部近似只可靠确定对数系数，不能给出完整的有界常数。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,domain=-1.8:1.8]plot({-.15-.22*(\x)^2},\x);\draw[curve,domain=-1.8:1.8]plot({.15+.22*(\x)^2},\x);\draw[<->](-.37,1)--(.37,1)node[midway,above]{$d(s)$};\draw[axis](0,0)--(0,2.1)node[above]{$s$};\node[below]at(0,-2){局部抛物缝};
+\end{tikzpicture}
+\caption{局部抛物间隙与积分宽度}\label{fig:es3-h6-s}
+\end{figure}
+
+
+令$s=\sqrt{R\Delta}\,u$，积分变为$2\pi\epsilon_0R\int_0^{s_0/\sqrt{R\Delta}}u\dd u/(1+u^2)$。从$u\ll1$到$u\gg1$的过渡尺度就是$\sqrt{R\Delta}$，而在$1\ll u\ll\sqrt{R/\Delta}$区，积分核为$\dd u/u$。对数主项由这段环形区域累积而成；只计算轴线上最窄间隙，无法计入这部分电量。
+\end{solution}
+
+\begin{exercise}[带电摆临界点的四次稳定性]\label{ex:es3-h7}
+例\ref{ex:es3-e7}满足$\omega^2=0$。求四次势能为正的几何条件；若四次系数也为零，再判断六次项的符号。 见图~\ref{fig:es3-h7-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-1.6,-1.7)--(-1.6,1.8) (1.6,-1.7)--(1.6,1.8);\draw[<->](-1.6,-2)--(1.6,-2)node[midway,below]{$2l$};\draw[curve](0,1.5)--(.4,-.5);\fill(.4,-.5)circle(2pt);\node at(.6,.5){$h$};
+\end{tikzpicture}
+\caption{临界带电摆的几何参数}\label{fig:es3-h7-q}
+\end{figure}
+\begin{solution}
+记$S_j=\sum_{n\ {\rm odd}>0}n^{-j}=(1-2^{-j})\zeta(j)$。临界条件为$mg/h=\ke q^2S_3/l^3$。四次系数
+\[A_4=\frac{mg}{8h^3}-\frac{\ke q^2S_5}{2l^5}
+=\frac{mg}{8h^3}\left[1-4\frac{h^2}{l^2}\frac{S_5}{S_3}\right].\]
+所以$h/l<\sqrt{S_3/(4S_5)}$时四次稳定，大于时不稳定。图~\ref{fig:es3-h7-s}中两种四次曲线分别上开与下开；临界二次项消失并不决定其方向。
+
+若$A_4=0$，重力六次系数为$mg/(16h^5)$，电像六次系数为$-\ke q^2S_7/(2l^7)$。代入临界条件和$h^2/l^2=S_3/(4S_5)$，括号化为$1-S_3S_7/(2S_5^2)>0$，故六次项正。这里的正号可用不依赖小数的估计证明。对递减正函数，
+\[\begin{aligned}
+S_3&<\sum_{n=1}^{\infty}n^{-3}<1+\int_1^\infty x^{-3}\dd x
+=1+[-1/(2x^2)]_1^\infty=\frac32,\\
+S_7&<1+\int_1^\infty x^{-7}\dd x
+=1+[-1/(6x^6)]_1^\infty=\frac76,\qquad S_5>1.
+\end{aligned}
+\]
+故$S_3S_7/(2S_5^2)<(3/2)(7/6)/2=7/8<1$，六次系数严格为正。因此双重临界点仍非线性稳定，周期随小振幅进一步发散。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1cm,y=1cm]\draw[axis](-1.2,0)--(1.38,0)node[right]{$x$};\draw[axis](0,-1)--(0,1.2)node[above]{$U-U_0$};\draw[curve,domain=-1.2:1.2,samples=101]plot(\x,{.4*(\x)^4});\draw[dashed,domain=-1.2:1.2]plot(\x,{-.4*(\x)^4});\end{scope}
+\end{tikzpicture}
+\caption{正、负四次势能的两种形状}\label{fig:es3-h7-s}
+\end{figure}
+
+
+设最低非零势能项为 $U-U_0=A_{2n}x^{2n}$，其中 $A_{2n}>0$，小振幅为 $S$。在这一主导近似下，能量守恒给出 $m\dot x^2/2=A_{2n}(S^{2n}-x^{2n})$。令 $x=Su$、$\dd x=S\dd u$，四分之一周期积分为
+\[\begin{aligned}
+\frac T4&=\sqrt{\frac{m}{2A_{2n}}}\int_0^S\frac{\dd x}{\sqrt{S^{2n}-x^{2n}}}\\
+&=\sqrt{\frac{m}{2A_{2n}}}\,S^{1-n}\int_0^1\frac{\dd u}{\sqrt{1-u^{2n}}}.
+\end{aligned}\]
+定积分是有限的无量纲常数。四次稳定对应 $n=2$，所以 $T\propto S^{-1}$；双重临界点由六次项主导，$n=3$，故 $T\propto S^{-2}$。振幅趋零时周期发散，线性化无法给出非零的固有频率。
+\end{solution}
+
+\begin{exercise}[偏心圆柱的微小偏移]\label{ex:es3-h8}
+对例\ref{ex:es3-e8}，求$d\ll R-a$时电容至$d^2$阶，并给出固定电压下的线性横向力。 见图~\ref{fig:es3-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](.65,0)circle(.65);\fill(0,0)circle(1.3pt)node[below left]{$O$};\fill(.65,0)circle(1.3pt)node[below]{$O^{\prime}$};\draw[axis](-2.2,0)--(2.3,0)node[right]{$x$};\node at(-1.5,.7){$R$};\node at(.8,.45){$a$};\draw[<->](0,-.9)--(.65,-.9)node[midway,below]{$d$};
+\end{tikzpicture}
+\caption{同轴位置附近的微小偏心}\label{fig:es3-h8-q}
+\end{figure}
+\begin{solution}
+记 $L=\ln(R/a)$。对
+\[\eta=\arcosh\frac{R^2+a^2-d^2}{2Ra}\]
+在 $d=0$ 有 $\eta=L$。令 $\eta=L+\delta\eta$，原式等价于
+\[\cosh(L+\delta\eta)=\cosh L-\frac{d^2}{2Ra}.\]
+将左端在 $L$ 处展开为 $\cosh L+\sinh L\,\delta\eta+O(\delta\eta^2)$。由 $\sinh L=(R^2-a^2)/(2Ra)$，比较两侧的二阶项，得
+\[\eta=L-\frac{d^2}{R^2-a^2}+O(d^4).\]
+所以
+\[c=\frac{2\pi\epsilon_0}{L}\left[1+\frac{d^2}{(R^2-a^2)L}+O(d^4)\right].\]
+图~\ref{fig:es3-h8-s}中电容曲线在同轴位置有极小值。固定电压 $V$，对电容的二次项求导，
+\[\begin{aligned}
+c'(d)&=\frac{2\pi\epsilon_0}{L}\frac{2d}{(R^2-a^2)L}+O(d^3),\\
+f_d&=\frac12V^2c'(d)=\frac{2\pi\epsilon_0V^2d}{(R^2-a^2)L^2}+O(d^3).
+\end{aligned}\]
+力指向增大偏移的方向，所以同轴位置横向失稳。余项中的长度尺度由 $R,a$ 共同决定，展开须保持 $d$ 远小于间隙。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=1cm,y=1cm]\draw[axis](-1.6,0)--(1.78,0)node[right]{$d$};\draw[axis](0,0)--(0,2)node[above]{$c/c(0)$};\draw[curve,domain=-1.6:1.6,samples=101]plot(\x,{1+.25*(\x)^2});\draw[axis](.8,1.16)--(1.4,1.16)node[below right,xshift=2pt]{$f_d$};\end{scope}
+\end{tikzpicture}
+\caption{电容极小值与失稳横向力}\label{fig:es3-h8-s}
+\end{figure}
+
+
+固定线电量$\lambda$时，单位长度能量为$w=\lambda^2/(2c)$。将刚才的$\eta$展开代入$c=2\pi\epsilon_0/\eta$，
+\[w(d)=\frac{\lambda^2\eta}{4\pi\epsilon_0}
+=\frac{\lambda^2L}{4\pi\epsilon_0}
+-\frac{\lambda^2d^2}{4\pi\epsilon_0(R^2-a^2)}+O(d^4).
+\]
+保持$\lambda$求负导数，得到
+\[f_d=-\frac{\partial w}{\partial d}
+=\frac{\lambda^2d}{2\pi\epsilon_0(R^2-a^2)}+O(d^3).
+\]
+它指向偏心量增大的方向，与图中同轴构形的失稳相符。为与固定电压式比较，在同轴构形使用
+\[\lambda=c(0)V=\frac{2\pi\epsilon_0}{L}V.
+\]
+代回上式便得$2\pi\epsilon_0V^2d/[(R^2-a^2)L^2]$。两式比较的是相同瞬时电量和电压；沿有限偏移过程，固定$\lambda$与固定$V$仍使用不同的能量函数。\end{solution}
+
+\begin{exercise}[偏心电容接近接触时的发散]\label{ex:es3-h9}
+内外圆半径为$a,R$，最小间隙$g=R-a-d\ll R-a$。求单位长度电容的首项，并与近接双球的对数发散作比较。 见图~\ref{fig:es3-h9-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.8);\draw[curve](1.1,0)circle(.65);
+\fill(0,0)circle(1.3pt)node[below left]{$O$};
+\fill(1.1,0)circle(1.3pt)node[below]{$O^{\prime}$};
+\draw[axis](-2.2,0)--(2.6,0)node[right]{$x$};
+\node at(-1.5,.7){$R$};\node at(1.25,.45){$a$};
+\draw[<->](0,-.95)--(1.1,-.95)node[midway,below]{$d$};
+\draw[axis](2.5,.65)--(1.775,.08);\node[right]at(2.5,.65){$g=R-a-d$};
+\end{tikzpicture}
+\caption{接近接触的偏心内外圆柱}\label{fig:es3-h9-q}
+\end{figure}
+\begin{solution}
+将$d=R-a-g$代入$\cosh\eta=(R^2+a^2-d^2)/(2Ra)$，得$\cosh\eta=1+(R-a)g/(Ra)+O(g^2)$。由$\cosh\eta-1\sim\eta^2/2$，
+\[c\sim2\pi\epsilon_0\sqrt{\frac{Ra}{2(R-a)g}}.
+\]
+图~\ref{fig:es3-h9-s}把局部间隙写为
+\[d(s)=g+\frac{s^2}{2R_{\rm eff}},\qquad
+R_{\rm eff}=\frac{aR}{R-a}.
+\]
+在近接主导区，单位长度电容为局部平板条带的并联积分。令$s=\sqrt{2R_{\rm eff}g}\,u$，
+\[\begin{aligned}
+c_{\rm gap}&\simeq\epsilon_0\int_{-\infty}^{\infty}
+\frac{\dd s}{g+s^2/(2R_{\rm eff})}\\
+&=\epsilon_0\sqrt{\frac{2R_{\rm eff}}g}
+\int_{-\infty}^{\infty}\frac{\dd u}{1+u^2}\\
+&=\epsilon_0\sqrt{\frac{2R_{\rm eff}}g}[\arctan u]_{-\infty}^{\infty}\\
+&=\pi\epsilon_0\sqrt{\frac{2R_{\rm eff}}g}.
+\end{aligned}\]
+它与精确圆柱电容的近接首项一致。将局部积分延到无穷远只用于求主导项；远离窄缝的部分不能再视为两条抛物线，但其贡献不改变这里的$g^{-1/2}$首项系数。
+
+双球接触区具有二维环面积元$s\dd s$，因此得到对数；无限圆柱接触区每长度只有线元$\dd s$，因此得到$g^{-1/2}$。圆柱截面的线元与双球接触区的环面积元不同，分别给出幂次发散与对数发散。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,domain=-1.5:1.5]plot(\x,{.15+.3*(\x)^2});\draw[curve](-1.7,0)--(1.7,0);\draw[<->](0,0)--(0,.15)node[right]{$g$};\draw[axis](-1.8,-.5)--(1.9,-.5)node[right]{$s$};
+\end{tikzpicture}
+\caption{局部窄缝的抛物近似}\label{fig:es3-h9-s}
+\end{figure}
+
+
+近接单位长度电容按$g^{-1/2}$发散，若固定电压，$f_d=\tfrac12V^2\partial_dc$按$g^{-3/2}$发散；若固定电量，$w=\lambda^2/(2c)$按$g^{1/2}$趋零，力只按$g^{-1/2}$发散。两种力的发散幂不同来自电量随控制条件变化，不是同一公式的矛盾。
+\end{solution}
+
+\begin{exercise}[椭球电容的单调界]\label{ex:es3-h10}
+长旋转椭球的半轴为$a>b$。由包含关系给出电容上下界，并用焦线公式验证它们。 见图~\ref{fig:es3-h10-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide](0,0)circle(2);\draw[curve](0,0)ellipse(1 and 2);\draw[guide](0,0)circle(1);\node[right]at(2,0){$a$};\node[below]at(1,0){$b$};
+\end{tikzpicture}
+\caption{椭球的内接球与外接球}\label{fig:es3-h10-q}
+\end{figure}
+\begin{solution}
+半径$b$的球包含于椭球，椭球包含于半径$a$的球。对地电容随导体集合扩大而不减，因此$4\pi\epsilon_0b\le C\le4\pi\epsilon_0a$。这个单调性可由固定总电量的最小场能，或固定单位电势的Dirichlet能量得到。
+
+图~\ref{fig:es3-h10-s}的三层边界显示比较用的是同心包含关系。写$e=c/a$，焦线式为$C/(4\pi\epsilon_0a)=e/\artanh e$。在$0\le t<1$内，
+\[\begin{aligned}
+\frac{\dd}{\dd t}\artanh t&=\frac1{1-t^2}\ge1,\\
+\frac{\dd}{\dd t}\frac{t}{\sqrt{1-t^2}}
+&=(1-t^2)^{-1/2}+t^2(1-t^2)^{-3/2}\\
+&=(1-t^2)^{-3/2}\ge(1-t^2)^{-1}.
+\end{aligned}\]
+三函数在零点均为零，从$0$积到$e$便得$e\le\artanh e\le e/\sqrt{1-e^2}$，依次给出电容上、下界。细长极限时这些界可能较松，但仍能排除明显错误的因子或极限。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide](0,0)circle(1.8);\draw[curve](0,0)ellipse(.9 and 1.8);\draw[guide](0,0)circle(.9);\node[right]at(2,.7){$C_b\le C_{\rm ell}\le C_a$};
+\end{tikzpicture}
+\caption{由导体包含关系得到的容量界}\label{fig:es3-h10-s}
+\end{figure}
+
+
+容量单调性的直观比较应保持同一个总电量。允许电荷在更大的导体表面重新分布，会降低最小静电能，因此$Q^2/(2C)$减小，$C$增大。若在不同形状上强行保留同一表面密度，就不是平衡分布，不能用所得非极小能量直接证明容量单调。两种证明都使用导体表面的等势条件。
+\end{solution}
+
+\begin{exercise}[导电夹杂与绝缘孔的系数比较]\label{ex:es3-h11}
+无限导电体中有半径$a$、电导率$\sigma_i$的球形夹杂，外体电导率$\sigma_m$，远场$E_0\vct e_z$。求内场与外势的偶极系数，并取绝缘极限。 见图~\ref{fig:es3-h11-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.9)--(0,2)node[above]{$z$};\node at(.4,.6){$\sigma_i$};\node[right]at(1.5,.7){$\sigma_m$};\draw[axis](-2,-1.2)--(-2,-.1)node[above]{$E_0$};
+
+\end{tikzpicture}
+\caption{球形导电夹杂与背景介质}\label{fig:es3-h11-q}
+\end{figure}
+\begin{solution}
+写$\varphi_{\rm out}=-E_0r\cos\theta+B\cos\theta/r^2$，$\varphi_{\rm in}=-Cr\cos\theta$。壁面势连续给$C=E_0-B/a^3$，法向电流连续给$\sigma_m(E_0+2B/a^3)=\sigma_iC$，解得
+\[C=\frac{3\sigma_m}{\sigma_i+2\sigma_m}E_0,\quad B=a^3E_0\frac{\sigma_i-\sigma_m}{\sigma_i+2\sigma_m}.
+\]
+图~\ref{fig:es3-h11-s}中法向用同一个径向方向，电流连续不能误写成场连续。$\sigma_i=0$时$B=-E_0a^3/2$，恢复绝缘孔；$\sigma_i\to\infty$时$B=E_0a^3$，恢复等势球；$\sigma_i=\sigma_m$时扰动为零。三个极限分别对应绝缘孔、等势球和无夹杂的均匀导体。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.9)--(0,2)node[above]{$z$};\node at(.4,.6){$\sigma_i$};\node[right]at(1.5,.7){$\sigma_m$};\draw[axis](-2,-1.2)--(-2,-.1)node[above]{$E_0$};\draw[axis](1,.75)--(1.6,1.2)node[right]{$\vct n$};\node[right]at(1.7,-.7){$\sigma_mE_{n,m}=\sigma_iE_{n,i}$};
+
+\end{tikzpicture}
+\caption{同一法向上的电流连续}\label{fig:es3-h11-s}
+\end{figure}
+
+
+夹杂内外电流线在球面一般折向。由共同法向$j_n$和共同切向$E_t$，可得$\tan\theta_i/\tan\theta_m=\sigma_i/\sigma_m$，角度从法向量起。绝缘极限中$j_n=0$，外部电流贴壁，而内部即使静电场有限也没有导电电流。导电率趋零与内部电场趋零是不同命题，球孔解恰给出反例。
+\end{solution}
+
+\begin{exercise}[球孔电流线的远处偏移]\label{ex:es3-h12}
+球形绝缘孔周围，某条电流线在远处距轴为$b$。求其穿过赤道面时的半径$r_e$满足的方程，并给出$b\gg a$时的首个修正。 见图~\ref{fig:es3-h12-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.9)--(0,2)node[above]{$z$};\node at(0,.5){绝缘孔};\node[right]at(1.5,.7){$\sigma$};\draw[axis](-2,-1.2)--(-2,-.1)node[above]{$E_0$};
+\end{tikzpicture}
+\caption{球孔与远处平行电流}\label{fig:es3-h12-q}
+\end{figure}
+\begin{solution}
+通量函数除去常数因子为$(r^2-a^3/r)\sin^2\theta$。远处$r\sin\theta\to b$，故该常数为$b^2$。赤道$\theta=\pi/2$，因此$r_e^2-a^3/r_e=b^2$，即$r_e^3-b^2r_e-a^3=0$，物理解取$r_e>a$。
+
+当$b\gg a$，令$r_e=b+\delta$，保留首阶得$2b\delta-a^3/b=0$，所以$r_e=b+a^3/(2b^2)+O(a^6/b^5)$。图~\ref{fig:es3-h12-s}中流线在孔旁向外绕开，偏移正号符合绝缘障碍的几何。$b=0$时方程给$r_e=a$，它是贴孔分界流线的极限；极轴流线本身在前后极点与零场停滞点相接，不能把它当作穿过孔的直通电流。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.25);\fill(0,0)circle(1.4pt)node[below left]{$O$};\draw[axis](0,-1.9)--(0,2)node[above]{$z$};\node at(0,.5){绝缘孔};\node[right]at(1.5,.7){$\sigma$};\draw[axis](-2,-1.2)--(-2,-.1)node[above]{$E_0$};
+\draw[curve]plot coordinates{(1.741231,-3.000000) (1.743168,-2.940000) (1.745215,-2.880000) (1.747379,-2.820000) (1.749667,-2.760000) (1.752087,-2.700000) (1.754646,-2.640000) (1.757352,-2.580000) (1.760214,-2.520000) (1.763239,-2.460000) (1.766436,-2.400000) (1.769813,-2.340000) (1.773380,-2.280000) (1.777144,-2.220000) (1.781113,-2.160000) (1.785295,-2.100000) (1.789697,-2.040000) (1.794324,-1.980000) (1.799181,-1.920000) (1.804272,-1.860000) (1.809598,-1.800000) (1.815157,-1.740000) (1.820948,-1.680000) (1.826964,-1.620000) (1.833195,-1.560000) (1.839630,-1.500000) (1.846253,-1.440000) (1.853043,-1.380000) (1.859975,-1.320000) (1.867024,-1.260000) (1.874155,-1.200000) (1.881335,-1.140000) (1.888523,-1.080000) (1.895679,-1.020000) (1.902758,-0.960000) (1.909715,-0.900000) (1.916501,-0.840000) (1.923070,-0.780000) (1.929375,-0.720000) (1.935369,-0.660000) (1.941008,-0.600000) (1.946248,-0.540000) (1.951051,-0.480000) (1.955379,-0.420000) (1.959199,-0.360000) (1.962483,-0.300000) (1.965204,-0.240000) (1.967342,-0.180000) (1.968882,-0.120000) (1.969810,-0.060000) (1.970120,0.000000) (1.969810,0.060000) (1.968882,0.120000) (1.967342,0.180000) (1.965204,0.240000) (1.962483,0.300000) (1.959199,0.360000) (1.955379,0.420000) (1.951051,0.480000) (1.946248,0.540000) (1.941008,0.600000) (1.935369,0.660000) (1.929375,0.720000) (1.923070,0.780000) (1.916501,0.840000) (1.909715,0.900000) (1.902758,0.960000) (1.895679,1.020000) (1.888523,1.080000) (1.881335,1.140000) (1.874155,1.200000) (1.867024,1.260000) (1.859975,1.320000) (1.853043,1.380000) (1.846253,1.440000) (1.839630,1.500000) (1.833195,1.560000) (1.826964,1.620000) (1.820948,1.680000) (1.815157,1.740000) (1.809598,1.800000) (1.804272,1.860000) (1.799181,1.920000) (1.794324,1.980000) (1.789697,2.040000) (1.785295,2.100000) (1.781113,2.160000) (1.777144,2.220000) (1.773380,2.280000) (1.769813,2.340000) (1.766436,2.400000) (1.763239,2.460000) (1.760214,2.520000) (1.757352,2.580000) (1.754646,2.640000) (1.752087,2.700000) (1.749667,2.760000) (1.747379,2.820000) (1.745215,2.880000) (1.743168,2.940000) (1.741231,3.000000)};\draw[guide](1.7,-3)--(1.7,3);\draw[<->](1.7,0)--(1.9701201817309288,0)node[midway,above]{$\delta$};
+\end{tikzpicture}
+\caption{由通量函数计算的流线向外偏移}\label{fig:es3-h12-s}
+\end{figure}
+
+
+函数$f(r)=r^2-a^3/r$满足$f'(r)=2r+a^3/r^2>0$，在$r\ge a$严格递增，且$f(a)=0$、$f(\infty)=\infty$，所以对每个$b>0$方程有且只有一个$r_e>a$。小$b$时令$r_e=a+\delta$，在孔壁展开为$f(a+\delta)=f(a)+f'(a)\delta+O(\delta^2)=3a\delta+O(\delta^2)$。与$b^2$相等，得$\delta=b^2/(3a)+O(b^4/a^3)$；贴孔处的径向偏移随远处到轴的距离$b$按二次变化。
+\end{solution}
+
+\begin{exercise}[稀疏球孔的有效电导率]\label{ex:es3-h13}
+均匀导体中随机稀疏分布小绝缘球孔，体积分数$f\ll1$。忽略孔间相互作用，求有效电导率首项，并说明其与单孔电阻增量的关系。 见图~\ref{fig:es3-h13-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1.4)rectangle(2,1.4);\foreach\x/\y in{-.9/.5,.8/.7,.1/-.6}{\draw[curve](\x,\y)circle(.25);}\draw[axis](-2.8,0)--(-2.1,0)node[above]{$I$};
+\end{tikzpicture}
+\caption{导体中的稀疏绝缘球孔}\label{fig:es3-h13-q}
+\end{figure}
+\begin{solution}
+对长样品中$N$个相距很远的小孔，首阶电阻增量可相加。由单孔式$\Delta R/R_0=(3/2)V_h/V$，得$R/R_0=1+(3/2)f+O(f^2)$。保持宏观长度与截面积不变，电导率与电阻成反比，故
+\[\sigma_{\rm eff}=\sigma[1-(3/2)f+O(f^2)].\]
+图~\ref{fig:es3-h13-s}中的孔周扰动区在稀疏极限才可独立相加。结果比简单可用体积因子$1-f$下降更快，因为孔外电流路径也变长且分布不均。孔很密、彼此靠近、形状偏离球形或接近贯通时，该线性公式不再可靠，不能外推到$f=2/3$并据零点判断真实导电阈值。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=10cm,y=1cm]\draw[axis](0,0)--(0.53,0)node[right]{$f$};\draw[axis](0,0.4)--(0,1.2)node[above]{$\sigma_{\rm eff}/\sigma$};\draw[curve,domain=0:0.35,samples=101]plot(\x,{1-1.5*\x});\draw[guide,domain=0:.35]plot(\x,{1-\x});\node[right]at(.35,.7){$1-f$};\end{scope}
+\end{tikzpicture}
+\caption{绕流修正与单纯体积扣除的比较}\label{fig:es3-h13-s}
+\end{figure}
+
+
+在固定总电流$I$的比较中，记无孔样品场为$E_0=I/(\sigma A)$。每孔的附加耗散为
+\[\Delta\mathcal P=I^2\Delta R
+=I^2\frac{2\pi a^3}{\sigma A^2}=2\pi\sigma E_0^2a^3.
+\]
+乘孔数后除以无孔样品耗散$\sigma E_0^2V$，得到相对电阻修正$2\pi na^3=(3/2)f$。若改为固定宏观电压，耗散为$V_{\rm app}^2/R$，其首阶变化为负，不能把固定电流下的正耗散增量原样沿用。这里在首阶使用未扰动$E_0$已经足够，因为场的宏观修正再乘孔体积分数只进入更高阶。逐孔相加只确定体积分数的一阶项。较高密度下，孔与孔之间的场相互影响，须另算高阶修正。
+\end{solution}
+
+\begin{exercise}[由线像电荷验证偏心边界]\label{ex:es3-h14}
+给定两个焦点$u<v$和距离比$\kappa>0$、$\kappa\ne1$，证明$r_v/r_u=\kappa$的轨迹为圆，求圆心与半径，并验证该圆与两焦点互为反演的关系。 见图~\ref{fig:es3-h14-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2.7,0)--(2.9,0)node[right]{$x$};\fill(-1,0)circle(1.6pt)node[below]{$u$};\fill(1,0)circle(1.6pt)node[below]{$v$};\fill(1.7,1.4)circle(1.5pt)node[above right]{$P$};\draw[guide](-1,0)--(1.7,1.4);\draw[guide](1,0)--(1.7,1.4);\node[above left]at(.35,.7){$r_u$};\node[right]at(1.35,.7){$r_v$};
+\end{tikzpicture}
+\caption{到两焦点的距离}\label{fig:es3-h14-q}
+\end{figure}
+\begin{solution}
+对$(x-v)^2+y^2=\kappa^2[(x-u)^2+y^2]$整理并配方，圆心$x_c=(v-\kappa^2u)/(1-\kappa^2)$，半径$R_c=\kappa(v-u)/|1-\kappa^2|$。当$\kappa\to1$，圆心和半径同时趋于无穷，轨迹退化成$x=(u+v)/2$的直线。
+
+图~\ref{fig:es3-h14-s}以圆心为参考，直接相乘得$(u-x_c)(v-x_c)=R_c^2$，即两焦点相对该圆互为反演点。这也是点电荷球像和二维线像所共享的几何关系；不同的是二维对数势把电量比换成电势差，像电量不随反演距离缩放，而三维$1/r$势需要相应缩放。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](2,0)circle(1.32288);\draw[axis](-1.8,0)--(3.8,0);\fill(-1.5,0)circle(1.6pt)node[below]{$u$};\fill(1.5,0)circle(1.6pt)node[below]{$v$};\fill(2,0)circle(1.3pt)node[above]{$x_c$};
+\end{tikzpicture}
+\caption{距离比圆与两焦点的反演关系}\label{fig:es3-h14-s}
+\end{figure}
+
+
+两焦点到圆心的有符号距离同号，因为一焦点在圆内、另一焦点在同侧外部，乘积为正的$R_c^2$。如果只用无符号距离，仍能写反演乘积，但会丢掉它们应在圆心同侧的几何条件。$\kappa=1$的退化直线对应两点的垂直平分线，不能把圆心公式的零分母当作物理奇异源；它只是这一族圆的直线极限。
+\end{solution}

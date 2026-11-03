@@ -1,0 +1,1992 @@
+\chapter{差分方程、无限网络与分形电路}
+梯形网络的每个节点只与附近几个节点相连，因而节点方程可以沿一个方向逐格排列。局部方程在有限、半无限、双无限和环形网络中往往相同，差别集中在边界。先确定边界，再求差分方程的常数，才能把形式解变成端口电阻。
+
+
+
+\section{有限梯形与端部条件}\label{sec:c3-finite}
+有限梯形内部满足同一差分方程，端口和封口决定它的两个常数。增长根在有限区间内同样可以出现，不能提前按无穷远条件删去。
+
+上下两条轨道在编号$j=0,1,\ldots,N$的节点处用横档连接。轨道相邻节点之间、每根横档的电阻都为$r$。这样共有$N$个方格、$N+1$根横档。端部节点只有两条邻边；内部节点有三条邻边，列式时不能给端部补上一条不存在的电阻。
+
+选取沿方格排列的回路电流，相邻回路共享的横档电流为两个回路电流之差。每个方格的两条轨道边贡献$2rJ_j$，两根横档再贡献$r(J_j-J_{j-1})+r(J_j-J_{j+1})$，从而得到
+\[
+ J_{j-1}-4J_j+J_{j+1}=0.
+\]
+令$J_j=\lambda^j$，特征方程为$\lambda^2-4\lambda+1=0$。以下记
+\[
+ \lambda_\pm=2\pm\sqrt3,\qquad a=\lambda_-=2-\sqrt3,\qquad
+ \lambda_+\lambda_-=1.
+\]
+一个根大于一，一个根小于一。有限网络通常需要两个根；只有无穷远条件才允许剔除增长项。
+
+\Needspace{6\baselineskip}
+\begin{example}[有限梯形同端输入]\label{ex:c3-finite}
+在$N$格梯形网络左端的上、下两个节点之间接入电源，右端保留最后一根横档，求输入电阻$R_N$。电源向上轨注入电流$I$，从下轨抽出。 见图~\ref{fig:c3-finite-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\draw[axis](-1,1.15)--(0,1.15)node[midway,above]{$I$};\draw[axis](0,0)--(-1,0);
+\fill(v1j0)circle(1.5pt)node[above]{$B$};\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{中间格用虚线省略，右端编号为$N$；最后一根横档保留。}\label{fig:c3-finite-q}
+\end{figure}
+\begin{solution}
+从图~\ref{fig:c3-finite-q}左侧起，把第$j$格顺时针回路电流记为$J_j$。输入横档实际向下电流为$I-J_1$，末横档向下电流为$J_N$。引入虚拟量$J_0=I,J_{N+1}=0$，只是将两端方程统一成$J_{j-1}-4J_j+J_{j+1}=0$，并未添加真实支路。
+
+令$L=N+1$，通解为$J_j=A\lambda_+^j+B\lambda_-^j$。由两端条件，
+\[
+ A+B=I,\quad A\lambda_+^L+B\lambda_-^L=0.
+\]
+记$D=\lambda_+^L-\lambda_-^L$，消去$B=I-A$后有$AD=-I\lambda_-^L$，从而
+\[
+ A=-\frac{I\lambda_-^L}D,\qquad B=\frac{I\lambda_+^L}D,
+ \qquad J_j=I\frac{\lambda_+^L\lambda_-^j-\lambda_-^L\lambda_+^j}D.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(U)at(0,1.5);\coordinate(V)at(0,0);
+\Res{U}{V}{r}\draw[axis](.5,1.25)--(.5,.3)node[midway,right]{$I-J_1$};
+\draw[curve](U)--(3,1.5)--(3,0)--(V);
+\node[fill=white]at(3,.75){其余$N$格};
+\node at(1.8,-.7){$U=r(I-J_1)$};
+\end{tikzpicture}
+\caption{输入横档与其余网络并联，输入电压直接等于该横档压降。}\label{fig:c3-finite-s}
+\end{figure}
+图~\ref{fig:c3-finite-s}中端口与第一根横档跨接同一对节点，故$U=r(I-J_1)$，不必把所有回路压降再相加。于是
+\[
+ R_N=r\frac{\lambda_+^L(1-\lambda_-)-\lambda_-^L(1-\lambda_+)}D.
+\]
+为避免大指数相减，利用$\lambda_+=a^{-1}$，在$J_j$的分子分母同乘$a^L$，得到
+\[
+ \frac{J_j}I=\frac{a^j-a^{2L-j}}{1-a^{2L}},\quad
+ 1-\frac{J_1}I
+ =\frac{1-a^{2L}-a+a^{2L-1}}{1-a^{2L}}
+ =\frac{(1-a)(1+a^{2L-1})}{1-a^{2L}}.
+\]
+因$1-a=\sqrt3-1$，最终
+\[
+ \boxed{R_N=r(\sqrt3-1)\frac{1+a^{2N+1}}{1-a^{2N+2}}}.
+\]
+$N=0$时只有横档$r$；$N=1$时$r$与三边串成的$3r$并联，给$3r/4$。两项均与公式一致，说明$N$是格数而非横档数。随$N$增大，端部修正消失，得到半无限值。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[半无限梯形的递推与收敛]\label{ex:c3-semi}
+把例~\ref{ex:c3-finite}的右端推至无穷远。用自相似递推求$R_\infty$，并说明为何另一个代数根不能采用。 见图~\ref{fig:c3-semi-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[curve](v1j2)--(v1j3);
+\draw[curve](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+\draw[curve](v0j3)--(v1j3);
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$3$};
+\node[below]at(v0j4){$4$};
+\node[below]at(v0j5){$5$};
+\node at(6.1,.55){$\cdots$};
+\fill(v1j0)circle(1.5pt)node[above]{$B$};\end{tikzpicture}
+\caption{无限延伸发生在同一方向，左端仍是一个边界。}\label{fig:c3-semi-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-semi-q}输入端有直接横档$r$；另一条路径依次经过上轨$r$、余下同型网络$R_\infty$、下轨$r$。两轨电阻都必须保留，故自洽关系为
+\[
+ R_\infty=r\parallel(2r+R_\infty)
+ =\frac{r(2r+R_\infty)}{3r+R_\infty}.
+\]
+两边乘正分母并移项，得$R_\infty^2+2rR_\infty-2r^2=0$，两根为$(-1\pm\sqrt3)r$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{2r+R_\infty}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{递推时必须把两条轨道上的串联电阻都保留。}\label{fig:c3-semi-s}
+\end{figure}
+图~\ref{fig:c3-semi-s}只含无源正电阻，输入电压与电流同向，故只保留
+\[
+ \boxed{R_\infty=p=(\sqrt3-1)r}.
+\]
+另一个根$q=-(\sqrt3+1)r$是代数递推的固定点，不能表示真实端口。
+
+还须说明有限网络确实趋于此值。记$f(x)=r(2r+x)/(3r+x)$，商的求导法则给
+\[
+ f'(x)=r\frac{(3r+x)-(2r+x)}{(3r+x)^2}
+ =\frac{r^2}{(3r+x)^2}>0.
+\]
+并且
+\[
+ f(x)-x=-\frac{(x-p)(x-q)}{3r+x}.
+\]
+从$R_0=r>p$出发，若$R_{n-1}>p$，单调性给$f(R_{n-1})>f(p)=p$，上式又给$f(R_{n-1})<R_{n-1}$。因此序列递减且以下界$p$有界，其极限只能是正固定点$p$。
+
+在固定点附近$f'(p)=1/(2+\sqrt3)^2=a^2$，故每增加一格，充分小的边界误差约缩小为$a^2$倍。有限解中的$a^{2N+1}$项给出了同样的收敛尺度，而非另一个独立假设。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[有限梯形的异端、异轨端口]\label{ex:c3-end-cross}
+电流从下轨左端$A=(0,\text{下})$注入，从上轨右端$B=(N,\text{上})$流出，网络仍有$N$格和$N+1$根横档。求$R_{AB}$。 见图~\ref{fig:c3-end-cross-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[curve](v0j2)--(v0j3);
+\draw[curve](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j5)circle(1.5pt)node[above]{$B$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+
+\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{与同端输入相比，电流必须沿轨道跨过整个网络。}\label{fig:c3-end-cross-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-end-cross-q}中，第$j$段上、下轨向右电流分别记为$J_j,H_j$。任意纵截面都须输运总电流$I$，故$J_j+H_j=I$。上轨左端无外部注流，右端输出$I$，可用虚拟边界$J_0=0,J_{N+1}=I$，即$H_0=I,H_{N+1}=0$。
+
+对第$j$格，把两侧横档电流由KCL换成相邻水平电流之差，再列KVL，得$H_{j-1}-4H_j+H_{j+1}=-I$。取常数特解$H_j=c$，便有$-2c=-I$，所以$c=I/2$。记$L=N+1$、$D=\lambda_+^L-\lambda_-^L$，通解及两边界为
+\[
+ H_j=\frac I2+A\lambda_+^j+B\lambda_-^j,\qquad
+ A+B=\frac I2,\quad A\lambda_+^L+B\lambda_-^L=-\frac I2.
+\]
+把$B=I/2-A$代入末式，得到$AD=-I(1+\lambda_-^L)/2$。回代即可确定两常数：
+\[
+ A=-\frac{I(1+\lambda_-^L)}{2D},\quad
+ B=\frac{I(1+\lambda_+^L)}{2D}.
+\]
+用$\lambda_+=a^{-1}$改写，约去$1+a^L$后得到更便于求和的形式
+\[
+ \boxed{H_j=\frac I2\left(1+\frac{a^j-a^{L-j}}{1-a^L}\right)}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\foreach \j/\x/\lab in {0/0/0,1/1.1/1,2/2.2/2,3/4.4/{N-1},4/5.5/N}{
+ \coordinate (b\j) at (\x,0);\coordinate(t\j)at(\x,1.4);
+ \draw[curve](b\j)--(t\j);
+ \fill(b\j)circle(1pt);\fill(t\j)circle(1pt);
+ \node[below]at(b\j){$\lab$};}
+\foreach \y in {0,1.4}{
+ \draw[curve](0,\y)--(2.2,\y);\draw[guide](2.2,\y)--(4.4,\y);
+ \draw[curve](4.4,\y)--(5.5,\y);}
+\node at(3.3,.7){$\cdots$};
+\node[left]at(0,0){$A$};\node[right]at(5.5,1.4){$B$};
+\draw[axis](.25,-.6)--(5.9,-.6)--(5.9,1.4);
+\node[below]at(2.8,-.65){电压路径：下轨与末横档};
+\draw[axis](4.6,.15)--(5.2,.15);
+\draw[axis](5.3,.25)--(5.3,1.1)node[midway,left]{$H_N$};
+\end{tikzpicture}
+\caption{一般$N$格网络的端口路径；末横档的向上电流与末段下轨电流相等。}\label{fig:c3-end-cross-s}
+\end{figure}
+图~\ref{fig:c3-end-cross-s}的电压路径先沿下轨从$A$走到最右端，再沿末横档向上到$B$。最右下节点只有两条边，故末横档向上电流恰为$H_N$，有
+\[
+ U_{AB}=r\sum_{j=1}^NH_j+rH_N.
+\]
+上式中的指数项在$j$与$L-j$之间成对抵消，因此$\sum_{j=1}^NH_j=NI/2$。末项则为
+\[
+ \frac{H_N}I=\frac12\frac{1-a^{N+1}+a^N-a}{1-a^{N+1}}
+ =\frac{(1-a)(1+a^N)}{2(1-a^{N+1})}.
+\]
+利用$(1-a)/2=1/(1+\sqrt3)$，最终
+\[
+ \boxed{R_{AB}=r\left[\frac N2+
+ \frac{1+a^N}{(1+\sqrt3)(1-a^{N+1})}\right]}.
+\]
+长度项来自两轨共同输运，端部项来自横向转移。$N=1$时是单个方格对角端口，结果为$r$；$N=0$退化为一根横档，也给$r$。省略末横档压降会漏掉端部贡献。
+\end{solution}
+
+
+
+\section{双无限网络的共模与差模}\label{sec:c3-potential}
+两轨电位的平均值与差值可以分开求解。平均值控制沿轴输运，差值控制横向分流；它们在无穷远处应满足不同的条件。
+
+设双无限两轨节点电位分别为$u_j$、$v_j$，编号$j\in\mathbb Z$。节点外部注入电流为$s_j^{(u)}$、$s_j^{(v)}$，流出取负。内部节点方程为
+\[
+ 3u_j-u_{j-1}-u_{j+1}-v_j=rs_j^{(u)},\qquad
+ 3v_j-v_{j-1}-v_{j+1}-u_j=rs_j^{(v)}.
+\]
+在无源区，消去$v_j=3u_j-u_{j-1}-u_{j+1}$，得到
+\[
+ u_{j-2}-6u_{j-1}+10u_j-6u_{j+1}+u_{j+2}=0.
+\]
+其特征多项式为
+\[
+ (\lambda-1)^2(\lambda^2-4\lambda+1)=0.
+\]
+重根$1$对应常数与一次项，另一对根对应轨道间的电位差。直接求四个常数容易混淆，改用
+$m_j=(u_j+v_j)/2$与$w_j=u_j-v_j$，两组方程立即分离：
+\begin{align}
+ 2m_j-m_{j-1}-m_{j+1}&=\frac r2(s_j^{(u)}+s_j^{(v)}),\\
+ 4w_j-w_{j-1}-w_{j+1}&=r(s_j^{(u)}-s_j^{(v)}).
+\end{align}
+共模$m$承担沿轨道的长距离电流，差模$w$描述两轨之间的重新分配。无源区的共模为仿射函数，差模为两指数的组合；不能因为差模衰减，就把共模的一次项也一并删去。
+
+取
+\[
+ G_j=\frac{a^{|j|}}{2\sqrt3},\qquad H_j=-\frac{|j|}2.
+\]
+当$j\ne0$，它们分别满足对应齐次方程；在$j=0$，
+$4G_0-2G_1=(4-2a)/(2\sqrt3)=1$，
+$2H_0-H_{-1}-H_1=1$。
+因此$G,H$是差模与共模的离散点源解。两端源汇总量为零时，可以叠加$H$；绝对电位仍有一个任意常数。
+
+\Needspace{6\baselineskip}
+\begin{example}[双无限异轨电阻]\label{ex:c3-infinite-cross}
+两轨向左右无穷延伸。电流$I$从下轨$j=0$注入，从上轨$j=N$抽出，$N\ge0$。求两端电阻及所有节点电位差。 见图~\ref{fig:c3-infinite-cross-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j5)circle(1.5pt)node[above]{$B$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\node at(-.7,.55){$\cdots$};\node at(6.2,.55){$\cdots$};
+\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{端口是内部节点，左右两侧网络均须保留。}\label{fig:c3-infinite-cross-q}
+\end{figure}
+\begin{solution}
+按图~\ref{fig:c3-infinite-cross-q}记上、下轨电位为$u_j,v_j$。下轨零处注入$I$、上轨$N$处抽出$I$，所以共模源为$(rI/2)(\delta_{j0}-\delta_{jN})$，差模源为$-rI(\delta_{j0}+\delta_{jN})$。用已定标的$H_j=-|j|/2$和$G_j=a^{|j|}/(2\sqrt3)$叠加，得到
+\[
+ m_j=-\frac{rI}4(|j|-|j-N|)+m_*,\qquad
+ w_j=-\frac{rI}{2\sqrt3}(a^{|j|}+a^{|j-N|}).
+\]
+这里$m_*$只是参考电位，$u_j=m_j+w_j/2$、$v_j=m_j-w_j/2$给出全部节点。相邻电位差除以$r$便得到水平边电流，$-w_j/r$为横档向上电流。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.5,0)node[right]{$j$};\draw[axis](0,-.1)--(0,1)node[above]{$m_j-m_0$};
+\draw[curve](-1,0)--(0,0)--(3,-1.2)--(4.2,-1.2);\draw[guide](0,-1.6)--(0,.5);\draw[guide](3,-1.6)--(3,.5);\node[below]at(0,-1.6){$0$};\node[below]at(3,-1.6){$N$};
+\end{tikzpicture}
+\caption{共模在两个端口之间线性下降，区间外保持常数；差模在端口附近衰减。}\label{fig:c3-infinite-cross-s}
+\end{figure}
+图~\ref{fig:c3-infinite-cross-s}的共模在$j\le0$为$m_*+rIN/4$，在$0\le j\le N$为$m_*+rI(N-2j)/4$，在$j\ge N$为$m_*-rIN/4$。因此区间内每轨的共模电流为$I/2$，区间外为零；差模电流则向两端外侧指数衰减。
+
+在两个端点直接求值，
+\[
+ m_0-m_N=\frac{rIN}2,\qquad
+ w_0=w_N=-\frac{rI}{2\sqrt3}(1+a^N).
+\]
+端口电压按输入下轨减输出上轨，有
+\[
+ v_0-u_N=(m_0-m_N)-\frac{w_0+w_N}2,
+ \qquad\boxed{R_\times(N)=\frac r2\left[N+\frac{1+a^N}{\sqrt3}\right]}.
+\]
+$N=0$时两个差模源合并，得$r/\sqrt3$，小于只有一侧延伸的$(\sqrt3-1)r$。无穷远的电流为零，但两侧共模常量可以不同，不应额外要求左右无穷远电位相等。
+\end{solution}
+\subsection{源点处的接续条件}\label{sec:c3-junction}
+分段指数解的常数须由源点方程决定。沿用例~\ref{ex:c3-infinite-cross}的方向：电流$I$从下轨$j=0$注入、从上轨$j=N$抽出。对$N>0$，四个接续式为
+\begin{align*}
+ 2m_0-m_{-1}-m_1&=rI/2,&
+ 2m_N-m_{N-1}-m_{N+1}&=-rI/2,\\
+ 4w_0-w_{-1}-w_1&=-rI,&
+ 4w_N-w_{N-1}-w_{N+1}&=-rI.
+\end{align*}
+当$N=0$，两端位于同一截面，源项应在同一节点方程内合并：共模源为零，差模源为$-2rI$。
+
+从节点电位改回支路电流也没有额外假设：上轨向右电流为$(u_j-u_{j+1})/r$，下轨为$(v_j-v_{j+1})/r$，横档向上电流为$-w_j/r$。把这三式代入节点电流守恒，就得到原先分段的二阶电流差分式。这些转换式将电位解与回路电流解逐项对应，两组常数描述同一个物理解。
+
+\Needspace{6\baselineskip}
+\begin{example}[双无限同轨电阻]\label{ex:c3-infinite-same}
+源、汇都在下轨，分别为$j=0,N$。其余条件与例~\ref{ex:c3-infinite-cross}相同。求$R_\parallel(N)$并比较两种端口。 见图~\ref{fig:c3-infinite-same-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\fill(v0j5)circle(1.5pt)node[below right]{$B_{\parallel}$};\node at(-.6,.5){$\cdots$};\node at(6.2,.5){$\cdots$};
+\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{本题的汇在下轨，原图上方端点不作为外部端口。}\label{fig:c3-infinite-same-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-infinite-same-q}的源汇都在下轨，共模源仍为$(rI/2)(\delta_{j0}-\delta_{jN})$，故$m_0-m_N=rIN/2$。差模中下轨注入取负、下轨抽出取正，所以
+\[
+ w_j=-rIG_j+rIG_{j-N}
+ =-\frac{rI}{2\sqrt3}(a^{|j|}-a^{|j-N|}).
+\]
+在两端有$w_0=-rI(1-a^N)/(2\sqrt3)$、$w_N=-w_0$。这项符号变化是同轨与异轨端口的区别，不能只在最后结果里凭直觉改号。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$N$};\draw[axis](0,-.1)--(0,2)node[above]{$\sqrt3\Delta R/r$};
+\draw[curve,domain=0:5,samples=60]plot(\x,{pow(2-sqrt(3),\x)});\node[right]at(2,1.2){$R_\times-R_\parallel=ra^N/\sqrt3$};
+\end{tikzpicture}
+\caption{横向端口差别随间距指数衰减，两种电阻共同含有线性长度项。}\label{fig:c3-infinite-same-s}
+\end{figure}
+图~\ref{fig:c3-infinite-same-s}中，下轨电位为$v=m-w/2$，因此
+\[
+ \begin{aligned}
+ v_0-v_N&=(m_0-m_N)-\frac{w_0-w_N}2\\
+ &=\frac{rIN}2+\frac{rI}{2\sqrt3}(1-a^N).
+ \end{aligned}
+\]
+除以$I$得到
+\[
+ \boxed{R_\parallel(N)=\frac r2\left[N+\frac{1-a^N}{\sqrt3}\right]},\qquad
+ R_\times(N)-R_\parallel(N)=\frac r{\sqrt3}a^N.
+\]
+$N=0$时源汇重合、两项均为零；$N=1$时利用$a=2-\sqrt3$，得$R_\parallel(1)=r(1-1/\sqrt3)$。大间距时两种端口的长度项相同，横向位置只留下指数小的差值。
+
+在源汇之间，轨道电流趋于各分$I/2$；靠近源汇的差模补偿了实际只在下轨接入电流的边界。不能把共模平均分流直接延伸到源点，忽略其附近的横向转移。
+\end{solution}
+
+
+
+\section{横档与轨道不等阻时的衰减尺度}
+横档越难通流，电流在两轨间完成转移通常需要越长的轴向距离。这个长度可由保留$r,s$参数的差模特征根求出。
+
+把轨道每小段电阻记为$r$，横档改为$s$。上下轨相加、相减，仍能分离共模和差模；差模方程变为
+\[
+ (2+\mu)w_j-w_{j-1}-w_{j+1}
+ =r(s_j^{(u)}-s_j^{(v)}),\qquad \mu=2r/s.
+\]
+这里右侧$s_j^{(u,v)}$是节点注流，不是横档电阻$s$。为避免混淆，也可把注流写为$\mathcal J_j^{(u,v)}$。记衰减根$b$和根间距$D$为
+\[
+ b=\frac{2+\mu-\sqrt{\mu(\mu+4)}}2,\qquad
+ D=b^{-1}-b=\sqrt{\mu(\mu+4)}.
+\]
+点源解$G_j=b^{|j|}/D$由源点条件
+$(2+\mu)G_0-2G_1=1$定标。电位衰减长度以格数计为$\xi=1/|\ln b|$，实长度还须乘节点间距。这个空间尺度与暂态电路的时间常量不是同一种量。
+
+\Needspace{6\baselineskip}
+\begin{example}[不同横档电阻的双无限梯形]\label{ex:c3-general-rs}
+双无限梯形轨道小段$r$、横档$s$。求同轨、异轨相隔$N$格的电阻；再求同一横档两端的电阻。 见图~\ref{fig:c3-general-rs-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j5)circle(1.5pt)node[above]{$B_{\times}$};\fill(v0j5)circle(1.5pt)node[below right]{$B_{\parallel}$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\node at(2.7,2){水平：$r$；横档：$s$};\node at(-.7,.55){$\cdots$};\node at(6.2,.55){$\cdots$};
+\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{从下轨$A$输入，取$B_{\parallel}$为同轨端口、$B_{\times}$为异轨端口；轨道小段为$r$，横档为$s$。}\label{fig:c3-general-rs-q}
+\end{figure}
+\begin{solution}
+沿用上、下轨电位$u_j,v_j$，令$m_j=(u_j+v_j)/2$、$w_j=u_j-v_j$。在端口之间，共模仍给出$m_0-m_N=rIN/2$。差模的单位点源为$G_j=b^{|j|}/D$。
+
+先取图~\ref{fig:c3-general-rs-q}中的同轨端口$A,B_{\parallel}$。源、汇都在下轨，在差模方程中的符号相反，故
+\[
+ w_j=-\frac{rI}{D}\bigl(b^{|j|}-b^{|j-N|}\bigr),
+ \qquad w_0-w_N=-\frac{2rI}{D}(1-b^N).
+\]
+下轨电位为$v_j=m_j-w_j/2$，端口电压因而是
+\[
+ v_0-v_N=\frac{rIN}{2}+\frac{rI}{D}(1-b^N).
+\]
+改取异轨端口$A,B_{\times}$，即从下轨$j=0$注入、从上轨$j=N$抽出，两个差模源同号：
+\[
+ w_j=-\frac{rI}{D}\bigl(b^{|j|}+b^{|j-N|}\bigr),
+ \qquad v_0-u_N=\frac{rIN}{2}+\frac{rI}{D}(1+b^N).
+\]
+两种端口电压分别除以$I$，得到
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\node[draw]at(0,1){同轨差模：$-rI\delta_0+rI\delta_N$};
+\node[draw]at(0,-.1){异轨差模：$-rI\delta_0-rI\delta_N$};
+\node at(0,-1.3){共同长度项：$rN/2$};
+\end{tikzpicture}
+\caption{同轨与异轨只改变差模源的相对符号，点源幅值由$D$决定。}\label{fig:c3-general-rs-s}
+\end{figure}
+
+图~\ref{fig:c3-general-rs-s}分别标出两种源号，端口结果为
+\[
+ \boxed{R_{\parallel}(N)=\frac{rN}2+\frac rD(1-b^N)},
+ \qquad
+ \boxed{R_\times(N)=\frac{rN}2+\frac rD(1+b^N)}.
+\]
+同一横档取$N=0$，$R_\times(0)=2r/D=s\sqrt{r/(r+2s)}$。当$r=s$时$D=2\sqrt3$，恢复本讲前面的公式；同轨$N=0$始终为零，不受横档参数影响。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[横档很大时的极限次序]\label{ex:c3-weak-coupling}
+在例~\ref{ex:c3-general-rs}中令$s\gg r$。求衰减长度近似，并讨论固定$N$而$s\to\infty$时的同轨电阻，为何不等于$rN/2$。 见图~\ref{fig:c3-weak-coupling-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v0j5)circle(1.5pt)node[below right]{$B$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\node at(2.7,2){$s/r\gg1$};
+\node at(-.7,.55){$\cdots$};\node at(6.2,.55){$\cdots$};\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{同轨端口$A,B$均在下轨。横向转移很弱，达到两轨均分需要更长的轴向距离。}\label{fig:c3-weak-coupling-q}
+\end{figure}
+\begin{solution}
+令$\theta=-\ln b>0$。由特征根关系$b+b^{-1}=2+\mu$可得
+\[
+ 2\cosh\theta=2+\mu,
+ \qquad \theta^2+\frac{\theta^4}{12}+O(\theta^6)=\mu.
+\]
+取$\theta=\sqrt\mu(1+c\mu+O(\mu^2))$代入，比较$\mu^2$项得$2c+1/12=0$，所以
+\[
+ -\ln b=\sqrt\mu\left(1-\frac\mu{24}+O(\mu^2)\right),
+ \qquad \xi=\frac1\theta\simeq\sqrt{\frac{s}{2r}}.
+\]
+因此$\ln b$在$\sqrt\mu$之后的下一项为$\mu^{3/2}$阶。点源的归一化系数则满足$D=\sqrt{\mu(\mu+4)}=2\sqrt\mu[1+O(\mu)]$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$N/\xi$};\draw[axis](0,-.1)--(0,1.6)node[above]{$1-b^N$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{1-exp(-\x)});\node[right]at(2,1.3){$N/\xi$控制横向分流};
+\end{tikzpicture}
+\caption{横向均分由间距与衰减长度之比决定，横档越大，均分越迟。}\label{fig:c3-weak-coupling-s}
+\end{figure}
+
+图~\ref{fig:c3-weak-coupling-s}中若固定$N$，则$N/\xi\to0$，
+$1-b^N\simeq N\sqrt\mu$，差模项$r(1-b^N)/D\to rN/2$。加上共模项，
+\[
+ \boxed{\lim_{s\to\infty}R_\parallel(N)=rN}.
+\]
+这正是两轨完全断开后的单轨路径电阻。只有先让$N\gg\xi$，电流才有足够距离转移到另一轨，表现出$rN/2$的主项。先作长距离极限与先切断横档，得到的局部电流分布不同。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[远处横档的开路测量电压]\label{ex:c3-transfer}
+双无限等阻梯形在$j=0$上下轨之间注入电流$I$。在$j=N$用理想电压表测上、下轨电压差，电压方向与源端相同。求转移电阻，并说明互易交换后的实验。 见图~\ref{fig:c3-transfer-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\fill(v1j0)circle(1.5pt)node[above]{$A,+$};\fill(v0j0)circle(1.5pt)node[below left,xshift=-5pt]{$B,-$};
+\node[above]at(v1j5){$C,+$};\node[below right,yshift=-6pt]at(v0j5){$D,-$};
+\draw[axis](-1,1.15)--(0,1.15)node[midway,above]{$I$};\draw[axis](0,0)--(-1,0);
+\draw[<->](6.1,0)--(6.1,1.15)node[midway,right]{$U_N$};
+\node at(-1.8,.55){$\cdots$};\node at(8.4,.55){$\cdots$};
+\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{电压表内阻无限大，不在测量横档处注入电流。}\label{fig:c3-transfer-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-transfer-q}中电流从零处上轨注入、下轨抽出，故两轨注流和为零，共模没有源项。在无穷远无电流的条件下，共模只剩任意常量。差模方程为
+\[
+ 4w_j-w_{j-1}-w_{j+1}=2rI\delta_{j0}.
+\]
+左右对称且远处衰减，设$w_j=C a^{|j|}$。零处源点方程给$4C-2Ca=2rI$，由$4-2a=2\sqrt3$得$C=rI/\sqrt3$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$N$};\draw[axis](0,-.1)--(0,1.6)node[above]{$\sqrt3R_{\rm tr}/r$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{pow(2-sqrt(3),\x)});
+\end{tikzpicture}
+\caption{远处横档仅感受到差模尾部，理想测量不改变其原有电流。}\label{fig:c3-transfer-s}
+\end{figure}
+图~\ref{fig:c3-transfer-s}中电压表只读$N$处原有的上轨减下轨电压，不提供附加电流。于是
+\[
+ U_N=w_N=\frac{rI}{\sqrt3}a^N,
+ \qquad\boxed{R_{\rm tr}(N)=\frac r{\sqrt3}a^N}.
+\]
+$N=0$时这就是源端自阻$r/\sqrt3$，$N\to\infty$时读数趋零。电压表开路并非把原网络的第$N$根横档拆掉；该横档仍流$w_N/r$，只有电表支路无电流。
+
+将源移到$N$处上、下轨之间，保持上轨注入；在零处仍测上轨减下轨，互易定理给相同转移电阻。反接其中一个端口则变号。该测量没有要求电流沿轴从零处输运到$N$处，因此没有两点电阻中的$rN/2$长度项。
+\end{solution}
+\subsection{边界负载经过多格后的影响}
+若有限梯形的最右横档是任意无源电阻$T\ge0$，其左侧再接$N$格等阻单元，每增加一格输入电阻经历一次变换
+$f(X)=r(2r+X)/(3r+X)$。记两个固定点$p=(\sqrt3-1)r$、$q=-(\sqrt3+1)r$，代数代入可得
+\[
+ \frac{f(X)-p}{f(X)-q}=a^2\frac{X-p}{X-q}.
+\]
+反复迭代给出边界影响的完整表达，而不必每次求新的差分常数：
+\[
+ \frac{R_N-p}{R_N-q}=a^{2N}\frac{T-p}{T-q}.
+\]
+它适用于$T=0$的短接、$T=r$的普通封口和$T\to\infty$的开口。负固定点只是分式变换的辅助参数，不对应真实负电阻。
+
+\Needspace{6\baselineskip}
+\begin{example}[有限梯形在右端短接与开路]\label{ex:c3-terminal}
+其余元件均为$r$，比较右端横档取$T=0$和$T\to\infty$时，经$N\ge1$格后左端所见电阻。给出两者与半无限值的大小关系。 见图~\ref{fig:c3-terminal-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\Res{v0j5}{v1j5}{T}
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j0)circle(1.5pt)node[above]{$B$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+
+\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{输入端口$A,B$都在左端。末端$T=0$时短接，$T\to\infty$时去掉横档，末节点仍保留。}\label{fig:c3-terminal-q}
+\end{figure}
+\begin{solution}
+沿图~\ref{fig:c3-terminal-q}由右向左逐格加入网络，记末端$R_0=T$，每格变换为$f(X)=r(2r+X)/(3r+X)$。设$p=(\sqrt3-1)r$、$q=-(\sqrt3+1)r$，由固定点变换关系
+\[
+ \frac{R_N-p}{R_N-q}=a^{2N}z,\qquad z=\frac{T-p}{T-q}.
+\]
+交叉相乘并收集$R_N$，有$R_N(1-a^{2N}z)=p-a^{2N}zq$，故
+\[
+ R_N=\frac{p-a^{2N}zq}{1-a^{2N}z}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.3,0)node[right]{$N$};\draw[axis](0,-.1)--(0,2)node[above]{$R_N$};
+\draw[curve](.5,.5)--(2,.8)--(4,.9);\draw[curve](.5,1.5)--(2,1.1)--(4,1);\draw[guide](0,.95)--(4.7,.95);\node[right]at(4.7,.95){$p$};
+\end{tikzpicture}
+\caption{右端短接增加通路，开口减少通路，远边界的影响均向固定点收敛。}\label{fig:c3-terminal-s}
+\end{figure}
+图~\ref{fig:c3-terminal-s}的短接边界$T=0$对应$z=p/q<0$，开口$T\to\infty$对应$z\to1$。分别代入，
+\[
+ R_N^{\text{短}}=\frac{p(1-a^{2N})}{1-a^{2N}p/q},\qquad
+ R_N^{\text{开}}=\frac{p-a^{2N}q}{1-a^{2N}}.
+\]
+对$N\ge1$，两分母均正。更直接地，由
+\[
+ R_N-p=\frac{a^{2N}z(p-q)}{1-a^{2N}z}
+\]
+可见短接时差值为负、开口时为正，得到$\boxed{R_N^{\text{短}}<p<R_N^{\text{开}}}$。
+
+一格开口时，绕行支路断开，只剩输入横档$r$；一格短接时，绕行支路为$2r$，输入电阻为$r\parallel2r=2r/3$。开口不是删去最右两个节点，而是删去它们之间的横档。两种边界都按$a^{2N}$收敛到$p$，但逼近方向相反。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[长距离输运的耗散分布]\label{ex:c3-energy-modes}
+双无限等阻梯形在下轨零处输入$I$、上轨$N$处输出$I$。把总耗散分成共模与差模，求共模耗散占比，并讨论$N$很大时的意义。 见图~\ref{fig:c3-energy-modes-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j5)circle(1.5pt)node[above]{$B$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+
+\node at(-.7,.55){$\cdots$};\node at(6.2,.55){$\cdots$};\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{电流沿轴输运与横向转移对应两种不同的耗散贡献。}\label{fig:c3-energy-modes-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-energy-modes-q}中定义$\Delta m_j=m_j-m_{j+1}$、$\Delta w_j=w_j-w_{j+1}$。相邻轨道边的压差分别为$\Delta u_j=\Delta m_j+\Delta w_j/2$、$\Delta v_j=\Delta m_j-\Delta w_j/2$。两条水平边的功率相加：
+\[
+ \frac{(\Delta u_j)^2+(\Delta v_j)^2}r
+ =\frac{2(\Delta m_j)^2}r+\frac{(\Delta w_j)^2}{2r}.
+\]
+横档压差为$w_j$，另贡献$w_j^2/r$。对所有$j$求和便有
+\[
+ P=P_m+P_w=\frac2r\sum_j(\Delta m_j)^2
+ +\frac1{2r}\sum_j[(\Delta w_j)^2+2w_j^2].
+\]
+两项都非负，交叉项在同一格的上下边中已经抵消。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$N$};\draw[axis](0,-.1)--(0,1.6)node[above]{$P_m/P$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{\x/(\x+(1+pow(2-sqrt(3),\x))/sqrt(3))});\draw[guide](0,1)--(5,1);
+\end{tikzpicture}
+\caption{共模耗散随间距增长，端口附近差模耗散趋于有限常数。}\label{fig:c3-energy-modes-s}
+\end{figure}
+图~\ref{fig:c3-energy-modes-s}的共模只在两个端口之间有$\Delta m_j=rI/2$，恰有$N$段，故$P_m=(2/r)N(rI/2)^2=rI^2N/2$。由已经求出的端口电压，
+\[
+ P=I^2R_\times(N)=\frac{rI^2}2\left[N+\frac{1+a^N}{\sqrt3}\right],\quad
+ P_w=\frac{rI^2}{2\sqrt3}(1+a^N).
+\]
+因此
+\[
+ \boxed{\frac{P_m}P=\frac{N}{N+(1+a^N)/\sqrt3}}.
+\]
+$N\to\infty$时共模功率随长度增加，差模功率趋于有限的$rI^2/(2\sqrt3)$，所以比例趋一。$N=0$时共模功率为零，全部发热来自横向分流及相邻轨道的局部差模电流，不能据此认为只有源点那根横档发热。
+\end{solution}
+
+
+
+
+为看清边界影响为何按$a^{2N}$衰减，可将固定点变换拆成因子。由$p+q=-2r$、$pq=-2r^2$，有
+\[
+ f(X)-p=\frac{(r-p)(X-p)}{X+3r},\qquad
+ f(X)-q=\frac{(r-q)(X-q)}{X+3r}.
+\]
+两式相除，系数$(r-p)/(r-q)=(2-\sqrt3)/(2+\sqrt3)=a^2$，便得到前面的迭代式。每增加一格，固定点比值恰乘$a^2$；增加$N$格后为$a^{2N}$。这是远端封口对输入电阻的修正尺度，点源电位则按$a^N$衰减。
+
+
+\section{周期边界与环形双轨}
+环形网络没有可独立指定的左、右端。节点电位与支路电流绕行一周后须回到原值，顺、逆两个方向的响应都要保留。
+
+每圈有$M$个节点时，编号按模$M$计算。边界条件为$u_{j+M}=u_j$、$v_{j+M}=v_j$。有限圆环中没有“右侧无穷远”，不能只留下$a^j$。可把无限点源解沿整圈作周期叠加：
+\[
+ G_j^{(M)}=\frac1{2\sqrt3}
+ \frac{a^d+a^{M-d}}{1-a^M},
+ \qquad 0\le d\le M,
+\]
+其中$d$是选定方向的圈上距离。周期像源按两侧分组，对$0\le d<M$有
+\[\begin{aligned}
+\sum_{k\in\mathbb Z}a^{|d+kM|}
+&=\sum_{k=0}^\infty a^{d+kM}+\sum_{k=1}^\infty a^{kM-d}\\
+&=a^d\frac1{1-a^M}+a^{M-d}\frac1{1-a^M}.
+\end{aligned}\]
+两组公比均为$a^M<1$，分别保留顺、逆两个方向；$d=M$按周期与$d=0$相同。乘以$1/(2\sqrt3)$即得上式，在$j=0$仍有单位离散源。
+
+共模的点源不能单独周期化，因为环上所有节点方程相加必须给零总源；一对源汇则满足这一条件。环上两点间的单位电阻路径分别为$mr$和$(M-m)r$，并联后为$rm(M-m)/M$。共模的两条轨道并联再给因子$1/2$。
+
+\Needspace{6\baselineskip}
+\begin{example}[内外圈同角度端口]\label{ex:c3-ring0}
+两圈各分成$M\ge3$段，每小段和每根径向连线的电阻均为$r$。电流从内圈$j=0$注入，从外圈同一角度$j=0$流出，求端口电阻。 见图~\ref{fig:c3-ring0-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(90.0:1.45);
+\coordinate(v0j1)at(54.0:1.45);
+\coordinate(v0j2)at(18.0:1.45);
+\coordinate(v0j3)at(-18.0:1.45);
+\coordinate(v0j4)at(-54.0:1.45);
+\coordinate(v0j5)at(-90.0:1.45);
+\coordinate(v0j6)at(-126.0:1.45);
+\coordinate(v0j7)at(-162.0:1.45);
+\coordinate(v0j8)at(-198.0:1.45);
+\coordinate(v0j9)at(-234.0:1.45);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[curve](v0j2)--(v0j3);
+\draw[curve](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\draw[curve](v0j5)--(v0j6);
+\draw[curve](v0j6)--(v0j7);
+\draw[curve](v0j7)--(v0j8);
+\draw[curve](v0j8)--(v0j9);
+\draw[curve](v0j9)--(v0j0);
+\coordinate(v1j0)at(90.0:2.25);
+\coordinate(v1j1)at(54.0:2.25);
+\coordinate(v1j2)at(18.0:2.25);
+\coordinate(v1j3)at(-18.0:2.25);
+\coordinate(v1j4)at(-54.0:2.25);
+\coordinate(v1j5)at(-90.0:2.25);
+\coordinate(v1j6)at(-126.0:2.25);
+\coordinate(v1j7)at(-162.0:2.25);
+\coordinate(v1j8)at(-198.0:2.25);
+\coordinate(v1j9)at(-234.0:2.25);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[curve](v1j2)--(v1j3);
+\draw[curve](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v1j5)--(v1j6);
+\draw[curve](v1j6)--(v1j7);
+\draw[curve](v1j7)--(v1j8);
+\draw[curve](v1j8)--(v1j9);
+\draw[curve](v1j9)--(v1j0);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+\draw[curve](v0j3)--(v1j3);
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\draw[curve](v0j6)--(v1j6);
+\draw[curve](v0j7)--(v1j7);
+\draw[curve](v0j8)--(v1j8);
+\draw[curve](v0j9)--(v1j9);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};
+\fill(v1j0)circle(1.8pt)node[above]{$B_0$};
+\end{tikzpicture}
+\caption{本题端口为上方同角度的$A,B_0$；圆周格数作示意，计算保留一般$M$。}\label{fig:c3-ring0-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-ring0-q}取外圈为$u$、内圈为$v$。内圈零处注$I$、外圈同点抽$I$，注流和为零，共模没有源。周期齐次共模只有常数解；差模源为$-2rI\delta_{j0}$，故$w_j=-2rIG_j^{(M)}$。端电压是内圈减外圈，即$-w_0$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);
+\draw[axis](n0)--(n1)node[midway,above]{$a^M$};
+\draw[axis](n1)--(n2)node[midway,above]{$a^M$};
+\fill(n0)circle(1.5pt)node[below]{$j-M$};
+\fill(n1)circle(1.5pt)node[below]{$j$};
+\fill(n2)circle(1.5pt)node[below]{$j+M$};
+\node at(2,1){$1+2a^M+2a^{2M}+\cdots$};
+\end{tikzpicture}
+\caption{周期像源对电位作等比叠加，两个绕行方向都存在。}\label{fig:c3-ring0-s}
+\end{figure}
+图~\ref{fig:c3-ring0-s}把周期解表示为无限直线上的像源叠加。源点$j=0$收到本地点源一项以及左右各绕$k$圈的两项，因此
+\[
+ G_0^{(M)}=\frac1{2\sqrt3}\left(1+2\sum_{k=1}^{\infty}a^{kM}\right)
+ =\frac1{2\sqrt3}\left(1+\frac{2a^M}{1-a^M}\right)
+ =\frac1{2\sqrt3}\frac{1+a^M}{1-a^M}.
+\]
+端电压$U=-w_0=2rIG_0^{(M)}$，所以
+\[
+ \boxed{R_0^{(M)}=\frac r{\sqrt3}\frac{1+a^M}{1-a^M}},\qquad M\ge3.
+\]
+由于$0<a^M<1$，有限环值高于双无限值$r/\sqrt3$；当$M\to\infty$时像源贡献消失，恢复双无限结果。有限环中原本延向远处的两条尾部被首尾连接，并不等于向双无限网络再加一条独立并联支路，所以不能用“多一条通路”反向判断大小。
+
+任意第$j$根径向边的内向外电流为$-w_j/r=2IG_j^{(M)}$。将差模方程对一圈求和，邻项相消后得$2\sum_jG_j^{(M)}=1$，因此所有径向电流之和为$I$，与实际注流一致。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[内外圈错开半周的端口]\label{ex:c3-ring-opposite}
+每圈改为$M=2N$段，电流从内圈$0$注入、从外圈$N$流出。求等效电阻，并给出任意错角$m$的结果。 见图~\ref{fig:c3-ring-opposite-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(90.0:1.45);
+\coordinate(v0j1)at(54.0:1.45);
+\coordinate(v0j2)at(18.0:1.45);
+\coordinate(v0j3)at(-18.0:1.45);
+\coordinate(v0j4)at(-54.0:1.45);
+\coordinate(v0j5)at(-90.0:1.45);
+\coordinate(v0j6)at(-126.0:1.45);
+\coordinate(v0j7)at(-162.0:1.45);
+\coordinate(v0j8)at(-198.0:1.45);
+\coordinate(v0j9)at(-234.0:1.45);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[curve](v0j2)--(v0j3);
+\draw[curve](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\draw[curve](v0j5)--(v0j6);
+\draw[curve](v0j6)--(v0j7);
+\draw[curve](v0j7)--(v0j8);
+\draw[curve](v0j8)--(v0j9);
+\draw[curve](v0j9)--(v0j0);
+\coordinate(v1j0)at(90.0:2.25);
+\coordinate(v1j1)at(54.0:2.25);
+\coordinate(v1j2)at(18.0:2.25);
+\coordinate(v1j3)at(-18.0:2.25);
+\coordinate(v1j4)at(-54.0:2.25);
+\coordinate(v1j5)at(-90.0:2.25);
+\coordinate(v1j6)at(-126.0:2.25);
+\coordinate(v1j7)at(-162.0:2.25);
+\coordinate(v1j8)at(-198.0:2.25);
+\coordinate(v1j9)at(-234.0:2.25);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[curve](v1j2)--(v1j3);
+\draw[curve](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v1j5)--(v1j6);
+\draw[curve](v1j6)--(v1j7);
+\draw[curve](v1j7)--(v1j8);
+\draw[curve](v1j8)--(v1j9);
+\draw[curve](v1j9)--(v1j0);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+\draw[curve](v0j3)--(v1j3);
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\draw[curve](v0j6)--(v1j6);
+\draw[curve](v0j7)--(v1j7);
+\draw[curve](v0j8)--(v1j8);
+\draw[curve](v0j9)--(v1j9);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j5)circle(1.5pt)node[below]{$B$};
+
+\end{tikzpicture}
+\caption{从内圈上端到外圈下端，两端错开半周。}\label{fig:c3-ring-opposite-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c3-ring-opposite-q}的两端错开$m$段，$0<m<M$。
+共模方程等效于每段电阻$r$的单圈在$0$注入$I/2$、在$m$抽出$I/2$。
+两条弧的电阻分别为$rm$和$r(M-m)$，若从$0$到$m$的共模压差为$\Delta m$，节点守恒给
+\[
+ \frac{\Delta m}{rm}+\frac{\Delta m}{r(M-m)}=\frac I2,
+ \quad \Delta m=\frac{rI\,m(M-m)}{2M}.
+\]
+差模的两个同号源给$w_j=-rI(G_j^{(M)}+G_{j-m}^{(M)})$。
+由周期对称性$G_{-m}^{(M)}=G_m^{(M)}$，两端均有
+$w_0=w_m=-rI(G_0^{(M)}+G_m^{(M)})$。
+因此内圈$0$减外圈$m$的端电压是
+$\Delta m-(w_0+w_m)/2=\Delta m+rI(G_0^{(M)}+G_m^{(M)})$。
+$m=0$的重合端口由上一例直接给出，也包含在下面的公式中。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)to[bend left=45](5,0);
+\draw[curve](0,0)to[bend right=45](5,0);
+\fill(0,0)circle(1.5pt)node[left]{$0$};\fill(5,0)circle(1.5pt)node[right]{$m$};
+\node at(2.5,1.45){$m$段};\node at(2.5,-1.45){$M-m$段};
+\node at(2.5,-2.15){共模弧电阻并联，差模保留两个方向};
+\end{tikzpicture}
+\caption{弧长决定共模电阻；周期差模包含顺、逆两条指数路径。}\label{fig:c3-ring-opposite-s}
+\end{figure}
+
+图~\ref{fig:c3-ring-opposite-s}中上下两条弧承担共模输运，径向转移由周期差模承担。合并为
+\[
+ R_\times^{(M)}(m)=\frac{rm(M-m)}{2M}
+ +\frac r{2\sqrt3}
+ \frac{1+a^M+a^m+a^{M-m}}{1-a^M}.
+\]
+取$M=2N,m=N$，
+\[
+ \boxed{R_\times^{(2N)}(N)=\frac{rN}4+
+ \frac r{2\sqrt3}\frac{1+a^N}{1-a^N}}.
+\]
+若改成同圈端口，只将差模项中的$a^m+a^{M-m}$改为负号。周期解既可写成$a^j$与$a^{-j}$的组合，也可写成上式的两条衰减路径；舍去其中任何一条都会破坏闭合条件。
+完整节点电位也可直接给出。仍取内圈输入、外圈输出，令共模在零处为零，则
+\[
+ m_j=\begin{cases}
+ -rI(M-m)j/(2M),&0\le j\le m,\\
+ -rIm(M-j)/(2M),&m\le j\le M.
+ \end{cases}
+\]
+两段在$j=m$连续，并在$j=0,M$闭合；它们的斜率差满足两端源汇的离散跳跃条件。差模为
+$w_j=-rI[G_j^{(M)}+G_{j-m}^{(M)}]$，下标按模$M$计算。于是外圈电位为$m_j+w_j/2$，内圈为$m_j-w_j/2$，可进一步计算每段环边与径向连线的电流。共模的分段一次项和差模的两指数项各有明确边界，不能用单一指数代替整个闭环解。
+\end{solution}
+
+
+
+\section{四角正方形分形的三端等效}
+分形子网络在几个位置与外部连接，就须保留相应的端口。只用一个两点电阻代替多端子网络，通常会丢失其他接法的响应。
+
+以下分形由真实细线构成，单位长度电阻记为$\rho$，量纲为$\Omega/\mathrm m$。它与第一讲表示体材料电阻率的符号具有不同单位，使用时须按题设区分。外尺度为$l$：四角各放入缩小到$1/3$的相同网络，沿四条外边的中间$1/3$分别用直线连接相邻子网络。其余内部没有额外跨接线。对有限层数先作电路等效，再取层数增加的极限。
+
+\Needspace{6\baselineskip}
+\begin{example}[邻角与对角电阻的自洽方程]\label{ex:c3-fractal}
+对上述四角分形，求相邻外顶点$A,B$与相对外顶点$A,C$间的电阻。未作为端口的外顶点均开路。 见图~\ref{fig:c3-fractal-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};
+\end{tikzpicture}
+\caption{图示有限两层，四角子网络继续按同样规则细分。}\label{fig:c3-fractal-q}
+\end{figure}
+\begin{solution}
+保留三个相邻外顶点$A,B,C$，把第四端开路。反射对称使三端星形中通向$A,C$的臂相等，记为$y$，通向直角顶点$B$的臂记为$x$。则$R_{AB}=x+y$、$R_{AC}=2y$。
+
+每个角子网络缩小为$1/3$，其三端星臂也缩为$x/3,y/3,y/3$。子网络的外角连接$x/3$臂，另两臂连接相邻外边的中间直线。消去不带外源的接点，每段环边成为
+$s=2y/3+\rho l/3$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(0,2);\coordinate(c)at(2,2);\coordinate(d)at(2,0);
+\Res{a}{b}{s}\Res{b}{c}{s}\Res{c}{d}{s}\Res{d}{a}{s}
+\draw[curve](a)--(-.8,-.8);\draw[curve](b)--(-.8,2.8);\draw[curve](c)--(2.8,2.8);\draw[curve](d)--(2.8,-.8);
+\node[left]at(-.8,-.8){$A$};\node[left]at(-.8,2.8){$B$};\node[right]at(2.8,2.8){$C$};\node[right]at(2.8,-.8){$D$};
+\node at(4.7,1.4){外臂 $x/3$};
+\node at(4.7,.4){$s=2y/3+\rho l/3$};
+\end{tikzpicture}
+\caption{每个角子网络先作三端星形等效，再串联合并成四边形。}\label{fig:c3-fractal-s}
+\end{figure}
+
+图~\ref{fig:c3-fractal-s}中，相邻端口的两个外臂串联；环上一路为$s$，另一路为$3s$，并联为$3s/4$。相对端口的两路各为$2s$，并联为$s$。故
+\[
+ x+y=\frac{2x}3+\frac34\left(\frac{2y}3+\frac{\rho l}3\right),
+ \qquad
+ 2y=\frac{2x}3+\frac{2y}3+\frac{\rho l}3.
+\]
+第一式乘$12$得$4x+6y=3\rho l$；第二式乘$3$得$-2x+4y=\rho l$。第二式乘$2$再与第一式相加，得$14y=5\rho l$，继而$x=3\rho l/14$。因此
+\[
+ \boxed{R_{\text{邻}}=\frac47\rho l,\qquad
+ R_{\text{对}}=\frac57\rho l}.
+\]
+外臂$x/3$不可省去；它是电流从外端进入内部环时必经的电阻。分形线长发散并不要求端口电阻发散，因为大量细线在端口之间提供并联通路。
+\end{solution}
+\subsection{输运电流与感应电流的功率关系}\label{sec:c3-power}
+有感应电动势时，单个网络的支路电流仍可按激励作线性分解。记$\vct i^{\,0}$为所有外端开路时的感应电流，$\vct i^{\,T}$为关闭磁场变化、只施加端口电流时的输运电流。任意支路的实际电流为两者之和，电功率展开为
+\[
+ P=\sum_e r_e(i_e^0)^2+\sum_e r_e(i_e^T)^2
+ +2\sum_e r_e i_e^0i_e^T.
+\]
+输运问题没有感应源，故按统一边方向$r_ei_e^T=V_a-V_b$。将交叉项按节点合并，
+\[
+ \sum_e r_ei_e^0i_e^T
+ =\sum_aV_a\sum_bi^0_{a\to b}=0.
+\]
+最后一个等号要求感应电流在所有节点均无外部注入，含各开放端口。它由节点守恒成立，而非由“正负电流看起来会抵消”成立。若所谓基准感应状态本身带有外端电流，交叉项便未必为零。
+
+因此子网络同时受磁场和端口驱动时，发热可分成内禀感应功率与$R_{\rm port}I^2$。电流可线性叠加，功率一般不能；本题能够分开相加，有上述正交关系作为依据。
+
+\Needspace{6\baselineskip}
+\begin{example}[中间连接线的感应电流]\label{ex:c3-fractal-emf}
+四角分形置于垂直纸面、向外的均匀磁场中，$B(t)=kt$，$k>0$。忽略自感，求四条外边中间$l/3$连接线中的电流。 见图~\ref{fig:c3-fractal-emf-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\node at(2,2){$\odot\ B=kt$};\draw[axis](2.5,-.5)--(1.5,-.5)node[below]{$I_c$};
+\end{tikzpicture}
+\caption{电流所指是外边中间的连接线，外顶点没有另接短路线。}\label{fig:c3-fractal-emf-q}
+\end{figure}
+\begin{solution}
+取顺时针方向为感应环流正向，以反抗向外增强的磁通。外轮廓电动势大小为$\mathcal E=kl^2$；每个角子网络尺度$l/3$，其自身感应电动势为$\mathcal E/9$。四重旋转使四根中间连接线电流大小相等，记为$I_c$。
+
+对一个角子网络，电流从一端进入、从另一对角端流出，输运等效电阻为
+$R_{\rm sub}=(5/7)\rho(l/3)=5\rho l/21$。此外，即使端口电流为零，子网络也有内禀感应环流。沿外轮廓经过该角的两条小边，按旋转对称，它们的总电阻压降等于子网络总环量的一半，即$\mathcal E/18$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(0,2);\coordinate(c)at(2,2);\coordinate(d)at(2,0);
+\Res{a}{b}{s}\Res{b}{c}{s}\Res{c}{d}{s}\Res{d}{a}{s}
+\draw[curve](a)--(-.8,-.8);\draw[curve](b)--(-.8,2.8);\draw[curve](c)--(2.8,2.8);\draw[curve](d)--(2.8,-.8);
+\node[left]at(-.8,-.8){$A$};\node[left]at(-.8,2.8){$B$};\node[right]at(2.8,2.8){$C$};\node[right]at(2.8,-.8){$D$};
+\node at(4.7,1.4){外臂 $x/3$};
+\node at(4.7,.4){$s=2y/3+\rho l/3$};\node at(1,-1.6){每角：$I_cR_{\rm sub}+\mathcal E/18$};\draw[axis](1.4,-.5)--(.6,-.5);
+\end{tikzpicture}
+\caption{回路压降同时包含端口输运和各角内部的感应响应。}\label{fig:c3-fractal-emf-s}
+\end{figure}
+
+图~\ref{fig:c3-fractal-emf-s}沿整体外轮廓逐段列Faraday回路式：四根中间线的压降各为$I_c\rho l/3$；四个角的输运压降各为$I_c5\rho l/21$，内禀压降各为$\mathcal E/18$。所以
+\[
+ \mathcal E=4I_c\left(\frac{\rho l}3+\frac{5\rho l}{21}\right)
+ +\frac{2\mathcal E}9.
+\]
+移项后$(7/9)\mathcal E=(16/7)\rho lI_c$，得
+\[
+ \boxed{I_c=\frac{49}{144}\frac{kl}{\rho}}.
+\]
+方向为顺时针。若只把整个图看作四个静态电阻，会遗漏每个角内部的感应源；若另加一根外部短路线，也已改变了题目的电路。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[无限层分形的总发热功率]\label{ex:c3-fractal-power}
+在例~\ref{ex:c3-fractal-emf}的条件下，求全部细线的总发热功率。说明线长无限增加时为何仍可能得到有限值。 见图~\ref{fig:c3-fractal-power-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\node at(2,2){$P(l)$};
+\end{tikzpicture}
+\caption{功率递推按四个角子网络和四根中间线分割，不重复计算边界线。}\label{fig:c3-fractal-power-q}
+\end{figure}
+\begin{solution}
+电动势按$l^2$缩放，电阻按$l$缩放，所以电流按$l$、功率按$l^3$缩放。每个角子网络的内禀感应功率为$P(l)/27$。端口电流$I_c$附加的输运功率为$I_c^2(5\rho l/21)$；由前述正交关系，没有二者的交叉功率。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\node at(2,2){$4P/27+4I_c^2R_{\rm sub}$};\node at(2,-.8){四根中间线：$4I_c^2\rho l/3$};
+\end{tikzpicture}
+\caption{角子网络已经包含各自全部内层；只在整体层面另加四根中间线。}\label{fig:c3-fractal-power-s}
+\end{figure}
+
+图~\ref{fig:c3-fractal-power-s}把总功率分成互不重叠的八部分：
+\[
+ P=4\left(\frac P{27}+\frac{5\rho l}{21}I_c^2\right)
+ +4\frac{\rho l}3I_c^2
+ =\frac4{27}P+\frac{16}7\rho lI_c^2.
+\]
+于是
+\[
+ P=\frac{432}{161}\rho l I_c^2
+ =\frac{432}{161}\left(\frac{49}{144}\right)^2
+ \frac{k^2l^3}{\rho}
+ =\boxed{\frac{343}{1104}\frac{k^2l^3}{\rho}}.
+\]
+忽略自感后，各层电动势只取决于恒定的$\dot B=k$，所以功率不随$t$变化。每深入一层，子网络内禀功率之和缩为原来的$4/27$，相关级数收敛。线长虽按$4/3$增加，小回路的感应电流却随尺度减小，故无限线长仍可对应有限耗散。
+\end{solution}
+
+
+
+
+\section{有限层分形与无限极限}
+从普通方框逐层构造，可以检验无限自洽解是否确由有限网络趋近。递推同时保留邻角与对角响应，并以第零层参数为初值。
+
+无限自洽式应能由有限网络逼近。记第$n$层分形的三端星臂为$x_n,y_n,y_n$，均以整体外边$l$为尺度，$R_0=\rho l$。第零层只是一圈普通正方形，其邻角电阻$3R_0/4$、对角电阻$R_0$，所以$x_0=R_0/4,y_0=R_0/2$。
+
+下一层的四个角网络缩至$1/3$，内部环边$s_n=2y_n/3+R_0/3$。因此
+\[
+ y_{n+1}=\frac{x_n}3+\frac{s_n}2,\qquad
+ x_{n+1}=\frac{x_n}3+\frac{s_n}4,
+\]
+即
+\[
+ \binom{x_{n+1}}{y_{n+1}}
+ =\begin{pmatrix}1/3&1/6\\1/3&1/3\end{pmatrix}
+ \binom{x_n}{y_n}+\binom{R_0/12}{R_0/6}.
+\]
+固定点由$x_{n+1}=x_n=x_*$、$y_{n+1}=y_n=y_*$确定。分别清除分母，得到
+\[8x_*-2y_*=R_0,\qquad -2x_*+4y_*=R_0.\]
+第二式给$y_*=(R_0+2x_*)/4$，代入第一式得$7x_*=3R_0/2$，所以$x_*=3R_0/14$、$y_*=5R_0/14$。减去固定点后，误差列向量满足$\vct e_{n+1}=\mathsf A\vct e_n$，其中$\mathsf A$就是上式矩阵。特征方程为
+\[\det(\mathsf A-\lambda\mathsf I)
+=(1/3-\lambda)^2-1/18=0,\qquad
+\lambda_\pm=\frac13\pm\frac1{3\sqrt2}=\frac{2\pm\sqrt2}{6}.\]
+两根不同且都在零与一之间，误差可分解为两个均按$\lambda_\pm^n$趋零的分量，有限层响应因而收敛到该固定点。
+
+\Needspace{6\baselineskip}
+\begin{example}[第一层分形的实际电阻]\label{ex:c3-fractal-finite}
+第零层为普通正方形框，第一层由四个缩小到$1/3$的正方形框与四条中间连接线构成。求第一层邻角和对角电阻，再与无限层比较。 见图~\ref{fig:c3-fractal-finite-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0,2.6666666666666665)rectangle(1.3333333333333333,4.0);
+\draw[curve](2.6666666666666665,0)rectangle(4.0,1.3333333333333333);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(4.0,4.0);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};
+\end{tikzpicture}
+\caption{图中每个角只保留普通方框，尚未继续细分。}\label{fig:c3-fractal-finite-q}
+\end{figure}
+\begin{solution}
+先从第零层定参数，不能把无限固定点提前代入。普通方框每边$R_0=\rho l$，邻角电阻为$R_0\parallel3R_0=3R_0/4$，对角电阻为$2R_0\parallel2R_0=R_0$。由$x_0+y_0=3R_0/4$、$2y_0=R_0$，得$x_0=R_0/4,y_0=R_0/2$。
+
+图~\ref{fig:c3-fractal-finite-q}每个角缩小到$1/3$，外臂为$x_0/3=R_0/12$，相邻角之间的内部环边为$s_0=2y_0/3+R_0/3=2R_0/3$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(0,2);\coordinate(c)at(2,2);\coordinate(d)at(2,0);
+\Res{a}{b}{s_0}\Res{b}{c}{s_0}\Res{c}{d}{s_0}\Res{d}{a}{s_0}
+\draw[curve](a)--(-.8,-.8);\draw[curve](b)--(-.8,2.8);\draw[curve](c)--(2.8,2.8);\draw[curve](d)--(2.8,-.8);
+\node[left]at(-.8,-.8){$A$};\node[left]at(-.8,2.8){$B$};\node[right]at(2.8,2.8){$C$};\node[right]at(2.8,-.8){$D$};
+\node at(4.7,1.4){外臂 $R_0/12$};
+\node at(4.7,.4){$s_0=2R_0/3$};
+\end{tikzpicture}
+\caption{第一层的子网络参数取第零层值，不能在有限层中提前使用无限固定点。}\label{fig:c3-fractal-finite-s}
+\end{figure}
+图~\ref{fig:c3-fractal-finite-s}中，邻角端口先经过两只外臂，再通过内部环的$s_0\parallel3s_0=3s_0/4$；对角端口则通过$2s_0\parallel2s_0=s_0$。所以
+\[
+ \boxed{R_{{\text{邻}},1}=\frac{2R_0}{12}+\frac34\frac{2R_0}3=\frac{2R_0}3},
+ \qquad
+ \boxed{R_{{\text{对}},1}=\frac{2R_0}{12}+\frac{2R_0}3=\frac{5R_0}6}.
+\]
+由$y_1=R_{{\text{对}},1}/2$、$x_1=R_{{\text{邻}},1}-y_1$，可反求$y_1=5R_0/12,x_1=R_0/4$，与一般递推一致。
+
+无限层的邻角与对角值为$4R_0/7,5R_0/7$，均低于第一层。两项差分别为$2R_0/21,5R_0/42$；有限层误差来自角子网络尚未继续细分，而不是中间连接线的电阻单位变化。每层均以相同外尺度$l$归一化，再按递推比较，才能避免混用不同大小网络。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[有限层的感应电流与功率递推]\label{ex:c3-fractal-finite-emf}
+在$B=kt$中，第$n$层分形的对角电阻为$D_n$，总感应功率为$P_n$。写出第$n+1$层中间连接线电流和总功率递推，并给出初始值。 见图~\ref{fig:c3-fractal-finite-emf-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0,2.6666666666666665)rectangle(1.3333333333333333,4.0);
+\draw[curve](2.6666666666666665,0)rectangle(4.0,1.3333333333333333);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(4.0,4.0);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\node at(2,2){$\odot\,B=kt$};
+\end{tikzpicture}
+\caption{保留每个角内部的感应响应，再逐层增加。}\label{fig:c3-fractal-finite-emf-q}
+\end{figure}
+\begin{solution}
+令外尺度电动势$\mathcal E=kl^2$，$R_0=\rho l$。图~\ref{fig:c3-fractal-finite-emf-q}的每个角子网络尺度为$l/3$，所以其自身外轮廓电动势为$\mathcal E/9$，对角输运电阻为$D_n/3$。
+
+子网络单独开路时，由四重旋转对称，四条外侧路径的电阻压降相同，总和为$\mathcal E/9$；整体轮廓经过该子网络其中两侧，因此需保留的内禀压降为$\mathcal E/18$。沿整体外轮廓列式，
+\[
+ \mathcal E=4I_{c,n+1}\frac{R_0+D_n}3+4\frac{\mathcal E}{18}.
+\]
+移去右边固定项，得$(7/9)\mathcal E=4(R_0+D_n)I_{c,n+1}/3$，于是
+\[
+ \boxed{I_{c,n+1}=\frac{7\mathcal E}{12(R_0+D_n)}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0,2.6666666666666665)rectangle(1.3333333333333333,4.0);
+\draw[curve](2.6666666666666665,0)rectangle(4.0,1.3333333333333333);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(4.0,4.0);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\node at(2,2){$P_n/27$：每角};\node at(2,-.8){$I_{c,n+1}$：每根中间线};
+\end{tikzpicture}
+\caption{子网络的自身功率缩放为$1/27$，输运电阻缩放为$1/3$。}\label{fig:c3-fractal-finite-emf-s}
+\end{figure}
+图~\ref{fig:c3-fractal-finite-emf-s}把发热按四个子网络和四根中间线分割。缩尺使内禀电动势变为$1/9$、电阻变为$1/3$，所以各子网络内禀功率为$P_n/27$。输运与开路感应电流的全网交叉功率为零，因此
+\[
+ \boxed{P_{n+1}=4\frac{P_n}{27}
+ +4\frac{D_n}3I_{c,n+1}^2+4\frac{R_0}3I_{c,n+1}^2}.
+\]
+第零层是一圈总电阻$4R_0$的方框，故$D_0=R_0$、$I_{c,0}=\mathcal E/(4R_0)$、$P_0=\mathcal E^2/(4R_0)$，足以启动有限层递推。
+
+当$D_n\to5R_0/7$时，$I_c\to49\mathcal E/(144R_0)$。再对功率式取固定点，有$(23/27)P=(16/7)R_0I_c^2$，即$P=343\mathcal E^2/(1104R_0)$。这里$\mathcal E$始终按整体边长$l$定义，不能在每一轮递推中又额外缩小一次。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[分形三端网络的开路电压]\label{ex:c3-fractal-port}
+无限层分形从$A$注入$I$、从对角$C$抽出$I$，顶点$B,D$开路。求$U_{BC}$及$U_{AB}$，并说明$B,D$间短接是否改变输入电阻。 见图~\ref{fig:c3-fractal-port-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};
+\end{tikzpicture}
+\caption{外顶点的开路条件只限制外部注流，内部支路仍可能流过电流。}\label{fig:c3-fractal-port-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-fractal-port-q}先保持$D$开路，保留$A,B,C$三端。无限层对应星形中$A,C$两臂均为$y=5R_0/14$，$B$臂为$x=3R_0/14$，其中$R_0=\rho l$。
+
+外部从$A$注$I$、从$C$抽$I$，$B$无注流。因此星形$B$臂电流为零，$A$臂流向星心、$C$臂流离星心。选星心电位为零，逐臂电压为
+\[
+ V_A=Iy,\qquad V_C=-Iy,\qquad V_B=0.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(C)at(2,0);
+\coordinate(B)at(0,2);
+\coordinate(O)at(0,0);
+\draw[curve](A)--(O);
+\draw[curve](C)--(O);
+\draw[curve](B)--(O);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\path(A)--(O)node[midway,above,sloped]{$y$};
+\path(C)--(O)node[midway,above,sloped]{$y$};
+\path(B)--(O)node[midway,above,sloped]{$x$};
+\end{scope}
+\node[below]at(0,0){$0$};
+\end{tikzpicture}
+\caption{开路星臂无压降，测量端电位等于星心电位。}\label{fig:c3-fractal-port-s}
+\end{figure}
+由图~\ref{fig:c3-fractal-port-s}读取端口次序，
+\[
+ \boxed{U_{BC}=V_B-V_C=Iy=\frac{5IR_0}{14}},\qquad
+ \boxed{U_{AB}=V_A-V_B=\frac{5IR_0}{14}}.
+\]
+二者相加为$U_{AC}=2Iy=5IR_0/7$，与对角电阻一致。开路仅使星形的对应外臂无电流，不表示原网络中通向$B$的全部内部细线均无电流。
+
+关于$AC$的反射保持激励并互换$B,D$，所以$V_D=V_B=0$。将$B,D$短接后，新线两端压差为零，电流为零，旧节点解继续满足所有方程；由唯一性，输入电阻仍为$5R_0/7$。这一结论针对当前对角激励成立，若改在相邻顶点供电，应重新判断被短接的两点是否等势。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[外加直流与感应同时存在]\label{ex:c3-fractal-driven}
+在均匀变化磁场中，另从分形对角$A,C$施加恒定输运电流$I$。求总发热，并分析四根中间连接线的电流与发热。 见图~\ref{fig:c3-fractal-driven-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\draw[axis](-1,0)--(0,0)node[midway,above]{$I$};\draw[axis](4,4)--(5,4);
+\end{tikzpicture}
+\caption{外加源汇只在两个对角，四个角内部仍保留感应电动势。}\label{fig:c3-fractal-driven-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-fractal-driven-q}中的实际电流拆为开路感应解$i_e^0$与关闭磁场变化后的输运解$i_e^T$。开路感应电流在所有节点无外部注入，而输运解满足$r_ei_e^T=V_a-V_b$，故
+\[
+ \sum_e r_ei_e^0i_e^T=\sum_aV_a\sum_bi^0_{a\to b}=0.
+\]
+因此总发热为两状态各自耗散之和，输运端口是对角$A,C$，电阻为$5\rho l/7$，从而
+\[
+ \boxed{P=\frac{343}{1104}\frac{k^2l^3}{\rho}+\frac57\rho lI^2}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(0,2);\coordinate(c)at(2,2);\coordinate(d)at(2,0);
+\Res{a}{b}{s}\Res{b}{c}{s}\Res{c}{d}{s}\Res{d}{a}{s}
+\draw[curve](a)--(-.8,-.8);\draw[curve](b)--(-.8,2.8);\draw[curve](c)--(2.8,2.8);\draw[curve](d)--(2.8,-.8);
+\node[left]at(-.8,-.8){$A$};\node[left]at(-.8,2.8){$B$};\node[right]at(2.8,2.8){$C$};\node[right]at(2.8,-.8){$D$};
+\node at(4.7,1.4){外臂 $x/3$};
+\node at(4.7,.4){$s=2y/3+\rho l/3$};\node at(1,-1.6){两根 $I_c+I/2$，两根 $I_c-I/2$};
+\end{tikzpicture}
+\caption{输运电流沿两条半周分流，与感应环流在部分支路相加、部分相减。}\label{fig:c3-fractal-driven-s}
+\end{figure}
+图~\ref{fig:c3-fractal-driven-s}的输运电流沿两条对称半周各分$I/2$。统一把中间连接线顺时针方向定为正，感应环流为$I_c=49kl/(144\rho)$；两根线的输运分量为$+I/2$，另两根为$-I/2$。所以对应实际电流分别为$I_c+I/2$、$I_c-I/2$，各出现两次。
+
+四线阻值均为$\rho l/3$，逐根平方相加：
+\[
+ \begin{aligned}
+ P_{\rm middle}
+ &=\frac{\rho l}3\left[2(I_c+I/2)^2+2(I_c-I/2)^2\right]\\
+ &=\frac{\rho l}3(4I_c^2+I^2).
+ \end{aligned}
+\]
+中间线的输运耗散为$\rho lI^2/3$，低于全网输运功率$5\rho lI^2/7$；其余$8\rho lI^2/21$在四角子网络中产生。
+
+当$I=2I_c$时两根中间线恰无电流，$I>2I_c$时它们反向，发热仍按平方计算。单支路的交叉项通常不为零；此处中间线因两正两负而抵消，全网则由严格的节点守恒证明抵消，两种理由不应混同。
+\end{solution}
+
+
+
+
+
+\input{lecture3_depth}
+\input{lecture3_connections}
+\section{习题与解答}
+
+\begin{exercise}[有限梯形末端的可变封口]\label{ex:c3-h1}
+一格梯形的上、下轨电阻均为$r$，左端横档为$r$，右端横档改成$R$。从左端两点输入，求等效电阻及两条并联路径的电流。 见图~\ref{fig:c3-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{r+R+r}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{右端可变横档只出现在经过轨道的路径中。}\label{fig:c3-h1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-h1-q}从左侧上节点到下节点有两条路径：直接横档为$r$，绕行路径依次经过上轨$r$、末端$R$、下轨$r$，总计$2r+R$。两条路径端电压相同，设为$U$，其电流分别为$U/r$与$U/(2r+R)$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{2r+R}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{直接路径与绕行路径并联；绕行电流经过两段轨道。}\label{fig:c3-h1-s}
+\end{figure}
+图~\ref{fig:c3-h1-s}中节点守恒给$I=U/r+U/(2r+R)$，所以
+\[
+ \boxed{R_{\rm in}=\frac UI=\frac{r(2r+R)}{3r+R}}.
+\]
+将$U=IR_{\rm in}$回代各支路，得到
+\[
+ \boxed{I_{\rm direct}=I\frac{2r+R}{3r+R}},\qquad
+ \boxed{I_{\rm detour}=I\frac r{3r+R}}.
+\]
+二者之和为$I$，而$I_{\rm direct}r=I_{\rm detour}(2r+R)$，符合并联支路压降相等。绕行电流经过两段轨道，不能只将末横档$R$与输入$r$并联。
+
+当$R\to\infty$时，绕行电流趋零，输入电阻趋$r$；当$R=0$时，右端短接，输入为$r\parallel2r=2r/3$，直接与绕行电流分别为$2I/3,I/3$。若$R=r$，恢复普通一格梯形的$3r/4$。三个边界分别对应不同封口，后续增加格数时都应从实际$R$启动同一递推。
+\end{solution}
+
+\begin{exercise}[同角度双无限端口的分流]\label{ex:c3-h2}
+双无限两轨在$j=0$的上下节点之间输入电流$I$。求中间横档电流、向每侧轨道流出的电流，以及距离$j$处横档电流。 见图~\ref{fig:c3-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[curve](v0j2)--(v0j3);
+\draw[curve](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[curve](v1j2)--(v1j3);
+\draw[curve](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+\draw[curve](v0j3)--(v1j3);
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$3$};
+\node[below]at(v0j4){$4$};
+\node[below]at(v0j5){$5$};
+\node at(-.7,.5){$\cdots$};\node at(6.2,.5){$\cdots$};
+\fill(v1j0)circle(1.5pt)node[above]{$B$};\end{tikzpicture}
+\caption{把输入点平移到编号零即可；两侧结构完全相同。}\label{fig:c3-h2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-h2-q}取上轨注入、下轨流出为正。两轨注流和为零，故共模为常数；差模满足$4w_j-w_{j-1}-w_{j+1}=2rI\delta_{j0}$。由源点定标，$w_j=(rI/\sqrt3)a^{|j|}$。
+
+零处横档与源端同压，故该横档向下电流为$w_0/r=I/\sqrt3$。上轨源点KCL给向两侧流出的总电流$I-I/\sqrt3$，左右反射又使两侧相等：
+\[
+ \boxed{I_{\rm side}=\frac I2\left(1-\frac1{\sqrt3}\right)}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.5,0)node[right]{$j$};\draw[axis](0,-.1)--(0,1.6)node[above]{$i_j/i_0$};
+\draw[curve,domain=-3:3,samples=80]plot(\x,{pow(2-sqrt(3),abs(\x))});\draw[axis](-3,0)--(0,0);
+\end{tikzpicture}
+\caption{横档电流从源点向左右指数衰减，源点这一根计入一次。}\label{fig:c3-h2-s}
+\end{figure}
+图~\ref{fig:c3-h2-s}中任意第$j$根横档向下电流为
+\[
+ \boxed{I_{\rm rung}(j)=\frac{w_j}r=\frac I{\sqrt3}a^{|j|}}.
+\]
+它从源点向两侧衰减，源点横档只计一次。将全部横档相加并利用等比级数，
+\[
+ \sum_{j=-\infty}^{\infty}I_{\rm rung}(j)
+ =\frac I{\sqrt3}\left(1+2\frac a{1-a}\right)
+ =\frac I{\sqrt3}\frac{1+a}{1-a}=I,
+\]
+最后用了$(1+a)/(1-a)=\sqrt3$。这说明全部输入最终经过某根横档转移到下轨，再汇回源端，并没有电流流失到无穷远。
+
+右侧上轨第一段还可由电位直接求得$[w_0-w_1]/(2r)=I(1-a)/(2\sqrt3)$，等于上面的$I_{\rm side}$，把局部场解与源节点守恒联系起来。
+\end{solution}
+
+\begin{exercise}[把环形网络逐渐展开]\label{ex:c3-h3}
+环形双轨每圈$M$段，取同角度端口。给定误差容许量$\delta>0$，要求电阻相对双无限值$r/\sqrt3$的相对差不大于$\delta$，求足够的$M$。 见图~\ref{fig:c3-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(90.0:1.45);
+\coordinate(v0j1)at(45.0:1.45);
+\coordinate(v0j2)at(0.0:1.45);
+\coordinate(v0j3)at(-45.0:1.45);
+\coordinate(v0j4)at(-90.0:1.45);
+\coordinate(v0j5)at(-135.0:1.45);
+\coordinate(v0j6)at(-180.0:1.45);
+\coordinate(v0j7)at(-225.0:1.45);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[curve](v0j2)--(v0j3);
+\draw[curve](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\draw[curve](v0j5)--(v0j6);
+\draw[curve](v0j6)--(v0j7);
+\draw[curve](v0j7)--(v0j0);
+\coordinate(v1j0)at(90.0:2.25);
+\coordinate(v1j1)at(45.0:2.25);
+\coordinate(v1j2)at(0.0:2.25);
+\coordinate(v1j3)at(-45.0:2.25);
+\coordinate(v1j4)at(-90.0:2.25);
+\coordinate(v1j5)at(-135.0:2.25);
+\coordinate(v1j6)at(-180.0:2.25);
+\coordinate(v1j7)at(-225.0:2.25);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[curve](v1j2)--(v1j3);
+\draw[curve](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\draw[curve](v1j5)--(v1j6);
+\draw[curve](v1j6)--(v1j7);
+\draw[curve](v1j7)--(v1j0);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+\draw[curve](v0j3)--(v1j3);
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\draw[curve](v0j6)--(v1j6);
+\draw[curve](v0j7)--(v1j7);
+\fill(v0j0)circle(1.5pt)node[below left]{$A$};\fill(v1j0)circle(1.5pt)node[above]{$B$};
+
+\end{tikzpicture}
+\caption{$A,B$位于同一角度的内、外圈。圆周格数仅作示意，闭合边界的误差由一般$M$决定。}\label{fig:c3-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c3-h3-q}保留同角度内外圈端口。周期电阻为$R_0^{(M)}=(r/\sqrt3)(1+a^M)/(1-a^M)$，双无限参照值为$R_\infty=r/\sqrt3$，故相对误差
+\[
+ e_M=\frac{R_0^{(M)}-R_\infty}{R_\infty}
+ =\frac{1+a^M}{1-a^M}-1=\frac{2a^M}{1-a^M}>0.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$M$};\draw[axis](0,-.1)--(0,2)node[above]{$2a^M/(1-a^M)$};
+\draw[curve,domain=.8:5,samples=70]plot(\x,{2*pow(2-sqrt(3),\x)/(1-pow(2-sqrt(3),\x))});
+\end{tikzpicture}
+\caption{周期修正随总周长增大而减小，容许误差决定截断尺度。}\label{fig:c3-h3-s}
+\end{figure}
+图~\ref{fig:c3-h3-s}中$a^M$随周长严格下降。因$1-a^M>0$，要求$e_M\le\delta$可依次改写为
+\[
+ 2a^M\le\delta(1-a^M),\quad
+ (2+\delta)a^M\le\delta,\quad
+ M\ln a\le\ln\frac\delta{2+\delta}.
+\]
+最后除以负数$\ln a$时不等号反向。因此最小允许整数为
+\[
+ \boxed{M_{\min}=\max\!\left\{3,
+ \left\lceil\frac{\ln[\delta/(2+\delta)]}{\ln a}\right\rceil\right\}}.
+\]
+例如$\delta=0.01$时右侧对数比约为$4.03$，故$M=5$即可；$M=4$的误差约为$1.04\%$，仍超过要求。计算时应先保留足够位数，再向上取整，不能把最接近的整数直接当作满足误差界的格数。
+
+这里的误差只来自把周期闭合网络近似为双无限网络，不包含元件容差或测量误差。给定容许量后再选择周长，使边界近似有明确精度。
+\end{solution}
+
+\begin{exercise}[分形电阻的四端连接]\label{ex:c3-h4}
+四角分形的相邻端$A,B$短接成一端，相邻端$C,D$短接成另一端，求两组之间的电阻。不能把两个相邻角电阻简单并联。 见图~\ref{fig:c3-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(0.4444444444444444,0.4444444444444444);
+\draw[curve](0,0.8888888888888888)rectangle(0.4444444444444444,1.3333333333333333);
+\draw[curve](0.8888888888888888,0)rectangle(1.3333333333333333,0.4444444444444444);
+\draw[curve](0.8888888888888888,0.8888888888888888)rectangle(1.3333333333333333,1.3333333333333333);
+\draw[curve](0.4444444444444444,0)--(0.8888888888888888,0);
+\draw[curve](0.4444444444444444,1.3333333333333333)--(0.8888888888888888,1.3333333333333333);
+\draw[curve](0,0.4444444444444444)--(0,0.8888888888888888);
+\draw[curve](1.3333333333333333,0.4444444444444444)--(1.3333333333333333,0.8888888888888888);
+\draw[curve](0,2.6666666666666665)rectangle(0.4444444444444444,3.1111111111111107);
+\draw[curve](0,3.5555555555555554)rectangle(0.4444444444444444,4.0);
+\draw[curve](0.8888888888888888,2.6666666666666665)rectangle(1.3333333333333333,3.1111111111111107);
+\draw[curve](0.8888888888888888,3.5555555555555554)rectangle(1.3333333333333333,4.0);
+\draw[curve](0.4444444444444444,2.6666666666666665)--(0.8888888888888888,2.6666666666666665);
+\draw[curve](0.4444444444444444,4.0)--(0.8888888888888888,4.0);
+\draw[curve](0,3.1111111111111107)--(0,3.5555555555555554);
+\draw[curve](1.3333333333333333,3.1111111111111107)--(1.3333333333333333,3.5555555555555554);
+\draw[curve](2.6666666666666665,0)rectangle(3.1111111111111107,0.4444444444444444);
+\draw[curve](2.6666666666666665,0.8888888888888888)rectangle(3.1111111111111107,1.3333333333333333);
+\draw[curve](3.5555555555555554,0)rectangle(4.0,0.4444444444444444);
+\draw[curve](3.5555555555555554,0.8888888888888888)rectangle(4.0,1.3333333333333333);
+\draw[curve](3.1111111111111107,0)--(3.5555555555555554,0);
+\draw[curve](3.1111111111111107,1.3333333333333333)--(3.5555555555555554,1.3333333333333333);
+\draw[curve](2.6666666666666665,0.4444444444444444)--(2.6666666666666665,0.8888888888888888);
+\draw[curve](4.0,0.4444444444444444)--(4.0,0.8888888888888888);
+\draw[curve](2.6666666666666665,2.6666666666666665)rectangle(3.1111111111111107,3.1111111111111107);
+\draw[curve](2.6666666666666665,3.5555555555555554)rectangle(3.1111111111111107,4.0);
+\draw[curve](3.5555555555555554,2.6666666666666665)rectangle(4.0,3.1111111111111107);
+\draw[curve](3.5555555555555554,3.5555555555555554)rectangle(4.0,4.0);
+\draw[curve](3.1111111111111107,2.6666666666666665)--(3.5555555555555554,2.6666666666666665);
+\draw[curve](3.1111111111111107,4.0)--(3.5555555555555554,4.0);
+\draw[curve](2.6666666666666665,3.1111111111111107)--(2.6666666666666665,3.5555555555555554);
+\draw[curve](4.0,3.1111111111111107)--(4.0,3.5555555555555554);
+\draw[curve](1.3333333333333333,0)--(2.6666666666666665,0);
+\draw[curve](1.3333333333333333,4)--(2.6666666666666665,4);
+\draw[curve](0,1.3333333333333333)--(0,2.6666666666666665);
+\draw[curve](4,1.3333333333333333)--(4,2.6666666666666665);
+\node[below left]at(0,0){$A$};\node[above left]at(0,4){$B$};\node[above right]at(4,4){$C$};\node[below right]at(4,0){$D$};\draw[curve](-.5,0)--(-.5,4);\draw[curve](4.5,0)--(4.5,4);
+\draw[curve](-.5,0)--(0,0);\draw[curve](-.5,4)--(0,4);\draw[curve](4,0)--(4.5,0);\draw[curve](4,4)--(4.5,4);\end{tikzpicture}
+\caption{同侧两个端点短接，内部子网络仍有共同支路。}\label{fig:c3-h4-q}
+\end{figure}
+\begin{solution}
+本题四端均参与接线，须保留图~\ref{fig:c3-h4-q}对应的四端等效环。由无限层星臂$x=3\rho l/14,y=5\rho l/14$，每个外端至内部环节点的外臂为$t=x/3=\rho l/14$，每段内部环边为
+\[
+ s=\frac{2y}3+\frac{\rho l}3=\frac47\rho l.
+\]
+这些参数保持四个外部端口，再施加$A,B$同势及$C,D$同势的短接条件。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(0,2);\coordinate(c)at(2,2);\coordinate(d)at(2,0);
+\Res{a}{b}{s}\Res{b}{c}{s}\Res{c}{d}{s}\Res{d}{a}{s}
+\draw[curve](a)--(-.8,-.8);\draw[curve](b)--(-.8,2.8);\draw[curve](c)--(2.8,2.8);\draw[curve](d)--(2.8,-.8);
+\node[left]at(-.8,-.8){$A$};\node[left]at(-.8,2.8){$B$};\node[right]at(2.8,2.8){$C$};\node[right]at(2.8,-.8){$D$};
+\node at(4.7,1.4){外臂 $x/3$};
+\node at(4.7,.4){$s=2y/3+\rho l/3$};
+\end{tikzpicture}
+\caption{先保持四端等效，再施加外端短接条件。}\label{fig:c3-h4-s}
+\end{figure}
+图~\ref{fig:c3-h4-s}中关于水平中线反射保持激励，同侧两内部环节点因此等势。同侧竖直环边电流为零；两只源侧外臂都跨在源组与源侧内部节点之间，故并联为$t/2$。两条跨左右的环边并联为$s/2$，汇侧两外臂也并联为$t/2$。
+
+这三段依次通过总电流$I$，所以
+\[
+ \boxed{R=\frac t2+\frac s2+\frac t2
+ =\frac{\rho l}{28}+\frac{2\rho l}7+\frac{\rho l}{28}
+ =\frac5{14}\rho l}.
+\]
+实际每条水平环边流$I/2$，每只外臂也流$I/2$，总耗散为$4t(I/2)^2+2s(I/2)^2=I^2(t+s/2)$，与端口结果一致；两条竖直环边不发热。
+
+不能把两个邻角电阻$4\rho l/7$简单并联：该值是在另两端开路时测得，两次测量会共享内部支路；本题短接四端后，电流分配与开路测量不同。
+\end{solution}

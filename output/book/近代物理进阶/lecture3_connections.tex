@@ -1,0 +1,86 @@
+\section{两体末态的能谱与连续光压推进}
+\subsection{各向同性衰变怎样形成均匀能谱}
+母粒子静质量$M$，在自身静止系衰变为两个同质量$m$的粒子。每个子粒子的$E_*=Mc^2/2$、$p_*c=\sqrt{M^2/4-m^2}\,c^2$。若衰变在该系各向同性，单个已标记子粒子的$\mu_*=\cos\theta_*$在$[-1,1]$上均匀。
+
+母粒子在实验室沿$x$以$\beta c$运动，洛伦兹因子为$\Gamma$。子粒子能量为
+\[
+ E=\Gamma(E_*+\beta cp_*\mu_*).
+\]
+在$\beta p_*>0$时，这是$\mu_*$的严格递增线性函数，由$\dd P=\dd\mu_*/2$及$\dd E=\Gamma\beta cp_*\dd\mu_*$，全角接收的能量概率密度为
+\[
+ \frac{\dd P}{\dd E}=\frac1{2\Gamma\beta cp_*},\qquad
+ E_-\leq E\leq E_+,\quad
+ E_\pm=\Gamma(E_*\pm\beta cp_*).
+\]
+若$\beta=0$或$p_*=0$，两端点合并为$E=\Gamma E_*$，成为单能分布，不能再使用上式的零分母密度。实验室角分布另含方向变换的雅可比；有限角域探测须先反解源系接受范围，再截取能谱。
+
+\begin{example}由能谱端点恢复子粒子质量
+已知母粒子实验室洛伦兹因子为2，两体等质量衰变的单子粒子全角能谱范围为$4\mathcal E\leq E\leq16\mathcal E$，$\mathcal E$为能量单位。假定母粒子静止系中衰变方向各向同性。求母、子静质量，求$E>12\mathcal E$的概率，并说明同一次衰变中两子粒子能量的相关性。
+\ExpansionDiagram{fig:dep-m3-spectrum-q}{全角接收的两体末态形成有两个运动学端点的能谱}{
+\draw[->](0,0)--(7,0)node[right]{$E/\mathcal E$};\draw[->](0,0)--(0,2.5)node[above]{概率密度};\draw[thick](1.5,0)--(1.5,1.5)--(6,1.5)--(6,0);\node[below]at(1.5,0){4};\node[below]at(6,0){16};\node[above]at(3.8,1.5){均匀};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-m3-spectrum-q}的中点为$E_c=10\mathcal E=\Gamma Mc^2/2$，所以$Mc^2=10\mathcal E$。半宽$\Delta=6\mathcal E=\Gamma\beta cp_*$，而$\Gamma\beta=\sqrt3$，得$cp_*=2\sqrt3\mathcal E$。由$E_*^2=m^2c^4+p_*^2c^2$，
+\[
+ m^2c^4=(5\mathcal E)^2-(2\sqrt3\mathcal E)^2
+ =13\mathcal E^2,\qquad mc^2=\sqrt{13}\mathcal E.
+\]
+矩形分布中，高于$12\mathcal E$的区间占长度$4\mathcal E$，总宽为$12\mathcal E$，所以概率$1/3$。
+\ExpansionDiagram{fig:dep-m3-spectrum-a}{同一次衰变的能量对被限制在总能量直线上}{
+\draw[->](0,0)--(5,0)node[right]{$E_1$};\draw[->](0,0)--(0,4.5)node[above]{$E_2$};\draw[thick](1,4)--(4,1);\fill(1,4)circle(1.4pt);\fill(4,1)circle(1.4pt);\node[right]at(3.3,3.4){$E_1+E_2=20\mathcal E$};}
+图\ref{fig:dep-m3-spectrum-a}中$E_2=20\mathcal E-E_1$，两者完全反相关。令$\xi=E_1-E_c$，则$\dd E_1=\dd\xi$，积分限为$-\Delta,\Delta$，密度为$1/(2\Delta)$。对称性给$\langle\xi\rangle=0$，方差为
+\[
+ \operatorname{Var}E_1=\frac1{2\Delta}\int_{-\Delta}^{\Delta}\xi^2\dd\xi
+ =\left[\frac{\xi^3}{6\Delta}\right]_{-\Delta}^{\Delta}
+ =\frac{\Delta^2}{3}=12\mathcal E^2.
+\]
+又有$E_2-E_c=-(E_1-E_c)$，故协方差为$-\langle\xi^2\rangle=-12\mathcal E^2$。若把两个均匀谱独立抽样，会产生不守恒的能量对。若$\Gamma$也未知，两个端点只约束$\Gamma M$及$\beta\sqrt{1-4m^2/M^2}$，通常不足以唯一确定三个未知量。
+\end{solution}
+
+\subsection{移动镜面的光压还要计算追上镜面的光子率}
+平面镜沿光束方向后退，实验室固定截面上的入射功率为$P$。若镜速为$\beta c$，单位实验室时间追上镜面的入射能量是$P(1-\beta)$，反射单光子能量比为$(1-\beta)/(1+\beta)$。每个光子反向弹回，镜获得的动量是入射与反射光子动量模之和，因此
+\[
+ F=\frac{P(1-\beta)}c\left(1+\frac{1-\beta}{1+\beta}\right)
+ =\frac{2P}{c}\frac{1-\beta}{1+\beta}.
+\]
+这里忽略单光子的有限反冲，采用大量弱光子的连续光压极限。若遗漏追赶率$1-\beta$，会高估高速镜所受的力。
+
+\begin{example}恒定入射功率推动理想光帆
+质量$M$的理想反射光帆初始静止，实验室光源提供固定截面功率$P$的连续准直光束，光帆全部截获该束并沿束方向运动，静质量不变。忽略衍射、束宽变化及辐射吸收。求速度和位置随时间的参数式，并核对光子能量损失与光帆做功。
+\ExpansionDiagram{fig:dep-m3-sail-q}{光帆后退使光子到达率降低，反射光同时红移}{
+\draw[->,thick](0,.7)--(4,.7)node[midway,above]{$P$};\draw[very thick](4,-.5)--(4,1.7);\draw[->](4,1.9)--(5.5,1.9)node[right]{$\beta c$};\draw[->](4,-.1)--(1,-.1)node[midway,below]{红移反射};\node[below]at(4,-.6){光帆$M$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-m3-sail-q}中用快度$\chi$表示$\beta=\tanh\chi$，有$(1-\beta)/(1+\beta)=\ee^{-2\chi}$。动量$Mc\sinh\chi$的导数满足
+\[
+ Mc\cosh\chi\frac{\dd\chi}{\dd t}=\frac{2P}c\ee^{-2\chi}.
+\]
+因此$\dd t/\dd\chi=Mc^2\ee^{2\chi}\cosh\chi/(2P)$。展开双曲函数，并用初值$t(0)=0$，
+\[
+ t=\frac{Mc^2}{4P}\int_0^\chi(\ee^{3q}+\ee^q)\dd q
+ =\frac{Mc^2}{4P}\left[\frac{\ee^{3q}}3+\ee^q\right]_0^\chi.
+\]
+令$u=\ee^\chi\geq1$，得
+\[
+ t=\frac{Mc^2}{12P}(u^3+3u-4),\qquad
+ \beta=\frac{u^2-1}{u^2+1}.
+\]
+位置由$\dd x/\dd\chi=\beta c\dd t/\dd\chi$积分。用$\beta=\tanh\chi$及$x(0)=0$，
+\[
+ x=\frac{Mc^3}{4P}\int_0^\chi(\ee^{3q}-\ee^q)\dd q
+ =\frac{Mc^3}{4P}\left[\frac{\ee^{3q}}3-\ee^q\right]_0^\chi,
+\]
+得到
+\[
+ x=\frac{Mc^3}{12P}(u^3-3u+2).
+\]
+\ExpansionDiagram{fig:dep-m3-sail-a}{连续推进的速度单调趋近光速，所需时间随快度迅速增长}{
+\draw[->](0,0)--(5,0)node[right]{$u=\ee^\chi$};\draw[->](0,0)--(0,2.5)node[above]{$v/c$};\draw[thick,domain=1:4.5,samples=80]plot({\x-1},{2*(\x^2-1)/(\x^2+1)});\draw[dashed](0,2)--(4.5,2);\node[left]at(0,2){1};\node[below]at(0,0){1};}
+图\ref{fig:dep-m3-sail-a}的$u=1$为初始时刻。小时间下$F\simeq2P/c$，恢复初始加速度$2P/(Mc)$；高速时$t$按$u^3$增长，而$1-\beta\simeq2/u^2$，始终不能在有限时间达到$c$。
+
+每单位实验室时间反射离开的光能为$P_{\rm refl}=P(1-\beta)^2/(1+\beta)$。真正撞到光帆的入射能量率为$P_{\rm hit}=P(1-\beta)$，两者之差
+\[
+ P_{\rm hit}-P_{\rm refl}=\frac{2P\beta(1-\beta)}{1+\beta}=Fv,
+\]
+与光帆动能增长率一致。固定截面功率$P$和镜面实际截获功率不同；未追上光帆的光还在传播途中，不应直接算作已交给光帆的能量。
+\end{solution}

@@ -1,0 +1,88 @@
+\section{习题与解答}
+\input{lecture4_supplement}
+\input{lecture4_additional}
+\input{lecture4_practice}
+\begin{exercise}\label{ex:o4stack}
+自然光从空气入射，穿过一叠相互平行的无损玻璃片后回到空气，每个界面均处于相应方向的布儒斯特角。设共经历$M$个界面（$M$为偶数），忽略反射光重新进入透射主束。若每界面$s$偏振反射率为$R_s$，求直接透射主束光强和线偏振度；另说明若在玻璃内部截取主束，光强应怎样换算。
+\Diagram{fig:o4stackq}{玻片堆逐渐削弱$s$分量，保留$p$分量}{\foreach\x in{0,1,2,3}{\draw[curve](\x,-.9)--({\x+.5},.9);}\draw[axis](-1,0)--(4.5,0)node[right]{主束};\node[above]at(1.8,1.3){每面为布儒斯特角};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4stackq}的自然光初始$p,s$各占$I_0/2$。每界面的法向能流透射率为$T_p=1$、$T_s=1-R_s$，而沿光束方向定义的强度还须换算截面。若第$j$面前、后的光线与共同法线分别成$\theta_{j-1},\theta_j$，有
+\[
+ I_{\sigma,j}\cos\theta_j
+ =T_{\sigma,j}I_{\sigma,j-1}\cos\theta_{j-1},
+ \qquad \sigma=p,s.
+\]
+逐面相乘，所有中间余弦因子抵消。最终又回到空气，$\theta_M=\theta_0$，所以
+\[
+ I_p=\frac{I_0}{2},\qquad
+ I_s=\frac{I_0}{2}(1-R_s)^M.
+\]
+\Diagram{fig:o4stacka}{两正交强度份额决定偏振度}{\draw[curve](0,0)rectangle(4,.6);\node at(2,.3){$I_p=I_0/2$};\draw[curve](0,-1)rectangle(1.5,-.4);\node[right]at(1.7,-.7){$I_s=(I_0/2)(1-R_s)^M$};}
+总强度$I=I_0[1+(1-R_s)^M]/2$，线偏振度$\mathcal P=[1-(1-R_s)^M]/[1+(1-R_s)^M]$。图\ref{fig:o4stacka}在$0<R_s<1$、$M\to\infty$时趋于完全$p$偏振、主束强度$I_0/2$。
+
+若在玻璃内的第$j$面后截取主束，上述两个强度须共同乘$\cos\theta_0/\cos\theta_j$，并将幂次$M$改为$j$；偏振度中共同因子抵消。这样便保留了法向通量与光束强度的区别。若多次反射旁束也进入探测孔径，须重新求和；有吸收或表面误差时，$p$分量也会损失。
+\end{solution}
+
+\begin{exercise}\label{ex:o4partialmeasure}
+未知光由自然光和某方向线偏振光组成。旋转检偏器得到最大强度8、最小强度2，单位相同。求入射总强度、自然成分和线偏振成分。若去掉“线偏振”这一前提，还能唯一确定偏振度吗？
+\Diagram{fig:o4partialq}{检偏器扫描得到非零的最低强度}{\draw[axis](0,0)--(5.2,0)node[right]{角度};\draw[axis](0,0)--(0,3)node[above]{透射强度};\draw[curve,domain=0:180,samples=80]plot({\x/40},{(2+6*cos(\x)^2)/3});\node[left]at(0,2.667){$8$};\node[left]at(0,.667){$2$};}
+\end{exercise}
+\begin{solution}
+按图\ref{fig:o4partialq}，$I_u/2=2$，所以$I_u=4$；$I_p+I_u/2=8$给$I_p=6$。入射总强度$I_0=10$，偏振度$6/10=.6$。
+\Diagram{fig:o4partiala}{线检偏扫描测得$S_1,S_2$，不能单独得到$S_3$}{\draw[curve](0,0)rectangle(2.5,1);\node at(1.25,.5){线检偏器};\draw[->](2.6,.5)--(3.5,.5);\node[right]at(3.5,.5){$S_0,S_1,S_2$};\node[below]at(2,-.6){圆偏振信息需波片};}
+若完全偏振分量允许为椭圆或圆偏振，图\ref{fig:o4partiala}说明圆偏振信息$S_3$未测得。单次扫描只能给线性调制度.6，即完整偏振度的下限；它可以介于.6与1之间。附加适当四分之一波片测圆偏振分析强度才能完成判定。
+\end{solution}
+
+\begin{exercise}\label{ex:o4plateorder}
+线偏振沿$x$，先过快轴45度的四分之一波片，再过快轴0度的半波片。求输出Jones矢量，并比较交换两片顺序的结果。
+\Diagram{fig:o4orderq}{两块转角不同的波片，矩阵按传播次序从右向左相乘}{\draw[axis](-1,0)--(5.5,0);\draw[curve](0,-1)--(0,1);\draw[curve](2.8,-1)--(2.8,1);\node[above]at(0,1){$Q(45^\circ)$};\node[above]at(2.8,1){$H(0)$};\node[left]at(-1,.5){$x$线偏振};}
+\end{exercise}
+\begin{solution}
+由旋转矩阵，$Q(45^\circ)=\tfrac12\bigl(\begin{smallmatrix}1+i&1-i\\1-i&1+i\end{smallmatrix}\bigr)$，$H(0)=\operatorname{diag}(1,-1)$。图\ref{fig:o4orderq}的输出为$\tfrac12(1+i,-1+i)^{\mathsf T}$，删去共同相位可写$(1,i)^{\mathsf T}/\sqrt2$。
+\Diagram{fig:o4ordera}{交换顺序使最终圆偏振的旋向相反}{\begin{scope}[xshift=-2cm]\draw[curve](0,0)circle(.9);\draw[->](.9,0)arc(0:70:.9);\node[below]at(0,-1.2){先$Q$后$H$};\end{scope}\begin{scope}[xshift=2cm]\draw[curve](0,0)circle(.9);\draw[->](.9,0)arc(0:-70:.9);\node[below]at(0,-1.2){先$H$后$Q$};\end{scope}}
+交换后$H(0)$先作用于$(1,0)$不改偏振，输出为$\tfrac12(1+i,1-i)^{\mathsf T}$，删共同相位为$(1,-i)^{\mathsf T}/\sqrt2$。图\ref{fig:o4ordera}的两箭头相反；不对易来自两波片的本征轴不同，而不是共同相位差。
+\end{solution}
+
+\begin{exercise}\label{ex:o4normalenergy}
+空气向折射率$n=1.5$玻璃正常入射。求振幅反射、透射系数以及能量反射、透射率。再解释为何透射场振幅小于入射场并不表示透过能量只有振幅比的平方。
+\Diagram{fig:o4normalq}{正常入射界面，采用共同切向电场基底}{\draw[curve](2,-1.4)--(2,1.4);\draw[->](0,.6)--(1.9,.6);\draw[->](1.9,0)--(0,0);\draw[->](2.1,.6)--(4.5,.6);\node[above]at(.8,1){$n_1=1$};\node[above]at(3.3,1){$n_2=1.5$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4normalq}统一切向场有$r=(1-1.5)/(1+1.5)=-.2$、$t=2/(1+1.5)=.8$。所以$R=.04$，$T=(n_2/n_1)t^2=1.5\times.64=.96$。
+\Diagram{fig:o4normala}{能量份额为4\%反射、96\%透射}{\draw[curve](0,0)rectangle(5,1);\draw[curve](.2,0)--(.2,1);\node[above]at(.1,1){4\%};\node at(2.6,.5){96\%};\node[below]at(2.5,0){$R+T=1$};}
+图\ref{fig:o4normala}满足能量守恒。平面波光强为$n\varepsilon_0cE_0^2/2$，介质2具有不同波导纳，因此$t^2=.64$只是电场振幅平方比。若使用局部$p$基，振幅$r_p=+.2$，能量反射率仍相同，必须同时注明基向量改变。
+\end{solution}
+
+\begin{exercise}\label{ex:o4brewsternumerical}
+自然光从空气射向$n=1.5$玻璃，入射角为布儒斯特角。求该角、折射角、反射光强相对入射光强的比例及反射偏振方向。
+\Diagram{fig:o4brewsterq}{布儒斯特条件使反射与透射光线垂直}{\draw[curve](-2.5,0)--(2.5,0);\draw[guide](0,-1.7)--(0,2);\draw[->](-2,-1.333)--(0,0);\draw[->](0,0)--(2,-1.333);\draw[->](0,0)--(1.2,1.8);\node[right]at(2,-1.333){反射};\node[right]at(1.2,1.8){透射};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4brewsterq}满足$\tan i_B=1.5$，所以$i_B\simeq56.31^\circ$、$r_B\simeq33.69^\circ$。$p$反射为零，$s$振幅系数代入$\cos i_B=1/\sqrt{1+n^2}$、$\cos r_B=n/\sqrt{1+n^2}$得$r_s=(1-n^2)/(1+n^2)=-5/13$。
+\Diagram{fig:o4brewstera}{自然光的两个偏振份额中仅$s$有反射}{\draw[curve](0,0)rectangle(2.8,.7);\node at(1.4,.35){$I_0/2$的$s$};\draw[->](2.9,.35)--(4,.35);\node[right]at(4,.35){乘$25/169$};\node[below]at(2,-.7){$p$反射为0};}
+自然光的$s$份额只有$I_0/2$，故总反射率为$(1/2)(25/169)=25/338\simeq.07396$，如图\ref{fig:o4brewstera}。反射光完全为$s$偏振，电场垂直入射面；不能把$R_s$直接当自然光的总反射率。
+\end{solution}
+
+\begin{exercise}\label{ex:o4retardthickness}
+某波片在目标波长$\lambda_0$处双折射差为$\Delta n$。求零级四分之一波片厚度及厚度误差$\Delta h$引起的相位误差。若忽略材料色散，偏离波长时会怎样？
+\Diagram{fig:o4thicknessq}{波片中快慢分量走过相同厚度却积累不同相位}{\draw[curve](1,-1)rectangle(3,1);\draw[->](0,.4)--(4.5,.4)node[right]{快};\draw[->](0,-.4)--(4.5,-.4)node[right]{慢};\draw[<->](1,-1.4)--(3,-1.4)node[midway,below]{$h$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o4thicknessq}中令$\Delta n=n_s-n_f>0$，慢轴相对快轴的相位延迟为$\delta=2\pi\Delta n h/\lambda_0$。零级四分之一波片取最小正延迟$\pi/2$，故$h_0=\lambda_0/(4\Delta n)$。固定波长、材料时厚度误差给
+\[
+ \Delta\delta=\frac{2\pi\Delta n}{\lambda_0}\Delta h
+ =\frac\pi2\frac{\Delta h}{h_0}.
+\]
+若快慢轴命名相反，延迟符号随之改变，最小厚度应使用$|\Delta n|$。
+\Diagram{fig:o4thicknessa}{延迟偏离90度后，45度线偏振不再变成严格圆偏振}{\draw[axis](-1.5,0)--(1.7,0);\draw[axis](0,-1.5)--(0,1.7);\draw[guide](0,0)circle(1);\draw[curve,rotate=45](0,0)ellipse(1.2 and .75);\node[right]at(1.8,.7){圆变椭圆};}
+图\ref{fig:o4thicknessa}中，45度线偏振入射后的Jones矢量正比$(1,\ee^{i\delta})$。若$\delta=\pi/2+\epsilon$，其归一化$S_3/S_0=\sin\delta\simeq1-\epsilon^2/2$，$S_2/S_0=\cos\delta\simeq-\epsilon$，不再严格为圆偏振。
+
+固定厚度且忽略色散时，$\delta(\lambda)=(\pi/2)\lambda_0/\lambda$，从$1/(\lambda_0+\Delta\lambda)$一阶展开得$\Delta\delta\simeq-(\pi/2)\Delta\lambda/\lambda_0$。保留材料色散则应微分整个比值：
+\begin{align*}
+ \frac{\dd\delta}{\dd\lambda}
+ &=2\pi h\left[\frac1\lambda\frac{\dd\Delta n}{\dd\lambda}-\frac{\Delta n}{\lambda^2}\right]\\
+ &=\delta\left[\frac1{\Delta n}\frac{\dd\Delta n}{\dd\lambda}-\frac1\lambda\right].
+\end{align*}
+多级波片的设计延迟为$\pi/2+2m\pi$，其相对厚度误差或相对波长偏移对应更大的绝对相位误差。容差由完整延迟的导数确定；先模去$2\pi$会丢失多级波片的灵敏度。
+\end{solution}

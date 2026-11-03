@@ -1,0 +1,80 @@
+\subsection{由几何变化求毛细压强}
+\label{th:laplacegeometry}
+表面张力给定的是增加实际界面面积所需的等温可逆功。对半径为 $r$ 的球形单界面，
+$\Sigma=4\pi r^2$、$V=4\pi r^3/3$，所以
+\[
+ \frac{\dd\Sigma}{\dd V}
+ =\frac{8\pi r}{4\pi r^2}=\frac2r.
+\]
+虚拟地把界面向外移动 $\dd r$，内外压差提供功
+$(p_{\rm in}-p_{\rm out})\dd V$，界面自由能增加
+$\sigma\dd\Sigma$。机械平衡要求两者相等，得
+\[
+ p_{\rm in}-p_{\rm out}=\frac{2\sigma}{r}.
+\]
+肥皂泡有两层半径近似相同的界面，实际总面积是 $8\pi r^2$，因此压差为 $4\sigma/r$。液滴的液气界面只有一层，不能使用肥皂泡的因子4。
+
+\Diagram{fig:laplacegeometry}{虚位移把球面面积增量与体积增量联系起来}{
+ \draw[curve](0,0)circle(1.15);\draw[guide](0,0)circle(1.45);
+ \draw[axis](0,0)--(1.15,0)node[midway,below]{$r$};
+ \draw[<->](.813,.813)--(1.025,1.025);
+ \node[above right]at(1,1){$\dd r$};
+ \node[right,align=left]at(2,.4){$\dd\Sigma=8\pi r\,\dd r$\\$\dd V=4\pi r^2\dd r$};
+}
+图\ref{fig:laplacegeometry}中，虚位移比较相邻几何状态，内外压差与表面张力在这一步作平衡功。圆柱单界面侧面的面积为 $2\pi rL$，体积为 $\pi r^2L$，固定 $L$ 时相同方法给压差 $\sigma/r$。两种几何的差别来自两个主方向中有几个发生弯曲。
+
+\subsection{表面自由能、表面内能与吸热}
+对同一面积增量，等温外功为 $\sigma\dd\Sigma$，内能增量为
+$(\sigma-T\sigma_T)\dd\Sigma$，可逆吸热为
+$-T\sigma_T\dd\Sigma$。三者满足第一定律
+$\dd U=\delta Q+\delta W_{\rm on}$。温度升高时表面张力若下降，$\sigma_T<0$，等温拉伸便需要从外界吸热；这些热量进入表面内能，使内能面积系数高于自由能面积系数。
+
+温度改变而面积不变时，热量由定面积热容决定。若把界面和一定量的液体作为整体，$C_\Sigma$ 包含该整体的储热能力；若只讨论表面过剩量，则须把体相的热容另加。选择研究边界后，同一式子中的 $U,S,C_\Sigma$ 均须按这个边界定义。
+
+\begin{example}[液滴合并时的温升与熵变]
+\label{ex:dropcoalescence}
+$n_d\ge2$ 个相同球形小液滴初始半径为 $r$、温度为 $T_i$，最终合并成一个静止球形液滴。液体不可压缩，忽略蒸发、外界做功和热交换，合并过程产生的宏观动能最终全部耗散。整个液体的定面积热容为常数 $C$，表面张力在所涉温区内为 $\sigma(T)=\sigma_0+\alpha T>0$，其中 $\sigma_0>0$。求终半径、终温和熵变。
+\Diagram{fig:dropcoalescenceq}{总体积不变的球形液滴合并}{
+ \foreach \x in{0,2.2}\draw[curve](\x,0)circle(.35);
+ \node at(1.1,0){$\cdots$};
+ \node at(1.1,-.75){$n_d$ 个，半径 $r$};
+ \draw[axis](3,0)--(4.1,0);
+ \draw[curve](5.2,0)circle(.75);
+ \draw[axis](5.2,0)--(5.95,0)node[midway,below]{$R$};
+ \node at(5.2,-1.1){$Q=W_{\rm ext}=0$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:dropcoalescenceq}中液体总体积不变，故
+$n_dr^3=R^3$，即 $R=n_d^{1/3}r$。初末实际界面面积分别为
+\[
+ \Sigma_i=4\pi n_dr^2,\qquad
+ \Sigma_f=4\pi n_d^{2/3}r^2.
+\]
+记面积减少量 $D=\Sigma_i-\Sigma_f>0$。由表面内能公式，
+$U(T,\Sigma)=CT+\sigma_0\Sigma+\text{常数}$。
+整体绝热且无外界功，初末动能均为零，因此
+\[
+ C(T_f-T_i)=\sigma_0D,\qquad
+ T_f=T_i+\frac{\sigma_0D}{C}.
+\]
+\Diagram{fig:dropcoalescencea}{减少的表面内能转为液体的热运动能}{
+ \node[draw](a)at(0,0){$\sigma_0D$};
+ \node[draw](b)at(4,0){$C(T_f-T_i)$};
+ \draw[axis](a)--(b)node[midway,above]{能量转化};
+ \node at(2,-1){外界吸热为零，系统温度仍可升高};
+}
+图\ref{fig:dropcoalescencea}中的表面能系数是 $\sigma_0=\sigma-T\sigma_T$，而不是初温下的 $\sigma(T_i)$。熵是状态函数，用
+$\dd S=C\dd T/T-\alpha\dd\Sigma$ 积分，
+\[
+ \Delta S=C\ln\frac{T_f}{T_i}+\alpha D.
+\]
+尽管 $\alpha$ 可为负，总熵在题设有效温区内仍增加。沿相同总能量的连续状态曲线，以已减少面积 $D'$ 为参数，
+$T=T_i+\sigma_0D'/C$，于是
+\[
+ \frac{\dd S}{\dd D'}=\frac{\sigma_0}{T}+\alpha
+ =\frac{\sigma(T)}T>0.
+\]
+积分到 $D$ 即证明 $\Delta S>0$。这个等能状态曲线用于计算和判断端点，真实合并过程中的流动与耗散不必准静态。若算出的终温超出线性表面张力或常热容的适用温区，应重新使用实际函数积分。
+\end{solution}
+

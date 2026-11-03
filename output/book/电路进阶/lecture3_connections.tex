@@ -1,0 +1,108 @@
+\section{非均匀泄漏带的幂律与局部近似}
+\subsection{泄漏强度改变时，衰减不再是单一指数}
+保持单轨单位长度电阻$r$不变，而横向单位长度电导随位置变化为$g(x)>0$，连续方程仍为$V'=-2rI$、$I'=-g(x)V$，故
+\[
+ V''=\kappa^2(x)V,\qquad\kappa(x)=\sqrt{2rg(x)}.
+\]
+当$\kappa$随位置变化时，局部衰减还会改变振幅前因子。令
+$S(x)=\int_0^x\kappa(s)\dd s$，则$S'=\kappa$。设$V=A(x)\ee^{-S(x)}$，连续使用乘积与链式求导，得到
+\[
+ V'=(A'-\kappa A)\ee^{-S},\qquad
+ V''=[A''-\kappa'A-2\kappa A'+\kappa^2A]\ee^{-S}.
+\]
+代入$V''=\kappa^2V$，约去非零指数因子并抵消$\kappa^2A$，便有
+\[
+ A''-2\kappa A'-\kappa'A=0.
+\]
+先忽略$A''$，得到$A'/A\simeq-\kappa'/(2\kappa)$；所得近似还须代回原方程判断余项。在$A$不为零的区间内，分别作变量代换$\dd A=A'\dd x$、$\dd\kappa=\kappa'\dd x$，
+\[\int_{A(0)}^{A(x)}\frac{\dd a}{a}
+\simeq-\frac12\int_{\kappa(0)}^{\kappa(x)}\frac{\dd k}{k},\qquad
+[\ln|a|]_{A(0)}^{A(x)}\simeq-\frac12[\ln k]_{\kappa(0)}^{\kappa(x)}.\]
+振幅在该分支保持符号。代入上下限得到对数关系，再取指数：
+\[
+ \ln\frac{A(x)}{A(0)}\simeq-\frac12\ln\frac{\kappa(x)}{\kappa(0)},
+ \quad A(x)\simeq A(0)\sqrt{\frac{\kappa(0)}{\kappa(x)}}.
+\]
+把常数并入$C$，于是
+\[
+ V(x)\simeq\frac{C}{\sqrt{\kappa(x)}}
+ \exp\!\left[-\int^x\kappa(s)\dd s\right].
+\]
+检验被略去的项时，取$A=C\kappa^{-1/2}$，逐次求导为
+\[
+ A'=-\frac C2\kappa^{-3/2}\kappa',\qquad
+ A''=C\left[\frac34\kappa^{-5/2}(\kappa')^2
+ -\frac12\kappa^{-3/2}\kappa''\right].
+\]
+由于$-2\kappa A'-\kappa'A=0$，代回原电压方程只留下$A''e^{-S}$。相对于保留的$\kappa^2V$，余项比为
+\[
+ \frac{V''-\kappa^2V}{\kappa^2V}
+ =\frac{A''}{\kappa^2A}
+ =\frac{3(\kappa')^2}{4\kappa^4}-\frac{\kappa''}{2\kappa^3}.
+\]
+因此在考察区间内，$|\kappa'|/\kappa^2\ll1$及$|\kappa''|/\kappa^3\ll1$是一组直接可检验的充分小量条件。这控制局部方程的余项；很长区间上的解仍可能积累相对误差，下一例具体计算这一效应。
+
+前因子$\kappa(x)^{-1/2}$与衰减指数共同决定电压幅值。边界负载若激发增长分支，还须将两种分支组合；半无限被动线路则可依据远处有界与耗散条件选取衰减分支。
+
+\begin{example}横向电导按反平方变化的半无限带
+取$x\geq0$、$g(x)=g_0/(1+x/a)^2$、$a>0$。输入端保持$V(0)=V_0$，要求远处电压有界且不由无穷远注入电流。求$V,I$和输入电阻，并与缓变近似比较。
+\ExpansionDiagram{fig:dep-c3-variable-q}{越往远处，横向电阻$R_{\perp,j}=1/[g(x_j)\Delta x]$越大}{
+\draw(0,0)--(1,0);\Res{1,0}{3,0}{r\Delta x}\Res{3,0}{5,0}{r\Delta x}\draw(5,0)--(6,0);\draw(0,2)--(1,2);\Res{1,2}{3,2}{r\Delta x}\Res{3,2}{5,2}{r\Delta x}\draw(5,2)--(6,2);\Res{1,0}{1,2}{R_{\perp,1}}\Res{3,0}{3,2}{R_{\perp,2}}\Res{5,0}{5,2}{R_{\perp,3}}\node[left]at(0,1){$V_0$};\node[right]at(6,1){半无限};\draw[->](0,-.6)--(6,-.6)node[right]{$x$};}
+\end{example}
+\begin{solution}
+令$u=1+x/a$、$K=\kappa_0a$、$\kappa_0=\sqrt{2rg_0}$。因为$\dd u/\dd x=1/a$，有
+$V'_x=V'_u/a$、$V''_x=V''_u/a^2$，所以图\ref{fig:dep-c3-variable-q}的方程化为$V''_u=K^2V/u^2$。
+试$V=u^p$，两次求导分别得$V'_u=pu^{p-1}$、$V''_u=p(p-1)u^{p-2}$。
+代入并约去$u^{p-2}$，得到$p(p-1)=K^2$，即
+\[
+ p_\pm=\frac{1\pm\sqrt{1+4K^2}}2.
+\]
+两根不同，通解为$V=C_+u^{p_+}+C_-u^{p_-}$。
+由于$p_+>1$，远处有界条件要求$C_+=0$；入口$u=1$处的$V=V_0$再给$C_-=V_0$。
+对剩下的幂函数求导，$V'_x=(p_-V_0/a)u^{p_--1}$，由$I=-V'_x/(2r)$得到
+\[
+ V=V_0(1+x/a)^{p_-},\qquad
+ I=-\frac{p_-V_0}{2ra}(1+x/a)^{p_--1}.
+\]
+输入电阻为
+\[
+ Z_{\rm in}=\frac{2ra}{-p_-}
+ =\frac{4ra}{\sqrt{1+4K^2}-1}.
+\]
+\ExpansionDiagram{fig:dep-c3-variable-a}{电压在对数坐标下是直线，斜率由负指数决定}{
+\draw[->](0,0)--(5.5,0)node[right]{$\ln(1+x/a)$};\draw[->](0,-2.7)--(0,.6)node[above]{$\ln(V/V_0)$};\draw[thick](0,0)--(4.5,-2.2)node[right]{$p_-<0$};}
+图\ref{fig:dep-c3-variable-a}的衰减为幂律。由于$\kappa=\kappa_0/u$，其导数为
+$\kappa'=-(\kappa_0/a)u^{-2}$，缓变参数$|\kappa'|/\kappa^2=1/K$为常数。
+$K\gg1$时，渐近式中的指数积分为
+\[
+ \int_0^x\kappa(s)\dd s
+ =\kappa_0a\int_1^u\frac{\dd v}{v}
+ =K[\ln v]_1^u=K\ln u.
+\]
+前因子$\kappa^{-1/2}$正比于$u^{1/2}$，故$V\propto u^{1/2-K}$。
+精确指数用$\sqrt{1+z}=1+z/2+O(z^2)$展开为
+$p_-=1/2-K\sqrt{1+1/(4K^2)}=1/2-K-1/(8K)+O(K^{-3})$，与渐近式的首阶一致。
+
+局部指数接近，还不足以保证任意长区间上的相对误差都小。把两解均归一到$V(0)=V_0$，令
+\[
+ \delta=\sqrt{K^2+\tfrac14}-K
+ =\frac{1/4}{\sqrt{K^2+1/4}+K}\simeq\frac1{8K},
+\]
+便有
+\[
+ \frac{V_{\rm approx}}{V_{\rm exact}}=u^\delta
+ =\exp(\delta\ln u),\qquad
+ \frac{V_{\rm approx}-V_{\rm exact}}{V_{\rm exact}}
+ \simeq\delta\ln u\quad(\delta\ln u\ll1).
+\]
+因此在区间$0\leq x\leq X$内控制电压相对误差，除$K\gg1$外，还须有$\delta\ln(1+X/a)\ll1$。在图\ref{fig:dep-c3-variable-a}所用的对数坐标中，斜率误差$\delta$会累积成纵坐标差$\delta\ln u$。输入电阻只由入口处$-V'(0)/V_0$决定，没有长距离累积，其精度应单独判断。
+
+若$K\ll1$，$p_-\simeq-K^2$，输入电阻约为$1/(g_0a)$。全长泄漏电导的积分为
+\[
+ \int_0^\infty g(x)\dd x
+ =g_0a\int_1^\infty u^{-2}\dd u
+ =g_0a\lim_{U\to\infty}[-u^{-1}]_1^U=g_0a.
+\]
+其倒数正是上述输入电阻，因为此极限下轨道沿程压降小。
+$K\gg1$时输入电阻接近局部均匀线路尺度$\sqrt{2r/g_0}$。两个极限对应不同主导机制，不能用单个固定衰减长度覆盖所有参数。
+\end{solution}

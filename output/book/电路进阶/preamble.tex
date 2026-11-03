@@ -1,0 +1,28 @@
+\usepackage[paperwidth=176mm,paperheight=250mm,inner=21mm,outer=18mm,top=20mm,bottom=20mm,headheight=16pt,headsep=6mm,footskip=10mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,bm,mathtools,booktabs,array,enumitem,float}
+\usepackage{tikz,fancyhdr,hyperref}
+\usetikzlibrary{arrows.meta,calc,patterns,angles,quotes,decorations.pathmorphing,decorations.markings}
+\hypersetup{hidelinks,pdftitle={电路进阶：物理竞赛二轮讲义},pdfauthor={}}
+\setlength{\parindent}{2em}\setlength{\parskip}{3pt}\setlength{\emergencystretch}{2em}
+\linespread{1.18}\raggedbottom\let\cleardoublepage\clearpage\setcounter{tocdepth}{1}
+\ctexset{chapter={name={第,讲},number=\chinese{chapter},format=\LARGE\bfseries\centering,beforeskip=16pt,afterskip=22pt},section={format=\Large\bfseries},subsection={format=\large\bfseries}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[LE,RO]{\small\thepage}\fancyhead[LO]{\small 电路进阶}\fancyhead[RE]{\small\leftmark}
+\renewcommand{\headrulewidth}{0pt}\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\theoremstyle{definition}\newtheorem{example}{例}[chapter]\newtheorem{exercise}{习题}[chapter]
+\newcommand{\SolutionStart}{\par\medskip\noindent\textbf{解}\quad\ignorespaces}
+\newenvironment{solution}{\SolutionStart}{\par\medskip}
+\numberwithin{equation}{chapter}
+\newcommand{\dd}{\mathop{}\!\mathrm d}\newcommand{\ee}{\mathrm e}\newcommand{\ii}{\mathrm i}\newcommand{\vct}[1]{\bm{#1}}
+\DeclareMathOperator{\arsinh}{arsinh}\DeclareMathOperator{\arcosh}{arcosh}\DeclareMathOperator{\artanh}{artanh}\DeclareMathOperator{\sgn}{sgn}\DeclareMathOperator{\sech}{sech}
+\tikzset{axis/.style={->,>=Stealth,line width=.4pt},curve/.style={line width=.7pt},guide/.style={dashed,line width=.35pt},every node/.style={font=\small}}
+\setlist[enumerate]{itemsep=3pt,topsep=4pt,leftmargin=2em}
+\newlength{\LectureReserve}
+\newcommand{\Needspace}[1]{\par\begingroup\setlength{\LectureReserve}{#1}\vskip0pt plus\LectureReserve\penalty-100\vskip0pt plus-\LectureReserve\vskip\LectureReserve\penalty9999\vskip-\LectureReserve\endgroup}
+\newcommand{\ke}{k_{\rm e}}
+\let\LectureContents\tableofcontents
+\renewcommand{\tableofcontents}{\begingroup\small\linespread{1}\selectfont\LectureContents\endgroup}
+\newcommand{\Res}[3]{\draw[curve](#1)--(#2)node[midway,sloped,draw,fill=white,minimum width=6mm,minimum height=2mm,inner sep=0pt]{}node[midway,sloped,above=4pt]{$#3$};}
+\newcommand{\CircuitCap}[3]{\draw[curve](#1)--(#2)node[midway,sloped,fill=white,inner sep=1pt]{$\vert\,\vert$}node[midway,sloped,above=5pt]{$#3$};}
+\newcommand{\Src}[3]{\draw[curve](#1)--(#2)node[midway,circle,draw,fill=white,minimum size=6mm,inner sep=1pt]{\scriptsize$+\,-$}node[midway,below=5pt]{$#3$};}
+
+\providecommand{\ExpansionDiagram}[3]{\begin{figure}[H]\centering\begin{tikzpicture}#3\end{tikzpicture}\caption{#2}\label{#1}\end{figure}}

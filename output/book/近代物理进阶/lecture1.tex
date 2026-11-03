@@ -1,0 +1,299 @@
+\chapter{事件、四维量与运动光源}
+\section{从测量程序确定事件}\label{th:m1events}
+惯性系中，一个事件的位置由静止于该系的尺确定，时间由事件所在地已经同步的钟给出。爱因斯坦同步的约定是：从甲钟发出的光在乙处立即反射，若甲钟发射、接收时刻为$t_1,t_2$，就把乙钟在反射事件的读数校准为$(t_1+t_2)/2$。这一定义用到了同一惯性系内的双程光速$c$。
+
+取$S'$相对$S$沿$x$正向以速度$V$运动，两系原点在事件$O$重合并归零。记
+\[
+ \beta=V/c,\qquad \gamma=(1-\beta^2)^{-1/2}.
+\]
+从线性变换$x'=a(x-Vt)$出发，要求$x=\pm ct$在另一系仍有$x'=\pm ct'$，可得$t'=a(t-Vx/c^2)$。逆变换与正变换的形式相同，只把$V$改成$-V$；把两式相乘要求恢复原坐标，得到$a^2(1-\beta^2)=1$。取保持时间方向的正根，得到
+\begin{equation}\label{eq:m1lorentz}
+ ct'=\gamma(ct-\beta x),\qquad x'=\gamma(x-\beta ct),\qquad y'=y,\quad z'=z.
+\end{equation}
+逆变换则为$ct=\gamma(ct'+\beta x')$、$x=\gamma(x'+\beta ct')$。这些式子同时适用于任意两事件的坐标差，即使两系坐标原点没有这样选取。
+
+\Diagram{fig:m1coordinates}{同一事件在两惯性系中的坐标；虚线为过$P$的两组等时线}{
+\STAxes
+\draw[axis](0,0)--(2.5,4.1)node[right]{$ct'$};\draw[axis](0,0)--(4.5,2.7)node[right]{$x'$};
+\fill(2.2,3.2)circle(1.3pt)node[above left]{$P$};\draw[guide](0,3.2)--(3.8,3.2);\draw[guide](.3,2.06)--(3.6,4.04);\node[below left]at(0,0){$O$};}
+图\ref{fig:m1coordinates}中的$x'$轴是$t'=0$，斜率为$ct/x=\beta$；$ct'$轴是$x'=0$，斜率为$ct/x=1/\beta$。图上两轴的欧氏长度不能直接作为另一系的坐标刻度。若某杆端点的世界线为$x_A(t),x_B(t)$，$S$测得的杆长是$x_B(t)-x_A(t)$，两端事件必须位于同一条水平线上。照片则来自若干不同的发光时刻。
+
+\subsection{同时性、钟慢与尺缩的条件}
+在$S$中同时发生的两事件满足$\Delta t=0$，但
+\[
+ \Delta t'=-\gamma V\Delta x/c^2.
+\]
+只有$\Delta x=0$或$V=0$时仍然同时。对于固定在$S'$的同一只钟，$\Delta x'=0$，逆变换给$\Delta t=\gamma\Delta t'$，这里$\Delta t'$是这只钟经历的固有时。若测$S'$静止杆的长度$l_0=\Delta x'$，必须另取$\Delta t=0$的一对端点事件；正变换给$l_0=\gamma\Delta x$，所以$l=l_0/\gamma$。钟慢沿同一只钟取事件，尺缩沿同一条等时线取端点；使用公式时应保留各自的事件约束。
+
+\begin{example}\label{ex:m1simultaneous}
+在$S$中，左右两个信号灯相距$l$，在$t=0$同时闪光。$S'$沿正向以$0.6c$运动，原点在左灯闪光事件重合。求两闪光事件在$S'$中的时间差、位置差，并说明哪一个先发生。
+\Diagram{fig:m1lampsq}{同一水平线上的两个闪光事件}{\STAxes\fill(0,0)circle(1.5pt)node[below]{$A$};\fill(3,0)circle(1.5pt)node[below]{$B$};\draw[guide](0,2)--(3,2);\draw[curve](3,0)--(3,3.6);\node[right]at(3,3.4){右灯};\node[below]at(1.5,0){$l$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m1lampsq}给出$A:(0,0)$、$B:(0,l)$，坐标次序取$(ct,x)$。代入式\eqref{eq:m1lorentz}，$A'=(0,0)$，而$B'$为
+\[
+ ct'_B=-\gamma\beta l=-\frac34l,\qquad x'_B=\gamma l=\frac54l.
+\]
+故$\Delta t'=t'_B-t'_A=-3l/(4c)$，右灯先闪。这里$5l/4$是两次闪光事件的空间坐标差，不是$S'$测得的两灯间距。
+\Diagram{fig:m1lampsa}{在$S'$中取同时事件才能测量灯距，坐标轴按相同比例作图}{\draw[axis](-.3,0)--(4.3,0)node[right]{$x'$};\draw[axis](0,-2.8)--(0,2.2)node[above]{$ct'$};\draw[curve](1.5,-2.5)--(-.9,1.5);\draw[curve](3.9,-2.5)--(1.5,1.5);\fill(0,0)circle(1.4pt)node[left]{$A$};\fill(3.75,-2.25)circle(1.4pt)node[right]{$B$};\draw[guide](0,0)--(2.4,0);\fill(2.4,0)circle(1.4pt)node[above right]{$C$};}
+图\ref{fig:m1lampsa}中的$C$取在右灯世界线上，并满足$t'_C=0$。右灯在$S$中$x=l$，由$t'=0$得$t=Vl/c^2$，再代入$x'=\gamma(l-Vt)$，得$x'_C=l/\gamma=4l/5$。这才是$S'$的灯距。
+\end{solution}
+
+\begin{example}\label{ex:m1rods}
+杆$AB$静止于$S$，杆$A'B'$静止于$S'$，两杆固有长均为$l=ct_0$，$S'$沿正向以$V$运动。$A$与$A'$相遇于$M$，这两只端点钟归零；$B$与$B'$相遇于$N$，那两只钟归零。所有钟此后正常走时。$M$处从$A'$向$B'$发出光，光在$B'$立即反射，向$A'$返回。求光出射时经过$B$、在$B'$反射、返回时经过$B$、到达$A'$及到达$A$这五个事件中，各相应端点钟的读数，并讨论返回光线遇到各端点的次序。
+\Diagram{fig:m1rodsq}{两杆及局部归零事件，图示为$S$中的一个同时截面}{\draw[axis](-.4,0)--(6,0)node[right]{$x$};\draw[curve](0,.7)--(3,.7);\draw[curve](.8,1.7)--(3.2,1.7);\foreach\x/\y/\t in{0/.7/A,3/.7/B,.8/1.7/A',3.2/1.7/B'}{\fill(\x,\y)circle(1.3pt)node[above]{$\t$};}\draw[axis](3.7,1.7)--(5,1.7)node[right]{$V$};\draw[<->](0,.3)--(3,.3)node[midway,below]{$l$};\draw[<->](.8,2.2)--(3.2,2.2)node[midway,above]{$l/\gamma$};}
+\end{example}
+\begin{solution}
+以$M$为两坐标系原点。图\ref{fig:m1rodsq}中$B$固定在$x=l$，$B'$的世界线为$x=Vt+l/\gamma$。相遇条件给
+\[
+ t_N=\frac{l}{V}(1-\gamma^{-1})=\frac{t_0}{\beta}(1-\gamma^{-1}).
+\]
+因此$B$钟读$t-t_N$，$A$钟读$t$。在$S'$中，$A'$钟读$t'$，$B'$钟读$t'-t'_N$，其中
+\begin{align*}
+ t'_N&=\gamma(t_N-\beta t_0)
+ =\frac{\gamma t_0}{\beta}(1-\gamma^{-1}-\beta^2)\\
+ &=\frac{t_0}{\beta}(\gamma^{-1}-1)=-t_N.
+\end{align*}
+最后一步用$1-\beta^2=\gamma^{-2}$。两个不同的局部归零操作没有把各杆上的两只钟同步。
+\Diagram{fig:m1rodsa}{光的全部交点；$P,Q$在$B$世界线上，$R$为反射事件}{
+\draw[axis](-.2,0)--(4.9,0)node[right]{$x/l$};\draw[axis](0,-.15)--(0,6.4)node[above]{$ct/l$};
+\draw[curve](1,0)--(1,6);\node[above]at(1,6){$B$};\draw[curve](0,0)--(3.6,6);\node[right]at(3.6,6){$A'$};\draw[curve](.8,0)--(4.4,6);\node[right]at(4.4,6){$B'$};
+\draw[very thick,->](0,0)--(2,2);\draw[very thick,->](2,2)--(0,4);
+\foreach\x/\y/\t in{0/0/M,1/.333/N,1/1/P,2/2/R,1/3/Q,1.5/2.5/T,0/4/U}{\fill(\x,\y)circle(1.4pt)node[above left]{$\t$};}}
+图\ref{fig:m1rodsa}按$\beta=0.6$画出比例，计算保留一般$\beta$。出射光$x=ct$，故$P$为$t_P=t_0$。光在$S'$中走过固定长度$l$后到$R$，所以$(ct'_R,x'_R)=(l,l)$，逆变换给
+\[
+ t_R=\gamma(1+\beta)t_0,\quad x_R=ct_R.
+\]
+反射光在$S$中的方程是$x=2ct_R-ct$。与$x=l$相交得$t_Q=2t_R-t_0$；与$x=0$相交得$t_U=2t_R$。在$S'$中，光往返的总路程为$2l$，故回到$A'$的事件$T$满足$t'_T=2t_0$。于是所求各钟读数为
+\begin{align*}
+ B(P):&\quad t_0-t_N,\\
+ B'(R):&\quad t_0-t'_N=t_0+t_N,\\
+ B(Q):&\quad 2\gamma(1+\beta)t_0-t_0-t_N,\\
+ A'(T):&\quad 2t_0,\\
+ A(U):&\quad 2\gamma(1+\beta)t_0.
+\end{align*}
+返回途中，$t_T=2\gamma t_0$，故$t_Q-t_T=(2\gamma\beta-1)t_0$。令此差为零，得$4\beta^2=1-\beta^2$，即$\beta=1/\sqrt5$。因此$0<\beta<1/\sqrt5$时依次遇到$B,A',A$；$\beta>1/\sqrt5$时依次遇到$A',B,A$；临界时$B$与$A'$恰在光路上相遇。若取$\beta=0.6$，则$\gamma=1.25$、$t_N=t_0/3$，五个钟面读数依次为$2t_0/3,4t_0/3,8t_0/3,2t_0,4t_0$，而$T$发生在$Q$之前。事件排序使用同一参考系的坐标时间，不能直接比较未同步的端点钟。
+\end{solution}
+
+\section{四维矢量与固有量}\label{th:m1four}
+以$x^\mu=(ct,x,y,z)$表示四维位置，取度规$g_{\mu\nu}=\operatorname{diag}(1,-1,-1,-1)$。降指标得到$x_\mu=(ct,-x,-y,-z)$，重复上下指标表示求和。两个四维矢量的内积为
+\[
+ A\cdot B=A^\mu B_\mu=A^0B^0-A^1B^1-A^2B^2-A^3B^3.
+\]
+将式\eqref{eq:m1lorentz}代入可逐项验证$\Delta s^2=c^2\Delta t^2-\Delta\vct r^2$不变。矩阵语言是$\Lambda^{\mathsf T}g\Lambda=g$。四维矢量按同一个$\Lambda$变换，其内积因此不变；仅发现某个量的平方不变，还不足以证明任意构造的四个数具有正确变换律。
+
+\subsection{类时、类空与类光间隔}
+若$\Delta s^2>0$且$\Delta t>0$，两事件可由亚光速质点依次到达，并存在使两事件发生在同一位置的惯性系。这不要求参与两个事件的不同物体都在该系静止。若$\Delta s^2=0$且事件间隔非零，两事件可由真空光线连接。若$\Delta s^2<0$，存在使两事件同时的惯性系，部分惯性系会交换其时间顺序；它们不能由不超过光速的信号建立因果关系。
+
+对有质量质点的世界线，微小间隔满足
+\begin{equation}\label{eq:m1proper}
+ c^2\dd\tau^2=c^2\dd t^2-\dd\vct r^2,
+ \qquad \dd\tau=\dd t\sqrt{1-v^2/c^2}.
+\end{equation}
+弯曲世界线的固有时要沿轨迹积分，不能把端点间隔的平方根当作整段固有时。两点间匀速直线世界线的固有时最大：在两端点共同的静止系中，$\int\sqrt{1-v^2/c^2}\dd t\leq\int\dd t$，等号只在全程$v=0$时成立。
+
+\begin{example}\label{ex:m1interval}
+两事件在$S$中的坐标差为$c\Delta t=3L$、$\Delta x=5L$。求使它们同时的惯性系及该系中的距离，说明是否有使它们同地的惯性系。
+\Diagram{fig:m1intervalq}{类空分离的两个事件位于光锥外}{\STAxes\draw[guide](0,0)--(4.2,4.2);\fill(4,2.4)circle(1.4pt)node[right]{$B$};\node[below left]at(0,0){$A$};\draw[curve](0,0)--(4,2.4);}
+\end{example}
+\begin{solution}
+图\ref{fig:m1intervalq}中两事件的间隔为
+\[
+ \Delta s^2=(3L)^2-(5L)^2=-16L^2<0.
+\]
+这是类空间隔，允许改变事件的时间先后。沿$x$作速度$V$的变换，令两事件同时，条件为
+\[
+ 0=c\Delta t'=\gamma(3L-5\beta L),\qquad \beta=V/c.
+\]
+因此$\beta=3/5$、$\gamma=1/\sqrt{1-9/25}=5/4$。在该系中空间距离为
+\[
+ \Delta x'=\frac54\left(5-\frac35\times3\right)L=4L.
+\]
+\Diagram{fig:m1intervala}{同时系中的两事件，间隔绝对值对应空间距离}{\draw[axis](-.3,0)--(5,0)node[right]{$x'$};\draw[axis](0,-.2)--(0,2.4)node[above]{$ct'$};\fill(0,0)circle(1.4pt)node[below]{$A$};\fill(4,0)circle(1.4pt)node[below]{$B$};\draw[<->](0,.6)--(4,.6)node[midway,above]{$4L$};}
+图\ref{fig:m1intervala}的$x'$轴通过两事件；它代表$t'=0$的同时线。此时不变量为$-(\Delta x')^2=-16L^2$，与原系相同。若要求两事件同地，则须令
+\[
+ 0=\Delta x'=\gamma(5L-3\beta L),\qquad \beta=5/3.
+\]
+这个速度不属于惯性系之间的亚光速变换。也可直接从不变量排除：同地时应有$\Delta s^2=c^2\Delta t'^2\geq0$，与题设矛盾。使两事件同时的$x$向速度是唯一的；若还允许横向变换，可在已经同时的系中继续沿垂直于事件分离方向变换，仍保持同时。
+\end{solution}
+
+\subsection{体积和密度}
+静止小体积$V_0$在运动方向缩短，实验室的同时截面给$V=V_0/\gamma$。若物质粒子的静质量总和为$M_0$，实验室单位体积所含静质量为$\rho_m=\gamma\rho_{m0}$；它与实验室能量密度不是同一个量。无压力冷物质的能量密度为$u=\gamma^2\rho_{m0}c^2$，因为每个粒子的能量还多一因子$\gamma$。有压力或内部应力的介质须使用能量动量张量，不能继续套用这个冷尘结果。
+
+\begin{example}\label{ex:m1density}
+一束粒子在共同静止系的数密度为$n_0$，每粒子静质量$m$、电荷$q$。粒子束在实验室沿$x$正向以$v$运动。求数密度、静质量密度、电荷密度、电流密度及能量密度。
+\Diagram{fig:m1densityq}{粒子束的静止体积和实验室同时截面}{\draw[curve](0,0)rectangle(2.7,1.4);\draw[curve](4,0)rectangle(6,1.4);\foreach\x in{.4,1.2,2}{\fill(\x,.7)circle(2pt);}\foreach\x in{4.3,4.9,5.5}{\fill(\x,.7)circle(2pt);}\node[above]at(1.35,1.4){$V_0$};\node[above]at(5,1.4){$V_0/\gamma$};\draw[axis](4,-.5)--(5.8,-.5)node[right]{$v$};}
+\end{example}
+\begin{solution}
+按图\ref{fig:m1densityq}，同一批$N=n_0V_0$粒子占据$V_0/\gamma$，所以$n=\gamma n_0$。每粒子的静质量、电荷不因变换改变，故
+\[
+ \rho_m=\gamma n_0m,\quad \rho_e=\gamma n_0q,\quad j_x=\rho_ev.
+\]
+实验室每粒子能量$\gamma mc^2$，于是$u=n\gamma mc^2=\gamma^2n_0mc^2$。
+\Diagram{fig:m1densitya}{穿过截面的粒子数决定电流，能量通量另乘单粒子能量}{\draw[curve](3,-.3)--(3,1.8);\node[above]at(3,1.8){面积$A$};\draw[curve](0,0)rectangle(3,1.4);\draw[axis](.5,.7)--(2.5,.7)node[midway,above]{$v$};\node[below]at(1.5,0){$v\dd t$};\node[right]at(3.3,.6){$\dd Q=qnAv\dd t$};}
+图\ref{fig:m1densitya}中时间$\dd t$内穿过面积$A$的粒子来自长度$v\dd t$的小柱，故$\dd Q/A\dd t=qnv$。同理能流为$uv$。密度和通量必须使用同一参考系的体积、时间与单粒子物理量。
+\end{solution}
+
+\section{速度、光行差与方向变换}\label{th:m1velocity}
+对式\eqref{eq:m1lorentz}求微分，并除以$\dd t'$，得
+\begin{equation}\label{eq:m1vel}
+ v'_x=\frac{v_x-V}{1-Vv_x/c^2},\qquad
+ v'_{y,z}=\frac{v_{y,z}}{\gamma(1-Vv_x/c^2)}.
+\end{equation}
+分母来自不同时性的时间变换，不能只对位移做变换。若$v<c$，四速度的时间分量为正，因而分母始终正。由直接代数还可得
+\[
+ 1-\frac{v'^2}{c^2}=\frac{1-v^2/c^2}{\gamma^2(1-Vv_x/c^2)^2}>0,
+\]
+所以亚光速速度经洛伦兹变换仍为亚光速。
+
+真空光线在$S'$中的方向角为$\theta'$，相对$x'$正向测量。将$v'_x=c\cos\theta'$、$v'_y=c\sin\theta'$代入逆速度变换，得到
+\begin{equation}\label{eq:m1aberration}
+ \cos\theta=\frac{\cos\theta'+\beta}{1+\beta\cos\theta'},\quad
+ \sin\theta=\frac{\sin\theta'}{\gamma(1+\beta\cos\theta')}.
+\end{equation}
+两式保留了角度象限，优于单独使用正切式。还可写成半角形式
+\[
+ \tan\frac\theta2=\sqrt{\frac{1-\beta}{1+\beta}}\tan\frac{\theta'}2.
+\]
+前半球压缩是方向变换的结果，并不意味着在光源静止系中发光机制变得不对称。
+
+\begin{example}\label{ex:m1aberration}
+在光源静止系，光子沿与运动方向垂直的方向发出。求实验室中的光线方向；再求静止系前半球在实验室对应的圆锥及其立体角比例。
+\Diagram{fig:m1aberrationq}{源静止系的前半球及边缘光线}{\draw[axis](-1.8,0)--(2.6,0)node[right]{$x'$};\draw[axis](0,-1.6)--(0,2)node[above]{$y'$};\draw[curve](0,-1.4)arc(-90:90:1.4);\draw[very thick,->](0,0)--(0,1.5);\draw[axis](2,.8)--(3.2,.8)node[right]{$V$};}
+\end{example}
+\begin{solution}
+取源系光子四动量为$(E'/c,E'\cos\theta'/c,E'\sin\theta'/c,0)$。逆变换给
+\[
+ E=\gamma E'(1+\beta\cos\theta'),\quad
+ cp_x=\gamma E'(\cos\theta'+\beta),\quad cp_y=E'\sin\theta'.
+\]
+由光子$p=E/c$，图\ref{fig:m1aberrationq}中光线的方向满足
+\[
+ \cos\theta=\frac{\cos\theta'+\beta}{1+\beta\cos\theta'},\quad
+ \sin\theta=\frac{\sin\theta'}{\gamma(1+\beta\cos\theta')}.
+\]
+令$\theta'=\pi/2$，边缘方向便为$\cos\theta_c=\beta$、$\sin\theta_c=1/\gamma$。
+\Diagram{fig:m1aberrationa}{实验室中的前向光锥，边缘满足$\cos\theta_c=\beta$}{\draw[axis](-.5,0)--(4,0)node[right]{$x$};\draw[curve](0,0)--(3,1.5);\draw[curve](0,0)--(3,-1.5);\draw[guide](3,1.5)arc(90:270:.25 and 1.5);\draw[->](.9,0)arc(0:26.565:.9);\node[right]at(.9,.45){$\theta_c$};\draw[very thick,->](0,0)--(2.4,1.2);}
+设$\mu'=\cos\theta'$，对方向变换求导，得到
+\[
+ \frac{\dd\cos\theta}{\dd\mu'}
+ =\frac{(1+\beta\mu')-\beta(\mu'+\beta)}{(1+\beta\mu')^2}
+ =\frac{1-\beta^2}{(1+\beta\mu')^2}>0.
+\]
+源系前半球$0\leq\mu'\leq1$因此完整映为图\ref{fig:m1aberrationa}中的$\beta\leq\cos\theta\leq1$。绕$x$轴旋转此角域，其立体角为
+\[
+ \Omega_c=2\pi\int_0^{\theta_c}\sin\theta\dd\theta
+ =2\pi[-\cos\theta]_0^{\theta_c}
+ =2\pi(1-\beta),\qquad \frac{\Omega_c}{4\pi}=\frac{1-\beta}{2}.
+\]
+高速时$1-\beta\simeq1/(2\gamma^2)$，故$\Omega_c\simeq\pi/\gamma^2$、$\theta_c\simeq1/\gamma$。角域缩小描述的是方向变换；同一角域中的光子数和能量份额还须分别按发射分布与频移加权。
+\end{solution}
+
+\begin{example}\label{ex:m1tilt}
+一根静止在$S'$的细杆，其端点坐标差为$(l_0\cos\alpha',l_0\sin\alpha')$。求$S$测得的杆长和倾角，并与一束沿杆方向传播的光的方向变换比较。
+\Diagram{fig:m1tiltq}{杆的方向由两个同时端点确定}{\draw[axis](-.3,0)--(4,0)node[right]{$x'$};\draw[axis](0,-.2)--(0,2.8)node[above]{$y'$};\draw[very thick](0,0)--(3,2);\node[above]at(1.5,1.1){$l_0$};\draw(.8,0)arc(0:33.69:.8);\node at(1.2,.35){$\alpha'$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m1tiltq}中的杆静止，所以其横向分量不变、纵向分量缩短。对$S$中同时的端点事件，$\Delta x'=\gamma\Delta x$，得到
+\[
+ l_x=\frac{l_0\cos\alpha'}\gamma,\quad l_y=l_0\sin\alpha',\quad
+ l=l_0\sqrt{\frac{\cos^2\alpha'}{\gamma^2}+\sin^2\alpha'}.
+\]
+故$\tan\alpha=\gamma\tan\alpha'$，实际象限由两个分量确定。
+\Diagram{fig:m1tilta}{杆的等时方向与沿杆光线的传播方向有不同定义}{\draw[axis](-.3,0)--(4.6,0)node[right]{$x$};\draw[axis](0,-.2)--(0,3)node[above]{$y$};\draw[very thick](0,0)--(2,2);\node[above left]at(2,2){杆};\draw[->,thick](0,0)--(3.7,1.3);\node[right]at(3.7,1.3){光};\draw[guide](2,0)--(2,2);}
+光的两个事件是同一光子先后经过两处的事件，须用式\eqref{eq:m1aberration}，并取$\theta'=\alpha'$，得到$\tan\theta=\sin\alpha'/[\gamma(\cos\alpha'+\beta)]$。图\ref{fig:m1tilta}展示了这种差别。发射后杆仍沿$x$方向运动，因此另一系中的光路方向一般不同于杆的同时截面方向。
+\end{solution}
+
+\section{四速度、四动量与四力}\label{th:m1dynamics}
+固有时是不变量，因此位置四矢量对固有时的导数仍是四矢量：
+\[
+ u^\mu=\frac{\dd x^\mu}{\dd\tau}=\gamma_v(c,\vct v),
+ \quad u\cdot u=c^2.
+\]
+静质量不变的质点有$p^\mu=mu^\mu=(E/c,\vct p)$，即$E=\gamma_vmc^2$、$\vct p=\gamma_vm\vct v$。它们满足
+\begin{equation}\label{eq:m1shell}
+ E^2-c^2p^2=m^2c^4.
+\end{equation}
+静能不是人为增加在动能上的常数：能量与动量须共同按四矢量变换，静能由它们的变换关系决定。低速展开$\gamma_v=1+v^2/(2c^2)+\cdots$后，才恢复$E=mc^2+mv^2/2+\cdots$。
+
+令三力$\vct f=\dd\vct p/\dd t$。对式\eqref{eq:m1shell}求导，$E\dd E=c^2\vct p\cdot\dd\vct p$，并利用$c^2\vct p/E=\vct v$，得
+\[
+ \frac{\dd E}{\dd t}=\vct f\cdot\vct v=\mathcal P.
+\]
+因而四力为$F^\mu=\dd p^\mu/\dd\tau=\gamma_v(\mathcal P/c,\vct f)$。四加速度$a^\mu=\dd u^\mu/\dd\tau$与四速度正交：对$u^2=c^2$求导，得$u\cdot a=0$。静质量固定时$F^\mu=ma^\mu$，从而$u\cdot F=0$。若研究吸收能量导致静质量变化的物体，则$F^\mu=m a^\mu+u^\mu\dd m/\dd\tau$，不能略去后一项。
+
+\begin{example}\label{ex:m1restforce}
+质点瞬时沿$x$方向运动，实验室三力为$(f_\parallel,f_\perp,0)$。求四力的平方，并求瞬时静止系的三力。
+\Diagram{fig:m1restforceq}{速度和三力的平行、垂直分解}{\draw[axis](0,0)--(3.7,0)node[right]{$\vct v$};\draw[axis](0,0)--(2.4,1.8)node[right]{$\vct f$};\draw[guide](2.4,0)--(2.4,1.8)--(0,1.8);\node[below]at(1.2,0){$f_\parallel$};\node[left]at(0,.9){$f_\perp$};}
+\end{example}
+\begin{solution}
+四力定义为$F^\mu=\dd p^\mu/\dd\tau$，而三力为$\vct f=\dd\vct p/\dd t$。图\ref{fig:m1restforceq}中速度沿$x$，功率为$\mathcal P=\vct f\cdot\vct v=f_\parallel v$，故
+\[
+ F^\mu=\gamma_v(f_\parallel v/c,f_\parallel,f_\perp,0).
+\]
+取度规$(+,-,-,-)$，逐项求平方：
+\begin{align*}
+ F^2&=\gamma_v^2[f_\parallel^2(\beta_v^2-1)-f_\perp^2]\\
+ &=-f_\parallel^2-\gamma_v^2f_\perp^2.
+\end{align*}
+这里使用了$\gamma_v^2(1-\beta_v^2)=1$。
+\Diagram{fig:m1restforcea}{瞬时静止系中的力；此时四力时间分量为零}{\draw[axis](0,0)--(3.6,0)node[right]{$x'$};\draw[axis](0,0)--(0,3)node[above]{$y'$};\draw[very thick,->](0,0)--(2,2.4)node[right]{$\vct f_0$};\draw[guide](2,0)--(2,2.4)--(0,2.4);\node[below]at(1,0){$f_\parallel$};\node[left]at(0,1.2){$\gamma_vf_\perp$};}
+沿$x$以速度$v$变换至图\ref{fig:m1restforcea}的瞬时静止系。时间、纵向和横向分量分别为
+\begin{align*}
+ F'^0&=\gamma_v(F^0-\beta_vF^x)=0,\\
+ F'^x&=\gamma_v(F^x-\beta_vF^0)
+ =\gamma_v^2f_\parallel(1-\beta_v^2)=f_\parallel,\\
+ F'^y&=F^y=\gamma_v f_\perp.
+\end{align*}
+该事件处$v'=0$、$\gamma_{v'}=1$，所以四力空间分量就是三力，得到$f_{0\parallel}=f_\parallel$、$f_{0\perp}=\gamma_vf_\perp$，且$f_0^2=-F^2$。恒静质量粒子的四力因而是类空或零矢量。时间分量为零表示该系中瞬时功率为零；粒子静止是充分条件，力与速度垂直时也满足这一条件。
+\end{solution}
+
+\section{运动光源的角分布}
+\subsection{频率与立体角的雅可比}
+光子的四动量为$(h\nu/c,(h\nu/c)\vct n)$。对时间分量作变换，得
+\[
+ \nu=\gamma\nu'(1+\beta\cos\theta')
+ =\frac{\nu'}{\gamma(1-\beta\cos\theta)}=\delta\nu',
+\]
+其中$\delta$称多普勒因子。例\ref{ex:m1aberration}已给出光行差商式的求导过程；以$\mu'=\cos\theta'$表示，结果为
+\[
+ \dd\mu=\frac{1-\beta^2}{(1+\beta\mu')^2}\dd\mu',
+ \qquad \dd\Omega=\delta^{-2}\dd\Omega'.
+\]
+方位角不变，因而立体角的变换只需处理这一导数。
+
+\begin{example}\label{ex:m1power}
+点光源在自身静止系中各向同性发光，单位固有时、单位立体角的辐射能为$I_0$，总功率$P_0=4\pi I_0$。光源以速度$V$沿$x$运动。求按实验室发射时间定义的角功率$I(\theta)$及总功率，并与远处探测器按接收时间定义的角功率比较。
+\Diagram{fig:m1powerq}{同一小束光在两系中占据不同立体角}{\draw[axis](-.5,0)--(4.2,0)node[right]{$V$};\draw[curve](0,0)--(3,1);\draw[curve](0,0)--(3,1.7);\draw[curve](3,1)arc(-90:90:.18 and .35);\node[right]at(3.3,1.4){$\dd\Omega$};\draw[guide](0,0)--(3,1.35);\node at(1.2,.24){$\theta$};}
+\end{example}
+\begin{solution}
+先在图\ref{fig:m1powerq}的一束光中数同一批光子，光子数不变，单光子能量乘$\delta$，故$\dd E=\delta\dd E'$。光源两个发射事件位于同一世界线上，实验室发射时间$\dd t=\gamma\dd\tau$。因此
+\begin{equation}\label{eq:m1angular}
+ I(\theta)=\frac{\dd E}{\dd t\dd\Omega}
+ =I_0\frac\delta\gamma\frac{\dd\Omega'}{\dd\Omega}
+ =\frac{I_0}{\gamma^4(1-\beta\cos\theta)^3}.
+\end{equation}
+积分总功率时使用实验室立体角，令$\mu=\cos\theta$：
+\begin{align*}
+ P&=\frac{2\pi I_0}{\gamma^4}\int_{-1}^{1}\frac{\dd\mu}{(1-\beta\mu)^3}\\
+ &=\frac{2\pi I_0}{\gamma^4}
+ \left[\frac{1}{2\beta(1-\beta\mu)^2}\right]_{-1}^{1}\\
+ &=\frac{2\pi I_0}{\gamma^4}\frac1{2\beta}
+ \frac{(1+\beta)^2-(1-\beta)^2}{(1-\beta^2)^2}
+ =4\pi I_0.
+\end{align*}
+原函数由$z=1-\beta\mu$、$\dd\mu=-\dd z/\beta$及$\int z^{-3}\dd z=-z^{-2}/2$得到。以上写法取$\beta\ne0$；静止情形直接积分$I_0$，也得$P=4\pi I_0$。
+这个结果还有整体四动量解释：静止系一次各向同性发光的总动量为零，实验室总能量乘$\gamma$，发射时间也乘$\gamma$。
+\Diagram{fig:m1powera}{两次发射到达固定远处探测器的路程差}{\draw[axis](-.3,0)--(4,0)node[right]{$x$};\fill(0,0)circle(1.4pt)node[below]{$S_1$};\fill(1,0)circle(1.4pt)node[below]{$S_2$};\fill(4,2)circle(1.4pt)node[right]{$D$};\draw[curve](0,0)--(4,2);\draw[curve](1,0)--(4,2);\draw[guide](1,0)--(.8,.4);\node[above]at(2,1.5){$\theta$近似不变};}
+图\ref{fig:m1powera}中两个发射点相距$V\dd t$，第二束路程缩短$V\dd t\cos\theta$，因此
+\[
+ \dd t_{\rm arr}=(1-\beta\cos\theta)\dd t,
+ \quad I_{\rm arr}(\theta)=I_0\delta^4.
+\]
+这里探测器足够远，方向在两次发射间近似不变。接收时间的角功率不能再对同一个接收时刻的全天球方向简单积分而解释成同一批发射光的总功率；不同方向对应不同的发射时段。
+\end{solution}
+
+\input{lecture1_derivations}
+\input{lecture1_extensions}
+\input{lecture1_depth}
+\input{lecture1_exercises}

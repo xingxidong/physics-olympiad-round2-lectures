@@ -1,0 +1,218 @@
+\section{热容、状态方程与过程约束的综合应用}
+状态函数的全微分联系任意相邻平衡态，过程条件则确定其中的一条路径。定压过程取 $\dd p=0$，可逆绝热过程取 $\dd S=0$，稳流节流过程取 $\dd H=0$。应用同一组状态关系，可以得到不同约束下的温度变化与热量交换。
+
+\begin{example}[容器热容不可忽略的泄流冷却]
+刚性容器的壁热容为常量 $C_w$，与容器内 $N$ 个自由度为 $f$ 的理想气体粒子保持同温 $T$。整体对外绝热，气体从小孔向真空缓慢泄出。初态 $N_0,T_0$。求 $N(T)$，并讨论极少余气时温度的形式极限。
+\Diagram{fig:wallcapacityq}{气体与器壁共同储能，粒子由小孔逸出}{
+ \draw[line width=2pt](0,0)rectangle(3.3,1.8);\fill[white](3.22,.73)rectangle(3.38,1.07);
+ \node at(1.65,.9){$N,c_v,T$};\node at(1.65,2.3){器壁 $C_w,T$};
+ \draw[axis](3.3,.9)--(5,.9);\node at(4.3,.2){$\varepsilon_e$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:wallcapacityq}中系统能量 $U=Nc_vT+C_wT$，$c_v=f\kb/2$。每个流出粒子携能 $(c_v+\kb/2)T$。取 $\dd N<0$，能量守恒为
+\[
+ (Nc_v+C_w)\dd T+c_vT\dd N
+ =(c_v+\kb/2)T\dd N,
+\]
+即 $(Nc_v+C_w)\dd T=(\kb/2)T\dd N$。把 $N+C_w/c_v$ 作为整体，
+\[
+ \frac{\dd N}{N+C_w/c_v}=f\frac{\dd T}T.
+\]
+从初态积分，$[\ln(N'+C_w/c_v)]_{N_0}^{N}=f[\ln\vartheta]_{T_0}^{T}$，即$\ln[(N+C_w/c_v)/(N_0+C_w/c_v)]=f\ln(T/T_0)$。取指数得到
+\[
+ N+\frac{C_w}{c_v}=\left(N_0+\frac{C_w}{c_v}\right)
+ \left(\frac T{T_0}\right)^f.
+\]
+其中$C_w/c_v$表示与器壁热容相等的气体粒子数。气体流失时，这一等效数不变，器壁所占的热容比例逐渐增大，温度下降也随之放缓。
+
+\Diagram{fig:wallcapacitya}{器壁储能使极少余气的温度保持有限}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$N/N_0$};\draw[axis](0,0)--(0,2.9)node[above]{$T/T_0$};\draw[curve]plot[domain=0:1]({4*\x},{2.4*((\x+.3)/1.3)^(1/3)});\draw[guide](0,1.47)--(4,1.47);\node[right]at(4,1.47){$T_{\rm lim}/T_0$};
+}
+形式上 $N\to0$ 时，图\ref{fig:wallcapacitya}给 $T_{\rm lim}=T_0[C_w/(C_w+N_0c_v)]^{1/f}$。$C_w=0$ 恢复无热容器壁结果；$C_w\gg N_0c_v$ 则温降很小。末期若碰撞不足以使余气平衡，或器壁与余气的热交换太慢，这一共同温度模型会先失效，不能把形式极限当成任意稀薄程度都精确可测的终态。
+\end{solution}
+
+\begin{example}[分子气体与辐射共同膨胀]
+同一腔内有 $N$ 个单原子理想气体粒子和与之平衡的辐射，温度均为 $T$。气体粒子数固定，辐射能量密度 $aT^4$，腔壁热容忽略。求总压强、总内能、熵差及可逆绝热膨胀的温度体积关系。
+\Diagram{fig:gammaradq}{分子和光子共享体积与温度}{
+ \draw(0,0)rectangle(4,1.8);\foreach \p in{(.6,.4),(1.2,1.2),(2.8,.5),(3.5,1.3)}\fill\p circle(1.2pt);\draw[decorate,decoration={snake,amplitude=1.2pt,segment length=8pt},->](.5,.8)--(3.4,.8);\node at(2,-.5){$N$ 固定，光子数不固定};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:gammaradq}的两部分独立贡献压强和能量，
+\[
+ p=\frac{N\kb T}V+\frac a3T^4,\qquad
+ U=\frac32N\kb T+aVT^4.
+\]
+总熵差是理想气体与辐射熵差之和：
+\begin{align*}
+ S-S_0={}&\frac32N\kb\ln\frac T{T_0}+N\kb\ln\frac V{V_0}\\
+ &+\frac{4a}3(VT^3-V_0T_0^3).
+\end{align*}
+可逆绝热令此式为零，便得到有限变化的隐式关系。若求局部温度斜率，更直接从 $\dd U+p\dd V=0$ 出发：
+\[
+ \left(\frac32N\kb+4aVT^3\right)\dd T
+ +\left(\frac{N\kb T}V+\frac{4a}3T^4\right)\dd V=0.
+\]
+熵的气体项按固定粒子数积分，辐射项按允许光子产生和吸收的平衡场积分，两者虽共享温度，粒子数约束不同。令 $X=aVT^3/(N\kb)$，图中的局部指数为 $\Gamma=(1+4X/3)/(3/2+4X)$。对 $X$ 求导，
+\[
+ \frac{\dd\Gamma}{\dd X}
+ =\frac{\tfrac43(\tfrac32+4X)-4(1+\tfrac43X)}{(3/2+4X)^2}
+ =-\frac{2}{(3/2+4X)^2}<0.
+\]
+因此它连续地从分子气体极限降至辐射极限。把 $X$ 当成常数仅适用于局部斜率的比较；沿实际绝热路径 $V,T$ 都变化，有限变化仍应使用完整的熵方程。
+
+\Diagram{fig:gammarada}{局部绝热指数在两种主导机制间变化}{
+ \draw[axis](0,0)--(4.9,0)node[right]{$aVT^3/(N\kb)$};\draw[axis](0,0)--(0,2.8)node[above]{$-\dd\ln T/\dd\ln V$};\draw[curve]plot[domain=0:4.4](\x,{3*(1+4*\x/3)/(1.5+4*\x)});\draw[guide](0,1)--(4.5,1);\node[left]at(0,2){$2/3$};\node[left]at(0,1){$1/3$};
+}
+因此图\ref{fig:gammarada}的指数为 $(N\kb+4aVT^3/3)/(3N\kb/2+4aVT^3)$。气体主导时趋于 $2/3$，辐射主导时趋于 $1/3$。中间区域不能用一个固定热容比描述整条绝热线。任意两态之间的绝热功仍由 $W=U_1-U_2$ 计算，但要先按熵约束求末温。
+\end{solution}
+
+\begin{example}[van der Waals 气体的定压热容]
+一摩尔 van der Waals 气体在稳定单相区，$p=RT/(v-b)-a/v^2$，$C_{V,m}=c$。求 $C_{p,m}$，并解释绝热线的指数 $1+R/c$ 是否等于实际的 $C_{p,m}/C_{V,m}$。
+\Diagram{fig:vdwcpq}{定压方向与等温线斜率的关系}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$v$};\draw[axis](0,0)--(0,3.2)node[above]{$p$};\draw[curve]plot[domain=1.2:4.2](\x,{2/(\x-.3)-.2/\x^2});\draw[curve]plot[domain=1.2:4.2](\x,{2.8/(\x-.3)-.2/\x^2});\draw[axis](1.6,1.460337)--(2.162827,1.460337);\node[above left]at(1.6,1.460337){$T$};\node at(3.4,2.4){$T+\dd T$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:vdwcpq}的定压方向满足 $0=p_T\dd T+p_v\dd v$，所以 $v_T|_p=-p_T/p_v$。热容差为 $C_p-C_V=Tp_Tv_T|_p=-Tp_T^2/p_v$。本题
+\[
+ p_T=\frac R{v-b},\qquad
+ p_v=-\frac{RT}{(v-b)^2}+\frac{2a}{v^3}.
+\]
+故
+\[
+ C_{p,m}=c+\frac{TR^2/(v-b)^2}{RT/(v-b)^2-2a/v^3}
+ =c+\frac R{1-2a(v-b)^2/(RTv^3)}.
+\]
+热容差中的分母是 $-p_v|_T$，它同时控制定压升温时所需的体积变化。分母越小，同样的温升引起的膨胀越大，定压供热与定容供热的差也越大。这里 $C_V=c$ 固定不妨碍 $C_p$ 随状态改变，因为附加项还含 $v,T$。前面绝热线中的 $1+R/c$ 由 $\dd S=c\dd T/T+R\dd v/(v-b)$ 积分得到；这一推导从未要求实际气体满足 $C_p-C_V=R$。
+
+\Diagram{fig:vdwcpa}{稳定区趋近机械不稳定边界时热容差增大}{
+ \node[draw]at(0,0){$p_v|_T<0$};\draw[axis](1.2,0)--(2.6,0);\node[draw]at(4.6,0){$C_p-C_V=-Tp_T^2/p_v>0$};\node at(2.3,-.9){$p_v\to0^-$ 时可显著增大};
+}
+图\ref{fig:vdwcpa}中，机械稳定要求分母为正。一般情况下$C_p-C_V$随状态变化，绝热线$(p+a/v^2)(v-b)^{1+R/c}=\text{常量}$中的指数$1+R/c$来自熵积分。当分母中的吸引修正$2a(v-b)^2/(RTv^3)$可忽略时，$C_p-C_V\simeq R$，该指数才近似等于热容比。特别地，$a=0$时这两者精确相等，即使排除体积$b$不为零；不能把这一相等关系当作理想气体的充分条件。
+\end{solution}
+
+\begin{example}[实际气体温变热容的绝热线]
+一摩尔气体仍满足 van der Waals 方程，但 $C_{V,m}(T)=c_0+qT>0$。给定初态 $(v_1,T_1)$，可逆绝热膨胀至 $v_2$。写出决定 $T_2$ 的方程和做功公式，证明正温度解在适用温区内唯一。
+\Diagram{fig:vdwvariableq}{绝热路径的温度斜率由即时热容决定}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$v$};\draw[axis](0,0)--(0,3)node[above]{$T$};\draw[curve](1,2.5)to[out=-55,in=170](4,.7);\node[above]at(1,2.5){$1$};\node[right]at(4,.7){$2$};
+}
+\end{example}
+\begin{solution}
+由于状态方程对温度仍是线性的，相容条件允许$C_V$为任意温度函数。图\ref{fig:vdwvariableq}的熵微分为$(c_0/T+q)\dd T+R\dd v/(v-b)$。取初末态作积分端点，两个原函数分别是$c_0\ln T+qT$与$R\ln(v-b)$，故
+\[
+ c_0\ln\frac{T_2}{T_1}+q(T_2-T_1)
+ +R\ln\frac{v_2-b}{v_1-b}=0.
+\]
+左侧对 $T_2$ 的导数为 $c_0/T_2+q=C_V(T_2)/T_2>0$，因而在热容为正的研究温区内至多有一个解。膨胀的体积对数项为正，温度积分必须为负，所以 $T_2<T_1$。
+温度积分应按两个不同的被积函数分别处理：熵中是 $(c_0+qT)/T=c_0/T+q$，内能中是 $c_0+qT$。所以前者产生对数加线性项，后者产生线性加二次项。给定 $v_2$ 后，末温方程左侧随 $T_2$ 严格增加，数值求解时只需在模型允许且热容为正的温区内寻找夹住根的两端。单调性保证至多一个解；是否存在适用范围内的解，还要由初末体积和该温区一起判断。
+
+\Diagram{fig:vdwvariablea}{求末温是单调方程的求根问题}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$T_2$};\draw[axis](0,-1)--(0,2.4)node[above]{$\Delta S$};\draw[curve](.8,-.7)to[out=30,in=215](4,2);\node[below]at(2,0){根};\node at(3.4,-.6){斜率 $C_V/T_2>0$};
+}
+内能温度积分为$\int_{T_1}^{T_2}(c_0+qT)\dd T=[c_0T+qT^2/2]_{T_1}^{T_2}$，体积积分为$\int_{v_1}^{v_2}av^{-2}\dd v=[-a/v]_{v_1}^{v_2}$。按图\ref{fig:vdwvariablea}确定末温，绝热功取内能差的负值，得到
+\[
+ W=c_0(T_1-T_2)+\frac q2(T_1^2-T_2^2)-a(1/v_1-1/v_2).
+\]
+热容随温度变化时，末温由整个温区的熵积分决定；只取末态热容代入常热容公式会遗漏这部分变化。求出末温后，再由内能差计算功，两次积分各有明确的物理含义。
+\end{solution}
+
+\begin{example}[节流反转曲线的完整参数形式]
+对一摩尔 van der Waals 气体，利用第二讲节流系数的精确表达，求反转曲线的 $T_i(v)$ 与 $p_i(v)$。讨论正压反转曲线的体积范围和最大压强。
+\Diagram{fig:inversionq}{节流温变的符号由反转线分隔}{
+ \draw[axis](0,0)--(5,0)node[right]{$T$};\draw[axis](0,0)--(0,3)node[above]{$p$};\draw[curve](.8,0)to[out=80,in=160](2.8,2.4)to[out=-20,in=110](4.4,0);\node at(2.7,1){冷却区示意};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:inversionq}的边界满足 $Tv_T|_p=v$。由 $v_T|_p=[R/(v-b)]/[RT/(v-b)^2-2a/v^3]$，交叉相乘得
+\[
+ \frac{RT}{v-b}=\frac{vRT}{(v-b)^2}-\frac{2a}{v^2}
+ \quad\Rightarrow\quad
+ T_i(v)=\frac{2a(v-b)^2}{Rb v^2}.
+\]
+代入状态方程，
+\[
+ p_i(v)=\frac{2a(v-b)}{bv^2}-\frac a{v^2}
+ =\frac{a(2v-3b)}{bv^2}.
+\]
+对于给定正压，体积参数可由二次方程 $p_ibv^2-2av+3ab=0$ 解出：
+\[
+ v_\pm=\frac{a\pm\sqrt{a^2-3ab^2p_i}}{bp_i}.
+\]
+因此低于最大反转压强时通常存在两个参数分支，在最大压强处合并。每个体积再代入 $T_i(v)$ 才得到相应反转温度，不能把单一稀薄反转温度外推到整条曲线。两分支的具体工况还须结合相态判断；机械局部稳定与避开两相共存区是不同的条件。
+
+\Diagram{fig:inversiona}{反转压强作为摩尔体积的函数}{
+ \draw[axis](0,0)--(5.3,0)node[right]{$v/b$};\draw[axis](0,0)--(0,2.7)node[above]{$p_i b^2/a$};\draw[curve]plot[domain=1.5:6,samples=70]({.75*\x},{6*(2*\x-3)/(\x*\x)});\draw[guide](2.25,0)--(2.25,2)--(0,2);\node[left]at(0,2){$1/3$};\node[below]at(2.25,0){$3$};
+}
+正压要求$v>3b/2$。将图\ref{fig:inversiona}的函数写为$p_i=(a/b)(2v^{-1}-3bv^{-2})$，逐项求导，$p_i'=(a/b)(-2v^{-2}+6bv^{-3})=(2a/b)(3b-v)/v^3$。导数在$v=3b$由正变负，故$p_{i,\max}=a/(3b^2)$，对应$T_i=8a/(9Rb)$。当$v\to\infty$，反转温度趋于$2a/(Rb)$，正是稀薄近似的结果；低体积端$v\to3b/2$则趋于$2a/(9Rb)$。
+
+这些参数式属于 van der Waals 单相模型的数学反转线。实际运行还要排除两相区及不稳定状态，图中的几何边界本身不保证每一点都可作为稳定节流工况。
+\end{solution}
+
+\begin{example}[由低压体积展开求焓与热容]
+一摩尔气体在低压区满足 $v(T,p)=RT/p+B(T)$，忽略更高阶压强项。已知零压极限摩尔焓为 $h_0(T)$。求 $h(T,p)$ 和 $C_{p,m}(T,p)$，并用 $B=b-a/(RT)$ 验证稀薄 van der Waals 节流结果。
+\Diagram{fig:virialq}{低压体积相对于理想项的偏移}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$1/p$};\draw[axis](0,0)--(0,3)node[above]{$v$};\draw[curve](.3,.8)--(4,2.6);\draw[guide](0,.2)--(4,2.15);\node at(2,2.9){竖直偏差 $B(T)$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:virialq}的定温偏移为 $B(T)$。计算 $v_T|_p=R/p+B'(T)$，焓的等温压强导数为
+\[
+ h_p|_T=v-Tv_T=B-TB'.
+\]
+它在保留的近似阶数内与压强无关，于是从零压参考积分，$h-h_0(T)=\int_0^p[B(T)-TB'(T)]\dd p'=[p'(B-TB')]_0^p=p(B-TB')$。再对温度求导，
+\[
+ C_{p,m}=h_0'(T)-pTB''(T).
+\]
+对焓修正项求温度导数时，要同时对 $T$ 与 $B'(T)$ 求导：$\dd(TB')/\dd T=B'+TB''$，它与前一个 $B'$ 抵消，才留下 $-TB''$。零压焓 $h_0(T)$ 的导数给零压定压热容，参考内能零点只给焓增加一个常数。这里的体积式是低压展开，故所得焓保留到压强的一阶项；若要继续提高热容的压强精度，需同时提高状态方程的展开阶数。
+
+\Diagram{fig:viriala}{同一修正函数的不同导数组合对应不同性质}{
+ \node[draw,align=center]at(0,0){焓修正\\$p(B-TB')$};\node[draw,align=center]at(4.5,0){热容修正\\$-pTB''$};\node at(2.2,-1){节流分子 $Tv_T-v=TB'-B$};
+}
+取 $B=b-a/(RT)$，有 $B'=a/(RT^2)$，故 $TB'-B=2a/(RT)-b$，与稀薄节流公式一致。图\ref{fig:viriala}列出的各量来自不同的偏导：焓的压强修正含 $B-TB'$，再沿定压方向对温度求导，才得到热容修正中的 $-TB''$。
+\end{solution}
+
+\begin{example}[再生器怎样改变循环效率]
+$\nu$ 摩尔常热容理想气体经历 Stirling 循环：在 $T_h$ 等温膨胀 $V_a\to V_b$，等容冷却到 $T_c$，低温等温压缩回 $V_a$，再等容加热到 $T_h$。比较没有再生器与理想再生器时的外界吸热和效率。体积比 $r=V_b/V_a>1$。
+\Diagram{fig:stirlingq}{两等温段和两等容段组成的循环}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$V$};\draw[axis](0,0)--(0,3.5)node[above]{$p$};\draw[curve]plot[domain=1:3.5](\x,{3/\x});\draw[curve]plot[domain=1:3.5](\x,{1.5/\x});\draw[curve](1,1.5)--(1,3);\draw[curve](3.5,.429)--(3.5,.857);\node[below]at(1,0){$V_a$};\node[below]at(3.5,0){$V_b$};\node at(3,2.7){$T_h$};\node at(2.5,.25){$T_c$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:stirlingq}两条等容段不做功。沿等温线积分$p=\nu RT/V$，高温段的功为$W_h=\nu RT_h[\ln V]_{V_a}^{V_b}=\nu RT_h\ln r$，低温段为$W_c=\nu RT_c[\ln V]_{V_b}^{V_a}=-\nu RT_c\ln r$。相加得$W=\nu R(T_h-T_c)\ln r$。没有再生器且等容加热由外部供热时，外界总吸热
+\[
+ Q_h^{(0)}=\nu RT_h\ln r+C_V(T_h-T_c),
+ \quad \eta_0=\frac{\nu R(T_h-T_c)\ln r}{\nu RT_h\ln r+C_V(T_h-T_c)}.
+\]
+两条等容段的热量分别为 $-C_V(T_h-T_c)$ 与 $+C_V(T_h-T_c)$，沿整个工质循环相加为零，但分别位于放热、吸热阶段。计算从外界取得的总正热量时，不能仅因其代数和为零就把它们事先删去。理想再生器的作用是把前一段释放的热在相应温度处储存，再交还给后一段，使这两段的热量转为装置内部交换。循环功不受再生器改变，效率差别来自外界吸热量的改变。
+
+\Diagram{fig:stirlinga}{理想再生器在两个等容段之间暂存并返还热量}{
+ \node[draw]at(0,1.3){等容冷却};\node[draw]at(0,-1.3){等容加热};\node[draw]at(4,0){再生器};\draw[axis](1,1.3)--(3.2,.3)node[midway,above]{$C_V(T_h-T_c)$};\draw[axis](3.2,-.3)--(1,-1.3);
+}
+图\ref{fig:stirlinga}的理想再生器沿程具有连续温度分布，各微元以无穷小温差存取热量，循环后能量和熵都恢复原值。两等容段于是改为装置内部换热，高温热源只供给$Q_h=\nu RT_h\ln r$，效率为$\eta=1-T_c/T_h$。一块均温金属通常达不到这种再生条件，因为它与各温度的气体接触时仍有有限温差。
+\end{solution}
+
+\begin{example}[零粒子流时的能量流与熵产生]
+两个单原子气体大容器以分子流小孔相通，温度 $T_1>T_2$ 恒定，数密度满足零净粒子通量条件。以每单位孔面积的单向粒子通量 $j$ 表示，求净能流和两热库的总熵产生率。
+\Diagram{fig:effentropyq}{粒子数双向抵消而能量不抵消}{
+ \node[draw]at(0,0){$T_1,n_1$};\node[draw]at(5,0){$T_2,n_2$};\draw[axis](1.2,.4)--(3.8,.4)node[midway,above]{$j$};\draw[axis](3.8,-.4)--(1.2,-.4)node[midway,below]{$j$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:effentropyq}两边单向粒子通量相同，要求 $n_1\sqrt{T_1}=n_2\sqrt{T_2}$，并非要求两压强相同。每个从侧1逸出的粒子平均带走 $2\kb T_1$，侧2则带走 $2\kb T_2$。净能流为
+\[
+ J_E=2\kb j(T_1-T_2).
+\]
+两容器维持恒温、恒粒子数，稳态时其自身宏观熵不继续积累。热侧恒温装置需补回流出的净能量，冷侧恒温装置需取走同量能量；图中计算的正熵率属于两个维持温度的热库。由于两侧各自的净粒子流为零，状态微分 $\dd S=(\dd U-\mu\dd N)/T$ 中的净 $\mu\dd N$ 项消失。若只说“有粒子双向穿孔”就额外加入两次独立的净粒子熵项，会把流入流出抵消的部分重复计算。
+
+\Diagram{fig:effentropya}{恒温装置从热库1向热库2转移净能量}{
+ \node[draw]at(0,0){热库1熵率 $-J_E/T_1$};\node[draw]at(5,0){热库2熵率 $+J_E/T_2$};\node at(2.5,-1){净粒子交换为零};
+}
+按图\ref{fig:effentropya}相加两个热库的熵变化率，得到
+\[
+ \dot S_{\rm gen}/A_h=J_E\left(\frac1{T_2}-\frac1{T_1}\right)
+ =2\kb j\frac{(T_1-T_2)^2}{T_1T_2}>0.
+\]
+零净粒子流使两侧粒子数保持不变，熵产生由净能流引起的热库熵变给出。若压强偏离这一条件，粒子数也会变化，还须计入粒子携带的能量及各容器化学势对应的熵变。
+\end{solution}

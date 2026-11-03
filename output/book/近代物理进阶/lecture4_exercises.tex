@@ -1,0 +1,99 @@
+\section{习题与解答}
+\input{lecture4_additional}
+\input{lecture4_practice}
+\begin{exercise}\label{ex:m4yield}
+采用例\ref{ex:m4escape}的角度筛选模型，在固定吸收功率$P$下改变频率。求零电压光电流最大的光子能量，以及最大电流。
+\Diagram{fig:m4yieldq}{光子能量增加时每秒光子数减少，逃逸锥却扩大}{\draw[axis](0,0)--(0,2.7)node[above]{法线};\draw[curve](0,0)--(.8,2);\draw[curve](0,0)--(1.8,2);\node[right]at(1.8,2){较高$h\nu$};\node[left]at(-.1,1){$P$固定};}
+\end{exercise}
+\begin{solution}
+令$x=h\nu/W\geq1$，图\ref{fig:m4yieldq}的逃逸概率为$(1-x^{-1/2})/2$，所以$I=eP( x^{-1}-x^{-3/2})/(2W)$。求导得$\dd I/\dd x=(eP/2W)(-x^{-2}+\tfrac32x^{-5/2})$，零点为$\sqrt x=3/2$。
+\Diagram{fig:m4yielda}{电流在$x=9/4$达到极大}{\draw[axis](0,0)--(5,0)node[right]{$x=h\nu/W$};\draw[axis](0,0)--(0,2.6)node[above]{相对电流};\draw[curve,domain=1:7,samples=90]plot({.6*\x},{14*(1/\x-1/(\x^1.5))});\draw[guide](1.35,0)--(1.35,2.075);\node[below]at(1.35,0){$9/4$};}
+在$x=1$电流为0，$x\to\infty$也趋于0，故图\ref{fig:m4yielda}的驻点是全局极大。代入得$I_{\max}=2eP/(27W)$、$h\nu=9W/4$。若只看逃逸概率而忽略光子数$P/(h\nu)$，就会错误地认为频率越高电流必越大。
+\end{solution}
+
+\begin{exercise}\label{ex:m4cavitypressure}
+各向同性平衡辐射能量密度为$u$，理想反射壁法线为$z$。由光子动量通量求辐射压强；再求一束垂直单向光被完全吸收、完全反射的压强。
+\Diagram{fig:m4pressureq}{斜向光子反射时法向动量改变$2p\cos\theta$}{\draw[curve](-2,0)--(2,0);\draw[->](-1.6,1.8)--(0,0);\draw[->](0,0)--(1.6,1.8);\draw[guide](0,0)--(0,2.4);\node at(.45,1.3){$\theta$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4pressureq}中一个光子的法向动量改变$2E\cos\theta/c$。单位时间单位面积入射光子的能量还带通量投影$c\cos\theta$，因此
+\[
+ p=\frac{2u}{4\pi}\int_0^{2\pi}\dd\varphi\int_0^{\pi/2}\cos^2\theta\sin\theta\dd\theta
+ =u\left[-\frac{\cos^3\theta}{3}\right]_0^{\pi/2}=\frac u3.
+\]
+\Diagram{fig:m4pressurea}{单向垂直光束的吸收和反射动量通量}{\draw[curve](0,-.5)--(0,1.2);\draw[->](-2,.8)--(-.1,.8)node[midway,above]{$I/c$};\draw[->](-.1,.2)--(-2,.2)node[midway,below]{反射多一份};\node[right]at(.2,.6){壁};}
+图\ref{fig:m4pressurea}的单向光束不需要半球积分，完全吸收时$p=I/c$，完全反射时$p=2I/c$。这里$I$是垂直于光束的功率面密度。腔辐射的$u/3$与孔口通量$cu/4$来自不同角度矩：前者有$\cos^2\theta$，后者有$\cos\theta$。
+\end{solution}
+
+\begin{exercise}\label{ex:m4equilibrium}
+半径$R$的恒星近似黑体温度$T_s$，距离$r\gg R$处有半径$a$、表面吸收和发射均为黑体的小球。忽略其他热源，求球均匀温度。若只在受光半球均匀发热、背面不辐射，结果如何？
+\Diagram{fig:m4equilibriumq}{恒星辐射照到小球的截面积$\pi a^2$}{\draw[curve](0,0)circle(.8);\node at(0,0){$T_s$};\draw[curve](5,0)circle(.35);\foreach\y in{-.2,.2}{\draw[->](1,\y)--(4.6,\y);}\node[below]at(2.8,-.5){$r$};\node[right]at(5.4,0){$a$};}
+\end{exercise}
+\begin{solution}
+恒星总功率$4\pi R^2\sigma T_s^4$，在半径$r$球面上的通量$F=\sigma T_s^4R^2/r^2$。图\ref{fig:m4equilibriumq}的小球吸收面积是迎光截面$\pi a^2$，吸收功率$\pi a^2F$。
+\Diagram{fig:m4equilibriuma}{吸收用投影面积，发射用实际表面积}{\draw[curve](0,0)circle(1);\draw[guide](0,-1)--(0,1);\draw[->](1,0)--(1.7,0);\draw[->](0,1)--(0,1.7);\draw[->](-1,0)--(-1.7,0);\draw[->](0,-1)--(0,-1.7);\node[right]at(2,0){全表面$4\pi a^2$};}
+均匀温度时，图\ref{fig:m4equilibriuma}全表面发射$4\pi a^2\sigma T^4$。平衡给$T=T_s\sqrt{R/(2r)}$。若只有半球辐射，发射面积$2\pi a^2$，则$T=2^{1/4}T_s\sqrt{R/(2r)}$。该变式是规定的温度分布模型，真实表面是否均温取决于导热、自转等过程。
+\end{solution}
+
+\begin{exercise}\label{ex:m4reducedmass}
+把玻尔模型的固定核改为质量$M$可动的原子核。求相对坐标的半径、能级及相对固定核结果的修正。
+\Diagram{fig:m4reducedq}{电子和核绕共同质心转动}{\draw[curve](0,0)circle(1.7);\draw[curve](0,0)circle(.4);\fill(1.7,0)circle(2pt)node[right]{$m$};\fill(-.4,0)circle(3pt)node[above left]{$M$};\fill(0,0)circle(1pt);\draw[guide](0,0)--(.6,-.65)node[right]{质心};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4reducedq}中记电子、原子核位置为$\vct r_e,\vct r_N$，定义质心$\vct R=(m\vct r_e+M\vct r_N)/(m+M)$和相对坐标$\vct r=\vct r_e-\vct r_N$。反解为
+\[
+ \vct r_e=\vct R+\frac M{M+m}\vct r,\quad
+ \vct r_N=\vct R-\frac m{M+m}\vct r.
+\]
+代入动能，交叉项相消，得到
+\[
+ K=\tfrac12(M+m)\dot{\vct R}^{\,2}
+ +\tfrac12\mu\dot{\vct r}^{\,2},\qquad \mu=\frac{mM}{m+M}.
+\]
+库仑势仅依赖$r$，因此相对运动等价于质量$\mu$在固定库仑中心中运动。
+\Diagram{fig:m4reduceda}{核、电子到质心距离按反质量比分配}{\draw[axis](-1.7,0)--(3.9,0);\fill(-1,0)circle(3pt)node[above]{$M$};\fill(0,0)circle(1.5pt)node[above]{$C$};\fill(3,0)circle(2pt)node[above]{$m$};\draw[<->](-1,-.5)--(0,-.5)node[midway,below]{$r_N$};\draw[<->](0,-.5)--(3,-.5)node[midway,below]{$r_e$};}
+在质心系对相对角动量取$\mu vr=n\hbar$，向心方程为$\mu v^2/r=Ze^2/(4\pi\varepsilon_0r^2)$。两式相除先得$v=Z\alpha c/n$，再得
+\[
+ r_n=\frac{4\pi\varepsilon_0\hbar^2n^2}{\mu Ze^2},\qquad
+ E_n=-\frac{\mu c^2(Z\alpha)^2}{2n^2}.
+\]
+图\ref{fig:m4reduceda}中的电子、核到质心距离分别为$Mr_n/(M+m)$、$mr_n/(M+m)$。相对固定核结果，能级绝对值乘$\mu/m=1/(1+m/M)$，核间距乘其倒数。若$M\gg m$，能级相对修正为$-m/M+O(m^2/M^2)$，相应跃迁频率也降低同一比例。核可动导致的约化质量修正改变内部能级；整个原子发光时的反冲则还需要在这些能级之上作总四动量守恒。
+\end{solution}
+
+\begin{exercise}\label{ex:m4powerwell}
+粒子在一维势$V(x)=A|x|^s$中运动，$A>0,s>0$。用两平滑转点条件给出能级对量子数的幂次关系，并比较$s=2$与$s\to\infty$的极限。
+\Diagram{fig:m4powerq}{幂次束缚势的对称转点}{\draw[axis](-2,0)--(2.3,0)node[right]{$x$};\draw[axis](0,0)--(0,3)node[above]{$V$};\draw[curve,domain=-1.7:1.7,samples=70]plot(\x,{.5*abs(\x)^3});\draw[guide](-1.5,1.6875)--(1.5,1.6875);\node[right]at(1.5,1.6875){$E$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4powerq}中转点为$\pm x_t$，$x_t=(E/A)^{1/s}$。利用势的偶对称，作用量写为
+\[
+ J=4\int_0^{x_t}\sqrt{2m(E-Ax^s)}\dd x.
+\]
+令$y=x/x_t$，有$\dd x=x_t\dd y$、$Ax^s=Ey^s$，所以
+\[
+ J=4\sqrt{2m}A^{-1/s}E^{(s+2)/(2s)}C_s,\quad
+ C_s=\int_0^1\sqrt{1-y^s}\dd y.
+\]
+\Diagram{fig:m4powera}{作用量积分换成固定区间的无量纲面积}{\begin{scope}[yscale=.45]\draw[axis](0,0)--(3.9,0)node[right]{$y$};\draw[axis](0,0)--(0,2.5)node[above]{$\sqrt{1-y^s}$};\draw[curve,domain=0:1,samples=70]plot({3*\x},{2*sqrt(1-\x^3)});\node[below]at(3,0){$1$};\end{scope}}
+图\ref{fig:m4powera}的无量纲面积与$E$无关。两软转点条件给出
+\[
+ E_n\simeq\left[\frac{hA^{1/s}}{4\sqrt{2m}C_s}
+ (n+1/2)\right]^{2s/(s+2)}.
+\]
+因此$s<2$时高能级间距减小，$s=2$时等间隔，$s>2$时增大。取$s=2$，$C_2=\pi/4$；再令$A=m\omega^2/2$，系数化为$\hbar\omega$，恢复谐振子结果。
+
+讨论$s\to\infty$时应先固定长度尺度，写$V=V_*|x/L_*|^s$。对有限$E$，转点趋$L_*$、$C_s\to1$，作用量趋$4L_*\sqrt{2mE}$，与宽$2L_*$的方阱相同，能量的高量子数标度为$n^2$。但端点在极限中变为硬壁，量子数偏移须重新匹配，不能把软转点的$1/2$保留为硬壁最低能级的准确偏移。原点在$s\leq1$时不光滑，转点仍平滑；相关半经典式主要用于高能级，低能级须另解边界问题。
+\end{solution}
+
+\begin{exercise}\label{ex:m4gravityscale}
+定义重力反弹模型的特征长度$\ell=(\hbar^2/(2m^2g))^{1/3}$。把其薛定谔方程化为无量纲形式，说明精确能量由何种边界条件确定，并比较半经典结果。
+\Diagram{fig:m4gravityq}{硬壁处波函数为零，高处波函数衰减}{\draw[axis](-.3,0)--(4.7,0)node[right]{$x$};\node[above]at(0,1.6){$V$};\draw[very thick](0,0)--(0,1.4);\draw[curve](0,0)--(4,1.3);\draw[guide](0,.9)--(4.3,.9);\node[right]at(4.3,.9){$E$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4gravityq}对应$-\hbar^2\psi''/(2m)+mgx\psi=E\psi$。令$\xi=x/\ell$、$\epsilon=E/(mg\ell)$，则链式法则给$\dd\psi/\dd x=\ell^{-1}\dd\psi/\dd\xi$、$\dd^2\psi/\dd x^2=\ell^{-2}\dd^2\psi/\dd\xi^2$。代入并除以$mg\ell$，用$\hbar^2/(2m\ell^2)=mg\ell$，化为
+\[
+ -\frac{\dd^2\psi}{\dd\xi^2}+\xi\psi=\epsilon\psi.
+\]
+\Diagram{fig:m4gravitya}{无量纲重力反弹基态在硬壁为零，在高处衰减}{\begin{scope}[yscale=.65]\draw[axis](0,0)--(7.5,0)node[right]{$\xi$};\draw[axis](0,-.4)--(0,2.1)node[above]{$\psi$};\draw[curve]plot coordinates {(0.00000,-0.0000000) (0.06422,0.1348816) (0.12844,0.2685052) (0.19266,0.3996896) (0.25688,0.5273458) (0.32110,0.6504842) (0.38532,0.7682206) (0.44954,0.8797792) (0.51376,0.9844945) (0.57798,1.0818115) (0.64220,1.1712844) (0.70642,1.2525734) (0.77064,1.3254415) (0.83486,1.3897488) (0.89908,1.4454471) (0.96330,1.4925734) (1.02752,1.5312426) (1.09174,1.5616405) (1.15596,1.5840157) (1.22018,1.5986721) (1.28440,1.6059610) (1.34862,1.6062736) (1.41284,1.6000332) (1.47706,1.5876887) (1.54128,1.5697070) (1.60550,1.5465674) (1.66972,1.5187550) (1.73394,1.4867556) (1.79817,1.4510510) (1.86239,1.4121141) (1.92661,1.3704052) (1.99083,1.3263691) (2.05505,1.2804315) (2.11927,1.2329971) (2.18349,1.1844479) (2.24771,1.1351413) (2.31193,1.0854092) (2.37615,1.0355578) (2.44037,0.9858666) (2.50459,0.9365891) (2.56881,0.8879525) (2.63303,0.8401586) (2.69725,0.7933847) (2.76147,0.7477840) (2.82569,0.7034872) (2.88991,0.6606034) (2.95413,0.6192213) (3.01835,0.5794110) (3.08257,0.5412249) (3.14679,0.5046992) (3.21101,0.4698558) (3.27523,0.4367028) (3.33945,0.4052368) (3.40367,0.3754436) (3.46789,0.3472996) (3.53211,0.3207732) (3.59633,0.2958260) (3.66055,0.2724135) (3.72477,0.2504864) (3.78899,0.2299915) (3.85321,0.2108727) (3.91743,0.1930715) (3.98165,0.1765277) (4.04587,0.1611805) (4.11009,0.1469685) (4.17431,0.1338306) (4.23853,0.1217063) (4.30275,0.1105360) (4.36697,0.1002615) (4.43119,0.0908260) (4.49541,0.0821748) (4.55963,0.0742549) (4.62385,0.0670155) (4.68807,0.0604080) (4.75229,0.0543862) (4.81651,0.0489061) (4.88073,0.0439261) (4.94495,0.0394069) (5.00917,0.0353115) (5.07339,0.0316054) (5.13761,0.0282559) (5.20183,0.0252329) (5.26606,0.0225080) (5.33028,0.0200552) (5.39450,0.0178499) (5.45872,0.0158698) (5.52294,0.0140941) (5.58716,0.0125036) (5.65138,0.0110808) (5.71560,0.0098096) (5.77982,0.0086750) (5.84404,0.0076638) (5.90826,0.0067634) (5.97248,0.0059627) (6.03670,0.0052514) (6.10092,0.0046203) (6.16514,0.0040610) (6.22936,0.0035658) (6.29358,0.0031280) (6.35780,0.0027412) (6.42202,0.0023999) (6.48624,0.0020990) (6.55046,0.0018341) (6.61468,0.0016011) (6.67890,0.0013964) (6.74312,0.0012167) (6.80734,0.0010592) (6.87156,0.0009211) (6.93578,0.0008004) (7.00000,0.0006948)};\node[below left]at(0,0){$\psi(0)=0$};\node[above]at(4.6,.6){$\operatorname{Ai}(\xi-\epsilon_0)$};\end{scope}}
+令$z=\xi-\epsilon$，方程为$\psi''=z\psi$，通解为$A\operatorname{Ai}(z)+B\operatorname{Bi}(z)$。正无穷处$\operatorname{Bi}$增长，归一化要求$B=0$；$A\ne0$再由归一化确定。图\ref{fig:m4gravitya}的硬壁$x=0$对应$z=-\epsilon$，要求$\operatorname{Ai}(-\epsilon)=0$，所以精确能量由其负零点确定。半经典近似给$\epsilon_n\simeq[\tfrac{3\pi}2(n+\tfrac34)]^{2/3}$。无量纲化把质量和重力全部收进尺度$mg\ell$，可用于比较不同粒子而不重复解微分方程。
+\end{solution}

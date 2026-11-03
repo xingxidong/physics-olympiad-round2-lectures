@@ -1,0 +1,119 @@
+\section{有限装置中的同时事件与雷达测距}
+相对论题中的“同时打开”“一起读数”必须绑定某一组静止同步钟。装置的连接条件还可能受信号传播限制。几何上可任意选择一条等时线与若干世界线的交点；物理上是否能用同一触发信号控制这些交点，要另看它们的因果关系。下列模型把这两个层次分开。
+
+\begin{example}\label{ex:m1tunnel}
+隧道静止长度$L$，列车固有长也是$L$，列车以$\beta c$进入。地面系在列车中点经过隧道中点时，同时短暂关闭两门并立即打开。证明地面看来列车能在两门之间，并求车系两门关闭的时间差和位置差，解释车系隧道更短却无矛盾。
+\Diagram{fig:m1tunnelq}{地面同时关门，列车等时长度为$L/\gamma$}{\draw[axis](-.5,0)--(6,0)node[right]{$x$};\draw[very thick](0,-.8)--(0,1.3);\draw[very thick](5,-.8)--(5,1.3);\draw[curve](.6,.2)rectangle(4.4,.8);\draw[axis](2.3,1.6)--(3.7,1.6)node[right]{$V$};\node[below]at(2.5,-.8){两门距离$L$};}
+\end{example}
+\begin{solution}
+取关门中点事件为$(ct,x)=(0,0)$，两门关闭为$D_L=(0,-L/2)$、$D_R=(0,L/2)$。图\ref{fig:m1tunnelq}的列车两端在该时刻位于$\pm L/(2\gamma)$，严格处于两门之间。变换两关闭事件，得
+\[
+ ct'_L=\frac{\gamma\beta L}2,\quad x'_L=-\frac{\gamma L}2;
+ \qquad ct'_R=-\frac{\gamma\beta L}2,\quad x'_R=\frac{\gamma L}2.
+\]
+所以右门先关，时间差$t'_R-t'_L=-\gamma\beta L/c$。两次关门的事件位置差是$\gamma L$，并非车系同时隧道长度$L/\gamma$。
+\Diagram{fig:m1tunnela}{车系中两关闭事件不同时；虚线为车系等时线}{\draw[axis](-2.6,0)--(3,0)node[right]{$x'$};\draw[axis](0,-2)--(0,2.4)node[above]{$ct'$};\draw[curve](-2,1.2)--(0,-2.1);\draw[curve](0,2.1)--(2,-1.2);\fill(-2,1.2)circle(1.4pt)node[left]{$D_L$};\fill(2,-1.2)circle(1.4pt)node[right]{$D_R$};\draw[guide](-2,1.2)--(1.5,1.2);\draw[guide](-1.5,-1.2)--(2,-1.2);}
+图\ref{fig:m1tunnela}中前门关闭时，列车尾部尚在隧道外；后门稍后关闭时，前门早已打开，车头已可通过。车系从未声称两门同时夹住整列车。若要求门持续关闭至列车撞门并停止，则题目变为受力和信号传播问题，不能继续把列车视为始终匀速的刚体。
+\end{solution}
+
+\begin{example}\label{ex:m1radar}
+观察者固定在$x=0$，匀速飞行的反射镜满足$x=L+Vt$，$L>0,V>0$。观察者在$t=0$发光，光在镜面反射后返回。求反射、返回时刻，以及观察者按雷达约定赋给反射事件的时间和距离。
+\Diagram{fig:m1radarq}{出射光追赶向外运动的镜面}{\STAxes\draw[curve](1,0)--(3,4);\node[right]at(3,4){镜};\draw[very thick,->](0,0)--(2,2);\node[below]at(1,0){$L$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m1radarq}的交点满足$ct_R=L+Vt_R$，所以$t_R=L/(c-V)$、$x_R=cL/(c-V)$。反射光以$c$返回原点，返回时刻$t_A=t_R+x_R/c=2L/(c-V)$。
+\Diagram{fig:m1radara}{反射事件的雷达时间是发射、返回时刻的平均}{\draw[axis](-.2,0)--(4.6,0)node[right]{$x$};\draw[axis](0,-.2)--(0,5)node[above]{$ct$};\draw[very thick,->](0,0)--(2,2);\draw[very thick,->](2,2)--(0,4);\draw[guide](0,2)--(2,2);\node[left]at(0,2){$ct_{\rm rad}$};\node[right]at(2,2){$R$};\node[left]at(0,4){$ct_A$};}
+雷达定义$t_{\rm rad}=(0+t_A)/2=L/(c-V)$，$r_{\rm rad}=ct_A/2=cL/(c-V)$，与图\ref{fig:m1radara}中反射事件的惯性坐标$t_R,x_R$完全一致。雷达同步把距离赋给反射事件，因此这里应与反射时刻的镜距比较。发射时的$L$和接收时的$L+Vt_A$属于另外两个事件。
+\end{solution}
+
+\begin{example}\label{ex:m1meeting}
+两质点在实验室$t=0$位于$x=0,L$，速度分别为$+u,-w$，其中$0<u,w<c$。求相遇事件及在第一质点静止系中的相遇时间，说明为什么该系的初始两点距离不能直接取$L/\gamma_u$再任意相除。
+\Diagram{fig:m1meetingq}{两条匀速世界线的交点}{\draw[axis](-.3,0)--(4.7,0)node[right]{$x$};\draw[axis](0,-.2)--(0,4.5)node[above]{$ct$};\draw[curve](0,0)--(2,3.5);\draw[curve](4,0)--(2,3.5);\node[below]at(4,0){$L$};\node[right]at(2,3.5){$C$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m1meetingq}满足$ut=L-wt$，所以$t_C=L/(u+w)$、$x_C=uL/(u+w)$。第一质点系以$u$运动，且把其初始事件归零，因此
+\[
+ t'_C=\gamma_u(t_C-ux_C/c^2)=\frac{L}{\gamma_u(u+w)}.
+\]
+这是第一质点从出发到相遇的固有时。若要在其系中用距离除以速度，必须重新求$t'=0$与第二质点世界线的交点。
+\Diagram{fig:m1meetinga}{在第一质点系中，第二质点初始位置取在$t'=0$线上}{\draw[axis](-.2,0)--(4.3,0)node[right]{$x'$};\draw[axis](0,-.2)--(0,4.4)node[above]{$ct'$};\draw[curve](3.4,0)--(0,3.7);\draw[very thick](0,0)--(0,3.7);\node[below]at(3.4,0){$D$};\node[left]at(0,3.7){$C$};}
+令第二质点$x=L-wt$满足$t-ux/c^2=0$，得到$t_D=uL/(c^2+uw)$，$x_D=Lc^2/(c^2+uw)$，进而$x'_D=L/[\gamma_u(1+uw/c^2)]$。第二质点相对速度为$-(u+w)/(1+uw/c^2)$。图\ref{fig:m1meetinga}距离除以相对速大小，恰得上式$t'_C$。$L$是两运动物体间的某系等时距离，不是一个共同静止杆的固有长。
+\end{solution}
+
+\section{光锥、波面和速度空间}
+\begin{example}\label{ex:m1flash}
+点光源在事件$O$瞬时闪光。证明实验室固定时刻$t$的光前沿是以$O$空间位置为中心的球面，并说明与运动光源角分布的关系。
+\Diagram{fig:m1flashq}{光锥的水平截面是球面，不随之后的光源位置移动}{\draw[axis](-2.4,0)--(2.6,0)node[right]{$x$};\draw[axis](0,-.2)--(0,4)node[above]{$ct$};\draw[curve](0,0)--(2,3.2);\draw[curve](0,0)--(-2,3.2);\draw[curve](0,3.2)ellipse(2 and .4);\draw[guide](0,0)--(.9,3.2);\node[right]at(.9,2.6){源世界线};}
+\end{example}
+\begin{solution}
+每个光前沿事件与$O$的间隔为零。在源静止系$\Delta s'^2=0$，变换不改间隔，故$c^2t^2-x^2-y^2-z^2=0$，取未来支$t>0$便得半径$ct$球面。图\ref{fig:m1flashq}中的源在闪光后已移动，其当前位置不是这一次闪光球面的中心。
+\Diagram{fig:m1flasha}{球面形状与能量分布分属几何和光子统计两个层面}{\draw[curve](0,0)circle(1.6);\foreach\a in{0,20,40,60,90,140,210,270,300,330,345}{\draw[->](0,0)--({1.6*cos(\a)},{1.6*sin(\a)});}\draw[axis](0,0)--(2.8,0)node[right]{$V$};\node[below]at(0,-2){球面上能量可不均匀};}
+图\ref{fig:m1flasha}用较密箭头示意前向辐射更集中。球面由传播速度和发射事件决定，角能量密度由光行差、单光子频移决定；各向同性波速并不要求各向同性光子分布。对持续运动源，每一次发射有各自的球面，所有球面叠加的稳态场又是另一问题。
+\end{solution}
+
+\begin{example}\label{ex:m1lightellipse}
+在源系，一次闪光到光子发射后固定源系时刻$t'_0$的全部前沿点组成圆。将这一组事件变到实验室，求它们在$x,y$坐标投影中的曲线，并说明为什么不违背上一例的球面结论。
+\Diagram{fig:m1lightellipseq}{本题固定源系时间，所选事件不在实验室同时面上}{\draw[axis](-2.2,0)--(2.5,0)node[right]{$x'$};\draw[axis](0,-2)--(0,2.3)node[above]{$y'$};\draw[curve](0,0)circle(1.5);\node[above]at(1.5,1.5){$r'=ct'_0$};}
+\end{example}
+\begin{solution}
+按图\ref{fig:m1lightellipseq}，令$r_0=ct'_0$，各事件$x'=r_0\cos\theta'$、$y'=r_0\sin\theta'$。逆变换给
+\[
+ x=\gamma r_0(\cos\theta'+\beta),\quad y=r_0\sin\theta',\quad
+ ct=\gamma r_0(1+\beta\cos\theta').
+\]
+\Diagram{fig:m1lightellipsea}{异时事件的空间投影是平移的椭圆}{\draw[axis](-1.5,0)--(3.8,0)node[right]{$x$};\draw[axis](0,-2)--(0,2.2)node[above]{$y$};\draw[curve](1.322876,0)ellipse(2 and 1.5);\draw[guide](1.322876,-1.5)--(1.322876,1.5);\node[above]at(1.322876,1.6){中心$\gamma\beta r_0$};}
+消去$\theta'$，图\ref{fig:m1lightellipsea}的投影满足$(x-\gamma\beta r_0)^2/(\gamma^2r_0^2)+y^2/r_0^2=1$。但这些点的实验室时间随角度变化，范围为$\gamma t'_0(1\pm\beta)$。上一例固定的是同一实验室时间，两题选择的事件集合不同，因此投影为椭圆并不表示实验室真空光速各向异性。
+\end{solution}
+
+\begin{example}\label{ex:m1relativeangle}
+在$S'$中，两粒子速度大小同为$u$，方向分别与$x'$正向成$\pm\alpha$。求实验室中的夹角，并讨论当$u=c$和$u\ll c$时有何差别。
+\Diagram{fig:m1relativeangleq}{关于运动轴对称的两条发射速度}{\draw[axis](0,0)--(3.7,0)node[right]{$V$};\draw[axis](0,0)--(2.5,1.6)node[right]{$u$};\draw[axis](0,0)--(2.5,-1.6)node[right]{$u$};\node at(1,.35){$\alpha$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m1relativeangleq}两粒子都有$u'_x=u\cos\alpha$，横向分量为$\pm u\sin\alpha$。逆速度变换给
+\[
+ v_x=\frac{u\cos\alpha+V}{1+Vu\cos\alpha/c^2},\quad
+ v_y=\frac{\pm u\sin\alpha}{\gamma(1+Vu\cos\alpha/c^2)}.
+\]
+当变换后的速度非零时，每条速度与$x$的有向角可用$\vartheta=\operatorname{atan2}(u\sin\alpha,\gamma(u\cos\alpha+V))$表示，两线夹角取$2\vartheta$的较小几何夹角。若$u\sin\alpha=0$且$u\cos\alpha+V=0$，粒子在实验室静止，方向及夹角均无定义，不能调用$\operatorname{atan2}(0,0)$。
+\Diagram{fig:m1relativeanglea}{同向变换压缩前向发射角，但须保留纵向分量的符号}{\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[axis](0,0)--(3.2,.8);\draw[axis](0,0)--(3.2,-.8);\draw[guide](0,0)--(2,1.5);\draw[guide](0,0)--(2,-1.5);\node[right]at(3.2,.8){实验室};\node[right]at(2,1.5){源系方向示意};}
+若$u=c$，此式化为光行差，所有粒子的速率仍为$c$。若$u,V\ll c$，$\gamma\simeq1$且分母近1，恢复伽利略速度矢量平移。图\ref{fig:m1relativeanglea}取$\cos\alpha>0$；若发射近后方使$u\cos\alpha+V<0$，两粒子仍可能向后运动，单独使用正切会误把它们画到前半平面。
+\end{solution}
+
+\section{角分布积分与四维微分关系}
+\begin{example}\label{ex:m1hemipower}
+各向同性静止光源以速度$V$运动，按实验室发射时间定义总功率。求实验室前半球$0\leq\theta\leq\pi/2$收到的功率份额，并与源系前半球光子集合的份额区分。
+\Diagram{fig:m1hemipowerq}{实验室前半球是按实验室方向筛选的集合}{\draw[axis](-1.8,0)--(2.6,0)node[right]{$x$};\draw[curve](0,-1.6)arc(-90:90:1.6);\draw[guide](0,-1.8)--(0,1.8);\draw[axis](0,0)--(1.4,.8);}
+\end{example}
+\begin{solution}
+使用式\eqref{eq:m1angular}，图\ref{fig:m1hemipowerq}的前半球积分为
+\[
+ P_F=\frac{2\pi I_0}{\gamma^4}\int_0^1\frac{\dd\mu}{(1-\beta\mu)^3}
+ =\frac{2\pi I_0}{\gamma^4}
+ \left[\frac{(1-\beta\mu)^{-2}}{2\beta}\right]_0^1
+ =\frac{\pi I_0}{\beta\gamma^4}[(1-\beta)^{-2}-1].
+\]
+除以总功率$4\pi I_0$，再用$\gamma^{-4}=(1-\beta)^2(1+\beta)^2$，得到
+\[
+ \frac{P_F}P=\frac{(2-\beta)(1+\beta)^2}{4}
+ =\frac{2+3\beta-\beta^3}{4}.
+\]
+\Diagram{fig:m1hemipowera}{前半球功率份额从一半连续趋向全部}{\draw[axis](0,0)--(4.2,0)node[right]{$\beta$};\draw[axis](0,0)--(0,2.8)node[above]{$P_F/P$};\draw[curve,domain=0:1,samples=70]plot({3.5*\x},{2.3*(2+3*\x-\x^3)/4});\node[left]at(0,1.15){$1/2$};\node[left]at(0,2.3){$1$};\node[below]at(3.5,0){$1$};}
+图\ref{fig:m1hemipowera}在$\beta\to0$给$1/2$，在$\beta\to1$趋1。这里边界是实验室$\cos\theta=0$，对应源系$\cos\theta'=-\beta$，包含源系后半球的一部分；不能替换成例\ref{ex:m1coneenergy}中源系前半球所占的$1/2+\beta/4$能量份额。
+\end{solution}
+
+\begin{example}\label{ex:m1curvedproper}
+粒子在实验室作半径$R$、速率$v$的匀速圆周运动，转一周后回到同一位置。求粒子固有时、四加速度及其不变量，说明速度方向变化是否影响钟慢因子。
+\Diagram{fig:m1curvedq}{匀速圆周速度切向、加速度径向}{\draw[curve](0,0)circle(1.5);\fill(1.5,0)circle(2pt);\draw[axis](1.5,0)--(1.5,1.2)node[right]{$v$};\draw[axis](1.5,0)--(.3,0)node[above]{$v^2/R$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m1curvedq}中实验室周期$T=2\pi R/v$。速率恒定，故$\tau=\int_0^T\sqrt{1-v^2/c^2}\dd t=[t/\gamma_v]_0^T=T/\gamma_v$。方向变化不改变局部钟慢因子，固有时仍沿粒子的实际世界线累积。
+\Diagram{fig:m1curveda}{圆周世界线在时空中成螺旋，固有时沿世界线累积}{\draw[axis](0,0)--(0,4.2)node[above]{$ct$};\draw[curve,domain=0:720,samples=150]plot({1.5*cos(\x)},{.005*\x+.3*sin(\x)});\node[right]at(1.7,3.6){空间圆周投影示意};}
+先对$\gamma_v=(1-v^2/c^2)^{-1/2}$用链式法则求导：$\dot\gamma_v=\gamma_v^3\vct v\cdot\vct a/c^2=0$。再对$u^\mu=(\gamma_vc,\gamma_v\vct v)$逐项求导，
+\[
+ a^\mu=\gamma_v\frac{\dd u^\mu}{\dd t}
+ =\gamma_v(c\dot\gamma_v,\dot\gamma_v\vct v+\gamma_v\vct a)
+ =(0,\gamma_v^2\vct a).
+\]
+所以$a^2=-\gamma_v^4v^4/R^2$，固有加速度$\alpha=\gamma_v^2v^2/R$。图\ref{fig:m1curveda}是螺旋的二维投影，投影交叉点未必是同一时空事件。留在起点的实验室钟走过$T$，粒子钟少走$T(1-1/\gamma_v)$。
+\end{solution}

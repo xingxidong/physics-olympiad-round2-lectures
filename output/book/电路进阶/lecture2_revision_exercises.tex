@@ -1,0 +1,146 @@
+\begin{exercise}[电桥失衡后的电流与灵敏度]\label{ex:rev-c2-bridge}
+菱形电桥的端点为$A,B$，中间节点为$C,D$。$AC$支路为$r(1+\varepsilon)$，$CB,AD,DB,CD$四条支路均为$r$，其中$r>0$、$\varepsilon>-1$。求$A,B$间输入电阻及$I_{CD}/I_{\rm in}$，约定$I_{CD}$正向为$C\to D$。再对$|\varepsilon|\ll1$展开至二阶，解释输入电阻的一阶变化。
+\ExpansionDiagram{fig:rev-c2-bridge-q}{只改变一条桥臂，原有的中点等势关系随之破坏}{
+\coordinate(A)at(0,1.7);\coordinate(B)at(6,1.7);\coordinate(C)at(3,3.4);\coordinate(D)at(3,0);
+\Res{A}{C}{r(1+\varepsilon)}\Res{C}{B}{r}\Res{A}{D}{r}\Res{D}{B}{r}\Res{C}{D}{r}
+\foreach\p/\pos in{A/above left,B/right,C/above,D/below}{\fill(\p)circle(1.6pt)node[\pos]{$\p$};}
+\draw[->](-1,1.7)--(-.1,1.7)node[midway,above]{$I_{\rm in}$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:rev-c2-bridge-q}取$V_A=V,V_B=0$。节点$C,D$的流出电流之和分别为零：
+\[
+ \frac{v_C-V}{r(1+\varepsilon)}+\frac{v_C}{r}+\frac{v_C-v_D}{r}=0,
+ \qquad \frac{v_D-V}{r}+\frac{v_D}{r}+\frac{v_D-v_C}{r}=0.
+\]
+整理为$(3+2\varepsilon)v_C-(1+\varepsilon)v_D=V$、$3v_D-v_C=V$。用$v_C=3v_D-V$消去$v_C$，得到
+\[
+ (8+5\varepsilon)v_D=(4+2\varepsilon)V,
+ \quad v_C=\frac{4+\varepsilon}{8+5\varepsilon}V,
+ \quad v_D=\frac{4+2\varepsilon}{8+5\varepsilon}V.
+\]
+\ExpansionDiagram{fig:rev-c2-bridge-s}{当$\varepsilon>0$时，$D$电位高于$C$，桥支路实际电流向上}{
+\fill(0,2)circle(1.5pt)node[left]{$C$};\fill(0,0)circle(1.5pt)node[left]{$D$};\Res{0,0}{0,2}{r}
+\draw[->](1.1,.3)--(1.1,1.7)node[midway,right]{$-I_{CD}$};
+\node[align=left,anchor=west]at(3,1){$v_D-v_C=\dfrac{\varepsilon V}{8+5\varepsilon}$\\[5pt]$\varepsilon=0:\quad v_C=v_D=V/2$};}
+沿图\ref{fig:rev-c2-bridge-s}的桥支路，$I_{CD}=(v_C-v_D)/r=-\varepsilon V/[r(8+5\varepsilon)]$。输入端的两路电流为
+\[
+ I_{AC}=\frac{V-v_C}{r(1+\varepsilon)}=\frac{4V}{r(8+5\varepsilon)},\qquad
+ I_{AD}=\frac{V-v_D}{r}=\frac{(4+3\varepsilon)V}{r(8+5\varepsilon)}.
+\]
+相加后再取比，得到
+\[
+ \boxed{R_{\rm in}=r\frac{8+5\varepsilon}{8+3\varepsilon},\qquad
+ \frac{I_{CD}}{I_{\rm in}}=-\frac{\varepsilon}{8+3\varepsilon}}.
+\]
+利用$(1+3\varepsilon/8)^{-1}=1-3\varepsilon/8+9\varepsilon^2/64+O(\varepsilon^3)$，
+\[
+ R_{\rm in}=r\left(1+\frac\varepsilon4-\frac{3\varepsilon^2}{32}\right)+O(\varepsilon^3r),\qquad
+ \frac{I_{CD}}{I_{\rm in}}=-\frac\varepsilon8+\frac{3\varepsilon^2}{64}+O(\varepsilon^3).
+\]
+平衡时$I_{AC}=I_{\rm in}/2$。固定输入电流的灵敏度公式给
+$\partial R_{\rm in}/\partial R_{AC}=(I_{AC}/I_{\rm in})^2=1/4$，与线性项一致。桥电流虽为一阶小量，桥支路焦耳功率$rI_{CD}^2$却从二阶开始；不能把“原来无电流”理解成“失衡后仍可删去”。
+\end{solution}
+
+\begin{exercise}[互易网络接入有限负载]\label{ex:rev-c2-load}
+只含正电阻的连通网络有两个端口，端口电压、电流满足
+$U_1=R_{11}I_1+R_{12}I_2$、$U_2=R_{21}I_1+R_{22}I_2$，其中电流均以流入端口正端为正。已知$R_{12}=R_{21}$、$R_{22}>0$。端口2接电阻$R_L>0$，求端口1的输入电阻及负载电压，并证明输入电阻非负。
+\ExpansionDiagram{fig:rev-c2-load-q}{端口电流的参考方向均指向网络内部}{
+\draw(1,0)rectangle(4,2.5);\node[align=center]at(2.5,1.25){无源电阻\\网络};
+\draw(-.6,2)--(1,2);\draw(-.6,.5)--(1,.5);\draw(4,2)--(6,2);\draw(4,.5)--(6,.5);\Res{6,.5}{6,2}{R_L}
+\draw[->](-.4,2.35)--(.7,2.35)node[midway,above]{$I_1$};\draw[->](5.5,2.35)--(4.3,2.35)node[midway,above]{$I_2$};
+\node[left]at(-.6,1.25){$U_1$};\node at(4.7,1.25){$U_2$};\foreach\x in{-.55,4.2}{\node[below]at(\x,2){$+$};\node[above]at(\x,.5){$-$};}}
+\end{exercise}
+\begin{solution}
+图\ref{fig:rev-c2-load-q}中负载电流由上端流向下端，因此流入网络端口2的电流为$I_2=-U_2/R_L$。代入第二个端口方程，
+\[
+ U_2=R_{21}I_1-\frac{R_{22}}{R_L}U_2,
+ \qquad U_2=\frac{R_{21}R_L}{R_L+R_{22}}I_1,
+ \qquad I_2=-\frac{R_{21}}{R_L+R_{22}}I_1.
+\]
+再代入第一式，
+\[
+ \boxed{R_{\rm in}=\frac{U_1}{I_1}=R_{11}-\frac{R_{12}^2}{R_L+R_{22}}}.
+\]
+\ExpansionDiagram{fig:rev-c2-load-s}{负载吸收的功率由输入端提供，$I_L=-I_2$}{
+\draw(0,0)rectangle(3,1.8);\node at(1.5,.9){原网络};\draw(3,1.5)--(5,1.5);\draw(3,.3)--(5,.3);\Res{5,.3}{5,1.5}{R_L}
+\draw[->](3.3,1.9)--(4.7,1.9)node[midway,above]{$I_L=-I_2$};\node[below]at(2.5,-.3){$U_1I_1=P_{\text{网络}}+U_2^2/R_L$};}
+原网络的耗散功率对任意端口电流都非负：
+\[
+ P_{\text{网络}}=R_{11}I_1^2+2R_{12}I_1I_2+R_{22}I_2^2
+ =R_{22}\left(I_2+\frac{R_{12}}{R_{22}}I_1\right)^2
+ +\left(R_{11}-\frac{R_{12}^2}{R_{22}}\right)I_1^2.
+\]
+取$I_2=-R_{12}I_1/R_{22}$，即得$R_{11}R_{22}-R_{12}^2\ge0$。由于$R_L+R_{22}>R_{22}$，
+\[
+ R_{\rm in}\ge R_{11}-\frac{R_{12}^2}{R_{22}}\ge0.
+\]
+按图\ref{fig:rev-c2-load-s}的功率关系，输入功率等于网络内耗散与负载吸收功率之和，也应非负。互阻的符号随端口极性而变，输入电阻则由$R_{12}^2$决定。$R_L\to\infty$时恢复开路值$R_{11}$；$R_L\to0$时趋于$R_{11}-R_{12}^2/R_{22}$。有限负载使$I_2\ne0$，须保留第二个端口方程中的$R_{22}I_2$项。
+\end{solution}
+
+\begin{exercise}[横纵电阻不同的六节点网]\label{ex:rev-c2-aniso}
+两行三列的开边界矩形网络，水平相邻节点间电阻为$R$，竖直相邻节点间电阻为$\lambda R$，$\lambda>0$。求相对两角$a,b$间的电阻，并解释$\lambda\to0$和$\lambda\to\infty$的极限。
+\ExpansionDiagram{fig:rev-c2-aniso-q}{改变纵向电阻，矩形网的本征矢不变，本征值改变}{
+\foreach\y in{0,2}{\Res{0,\y}{2.5,\y}{R}\Res{2.5,\y}{5,\y}{R}}
+\foreach\x in{0,2.5,5}{\Res{\x,0}{\x,2}{\lambda R}\fill(\x,0)circle(1.5pt);\fill(\x,2)circle(1.5pt);}
+\node[above left]at(0,2){$a$};\node[below right]at(5,0){$b$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:rev-c2-aniso-q}仍是两条开链的直积，横、纵电导分别为$g_x=1/R$、$g_y=1/(\lambda R)$。均匀六节点例题中的归一化本征矢仍可使用。两个端点的三个非零投影及其本征值为
+\[
+\begin{array}{c|ccc}
+(k,l)&(0,1)&(1,0)&(2,1)\\\hline
+d_{kl}^2&2/3&1&1/3\\
+\Lambda_{kl}&2/(\lambda R)&1/R&3/R+2/(\lambda R)
+\end{array}
+\]
+端口位置和本征矢均未改变，故投影不随$\lambda$变。将各投影平方除以相应本征值，
+\[
+ \boxed{\frac{R_{ab}}R=\frac\lambda3+1+\frac{\lambda}{3(3\lambda+2)}}.
+\]
+取$\lambda=1$得$1/3+1+1/15=7/5$，恢复均匀网的结果。
+\ExpansionDiagram{fig:rev-c2-aniso-s}{纵向短接极限：每列合成一个节点，两段各为$R/2$}{
+\fill(0,0)circle(1.7pt)node[left]{$a$};\fill(2.7,0)circle(1.7pt);\fill(5.4,0)circle(1.7pt)node[right]{$b$};\Res{0,0}{2.7,0}{R/2}\Res{2.7,0}{5.4,0}{R/2}}
+$\lambda\to0$时，图\ref{fig:rev-c2-aniso-s}的竖直连接短路，每对水平电阻并联，故$R_{ab}\to R$。这一等势归并只在该极限成立。
+
+对$\lambda\gg1$，将最后一项写成
+\[
+ \frac{\lambda}{3(3\lambda+2)}
+ =\frac19\left(1+\frac{2}{3\lambda}\right)^{-1}
+ =\frac19-\frac{2}{27\lambda}+O(\lambda^{-2}),
+\]
+所以$R_{ab}/R=\lambda/3+10/9-2/(27\lambda)+O(\lambda^{-2})$。主项对应三条很大的竖直电阻分流，水平电阻产生有限修正；当竖直支路完全断开时，两行分属不同连通分量，端口电阻发散。把新增的零本征值项删去会误得有限值。
+\end{solution}
+
+\begin{exercise}[各支路有效电阻的加权和（选做）]\label{ex:rev-c2-foster}
+连通网络有$N$个节点，每条支路$e$的电阻为$r_e>0$。保持整张网络不变，测量该支路两端的等效电阻，记为$\mathcal R_e$。证明
+$\sum_e\mathcal R_e/r_e=N-1$，并说明$0<\mathcal R_e/r_e\le1$及等号成立的条件。
+\ExpansionDiagram{fig:rev-c2-foster-q}{两组回路由一条支路相连；每次测量均保留整个网络}{
+\Res{0,0}{1,1.8}{r_1}\Res{1,1.8}{2,0}{r_2}\Res{0,0}{2,0}{r_3}
+\Res{4,0}{5,1.8}{r_4}\Res{5,1.8}{6,0}{r_5}\Res{4,0}{6,0}{r_6}\Res{2,0}{4,0}{r_e}
+\fill(2,0)circle(1.7pt)node[below]{$a$};\fill(4,0)circle(1.7pt)node[below]{$b$};\node at(3,1.5){连接支路};}
+\end{exercise}
+\begin{solution}
+先固定一个参考节点，删去它的电位未知量。对支路$e$选任意方向，以$\boldsymbol b_e$记其两端关联列矢量：流入端取$+1$、流出端取$-1$；若一端为参考节点，则只保留另一项。令$g_e=1/r_e$，约化节点矩阵为
+\[
+ L=\sum_e g_e\boldsymbol b_e\boldsymbol b_e^{\mathsf T}.
+\]
+网络连通且电阻为正，任意非零约化电位产生正耗散，故$L$正定可逆。图\ref{fig:rev-c2-foster-q}在支路两端注入、抽出电流$I$，有$L\boldsymbol v=I\boldsymbol b_e$；两端压差为$\boldsymbol b_e^{\mathsf T}\boldsymbol v$，于是
+\[
+ \mathcal R_e=\boldsymbol b_e^{\mathsf T}L^{-1}\boldsymbol b_e.
+\]
+把标量写成矩阵的迹，利用迹的线性性，逐项求和：
+\begin{align*}
+ \sum_e\frac{\mathcal R_e}{r_e}
+ &=\sum_e g_e\operatorname{tr}(L^{-1}\boldsymbol b_e\boldsymbol b_e^{\mathsf T})\\
+ &=\operatorname{tr}\!\left(L^{-1}\sum_e g_e\boldsymbol b_e\boldsymbol b_e^{\mathsf T}\right)
+ =\operatorname{tr}(I_{N-1})=N-1.
+\end{align*}
+\ExpansionDiagram{fig:rev-c2-foster-s}{存在替代路径时，原支路与其余网络并联}{
+\coordinate(a)at(0,1);\coordinate(b)at(5,1);\draw(a)--(0,2)--(1,2);\Res{1,2}{4,2}{r_e}\draw(4,2)--(5,2)--(b);
+\draw(a)--(0,0)--(1,0);\draw(1,-.35)rectangle(4,.35);\node at(2.5,0){其余网络};\draw(4,0)--(5,0)--(b);\node[left]at(a){$a$};\node[right]at(b){$b$};}
+图\ref{fig:rev-c2-foster-s}中，若删去$e$后两端仍连通，其余网络有有限正电阻$R_{\rm rest}$，从而
+\[
+ \mathcal R_e=\frac{r_eR_{\rm rest}}{r_e+R_{\rm rest}}<r_e.
+\]
+若删去$e$后网络断开，注入电流必须全部经过$e$，两侧其余部分无稳态净电流，故$\mathcal R_e=r_e$。这正是图\ref{fig:rev-c2-foster-q}中连接支路的情形。因此等号当且仅当该支路为桥边。比值衡量支路两端是否还存在有效分流路径，各支路比值之和只由节点数决定。
+\end{solution}

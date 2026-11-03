@@ -1,0 +1,605 @@
+\section{习题与解答}
+
+\begin{exercise}[恒电压与变化电感]\label{ex:i2-h1}
+理想无电阻线圈的电感为$L(x)=L_0+\alpha x$，$L_0,\alpha>0$。机械部分被外界以$x=ut$匀速拉动，$u>0$；线圈端接恒电压$V$，初始电流为零。求电流、磁力及功率分配。 见图~\ref{fig:i2-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(-.6,0);\node[draw,fill=white]at(0,0){$L(x)=L_0+\alpha x$};\draw[curve](.9,0)--(2,0);
+\draw[->](.4,-.8)--(1.4,-.8)node[right]{$x=ut$};\node[above]at(0,.8){恒端电压$V$，$I(0)=0$};
+\end{tikzpicture}
+\caption{线圈的几何运动由外界指定，端电压保持不变。}\label{fig:i2-h1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h1-q}给定端电压。无电阻回路满足$\dot\lambda=V$，从初态$\lambda(0)=L_0I(0)=0$积分，
+\[\lambda(t)-0=\int_0^tV\dd s=V[s]_0^t=Vt.\]
+代入$\lambda=LI$与$L(t)=L_0+\alpha ut$，得到
+\[\boxed{I(t)=\frac{Vt}{L_0+\alpha ut}}.
+\]
+图~\ref{fig:i2-h1-s}的电流渐近于$V/(\alpha u)$；这不等于自感电动势消失，而是电流增长变慢的同时，几何磁链项$I\dot L$承担了几乎全部端电压。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,2.5)node[above]{$I$};
+\draw[curve,domain=0:4,samples=71]plot(\x,{1.7*\x/(1+\x)});\draw[guide](0,1.7)--(4,1.7);
+\node[above]at(2.5,1.7){$V/(\alpha u)$};
+\end{tikzpicture}
+\caption{电流趋于有限值时，几何磁链仍持续变化。}\label{fig:i2-h1-s}
+\end{figure}
+
+磁力按瞬时固定电流的共能导数为$F_x=\alpha I^2/2$，方向使电感增加。维持给定位移$x=ut$的外力需承担相反的磁力分量，其机械功率为$-F_xu$。
+
+磁能$W_B=V^2t^2/[2(L_0+\alpha ut)]$。先按商法则求电流导数，再按乘积法则求磁能导数：
+\[\begin{aligned}
+\dot I&=\frac{V(L_0+\alpha ut)-Vt\alpha u}{(L_0+\alpha ut)^2}
+=\frac{VL_0}{(L_0+\alpha ut)^2},\\
+\dot W_B&=\frac12\dot L I^2+LI\dot I
+=\frac12\alpha uI^2+I(V-I\alpha u).
+\end{aligned}\]
+其中$L\dot I+I\alpha u=V$可由上式直接回代核对。整理得
+\[\dot W_B=VI-\frac12\alpha uI^2,\qquad
+VI=\dot W_B+F_xu.
+\]
+电源功率分别用于增加磁能和向机械系统输出功。若误用$V=L\dot I$，会得到不同的电流，且无法同时满足这条功率关系。给定的线性电感规律需在全部位移范围内成立；实际可动铁芯行程有限，不能把渐近曲线无限延长为真实线圈的长期响应。
+\end{solution}
+
+\begin{exercise}[长管近似的误差与伸长力]\label{ex:i2-h2}
+空气螺线管总匝数$N$、半径$a$固定，长度$H\gg a$。用端部首阶修正估计：忽略端场的相对误差小于$1\%$需多大$H/a$？若保持电流$I$缓慢拉长线圈，再求含首阶修正的轴向磁力。 见图~\ref{fig:i2-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-.75)--(2,-.75);\draw[curve](-2,.75)--(2,.75);
+\draw[curve](-2,0)ellipse(.25 and .75);\draw[curve](2,0)ellipse(.25 and .75);
+\foreach\x in{-1.7,-1.2,-.7,-.2,.3,.8,1.3,1.8}{\draw(\x,0)ellipse(.23 and .75);}
+\draw[axis](-2.7,0)--(2.7,0)node[right]{$z$};\draw[->](-.8,.25)--(.8,.25)node[midway,above]{$\vct B$};
+\draw[<->](-2,-1.15)--(2,-1.15)node[midway,below]{$H$};\node[above]at(0,.9){$n,\ I$};\draw[<->](2.5,0)--(2.5,.75)node[midway,right]{$a$};\node[below]at(0,-1.9){固定总匝数$N$，半径$a$不变};
+\end{tikzpicture}
+\caption{伸长时匝数密度随长度改变。}\label{fig:i2-h2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h2-q}的总匝数$N$固定，故$n=N/H$。将它代入长管含端部修正的公式，得到
+\[L(H)=\frac{\mu_0N^2\pi a^2}{H}
+\left(1-\frac{8a}{3\pi H}+O(a^2/H^2)\right).
+\]
+以无限长近似值作分母，首阶相对误差为$\delta_L\simeq8a/(3\pi H)$。要求小于$1\%$，给出
+\[\boxed{\frac Ha>\frac{800}{3\pi}\simeq84.88}.
+\]
+图~\ref{fig:i2-h2-s}只表示这一误差随长径比减小的趋势，不能当作短线圈的精确曲线。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[x=.04cm,y=30cm]
+\draw[axis](0,0)--(115,0)node[right]{$H/a$};
+\draw[axis](0,0)--(0,.065)node[above]{$\delta_L$};
+\draw[curve,domain=20:110,samples=91]plot(\x,{8/(3*pi*\x)});
+\draw[guide](0,.01)--(84.8826,.01)--(84.8826,0);
+\node[left]at(0,.01){$1\%$};\node[below]at(84.8826,0){$84.88$};
+\node[right]at(35,.048){$\delta_L\simeq\dfrac{8}{3\pi(H/a)}$};
+\end{scope}
+\end{tikzpicture}
+\caption{误差由长径比控制，图示首阶反比规律。}\label{fig:i2-h2-s}
+\end{figure}
+
+若固定电流并缓慢增加$H$，半径与$N$保持不变。先展开各幂次再求导，
+\[\begin{aligned}
+L(H)&=\mu_0N^2\pi a^2\left[H^{-1}-\frac{8a}{3\pi}H^{-2}+O(a^2H^{-3})\right],\\
+L'(H)&=\mu_0N^2\pi a^2\left[-H^{-2}+\frac{16a}{3\pi}H^{-3}+O(a^2H^{-4})\right].
+\end{aligned}\]
+磁力为
+\[F_H=\frac12I^2L'(H)
+=-\frac{\mu_0N^2\pi a^2I^2}{2H^2}
+\left(1-\frac{16a}{3\pi H}+O(a^2/H^2)\right).
+\]
+主项为负，表示线圈有缩短的趋势。不能在求导时把$n$也视为常数，否则等于在拉伸过程中不断补入新匝，研究的机械系统已经改变。误差不等式只是首阶估计；若要求有严格误差保证，应回到完整有限长度积分，估计下一阶项，而不是把截断符号直接当作精确上界。
+\end{solution}
+
+\begin{exercise}[非均匀体电流的内部电感]\label{ex:i2-h3}
+半径$a$的长圆柱导体中，轴向电流密度满足$j_z(r)=Ar^p$，$p>-2$，总电流为$I$，磁导率为$\mu$。求单位长度内部电感，并讨论$p=0$与$p\to\infty$两个极限。 见图~\ref{fig:i2-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!12](0,0)circle(1.3);\draw[curve](0,0)circle(1.3);\draw[guide](0,0)circle(.7);\draw[->](0,0)--(.7,0)node[above]{$r$};\draw[->](0,0)--(120:1.3)node[midway,left]{$a$};\node[right]at(1.6,.5){$j_z\propto r^p$};\node[right]at(1.6,-.2){$p>-2$};
+\end{tikzpicture}
+\caption{电流分布作为模型条件给定，外部回流另行处理。}\label{fig:i2-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h3-q}的电流密度虽然不均匀，但仍轴对称。总电流由截面积分求出：
+\[I=2\pi A\int_0^ar^{p+1}\dd r
+=2\pi A\left[\frac{r^{p+2}}{p+2}\right]_0^a
+=\frac{2\pi Aa^{p+2}}{p+2}.\]
+同样将上限换为$r$即得$I_{\rm enc}=2\pi Ar^{p+2}/(p+2)$，所以
+\[\frac{I_{\rm enc}(r)}I=\left(\frac ra\right)^{p+2}.
+\]
+图~\ref{fig:i2-h3-s}比较了两个指数。靠近表面集中的电流使内部被链接的电流分数减小。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$r/a$};\draw[axis](0,-.1)--(0,2.5)node[above]{$I_{\rm enc}/I$};
+\draw[curve,domain=0:1,samples=51]plot({3*\x},{1.8*(\x)^2});\draw[guide,domain=0:1,samples=51]plot({3*\x},{1.8*(\x)^4});
+\draw[guide](3,0)--(3,1.8);\node[below]at(3,0){$1$};
+\draw(-.06,1.8)--(.06,1.8);\node[left]at(0,1.8){$1$};
+\node[right,fill=white,inner sep=1pt]at(1.8,.9){$p=0$};
+\node[right,fill=white,inner sep=1pt]at(2,.3){$p=2$};
+\end{tikzpicture}
+\caption{较大的指数把电流移向表面，减少内部磁能。}\label{fig:i2-h3-s}
+\end{figure}
+
+Ampere定律给$B_\theta=\mu I_{\rm enc}/(2\pi r)$。单位长度内部磁能为
+\[\begin{aligned}
+w_{\rm in}&=\int_0^a\frac{B_\theta^2}{2\mu}\,2\pi r\dd r\\
+&=\frac{\mu I^2}{4\pi}\int_0^a
+\left(\frac ra\right)^{2p+4}\frac{\dd r}{r}
+=\frac{\mu I^2}{4\pi a^{2p+4}}\left[\frac{r^{2p+4}}{2p+4}\right]_0^a
+=\frac{\mu I^2}{8\pi(p+2)}.
+\end{aligned}\]
+因此
+\[\boxed{L'_{\rm in}=\frac{\mu}{4\pi(p+2)}}.
+\]
+$p=0$恢复均匀体电流的$\mu/(8\pi)$；$p\to\infty$趋于表面电流，内部电感趋零。也可按磁链权重计算$I^{-1}\int_0^aB_\theta(I_{\rm enc}/I)\dd r$，得到同一式。若把权重遗漏，算的是某一条特殊电流丝的链接，而不是整个分布的电感。题中电流分布可由径向变化的电导率等方式维持，并非假定均匀材料在任意频率下自动具有这个分布。
+\end{solution}
+
+\begin{exercise}[双线表面电流的双极坐标解]\label{ex:i2-h4}
+两平行理想圆柱导体半径$a$、轴距$b>2a$，间隙为$\epsilon,\mu$，无内部场。已知双极坐标面$\xi=\pm\xi_0$对应这两圆柱，$\cosh\xi_0=b/(2a)$，两尺度因子相同。求单位长度电容，再由TEM关系求电感及远距展开。 见图~\ref{fig:i2-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.45,0)circle(.65);\draw[curve](1.45,0)circle(.65);\node at(-1.45,0){$+\lambda_e$};\node at(1.45,0){$-\lambda_e$};
+\draw[<->](-1.45,-1.1)--(1.45,-1.1)node[midway,below]{$b$};\node[above]at(0,1.2){表面电流、理想等势圆柱};
+\end{tikzpicture}
+\caption{相邻表面上的电荷与电流密度都不必均匀。}\label{fig:i2-h4-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h4-q}的两圆柱是理想等势面，表面电流会受相邻导线影响而重新分布，不能继续采用均匀体电流模型。用双极坐标，两个圆柱面为$\xi=\pm\xi_0$，圆心距与半径满足$\cosh\xi_0=b/(2a)$，如图~\ref{fig:i2-h4-s}。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$b/(2a)$};\draw[axis](0,-.1)--(0,2.5)node[above]{$\xi_0$};
+\draw[curve,domain=1.01:4.1,samples=81]plot(\x,{ln(\x+sqrt((\x)^2-1))});
+\node[right]at(1.8,.6){$\cosh\xi_0=b/(2a)$};
+\end{tikzpicture}
+\caption{双极坐标参数随两圆柱距离变化。}\label{fig:i2-h4-s}
+\end{figure}
+
+两面电压差为$V$时，取两面电势为$\pm V/2$。因$h_\xi=h_\eta=h$，二维Laplace方程为$\partial_\xi^2\varphi+\partial_\eta^2\varphi=0$。取不含角变量的解，径向方程$\partial_\xi^2\varphi=0$两次积分给$\varphi=A\xi+C$；由$A\xi_0+C=V/2$、$-A\xi_0+C=-V/2$得$A=V/(2\xi_0)$、$C=0$。因此$\varphi=V\xi/(2\xi_0)$；这个满足全部边界条件的解由静电唯一性定理确定。积分法向位移时，两尺度因子相消：
+\[\lambda_e=\epsilon\int_0^{2\pi}
+\frac{V}{2\xi_0h_\xi}\,h_\eta\dd\eta
+=\frac{\epsilon V}{2\xi_0}[\eta]_0^{2\pi}
+=\frac{\pi\epsilon V}{\xi_0},\qquad
+C'=\frac{\pi\epsilon}{\xi_0}.
+\]
+无损TEM场的电磁对偶给$L'C'=\mu\epsilon$，因此
+\[\boxed{L'=\frac{\mu}{\pi}\operatorname{arcosh}\frac b{2a}}.
+\]
+远距展开可从反双曲函数的对数式求出。令$\delta=a/b$，则
+\[
+\operatorname{arcosh}\frac b{2a}
+=\ln\frac{b+\sqrt{b^2-4a^2}}{2a}
+=\ln\frac ba+\ln\frac{1+\sqrt{1-4\delta^2}}2.
+\]
+将$\sqrt{1-4\delta^2}=1-2\delta^2-2\delta^4+O(\delta^6)$代入，再用$\ln(1+x)=x-x^2/2+\cdots$，第二个对数为$-\delta^2-3\delta^4/2+O(\delta^6)$。
+
+远离时$\operatorname{arcosh}[b/(2a)]=\ln(b/a)-a^2/b^2+O(a^4/b^4)$，首个几何修正为二次而非一次。
+
+本题导体内部无磁场，因而没有均匀体电流模型中的$\mu/(4\pi)$内部电感。两导线靠近时，两种模型的电流分布与边界条件不同，电感数值也随之不同。上述推导也要求两表面没有接触，$b>2a$，不能跨越几何接触点继续使用同一电容、电感式。
+\end{solution}
+
+\begin{exercise}[三线圈的互感是否物理允许]\label{ex:i2-h5}
+三个线圈自感均为$L_0>0$，互感为$M_{12}=M_{23}=kL_0$、$M_{13}=0$。求被动线性系统允许的$k$范围，并说明只核对每一对线圈的互感上界为何不够。 见图~\ref{fig:i2-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\foreach\x/\t in{-2/1,0/2,2/3}{\node[draw,fill=white,minimum width=1cm,minimum height=.6cm]at(\x,0){$L_0$};\node[above]at(\x,.45){$\t$};}
+\draw[<->](-1.4,0)--(-.6,0)node[midway,below]{$kL_0$};
+\draw[<->](.6,0)--(1.4,0)node[midway,below]{$kL_0$};
+\draw[guide](-2,.9)--(2,.9)node[midway,above]{$M_{13}=0$};
+\node[below]at(0,-.95){耦合矩阵的示意连接};
+\end{tikzpicture}
+\caption{磁场能由全部电流共同确定，邻近耦合不代表可任意指定矩阵。}\label{fig:i2-h5-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h5-q}的电感矩阵为
+\[\mathsf L=L_0
+\begin{pmatrix}1&k&0\\k&1&k\\0&k&1\end{pmatrix}.
+\]
+各对线圈分别满足$|M|\le L_0$，只给$|k|\le1$；这还不足以保证三个电流同时存在时磁能非负。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$k$};\draw[axis](0,-.1)--(0,2.5)node[above]{$\lambda_{\min}/L_0$};
+\draw[curve](0,1.7)--(1.7,0)--(2.7,-1);\draw[guide](1.7,-1)--(1.7,1.7);
+\node[below right]at(1.7,0){$1/\sqrt2$};\node[right]at(2.2,-.65){负磁能区};
+\end{tikzpicture}
+\caption{最小特征值决定磁能是否可以对所有电流非负。}\label{fig:i2-h5-s}
+\end{figure}
+
+令特征值为$\lambda=L_0x$，将无量纲行列式沿第一行展开，
+\[\begin{aligned}
+\det(\mathsf L/L_0-x\mathsf 1)
+&=(1-x)[(1-x)^2-k^2]-k[k(1-x)]\\
+&=(1-x)[(1-x)^2-2k^2].
+\end{aligned}\]
+令它为零，得$x=1$或$1-x=\pm\sqrt2k$。三个特征值为$L_0$、$L_0(1+\sqrt2k)$、$L_0(1-\sqrt2k)$。因此图~\ref{fig:i2-h5-s}的最小值非负要求
+\[\boxed{|k|\le\frac1{\sqrt2}}.
+\]
+例如$k>1/\sqrt2$时取电流比例$(I_1,I_2,I_3)=I(1,-\sqrt2,1)$，直接代入得到$W_B=2L_0I^2(1-\sqrt2k)<0$，不可能是被动线性磁场的能量。
+
+互感的允许范围由完整磁能矩阵决定；逐对满足上界，仍可能存在使总磁能为负的电流组合。等号时出现一个零磁能模；若它与端口的强迫条件冲突，理想电路会退化，实际漏感或电阻必须参与。矩阵中的零互感是给定的理想几何条件，不应因相邻线圈都有耦合就擅自补入一个未给定的$M_{13}$。
+\end{solution}
+
+\begin{exercise}[并联后完全不增流的支路]\label{ex:i2-h6}
+两线圈自感为$4L_0,L_0$，互感$M=L_0$，同名端并联并接电压$V(t)$。初始两支路电流均为零。求各支路电流和等效电感，并解释为何一支路可以始终不流电流。 见图~\ref{fig:i2-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(-1.5,0)--(-1.5,1)--(1.5,1)--(1.5,0)--(2,0);\draw[curve](-1.5,0)--(-1.5,-1)--(1.5,-1)--(1.5,0);
+\node[draw,fill=white]at(0,1){$4L_0$};\node[draw,fill=white]at(0,-1){$L_0$};\node at(0,0){$M=L_0$};\node[left]at(-2,0){$V(t)$};
+\end{tikzpicture}
+\caption{两个端电压相同，但支路电流不必按普通倒电感比变化。}\label{fig:i2-h6-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h6-q}两支路同端并联，方程为$V=4L_0\dot I_1+L_0\dot I_2$与$V=L_0\dot I_1+L_0\dot I_2$。两式相减，$3L_0\dot I_1=0$，所以初始$I_1=0$时该支路始终没有电流。
+
+第二式变成$V=L_0\dot I_2$，因此
+\[\boxed{I_1(t)=0,\qquad I_2(t)=\frac1{L_0}\int_0^tV(s)\dd s,\qquad L_{\rm eq}=L_0}.
+\]
+图~\ref{fig:i2-h6-s}以电压的时间积分为横坐标；第一支路电流保持为零，端口电流全部流经第二支路。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.7,0)node[right]{$Q_V=\int_0^tV\dd t$};\draw[axis](0,0)--(0,2.2)node[above]{$I$};\draw[curve](0,0)--(3,1.8)node[right]{$I_2$};\draw[line width=.7pt](0,0)--(3.4,0)node[below]{$I_1=0$};
+\end{tikzpicture}
+\caption{互感电压可在零支路电流条件下承担全部端电压。}\label{fig:i2-h6-s}
+\end{figure}
+
+没有电流的第一支路仍有磁链$\lambda_1=MI_2$，其变化率$M\dot I_2=V$正好给出端电压。不能由$I_1=0$推断该线圈“没有任何感应”。能量只剩$L_0I_2^2/2$，端口输入$VI_2$恰为其导数，与等效电感一致。
+
+本题$M^2/(L_1L_2)=1/4$，矩阵行列式为$3L_0^2>0$，支路解唯一。若第一支路初始已有电流，它将保持该常量，并改变磁能交叉项；题给零初态才使$I_1$始终为零。
+\end{solution}
+
+\begin{exercise}[反向串联的误差敏感性]\label{ex:i2-h7}
+两线圈$L_1=L_0(1+\epsilon)^2$、$L_2=L_0$，正互感为$M=(1-\delta)L_0(1+\epsilon)$，其中$|\epsilon|\ll1$、$0\le\delta\ll1$。将它们反向串联，求剩余电感并比较失配与漏耦合的影响。 见图~\ref{fig:i2-h7-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(-1.4,0);\node[draw,fill=white]at(-.7,0){$L_0(1+\epsilon)^2$};\draw[curve](0,0)--(.5,0);\node[draw,fill=white]at(1.2,0){$L_0$};\draw[curve](1.8,0)--(2.3,0);
+\node[above]at(0,1){反向串联};\node[below]at(0,-.8){$M=(1-\delta)L_0(1+\epsilon)$};
+\end{tikzpicture}
+\caption{同样接近理想抵消，两种小偏差进入答案的阶次不同。}\label{fig:i2-h7-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h7-q}采用反向串联，所以端口电感为$L_1+L_2-2M$。代入给定参数，不先截断$\epsilon$，得到
+\[\begin{aligned}
+L_{\rm eq}/L_0
+&=(1+\epsilon)^2+1-2(1-\delta)(1+\epsilon)\\
+&=\boxed{\epsilon^2+2\delta(1+\epsilon)}.
+\end{aligned}\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-1.6,0)--(1.8,0)node[right]{$\epsilon$};\draw[axis](0,0)--(0,2)node[above]{$\delta$};
+\draw[curve,domain=-1.3:1.3,samples=61]plot(\x,{.8-(\x)^2/3});\node[right]at(.7,1.5){$\epsilon^2+2\delta\simeq$常数};\node[below]at(0,-.5){低剩余电感需同时控制两种偏差};
+\end{tikzpicture}
+\caption{等值线只表示小参数首项，不替代完整的非负性条件。}\label{fig:i2-h7-s}
+\end{figure}
+
+当$|\epsilon|,\delta\ll1$时，首要两项是$\epsilon^2+2\delta$。图~\ref{fig:i2-h7-s}的近似等值线表示：匝数或尺度不匹配造成的影响从$\epsilon^2$开始，而漏耦合造成的影响从$\delta$一阶开始。
+
+若目标$L_{\rm eq}/L_0<\eta\ll1$，就要大致同时满足$|\epsilon|\lesssim\sqrt\eta$与$\delta\lesssim\eta/2$，不能只把两个绕组匝数做得接近。完全耦合$\delta=0$时剩余值为$L_0\epsilon^2$；完全匹配$\epsilon=0$时则为$2\delta L_0$。
+
+在题设的小参数范围内，$\delta\ge0$使耦合系数$k=1-\delta$不超过1；$\epsilon>-1$则保证$\sqrt{L_1}=\sqrt{L_0}(1+\epsilon)$与所给正互感采用同一取支。$L_1$本身是平方，不能把这一条件说成排除负自感。若改用同向串联的加号，互感项增加磁能，便没有这里的低电感抵消。
+\end{solution}
+
+\begin{exercise}[转动小线圈的负载阻力矩]\label{ex:i2-h8}
+固定一次线圈通恒电流$I_1$，与匀速转动的小线圈互感$M=M_0\cos\omega t$。小线圈电阻$R_2$、自感$L_2$，求交流稳态电流、平均磁阻力矩和平均机械功率。 见图~\ref{fig:i2-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2.6,0)--(2.9,0)node[right]{$z$};
+\draw[curve](-1.3,0)ellipse(.55 and 1.5);
+\draw[curve](1.05,-.65)--(1.65,-.3)--(1.75,.65)--(1.15,.3)--cycle;
+\draw[guide](.8,0)--(2.1,0);\draw[->](1.9,.3)arc(30:145:.45)node[above]{$\omega$};
+\node[above]at(-1.3,1.6){$C_1,I_1$};\node[right]at(1.9,-.45){$R_2,L_2$};
+\node[below]at(0,-1.9){$M=M_0\cos\omega t$};
+\end{tikzpicture}
+\caption{二次电流由感应决定，不再假定为外源维持的常量。}\label{fig:i2-h8-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h8-q}中，一次电流固定，二次闭合回路的外磁链为$I_1M_0\cos\omega t$。感应电动势为$E_0\sin\omega t$，$E_0=I_1M_0\omega$。电路方程
+\[L_2\dot I_2+R_2I_2=E_0\sin\omega t
+\]
+先取特解$I_{2p}=A\sin\omega t+B\cos\omega t$，其导数为$A\omega\cos\omega t-B\omega\sin\omega t$。比较正、余弦系数，
+\[R_2A-\omega L_2B=E_0,\qquad \omega L_2A+R_2B=0,\]
+第二式给$B=-\omega L_2A/R_2$，代入第一式，得$(R_2^2+\omega^2L_2^2)A=E_0R_2$。故$A=E_0R_2/(R_2^2+\omega^2L_2^2)$、$B=-E_0\omega L_2/(R_2^2+\omega^2L_2^2)$。齐次方程分离变量后有$\ln|I_{2h}|=-R_2t/L_2+C_0$，即$I_{2h}=Ce^{-R_2t/L_2}$。若初始电流为$I_{20}$，则$A\sin0+B\cos0+C=I_{20}$，所以$C=I_{20}-B$。题目求交流稳态，取衰减项消失后的特解，写成$I_2=(E_0/Z)\sin(\omega t-\delta)$，其中$Z=\sqrt{R_2^2+\omega^2L_2^2}$、$\tan\delta=\omega L_2/R_2$。图~\ref{fig:i2-h8-s}显示这一相位差。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.4,0)node[right]{$\omega t$};\draw[axis](0,-1.2)--(0,1.5)node[above]{归一化量};
+\draw[guide,domain=0:6.283,samples=101]plot({.6*\x},{sin(57.29578*\x)});
+\draw[curve,domain=0:6.283,samples=101]plot({.6*\x},{sin(57.29578*\x-35)});
+\node[above]at(2.4,1.3){电流滞后感应电动势};
+\end{tikzpicture}
+\caption{电感改变相位，从而改变平均机械阻力。}\label{fig:i2-h8-s}
+\end{figure}
+
+磁力矩按瞬时电流的共能导数为$\tau=I_1I_2\partial_\theta M=-I_1M_0I_2\sin\omega t$。周期平均时，
+令$T=2\pi/\omega$，用积化和差公式积分，
+\[\begin{aligned}
+\langle\sin\omega t\sin(\omega t-\delta)\rangle
+&=\frac1{2T}\int_0^T[\cos\delta-\cos(2\omega t-\delta)]\dd t\\
+&=\frac1{2T}\left[t\cos\delta-\frac{\sin(2\omega t-\delta)}{2\omega}\right]_0^T
+=\frac12\cos\delta.
+\end{aligned}\]
+因此
+\[\boxed{\langle\tau\rangle
+=-\frac{I_1^2M_0^2\omega R_2}{2(R_2^2+\omega^2L_2^2)}}.
+\]
+它反对给定转动，维持匀速的平均机械输入为$-\omega\langle\tau\rangle=E_0^2R_2/(2Z^2)=\langle I_2^2R_2\rangle$。
+
+稳态二次磁能的平均变化率为零，固定$I_1$的源在一周期中也没有净交叉磁链输入；机械功最终成为焦耳热。若$R_2\to0$且仍有有限自感，平均阻力矩趋零，电流主要与驱动相差四分之一周期，能量在转动和磁场之间往返交换。不能把有自感的电流直接写成$\mathcal E/R_2$再取零电阻极限。
+\end{solution}
+
+\begin{exercise}[闭合无阻线圈的插入力]\label{ex:i2-h9}
+两个无阻闭合线圈自感均为$L_0$，互感随插入量$x$变化为$M=cx$，$c>0$，且$M<L_0$。初始$x=0$，电流为$I_1=I_0,I_2=0$。求插入过程的电流与磁力，并用固定磁链能量核对。 见图~\ref{fig:i2-h9-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2.7,0)--(2.7,0)node[right]{$z$};
+\draw[curve](-2.4,-.85)rectangle(.4,.85);
+\foreach \t in{-2.25,-1.85,-1.45,-1.05,-.65,-.25,.15}{\draw[thin](\t,0)ellipse(.12 and .85);}
+\draw[curve](0,-.43)rectangle(2.1,.43);
+\foreach \t in{.15,.5,.85,1.2,1.55,1.9}{\draw[thin](\t,0)ellipse(.10 and .43);}
+\node[above]at(-1.2,.95){$C_1,I_1$};\node[above]at(1.5,.55){$C_2,I_2$};
+\draw[guide](0,-.5)--(0,-1.3);\draw[guide](.4,-.9)--(.4,-1.3);
+\draw[<->](0,-1.18)--(.4,-1.18)node[midway,below]{$x$};
+\draw[->](1.6,-.85)--(.8,-.85)node[midway,below]{插入};
+\node[below]at(0,-1.8){两回路无阻，$L_1=L_2=L_0,\ M=cx$};
+\end{tikzpicture}
+\caption{忽略端场的线圈插入模型，$x$为重叠长度}\label{fig:i2-h9-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h9-q}的两个回路都没有电源和电阻，所以保持的是各自磁链。初始$M=0,I_1=I_0,I_2=0$给出$\lambda_1=L_0I_0$、$\lambda_2=0$。插入后满足
+\[L_0I_1+MI_2=L_0I_0,\qquad MI_1+L_0I_2=0.
+\]
+令$k=M/L_0<1$，第二式先给$I_2=-kI_1$，代回第一式得到$(1-k^2)I_1=I_0$。于是
+\[\boxed{I_1=\frac{I_0}{1-k^2},\qquad
+I_2=-\frac{kI_0}{1-k^2}}.
+\]
+副边产生反向感应电流。磁场力为$F_x=I_1I_2M'(x)$，故
+\[\boxed{F_x=-\frac{ckI_0^2}{(1-k^2)^2}}.
+\]
+负号表示阻碍进一步插入。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$k$};\draw[axis](0,-.1)--(0,2.5)node[above]{$W_B/(L_0I_0^2/2)$};
+\draw[curve,domain=0:.83,samples=81]plot({4*\x},{1/(1-(\x)^2)});
+\node[right]at(2.4,2){$1/(1-k^2)$};
+\end{tikzpicture}
+\caption{在固定磁链条件下，增大耦合需要增加磁能。}\label{fig:i2-h9-s}
+\end{figure}
+
+图~\ref{fig:i2-h9-s}的磁能为$W_B=(\lambda_1I_1+\lambda_2I_2)/2=L_0I_0^2/[2(1-k^2)]$。固定磁链求导时$k'=c/L_0$，故
+\[-\frac{\dd W_B}{\dd x}=-\frac{L_0I_0^2}2
+\frac{2kk'}{(1-k^2)^2}=-\frac{ckI_0^2}{(1-k^2)^2},\]
+与共能法的瞬时力相同。准静态外力须输入正功以提高磁能。
+
+若错误地固定$I_1=I_0,I_2=0$，便会得到零力，那描述的是另接电源强行取消感应电流的系统。$k\to1$时本题所需磁能发散，有限能量的自由运动无法达到该理想重合点；实际漏感和端场也会限制简单$M=cx$模型的适用范围。
+\end{solution}
+
+\begin{exercise}[交流恒电压下的气隙吸力]\label{ex:i2-h10}
+线性铁芯绕$N$匝、截面$S$，有可变窄气隙$h$。绕组电阻忽略，接正弦端电压$\widehat V\cos\omega t$，磁通无直流偏置。求气隙瞬时与平均吸力，说明它为何不同于恒电流条件的气隙依赖。 见图~\ref{fig:i2-h10-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[even odd rule,gray!18](-2,-1.4)rectangle(2,1.4)(-1.35,-.8)rectangle(1.35,.8);
+\draw[curve](-2,-1.4)rectangle(2,1.4);\draw[curve](-1.35,-.8)rectangle(1.35,.8);
+\foreach\y in{-.6,-.3,0,.3,.6}{\draw(-2.25,\y)--(-1.1,\y+.12);}
+\node[left]at(-2.25,0){$N_1$};\draw[->](-.8,1.1)--(.8,1.1)node[midway,above]{$\Phi$};\fill[white](1.3,-.14)rectangle(2.1,.14);\node[right]at(2.2,0){$h$};\node[below]at(0,-1.9){$V_1=\widehat V\cos\omega t,\quad R_1=0$};
+\end{tikzpicture}
+\caption{电压积分规定磁通，磁阻规定励磁电流。}\label{fig:i2-h10-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h10-q}给定绕组端电压，忽略电阻时$N\dot\Phi=\widehat V\cos\omega t$。取没有直流偏置的周期解，
+\[\Phi(t)-\Phi(0)=\frac{\widehat V}{N}\int_0^t\cos\omega s\dd s
+=\frac{\widehat V}{N}\left[\frac{\sin\omega s}{\omega}\right]_0^t.\]
+无偏置解取$\Phi(0)=0$，所以
+\[\Phi(t)=\frac{\widehat V}{N\omega}\sin\omega t,\qquad
+B(t)=\frac{\widehat V}{NS\omega}\sin\omega t.
+\]
+磁通的幅值由电压积分决定，在理想条件下不随气隙改变；磁阻改变的是达到这条磁通所需的励磁电流。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.4,0)node[right]{$\omega t$};\draw[axis](0,0)--(0,2.1)node[above]{$F$};
+\draw[curve,domain=0:6.283,samples=101]plot({.6*\x},{1.7*(sin(57.29578*\x))^2});\draw[guide](0,.85)--(4,.85)node[right]{$\langle F\rangle$};
+\end{tikzpicture}
+\caption{吸力随磁通平方变化，具有非零平均值与两倍频分量。}\label{fig:i2-h10-s}
+\end{figure}
+
+由图~\ref{fig:i2-h10-s}所示的平方关系，气隙吸力为
+\[F(t)=\frac{S B(t)^2}{2\mu_0}
+=\frac{\widehat V^2}{2\mu_0N^2S\omega^2}\sin^2\omega t,
+\]
+所以
+\[\boxed{\langle F\rangle=\frac{\widehat V^2}{4\mu_0N^2S\omega^2}}.
+\]
+这里用了$\sin^2\omega t=(1-\cos2\omega t)/2$，其中余弦项在整周期的积分为
+\[\left[\frac{\sin2\omega t}{2\omega}\right]_0^{2\pi/\omega}=0.\]
+平均力不含$h$，且有两倍频脉动。它并不与定电流时$F\propto(h+\ell_{\rm Fe}/\mu_r)^{-2}$矛盾，两题控制的是不同量。
+
+当气隙增加，$I=\mathcal R_m\Phi/N$也增加；维持端电压的源负责相应的能量交换。若绕组电阻不可忽略，实际作用于磁链的电压为$V_1-RI$，气隙变化又通过电流改变这个电压，结论不再严格。题中还要求磁通幅值处于铁芯线性范围，且$h$小于截面尺度，使均匀气隙场近似有效。
+\end{solution}
+
+\begin{exercise}[变压器的励磁导纳]\label{ex:i2-h11}
+共同磁通变压器匝数$N_1,N_2$，铁芯磁阻$\mathcal R_m$，二次接纯电阻$R_L$。采用$\ee^{\mathrm i\omega t}$和有效值相量，求一次输入导纳，画出电流相位关系，忽略绕组电阻和铁耗。 见图~\ref{fig:i2-h11-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[even odd rule,gray!18](-2,-1.4)rectangle(2,1.4)(-1.35,-.8)rectangle(1.35,.8);
+\draw[curve](-2,-1.4)rectangle(2,1.4);\draw[curve](-1.35,-.8)rectangle(1.35,.8);
+\foreach\y in{-.6,-.3,0,.3,.6}{\draw(-2.25,\y)--(-1.1,\y+.12);}
+\node[left]at(-2.25,0){$N_1$};\draw[->](-.8,1.1)--(.8,1.1)node[midway,above]{$\Phi$};\foreach\y in{-.5,-.25,0,.25,.5}{\draw(1.1,\y)--(2.25,\y+.1);}\node[right]at(2.25,0){$N_2,R_L$};\node[below]at(0,-1.9){有限磁阻$\mathcal R_m$，忽略铁耗};
+\end{tikzpicture}
+\caption{有限磁阻允许存在不供给负载的励磁电流。}\label{fig:i2-h11-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h11-q}仍有共同磁通关系$\underline V_2=(N_2/N_1)\underline V_1$。二次电流为$\underline I_2=\underline V_2/R_L$，由安匝方程
+\[\underline I_1=\frac{N_2}{N_1}\underline I_2+
+\frac{\mathcal R_m}{N_1}\underline\Phi,\qquad
+\underline V_1=\mathrm i\omega N_1\underline\Phi.
+\]
+因此
+\[\boxed{Y_{\rm in}=\frac{\underline I_1}{\underline V_1}
+=\frac{(N_2/N_1)^2}{R_L}+
+\frac1{\mathrm i\omega L_m}},\qquad L_m=\frac{N_1^2}{\mathcal R_m}.
+\]
+第一项等于折算电阻$R_{\rm ref}=(N_1/N_2)^2R_L$的导纳，第二项为励磁电感导纳，两者并联。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3,0)node[right]{$\underline V_1$};\draw[->,thick](0,0)--(2,0)node[above]{$\underline I_{\rm load}$};\draw[->](2,0)--(2,-1.3)node[right]{$\underline I_m$};\draw[->,thick](0,0)--(2,-1.3)node[midway,below left]{$\underline I_1$};\node[below]at(0,-1.9){相量以有效值表示};
+\end{tikzpicture}
+\caption{负载电流与励磁电流分别位于相量的实部与负虚部方向。}\label{fig:i2-h11-s}
+\end{figure}
+
+图~\ref{fig:i2-h11-s}中，负载反射电流与电压同相，励磁电流滞后四分之一周期，总电流为两相量之和。若有效值电压为$V_1$，有功输入为$V_1^2/R_{\rm ref}$，无功为$V_1^2/(\omega L_m)$。这里采用有效值，不能再额外乘一个$1/2$。
+
+若以一次电压相位为零，令$G=1/R_{\rm ref}$、$B_m=1/(\omega L_m)$，则
+\[
+\underline I_1=V_1(G-\mathrm iB_m),\qquad
+|\underline I_1|=V_1\sqrt{G^2+B_m^2},\qquad
+\arg\underline I_1=-\arctan\frac{B_m}{G}.
+\]
+图中水平向右的负载电流与竖直向下的励磁电流构成直角三角形，总电流滞后电压。复功率为
+$\underline S=\underline V_1\underline I_1^{\,*}=V_1^2(G+\mathrm iB_m)$，实部、虚部分别就是前述有功和无功。
+
+当$\mathcal R_m\to0$时，$L_m\to\infty$，励磁支路电流趋零，恢复纯负载折算。若再有一次串联电阻$R_1$，线圈端电压需由$\underline V_1=\underline U/(1+R_1Y_{\rm in})$求得，不能把电源电压直接当作绕组上的电压。
+\end{solution}
+
+\begin{exercise}[共同磁通三绕组的数值计算]\label{ex:i2-h12}
+共同磁通理想变压器$N_1=600,N_2=200,N_3=100$，一次串联$R_1=2\Omega$，二次电阻$R_2=10\Omega,R_3=5\Omega$，电源$u=120\cos\omega t$伏。求各电流、电压及平均功率分配。 见图~\ref{fig:i2-h12-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[even odd rule,gray!18](-2,-1.4)rectangle(2,1.4)(-1.35,-.8)rectangle(1.35,.8);
+\draw[curve](-2,-1.4)rectangle(2,1.4);\draw[curve](-1.35,-.8)rectangle(1.35,.8);
+\foreach\y in{-.6,-.3,0,.3,.6}{\draw(-2.25,\y)--(-1.1,\y+.12);}
+\node[left]at(-2.25,0){$N_1$};\draw[->](-.8,1.1)--(.8,1.1)node[midway,above]{$\Phi$};\foreach\y in{.3,.5,.7}{\draw(1.1,\y)--(2.25,\y+.12);}\foreach\y in{-.7,-.5,-.3}{\draw(1.1,\y)--(2.25,\y+.12);}\node[right]at(2.5,.5){$N_2=200,\ R_2=10\Omega$};\node[right]at(2.5,-.4){$N_3=100,\ R_3=5\Omega$};\node[below]at(0,-1.9){$N_1=600,\ R_1=2\Omega,\ u=120\cos\omega t$};
+\end{tikzpicture}
+\caption{电源幅值为120伏，区别于有效值120伏。}\label{fig:i2-h12-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h12-q}的两个负载都链接同一磁通，先计算$G_N=N_2^2/R_2+N_3^2/R_3=6000$。折算负载为$N_1^2/G_N=60\Omega$，与一次串联电阻相加为$62\Omega$，如图~\ref{fig:i2-h12-s}。
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.4,0)--(2.4,0);\node[draw,fill=white]at(-1.2,0){$2\Omega$};\node[draw,fill=white]at(1,0){$60\Omega$};
+\node[above]at(0,.9){$I_{1,\max}=60/31\ {\rm A}$};\node[below]at(0,-.9){线圈端电压低于电源电压};
+\end{tikzpicture}
+\caption{两个负载并联折算后，一次总阻值为62欧。}\label{fig:i2-h12-s}
+\end{figure}
+
+因此一次电流及一次线圈电压为
+\[I_1=\frac{60}{31}\cos\omega t\ {\rm A},\qquad
+V_1=\frac{3600}{31}\cos\omega t\ {\rm V}.
+\]
+按匝数比分配，$V_2=(1200/31)\cos\omega t$伏、$V_3=(600/31)\cos\omega t$伏；再各除以负载电阻，得到
+\[\boxed{I_2=I_3=\frac{120}{31}\cos\omega t\ {\rm A}}.
+\]
+本题两个二次电流相等，是题给电阻与匝数共同作用的结果。改变任一负载后，共同磁通仍在，两电流一般不再相等。安匝校验为$600(60/31)=200(120/31)+100(120/31)$。
+
+电源平均功率为$120(60/31)/2=3600/31$瓦。各电阻使用自己的电流幅值，分别得到
+\[\begin{aligned}
+\langle P_{R_1}\rangle&=\frac12\left(\frac{60}{31}\right)^2\!\times2=\frac{3600}{961}\ {\rm W},\\
+\langle P_{R_2}\rangle&=\frac12\left(\frac{120}{31}\right)^2\!\times10=\frac{72000}{961}\ {\rm W},\\
+\langle P_{R_3}\rangle&=\frac12\left(\frac{120}{31}\right)^2\!\times5=\frac{36000}{961}\ {\rm W}.
+\end{aligned}\]
+相加为$111600/961=3600/31$瓦，与电源输入相等。这里使用幅值，周期平均后有$1/2$；若混入上一题有效值相量的公式，功率会差一倍。
+\end{solution}
+
+\begin{exercise}[相同匝数但不同磁通结构]\label{ex:i2-h13}
+双窗口分磁通理想铁芯中，一次和两个二次绕组的匝数均为$N$，两个二次分别接$R,3R$。一次链接两返回磁通之和。求输入电阻、电流和磁通幅值比，再与共同磁通三绕组结构比较。 见图~\ref{fig:i2-h13-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1.2)rectangle(2,1.2);\draw[curve](-1.45,-.75)rectangle(-.3,.75);\draw[curve](.3,-.75)rectangle(1.45,.75);\node at(0,0){$N$};\node[left]at(-2.1,0){$N,R$};\node[right]at(2.1,0){$N,3R$};\draw[->](-.8,.95)--(-1.2,.95)node[above]{$\Phi_2$};\draw[->](.8,.95)--(1.2,.95)node[above]{$\Phi_3$};
+\end{tikzpicture}
+\caption{中柱绕组链接两窗口的磁通之和。}\label{fig:i2-h13-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h13-q}有两个独立磁通窗口。两条理想磁路的安匝平衡分别给$NI_1=NI_2$、$NI_1=NI_3$，所以负载电流都等于一次电流。
+
+负载电压满足$V_2=RI_1$、$V_3=3RI_1$，而一次链接两分支之和，故$V_1=N(\dot\Phi_2+\dot\Phi_3)=V_2+V_3$。由此
+\[\boxed{R_{\rm in}=4R,\qquad I_2=I_3=I_1,\qquad V_3=3V_2}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.2,0)--(2.2,0);\node[draw,fill=white]at(-.9,0){$R$};\node[draw,fill=white]at(.9,0){$3R$};\node[above]at(0,.9){$I_2=I_3=I_1$};\node[below]at(0,-.9){$V_3=3V_2,\quad\dot\Phi_3=3\dot\Phi_2$};
+\end{tikzpicture}
+\caption{分磁通结构的各负载电流由各自安匝平衡确定。}\label{fig:i2-h13-s}
+\end{figure}
+
+图~\ref{fig:i2-h13-s}中折算电阻串联，与共同磁通并联结构不同。
+
+在同频、无直流偏置的稳态，$\dot\Phi_3/\dot\Phi_2=V_3/V_2=3$，两个磁通幅值也为$3:1$。负载功率比为$P_3:P_2=3:1$，总功率$4RI_1^2$等于一次输入。
+
+若把相同的三个匝数放到一个共同磁通窗口上，反而会得到$V_2=V_3$、$I_2=3I_3$及并联负载$R\parallel3R=3R/4$。电气负载与匝数可以完全相同，铁芯所链接的磁通不同，端口等效关系就不同。计算前必须从图上识别每个绕组围住的磁通，不能只凭匝数套用同一个变压器公式。
+\end{solution}
+
+\begin{exercise}[多分支磁路的方程数]\label{ex:i2-h14}
+一条带$N$匝励磁线圈的公共磁路，磁阻$\mathcal R_c$，与三条磁阻分别为$\mathcal R,2\mathcal R,3\mathcal R$的返回支路组成连通网络。求磁通分配和线圈电感，并说明应列多少条独立节点与回路方程。 见图~\ref{fig:i2-h14-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,1.6);\coordinate(B)at(0,-1.6);\foreach\x in{-2,-.7,.7,2}{\draw[curve](A)--(\x,1)--(\x,-1)--(B);}
+\node[left]at(-2,0){$NI,\mathcal R_c$};\node[draw,fill=white]at(-.7,0){$\mathcal R$};\node[draw,fill=white]at(.7,0){$2\mathcal R$};\node[draw,fill=white]at(2,0){$3\mathcal R$};
+\fill(A)circle(1.4pt)node[above]{$A$};\fill(B)circle(1.4pt)node[below]{$B$};
+\end{tikzpicture}
+\caption{四支路连接同一对磁节点，公共支路含励磁安匝。}\label{fig:i2-h14-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i2-h14-q}的两节点之间有公共励磁支路和三条返回支路。若无漏磁，主磁通$\Phi$等于三个返回磁通之和。返回支路承受同一磁动势降，故磁通比为倒磁阻比$1:1/2:1/3=6:3:2$。
+
+图~\ref{fig:i2-h14-s}中三者分别为$6\Phi/11,3\Phi/11,2\Phi/11$。并联磁阻满足$\mathcal R_p^{-1}=1/\mathcal R+1/(2\mathcal R)+1/(3\mathcal R)=11/(6\mathcal R)$，于是
+\[\boxed{\mathcal R_{\rm eq}=\mathcal R_c+\frac{6\mathcal R}{11}},\qquad
+\boxed{L=\frac{N^2}{\mathcal R_c+6\mathcal R/11}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(4.4,1);\draw[curve](2.4,0)--(2.4,1);\draw[curve](3.6,0)--(3.6,1);\fill[gray!18](0,0)rectangle(2.4,1);\fill[gray!10](2.4,0)rectangle(3.6,1);
+\node at(1.2,.5){$6/11$};\node at(3,.5){$3/11$};\node at(4,.5){$2/11$};\node[below]at(2.2,-.5){三分支磁通占主磁通的比例};
+\end{tikzpicture}
+\caption{磁通按各分支磁导分配，总和为主磁通。}\label{fig:i2-h14-s}
+\end{figure}
+
+该图有四条支路、两个节点，节点磁通连续方程只有一条独立；还需$4-2+1=3$条独立Ampere回路方程。三个返回支路分别与励磁支路组成回路，就给出一组可用的方程。
+
+不能把三个返回支路各自当作一个独立线圈，再把其电感普通并联，因为它们共享励磁安匝和公共支路磁阻。若公共磁阻增大，全部主磁通减少，但在返回磁阻比不变的近似下，图中的三种分配比例仍不变。
+\end{solution}

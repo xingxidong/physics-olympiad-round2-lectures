@@ -1,0 +1,12 @@
+% 题设配图；与紧随其后的解答分别编号。
+\ExpansionDiagram{fig:audit-m-q-062}{等值面上一点的梯度与指定方向}{
+\draw[rotate=-8.112,gray](0,0)ellipse(2.87 and 1.49);
+\begin{scope}[x={(1cm,0cm)},y={(-.4cm,.3cm)},z={(0cm,.7cm)}]
+\draw[dashed,domain=0:360,samples=100]plot({sqrt(7)*cos(\x)},{sqrt(7)*sin(\x)},0);
+\fill(1,2,1)circle(2pt)node[below right]{$P(1,2,1)$};
+\draw[->,thick](1,2,1)--(2,3,2)node[right]{$(1,1,1)$};
+\draw[->,thick](1,2,1)--(1.6,3.2,2.2)node[left]{$\nabla f$};
+\end{scope}
+\node[below]at(0,-1.8){$x^2+y^2+2z^2=7$};
+
+}

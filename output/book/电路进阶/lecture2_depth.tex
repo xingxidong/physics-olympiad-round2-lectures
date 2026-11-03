@@ -1,0 +1,112 @@
+\section{有限矩形网络的边界谱与端口电阻}
+\subsection{端点节点必须使用较小的度数}
+有限开边界网络的端点缺少外侧支路，其本征谱与周期网络不同。考虑$N$个节点组成的开链，每条相邻支路电导为$g$。节点矩阵的内点行为$g(2v_j-v_{j-1}-v_{j+1})$，两端分别为$g(v_0-v_1)$和$g(v_{N-1}-v_{N-2})$。
+
+为求本征值$\lambda$，内点方程写为
+\[v_{j+1}-2\cos\theta\,v_j+v_{j-1}=0,\qquad
+\lambda=2g(1-\cos\theta).\]
+试解$v_j=z^j$给$z^2-2\cos\theta\,z+1=0$，两根为$e^{\pm\mathrm i\theta}$。实通解为$A\cos j\theta+B\sin j\theta$。左端方程要求$v_1=(2\cos\theta-1)v_0$；用$\cos(3\theta/2)/\cos(\theta/2)=2\cos\theta-1$，可将满足它的解写为$v_j=D\cos[(j+1/2)\theta]$。
+
+右端缺边条件等价于$v_N=v_{N-1}$，于是
+\[\cos[(N+1/2)\theta]-\cos[(N-1/2)\theta]
+=-2\sin N\theta\sin(\theta/2)=0.\]
+在$0<\theta<\pi$内得到$\theta_k=\pi k/N$，$k=1,\ldots,N-1$。加上$\theta=0$的常数模，共有$N$个独立模态。$\theta=\pi$使上述余弦矢量的各分量全为零，应予排除。
+
+归一化使用$\cos^2t=(1+\cos2t)/2$。对$k\ne0$，几何级数给
+\[\sum_{j=0}^{N-1}e^{2\mathrm i(j+1/2)\theta_k}
+=e^{\mathrm i\theta_k}\frac{1-e^{2\mathrm iN\theta_k}}{1-e^{2\mathrm i\theta_k}}=0.\]
+取实部，得$\sum_j\cos^2[(j+1/2)\theta_k]=N/2$；常数模的平方和为$N$。所以归一化本征矢为
+\[
+ u_0(j)=\frac1{\sqrt N},\quad
+ u_k(j)=\sqrt{\frac2N}\cos\frac{\pi k(j+1/2)}N,
+ \quad k=1,\ldots,N-1,
+\]
+对应$\lambda_k=2g[1-\cos(\pi k/N)]$。各非零模因实对称节点矩阵的本征值互异而正交。零模只使所有节点电位共同平移，不产生支路电流或耗散。
+
+对于$N\times M$矩形网，横向支路电导$g_x$、纵向$g_y$，本征矢为两条开链本征矢的乘积$u_k(j)w_l(i)$，本征值相加：
+\[
+ \Lambda_{kl}=2g_x[1-\cos(\pi k/N)]
+ +2g_y[1-\cos(\pi l/M)].
+\]
+从节点$a$注入$I$、节点$b$抽出$I$。记节点电位列矢量为$\boldsymbol\varphi$，节点矩阵为$L$，$\boldsymbol e_a$表示只在$a$处取1的单位列矢量，则基尔霍夫电流定律写成
+\[
+ L\boldsymbol\varphi=I(\boldsymbol e_a-\boldsymbol e_b).
+\]
+将非零模统一记作$\boldsymbol u_s$，取$\boldsymbol u_s^{\mathsf T}\boldsymbol u_t=\delta_{st}$、$L\boldsymbol u_s=\lambda_s\boldsymbol u_s$。电位可展开为
+\[
+ \boldsymbol\varphi=c_0\boldsymbol u_0+\sum_{s\ne0}c_s\boldsymbol u_s.
+\]
+左乘$\boldsymbol u_s^{\mathsf T}$，利用正交性，逐个得到
+\[
+ \lambda_s c_s=I[u_s(a)-u_s(b)],\qquad
+ c_s=\frac{I[u_s(a)-u_s(b)]}{\lambda_s}.
+\]
+常数模在$a,b$两处相等，而注入与抽出的电流相抵，故零模方程为$0=0$；$c_0$只决定电位零点。求端口压差时它也相消：
+\[
+ \varphi_a-\varphi_b
+ =\sum_{s\ne0}c_s[u_s(a)-u_s(b)]
+ =I\sum_{s\ne0}\frac{[u_s(a)-u_s(b)]^2}{\lambda_s}.
+\]
+除以$I$，再把$s$写回矩形网的双指标$(k,l)$，得到
+\[
+ R_{ab}=\sum_{(k,l)\ne(0,0)}
+ \frac{|u_k(j_a)w_l(i_a)-u_k(j_b)w_l(i_b)|^2}{\Lambda_{kl}}.
+\]
+分子是端口在该模态中的激发强度。即使某模态存在，端口若对它投影为零，它也不贡献两端电阻。每个非零贡献都非负，与被动网络耗散相符。
+
+这里用的是第一编《大学物理中的数学方法》第三讲中实对称矩阵的正交展开。它与第三编《动力学综合》“简正模问题”的计算相通：先求本征矢，再把外加激励投影到各模态上。电阻网络的$L$有一个对应电位平移的零模；小振动方程中则还须保留质量矩阵，不能把两类本征值的量纲混用。
+
+\begin{example}[两行三列矩形网的对角端口]
+六个节点排成两行三列，水平及竖直相邻节点之间各接电阻$R$，外边界不接其他支路。求左上角$a$到右下角$b$的电阻，并用节点方程核对模态结果。
+\ExpansionDiagram{fig:dep-c2-grid-q}{开边界六节点网，端口位于相对的两个角}{
+\foreach\x in{0,2,4}{\fill(\x,0)circle(1.5pt);\fill(\x,1.8)circle(1.5pt);\draw(\x,0)--(\x,1.8)node[midway,right]{$R$};}
+\foreach\y in{0,1.8}{\draw(0,\y)--(2,\y)node[midway,above]{$R$};\draw(2,\y)--(4,\y)node[midway,above]{$R$};}
+\node[below left]at(0,1.8){$a$};\node[below right]at(4,0){$b$};\draw[->](-1,1.8)--(-.1,1.8)node[midway,above]{$I$};\draw[->](4.1,0)--(5,0);}
+\end{example}
+\begin{solution}
+取图\ref{fig:dep-c2-grid-q}列坐标$j=0,1,2$、行坐标$i=0,1$，$a=(0,0)$、$b=(2,1)$。三列开链本征值为$0,g,3g$，两行开链为$0,2g$，其中$g=1/R$。
+
+本题用对称节点法只需列两个方程。谱展开的计算稍长，但可推广到任意行列数，下面保留两种解法作比较。按节点坐标排列，归一化本征矢为
+\[
+ \boldsymbol u_0=\frac{(1,1,1)}{\sqrt3},\quad
+ \boldsymbol u_1=\frac{(1,0,-1)}{\sqrt2},\quad
+ \boldsymbol u_2=\frac{(1,-2,1)}{\sqrt6}.
+\]
+\[
+ \boldsymbol w_0=\frac{(1,1)}{\sqrt2},\quad
+ \boldsymbol w_1=\frac{(1,-1)}{\sqrt2}.
+\]
+三个非零端口投影按“$a$处的值减$b$处的值”计算：
+\begin{align*}
+ d_{01}&=\frac1{\sqrt3}\frac1{\sqrt2}
+       -\frac1{\sqrt3}\frac{-1}{\sqrt2}=\sqrt{\frac23},
+       &\Lambda_{01}&=2g,\\
+ d_{10}&=\frac1{\sqrt2}\frac1{\sqrt2}
+       -\frac{-1}{\sqrt2}\frac1{\sqrt2}=1,
+       &\Lambda_{10}&=g,\\
+ d_{21}&=\frac1{\sqrt6}\frac1{\sqrt2}
+       -\frac1{\sqrt6}\frac{-1}{\sqrt2}=\frac1{\sqrt3},
+       &\Lambda_{21}&=5g.
+\end{align*}
+其余非零模$(1,1)$、$(2,0)$在两个端点取相同值，差为零。因此
+\[
+ R_{ab}=\frac{2/3}{2g}+\frac1g+\frac{1/3}{5g}
+ =\frac75R.
+\]
+\ExpansionDiagram{fig:dep-c2-grid-a}{令$a$为$V$、$b$为零，各节点电位按$V/7$标示}{
+\foreach\x/\v in{0/7,2/4,4/2}{\fill(\x,1.8)circle(1.5pt);\node[above]at(\x,1.8){$\v$};}
+\foreach\x/\v in{0/5,2/3,4/0}{\fill(\x,0)circle(1.5pt);\node[below]at(\x,0){$\v$};}
+\draw(0,0)--(4,0);\draw(0,1.8)--(4,1.8);\foreach\x in{0,2,4}{\draw(\x,0)--(\x,1.8);}\node[right]at(5,.9){单位$V/7$};}
+再用图\ref{fig:dep-c2-grid-a}核对。设上中、上右电位为$u,v$。绕中心旋转$180^\circ$并作电位补变换$\phi\mapsto V-\phi$，边界条件不变，由唯一性得下中、下左分别为$V-u,V-v$。两个节点方程为
+\[
+ 3u=V+v+(V-u),\qquad 2v=u,
+\]
+所以$u=4V/7$、$v=2V/7$。输入电流沿上边和左边分别为$3V/(7R)$、$2V/(7R)$，故总电流$5V/(7R)$，再次得到$7R/5$。
+
+这里的对称变换同时把电位映成$V-\phi$，同一列的上下节点仍可有电位差。例如中列电位为$4V/7$和$3V/7$，竖直支路中确有电流。两种解法都须保留开边界端点较小的节点度数。
+\end{solution}
+
+\subsection{谱公式的零模、量纲与网络尺度}
+本征值的量纲是电导，端口投影无量纲，因而每项均为电阻。若全体电阻乘常数，所有本征值按反比缩放，端口电阻同比增长。若某条连接完全断开，网络可能多出零模；此时跨越不同连通分量的两端不再存在有限直流电阻，不能把新增零分母随意略去。
+
+相邻端口主要比较两处本征矢差，对缓慢空间变化的低阶模激发较弱；远距离端口一般更明显地激发长波模。因此“局部连接都一样”并不使所有端口等效。改变外边界、把矩形卷成圆柱、把开链改成周期链，首先改变的是本征矢与低阶谱；应先重新落实边界条件，再讨论无限尺寸极限。

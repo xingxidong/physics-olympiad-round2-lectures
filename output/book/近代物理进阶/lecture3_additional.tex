@@ -1,0 +1,45 @@
+\begin{exercise}\label{ex:m3electricdominant}
+正交均匀场$\vct E=E\hat{\vct y}$、$\vct B=B\hat{\vct z}$满足$E>cB$。带正电粒子初始实验室速度为$V\hat{\vct x}$，其中$V=c^2B/E$。求其轨迹，忽略辐射和边界。
+\Diagram{fig:m3edominantq}{电占优场可变为纯电场，初速度选为相应推动速度}{\draw[axis](0,0)--(3.7,0)node[right]{$V$};\draw[axis](0,0)--(0,2.6)node[above]{$E$};\draw(1.8,1)circle(.15);\fill(1.8,1)circle(1pt);\node[right]at(2.1,1){$B$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3edominantq}沿$V$推动后$B'=0$，$E'=\sqrt{E^2-c^2B^2}$，粒子初始静止。设$\alpha=qE'/m$，沿用习题\ref{ex:m1fourwork}已逐项积分的恒力解，并将加速轴改为$y'$，得到
+\[
+ ct'=\frac{c^2}\alpha\sinh(\alpha\tau/c),\quad
+ y'=\frac{c^2}\alpha[\cosh(\alpha\tau/c)-1],\quad x'=0.
+\]
+逆推动给$t=\gamma t'$、$x=Vt$、$y=y'$，消去固有时得到
+\[
+ y(t)=\frac{c^2}\alpha\left[\sqrt{1+(\alpha t/(\gamma c))^2}-1\right].
+\]
+\Diagram{fig:m3edominanta}{轨迹按$X=\alpha x/(\gamma Vc)$、$Y=\alpha y/c^2$归一化，虚线为渐近线}{\draw[axis](0,0)--(4.5,0)node[right]{$X$};\draw[axis](0,0)--(0,3.5)node[above]{$Y$};\draw[curve,domain=0:4,samples=80]plot(\x,{sqrt(1+\x*\x)-1});\draw[guide](1,0)--(4.2,3.2);\node[right]at(3.7,2.4){$Y=X-1$};}
+图\ref{fig:m3edominanta}的长时轨迹趋于直线斜向传播。横向速度为$v_y=(c/\gamma)\tanh(\alpha\tau/c)$，所以$v^2=V^2+c^2\tanh^2(\alpha\tau/c)/\gamma^2<c^2$。$v_x$恒定不代表$x$向动量恒定，因为总$\gamma_v$仍在增加；磁力的$x$分量正好提供这部分动量变化。
+\end{solution}
+
+\begin{exercise}\label{ex:m3decaycone}
+静质量$M>2m$的粒子衰变为两个相同质量$m$的粒子，母粒子实验室速度为$V$。求子粒子在质心系的速率$u_*$；当$V>u_*$时，求所有实验室出射方向被限制的最大半角。
+\Diagram{fig:m3decayconeq}{母粒子系两子粒子动量等大反向}{\draw[axis](-2.5,0)--(3.5,0)node[right]{$V$};\draw[->,thick](0,0)--(1.4,1.8)node[right]{$m$};\draw[->,thick](0,0)--(-1.4,-1.8)node[left]{$m$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3decayconeq}中，母粒子静止系总动量为零，两子粒子能量相同，故$E_*=Mc^2/2$。质壳关系给
+\[
+ p_*c=\sqrt{M^2c^4/4-m^2c^4},\qquad
+ u_*=\frac{p_*c^2}{E_*}=c\sqrt{1-4m^2/M^2}.
+\]
+令$z=\cos\theta_*$，母粒子沿$x$以$V$运动。速度变换的共同分母为$1+Vu_*z/c^2>0$，相除后
+\[
+ \tan\theta=\frac{u_*\sqrt{1-z^2}}{\gamma(V+u_*z)}.
+\]
+在$V>u_*$时分母始终正，所有非零速度都向前。
+\Diagram{fig:m3decayconea}{亚光速子粒子可全部集中于一个前向圆锥}{\draw[axis](0,0)--(4.4,0)node[right]{$V$};\draw[curve](0,0)--(3,1.4);\draw[curve](0,0)--(3,-1.4);\draw[guide](3,-1.4)--(3,1.4);\node[above]at(2.2,1.2){$\theta_{\max}$};}
+对$-1<z<1$求对数导数，最大角满足
+\[
+ -\frac z{1-z^2}-\frac{u_*}{V+u_*z}=0
+ \quad\Longrightarrow\quad Vz+u_*=0.
+\]
+取$z=-u_*/V$，则$\sqrt{1-z^2}=\sqrt{V^2-u_*^2}/V$、$V+u_*z=(V^2-u_*^2)/V$，代入得到图\ref{fig:m3decayconea}的
+\[
+ \tan\theta_{\max}=\frac{u_*}{\gamma\sqrt{V^2-u_*^2}}.
+\]
+两端$z=\pm1$均有$\theta=0$，内点驻值因而为全局最大。速度相等时则出现退化：$V=u_*$时，正后方发射的子粒子在实验室静止，方向未定义；其余均向前，出射角可趋近但达不到$\pi/2$。$V<u_*$时取$z=-1$便有负的纵向速度，出现后向出射，且可有横向出射。光子$u_*=c$不可能满足$V>u_*$，因而不能用这个有限前向圆锥代替全角光行差。
+\end{solution}

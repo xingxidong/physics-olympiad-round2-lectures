@@ -1,0 +1,102 @@
+\begin{exercise}\label{ex:o1prismminimum}
+折射率$n$、顶角$A$的棱镜在空气中，光由一个斜面入射、另一个出射。推导对称路径下的最小偏向角公式，说明该状态需满足的传播条件。
+\Diagram{fig:o1prismq}{一般穿透光路；法线与界面垂直，入射、折射角分别对法线量取}{
+\draw[curve](0,0)--(2,3.4641)--(4,0)--cycle;
+\draw[->](-.7,.395855)--(.692820,1.2);
+\draw[curve](.692820,1.2)--(3.175128,1.428721);
+\draw[->](3.175128,1.428721)--(4.7,1.190565);
+\draw[guide](0,1.6)--(1.385641,.8);
+\draw[guide](2.482307,1.028721)--(3.867948,1.828721);
+\node at(2,2.75){$A$};\node at(2,.55){$n>1$};
+\node[above left]at(.28,1.23){$i_1$};\node[below right]at(.98,1.2){$r_1$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1prismq}中折射角满足$r_1+r_2=A$，空气侧入、出射角满足$\sin i_j=n\sin r_j$，总偏向为$D=i_1+i_2-A$。令$f(r)=\arcsin(n\sin r)$，则$D=f(r_1)+f(A-r_1)-A$。在$n>1$、$0\leq r_j<\arcsin(1/n)$的通常穿透分支，
+\begin{align*}
+ f'(r)&=\frac{n\cos r}{\sqrt{1-n^2\sin^2r}},\\
+ f''(r)&=-\frac{n\sin r}{\sqrt{1-n^2\sin^2r}}
+ +\frac{n^3\sin r\cos^2r}{(1-n^2\sin^2r)^{3/2}}\\
+ &=\frac{n(n^2-1)\sin r}{(1-n^2\sin^2r)^{3/2}}\geq0.
+\end{align*}
+凸性保证$r_1=r_2=A/2$为极小点，光路可逆性则给出对称驻点。
+\Diagram{fig:o1prisma}{最小偏向的对称光路；图取顶角60度、折射率1.5}{
+\draw[curve](0,0)--(2,3.4641)--(4,0)--cycle;
+\draw[->](-.7,.8929)--(.8083,1.4);
+\draw[->](.8083,1.4)--(3.1917,1.4);
+\draw[->](3.1917,1.4)--(4.7,.8929);
+\draw[guide](2,-.2)--(2,3.7);
+\draw[guide](.1155,1.8)--(1.5011,1);
+\draw[guide](2.4989,1)--(3.8845,1.8);
+\node at(1.3,1.1){$r_1$};\node at(2.7,1.1){$r_2$};
+\node[below]at(2,-.3){$r_1=r_2=A/2$};
+\node at(2,2.85){$A$};
+}
+图\ref{fig:o1prisma}的对称路径有$i_1=i_2=i$，因此
+\[
+ D_{\min}=2i-A,
+ \qquad n=\frac{\sin[(A+D_{\min})/2]}{\sin(A/2)}.
+\]
+可传播条件为$n\sin(A/2)\leq1$；等号对应掠入、掠出极限，有限通光通常要求严格小于1。若不满足，无法让光沿这个两面穿透分支通过。薄棱镜$A\ll1$且$nA\ll1$时$i\simeq nA/2$，于是$D_{\min}\simeq(n-1)A$。近似要求两个空气侧角度也小，不能只检查棱镜顶角而忽略很大的折射率。
+\end{solution}
+
+\begin{exercise}\label{ex:o1obliqueplate}
+平面波以角$i$穿过厚$h$、折射率$n$的平行板，板外为空气。比较板后同一平面上的相位与未插板情况，推导附加相位，避免把折线实际路长误当程差。
+\Diagram{fig:o1obliqueplateq}{比较同一输出平面上的波相位}{\draw[curve](-2,0)--(2,0);\draw[curve](-2,1)--(2,1);\draw[->](-1.5,-1)--(-.5,0)--(.1,1)--(1.1,2);\draw[guide](-.5,0)--(.5,1);\node[right]at(2,.5){$h$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1obliqueplateq}中平行界面保持切向波矢，$\sin i=n\sin r$。在固定横坐标比较上下参考面的相位增长，板内法向波矢$k_{zg}=k_0n\cos r$，原空气中为$k_{za}=k_0\cos i$。所以附加相位$\Delta\phi=k_0h(n\cos r-\cos i)$。
+\Diagram{fig:o1obliqueplatea}{沿不同几何射线积累的光程须先归到同一参考波面}{\draw[curve](0,0)--(4,0);\draw[curve](0,1)--(4,1);\draw[guide](1,-.5)--(1,1.7);\draw[->](.3,-.6)--(1,0)--(1.5,1)--(2.2,1.6);\node[above]at(1,1.8){固定横坐标};}
+图\ref{fig:o1obliqueplatea}的计算自动扣除了横向位移相关相位。正常入射恢复$k_0(n-1)h$。若题目改为固定两个点之间的封闭干涉臂，需同时满足光线连接、元件位置和合束条件，不能只把本平面波相位式套给任意折线路径。
+\end{solution}
+
+\begin{exercise}\label{ex:o1matrixinverse}
+空气近轴系统矩阵为$M$且$\det M=1$。写出逆矩阵，解释“数学逆传播”与把整套透镜实际前后翻转为何须先统一坐标基底。
+\Diagram{fig:o1inverseq}{同一对参考面之间的前向、反向关系}{\draw[curve](1,-1)rectangle(3.5,1);\node at(2.25,0){$M$};\draw[->](-.5,.5)--(.8,.5);\draw[->](3.7,-.5)--(5,-.5);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1inverseq}用同一固定$z$和有向倾角描述时，数学逆为$M^{-1}=\bigl(\begin{smallmatrix}D&-B\\-C&A\end{smallmatrix}\bigr)$，因为与原矩阵相乘给单位阵。逆关系把末端的$y,n\theta$恢复到起点，并不自动改变倾角的参考轴。
+\Diagram{fig:o1inversea}{反向实际传播若重新令光轴向前，倾角符号也改变}{\draw[axis](0,.7)--(4,.7)node[right]{$+z$};\draw[axis](4,-.7)--(0,-.7)node[left]{$+\tilde z$};\node at(2,0){同一光线需换基};}
+若反向传播时重新把轴指向左方而高度仍向上，约化倾角需变号，换基矩阵$K=\operatorname{diag}(1,-1)$，反向系统矩阵为$KM^{-1}K=\bigl(\begin{smallmatrix}D&B\\C&A\end{smallmatrix}\bigr)$。图\ref{fig:o1inversea}说明相同光学系统反向后的$B,C$正负取决于坐标约定，不能只看一处符号判定互易性失效。
+\end{solution}
+
+\begin{exercise}\label{ex:o1focusplate}
+物点到固定屏距离$D$，中间放焦距$f$的薄透镜，空气中近轴成像。求允许的透镜位置数及放大率乘积，讨论$D<4f$。
+\Diagram{fig:o1focusq}{固定物屏间距，透镜位置待定}{\OptAxis\draw[->](0,0)--(0,1);\draw[<->](2,-1.2)--(2,1.2);\draw[curve](6,-1.5)--(6,1.5);\draw[<->](0,-1.8)--(6,-1.8)node[midway,below]{$D$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1focusq}中取物体在0、屏在$D$，透镜位置为$u$，于是像距$v=D-u$。由$1/u+1/v=1/f$，相乘得到$uv=f(u+v)=fD$，即
+\[
+ u^2-Du+fD=0,\qquad
+ u_\pm=\frac{D\pm\sqrt{D^2-4fD}}2.
+\]
+题中的实物、实屏位于透镜两侧，故要求$0<u<D$；当$D>4f$、$f>0$时两个根均满足此条件。
+\Diagram{fig:o1focusa}{两次成像透镜位置关于物屏中点对称}{\OptAxis\draw[<->](1.7,-1.2)--(1.7,1.2);\draw[guide](4.3,-1.2)--(4.3,1.2);\draw[curve](6,-1.5)--(6,1.5);\draw[guide](3,-1.7)--(3,1.7);\node[above]at(1.7,1.2){位置一};\node[above]at(4.3,1.2){位置二};}
+图\ref{fig:o1focusa}的两个位置将$u,v$互换，放大率分别为$-v/u$和$-u/v$，乘积1。一幅放大像与一幅缩小像配对出现。两位置间距
+\[
+ l=u_+-u_- =\sqrt{D^2-4fD},\qquad
+ f=\frac{D^2-l^2}{4D}.
+\]
+这给出了用固定物屏间距与两次清晰成像位置测焦距的方法。$D=4f$时判别式为零，唯一位置$u=v=2f$、放大率$-1$；$D<4f$时没有满足实物实像要求的透镜位置。也可由$u+v\geq2\sqrt{uv}=2\sqrt{fD}$直接得到$D\geq4f$。实际厚透镜要以主面测距，若机械测的是两顶点位置，须先修正主面偏移。
+\end{solution}
+
+\begin{exercise}\label{ex:o1etendue}
+理想近轴成像系统横向放大率为$m_y$，物像介质折射率分别$n_O,n_I$。求同一轴上物点光束的角放大率，并解释放大像时为何常需减小像方数值孔径。
+\Diagram{fig:o1etendueq}{同一物点的两条光线定义孔径角}{\draw[axis](-.3,0)--(6,0);\draw[curve](2,-1.1)rectangle(3,1.1);\draw[curve](0,0)--(2,1);\draw[curve](0,0)--(2,-1);\draw[curve](3,.6)--(5,0);\draw[curve](3,-.6)--(5,0);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1etendueq}中，物像面之间使用约化变量$(y,p=n\theta)$。成像要求$B=0$，横向放大率为$A=m_y$。矩阵行列式恒为1，故$AD=1$、$D=1/m_y$，有
+\[
+ \begin{pmatrix}y_I\\n_I\theta_I\end{pmatrix}
+ =\begin{pmatrix}m_y&0\\ C&1/m_y\end{pmatrix}
+ \begin{pmatrix}y_O\\n_O\theta_O\end{pmatrix}.
+\]
+对轴上同一物点$y_O=0$，下行式化为$n_I\theta_I=n_O\theta_O/m_y$，所以角放大率为$n_O/(n_Im_y)$。
+\Diagram{fig:o1etenduea}{像高和约化孔径角的乘积保持}{\draw[curve](0,0)rectangle(1.8,.7);\node at(.9,.35){$h_O$};\draw[curve](3,0)rectangle(5.7,1.1);\node at(4.35,.55){$h_I=m_yh_O$};\node[below]at(3,-.8){$n_Oh_O\theta_O=n_Ih_I\theta_I$};}
+图\ref{fig:o1etenduea}所画两束使用同一组通光光线，其数值孔径满足$\mathrm{NA}_I\simeq\mathrm{NA}_O/|m_y|$。负放大率还带来倾角反号，孔径大小则取绝对值。对轴上附近小面元，面积放大$|m_y|^2$，小圆锥立体角约为$\pi\theta^2$，于是
+\[
+ n_I^2\dd A_I\dd\Omega_I
+ =n_O^2\dd A_O\dd\Omega_O.
+\]
+该关系给出近轴通光相空间体积的不变性。无损时同一光束的功率也守恒，因此辐亮度除以$n^2$保持。扩大像面积会减小相应像方角锥；若另行增大物方收集孔径，所比较的已是另一组光线，不能把两种条件下的亮度混为一谈。
+\end{solution}

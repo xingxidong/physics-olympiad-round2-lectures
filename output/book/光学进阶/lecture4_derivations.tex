@@ -1,0 +1,93 @@
+\section{偏振椭圆的代数结构}
+\subsection{相位差怎样进入实轨迹}
+令$X=E_x/a$、$Y=E_y/b$，则$X=\cos\omega t$、$Y=X\cos\delta+\sin\omega t\sin\delta$。将$Y-X\cos\delta$平方，等于$(1-X^2)\sin^2\delta$，移项得到$X^2+Y^2-2XY\cos\delta=\sin^2\delta$。这一步保留了轨迹几何，却把$\sin\delta$的正负平方掉，所以旋向必须另从时间参数恢复。
+
+场强平方$E_x^2+E_y^2$可用二倍角展开为
+\[
+ \frac{a^2+b^2}2+
+ \frac{a^2+b^2\cos2\delta}2\cos2\omega t
+ +\frac{b^2\sin2\delta}2\sin2\omega t.
+\]
+后两项组成单一正弦，其振幅是$\tfrac12\sqrt{a^4+b^4+2a^2b^2\cos2\delta}$。因此最大、最小场强平方为$(a^2+b^2\pm\sqrt{a^4+b^4+2a^2b^2\cos2\delta})/2$，与前述主轴半径平方一致。椭圆长短半轴因而可由场模随时间变化的极大、极小值确定。
+
+\subsection{退化情形的处理}
+$\delta=0,\pi$时短半轴为零，轨迹退为直线；若$a=b$且$\delta=\pm\pi/2$，长短半轴相等，轨迹为圆，主轴方向任意。圆偏振时$\tan2\psi$的表达式成为$0/0$，正是因为圆上不存在唯一的主轴方向。
+
+圆偏振的Jones矢量乘任意共同相位，固定位置上电场的起始角会改变，但旋转方向不变。同一椭圆旋向也不由相位$\delta$的主值名称决定，需同时说明时间指数约定、光传播方向和观察方向。所有图中的箭头均按本书$\ee^{-i\omega t}$与从$+z$端观察的约定作出。
+
+\section{从Jones矢量到相干矩阵}\label{th:o4coherence}
+对一般光束定义$2\times2$相干矩阵$C=\langle\vct e\vct e^\dagger\rangle$。它的对角元是两个正交分量的平均强度，非对角元保留它们的相关相位。对任何分析矢量$\vct a$，透射强度为$\vct a^\dagger C\vct a\geq0$，所以$C$是半正定厄米矩阵。
+
+用本书的斯托克斯约定，
+\[
+ C=\begin{pmatrix}\langle|E_x|^2\rangle&\langle E_xE_y^*\rangle\\
+ \langle E_yE_x^*\rangle&\langle|E_y|^2\rangle\end{pmatrix}
+ =\frac12\begin{pmatrix}
+ S_0+S_1&S_2-iS_3\\S_2+iS_3&S_0-S_1
+ \end{pmatrix}.
+\]
+记$s^2=S_1^2+S_2^2+S_3^2$。将本征方程的行列式展开，
+\begin{align*}
+ 0=\det(C-\lambda I)
+ &=\left(\frac{S_0+S_1}{2}-\lambda\right)
+ \left(\frac{S_0-S_1}{2}-\lambda\right)-\frac{S_2^2+S_3^2}{4}\\
+ &=\lambda^2-S_0\lambda+\frac{S_0^2-s^2}{4}.
+\end{align*}
+二次方程给$\lambda_\pm=(S_0\pm s)/2$。半正定等价于$S_0\geq s\geq0$，故$S_1^2+S_2^2+S_3^2\leq S_0^2$。对非零光束定义$P=s/S_0$，则
+\[
+ P=\frac{\lambda_+-\lambda_-}{\lambda_++\lambda_-},\qquad
+ P^2=1-\frac{4\det C}{(\operatorname{tr}C)^2}.
+\]
+完全偏振时$\lambda_-=0$、矩阵秩为1；自然光$C=(S_0/2)I$，两个本征值相同。对一般部分偏振，还可写$C=\lambda_-I+(\lambda_+-\lambda_-)\vct u_+\vct u_+^\dagger$：第一项是自然光，第二项是沿本征态$\vct u_+$的完全偏振分量。
+
+\Diagram{fig:o4coherencematrix}{纯偏振是秩1相干矩阵，自然光平均后没有固定交叉相位}{\draw[curve](0,0)rectangle(2.6,1.2);\node at(1.3,.6){$C=\vct e\vct e^\dagger$};\draw[curve](3.7,0)rectangle(6.3,1.2);\node at(5,.6){$C=(S_0/2)I$};\node[above]at(1.3,1.3){完全偏振};\node[above]at(5,1.3){自然光};}
+图\ref{fig:o4coherencematrix}也解释为何自然光不能选一个Jones矢量表示。若把两个正交确定场以固定相位直接相加，就得到某一种完全偏振态，而非自然光；自然光需要对随机相位或随机方向作统计平均。
+
+无损波片的Jones矩阵$J$为酉矩阵，输出相干矩阵$C'=JCJ^\dagger$。本征值与迹不变，所以总强度和完整偏振度不变。波片可以在斯托克斯空间旋转偏振方向和椭圆率，却不能凭空把自然光变成完全偏振光。偏振片为投影矩阵，会丢弃一部分能量，才可以提高透射束偏振度。
+
+\section{单轴晶体色散式的推导}
+取$\vct k=(k_x,0,k_z)$、介电张量$\boldsymbol\varepsilon=\operatorname{diag}(n_o^2,n_o^2,n_e^2)$，假定非磁性。麦克斯韦方程给
+\[
+ \vct k\times(\vct k\times\vct E)+k_0^2\boldsymbol\varepsilon\vct E=0.
+\]
+若$\vct E$沿$y$，得到$k_x^2+k_z^2=k_0^2n_o^2$，即普通光。若$\vct E$在$xz$面，则
+\[
+ \begin{pmatrix}k_0^2n_o^2-k_z^2&k_xk_z\\
+ k_xk_z&k_0^2n_e^2-k_x^2\end{pmatrix}
+ \begin{pmatrix}E_x\\E_z\end{pmatrix}=0.
+\]
+要有非零场，行列式为零。展开、消去$k_x^2k_z^2$项，再除以$k_0^2n_o^2n_e^2$，得到$k_x^2/n_e^2+k_z^2/n_o^2=k_0^2$，就是非普通色散椭圆。
+
+高斯定律给$k_xn_o^2E_x+k_zn_e^2E_z=0$，所以$\vct D\perp\vct k$，但$\vct E$不一定垂直。无损非色散介质的群速度方向为等频曲面的法线，通常也就是能流方向；非普通光因此发生走离。沿光轴$k_x=0$时，两支都给折射率$n_o$，横向任意线偏振可作为等价基底，不会发生通常意义的双折射分离。
+
+\section{菲涅耳能量关系的逐项证明}
+对$s$偏振，令$a=n_1\cos i$、$b=n_2\cos r$，$r_s=(a-b)/(a+b)$、$t_s=2a/(a+b)$。法向透射率$T_s=(b/a)t_s^2=4ab/(a+b)^2$，故$R_s+T_s=[(a-b)^2+4ab]/(a+b)^2=1$。
+
+对$p$偏振，令分母$D=n_2\cos i+n_1\cos r$，则
+\[
+ 1-r_p^2=\frac{4n_1n_2\cos i\cos r}{D^2},
+\]
+而法向透射率
+\[
+ T_p=\frac{n_2\cos r}{n_1\cos i}
+ \frac{4n_1^2\cos^2i}{D^2}
+ =\frac{4n_1n_2\cos i\cos r}{D^2}.
+\]
+因此两偏振都严格满足$R+T=1$，无需限定正入射。若取沿透射方向的强度比$I_t/I_i$而未乘$\cos r/\cos i$，相当于比较两种不同截面，当然不能直接与$R$相加作界面能量收支。
+
+\Diagram{fig:o4fluxarea}{同一界面面积$A$对入射和透射光束的投影面积分别为$A\cos i,A\cos r$}{\draw[curve](-2.5,0)--(2.5,0);\draw[->](-1.7,-1.7)--(0,0)--(1,1.8);\draw[guide](0,-2)--(0,2.3);\node[left]at(-1,-1.2){$I_i\cos i$};\node[right]at(.8,1.1){$I_t\cos r$};\node[below]at(1.8,-.2){界面$A$};}
+图\ref{fig:o4fluxarea}以固定界面面积作为收支基准。对于吸收介质，透射角和波阻抗可能变复，能流方向及损耗需要用复坡印廷矢量重新求出；本讲的实角无损公式不能直接把$n$换成复数后仍以同一实余弦解释。
+
+\section{全反射的解析支与相位连续性}
+当入射角从临界角以下增至以上，透射法向波矢由正实变为正虚。正虚支使$z>0$侧的$\ee^{ik_{z2}z}$衰减；负虚支则使场在无限远增长，与无穷远无输入的边界条件不符。若低折射率介质改在另一半空间，应重新按远离界面的衰减条件选取虚部符号。
+
+反射系数在临界角以上沿复平面的单位圆变化。其模恒1，能量全部反回，但$s,p$相位差不恒定。若入射为两分量都有的线偏振，一次全反射一般变椭圆；两次适当角度的反射可以累积为四分之一波延迟。多次反射还要追踪各入射面如何转动，局部$s,p$基底之间若有几何旋转，就不能只把标量相位差相加。
+
+倏逝场中$\vct E,\vct H$某些分量相差90度，平均法向坡印廷流为零，同时有非零瞬时能量往返交换。有限空气隙含两支指数解，交叉项能产生实的法向平均流，因此受抑全反射不违反单界面结果；它改变的是边界问题本身。有限间隙的透射率应由两端边界共同求出。
+
+\subsection{部分偏振的相关矩阵与可实现条件}
+第\ref{th:o4coherence}节已由相干矩阵的本征方程证明$S_1^2+S_2^2+S_3^2\leq S_0^2$。这个不等式也给实验数据的可实现条件：固定非零总强度$S_0$后，归一化矢量$(S_1,S_2,S_3)/S_0$位于单位球内，距球心的长度就是$P$。球面对应完全偏振，球心对应自然光。若重建值落在球外，应回查分析器标定、背景扣除或光源漂移；它不能作为某种“超完全偏振”状态。$S_0=0$时无光，不定义偏振度。
+\Diagram{fig:o4stokesball}{固定总强度下的归一化斯托克斯矢量；球面对应完全偏振，球内对应部分偏振}{\draw[axis](-2,0)--(2.4,0)node[right]{$S_1/S_0$};\draw[axis](0,-1.8)--(0,2)node[above]{$S_3/S_0$};\draw[curve](0,0)circle(1.5);\draw[guide](0,0)ellipse(1.5 and .38);\draw[->,thick](0,0)--(.8,.7)node[right]{$P<1$};\fill(-.9,1.2)circle(1.5pt)node[left]{$P=1$};\node[below]at(.2,-1.9){$S_2$轴的投影略去};}
+图\ref{fig:o4stokesball}把总强度固定后，偏振态表示为球内或球面点。只有线检偏器时能测得$S_0,S_1,S_2$，无法确定$S_3$；必须加入波片形成圆分析器，才能恢复全部相关信息。线检偏器扫描的可见度不等于总体偏振度；圆偏振的线分析强度与方向无关，但$P=1$。
+
+对多束互不相干光，交叉相关项平均为零，故$C_{\rm tot}=\sum_jC_j$，四个斯托克斯量也分别相加。偏振度含矢量和的模，应在相加后计算：相反偏振方向可以抵消，即使每束的$P$都为1，总光也可能为自然光。无损波片与理想检偏器对$C$的作用已在第\ref{th:o4coherence}节区分，不能用偏振度的算术平均代替这一矩阵运算。

@@ -1,0 +1,41 @@
+\begin{exercise}\label{ex:o2bragg}
+正常入射的无损多层反射镜由$N$组高、低折射率层$H,L$组成，入射侧先遇$H$，每层在设计波长的光学厚度均为$\lambda_0/4$。入射介质、基底导纳分别为$n_0,n_s$。推导设计波长处的反射率。
+\Diagram{fig:o2braggq}{交替四分之一波厚层叠加界面反射}{\foreach\x in{0,1,2,3}{\draw[curve](\x,-1)rectangle({\x+.6},1);\node[above]at({\x+.3},1){$H$};\draw[guide]({\x+.6},-1)rectangle({\x+1},1);\node[below]at({\x+.8},-1){$L$};}\draw[axis](-1,0)--(5,0);}
+\end{exercise}
+\begin{solution}
+把磁场归一化为$\mathcal H=Z_0H$，其中$Z_0$为真空波阻抗。正常入射层中前、后行波幅为$A,B$，在某参考面有$E=A+B$、$\mathcal H=n(A-B)$。厚度为$l$的层内，前行波向右乘$\ee^{i\phi}$、后行波向右乘$\ee^{-i\phi}$，$\phi=k_0nl$。因此左面振幅可由右面振幅写为$A_L=A_R\ee^{-i\phi}$、$B_L=B_R\ee^{i\phi}$。代入场的和、差，得到从层右面到左面的特征矩阵
+\[
+ \begin{pmatrix}E_L\\\mathcal H_L\end{pmatrix}
+ =C(n,\phi)\begin{pmatrix}E_R\\\mathcal H_R\end{pmatrix},\qquad
+ C(n,\phi)=\begin{pmatrix}\cos\phi&-i\sin\phi/n\\
+ -in\sin\phi&\cos\phi\end{pmatrix}.
+\]
+界面处切向$E,\mathcal H$连续，可以直接接续相邻层。图\ref{fig:o2braggq}在设计波长$\phi_H=\phi_L=\pi/2$，一组矩阵
+\[
+ C_HC_L=\begin{pmatrix}-n_L/n_H&0\\0&-n_H/n_L\end{pmatrix}.
+\]
+设$q=n_H/n_L$，$N$组矩阵为$(-1)^N\operatorname{diag}(q^{-N},q^N)$。基底中只有向右的波，故$\mathcal H_s=n_sE_s$，于是$E_{\rm in}=(-1)^Nq^{-N}E_s$、$\mathcal H_{\rm in}=(-1)^Nq^Nn_sE_s$，等效输入导纳为$Y=\mathcal H_{\rm in}/E_{\rm in}=n_sq^{2N}$。
+\Diagram{fig:o2bragga}{层组把基底导纳变换为越来越大的输入导纳}{\draw[curve](0,0)rectangle(2.8,1);\node at(1.4,.5){$n_s$};\draw[->](3,.5)--(4,.5);\node[right]at(4.2,.5){$Y=n_s(n_H/n_L)^{2N}$};\node[below]at(2.3,-.7){$r=(n_0-Y)/(n_0+Y)$};}
+入射和反射叠加给$E=1+r$、$\mathcal H=n_0(1-r)$，与$\mathcal H=YE$联立得到图\ref{fig:o2bragga}的$r$，反射率$R=[(n_0-Y)/(n_0+Y)]^2$。当$n_H>n_L$且$N$增大，$R\to1$。该结果只在设计波长和给定层序精确成立；交换层序会倒置导纳倍率，层数和层序均应保留。
+\end{solution}
+
+\begin{exercise}\label{ex:o2jointcoherence}
+均匀线源宽$w$、距双缝$a$，双缝间距$d$，光谱为中心$\nu_0$、宽$\Delta\nu$的矩形谱。源位置与频率统计独立，两路等强、偏振相同，中心源点的两路时间差为$\tau$。在窄带近似下求可见度，并说明何时不能简单把时间与空间可见度相乘。
+\Diagram{fig:o2jointq}{源位置和频率各自造成一类相位散布}{\draw[curve](0,0)rectangle(2.2,1.2);\node at(1.1,.6){位置$x_s$};\draw[curve](3.6,0)rectangle(5.8,1.2);\node at(4.7,.6){频率$\nu$};\node[below]at(2.9,-.7){两变量分布独立};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2jointq}中各源元、各频率的两路相位差为$2\pi\nu\tau+2\pi\nu d x_s/(ca)$。对均匀位置分布和矩形谱，归一化干涉因子为
+\[
+ \Gamma=\frac1{w\Delta\nu}\int_{-w/2}^{w/2}\dd x_s
+ \int_{\nu_0-\Delta\nu/2}^{\nu_0+\Delta\nu/2}
+ \ee^{i2\pi\nu\tau+i2\pi\nu d x_s/(ca)}\dd\nu.
+\]
+窄带时在位置项中以$\nu_0$代替$\nu$，积分核分解。频率积分给$\ee^{i2\pi\nu_0\tau}\operatorname{sinc}(\pi\Delta\nu\tau)$，位置积分给$\operatorname{sinc}[\pi\nu_0dw/(ca)]$。假定两路等强且偏振相同，可见度为$|\Gamma|$，因此
+\[
+ \mathcal V\simeq\left|\operatorname{sinc}(\pi\Delta\nu\tau)
+ \operatorname{sinc}\left(\frac{\pi dw}{\lambda_0a}\right)\right|.
+\]
+频率平均控制不同延迟的同点相干，位置平均控制两缝的照明相干，两者都要满足才有高对比条纹。
+\Diagram{fig:o2jointa}{两个独立平均因子相乘，任一个接近零都会洗去条纹}{\node at(0,.6){时间因子};\node at(0,-.6){空间因子};\draw[->](1.4,.6)--(3,0);\draw[->](1.4,-.6)--(3,0);\node[right]at(3.2,0){总可见度};}
+被略去的交叉相位尺度为$2\pi\Delta\nu d w/(ca)$，须远小于1。若谱很宽、源很大，或不同频率来自不同源位置，图\ref{fig:o2jointa}的分解不成立，应保留联合分布做二重积分。两个单独可见度接近1只是窄带独立模型中的充分描述，不能对任意源结构机械相乘。
+\end{solution}

@@ -1,0 +1,145 @@
+\chapter{双束干涉、薄膜与多束相干叠加}
+\section{杨氏干涉与光程差}\label{th:o2young}
+两狭缝位于$x=\pm d/2$，屏距$L$，观测点横坐标$x$。定义下标$+$对应$+d/2$的缝，则传播距离$r_\pm=\sqrt{L^2+(x\mp d/2)^2}$。取程差$\Delta=r_--r_+$，当$L\gg d,|x|$时，用$\sqrt{L^2+a^2}\simeq L+a^2/(2L)$展开，得到
+\[
+ \Delta\simeq\frac{(x+d/2)^2-(x-d/2)^2}{2L}=\frac{dx}{L}.
+\]
+如果两缝初相位相同、同偏振，则亮纹$x_m=m\lambda L/d$，暗纹$x_{m+1/2}=(m+1/2)\lambda L/d$，相邻亮纹间距$\lambda L/d$。这里$\lambda$是在缝屏间介质中的波长；若用真空波长，则需把几何程差乘介质折射率。
+
+一般双束强度为
+\begin{equation}\label{eq:o2two}
+ I=I_1+I_2+2\sqrt{I_1I_2}\,|\gamma_{12}|\cos\delta,
+\end{equation}
+其中$\gamma_{12}$表示互相干程度，已把其相位并入$\delta$。完全相干且偏振相同时$|\gamma_{12}|=1$，可见度$\mathcal V=2\sqrt{I_1I_2}/(I_1+I_2)$。若偏振单位矢量不同，还要把交叉项乘它们的内积；正交偏振即使同频同源也不出现普通强度干涉条纹。
+
+\Diagram{fig:o2young}{双缝到屏上$P$点的两条路径}{\draw[curve](0,-1.6)--(0,1.6);\draw[curve](5,-2)--(5,2.3);\fill(0,.7)circle(1.5pt)node[left]{$S_+$};\fill(0,-.7)circle(1.5pt)node[left]{$S_-$};\fill(5,1.3)circle(1.5pt)node[right]{$P(x)$};\draw[curve](0,.7)--(5,1.3);\draw[curve](0,-.7)--(5,1.3);\draw[guide](0,0)--(5,0);\node[below]at(2.5,0){$L$};}
+
+\begin{example}\label{ex:o2shift}
+点光源位于双缝前方距离$a$、横坐标$x_s$处，屏在后方距离$L$。在$S_+$前插入正常入射薄片，附加光程$\ell=(n-1)h$。求条纹位置与中央亮纹的移动方向。
+\Diagram{fig:o2shiftq}{离轴源和单臂薄片共同改变到达屏幕的总光程差}{\draw[axis](-2,0)--(5,0)node[right]{$z$};\fill(-1.6,1)circle(1.5pt)node[left]{$x_s$};\fill(0,.6)circle(1.5pt)node[above]{$S_+$};\fill(0,-.6)circle(1.5pt)node[below]{$S_-$};\draw[curve](-1.6,1)--(0,.6)--(4,1.1);\draw[curve](-1.6,1)--(0,-.6)--(4,1.1);\draw[curve](.5,.45)rectangle(.8,.95);\draw[curve](4,-1.5)--(4,1.8);}
+\end{example}
+\begin{solution}
+图\ref{fig:o2shiftq}中，取两缝横坐标为$x_\pm=\pm d/2$，程差统一定义为“$-$臂减$+$臂”。源到两缝的距离为$\sqrt{a^2+(x_s\mp d/2)^2}$。用$\sqrt{a^2+q^2}\simeq a+q^2/(2a)$展开，相减得
+\[
+ r_{s-}-r_{s+}\simeq
+ \frac{(x_s+d/2)^2-(x_s-d/2)^2}{2a}=\frac{dx_s}a.
+\]
+同理缝到屏点$x$的程差为$dx/L$。薄片加在$+$臂，使该臂增加$\ell=(n-1)h$，故总程差为
+\[
+ \Delta=d(x_s/a+x/L)-\ell.
+\]
+\Diagram{fig:o2shifta}{中央纹位置由入射波面倾斜和薄片补偿相位共同确定}{\draw[axis](-2.6,0)--(3.7,0)node[right]{$x$};\foreach\x in{-2,-1,0,1,2,3}{\draw[curve](\x,-.3)--(\x,.3);}\draw[->,thick](0,.7)--(1.4,.7);\node[above]at(.7,.7){薄片导致$+L\ell/d$};\draw[->](-.2,-.8)--(-1.4,-.8);\node[below]at(-.8,-.8){$x_s>0$导致负向};}
+图\ref{fig:o2shifta}中相长条件$\Delta=m\lambda$给
+\[
+ x_m=\frac Ld(m\lambda+\ell)-\frac{Lx_s}a,
+ \qquad x_{m+1}-x_m=\frac{\lambda L}d.
+\]
+插片引起位移$+L\ell/d$，中央亮纹向$+$缝侧移动；源向正向移则引起$-Lx_s/a$，方向相反。两种位移方向均由所选程差的符号确定。若希望插片后原中央亮纹仍位于$x=0$，可令$x_s=a\ell/d$补偿。该式要求源、缝、屏之间均近轴；大离轴时先写四段准确距离，再加同一臂中的附加光程，不能只保留一个线性位移项。
+\end{solution}
+
+\begin{example}\label{ex:o2lens}
+双缝在薄透镜前方，后焦面记录远场干涉。证明条纹间距为$\lambda f/d$，并解释为什么不能再随意给两条光线各加一段“透镜厚度光程”。
+\Diagram{fig:o2lensq}{透镜把同一出射方向的平行光会聚到后焦面}{\draw[axis](-.3,0)--(6,0);\fill(0,.8)circle(1.4pt)node[left]{$S_+$};\fill(0,-.8)circle(1.4pt)node[left]{$S_-$};\draw[<->](2.5,-1.6)--(2.5,1.6);\draw[curve](5,-1.8)--(5,1.8);\node[above]at(5,1.8){后焦面};\draw[guide](2.5,0)--(5,0);\node[below]at(3.75,0){$f$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:o2lensq}中取两缝沿同一角度$\theta$发出的平行光，垂直该方向的参考波面上的程差为$d\sin\theta$。理想透镜将此平面波聚焦到$x=f\tan\theta\simeq f\theta$。等相位波面到其理想像点的总光程相等，透镜相位已包括在这个成像性质中。因此总相位差仍是$2\pi d\sin\theta/\lambda$，近轴亮纹$x_m=m\lambda f/d$。
+\Diagram{fig:o2lensa}{在同一个参考波面比较相位，再由透镜等光程传播到焦点}{\draw[axis](-.3,0)--(6,0);\draw[<->](2.5,-1.7)--(2.5,1.7);\draw[->](0,.6)--(2.5,1.1)--(5,.7);\draw[->](0,-.8)--(2.5,-.3)--(5,.7);\draw[guide](1.6,-1.1)--(1.16,1.1);\fill(5,.7)circle(1.4pt)node[right]{$P$};\node[above]at(1.2,1.2){参考波面};}
+图\ref{fig:o2lensa}的光线在透镜前具有相同倾角，到透镜后的倾角不同。若先使用理想透镜聚焦的等光程性质，再额外添加某条光线的玻璃厚度，就重复计算了透镜相位。另一常见配置用两束夹角$2\theta$的平面波叠加，$\Delta=2x\sin\theta$；当$2\theta\simeq d/f$时，同样得到$\lambda f/d$。
+\end{solution}
+
+\subsection{焦点相移的使用条件}\label{th:o2focus}
+几何光程在焦点附近不足以描述波的相位。近轴高斯束的轴上相位含$-\arctan(z/z_R)$，光束由远负轴穿过焦点到远正轴，这一项总变化为$-\pi$；二维横向均受限的普通点聚焦由此产生总$\pi$焦点相移。只在一个横向方向聚焦的柱面束对应总$\pi/2$。符号还随时间指数约定改变，但两束是否多跨一个焦散的相对相移可直接比较。
+
+该相移来自波的会聚—发散传播，不是介质界面反射的半波损失。若两条干涉光路经历相同焦点过程，相移抵消；只有两路焦散数或维数不同才需保留。不能在每经过一片透镜时都机械加$\pi$。
+
+\begin{example}\label{ex:o2mirror}
+点光源到两平面镜交线附近的距离为$l$，两镜夹角为很小的$\alpha$。两反射光在距虚源平面$L$的屏上重叠。求虚光源间距与干涉间距，并说明反射相位的作用。
+\Diagram{fig:o2mirrorq}{双镜产生同一光源的两个虚像}{\draw[curve](0,0)--(3,.12);\draw[curve](0,0)--(-3,.12);\fill(0,1.8)circle(1.5pt)node[above]{$S$};\draw[guide](0,1.8)--(1,.04);\draw[guide](0,1.8)--(-1,.04);\node at(1.2,-.4){两镜法线夹角$\alpha$};}
+\end{example}
+\begin{solution}
+反射像相对镜面与原物点对称。转动镜面$\alpha$使像的方向转动$2\alpha$，所以图\ref{fig:o2mirrorq}对应的两个虚源在以交线为中心、半径$l$的圆上夹角$2\alpha$，其距离$d=2l\sin\alpha\simeq2l\alpha$。
+\Diagram{fig:o2mirrora}{等效双虚源的路径构成普通双源干涉}{\fill(0,.5)circle(1.5pt)node[left]{$S_1$};\fill(0,-.5)circle(1.5pt)node[left]{$S_2$};\draw[curve](5,-1.5)--(5,1.7);\draw[curve](0,.5)--(5,.8);\draw[curve](0,-.5)--(5,.8);\draw[guide](0,0)--(5,0);\node[below]at(2.5,0){$L$};}
+图\ref{fig:o2mirrora}给近轴间距$\Delta x=\lambda L/d\simeq\lambda L/(2l\alpha)$。若两反射使用相同材料、相近入射角、同一偏振，两路反射相移近似相同而抵消。若两镜的反射系数不同，应把它们的相位差加入总相位，不能只凭“都反射一次”保证中央纹一定亮。
+\end{solution}
+
+\begin{example}\label{ex:o2biprism}
+菲涅耳双棱镜的两个小棱角均为$\alpha$，折射率$n$，点光源位于棱镜前$l$。求两虚源间距；屏距虚源平面$L$时求条纹间距。
+\Diagram{fig:o2biprismq}{薄双棱镜把两部分波面向中间偏折}{\fill(0,0)circle(1.4pt)node[left]{$S$};\draw[curve](2,-1.6)--(2.5,0)--(2,1.6)--cycle;\draw[->](0,0)--(2,.8)--(4.6,.35);\draw[->](0,0)--(2,-.8)--(4.6,-.35);\node[above]at(2.3,1.6){$n,\alpha$};}
+\end{example}
+\begin{solution}
+小角棱镜偏向角$\epsilon\simeq(n-1)\alpha$，可由两个界面的近轴折射定律相减得到：内部折射角满足$r_1+r_2=\alpha$，总偏向$i_1+i_2-\alpha\simeq n(r_1+r_2)-\alpha$。
+\Diagram{fig:o2biprisma}{向后延长偏折光线，得到上下两个虚源}{\fill(0,1.2)circle(1.4pt)node[left]{$S_1$};\fill(0,-1.2)circle(1.4pt)node[left]{$S_2$};\draw[guide](0,1.2)--(2,.8);\draw[guide](0,-1.2)--(2,-.8);\draw[->](2,.8)--(5,.2);\draw[->](2,-.8)--(5,-.2);\draw[<->](0,-1.2)--(0,1.2);\node[below]at(1,-1.5){$d\simeq2l\epsilon$};}
+按图\ref{fig:o2biprisma}，每个虚源相对原源横移约$l\epsilon$，故$d\simeq2l(n-1)\alpha$。双源干涉间距$\lambda L/[2l(n-1)\alpha]$。这个结果假定两束在屏幕上实际有重叠区域，且棱镜孔径不截断所需光束；没有重叠时，虚源形式存在也不会产生可见干涉。
+\end{solution}
+
+\begin{example}\label{ex:o2lloyd}
+点光源在平面镜上方高度$h$，屏距沿镜方向为$L\gg h$。直接光和一次反射光在屏上重叠。若反射产生$\pi$相移，求暗亮纹位置及镜面延长线附近条纹的性质。
+\Diagram{fig:o2lloydq}{劳埃德镜的直接光与反射光}{\draw[curve](-.5,0)--(5,0);\fill(0,.8)circle(1.5pt)node[left]{$S$};\draw[curve](5,0)--(5,2.5);\fill(5,1.3)circle(1.5pt)node[right]{$P(y)$};\draw[->](0,.8)--(5,1.3);\draw[->](0,.8)--(1.904762,0)--(5,1.3);}
+\end{example}
+\begin{solution}
+将图\ref{fig:o2lloydq}的反射光反向延长，等效虚源$S'$在$-h$，两源间距$2h$。几何程差$r_{S'P}-r_{SP}\simeq2hy/L$，总相位差为$2\pi(2hy/L)/\lambda+\pi$。
+\Diagram{fig:o2lloyda}{镜像源使几何程差为零处因反射相移而暗}{\draw[guide](-.3,0)--(5,0);\fill(0,.8)circle(1.4pt)node[left]{$S$};\fill(0,-.8)circle(1.4pt)node[left]{$S'$};\draw[curve](0,.8)--(5,1.3);\draw[guide](0,-.8)--(5,1.3);\draw[curve](5,0)--(5,2);\node[below]at(2.5,0){镜面延长线};}
+因此暗纹$y_m=m\lambda L/(2h)$，亮纹$y_m=(m+1/2)\lambda L/(2h)$。图\ref{fig:o2lloyda}中$y=0$几何程差为零却是暗纹。公式适用于两束充分重叠的近轴区域；镜边遮挡及掠射反射系数变化会使边缘条纹变形。
+\end{solution}
+
+\section{薄膜的斜入射程差与反射相位}\label{th:o2film}
+厚度$h$、折射率$n$的平行薄膜内折射角为$r$。相邻两束反射光一束在上面反射，另一束进入膜内往返一次再出射。比较必须取出射方向垂直的同一波面。膜内光程为$2nh/\cos r$，还要减去外部波面截取引起的相位，化简得到
+\begin{equation}\label{eq:o2film}
+ \Delta_{\rm geom}=2nh\cos r.
+\end{equation}
+也可用膜内法向波矢$k_z=2\pi n\cos r/\lambda_0$，一次往返相位为$2k_zh$，立即得到同式。真实膜内路长$2h/\cos r$与干涉等效程差$2h\cos r$不是同一量。
+
+若两路反射相位差为$\pi$，反射暗纹满足$2nh\cos r=m\lambda_0$，亮纹满足$(m+1/2)\lambda_0$；若相位差为0则互换。非全反射、非吸收介质的反射系数为实数，符号负给$\pi$相移，但$p$偏振越过布儒斯特角时符号也可能改变。亮暗条件应采用相应偏振、介质排列和入射角的反射系数。
+
+\begin{example}\label{ex:o2wedge}
+两块玻璃间有折射率$n$的薄劈尖，夹角$\alpha\ll1$，厚度$h(x)=h_0+\alpha x$。近乎垂直照射，反射的两束有一次相对半波损失。求纹距及由条纹反求夹角的方法。
+\Diagram{fig:o2wedgeq}{劈尖厚度随$x$线性增长}{\draw[curve](0,0)--(5,0);\draw[curve](0,.2)--(5,1);\draw[axis](0,-.5)--(5.6,-.5)node[right]{$x$};\draw[<->](4,0)--(4,.84)node[midway,right]{$h(x)$};\draw[->](2,2)--(2,.6);}
+\end{example}
+\begin{solution}
+图\ref{fig:o2wedgeq}的暗纹$2n(h_0+\alpha x_m)=m\lambda_0$，相邻两式相减给$2n\alpha(x_{m+1}-x_m)=\lambda_0$，所以纹距$\Delta x=\lambda_0/(2n\alpha)$。
+\Diagram{fig:o2wedgea}{同一厚度的横截线对应一条干涉纹}{\draw[curve](0,0)--(5,0)--(5,1)--(0,.2)--cycle;\foreach\x in{.6,1.5,2.4,3.3,4.2}{\draw[guide](\x,0)--(\x,{.2+.16*\x});}\draw[<->](1.5,-.4)--(2.4,-.4)node[midway,below]{$\Delta x$};}
+若在长度$D$内跨过$N$个完整纹距，则$\alpha=N\lambda_0/(2nD)$。图\ref{fig:o2wedgea}的纹序受$h_0$影响，纹距不受影响。若接触端$h_0=0$，此端反射为暗；若端点混入胶层或尘粒，就不能直接把可见第一条暗纹当$m=0$。
+\end{solution}
+
+\begin{example}\label{ex:o2rings}
+曲率半径$R$的平凸透镜凸面置于平板上，间隙折射率$n$，中心残余间隙$h_0$。垂直单色光形成牛顿环。求反射暗环半径及用两条暗环测$R$的方法。
+\Diagram{fig:o2ringsq}{球面和平板构成厚度随半径增加的薄膜}{\draw[curve](-2.5,0)--(2.5,0);\draw[curve,domain=-2.2:2.2,samples=70]plot(\x,{.12+.16*\x*\x});\draw[guide](0,0)--(0,1.8);\draw[<->](1.8,0)--(1.8,.638)node[right]{$h(r)$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2ringsq}中球面几何给$h=h_0+R-\sqrt{R^2-r^2}\simeq h_0+r^2/(2R)$。一次相对半波损失使反射暗纹$2nh=m\lambda_0$，所以$r_m^2=R(m\lambda_0/n-2h_0)$，只取右侧非负的级次。
+\Diagram{fig:o2ringsa}{等厚圆环的半径平方等间隔}{\foreach\r in{.6,.95,1.2,1.4,1.58}{\draw[curve](0,0)circle(\r);}\draw[axis](0,0)--(2.6,0)node[right]{$r$};\node[above]at(0,1.7){$r_{m+p}^2-r_m^2=pR\lambda_0/n$};}
+取相隔$p$级的两环，图\ref{fig:o2ringsa}给$R=n(r_{m+p}^2-r_m^2)/(p\lambda_0)$，消除了未知$h_0$。若中心真正接触，$m=0$对应中心暗点；透射图样在理想无损、相同孔径收集条件下互补，中心为亮。半径不等间隔，等间隔的是半径平方。
+\end{solution}
+
+\begin{example}\label{ex:o2michelson}
+迈克耳孙干涉仪的两等效反射面平行，轴向间隔$d$。求等倾条纹条件、近轴环半径和一面镜移动$\Delta d$时中心跨过的条纹数。
+\Diagram{fig:o2michelsonq}{将两臂展开为两平行虚反射面}{\draw[curve](0,-1)--(0,1.6);\draw[curve](1.5,-1)--(1.5,1.6);\draw[axis](2.1,.3)--(5,1.4)node[right]{观察方向};\draw[guide](2.1,.3)--(5,.3);\node at(3.2,.6){$\theta$};\draw[<->](0,-1.4)--(1.5,-1.4)node[midway,below]{$d$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2michelsonq}中相位差传播部分为$2kd\cos\theta$，若两臂固有附加相位已补偿，亮纹满足$2d\cos\theta=m\lambda$。中心$\theta=0$的级次最大，离轴$\cos\theta$下降，级次依次减小。
+\Diagram{fig:o2michelsona}{后焦面将等倾角映为圆环，中心级次最高}{\foreach\r in{.45,.85,1.15,1.4}{\draw[curve](0,0)circle(\r);}\fill(0,0)circle(1.5pt);\draw[axis](0,0)--(2.4,0)node[right]{$\rho$};\node[right]at(2.5,1){$\rho\simeq f\theta$};}
+若$2d/\lambda=m_0$为整数，近轴$\cos\theta\simeq1-\theta^2/2$，第$p$个离轴同类亮环满足$\rho_p^2\simeq pf^2\lambda/d$，如图\ref{fig:o2michelsona}。镜移改变往返程差$2\Delta d$，中心通过条纹数$N=2|\Delta d|/\lambda$。实际非整数中心相位使所有环的半径平方有相同偏移；环间平方差仍遵守该式。
+\end{solution}
+
+\section{多束几何级数与分辨能力}\label{th:o2multiple}
+等振幅、相邻相位差$\delta$的$N$束光（以下取$N\geq2$）有
+\[
+ \mathcal E=A\sum_{j=0}^{N-1}\ee^{ij\delta}
+ =A\ee^{i(N-1)\delta/2}\frac{\sin(N\delta/2)}{\sin(\delta/2)},
+\]
+因此$I=I_1[\sin(N\delta/2)/\sin(\delta/2)]^2$。在$\delta=2m\pi$分子分母同时为零，须取极限，合振幅$NA$，主极大强度$N^2I_1$。两个主极大之间有$N-1$个零点$\delta=2\pi j/N$，$j=1,\ldots,N-1$，其间有$N-2$个次极大。
+
+主峰邻近令$\delta=2m\pi+\epsilon$，首零点$|\epsilon|=2\pi/N$，这是主极大到首零点的半宽，不是半高宽。大$N$时强度归一化曲线近似$(\sin x/x)^2$，$x=N\epsilon/2$。对它求导，
+\[
+ \frac{\dd}{\dd x}\left(\frac{\sin x}{x}\right)^2
+ =2\frac{\sin x}{x}\frac{x\cos x-\sin x}{x^2}.
+\]
+旁瓣内部$\sin x\ne0$，故极值条件为$x\cos x-\sin x=0$，即$\tan x=x$。第一正根在$\pi$与$2\pi$之间，约4.493，强度比约0.0472。将旁瓣位置粗略取$3\pi/2$得到$4/(9\pi^2)\simeq0.0450$，只能作估计。
+
+\subsection{光栅式相位与瑞利判据}\label{th:o2resolution}
+若相邻光束间几何间距为$d$，$\delta=2\pi d\sin\theta/\lambda$，主峰$d\sin\theta_m=m\lambda$。在非掠射主峰附近，对$\delta$求角导数，$\dd\delta/\dd\theta=2\pi d\cos\theta_m/\lambda$；将首零相位偏移$2\pi/N$除以它，得首零角半宽$\Delta\theta_0\simeq\lambda/(Nd\cos\theta_m)$。固定非零级次$m$，对主峰方程微分，$d\cos\theta_m\,\dd\theta=m\,\dd\lambda$，故两近邻波长的角分离为$|\Delta\theta|\simeq|m|\Delta\lambda/(d\cos\theta_m)$。按瑞利条件令它等于首零半宽，得到
+\[
+ \mathcal R=\frac\lambda{\Delta\lambda}=|m|N.
+\]
+零级$m=0$没有这种角色散，不能用它作上述分光。两谱线需在测量中互不相干地相加强度；瑞利判据是一种分辨约定，实际双峰边界还取决于线形、强度比与观测条件。
+\input{lecture2_models}

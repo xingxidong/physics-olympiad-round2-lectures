@@ -1,0 +1,80 @@
+\section{介质壳层与带气隙磁路的完整接续}
+\subsection{同一角模在不同区域有不同径向分支}
+空心介质球壳有内、外两个界面，壳内场须同时满足两处的接续条件。内腔场因而由介电常数和壳厚共同决定；讨论大介电常数的极限时，也应交代壳厚是否保持不变。
+
+取内外半径$a,b$的均匀线性介质球壳，相对介电常数$\kappa>0$；腔内和球外均为真空，远场沿$z$。只有一次角模，所以三域势可写
+\[
+ \phi_c=-E_c r\cos\theta,\quad
+ \phi_s=-(Ar+B/r^2)\cos\theta,\quad
+ \phi_o=-E_0r\cos\theta+D\cos\theta/r^2.
+\]
+腔内排除了原点奇异项，外侧保留给定匀强场及衰减偶极项。在$r=a$处，势连续和无自由面电荷的法向位移连续给
+\[
+ E_c=A+B/a^3,\qquad E_c=\kappa(A-2B/a^3).
+\]
+解得$B/a^3=(\kappa-1)A/(2\kappa+1)$、$E_c=3\kappa A/(2\kappa+1)$。在$r=b$处再接续，有
+\[
+ E_0-D/b^3=A+B/b^3,\quad
+ E_0+2D/b^3=\kappa(A-2B/b^3).
+\]
+先消去$D$可得$3E_0=(\kappa+2)A-2(\kappa-1)B/b^3$。令$f=(a/b)^3$及
+\[
+ \Delta=(\kappa+2)(2\kappa+1)-2(\kappa-1)^2f,
+\]
+于是
+\[
+ \frac{E_c}{E_0}=\frac{9\kappa}{\Delta},\qquad
+ p=4\pi\varepsilon_0D
+ =4\pi\varepsilon_0 b^3E_0
+ \frac{(\kappa-1)(2\kappa+1)(1-f)}{\Delta}.
+\]
+这样既求出内腔场，也保留了球壳对外部的偶极响应。两个量对应不同观察区域，不应混为一个“屏蔽系数”。
+
+\begin{example}[薄壳和高介电常数的极限次序]
+上述球壳内半径$a=b-t$，$t\ll b$。求内腔场的一阶薄壳表达式，说明为什么很大的$\kappa$未必足以在极薄壳中显著减弱内场。给出$\kappa=10$、$t/b=0.01$时的近似结果。
+\ExpansionDiagram{fig:dep-es4-shell-q}{空腔、壳层和外部是真正不同的三个接续区域}{
+\fill[gray!20](0,0)circle(1.8);\fill[white](0,0)circle(1.3);\draw[thick](0,0)circle(1.8);\draw[thick](0,0)circle(1.3);\draw[->](0,-1)--(0,1)node[midway,right]{$E_c$};\draw[->](2.5,-1)--(2.5,1)node[above]{$E_0$};\node at(-1.55,0){$\kappa$};\draw[->](0,0)--(1.0649,-.7457);\node at(.9,-.45){$a$};\draw[->](0,0)--(.6156,-1.6914);\node at(.2,-1.45){$b$};\node[below]at(0,-1.9){$t=b-a$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-es4-shell-q}中$f=(1-t/b)^3=1-3t/b+O((t/b)^2)$。将它代入$\Delta$，先把$f=1$的部分合并：
+\[
+ (\kappa+2)(2\kappa+1)-2(\kappa-1)^2=9\kappa.
+\]
+所以
+\[
+ \frac{E_c}{E_0}\simeq
+ \left[1+\frac{2(\kappa-1)^2}{3\kappa}\frac tb\right]^{-1}.
+\]
+此式保留分母整体，近似的是$f$而非进一步假定$\kappa t/b$很小。高$\kappa$下，控制屏蔽的组合约为$2\kappa t/(3b)$；即使$\kappa\gg1$，若$\kappa t/b\ll1$，内腔场仍接近外场。
+\ExpansionDiagram{fig:dep-es4-shell-a}{在固定壳厚下增大介电常数，与固定介电常数下令壳厚趋零，结果不同}{
+\draw[->](0,0)--(5.5,0)node[right]{$2\kappa t/(3b)$};\draw[->](0,0)--(0,2.6)node[above]{$E_c/E_0$};\draw[thick,domain=0:5,samples=90]plot(\x,{2/(1+\x)});\node[left]at(0,2){1};\node[below]at(1,0){1};\draw[dashed](1,0)--(1,1)--(0,1);}
+图\ref{fig:dep-es4-shell-a}画高$\kappa$薄壳近似。代$\kappa=10,t/b=0.01$得分母$1+0.054$，所以$E_c/E_0\simeq0.9488$。用精确$f=0.99^3$则约为0.9492，两者相近。$t\to0$在固定$\kappa$下恢复空腔真空；$\kappa\to\infty$在固定非零厚度下使内场趋零，这两个极限不应不加条件地交换。
+\end{solution}
+
+\subsection{磁路近似中的控制变量与气隙压力}
+线性无自由体电流区域可使用与介质静电相同形式的标势接续，但有线圈穿绕的完整磁路一般不能用一个单值磁标势覆盖。磁路近似改用沿闭合磁路的安培环量，把线圈总安匝$NI$与各段$H\ell$相等，再用磁通连续接续各段。气隙的磁导率很小，哪怕长度很短也可能控制总磁阻。
+
+\begin{example}[保持电流的电磁铁吸力]
+均匀线性磁芯磁路长$\ell$、相对磁导率$\mu_r$，截面积$A$，有长度$g$的单气隙和$N$匝线圈。电流由理想电源维持为$I$。忽略漏磁、边缘扩散及位移引起的磁芯长度变化，求气隙磁场、线圈电感及闭合气隙的力。要求$g\ll\sqrt A$以支持近似均匀场。
+\ExpansionDiagram{fig:dep-es4-gap-q}{气隙与磁芯串联通过同一磁通}{
+\draw[very thick](0,0)--(0,2.4)--(4,2.4)--(4,1.5);\draw[very thick](4,.9)--(4,0)--(0,0);\draw[<->](4.5,.9)--(4.5,1.5)node[midway,right]{$g$};\foreach\y in{.6,.9,1.2,1.5,1.8}{\draw(-.35,\y)--(.35,\y+.15);}\node[left]at(-.4,1.4){$NI$};\draw[->](1.5,2.7)--(2.8,2.7)node[midway,above]{$\Phi$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-es4-gap-q}的磁通连续给各段$B$相同。由$NI=H_c\ell+H_gg$，以及$H_c=B/(\mu_0\mu_r)$、$H_g=B/\mu_0$，得
+\[
+ B=\frac{\mu_0NI}{g+\ell/\mu_r},\qquad
+ \Phi=BA,\qquad L=\frac{N\Phi}{I}
+ =\frac{\mu_0N^2A}{g+\ell/\mu_r}.
+\]
+取$g$增大方向为正。在电流固定时，场能$W=LI^2/2$，电源在小位移过程中输入$I\dd(N\Phi)=I^2\dd L$。能量守恒给机械输出功为$\dd W_{\rm mech}=I^2\dd L-\dd W=I^2\dd L/2$，故
+\[
+ F_g=\frac{I^2}{2}\frac{\partial L}{\partial g}
+ =-\frac{\mu_0N^2AI^2}{2(g+\ell/\mu_r)^2}
+ =-\frac{B^2A}{2\mu_0}.
+\]
+\ExpansionDiagram{fig:dep-es4-gap-a}{磁通沿法线穿过气隙，两极面受到互相靠近的力}{
+\fill[gray!20](0,1)rectangle(4,1.7);\fill[gray!20](0,-.7)rectangle(4,0);\foreach\x in{.5,1.5,2.5,3.5}{\draw[->](\x,.9)--(\x,.1);}\draw[->,thick](4.6,1.5)--(4.6,.9);\draw[->,thick](4.6,-.5)--(4.6,.1);\node[right]at(5,.5){闭合气隙};}
+负号说明图\ref{fig:dep-es4-gap-a}中气隙趋于缩小，吸力大小为气隙磁能密度乘面积。若错误地在固定$I$下取$-\partial_g(LI^2/2)$，会得相反方向，原因是遗漏电源做功。
+
+若改为磁通固定，可直接取$W=\Phi^2(g+\ell/\mu_r)/(2\mu_0A)$，于是$F_g=-\partial_gW=-\Phi^2/(2\mu_0A)$，在同一瞬时$B=\Phi/A$时仍与上式相同。两种控制方式在后续运动中的$B(g)$不同，所以不能据瞬时力相同认定整个过程相同。
+\end{solution}

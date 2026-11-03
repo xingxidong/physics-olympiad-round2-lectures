@@ -1,0 +1,1567 @@
+\chapter{微观导电与稳恒电路}
+稳恒电流的分布同时受材料和边界约束。细导线通常可以用集中电阻描述；电流在大地或体材料中扩散时，则需要先求电流密度。两类问题都以电荷守恒和局部欧姆定律为基础，电极的形状与回流位置决定具体解。
+
+
+
+\section{从载流子运动到局部欧姆定律}\label{sec:c1-local}
+电场使载流子产生平均漂移，碰撞则不断削弱定向动量。两者达到平衡后才建立稳态欧姆关系；建立过程的快慢由动量弛豫时间决定。
+
+设单位体积有$n$个自由电子，电子电荷为$-e$、质量为$m$。无电场时，热运动方向杂乱，不产生平均电流。加电场后，漂移速度$\vct v_d$满足松弛模型
+\[
+ m\frac{\dd\vct v_d}{\dd t}=-e\vct E-\frac m\tau\vct v_d.
+\]
+$\tau$是动量弛豫时间，不应直接当作每个电子严格相同的碰撞间隔。恒定电场下，暂态衰减后有$\vct v_d=-e\tau\vct E/m$。传统电流方向与电子漂移相反，因而
+\[
+ \boxed{\vct j=-ne\vct v_d=\sigma\vct E},\qquad
+ \sigma=\frac{ne^2\tau}{m},\qquad \rho=\sigma^{-1}.
+\]
+这里$\rho$表示电阻率，电荷体密度另记$\rho_f$。对长$l$、截面$S$的均匀直柱，端面是等势面、侧面绝缘，场沿轴均匀，故$I=jS$、$U=El$，得到$R=\rho l/S$。这一步用到了特定边界；不能把任意导电体的路径长度代入同一公式。
+
+在欧姆模型中，单位体积的电功率为$\vct j\cdot\vct E=j^2/\sigma=\sigma E^2\ge0$。机械碰撞把定向运动中得到的能量转给晶格，使稳定漂移与持续发热同时存在。稳恒并不表示电子停止运动，也不表示导体内电场为零。
+
+\Needspace{6\baselineskip}
+\begin{example}[电场开启后的漂移与电流建立]\label{ex:c1-drift}
+均匀导体的载流子初始平均漂移速度为零，在$t=0$施加恒定电场$E_0\vct e_x$。按松弛模型求$v_d(t)$、$j(t)$，说明欧姆定律的稳态条件。 见图~\ref{fig:c1-drift-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(B)at(4,0);
+\draw[curve](0,-.5)rectangle(4,.5);
+\draw[axis](.4,.9)--(1.7,.9)node[above]{$I$};
+\draw[<->](0,-.9)--(4,-.9)node[midway,below]{$l$};
+\node at(2,0){$\sigma,S$};
+\node at(2,-1.6){$t=0:\ E_0\vct e_x$};
+\end{tikzpicture}
+\caption{电场沿柱轴开启，电子漂移方向与传统电流相反。}\label{fig:c1-drift-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-drift-q}取向右为$x$正向。$e$表示电子电荷量的绝对值，故电场力为$-eE_0$，松弛力为$-mv_d/\tau$。平均漂移速度满足
+\[
+ \dot v_d+\frac{v_d}{\tau}=-\frac{eE_0}{m},\qquad v_d(0)=0.
+\]
+将方程乘以$\ee^{t/\tau}$，左边合成乘积导数，从零积分到$t$：
+\[\begin{aligned}
+ \frac{\dd}{\dd t}(v_d\ee^{t/\tau})&=-\frac{eE_0}{m}\ee^{t/\tau},\\
+ v_d(t)\ee^{t/\tau}-v_d(0)
+ &=-\frac{eE_0}{m}\int_0^t\ee^{s/\tau}\dd s\\
+ &=-\frac{eE_0}{m}[\tau\ee^{s/\tau}]_0^t
+ =-\frac{eE_0\tau}{m}(\ee^{t/\tau}-1).
+\end{aligned}\]
+于是
+\[
+ \boxed{v_d(t)=-\frac{e\tau E_0}{m}(1-\ee^{-t/\tau})}.
+\]
+单位体积的电荷流率为$j=(-e)nv_d$。速度的负号与电子电荷的负号相乘，故传统电流沿正$x$方向：
+\[
+ \boxed{j(t)=\frac{ne^2\tau E_0}{m}(1-\ee^{-t/\tau})},\qquad
+ j_\infty=\sigma E_0,\quad \sigma=\frac{ne^2\tau}{m}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$t/\tau$};\draw[axis](0,-.1)--(0,2)node[above]{$j/j_\infty$};
+\draw[curve,domain=0:4.5,samples=70]plot(\x,{1-exp(-\x)});\draw[guide](0,1)--(4.7,1);
+\node[left]at(0,1){$1$};\end{tikzpicture}
+\caption{电流从零建立，曲线的长时极限由稳态电导率确定。}\label{fig:c1-drift-s}
+\end{figure}
+图~\ref{fig:c1-drift-s}中$j/j_\infty=1-\ee^{-t/\tau}$。其初值为零，初始导数为$j_\infty/\tau=ne^2E_0/m$；若横轴也用$t/\tau$归一化，原点切线斜率便为一。短时有$v_d\simeq-eE_0t/m$，电子尚近似自由加速；长时电场力与松弛力平衡。
+
+直流欧姆定律适用于$t\gg\tau$的稳态。对于变场，若场的变化时间远大于$\tau$，漂移速度才来得及随场调整，从而可在每一时刻近似使用$j=\sigma E$。
+\end{solution}
+
+
+\section{连续性、场方程与界面}\label{sec:c1-interface}
+材料内部的电流满足连续性方程，跨界时还须满足法向电流与切向电场的连续条件。
+
+电荷守恒为$\partial_t\rho_f+\nabla\cdot\vct j=0$。稳恒时体内不再积累自由电荷，因此
+\[
+ \nabla\cdot\vct j=0,\qquad
+ \nabla\times\vct E=0,\qquad \vct E=-\nabla\varphi.
+\]
+结合局部欧姆定律得到
+\[
+ \boxed{\nabla\cdot(\sigma\nabla\varphi)=0}.
+\]
+若$\sigma$为常数，才简化成$\nabla^2\varphi=0$。电流线是$\vct j$的切线，等势面与电场正交；在各向同性材料中电流线也正交等势面。若电导率是张量，两种方向一般不重合。
+
+取界面法向从介质1指向2。跨界薄柱中的电荷不再积累，给出$j_{1n}=j_{2n}$；跨界窄回路没有静电环量，给出$E_{1t}=E_{2t}$。因此
+\[
+ \boxed{\sigma_1E_{1n}=\sigma_2E_{2n},\qquad E_{1t}=E_{2t}}.
+\]
+这与静电介质界面上$\epsilon_1E_{1n}=\epsilon_2E_{2n}$的条件有不同物理来源。导电界面往往需要自由面电荷，不能再随意追加$D_n$连续。对于不随时间变化的线性介电响应，面电荷由$\sigma_f=D_{2n}-D_{1n}$确定。
+
+\Needspace{6\baselineskip}
+\begin{example}[电流线在导电界面的折向]\label{ex:c1-interface}
+两均匀导电介质的电导率为$\sigma_1,\sigma_2$，稳恒电流由1流向2，入射电流与法线夹角$\theta_1$。求$\theta_2$，并求两侧总面电荷密度。 见图~\ref{fig:c1-interface-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.7,0)--(2.7,0);\draw[axis](0,1.9)--(0,-1.7)node[below]{$\vct n$};
+\draw[axis](-1,1.4)--(0,0);\node at(-1.9,.9){$1:\sigma_1$};\node at(-1.9,-.9){$2:\sigma_2$};
+\draw[curve](0,.65)arc(90:125.5:.65);\node at(-.32,.92){$\theta_1$};
+\end{tikzpicture}
+\caption{法向固定为由介质1指向2，角度均从法线量起。}\label{fig:c1-interface-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c1-interface-q}中的单位法向$\vct n$由介质1指向2，切向沿入射电流的切向分量。用跨界薄柱积分连续性方程：稳恒时界面电荷不再积累，薄柱侧面的电流在高度趋零时消失，因此
+\[
+ j_{2n}-j_{1n}=0,\qquad j_{1n}=j_{2n}\equiv j_n.
+\]
+再用跨界窄矩形回路积分静电场，得到$E_{1t}=E_{2t}\equiv E_t$。各向同性欧姆关系给出
+\[
+ j_{1t}=\sigma_1E_t,\quad j_{2t}=\sigma_2E_t,\quad
+ E_{1n}=\frac{j_n}{\sigma_1},\quad E_{2n}=\frac{j_n}{\sigma_2}.
+\]
+角度从法线量起，故$\tan\theta_i=j_{it}/j_n$。两式相除得
+\[
+ \boxed{\tan\theta_2=\frac{\sigma_2}{\sigma_1}\tan\theta_1}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[curve](-2.4,0)--(2.7,0);
+\draw[axis](0,1.7)--(0,-1.9)node[below]{$\vct n$};
+\draw[axis](-.8,1.2)--(0,0)node[pos=0,above left]{$\vct j_1$};
+\draw[axis](0,0)--(1.7,-1.2)node[right]{$\vct j_2$};
+\draw[guide](-.8,1.2)--(0,1.2);\draw[guide](1.7,-1.2)--(0,-1.2);
+\node[right]at(0,1.2){$j_n$};\node[left]at(0,-1.2){$j_n$};
+\draw[curve](0,-.65)arc(-90:-35.2:.65);\node at(.52,-.68){$\theta_2$};
+\node at(-1.35,-1.7){$\sigma_2>\sigma_1$};
+
+\end{tikzpicture}
+\caption{法向电流不变，切向分量按电导率变化。}\label{fig:c1-interface-s}
+\end{figure}
+图~\ref{fig:c1-interface-s}中两侧法向电流分量等长；若$\sigma_2>\sigma_1$，切向电流增大，$\theta_2>\theta_1$，电流线更贴近界面。法向电场则减小，不能把电流的折向关系直接照搬为介电折射公式。
+
+同一法向下，Gauss定律给总面电荷密度
+\[
+ \boxed{\sigma_{\rm tot}=\epsilon_0(E_{2n}-E_{1n})
+ =\epsilon_0j_n\left(\frac1{\sigma_2}-\frac1{\sigma_1}\right)}.
+\]
+这里的总量包含自由与束缚电荷。若另给介电常数，位移矢量的边界条件给
+\[
+ \sigma_f=D_{2n}-D_{1n}
+ =j_n\left(\frac{\epsilon_2}{\sigma_2}-\frac{\epsilon_1}{\sigma_1}\right),\qquad
+ \sigma_b=\sigma_{\rm tot}-\sigma_f.
+\]
+界面存在不变的面电荷与电流连续并不矛盾：连续性方程要求的是其时间导数为零。特别地，$\epsilon_1/\sigma_1=\epsilon_2/\sigma_2$只保证自由面电荷为零，总面电荷仍须由电场跳变判断。
+\end{solution}
+
+
+\section{非均匀材料中的电荷与电流}
+稳恒导电体内可以存在不随时间变化的自由电荷。$\nabla\cdot\vct j=0$只规定电流密度无散，材料参数不均匀时电场仍可有散度。在线性各向同性材料中，$\vct D=\epsilon\vct E=(\epsilon/\sigma)\vct j$，用乘积法则得
+\[
+ \boxed{\rho_f=\nabla\cdot\vct D
+ =\frac{\epsilon}{\sigma}\nabla\cdot\vct j
+ +\vct j\cdot\nabla\left(\frac{\epsilon}{\sigma}\right)
+ =\vct j\cdot\nabla\left(\frac{\epsilon}{\sigma}\right)}.
+\]
+该式用于参数连续变化的体内；遇到突变界面，另用面电荷条件。若$\epsilon/\sigma$沿电流线不变，体自由电荷为零；若它沿电流线减小，则体自由电荷为负。即使$\sigma$均匀，空间变化的$\epsilon$也可使$\rho_f\ne0$。
+
+总电荷密度为$\epsilon_0\nabla\cdot\vct E$，束缚电荷等于总量减去自由量。计算时先由$\sigma$和边界求电场，再由介电参数求电荷。非均匀材料中的自由体电荷是否为零，应由这个场解确定。
+
+\Needspace{6\baselineskip}
+\begin{example}[分层直柱中的连续体电荷]\label{ex:c1-charge-volume}
+长$l$、截面$S$的直柱侧面绝缘，$\sigma(x)=\sigma_0(1+x/l)$，介电常数$\epsilon$为常量，两端电压$U>0$。在一维模型下求电流、电场和体自由电荷。 见图~\ref{fig:c1-charge-volume-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(B)at(4,0);
+\draw[curve](0,-.5)rectangle(4,.5);
+\draw[axis](.4,.9)--(1.7,.9)node[above]{$I$};
+\draw[<->](0,-.9)--(4,-.9)node[midway,below]{$l$};
+\node at(2,0){$\sigma,S$};
+\node at(2,-1.5){$\sigma(x)=\sigma_0(1+x/l)$};
+\end{tikzpicture}
+\caption{材料沿轴连续变化，侧面无电流穿出。}\label{fig:c1-charge-volume-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-charge-volume-q}中侧面绝缘。取任意两截面之间的柱段，稳恒时净流入电流为零，故每一截面流过同一个$I$。截面$S$不变，于是$j=I/S$也不随$x$变化。沿正$x$方向取电压降为正，局部欧姆定律给
+\[
+ E(x)=\frac{j}{\sigma_0(1+x/l)},\qquad
+ U=\int_0^lE(x)\dd x
+ =\frac{jl}{\sigma_0}\int_1^2\frac{\dd u}{u}
+ =\frac{jl}{\sigma_0}[\ln u]_1^2
+ =\frac{jl\ln2}{\sigma_0}.
+\]
+这里取$u=1+x/l$，故$\dd x=l\dd u$，而$x=0,l$分别对应$u=1,2$。
+由此确定归一化常数：
+\[
+ \boxed{I=\frac{\sigma_0SU}{l\ln2}},\qquad
+ E(x)=\frac{U}{l\ln2}\frac1{1+x/l}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,-.1)--(0,2)node[above]{$E$};
+\draw[curve,domain=0:4,samples=70]plot(\x,{1/(1+\x/4)});\node[right]at(2.5,1.4){$E\propto(1+x/l)^{-1}$};
+\end{tikzpicture}
+\caption{沿轴的电场下降率给出体自由电荷，电流密度保持不变。}\label{fig:c1-charge-volume-s}
+\end{figure}
+图~\ref{fig:c1-charge-volume-s}的电场从$E(0)=U/(l\ln2)$降到$E(l)=E(0)/2$。对场函数求导时，链式法则给
+\[
+ E'(x)=\frac{U}{l\ln2}[-(1+x/l)^{-2}]\frac1l.
+\]
+一维模型中$\rho_f=\dd D_x/\dd x$，且$\epsilon$为常量，故
+\[
+ \boxed{\rho_f(x)=\epsilon E'(x)
+ =-\frac{\epsilon U}{l^2\ln2}\frac1{(1+x/l)^2}}.
+\]
+负号来自电场沿电流方向减小。对体电荷积分时仍须乘横截面积：
+\[
+ Q_{\rm bulk}=S\int_0^l\rho_f\dd x
+ =S\epsilon[E(l)-E(0)]
+ =-\frac{\epsilon SU}{2l\ln2}.
+\]
+这只是材料内部的自由电荷；两端电极及外表面的电荷没有包括在内。体内有静止的电荷分布，并不表示电流在某处积累，因为$\partial_xj=0$。
+
+耗散也与端口结果一致：$P=S\int_0^ljE\dd x=jSU=IU$。积分中的场不均匀，不能用某一端的电场直接乘整个长度代替电压。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[均匀介质中的电荷弛豫]\label{ex:c1-relax}
+均匀无限介质具有常量$\sigma,\epsilon$。初始有一个总电荷为零的局域自由电荷分布$\rho_f(\vct r,0)$，无外加电流源。忽略电磁传播延迟，求电荷分布的时间变化。 见图~\ref{fig:c1-relax-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,-1.2)rectangle(2,1.2);\node at(-.8,.3){$+$};\node at(.8,-.3){$-$};\node[below]at(0,-1.2){$\sigma,\epsilon$};
+\end{tikzpicture}
+\caption{局部正、负电荷通过导电电流重新分布，整体净电荷为零。}\label{fig:c1-relax-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-relax-q}的正、负电荷区都在同一均匀材料中。没有体电流源，局部电荷守恒为
+\[
+ \frac{\partial\rho_f}{\partial t}+\nabla\cdot\vct j=0.
+\]
+这里$\sigma$为空间常量，故$\nabla\cdot\vct j=\sigma\nabla\cdot\vct E$；又因$\epsilon$为常量，$\nabla\cdot\vct E=\rho_f/\epsilon$。代入得
+\[
+ \frac{\partial\rho_f}{\partial t}=-\frac{\sigma}{\epsilon}\rho_f.
+\]
+固定空间点$\vct r$后，这是关于$t$的一阶方程。记非零初值为$\rho_0=\rho_f(\vct r,0)$。分离变量并使用初值，得到
+\[
+ \int_{\rho_0}^{\rho_f(\vct r,t)}\frac{\dd u}{u}
+ =-\frac{\sigma}{\epsilon}\int_0^t\dd s,
+ \qquad
+ [\ln|u|]_{\rho_0}^{\rho_f}=-\frac{\sigma t}{\epsilon}.
+\]
+非零解不穿过零，符号与初值相同，因而指数化后$\rho_f/\rho_0=\ee^{-\sigma t/\epsilon}$。初值为零时常数解$\rho_f=0$也包含在同一个结果中：
+\[
+ \boxed{\rho_f(\vct r,t)=\rho_f(\vct r,0)\ee^{-t/\tau_d}},\qquad
+ \boxed{\tau_d=\epsilon/\sigma}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[axis](-2.8,0)--(2.9,0)node[right]{$x$};
+\draw[axis](0,-1.3)--(0,1.45)node[above]{$\rho_f/\rho_*$};
+\draw[curve,domain=-2.6:2.6,samples=120]plot(\x,{exp(-2*(\x+1)^2)-exp(-2*(\x-1)^2)});
+\draw[dashed,domain=-2.6:2.6,samples=120]plot(\x,{exp(-1)*(exp(-2*(\x+1)^2)-exp(-2*(\x-1)^2))});
+\draw[dotted,domain=-2.6:2.6,samples=120]plot(\x,{exp(-2)*(exp(-2*(\x+1)^2)-exp(-2*(\x-1)^2))});
+\node[align=left,anchor=west]at(1,1.05){实线：$t=0$\\虚线：$t=\tau_d$\\点线：$t=2\tau_d$};
+\node at(0,-1.65){$\rho_f(x,t)=\rho_f(x,0)\ee^{-t/\tau_d}$};
+
+\end{tikzpicture}
+\caption{正、负电荷区幅值按同一时间因子衰减；图示关于原点反对称、总电荷为零的初始分布。}\label{fig:c1-relax-s}
+\end{figure}
+图~\ref{fig:c1-relax-s}中的正峰下降、负峰上升到零，两者的幅值乘同一因子。正电荷区有净流出，负电荷区有净流入；电荷并未在材料中消灭。在题设的均匀、无限、准静态模型内，空间形状保持而幅度衰减。
+
+对全空间积分，$Q(t)=\ee^{-t/\tau_d}Q(0)=0$，与无穷远没有净电荷流出的条件相容。若初始净电荷不为零，就须另行说明边界或无穷远处的电荷输运，不能把局部衰减式解释为总电荷自行减少。$\tau_d$由连续性与介电响应决定，与载流子的动量弛豫时间$\tau$不是同一时间尺度；忽略传播延迟也是本题的必要近似。
+\end{solution}
+\subsection{边值解的唯一性}
+对固定正电导率$\sigma(\vct r)>0$，设两个电位解满足同样的电极电位与绝缘边界，其差$w$满足$\nabla\cdot(\sigma\nabla w)=0$。分部积分使用散度的乘积公式：
+\[\nabla\cdot(w\sigma\nabla w)
+=\sigma|\nabla w|^2+w\nabla\cdot(\sigma\nabla w)
+=\sigma|\nabla w|^2.\]
+对体积积分，再由Gauss定理将左边变为边界通量，得到
+\[
+ \int_V\sigma|\nabla w|^2\dd V
+ =\oint_{\partial V}w\sigma\partial_nw\,\dd S=0.
+\]
+在定势电极上$w=0$，在绝缘边界上$\partial_nw=0$，故边界项消失。被积量非负，推出$\nabla w=0$；参考电极再固定常数。因此，只要像源法给出的势满足全部边界和实际源强，它就是所求解。若所有边界都是绝缘，电位常数仍任意，且净注流必须为零。
+
+镜像源可以放在实际导电区域之外，用来构造区域内满足方程和边界的势函数。唯一性保证这个构造给出所求解；像源若落入实际材料，则会引入额外奇性和电流源，改变原问题。
+
+\Needspace{6\baselineskip}
+\begin{example}[两层大地中的径向电流]\label{ex:c1-layer-earth}
+半球电极半径$a$，以其球心为中心，$a<r<b$的半球层电导率$\sigma_1$，$r>b$为$\sigma_2$。地面其余部分绝缘。求接地电阻及界面自由面电荷，介电常数分别为$\epsilon_1,\epsilon_2$。 见图~\ref{fig:c1-layer-earth-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](-3,0)rectangle(3,-2.5);
+\draw[curve](-3,0)--(3,0);
+\draw[curve](0,0)++(180:.6)arc(180:360:.6);
+\foreach \a in {205,235,265,295,325,350}{\draw[axis](\a:.85)--(\a:2.2);}
+\draw[<->](0,-.25)--(.6,-.25)node[midway,below]{$a$};
+\node at(2,-2.1){$\sigma_2,\epsilon_2$};\draw[axis](0,.8)--(0,.1)node[midway,right]{$I$};
+\draw[guide](0,0)++(180:1.5)arc(180:360:1.5);\node at(1.1,-1.6){$b$};
+\node[fill=gray!10,inner sep=2pt] at(-.8,-.8){$\sigma_1,\epsilon_1$};
+\end{tikzpicture}
+\caption{分层面与电流等势面同心，因此保持严格径向对称。}\label{fig:c1-layer-earth-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-layer-earth-q}中，绝缘地面不让电流穿出，同心分层又保持半球对称。任意半径$r$的半球面面积为$2\pi r^2$，其外向电流通量都等于$I$，所以
+\[
+ j_r(r)=\frac{I}{2\pi r^2},\qquad
+ E_i(r)=\frac{I}{2\pi\sigma_i r^2}.
+\]
+以无穷远为零势，从电极向外分别积分两层的电压降：
+\[
+ \begin{aligned}
+ U_1&=\int_a^bE_1\dd r=\frac{I}{2\pi\sigma_1}[-r^{-1}]_a^b
+ =\frac{I}{2\pi\sigma_1}\left(\frac1a-\frac1b\right),\\
+ U_2&=\lim_{L\to\infty}\frac{I}{2\pi\sigma_2}[-r^{-1}]_b^L
+ =\frac{I}{2\pi\sigma_2b}.
+ \end{aligned}
+\]
+两层通过相同$I$，电压相加，故
+\[
+ \boxed{R_g=\frac{U_1+U_2}{I}
+ =\frac1{2\pi}\left[\frac1{\sigma_1}\left(\frac1a-\frac1b\right)
+ +\frac1{\sigma_2b}\right]}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);
+\Res{n0}{n1}{R_1}
+\Res{n1}{n2}{R_2}
+\fill(n0)circle(1.5pt)node[below]{$a$};
+\fill(n1)circle(1.5pt)node[below]{$b$};
+\fill(n2)circle(1.5pt)node[below]{$\infty$};
+\node at(2,1.2){$R_1=(a^{-1}-b^{-1})/(2\pi\sigma_1)$};\node at(2,-1.2){$R_2=1/(2\pi\sigma_2b)$};
+\end{tikzpicture}
+\caption{两层的径向电压依次串联，界面电荷保证法向电流连续。}\label{fig:c1-layer-earth-s}
+\end{figure}
+图~\ref{fig:c1-layer-earth-s}中，界面法向从内层指向外层。场的跳变由同一法向电流确定，故
+\[
+ \boxed{\sigma_f(b)=D_{2r}-D_{1r}
+ =\frac{I}{2\pi b^2}\left(\frac{\epsilon_2}{\sigma_2}
+ -\frac{\epsilon_1}{\sigma_1}\right)}.
+\]
+面密度处处相同，总自由面电荷为$Q_f=2\pi b^2\sigma_f(b)$。电势在界面连续，连续的不是法向电场；若误令$D_r$也连续，就会额外排除本题所需的界面自由电荷。
+
+当$\sigma_1=\sigma_2=\sigma$时，两项合成$R_g=1/(2\pi\sigma a)$；当$b\to a$时，近层贡献消失；当$\sigma_2\to\infty$时，仍留下近层电阻。比较两层的$U_1,U_2$即可判断主要压降落在哪一层；层厚与通流面积的变化须一并计入。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[扇形薄片的径向与周向电阻]\label{ex:c1-wedge}
+均匀薄片厚$h$、电导率$\sigma$，占极坐标$a<r<b,0<\phi<\Theta$。分别求内外圆弧作电极、两条径向边绝缘时的电阻，以及两条径向边作电极、两圆弧绝缘时的电阻。 见图~\ref{fig:c1-wedge-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0:1)arc(0:70:1)--(70:3)arc(70:0:3)--cycle;
+\draw[guide](0,0)--(70:3.3);\draw[guide](0,0)--(3.3,0);
+\node at(30:2){$h,\sigma$};\node at(.6,.3){$\Theta$};
+\node[below]at(1,0){$a$};\node[below]at(3,0){$b$};
+\end{tikzpicture}
+\caption{同一片材料改变电极与绝缘边界后，电流线方向改变。}\label{fig:c1-wedge-q}
+\end{figure}
+\begin{solution}
+先取图~\ref{fig:c1-wedge-q}的内、外圆弧为电极。电势只依赖$r$，每一薄圆弧面都是等势面，半径$r$处的通流截面积为$h\Theta r$。同一电流依次通过各薄层，因此串联相加：
+\[
+ \dd R=\frac{\dd r}{\sigma h\Theta r},\qquad
+ R_r=\frac1{\sigma h\Theta}\int_a^b\frac{\dd r}{r}
+ =\frac{[\ln r]_a^b}{\sigma h\Theta}
+ =\frac{\ln(b/a)}{\sigma h\Theta}.
+\]
+若令内弧电势为$U$、外弧为零，相应电势与场为
+\[
+ \varphi(r)=U\frac{\ln(b/r)}{\ln(b/a)},\qquad
+ E_r=\frac{U}{r\ln(b/a)}.
+\]
+径向边的法向沿周向，$E_\phi=0$，因而确实满足绝缘条件。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0:1)arc(0:70:1)--(70:3)arc(70:0:3)--cycle;
+\foreach \rr in {1.3,1.8,2.3,2.8}{\draw[axis](0:\rr)arc(0:55:\rr);}
+\node at(2,-.7){$\dd G=\sigma h\,\dd r/(r\Theta)$};
+\end{tikzpicture}
+\caption{周向细带并联，应累加电导；径向薄层串联，应累加电阻。}\label{fig:c1-wedge-s}
+\end{figure}
+改取两条径向边为电极时，图~\ref{fig:c1-wedge-s}的等势线沿径向。固定$r$、宽$\dd r$的细带路径长$r\Theta$，截面为$h\dd r$，故
+\[
+ \dd R_{\rm band}=\frac{r\Theta}{\sigma h\dd r},\qquad
+ \dd G=\frac{\sigma h}{\Theta r}\dd r.
+\]
+每一细带的两端分别接同一对电极，电压相同，必须累加电导：
+\[
+ G_\phi=\int_a^b\dd G=\frac{\sigma h}{\Theta}[\ln r]_a^b
+ =\frac{\sigma h}{\Theta}\ln\frac ba,
+ \qquad
+ \boxed{R_\phi=\frac{\Theta}{\sigma h\ln(b/a)}}.
+\]
+此时$\varphi=U(1-\phi/\Theta)$，$E_\phi=U/(r\Theta)$、$E_r=0$，两圆弧的绝缘条件也得到满足。两组解都符合材料方程和全部边界，故在给定电极电位下是唯一解。
+
+最终$R_rR_\phi=1/(\sigma h)^2$。改变电极后，串并联方式和电流方向同时改变；这一乘积关系依赖本题的扇形几何与均匀面电导，不能直接推广到任意缺口薄片。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[两个半球电极之间的互阻]\label{ex:c1-pair-earth}
+大地均匀电导率$\sigma$，地面绝缘；两个半球电极半径均为$a$，球心在地面，相距$d\gg a$。从一极注入$I$，另一极抽出$I$。保留自势和另一电极的点源主项，求两极电阻。 见图~\ref{fig:c1-pair-earth-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1,0)--(6,0);
+\draw[curve](0,0)++(180:.4)arc(180:360:.4);
+\draw[curve](5,0)++(180:.4)arc(180:360:.4);
+\draw[<->](0,.8)--(5,.8)node[midway,above]{$d$};
+\node[above]at(0,0){$+I$};\node[above]at(5,0){$-I$};
+\end{tikzpicture}
+\caption{电源与回流电极都在有限位置，远区是源汇合成场。}\label{fig:c1-pair-earth-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-pair-earth-q}的地面绝缘，流过以注流点为中心的半球面的总电流为$I$。由$2\pi r^2\sigma E_r=I$并取无穷远零势，得到地表点源的势
+\[
+ \varphi_{\rm source}(r)=\int_r^\infty\frac{I}{2\pi\sigma s^2}\dd s
+ =\frac{I}{2\pi\sigma}\lim_{L\to\infty}[-s^{-1}]_r^L
+ =\frac{I}{2\pi\sigma r}.
+\]
+它也等于全空间点源与同号像源在导电半空间中的叠加。回流电极是强度$-I$的汇，故在远离有限电极的区域可写
+\[
+ \varphi\simeq\frac{I}{2\pi\sigma}
+ \left(\frac1{r_A}-\frac1{r_B}\right).
+\]
+在$A$电极表面，自势取$r_A=a$，另一电极的距离在本阶近似中取$d$，于是
+\[
+ U_A\simeq\frac{I}{2\pi\sigma}\left(\frac1a-\frac1d\right),\qquad
+ U_B\simeq\frac{I}{2\pi\sigma}\left(\frac1d-\frac1a\right)=-U_A.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$d$};\draw[axis](0,-.1)--(0,2)node[above]{$R/(2R_g)$};
+\draw[curve,domain=1:4,samples=70]plot(\x,{1-1/(3*\x)});\draw[guide](0,1)--(4.5,1);\node[right]at(2,1.5){$R\simeq2R_g-1/(\pi\sigma d)$};
+\end{tikzpicture}
+\caption{两极相距很远时接近独立自阻之和，互阻修正随$1/d$减小。}\label{fig:c1-pair-earth-s}
+\end{figure}
+图~\ref{fig:c1-pair-earth-s}比较的是两个有限位置电极之间的电阻，端口电压应为$U_A-U_B$，而非一个电极对无穷远的电势。因此
+\[
+ \boxed{R_{AB}=\frac{U_A-U_B}{I}
+ \simeq\frac1{\pi\sigma}\left(\frac1a-\frac1d\right)},\qquad d\gg a.
+\]
+$d\to\infty$时得到两个独立接地自阻之和$1/(\pi\sigma a)$；有限间距的互势修正为负，源汇之间不必再分别把全部电流送到无穷远。
+
+这里仅把另一电极的入射势保留到球心处的常量项。其在电极表面的变化及为维持等势而产生的高阶响应没有保留，故$d$接近$2a$时近似失效，不能由公式外推电极接触时的电阻。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[两导电半空间的像源系数]\label{ex:c1-interface-image}
+平面$z=0$分隔电导率$\sigma_1,\sigma_2$，点电流源$I$位于介质1内距界面$h$处。界面无接触电阻。求介质1中的像源和介质2中的等效透射源。 见图~\ref{fig:c1-interface-image-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-3,0)--(3,0);\fill(0,1.2)circle(1.7pt)node[right]{$I,\ z=h$};
+\node at(-2,1){$\sigma_1$};\node at(-2,-1){$\sigma_2$};
+\draw[draw=black,fill=white](0,-1.2)circle(2pt)node[right,text=black]{$I',\ z=-h$};
+\end{tikzpicture}
+\caption{像源位于介质2一侧，只用于构造介质1内的电势。}\label{fig:c1-interface-image-q}
+\end{figure}
+\begin{solution}
+按图~\ref{fig:c1-interface-image-q}取源点$\vct a=(0,0,h)$，像点$\vct a'=(0,0,-h)$，介质1在$z>0$。在无穷远零势且界面没有接触电阻时，设
+\[
+ \varphi_1=\frac1{4\pi\sigma_1}\left(\frac I{|\vct r-\vct a|}+\frac{I'}{|\vct r-\vct a'|}\right),\qquad
+ \varphi_2=\frac{I_t}{4\pi\sigma_2|\vct r-\vct a|}.
+\]
+第二式的等效源在介质2之外，因此不会在介质2内引入新的注流点。在界面上，两距离相等，电势连续要求
+\[
+ \frac{I+I'}{\sigma_1}=\frac{I_t}{\sigma_2}.
+\]
+为确定另一个条件，记界面点到源点的距离为$s$。若$\varrho^2=x^2+y^2$，链式求导给
+\[
+ \frac{\partial}{\partial z}[\varrho^2+(z\mp h)^2]^{-1/2}
+ =-\frac12[\varrho^2+(z\mp h)^2]^{-3/2}\,2(z\mp h).
+\]
+因此两个核函数在$z=0$分别给出$h/s^3$与$-h/s^3$。由$j_z=-\sigma\partial_z\varphi$可得
+\[
+ j_{1z}=-\frac{h(I-I')}{4\pi s^3},\qquad
+ j_{2z}=-\frac{hI_t}{4\pi s^3},\qquad I-I'=I_t.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-3,0)--(3,0);\draw[axis](0,1.4)--(0,-1.4)node[below]{$j_n$};
+\draw[axis](-2,1)--(-.8,1)node[above]{$E_t$};\draw[axis](-2,-1)--(-.8,-1)node[below]{$E_t$};
+\node at(1.8,.8){$\varphi_1=\varphi_2$};\node at(1.8,-.8){$j_{1n}=j_{2n}$};
+\end{tikzpicture}
+\caption{电位及切向电场连续，法向电流连续；两种条件分别确定两个未知源强。}\label{fig:c1-interface-image-s}
+\end{figure}
+图~\ref{fig:c1-interface-image-s}中的法向电流连续，并不要求法向场连续。将$I_t=I-I'$代入电势条件，整理得
+\[
+ \sigma_2(I+I')=\sigma_1(I-I'),\qquad
+ \boxed{I'=\frac{\sigma_1-\sigma_2}{\sigma_1+\sigma_2}I},\qquad
+ \boxed{I_t=\frac{2\sigma_2}{\sigma_1+\sigma_2}I}.
+\]
+当两电导率相等时像源消失，恢复均匀空间；$\sigma_2\to0$时$I'\to I$，界面成为绝缘面；$\sigma_2\to\infty$时$I'\to-I$，界面电势趋于零。这三个极限分别核对了源强、绝缘条件和等势条件。
+\end{solution}
+
+
+\section{导电与静电的边值类比}\label{sec:c1-analogy}
+两类问题可具有相同的微分方程，电极与绝缘边界仍须逐一匹配。先比较源、边界和远处条件，再移用已知解。
+
+在均匀材料的无源区，导电势与静电势都满足Laplace方程。把静电源强$q/\epsilon_0$换成电流源强$I/\sigma$，可移用相应Green函数；边界条件仍须逐项匹配。
+
+理想金属接触面为等势面，切向电场为零。导电体与绝缘体相接且无电流流出时，$j_n=0$，所以有限$\sigma$下$E_n=0$，这是Neumann条件。两者分别对应固定势与固定法向导数，不能只因图形相同就用同一组像源。若边界都绝缘，还须使全部注入电流之和为零，否则不存在稳恒解。
+
+点源的归一化由球面通量决定：
+\[
+ \oint\vct j\cdot\dd\vct S=I,\qquad
+ \varphi=\frac{I}{4\pi\sigma r},\qquad
+ \vct j=\frac{I}{4\pi r^2}\vct e_r.
+\]
+点源的自势发散，电阻问题须给出有限电极尺寸。以电极半径截去近场奇性有明确物理含义，不能把积分下限任意取成零。
+
+\Needspace{6\baselineskip}
+\begin{example}[半球形接地电极]\label{ex:c1-earth}
+均匀大地占$z<0$，电导率为$\sigma$。半径$a$的理想导体半球埋在地面，球心位于地面。其余地面绝缘，电流$I$流向无穷远。求电势、接地电阻及功率。 见图~\ref{fig:c1-earth-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](-3,0)rectangle(3,-2.5);
+\draw[curve](-3,0)--(3,0);
+\draw[curve](0,0)++(180:.6)arc(180:360:.6);
+\foreach \a in {205,235,265,295,325,350}{\draw[axis](\a:.85)--(\a:2.2);}
+\draw[<->](0,-.25)--(.6,-.25)node[midway,below]{$a$};
+\node at(2,-2.1){$\sigma$};\draw[axis](0,.8)--(0,.1)node[midway,right]{$I$};
+
+\end{tikzpicture}
+\caption{电流在下半空间展开，同心半球是等势面。}\label{fig:c1-earth-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-earth-q}的电极和绝缘平面关于中心具有半球对称性。取半径$r\ge a$的半球面，由电流连续性，穿过它的外向电流为$I$，所以
+\[
+ 2\pi r^2j_r=I,\qquad j_r=\frac I{2\pi r^2},\qquad E_r=\frac I{2\pi\sigma r^2}.
+\]
+场沿径向，在地表的方向与地表相切，满足未被电极覆盖处$j_n=0$；在$r=a$处电势处处相同，也符合金属电极的条件。取$\varphi(\infty)=0$，有
+\[
+ \varphi(r)-\varphi(\infty)=\int_r^\infty E_s\dd s
+ =\frac I{2\pi\sigma}\lim_{L\to\infty}[-s^{-1}]_r^L
+ =\frac I{2\pi\sigma r},\qquad
+ \boxed{R_g=\frac{\varphi(a)}I=\frac1{2\pi\sigma a}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](-3,0)rectangle(3,-2.5);
+\draw[curve](-3,0)--(3,0);
+\draw[curve](0,0)++(180:.6)arc(180:360:.6);
+\foreach \a in {205,235,265,295,325,350}{\draw[axis](\a:.85)--(\a:2.2);}
+\draw[<->](0,-.25)--(.6,-.25)node[midway,below]{$a$};
+\node at(2,-2.1){$\sigma$};\draw[axis](0,.8)--(0,.1)node[midway,right]{$I$};
+\draw[guide](0,0)++(190:1.5)arc(190:350:1.5);\node at(-2,-2.2){$\dd R=\dd r/(2\pi\sigma r^2)$};
+\end{tikzpicture}
+\caption{薄半球壳按径向串联，几何面积随半径平方增大。}\label{fig:c1-earth-s}
+\end{figure}
+图~\ref{fig:c1-earth-s}将空间分成薄半球层。每层面积$2\pi r^2$，其电阻$\dd R=\dd r/(2\pi\sigma r^2)$，同一电流依次通过各层，故压降可以串联相加。
+
+局部焦耳热密度为$j^2/\sigma$，薄层体积为$2\pi r^2\dd r$。因此
+\[
+ P=\int_a^\infty\frac{j_r^2}{\sigma}\,2\pi r^2\dd r
+ =\frac{I^2}{2\pi\sigma}\int_a^\infty\frac{\dd r}{r^2}
+ =\frac{I^2}{2\pi\sigma}\lim_{L\to\infty}[-r^{-1}]_a^L
+ =\boxed{I^2R_g}.
+\]
+积分权重为$r^{-2}$，电极附近承担较多压降和发热。若电流能向整个空间扩散，同一$r$处面积变成$4\pi r^2$，相同半径的球形电极电阻便减半；这个因子来自通流立体角，不能在两种模型间混用。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[两层同心球壳中的稳恒电流与界面电荷]\label{ex:c1-shell}
+半径$r_1,r_2,r_3$的同心球面分隔两层均匀导电介质，$r_1<r_2<r_3$，参数为$(\sigma_1,\epsilon_1)$、$(\sigma_2,\epsilon_2)$。内外球面为理想金属电极，电势分别为$U,0$。求电流、场、三个界面上的自由与束缚面电荷，以及两层中的体电荷。 见图~\ref{fig:c1-shell-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.65);\draw[curve](0,0)circle(2);\draw[curve](0,0)circle(1.3);\node at(.95,.2){$1$};\node at(1.65,.2){$2$};\fill(0,0)circle(1pt)node[below]{$O$};
+\draw[axis](0,0)--(35:2.5)node[right]{$r$};
+\foreach \a in {75,130,190,250,310}{\draw[axis](\a:.8)--(\a:1.2);}
+\node[above]at(0,.65){$r_1$};\node[above]at(0,2){$r_3$};
+\node[above left]at(0,1.3){$r_2$};
+\end{tikzpicture}
+\caption{同一径向电流依次通过两层，法向统一沿半径向外。}\label{fig:c1-shell-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-shell-q}中任一同心球面都包围同一注流源，因此
+\[
+ j_r=\frac I{4\pi r^2},\qquad
+ E_{ir}=\frac I{4\pi\sigma_i r^2}.
+\]
+两层分别积分，所用原函数为$\int r^{-2}\dd r=-1/r$。因此
+\[
+ U=\frac I{4\pi\sigma_1}[-r^{-1}]_{r_1}^{r_2}
+ +\frac I{4\pi\sigma_2}[-r^{-1}]_{r_2}^{r_3},
+\]
+代入上下限，电压相加为
+\[
+ U=\frac I{4\pi}\left[
+ \frac1{\sigma_1}\left(\frac1{r_1}-\frac1{r_2}\right)
+ +\frac1{\sigma_2}\left(\frac1{r_2}-\frac1{r_3}\right)\right].
+\]
+将方括号记为$K$，便有$\boxed{I=4\pi U/K}$。
+给定$r$处的电势可从外电极积分：在第二层，
+$\varphi_2=I(1/r-1/r_3)/(4\pi\sigma_2)$；
+在第一层，从$r$到$r_2$的压降与整个第二层压降串联，故
+\[
+ \varphi_1(r)=\frac I{4\pi\sigma_1}
+ \left(\frac1r-\frac1{r_2}\right)
+ +\frac I{4\pi\sigma_2}
+ \left(\frac1{r_2}-\frac1{r_3}\right).
+\]
+两式在$r_2$给同一个电势，内、外电极也分别满足$U,0$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.65);\draw[curve](0,0)circle(2);\draw[curve](0,0)circle(1.3);\node at(.95,.2){$1$};\node at(1.65,.2){$2$};\fill(0,0)circle(1pt)node[below]{$O$};
+\draw[axis](0,0)--(35:2.5)node[right]{$r$};
+\foreach \a in {75,130,190,250,310}{\draw[axis](\a:.8)--(\a:1.2);}
+\node[above]at(0,.65){$r_1$};\node[above]at(0,2){$r_3$};
+\node[above left]at(0,1.3){$r_2$};\draw[axis](.65,0)--(.25,0);\node[left]at(-.65,-.65){$\vct n_{1,\rm in}$};
+\draw[axis](1.3,-.25)--(1.75,-.25);\draw[axis](2,-.6)--(2.45,-.6);
+\node at(0,-2.55){$D_n$跳跃给自由电荷，$P_n$给介质面电荷};
+\end{tikzpicture}
+\caption{内侧介质面的外法向向内；电极自由电荷与介质束缚电荷应分开定义。}\label{fig:c1-shell-s}
+\end{figure}
+
+图~\ref{fig:c1-shell-s}用箭头标出介质各面的外法向。记
+$J_k=I/(4\pi r_k^2)$、
+$\alpha_i=(\epsilon_i-\epsilon_0)/\sigma_i$，则$D_{ir}=\epsilon_i j_r/\sigma_i$、
+$P_{ir}=\alpha_i j_r$。以实际电极电荷和介质表面电荷分别列出，结果为
+\[
+ \begin{array}{c|ccc}
+ &r_1&r_2&r_3\\ \hline
+ \sigma_f&
+ \epsilon_1J_1/\sigma_1&
+ (\epsilon_2/\sigma_2-\epsilon_1/\sigma_1)J_2&
+ -\epsilon_2J_3/\sigma_2\\
+ \sigma_b&
+ -\alpha_1J_1&
+ (\alpha_1-\alpha_2)J_2&
+ \alpha_2J_3
+ \end{array}
+\]
+第一、三列的自由电荷分别属于内电极外面、外电极内面；束缚电荷属于介质一侧。中间界面的束缚电荷取两种材料相向表面的和。
+这些符号可逐面确定。在$r_1$处，内金属中的$\vct D=0$，从金属指向介质的法向为$\vct e_r$，故电极自由面电荷为$D_{1r}$；介质内表面的外法向为$-\vct e_r$，束缚面电荷为$-\vct P_1\cdot\vct e_r$。在$r_3$处，外电极内表面的金属外法向为$-\vct e_r$，所以自由电荷为$-D_{2r}$，介质外表面束缚电荷为$P_{2r}$。在$r_2$处，薄柱跨界给自由电荷$D_{2r}-D_{1r}$，两介质表面的束缚电荷相加为$P_{1r}-P_{2r}$。
+三列相加分别给出$\epsilon_0E_1(r_1)$、
+$\epsilon_0[E_2(r_2)-E_1(r_2)]$、$-\epsilon_0E_2(r_3)$，符合法向场跳跃。
+
+在每层内部，$r^2D_r$与$r^2P_r$都是常量，所以
+\[
+ \rho_f=\frac1{r^2}\frac{\dd(r^2D_r)}{\dd r}=0,\qquad
+ \rho_b=-\frac1{r^2}\frac{\dd(r^2P_r)}{\dd r}=0.
+\]
+自由电荷可以集中在界面而体内为零；这与有持续电流并不矛盾。以上结果按给定的恒定参数建立，若$\sigma(r)$变化，则一般会出现非零体电荷。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[导电球内的偏心点源与小球电极]\label{ex:c1-offcenter}
+半径$R$的均匀导电球电导率为$\sigma$，整个球面包覆理想导体并接回流端，取其电势为零。内部$A$距球心$d<R$，向球体注入电流$I$。先求点源模型的$\vct j$；再将$A$换成半径$a\ll R-d$的小球电极，求电阻的主阶近似，并讨论沿轴积分的含义。 见图~\ref{fig:c1-offcenter-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(2);\coordinate(O)at(0,0);\coordinate(A)at(.7,0);\coordinate(Ap)at(5.714,0);
+\fill(O)circle(1.4pt)node[below]{$O$};\fill(A)circle(1.5pt)node[below]{$A$};
+\fill(Ap)circle(1.5pt)node[below]{$A'$};\draw[guide](O)--(Ap);
+\node[above]at(0,2){$\varphi=0$};\node[above]at(A){$I$};
+\draw[<->](0,-.7)--(.7,-.7)node[midway,below]{$d$};\draw[<->](0,0)--(140:2)node[midway,above]{$R$};\end{tikzpicture}
+\caption{负像源位于球外，球内只保留真实注流点。}\label{fig:c1-offcenter-q}
+\end{figure}
+\begin{solution}
+静电接地球的负像在本题中满足相同的Dirichlet边界。图~\ref{fig:c1-offcenter-q}取
+$OA'=R^2/d$、像电流强度$I'=-(R/d)I$。
+这些系数由整个外球面等势确定，而非只匹配轴上一个点。设球面观察点与$OA$夹角为$\theta$，真实源、像源到它的距离平方分别为
+\[
+ s^2=R^2+d^2-2Rd\cos\theta,\quad
+ s'^2=R^2+d'^2-2Rd'\cos\theta.
+\]
+要求$s'/s$与$\theta$无关，比较常数项和$\cos\theta$项，得到$d'=R^2/d$、$s'/s=R/d$。再使两源的势相消，$I'/s'=-I/s$，即$I'=-(R/d)I$。以此构造
+\[
+ \varphi(\vct r)=\frac I{4\pi\sigma}
+ \left(\frac1{|\vct r-\vct a|}
+ -\frac{R/d}{|\vct r-\vct a'|}\right),
+\]
+对任一分量$x_i$，有
+\[
+ \partial_{x_i}|\vct r-\vct a|^{-1}
+ =-\frac12\left[\sum_j(x_j-a_j)^2\right]^{-3/2}2(x_i-a_i)
+ =-\frac{x_i-a_i}{|\vct r-\vct a|^3}.
+\]
+对像源项作同样的分量求导，再用$\vct j=-\sigma\nabla\varphi$，得到
+\[
+ \boxed{\vct j=\frac I{4\pi}
+ \left[\frac{\vct r-\vct a}{|\vct r-\vct a|^3}
+ -\frac Rd\frac{\vct r-\vct a'}{|\vct r-\vct a'|^3}\right]}.
+\]
+球面上$|\vct r-\vct a'|=(R/d)|\vct r-\vct a|$，两势项相消。包围$A$的小球只包围真实源，其通量为$I$，归一化也正确。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(2.5);\draw[curve](1,0)circle(.35);
+\fill(0,0)circle(1pt)node[below left]{$O$};
+\fill(1,0)circle(1pt)node[below left]{$A$};
+\draw[axis](0,0)--(3,0)node[right]{$x$};
+\fill(1.35,0)circle(1.3pt)node[below right]{$P(d+a)$};
+\draw[<->](1,0)--(1,.35);\node[above]at(.7,.5){$a$};
+\draw[<->](0,-.85)--(1,-.85)node[midway,below]{$d$};
+\draw[axis](1.5,.7)--(2.2,1)node[right]{$\vct j$};
+\end{tikzpicture}
+\caption{小球表面等势要求与单一轴点的积分不同，尺寸极限须先说明。}\label{fig:c1-offcenter-s}
+\end{figure}
+
+对图~\ref{fig:c1-offcenter-s}中的有限小电极，真实源的近场势为$I/(4\pi\sigma a)$；像场在其附近光滑，中心处的正则势为
+$-IR/[4\pi\sigma(R^2-d^2)]$。故
+\[
+ \boxed{R_{\rm eq}\simeq\frac1{4\pi\sigma}
+ \left(\frac1a-\frac R{R^2-d^2}\right)},\qquad a\ll R-d.
+\]
+小电极上的表面电荷会调整，以补偿像场的角向变化；$a\ll R-d$保证这一调整只影响更高阶项。
+沿$OA$向外延长线，令$d'=R^2/d$。在$d<x<R$内，
+\[
+ \frac{E_x}{I}=\frac1{4\pi\sigma}
+ \left[\frac1{(x-d)^2}+\frac{R/d}{(d'-x)^2}\right].
+\]
+从$x=d+a$到$R$积分时，两个原函数分别为$-1/(x-d)$与$1/(d'-x)$，因而
+\[
+ \begin{aligned}
+ \frac1I\int_{d+a}^R E_x\dd x
+ &=\frac1{4\pi\sigma}\left[-\frac1{x-d}
+ +\frac{R/d}{d'-x}\right]_{d+a}^{R}\\
+ &=\frac1{4\pi\sigma}\left[
+ \frac1a-\frac R{R^2-d^2-da}\right].
+ \end{aligned}
+\]
+该式给出轴点相对外球面的势差。有限小球的等势电压还须满足整个球面的边界；在$a/(R-d)$很小时，两种计算的主阶相同。$d=0$时应直接用球对称解，得到精确电阻
+$(1/a-1/R)/(4\pi\sigma)$，不必保留发散的像源坐标。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[绝缘平面附近的球形电极]\label{ex:c1-buried}
+电导率$\sigma$的介质占$z>0$，平面$z=0$绝缘。半径$a$的球形电极中心在$(0,0,h)$，$a\ll h$，电流$I$流向远处。求电极电势至镜像主项；若平面改为理想接地金属，结论如何改变？ 见图~\ref{fig:c1-buried-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2.7,0)--(2.7,0);\draw[curve](0,1.4)circle(.24);
+\draw[guide](0,-1.4)circle(.24);\draw[<->](.6,0)--(.6,1.4)node[midway,right]{$h$};
+\node[right]at(.3,1.4){$A$};\node[right]at(.3,-1.4){$A'$};\node at(-1.5,.4){$j_n=0$};
+\end{tikzpicture}
+\caption{绝缘平面用同号像满足零法向电流。}\label{fig:c1-buried-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c1-buried-q}中的平面为$z=0$，真实球心$\vct a=(0,0,h)$，镜像点$\vct a'=(0,0,-h)$。先用点源表示远离小球表面的场。绝缘边界要求$\partial_z\varphi=0$；同号像源在平面上的法向导数相消，故
+\[
+ \varphi(\vct r)=\frac I{4\pi\sigma}
+ \left(\frac1{|\vct r-\vct a|}+\frac1{|\vct r-\vct a'|}\right).
+\]
+第一项在真实球表面给出自势$I/(4\pi\sigma a)$。像源距离球心$2h$，因$a\ll h$，在求电极电位的首个修正项时，可将其入射势取为球心处的常量：
+\[
+ U\simeq\frac I{4\pi\sigma}\left(\frac1a+\frac1{2h}\right),\qquad
+ \boxed{R_{\rm ins}\simeq\frac1{4\pi\sigma}\left(\frac1a+\frac1{2h}\right)}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[xshift=-2.2cm]\draw[curve](-1.4,0)--(1.4,0);\node at(0,1){$+I$};\node at(0,-1){$+I$};\node at(0,-1.8){绝缘：同号像};\end{scope}
+\begin{scope}[xshift=2.2cm]\draw[curve](-1.4,0)--(1.4,0);\node at(0,1){$+I$};\node at(0,-1){$-I$};\node at(0,-1.8){接地：异号像};\end{scope}
+\end{tikzpicture}
+\caption{两类平面的像源符号相反，电阻修正也相反。}\label{fig:c1-buried-s}
+\end{figure}
+图~\ref{fig:c1-buried-s}中，若将平面改为接地，边界条件变为$\varphi=0$，像源应改为$-I$，于是
+\[
+ \varphi=\frac I{4\pi\sigma}\left(\frac1{|\vct r-\vct a|}-\frac1{|\vct r-\vct a'|}\right),\qquad
+ \boxed{R_{\rm grd}\simeq\frac1{4\pi\sigma}\left(\frac1a-\frac1{2h}\right)}.
+\]
+绝缘面限制电流可用的空间，使给定注流所需电位升高；接地面提供回流边界，使电位降低。像源只用于求物理半空间中的场，不是真实空间中另放的电极。
+
+有限球面上的像源势随位置变化，维持整个球面等势还需加入更高阶响应。本题保留了自势和像源的常量修正，两种边界在$h\to\infty$时都恢复孤立球自阻。球面贴近平面时，上述近似失效。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[带半圆缺口的电阻片]\label{ex:c1-notch}
+均匀薄电阻片外轮廓为宽$a$、高$2a$的矩形$ABEF$，在右边中点$M$挖去半径$b<a$的半圆，缺口绝缘。$AB$与$EF$间的电阻为$R$。求$AF$与右边剩余两段$BC,DE$（用理想导线并作同一电极）之间的电阻。 见图~\ref{fig:c1-notch-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(0,4)--(2,4)--(2,2.6)arc(90:270:.6)--(2,0)--cycle;
+\draw[guide](0,2)--(1.4,2);\node[left]at(0,4){$A$};\node[right]at(2,4){$B$};
+\node[left]at(0,0){$F$};\node[right]at(2,0){$E$};\node[right]at(2,2.6){$C$};\node[right]at(2,1.4){$D$};
+\node[right]at(2,2){$M$};\draw[<->](-.5,2)--(-.5,4)node[midway,left]{$a$};
+\node at(1,-.5){$AB=a$};
+\end{tikzpicture}
+\caption{缺口关于水平中线对称，左右测量时右侧两个电极段外接为同一节点。}\label{fig:c1-notch-q}
+\end{figure}
+\begin{solution}
+先考察图~\ref{fig:c1-notch-q}上、下边接电极的情形，令上边电势$u$、下边$-u$。关于通过$M$的水平中线反射，几何不变而边界电位反号。由唯一性，反射点电位互为相反数，中线剩余导体段电势为零。
+
+设上半片从上边到中线的电阻为$R_h$，通过上、下半片的电流相同，均为$I=u/R_h$。全片电压为$2u$，故测得
+\[
+ R=\frac{2u}I=2R_h.
+\]
+上半片是边长$a$的正方形扣去以$M$为圆心的四分之一圆。沿$A$至$M$的对角线反射，图形及绝缘圆弧不变，上边与左边互换，中线剩余段与右边剩余段互换。因此，同一半片改由左、右边通流时，其电阻仍为$R_h$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(0,2)--(2,2)--(2,.6)arc(90:180:.6)--cycle;
+\draw[guide](0,2)--(2,0);\node[above]at(0,2){$A$};\node[right]at(2,0){$M$};
+\draw[axis](.5,2.4)--(1.5,2.4)node[midway,above]{反射};
+\node at(1,-.65){上、下电极 $\longleftrightarrow$ 左、右电极};
+\end{tikzpicture}
+\caption{上半片对角反射保持四分之一圆缺口，串联和并联的区别给出四倍关系。}\label{fig:c1-notch-s}
+\end{figure}
+再看图~\ref{fig:c1-notch-s}改由左、右供电，右侧$BC,DE$用理想导线短接为同一电极。现在水平反射保持电位而非反号，故中线法向场为零。上、下半片之间没有电流，可以沿中线分开；两半片承受同一端口电压$V$，各有电流$V/R_h$。于是
+\[
+ I_{\rm total}=\frac{2V}{R_h},\qquad
+ \boxed{R_{AF,\,BC+DE}=\frac V{I_{\rm total}}=\frac{R_h}{2}=\frac R4}.
+\]
+第一次分割的中线是零势面，两个半片串联；第二次分割的中线是绝缘流线，两个半片并联。结论依赖缺口的圆心、上下对称及右侧两段短接，不能只凭外形相似省略这些边界条件。
+\end{solution}
+
+
+\section{从连续导体到节点方程}\label{sec:c1-kirchhoff}
+在集中参数模型中，一段理想导线所连接的各点属于同一等势节点。选好支路参考方向后，节点电流守恒与元件关系组成线性方程组。
+
+细导线中的电荷弛豫通常远快于所研究的电路变化，可把连接导线视为等势节点。节点电流和为零是连续性方程的离散形式；稳恒时回路电压和为零，则来自电场无旋。若回路穿过变化磁通，回路方程须加入相应电动势，不能把所有支路都写成单纯的节点电位差。
+
+选定参考节点后，以其余节点电位为未知量，支路$(a,b)$中流向$b$的电流为$(\varphi_a-\varphi_b+\mathcal E_{ab})/r_{ab}$。理想电压源连接两个未知节点时，宜采用超节点或保留源支路电流，不能用零内阻去除电动势。图中的交叉点只有画实点才连接；跨线符号或标明“不连接”的交叉处保持独立。
+
+\Needspace{6\baselineskip}
+\begin{example}[理想导线归并后的电源电流]\label{ex:c1-bus}
+网络的四组单元两端分别用理想导线归并为$A,B$。每组含三条并联支路：电阻$r$、电阻$r$、两段$r$串联。外接电动势$\varepsilon$、内阻$r$的电源。求总电流及每类支路电流。 见图~\ref{fig:c1-bus-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0x0)at(0,-0.0);\coordinate(b0x0)at(4,-0.0);
+\Res{a0x0}{b0x0}{r}
+\coordinate(a0x1)at(0,-0.75);\coordinate(b0x1)at(4,-0.75);
+\Res{a0x1}{b0x1}{r}
+\coordinate(a0x2)at(0,-1.5);\coordinate(b0x2)at(4,-1.5);
+\coordinate(c0)at(2,-1.5);\Res{a0x2}{c0}{r}\Res{c0}{b0x2}{r}
+\node[left]at(-.3,-0.75){第1组};
+\coordinate(a1x0)at(0,-2.25);\coordinate(b1x0)at(4,-2.25);
+\Res{a1x0}{b1x0}{r}
+\coordinate(a1x1)at(0,-3.0);\coordinate(b1x1)at(4,-3.0);
+\Res{a1x1}{b1x1}{r}
+\coordinate(a1x2)at(0,-3.75);\coordinate(b1x2)at(4,-3.75);
+\coordinate(c1)at(2,-3.75);\Res{a1x2}{c1}{r}\Res{c1}{b1x2}{r}
+\node[left]at(-.3,-3.0){第2组};
+\coordinate(a2x0)at(0,-4.5);\coordinate(b2x0)at(4,-4.5);
+\Res{a2x0}{b2x0}{r}
+\coordinate(a2x1)at(0,-5.25);\coordinate(b2x1)at(4,-5.25);
+\Res{a2x1}{b2x1}{r}
+\coordinate(a2x2)at(0,-6.0);\coordinate(b2x2)at(4,-6.0);
+\coordinate(c2)at(2,-6.0);\Res{a2x2}{c2}{r}\Res{c2}{b2x2}{r}
+\node[left]at(-.3,-5.25){第3组};
+\coordinate(a3x0)at(0,-6.75);\coordinate(b3x0)at(4,-6.75);
+\Res{a3x0}{b3x0}{r}
+\coordinate(a3x1)at(0,-7.5);\coordinate(b3x1)at(4,-7.5);
+\Res{a3x1}{b3x1}{r}
+\coordinate(a3x2)at(0,-8.25);\coordinate(b3x2)at(4,-8.25);
+\coordinate(c3)at(2,-8.25);\Res{a3x2}{c3}{r}\Res{c3}{b3x2}{r}
+\node[left]at(-.3,-7.5){第4组};
+\draw[curve](a0x0)--(a3x2);\draw[curve](b0x0)--(b3x2);\node[above]at(a0x0){$A$};\node[above]at(b0x0){$B$};
+\end{tikzpicture}
+\caption{每行表示一组相同的三支路单元；理想导线先归并，弯折点不增加节点电位未知量。}\label{fig:c1-bus-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-bus-q}中的理想导线先归并为节点$A,B$，取$\varphi_B=0$、$\varphi_A=\varphi$。归并只依据实际连续的导线和连接点；导线在纸面相交而未连接，不构成新节点。每一组内三条支路分别跨接同一对节点，电流为
+\[
+ i_1=\frac\varphi r,\quad i_2=\frac\varphi r,\quad
+ i_3=\frac\varphi{2r},\qquad I_g=i_1+i_2+i_3=\frac{5\varphi}{2r}.
+\]
+四组也接在$A,B$之间，故电源输出电流与端口电压满足
+\[
+ I=4I_g=\frac{10\varphi}r,\qquad R_{\rm ext}=\frac\varphi I=\frac r{10}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\coordinate(A)at(0,1.5);\coordinate(B)at(4,1.5);
+\coordinate(X)at(0,0);\coordinate(Y)at(4,0);\coordinate(M)at(2,0);
+\Res{A}{B}{r/10}\draw[curve](A)--(X) (B)--(Y);
+\Src{X}{M}{\varepsilon}\Res{M}{Y}{r}
+\fill(A)circle(1.3pt)node[above left]{$A,+$};\fill(B)circle(1.3pt)node[above right]{$B,-$};
+\draw[axis](.4,1.95)--(1.4,1.95)node[midway,above]{$I$};
+
+\end{tikzpicture}
+\caption{原电源内阻与外部等效负载串联；$A,B$仍是原网络的两个接线节点。}\label{fig:c1-bus-s}
+\end{figure}
+图~\ref{fig:c1-bus-s}中电源内阻承受总电流$I$，不能给每个外支路再各串一个内阻。沿整个源回路列式，得到
+\[
+ \varepsilon=Ir+\varphi=11\varphi,\qquad
+ \boxed{\varphi=\frac\varepsilon{11}},\qquad
+ \boxed{I=\frac{10\varepsilon}{11r}}.
+\]
+因此八条阻值$r$的支路各有$\varepsilon/(11r)$，四条阻值$2r$的支路各有$\varepsilon/(22r)$，方向均从$A$到$B$。若$2r$由两个相同的$r$串成，其中点电位为$\varphi/2$，不得因图中靠近其他导线便将其中点误并。
+
+把全部支路电流相加得$8\varepsilon/(11r)+4\varepsilon/(22r)=10\varepsilon/(11r)$，与电源电流相符。节点归并决定了拓扑，支路在原图中画成直线还是折线不影响这一结果。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[七边形网络中的多端注流]\label{ex:c1-seven}
+七个节点按圆周次序为$A,B,C,D,E,F,G$。每一相邻圆弧和每条跨三步的弦均接电阻$r$，其他交叉处不连接。向$B,C,D$分别注入$I,2I,3I$，从$G,F,E$分别抽出相同大小的电流。求$D$流向$E$的电流。 见图~\ref{fig:c1-seven-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(1.4695761589768238e-16,2.4);
+\coordinate(B)at(1.8763955579232714,1.4963755244609602);
+\coordinate(C)at(2.3398269892363768,-0.5340502414951546);
+\coordinate(D)at(1.0413209738821396,-2.162325282965806);
+\coordinate(E)at(-1.0413209738821394,-2.162325282965806);
+\coordinate(F)at(-2.3398269892363768,-0.5340502414951548);
+\coordinate(G)at(-1.8763955579232716,1.49637552446096);
+\draw[curve](A)--(B);
+\draw[curve](A)--(D);
+\draw[curve](B)--(C);
+\draw[curve](B)--(E);
+\draw[curve](C)--(D);
+\draw[curve](C)--(F);
+\draw[curve](D)--(E);
+\draw[curve](D)--(G);
+\draw[curve](E)--(F);
+\draw[curve](E)--(A);
+\draw[curve](F)--(G);
+\draw[curve](F)--(B);
+\draw[curve](G)--(A);
+\draw[curve](G)--(C);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\fill(G)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$G$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{每个节点有四条电阻支路；弦交叉不另设节点。}\label{fig:c1-seven-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-seven-q}关于通过$A$的轴反射后，$B,G$互换，$C,F$互换，$D,E$互换，全部外部注流恰好反号。取$\varphi_A=0$，由线性方程的唯一性可设
+\[
+ \varphi_B=-\varphi_G=x,\quad \varphi_C=-\varphi_F=y,\quad
+ \varphi_D=-\varphi_E=z.
+\]
+以流出各节点的支路电流之和等于外部注入量，按实际邻接写出三式：
+\[
+ \begin{aligned}
+ B:&\quad (x-0)+(x-y)+(x+z)+(x+y)=Ir,\\
+ C:&\quad (y-x)+(y-z)+(y+y)+(y+x)=2Ir,\\
+ D:&\quad (z-y)+(z+z)+(z+x)+(z-0)=3Ir.
+ \end{aligned}
+\]
+每一项都已乘$r$。整理为$4x+z=Ir$、$5y-z=2Ir$、$x-y+5z=3Ir$。弦在内部相交处不另设节点。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2,0)--(2,0);\node[above]at(-2,0){$D:\ 9Ir/13$};\node[above]at(2,0){$E:\ -9Ir/13$};
+\coordinate(a)at(-2,0);\coordinate(b)at(2,0);\Res{a}{b}{r}
+\node at(0,-.8){$I_{D\to E}=18I/13$};
+\end{tikzpicture}
+\caption{反对称节点电位给出跨中线圆周支路的电流。}\label{fig:c1-seven-s}
+\end{figure}
+由前两式得$x=(Ir-z)/4$、$y=(2Ir+z)/5$。代入第三式并乘$20$：
+\[
+ 5Ir-5z-8Ir-4z+100z=60Ir,
+ \qquad91z=63Ir.
+\]
+所以$z=9Ir/13$，进而$x=Ir/13$、$y=7Ir/13$。图~\ref{fig:c1-seven-s}中的$D,E$由圆周电阻$r$相连，两端电位互为相反数，故
+\[
+ \boxed{I_{D\to E}=\frac{\varphi_D-\varphi_E}r=\frac{2z}r=\frac{18}{13}I}.
+\]
+正号表明方向确为$D\to E$。$A$处的四条相邻支路通向电位$x,z,-z,-x$，总流出为零，符合$A$无外部注流的条件。所得电流大于$I$并无矛盾：$D$本身注入$3I$，不能把$B$的注流当成全网络唯一电源。
+\end{solution}
+
+
+
+\subsection{节点矩阵的组成与参考电位}
+把每个连接节点编号，以$g_{ab}=1/r_{ab}$表示节点间的总电导。若$s_a$为从网络外注入节点$a$的电流，支路电动势按$a\to b$升势为正，则节点方程为
+\[
+ \left(\sum_b g_{ab}\right)\varphi_a-\sum_b g_{ab}\varphi_b
+ =s_a-\sum_b g_{ab}\mathcal E_{ab}.
+\]
+对角元等于相邻电导之和，非对角元为负的连接电导；没有直接连接时该项为零。对连通的正电导网络，全部节点方程相加只给出$\sum_as_a=0$，有一个方程重复。选定一个参考电位并删去对应方程后，约化矩阵正定可逆。若网络分成若干不连通部分，则每部分的总注流都须为零，并各自选定参考电位，不能只删去全网的一个未知量。
+
+电位定出后，用各边的欧姆关系恢复有向电流。负值表示实际方向与所选方向相反。
+
+
+\section{真实电源的等效与内循环电流}
+端口的电压和总电流不能单独说明电源内部各支路的功率。先保留内阻与支路方向，再求等效电源和环流。
+
+两个电源接到相同端口，端口电压相同，内部支路电流却可方向相反。理想电压源若直接并联而电动势不同，会造成不相容约束；真实电源的内阻使环流有限。
+
+\Needspace{6\baselineskip}
+\begin{example}[多个真实电源的并联等效]\label{ex:c1-parallel-source}
+$n$个真实电源并联在$A,B$间。第$i$支路内阻$r_i>0$，有向电动势$\varepsilon_i$以从$B$到$A$升势为正，负值允许反接。求开路电压、端口等效内阻及接负载$R_L$后的各支路电流。 见图~\ref{fig:c1-parallel-source-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0.0);\coordinate(b0)at(2,0.0);\coordinate(c0)at(4,0.0);\Res{a0}{b0}{r_1}\Src{b0}{c0}{\varepsilon_1}
+\coordinate(a1)at(0,-1.35);\coordinate(b1)at(2,-1.35);\coordinate(c1)at(4,-1.35);\Res{a1}{b1}{r_2}\Src{b1}{c1}{\varepsilon_2}
+\coordinate(a2)at(0,-2.7);\coordinate(b2)at(2,-2.7);\coordinate(c2)at(4,-2.7);\Res{a2}{b2}{r_n}\Src{b2}{c2}{\varepsilon_n}
+\draw[curve](a0)--(a2);\draw[curve](c0)--(c2);
+\node[above]at(a0){$A$};\node[above]at(c0){$B$};
+\end{tikzpicture}
+\caption{各支路电动势均按同一端口方向记号，反接用负号表示。}\label{fig:c1-parallel-source-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-parallel-source-q}中，令$U=\varphi_A-\varphi_B$，各电源支路电流$I_i$以从$B$经电源流向$A$为正。沿该方向升势$\varepsilon_i$、内阻降势$r_iI_i$，故
+\[
+ U=\varepsilon_i-r_iI_i,\qquad I_i=\frac{\varepsilon_i-U}{r_i}.
+\]
+定义$G=\sum_i1/r_i>0$。开路时外部电流为零，节点$A$要求$\sum I_i=0$，即$\sum\varepsilon_i/r_i-U_0G=0$，从而
+\[
+ \boxed{U_0=\varepsilon_{\rm eq}=\frac{\sum_i\varepsilon_i/r_i}{G}}.
+\]
+接负载后的总供流为
+\[
+ I=\sum I_i=G(\varepsilon_{\rm eq}-U),\qquad
+ U=\varepsilon_{\rm eq}-r_{\rm eq}I,\quad
+ \boxed{r_{\rm eq}=G^{-1}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\coordinate(A)at(0,1.5);\coordinate(B)at(4,1.5);
+\coordinate(X)at(0,0);\coordinate(Y)at(4,0);\coordinate(M)at(2,0);
+\Res{A}{B}{R_L}\draw[curve](A)--(X) (B)--(Y);
+\Src{X}{M}{\varepsilon_{\rm eq}}\Res{M}{Y}{r_{\rm eq}}
+\fill(A)circle(1.3pt)node[above left]{$A,+$};\fill(B)circle(1.3pt)node[above right]{$B,-$};
+\draw[axis](.4,1.95)--(1.4,1.95)node[midway,above]{$I$};
+
+\end{tikzpicture}
+\caption{端口线性关系确定单一等效源，内部环流不由端口等效图显示。}\label{fig:c1-parallel-source-s}
+\end{figure}
+图~\ref{fig:c1-parallel-source-s}中负载电流由$A$流向$B$，有$U=IR_L$。代入端口关系而非先假定每个源电流相等，得到
+\[
+ \boxed{I=\frac{\varepsilon_{\rm eq}}{r_{\rm eq}+R_L}},\quad
+ U=\frac{\varepsilon_{\rm eq}R_L}{r_{\rm eq}+R_L},\quad
+ \boxed{I_i=\frac1{r_i}\left(\varepsilon_i-
+ \frac{\varepsilon_{\rm eq}R_L}{r_{\rm eq}+R_L}\right)}.
+\]
+若$I_i<0$，实际电流流入该支路的正端。开路只约束电流和，不能逐支路置零。以两源为例，令$I_1=-I_2$，相减两条端电压方程便得$I_1=(\varepsilon_1-\varepsilon_2)/(r_1+r_2)$。因此端口等效能保留负载响应，却不会显示原电源之间的环流及其发热。
+\end{solution}
+
+
+
+
+\subsection{端口直线与源的两种表示}
+只含线性电阻及独立电源的二端网络，若开路电压存在，且给定向外供出的端口电流能唯一确定有限的端口电压，便可通过开路电压$U_0$和增量内阻$r_0$写为
+\[
+ U=U_0-r_0I.
+\]
+$I$取网络向外供电为正。将独立理想电压源短路、独立理想电流源开路后求端口电阻，得到$r_0$；这是把源的固定项置零，不能把原来与源串联或并联的电阻删掉。当$r_0>0$时，同一条直线也可写成$I=I_N-U/r_0$，其中$I_N=U_0/r_0$，即并联电流源与电阻的Norton表示。理想电压源对应$r_0=0$，仍可用电压源表示；孤立的非零理想电流源没有有限开路电压，不能强套上述戴维南形式。
+
+开路电压与增量内阻相同的两个装置，内部功率分配仍可能不同。例如多个真实电源并联时，开路只要求总供流为零，各支路仍可有大小相等、方向相反的环流。求外负载电流可以使用端口等效；判断每个源的供能、吸能和发热，应回到原支路。下面分别推导端口功率关系与内部耗散的分解。
+
+\section{功率关系与端口描述}
+若真实电源按正向输出电流$I$，电动势供能为$\varepsilon I$，内耗为$rI^2$，端口输出为$UI=(\varepsilon-rI)I$。当$I$反号时，仍沿同一代数式计算各项功率，不先取绝对值。多支路网络还须计入所考察区域的端口输入，下面由节点守恒推导统一的功率关系。
+
+\Needspace{6\baselineskip}
+
+
+
+
+\subsection{从节点守恒到全局功率}
+给无向电阻边任选一个方向$a\to b$，并将该方向的电动势记为$\mathcal E_e$。支路关系为$r_ei_e=\varphi_a-\varphi_b+\mathcal E_e$。乘以$i_e$后对边求和，节点电位部分可重新按节点归组：
+\[
+ \sum_e(\varphi_a-\varphi_b)i_e=\sum_a\varphi_as_a.
+\]
+右边是外部端口向所考察网络输入的功率；因此一般形式为
+\[
+ \sum_e r_ei_e^2=\sum_a\varphi_as_a+\sum_e\mathcal E_ei_e.
+\]
+把供电装置也纳入整个闭合网络时，每个节点无外部注流，第一项消失，得到$\sum_e\mathcal E_ei_e=\sum_er_ei_e^2$；若只截取负载网络，则端口输入不能遗漏。电动势允许取负值时，源的供能或吸能由有向乘积$\mathcal E_ei_e$判断，所有电阻的热功率仍非负。
+
+
+\section{耗散原理与内部环流}
+给定端口注入电流后，内部电流分配受到节点守恒约束。先讨论无源电阻网络的耗散极值，再回到真实电源组的内部环流；两者的适用条件须分清。
+
+在不含内部独立电动势、各边均为正电阻的无源网络中，指定各外端注流后，真实欧姆电流在满足同样节点守恒的试探流中使总耗散最小。设真实电流为$i_e$，任意同样注流的试探电流为$i_e+\delta i_e$。其差在全部节点无源，所以
+\[
+ \sum_e r_e i_e\delta i_e
+ =\sum_e(V_a-V_b)\delta i_e
+ =\sum_aV_a\sum_b\delta i_{a\to b}=0.
+\]
+于是$P_{\rm trial}=P_{\rm true}+\sum_e r_e(\delta i_e)^2\ge P_{\rm true}$。对于单一端口$I$，$P_{\rm true}=I^2R_{\rm eff}$，故试探流可给电阻上界。允许的试探电流必须在每个内部节点严格守恒；只有图形上的对称而不满足守恒的方案，不满足上述推导前提。
+
+\Needspace{6\baselineskip}
+\begin{example}[用一条通路给网络电阻上界]\label{ex:c1-trial}
+无源网络的两个端点$A,B$之间存在一条由$k$个电阻$r_1,\ldots,r_k$串成的通路，其他支路任意。证明$R_{AB}\le\sum_{i=1}^kr_i$；若再加一条正电阻支路，电阻能否增大？ 见图~\ref{fig:c1-trial-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(X)at(2,1);
+\coordinate(B)at(4,0);
+\coordinate(Y)at(2,-1);
+\draw[curve](A)--(X);
+\draw[curve](X)--(B);
+\draw[curve](A)--(Y);
+\draw[curve](Y)--(B);
+\draw[curve](X)--(Y);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(X)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$X$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(Y)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$Y$};
+\path(A)--(X)node[midway,above,sloped]{$r_1$};
+\path(X)--(B)node[midway,above,sloped]{$r_2$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{上方路径可以作为试探通路，其他边允许取零试探电流。}\label{fig:c1-trial-q}
+\end{figure}
+\begin{solution}
+先固定由$A$注入、从$B$抽出的电流$I\ne0$。图~\ref{fig:c1-trial-q}所示路径上各边取试探电流$I$，其他边取零。路径内部节点恰有一入一出，路径外节点均无净流，所以这组电流满足与真实解相同的节点守恒。
+
+由本节已经证明的无源耗散极值原理，真实流的耗散不大于这组允许试探流。本题的试探耗散为$I^2\sum_{i=1}^kr_i$，真实耗散为$I^2R_{AB}$，约去$I^2$即得
+\[
+ \boxed{R_{AB}\le\sum_{i=1}^kr_i}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(X)at(2,1);
+\coordinate(B)at(4,0);
+\coordinate(Y)at(2,-1);
+\draw[curve](A)--(X);
+\draw[curve](X)--(B);
+\draw[guide](A)--(Y);
+\draw[guide](Y)--(B);
+\draw[guide](X)--(Y);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(X)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$X$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(Y)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$Y$};
+\end{scope}
+\draw[axis](.7,.6)--(1.3,.9);\node at(2,1.8){试探电流全部沿上路};
+\end{tikzpicture}
+\caption{构造允许试探流须满足每个节点守恒，真实电流再自行降低耗散。}\label{fig:c1-trial-s}
+\end{figure}
+图~\ref{fig:c1-trial-s}中新增正电阻边后，把旧网络真实流保留、新边电流取零，又得到一组允许试探流。因此新网络最小耗散不大于旧网络耗散，$R_{\rm new}\le R_{\rm old}$。
+
+若新边两端原来等势，旧解也满足新边欧姆关系，电阻不变；若原来有非零电压差，旧试探流不满足新边欧姆关系，严格最小值便更低。证明依赖所有边均为无源正电阻；接入独立电源时，不能将总焦耳热直接套入这个极小原理。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[并联电源内耗的精确分解]\label{ex:c1-source-loss}
+多个真实电源并联，有向电动势$\varepsilon_i$、内阻$r_i$。记端口等效电动势$\varepsilon_{\rm eq}$、内阻$r_{\rm eq}$，总输出电流$I$。证明原内部耗散由端口电流项和与负载无关的环流项组成。 见图~\ref{fig:c1-source-loss-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0.0);\coordinate(b0)at(2,0.0);\coordinate(c0)at(4,0.0);\Res{a0}{b0}{r_1}\Src{b0}{c0}{\varepsilon_1}
+\coordinate(a1)at(0,-1.35);\coordinate(b1)at(2,-1.35);\coordinate(c1)at(4,-1.35);\Res{a1}{b1}{r_2}\Src{b1}{c1}{\varepsilon_2}
+\coordinate(a2)at(0,-2.7);\coordinate(b2)at(2,-2.7);\coordinate(c2)at(4,-2.7);\Res{a2}{b2}{r_3}\Src{b2}{c2}{\varepsilon_3}
+\draw[curve](a0)--(a2);\draw[curve](c0)--(c2);
+\node[above]at(a0){$A$};\node[above]at(c0){$B$};
+\end{tikzpicture}
+\caption{端口电压随负载改变，各支路电流仍由原电源参数分别确定。}\label{fig:c1-source-loss-q}
+\end{figure}
+\begin{solution}
+沿图~\ref{fig:c1-source-loss-q}的供流方向记各$I_i$，有$I_i=(\varepsilon_i-U)/r_i$。令$G=\sum_i1/r_i=1/r_{\rm eq}$，按等效电动势的定义，
+\[
+ \sum_i\frac{\varepsilon_i-\varepsilon_{\rm eq}}{r_i}=0,
+ \qquad I=G(\varepsilon_{\rm eq}-U).
+\]
+把每个支路电流拆为开路环流与端口供流分量：
+\[
+ I_i=\frac{\varepsilon_i-\varepsilon_{\rm eq}}{r_i}
+       +\frac{r_{\rm eq}}{r_i}I.
+\]
+前一组电流之和为零，后一组之和为$I$，分解分别符合内部循环和外部供电的含义。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);
+\Res{n0}{n1}{r_{\rm eq}}
+\fill(n0)circle(1.5pt)node[below]{$\varepsilon_{\rm eq}$};
+\fill(n1)circle(1.5pt)node[below]{$U$};
+\node at(1,-1){另有 $P_{\rm circ}=\sum(\varepsilon_i-\varepsilon_{\rm eq})^2/r_i$};
+\end{tikzpicture}
+\caption{端口串联损耗与负载无关的内部环流损耗分别保留。}\label{fig:c1-source-loss-s}
+\end{figure}
+按图~\ref{fig:c1-source-loss-s}分别计算两部分的耗散，并保留交叉项：
+\[
+ \begin{aligned}
+ \sum_i r_iI_i^2
+ &=\sum_i\frac{(\varepsilon_i-\varepsilon_{\rm eq})^2}{r_i}
+ +2r_{\rm eq}I\sum_i\frac{\varepsilon_i-\varepsilon_{\rm eq}}{r_i}
+ +r_{\rm eq}^2I^2\sum_i\frac1{r_i}\\
+ &=\boxed{\sum_i\frac{(\varepsilon_i-\varepsilon_{\rm eq})^2}{r_i}
+ +r_{\rm eq}I^2}.
+ \end{aligned}
+\]
+第二行用到中间项严格为零及$r_{\rm eq}G=1$。第一项与负载无关，正是$I=0$时仍有的内部发热；第二项才是端口等效内阻显示的耗散。
+
+因各$r_i>0$，环流项只在所有有向电动势相等时消失。再由各支路功率$\varepsilon_iI_i=UI_i+r_iI_i^2$相加，得$\sum\varepsilon_iI_i=UI+P_{\rm int}$，也可直接检查电源组的完整功率平衡。求效率时只用等效源内耗$r_{\rm eq}I^2$，会漏掉开路环流的损耗。
+\end{solution}
+
+
+
+
+\input{lecture1_depth}
+\section{习题与解答}
+
+\begin{exercise}[变截面导体的电阻]\label{ex:c1-h1}
+长$l$的导体侧面绝缘，截面积$S(x)=S_0(1+x/l)$，电阻率为常量$\rho$。在截面变化足够缓慢、横截面近似等势时求电阻及单位长度发热率。 见图~\ref{fig:c1-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth]
+\draw[curve](0,-.35)--(4,-.7)--(4,.7)--(0,.35)--cycle;
+\draw[axis](.4,1.1)--(1.6,1.1)node[midway,above]{$I$};
+\draw[<->](0,-1.1)--(4,-1.1)node[midway,below]{$l$};
+\node at(2,0){$S(x)=S_0(1+x/l)$};
+\end{tikzpicture}
+\caption{局部一维近似要求截面变化缓慢，不能只取算术平均面积。}\label{fig:c1-h1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h1-q}的侧面绝缘，稳恒电流只能沿轴通过各截面，故每个截面的总电流都是$I$。在横截面近似等势的条件下，短段$\dd x$中的$j=I/S(x)$，其压降为$\dd U=\rho j\dd x$，所以
+\[
+ \dd R=\frac{\dd U}I=\frac{\rho\dd x}{S_0(1+x/l)}.
+\]
+各段依次通流，电阻串联。令$u=1+x/l$，积分限由$0,l$变为$1,2$，有
+\[
+ \boxed{R=\frac{\rho l}{S_0}\int_1^2\frac{\dd u}u
+ =\frac{\rho l}{S_0}[\ln u]_1^2
+ =\frac{\rho l}{S_0}\ln2}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,-.1)--(0,2)node[above]{$\dd P/\dd x$};
+\draw[curve,domain=0:4,samples=60]plot(\x,{1.8/(1+\x/4)});
+\end{tikzpicture}
+\caption{热功率密度沿轴下降，曲线下的面积为总焦耳热功率。}\label{fig:c1-h1-s}
+\end{figure}
+图~\ref{fig:c1-h1-s}的纵轴为单位长度热功率，不能与单位体积热功率混淆。薄段发热$\dd P=I\dd U=I^2\dd R$，故
+\[
+ \boxed{\frac{\dd P}{\dd x}=\frac{I^2\rho}{S_0(1+x/l)}}.
+\]
+它从入口的$I^2\rho/S_0$降到出口的一半；体热功率密度则为$\rho I^2/S(x)^2$，下降到入口的四分之一。沿轴对单位长度功率积分为$I^2R$，与端口功率$IU$一致。
+
+面积在分母中，应积分$1/S(x)$，不能先将面积作算术平均。若截面突然变化，局部电流会弯曲、横截面也不再等势，还需计入扩散区，本题的一维近似不再成立。
+\end{solution}
+
+\begin{exercise}[径向变化的电导率]\label{ex:c1-h2}
+同心球电极半径$a,b$，$a<b$，其间$\sigma(r)=\sigma_0r/a$，介电常数为常量$\epsilon$。内球电势$U$、外球零势。求$I$及介质内的$\rho_f$。 见图~\ref{fig:c1-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.65);\draw[curve](0,0)circle(2);\fill(0,0)circle(1pt)node[below]{$O$};
+\draw[axis](0,0)--(35:2.5)node[right]{$r$};
+\foreach \a in {75,130,190,250,310}{\draw[axis](\a:.8)--(\a:1.2);}
+\node[above]at(0,.65){$a$};\node[above]at(0,2){$b$};
+
+\end{tikzpicture}
+\caption{球对称电流不随材料参数变化而改变通量归一化。}\label{fig:c1-h2-q}
+\end{figure}
+\begin{solution}
+由图~\ref{fig:c1-h2-q}的球对称性及稳恒守恒，任意球面通量$4\pi r^2j_r=I$。材料电导率随$r$增加，故
+\[
+ j_r=\frac I{4\pi r^2},\qquad
+ E_r=\frac{j_r}{\sigma(r)}=\frac{Ia}{4\pi\sigma_0r^3}.
+\]
+内球电势比外球高$U$，因此沿外向路径积分的是正电压降：
+\[
+ U=\int_a^bE_r\dd r
+ =\frac{Ia}{4\pi\sigma_0}\left[-\frac1{2r^2}\right]_a^b
+ =\frac{Ia}{8\pi\sigma_0}(a^{-2}-b^{-2}),
+ \quad \boxed{I=\frac{8\pi\sigma_0U}{a(a^{-2}-b^{-2})}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.65);\draw[curve](0,0)circle(2);\fill(0,0)circle(1pt)node[below]{$O$};
+\draw[axis](0,0)--(35:2.5)node[right]{$r$};
+\foreach \a in {75,130,190,250,310}{\draw[axis](\a:.8)--(\a:1.2);}
+\node[above]at(0,.65){$a$};\node[above]at(0,2){$b$};
+\node at(0,-2.6){$j_r\propto r^{-2},\quad E_r\propto r^{-3}$};
+\end{tikzpicture}
+\caption{同一通量与变化电导率共同决定非零体自由电荷。}\label{fig:c1-h2-s}
+\end{figure}
+图~\ref{fig:c1-h2-s}中$r^2j_r$为常量，而$r^2D_r=Ia\epsilon/(4\pi\sigma_0r)$并非常量。对位移矢量求球坐标散度：
+\[
+ \boxed{\rho_f(r)=\frac1{r^2}\frac{\dd(r^2D_r)}{\dd r}
+ =-\frac{Ia\epsilon}{4\pi\sigma_0r^4}},\qquad a<r<b.
+\]
+负号来自$r^2D_r$随半径增大而减小。以任意$a<r_1<r_2<b$作体积分，得到
+\[
+ Q_f(r_1,r_2)=4\pi\int_{r_1}^{r_2}\rho_fr^2\dd r
+ =-\frac{Ia\epsilon}{\sigma_0}[-r^{-1}]_{r_1}^{r_2}
+ =\frac{Ia\epsilon}{\sigma_0}\left(\frac1{r_2}-\frac1{r_1}\right),
+\]
+恰好等于两个球面的$D$通量之差。这里求的是介质内部自由电荷，未计电极面电荷。稳恒要求$\partial_t\rho_f=0$而非$\rho_f=0$；这组不均匀电荷正好建立了维持连续电流所需的场。
+\end{solution}
+
+\begin{exercise}[同心电极之间的介质厚度]\label{ex:c1-h3}
+内球半径$a$固定、外球半径$b>a$可变，均匀材料电导率为$\sigma$。求$R(b)$，讨论$b\to a$和$b\to\infty$两种极限。 见图~\ref{fig:c1-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.65);\draw[curve](0,0)circle(2);\fill(0,0)circle(1pt)node[below]{$O$};
+\draw[axis](0,0)--(35:2.5)node[right]{$r$};
+\foreach \a in {75,130,190,250,310}{\draw[axis](\a:.8)--(\a:1.2);}
+\node[above]at(0,.65){$a$};\node[above]at(0,2){$b$};
+
+\end{tikzpicture}
+\caption{外球半径改变时，应改变整个径向积分域。}\label{fig:c1-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h3-q}中电流沿半径方向，任意球面通过的总电流相同。半径$r$、厚$\dd r$的球层面积为$4\pi r^2$，所以
+\[
+ \dd U=\frac I{\sigma\,4\pi r^2}\dd r,
+ \qquad \boxed{R(b)=\frac1{4\pi\sigma}\int_a^b\frac{\dd r}{r^2}
+ =\frac1{4\pi\sigma}[-r^{-1}]_a^b
+ =\frac1{4\pi\sigma}\left(\frac1a-\frac1b\right)}.
+\]
+外电极向外移动会增加正的串联薄层。对上式求导，常数$1/a$的导数为零，$-b^{-1}$的导数为$-(-1)b^{-2}$，故$R'(b)=1/(4\pi\sigma b^2)>0$，图~\ref{fig:c1-h3-s}中的曲线单调上升。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$b/a$};\draw[axis](0,-.1)--(0,2)node[above]{$4\pi\sigma aR$};
+\draw[curve,domain=1:5,samples=70]plot(\x,{1-1/\x});\draw[guide](0,1)--(5,1);
+\node[left]at(0,1){$1$};\end{tikzpicture}
+\caption{电阻随外半径单调增加，但有有限的上界。}\label{fig:c1-h3-s}
+\end{figure}
+薄间隙时令$b=a+\delta$，直接通分而非先作近似：
+\[
+ R=\frac1{4\pi\sigma}\frac\delta{a(a+\delta)}
+ =\frac\delta{4\pi\sigma a^2}
+ \left[1+O\!\left(\frac\delta a\right)\right],\qquad\delta\ll a.
+\]
+首项就是长度$\delta$除以电导率和近似不变的通流面积$4\pi a^2$。当$b\to a$时电阻趋零，并不留下额外接触电阻，因为题设未包含接触层。
+
+当$b\to\infty$时，$R\to R_\infty=1/(4\pi\sigma a)$；图中的水平线是这一渐近值。剩余外部区域的电阻为$R_\infty-R(b)=1/(4\pi\sigma b)$，随$b$增大而减小。因此无限延伸的介质可以有有限扩散电阻，原因是通流面积随$r^2$增长。
+\end{solution}
+
+\begin{exercise}[导电界面上的自由面电荷为零的条件]\label{ex:c1-h4}
+两种线性介质有有限电导率$\sigma_i$和介电常数$\epsilon_i$。稳恒电流法向穿过界面。求自由面电荷消失的材料条件；此时总面电荷是否也必为零？ 见图~\ref{fig:c1-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(2,0);\draw[axis](0,1.3)--(0,-1.3)node[right]{$j_n$};\node at(-1,1){$1$};\node at(-1,-1){$2$};
+\end{tikzpicture}
+\caption{法向电流非零，电场由各侧电导率分别确定。}\label{fig:c1-h4-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c1-h4-q}的法向由介质1指向2，并记共同法向电流为$j_n\ne0$。稳恒守恒只保证$j_{1n}=j_{2n}$，结合欧姆定律有$E_{in}=j_n/\sigma_i$。以跨界薄柱应用自由电荷的Gauss定律，得到
+\[
+ \sigma_f=D_{2n}-D_{1n}
+ =j_n\left(\frac{\epsilon_2}{\sigma_2}-\frac{\epsilon_1}{\sigma_1}\right).
+\]
+由于$j_n$非零，可约去它，故
+\[
+ \boxed{\sigma_f=0\iff\frac{\epsilon_1}{\sigma_1}
+ =\frac{\epsilon_2}{\sigma_2}}.
+\]
+若$j_n=0$，两侧法向场在有限电导率假设下均为零，便不能从零面电荷反推出这项材料条件。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\node[draw,minimum width=3cm]at(-2,0){$\tau_1=\epsilon_1/\sigma_1$};\node[draw,minimum width=3cm]at(2,0){$\tau_2=\epsilon_2/\sigma_2$};\node at(0,-1){$\tau_1=\tau_2\Rightarrow\sigma_f=0$};
+\end{tikzpicture}
+\caption{材料时间常量相等是自由面电荷消失的条件，不等同于场连续。}\label{fig:c1-h4-s}
+\end{figure}
+图~\ref{fig:c1-h4-s}表示两种材料的介电弛豫时间相等。总面电荷应改用$\epsilon_0\vct E$的通量计算：
+\[
+ \sigma_{\rm tot}=\epsilon_0j_n\left(\frac1{\sigma_2}-\frac1{\sigma_1}\right).
+\]
+因此在非零法向电流下，总面电荷为零还要求$\sigma_1=\sigma_2$；结合自由电荷条件，此时也有$\epsilon_1=\epsilon_2$。若仅有$\epsilon_1/\sigma_1=\epsilon_2/\sigma_2$而电导率不同，总面电荷一般不为零。
+
+由$\vct P=(\epsilon-\epsilon_0)\vct E$可得界面束缚电荷$\sigma_b=P_{1n}-P_{2n}=\sigma_{\rm tot}-\sigma_f$。当$\sigma_f=0$时，电场的跳跃全部由束缚面电荷承担，不能把自由电荷为零误读成电场处处连续。
+\end{solution}
+
+\begin{exercise}[接地电极的远近场电压占比]\label{ex:c1-h5}
+半球接地电极半径$a$，模型同例~\ref{ex:c1-earth}。求半径$a$至$ka$之间的电压占总电压的比例，并求包含总电压$90\%$的最小半径。 见图~\ref{fig:c1-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](-3,0)rectangle(3,-2.5);
+\draw[curve](-3,0)--(3,0);
+\draw[curve](0,0)++(180:.6)arc(180:360:.6);
+\foreach \a in {205,235,265,295,325,350}{\draw[axis](\a:.85)--(\a:2.2);}
+\draw[<->](0,-.25)--(.6,-.25)node[midway,below]{$a$};
+\node at(2,-2.1){$\sigma$};\draw[axis](0,.8)--(0,.1)node[midway,right]{$I$};
+
+\end{tikzpicture}
+\caption{以同心半球划分电压降，而非按距离线性分配。}\label{fig:c1-h5-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h5-q}中的同心半球面分别为等势面，任一半球流过$I$。因此$E_r=I/(2\pi\sigma r^2)$，从$a$到$ka$的电压降为
+\[
+ \Delta U=\int_a^{ka}E_r\dd r
+ =\frac I{2\pi\sigma}[-r^{-1}]_a^{ka}
+ =\frac I{2\pi\sigma}\left(\frac1a-\frac1{ka}\right).
+\]
+电极对无穷远的总电压为$U=I/(2\pi\sigma a)$，两者相除得到
+\[
+ \boxed{\frac{\Delta U}U=1-\frac1k},\qquad k\ge1.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](-3,0)rectangle(3,-2.5);
+\draw[curve](-3,0)--(3,0);
+\draw[curve](0,0)++(180:.6)arc(180:360:.6);
+\foreach \a in {205,235,265,295,325,350}{\draw[axis](\a:.85)--(\a:2.2);}
+\draw[<->](0,-.25)--(.6,-.25)node[midway,below]{$a$};
+\node at(2,-2.1){$\sigma$};\draw[axis](0,.8)--(0,.1)node[midway,right]{$I$};
+\draw[guide](0,0)++(190:2.2)arc(190:350:2.2);\node at(0,-2.8){$a<r<10a:\ 90\%$};
+\end{tikzpicture}
+\caption{电压积分的权重为$r^{-2}$，近区贡献更大。}\label{fig:c1-h5-s}
+\end{figure}
+图~\ref{fig:c1-h5-s}中的近区阴影对应上述积分，未画出的远区仍有压降。要求近区包含至少$90\%$，即
+\[
+ 1-\frac1k\ge\frac9{10}
+ \quad\Longleftrightarrow\quad\frac1k\le\frac1{10}
+ \quad\Longleftrightarrow\quad k\ge10.
+\]
+故最小半径为$\boxed{10a}$，其外区域的电压恰占$10\%$。这不是说$10a$以外场为零，而是从该处到无穷远的场积分为总量的十分之一。
+
+更一般地，包含总压降比例$p$的半径为$a/(1-p)$，$0<p<1$。半径有限时无法包含全部压降。因同一$I$流过各层，分区焦耳热$\Delta P=I\Delta U$，近区发热占比也为$1-1/k$；电压与发热的分区比例在本题中相同。
+\end{solution}
+
+\begin{exercise}[两个并联电源的环流与发热]\label{ex:c1-h6}
+两真实电源电动势分别为$\varepsilon,2\varepsilon$，内阻均为$r$，同极性并联。求开路环流、开路总内耗，以及接负载$r$后的端口电压。 见图~\ref{fig:c1-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0.0);\coordinate(b0)at(2,0.0);\coordinate(c0)at(4,0.0);\Res{a0}{b0}{r}\Src{b0}{c0}{\varepsilon}
+\coordinate(a1)at(0,-1.35);\coordinate(b1)at(2,-1.35);\coordinate(c1)at(4,-1.35);\Res{a1}{b1}{r}\Src{b1}{c1}{2\varepsilon}
+\draw[curve](a0)--(a1);\draw[curve](c0)--(c1);
+\node[above]at(a0){$A$};\node[above]at(c0){$B$};
+\end{tikzpicture}
+\caption{端口开路时，电源内部仍可形成闭合电流。}\label{fig:c1-h6-q}
+\end{figure}
+\begin{solution}
+按图~\ref{fig:c1-h6-q}记两源向端口供出的电流为$I_1,I_2$，端电压为$U$。支路方程及开路节点条件为
+\[
+ I_1=\frac{\varepsilon-U}r,\qquad I_2=\frac{2\varepsilon-U}r,
+ \qquad I_1+I_2=0.
+\]
+由$3\varepsilon-2U_0=0$得$U_0=3\varepsilon/2$，再回代得到$I_1=-\varepsilon/(2r)$、$I_2=\varepsilon/(2r)$。环流大小为$\varepsilon/(2r)$，沿高电动势源向端口供流、再流入低电动势源的方向。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\coordinate(A)at(0,1.5);\coordinate(B)at(4,1.5);
+\coordinate(X)at(0,0);\coordinate(Y)at(4,0);\coordinate(M)at(2,0);
+\Res{A}{B}{r}\draw[curve](A)--(X) (B)--(Y);
+\Src{X}{M}{3\varepsilon/2}\Res{M}{Y}{r/2}
+\fill(A)circle(1.3pt)node[above left]{$A,+$};\fill(B)circle(1.3pt)node[above right]{$B,-$};
+\draw[axis](.4,1.95)--(1.4,1.95)node[midway,above]{$I$};
+
+\end{tikzpicture}
+\caption{外部负载可用等效源求解，内部耗散须回到原支路。}\label{fig:c1-h6-s}
+\end{figure}
+图~\ref{fig:c1-h6-s}所保留的两内阻都流过环流，开路总内耗为
+\[
+ \boxed{P_0=rI_1^2+rI_2^2=\frac{\varepsilon^2}{2r}}.
+\]
+接负载$r$后，其电流为$U/r$。节点方程改为$I_1+I_2=U/r$，即$3\varepsilon-2U=U$，故
+\[
+ \boxed{U=\varepsilon},\qquad I_1=0,\qquad I_2=\frac\varepsilon r.
+\]
+也可将外部等效为电动势$3\varepsilon/2$、内阻$r/2$的单源；分压给出相同$U$，但内部电流仍须回原支路求解。
+
+加载后源功率为$2\varepsilon I_2=2\varepsilon^2/r$，负载发热$U^2/r=\varepsilon^2/r$，内耗$rI_2^2=\varepsilon^2/r$，两者之和等于源功率。开路与加载的功率分配不同，不能将开路环流直接当成加载后的每支路电流。
+\end{solution}
+
+\begin{exercise}[电源反接后的节点电位]\label{ex:c1-h7}
+三个内阻均为$r$的电源并联，按$B$到$A$升势计有向电动势为$\varepsilon,\varepsilon,-\varepsilon$。求开路电势及各电源供出的电流。 见图~\ref{fig:c1-h7-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0.0);\coordinate(b0)at(2,0.0);\coordinate(c0)at(4,0.0);\Res{a0}{b0}{r}\Src{b0}{c0}{\varepsilon}
+\coordinate(a1)at(0,-1.35);\coordinate(b1)at(2,-1.35);\coordinate(c1)at(4,-1.35);\Res{a1}{b1}{r}\Src{b1}{c1}{\varepsilon}
+\coordinate(a2)at(0,-2.7);\coordinate(b2)at(2,-2.7);\coordinate(c2)at(4,-2.7);\Res{a2}{b2}{r}\Src{b2}{c2}{-\varepsilon}
+\draw[curve](a0)--(a2);\draw[curve](c0)--(c2);
+\node[above]at(a0){$A$};\node[above]at(c0){$B$};
+\end{tikzpicture}
+\caption{反接电源的负号进入电动势，不改变其正内阻。}\label{fig:c1-h7-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h7-q}中全部支路电流以从$B$经电源流向$A$为正，端口电压$U=\varphi_A-\varphi_B$。反接只改变有向电动势，所以三条支路方程分别为
+\[
+ I_1=\frac{\varepsilon-U}r,\qquad I_2=\frac{\varepsilon-U}r,
+ \qquad I_3=\frac{-\varepsilon-U}r.
+\]
+开路时节点$A$无电流流向外部，$I_1+I_2+I_3=0$。代入并乘$r$，得$\varepsilon-3U=0$，因此
+\[
+ \boxed{U=\frac\varepsilon3},\qquad
+ \boxed{I_1=I_2=\frac{2\varepsilon}{3r},\quad I_3=-\frac{4\varepsilon}{3r}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{支路};\draw[axis](0,-.1)--(0,2)node[above]{供流方向};
+\draw[axis](.5,0)--(.5,1.3);\draw[axis](2,0)--(2,1.3);\draw[axis](3.5,1.8)--(3.5,.1);\node at(2,-.7){$I_1+I_2+I_3=0$};
+\end{tikzpicture}
+\caption{正、负供流用方向表示，节点守恒可直接核对。}\label{fig:c1-h7-s}
+\end{figure}
+图~\ref{fig:c1-h7-s}中第三支路实际电流与所选供流方向相反，大小等于前两支路之和。负电流不能理解为负内阻；把源项置零后，三个$r$仍普通并联，故$r_{\rm eq}=r/3$。
+
+功率的符号也须采用同一有向约定。三源给出的总功率为
+\[
+ \sum_i\varepsilon_iI_i
+ =\varepsilon\frac{2\varepsilon}{3r}
+ +\varepsilon\frac{2\varepsilon}{3r}
+ +(-\varepsilon)\left(-\frac{4\varepsilon}{3r}\right)
+ =\frac{8\varepsilon^2}{3r}.
+\]
+而$\sum rI_i^2=r(4+4+16)\varepsilon^2/(9r^2)=8\varepsilon^2/(3r)$。端口开路没有输出功率，全部源功率都在内部耗散。第三源的电动势与电流同时为负，其源功率仍为正，不能仅凭$I_3<0$便判定它正在吸收能量。
+\end{solution}
+
+\begin{exercise}[负载功率与效率的不同极值]\label{ex:c1-h8}
+电源电动势$\varepsilon$、内阻$r$，外接电阻$R>0$。求负载功率的最大值及对应效率；若要求效率至少$80\%$，允许的最大负载功率是多少？ 见图~\ref{fig:c1-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{R}
+\fill(n0)circle(1.5pt)node[below]{$A$};
+\fill(n1)circle(1.5pt)node[below]{$X$};
+\fill(n2)circle(1.5pt)node[below]{$B$};
+
+\coordinate(u)at(0,-1.5);\coordinate(v)at(4,-1.5);\draw[curve](n0)--(u);\draw[curve](n2)--(v);\Src{u}{v}{\varepsilon}\end{tikzpicture}
+\caption{电源内阻和外部负载串联，效率与负载功率不是同一函数。}\label{fig:c1-h8-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c1-h8-q}只有一条回路。由$\varepsilon=I(r+R)$，负载功率和源给出功率分别为
+\[
+ P_L=I^2R=\frac{\varepsilon^2R}{(r+R)^2},\qquad
+ P_{\rm src}=\varepsilon I=\frac{\varepsilon^2}{r+R}.
+\]
+对$R$求导时电流也随之改变，不能将$I$视作常量：
+\[
+ \frac{\dd P_L}{\dd R}
+ =\varepsilon^2\left[(r+R)^{-2}-2R(r+R)^{-3}\right]
+ =\frac{\varepsilon^2[(r+R)-2R]}{(r+R)^3}
+ =\frac{\varepsilon^2(r-R)}{(r+R)^3}.
+\]
+导数在$R<r$为正、$R>r$为负，且两端极限功率均为零，故全局最大值在$R=r$：
+\[
+ \boxed{P_{\max}=\frac{\varepsilon^2}{4r}},\qquad
+ \eta=\frac{P_L}{P_{\rm src}}=\frac R{r+R},\qquad \eta(R=r)=\frac12.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[y=3cm,>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$R/r$};\draw[axis](0,-.1)--(0,.6)node[above]{$rP_L/\varepsilon^2$};
+\draw[curve,domain=.05:5,samples=100]plot(\x,{\x/(1+\x)^2});\draw[guide](1,0)--(1,.25);\draw[guide](4,0)--(4,.16);
+\node[left]at(0,.25){$1/4$};\node[below]at(1,0){$1$};\node[below]at(4,0){$4$};\end{tikzpicture}
+\caption{最大功率点在$R=r$，效率约束把允许区间推到其右侧。}\label{fig:c1-h8-s}
+\end{figure}
+图~\ref{fig:c1-h8-s}的效率约束要求$R/(r+R)\ge4/5$，移项得$R\ge4r$。这个允许区间全部位于最大功率点右侧，功率随$R$增大而减小，所以受约束极值在左端$R=4r$：
+\[
+ \boxed{P_{L,\,\eta\ge80\%}=\frac{\varepsilon^2(4r)}{(5r)^2}
+ =\frac{4\varepsilon^2}{25r}}.
+\]
+此时$I=\varepsilon/(5r)$，内耗为$\varepsilon^2/(25r)$，效率恰为$80\%$。继续增大$R$会提高效率，却降低电流和有用功率；效率接近一不意味着能向负载送出很大的功率。
+\end{solution}

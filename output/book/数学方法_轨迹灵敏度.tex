@@ -1,0 +1,96 @@
+\section{事件终点的灵敏度与参数优化}
+\subsection{参数改变同时移动轨迹和终止时刻}
+对微分方程$\dot{\vct y}=\vct f(t,\vct y,\lambda)$，固定时刻的参数灵敏度为$\vct S=\partial\vct y/\partial\lambda$。对原方程求参数导数，得到与原轨迹一并积分的切线方程
+\[
+ \dot{\vct S}=\frac{\partial\vct f}{\partial\vct y}\vct S
+ +\frac{\partial\vct f}{\partial\lambda},\qquad
+ \vct S(0)=\frac{\partial\vct y_0}{\partial\lambda}.
+\]
+原方程中没有显含参数，并不意味着结果对它不敏感；参数可能只出现在初始位置、速度或方向中。
+
+若终点由$g(T,\vct y(T),\lambda)=0$确定，链式法则给出
+\[0=g_tT_\lambda+g_{\vct y}(\vct S+\vct fT_\lambda)+g_\lambda.\]
+合并所有$T_\lambda$项，只要事件穿越速度$g_t+g_{\vct y}\vct f\ne0$，就可解得
+\[
+ \frac{\dd T}{\dd\lambda}
+ =-\frac{g_{\vct y}\vct S+g_\lambda}
+ {g_t+g_{\vct y}\vct f}\bigg|_{t=T}.
+\]
+分母是沿轨迹的事件穿越速度。最终观测量若为$x(T,\lambda)$，其总导数是
+\[
+ \frac{\dd x(T,\lambda)}{\dd\lambda}
+ =S_x(T)+\dot x(T)\frac{\dd T}{\dd\lambda}.
+\]
+遗漏后一项，相当于把两条不同参数轨迹强行比较在同一时刻，得到的最优参数可能错误。
+
+让AI生成切线方程时，应明确各偏导中保持不变的变量，再用独立的有限参数差分核对。差分间隔过大会留下截断误差，过小则放大舍入和事件定位误差。直接积分切线方程可减少两条接近轨迹相减产生的噪声；原轨迹自身的积分误差仍需控制。
+
+\begin{example}线性阻力下的最佳发射角
+抛体满足$\dot v_x=-\kappa v_x$、$\dot v_y=-g-\kappa v_y$，初速$v_0$固定，发射角为$\theta\in(0,\pi/2)$，初始高度为零。以第一次向下返回$y=0$为终点，推导射程对发射角的导数。取$v_0=10\,\mathrm{m/s}$、$g=10\,\mathrm{m/s^2}$、$\kappa=0.4\,\mathrm{s^{-1}}$，求最优角度，并给出无阻力极限。
+\ExpansionDiagram{fig:dep-ai-sensitivity-q}{同一初速下，改变角度同时改变落地点与飞行时间}{
+\draw[->](0,0)--(6.5,0)node[right]{$x$};\draw[->](0,0)--(0,3.2)node[above]{$y$};\draw[thick](0,0)..controls(2,2.7)and(4,2)..(5.5,0);\draw[dashed](0,0)..controls(1.7,3.5)and(3.8,2.6)..(5.1,0);\node[above]at(3,2.5){$\theta+\dd\theta$};\node[below]at(5.5,0){$R$};}
+\end{example}
+\begin{solution}
+令$a=v_0\sin\theta$、$b=v_0\cos\theta$。横向速度方程乘积分因子后为$(\ee^{\kappa t}v_x)'=0$，初值给出$v_x=b\ee^{-\kappa t}$。竖向将常数项移入未知量，
+\[\frac{\dd}{\dd t}\left[\ee^{\kappa t}\left(v_y+\frac g\kappa\right)\right]=0,\]
+由$v_y(0)=a$得到$v_y=(a+g/\kappa)\ee^{-\kappa t}-g/\kappa$。再用$x(0)=y(0)=0$对速度积分：
+\[x=b\int_0^t\ee^{-\kappa s}\dd s
+=b\left[-\frac{\ee^{-\kappa s}}\kappa\right]_0^t,\]
+\[y=\left(a+\frac g\kappa\right)
+\left[-\frac{\ee^{-\kappa s}}\kappa\right]_0^t
+-\frac g\kappa[s]_0^t.\]
+因此图\ref{fig:dep-ai-sensitivity-q}的轨迹解析式为
+\[
+ x(t)=\frac b\kappa(1-\ee^{-\kappa t}),\quad
+ y(t)=\frac{a+g/\kappa}{\kappa}(1-\ee^{-\kappa t})-\frac{gt}{\kappa}.
+\]
+非零落地根满足$y(T(\theta),\theta)=0$。固定$t$时，$\partial_\theta a=b$，所以$S_y=\partial_\theta y=b(1-\ee^{-\kappa t})/\kappa$。对事件方程作总导数，
+\[0=\frac{\dd}{\dd\theta}y(T(\theta),\theta)
+=S_y(T)+v_y(T)T_\theta.\]
+落地速度$v_y(T)=(a+g/\kappa)\ee^{-\kappa T}-g/\kappa<0$，因此可除以它，得到
+\[
+ T_\theta=-\frac{b(1-\ee^{-\kappa T})}
+ {\kappa[(a+g/\kappa)\ee^{-\kappa T}-g/\kappa]}.
+\]
+射程为$R=x(T(\theta),\theta)$。由$\partial_\theta b=-a$，固定时刻的$S_x=-a(1-\ee^{-\kappa t})/\kappa$；再加上终点时间项$v_x(T)T_\theta$，总导数为
+\[
+ R_\theta=-\frac{a}{\kappa}(1-\ee^{-\kappa T})
+ +b\ee^{-\kappa T}T_\theta.
+\]
+\ExpansionDiagram{fig:dep-ai-sensitivity-a}{先求落地事件，再把终点时间变化加到射程导数}{
+\node[draw](event)at(0,0){$y(T)=0$};\node[draw](time)at(3.2,0){$T_\theta=-S_y/v_y$};\node[draw](range)at(7,0){$R_\theta=S_x+v_xT_\theta$};\draw[->](event.east)--(time.west);\draw[->](time.east)--(range.west);\node[below]at(3.5,-.7){以非零、向下穿越根为终点};}
+图\ref{fig:dep-ai-sensitivity-a}把事件导数单独保留。求最优角度时，还须确认驻点的性质。令$u=\kappa T$、$\beta=\kappa v_0/g$，落地条件给出
+\[
+h(u)\equiv\frac{u}{1-\ee^{-u}}-1=\beta\sin\theta.
+\]
+商法则给出
+\[h'(u)=\frac{(1-\ee^{-u})-u\ee^{-u}}{(1-\ee^{-u})^2}
+=\frac{1-(1+u)\ee^{-u}}{(1-\ee^{-u})^2}>0,\]
+最后用到$\ee^u>1+u$。因此发射角增大时，非零飞行时间严格增大，可改以$u$为参数求最大射程。由$\beta\cos\theta=\sqrt{\beta^2-h^2}$，有
+\[
+\left(\frac{\kappa^2R}{g}\right)^2
+=\beta^2(1-\ee^{-u})^2-(u-1+\ee^{-u})^2.
+\]
+记$s=1-\ee^{-u}$，则$s'=\ee^{-u}$、$(u-s)'=s$。对右侧两平方项逐项求导，得到
+\[2\beta^2s\ee^{-u}-2(u-s)s
+=2s[\beta^2\ee^{-u}-u+s].\]
+将$s$代回并合并，得到
+\[
+\frac{\dd}{\dd u}\left(\frac{\kappa^2R}{g}\right)^2
+=2(1-\ee^{-u})[1-u+(\beta^2-1)\ee^{-u}].
+\]
+记方括号为$G(u)$。对于$u>0$，$G'(u)=-1+(1-\beta^2)\ee^{-u}<0$；在$u=0$处$G(0)=\beta^2>0$，在竖直发射对应的终点$u_v$处，
+$G(u_v)=\beta[(1+\beta)\ee^{-u_v}-1]<0$，最后的不等式正是落地竖直速度为负。因而有效区间只有一个驻点，射程先增后减，该点给出全局最大值。
+
+本题$\beta=0.4$，只需在$[0.48,0.49]$内求$G(u)=0$。用二分法将区间缩至$10^{-10}$以内，得到$u\simeq0.480462068$。再依次计算$T=u/\kappa$、$\theta=\arcsin[h(u)/\beta]$与射程，结果为
+\[
+ \theta_{\rm opt}\simeq0.705593884\,\mathrm{rad}
+ =40.4275516^\circ,\quad
+ T\simeq1.20115517\,\mathrm s,\quad R\simeq7.26024518\,\mathrm m.
+\]
+在$45^\circ$时射程约$7.17528806\,\mathrm m$，导数约$-2.10619\,\mathrm{m/rad}$，因此它已经在射程下降一侧。数值导数中的角度单位必须为弧度；若使用度，需另乘$\pi/180$。
+
+当$\kappa\to0$，解析式的差商应用指数展开或稳定的$\operatorname{expm1}$实现，避免两个接近数相减。无阻力时$T=2v_0\sin\theta/g$、$T_\theta=2v_0\cos\theta/g$，两项合并给$R_\theta=2v_0^2\cos2\theta/g$，最优角恢复$\pi/4$。只保留固定时刻导数$S_x$则对整个角域均为负，显然无法恢复这一极限。
+\end{solution}
+
+同一方法还能用于拟合中的参数Jacobian和约束事件到达时间。若终点恰好擦过事件面，分母趋零，灵敏度可能很大甚至失去普通可微性；此时应改变事件参数化或分段讨论，不能要求优化程序在所有参数处都返回平滑导数。

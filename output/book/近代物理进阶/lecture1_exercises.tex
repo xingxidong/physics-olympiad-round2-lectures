@@ -1,0 +1,113 @@
+\section{习题与解答}
+\input{lecture1_additional}
+\begin{exercise}\label{ex:m1clocktrain}
+列车固有长$L$，以速度$V$运动。车头和车尾各有一只在车系同步的钟。地面在$t=0$同时读取两钟，求车头减车尾的读数差，并求地面收到这两次读数的先后是否必然相同。
+\Diagram{fig:m1trainq}{同时读取运动列车的两端钟}{\draw[axis](-.5,0)--(5,0)node[right]{$x$};\draw[curve](0,.5)rectangle(3.5,1.3);\node[above]at(0,1.3){尾};\node[above]at(3.5,1.3){头};\draw[axis](3.8,.9)--(4.8,.9)node[above]{$V$};\draw[guide](0,2)--(3.5,2);\node[above]at(1.75,2){$t=0$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1trainq}中的同时截面长为$L/\gamma$。用$\Delta t'=\gamma(\Delta t-V\Delta x/c^2)$，得到头钟减尾钟
+\[
+ \Delta t'=-\gamma\frac{V}{c^2}\frac{L}{\gamma}=-\frac{VL}{c^2}.
+\]
+头钟在地面同时截面上落后。读数事件之间是类空间隔，其光信号到达同一观察者的时间还要加各自传播时间。
+\Diagram{fig:m1traina}{地面接收者的位置影响读数信号的到达次序}{\draw[curve](0,0)--(4,0);\fill(0,0)circle(1.4pt)node[below]{尾};\fill(4,0)circle(1.4pt)node[below]{头};\fill(1,1.5)circle(1.4pt)node[above]{$D$};\draw[->](0,0)--(1,1.5);\draw[->](4,0)--(1,1.5);\node[below]at(2,-.5){$\Delta t_{\rm arr}=(r_{\text{头}}-r_{\text{尾}})/c$};}
+图\ref{fig:m1traina}中的接收者若更靠近车尾，先收到尾部信号；靠近车头则相反；在垂直平分线上同时收到。钟面读数的差与信号到达次序没有一一对应关系。
+\end{solution}
+
+\begin{exercise}\label{ex:m1lifetime}
+不稳定粒子的平均固有寿命为$\tau_0$，在实验室以$v$匀速飞行。求在距离$L$处仍未衰变的比例。再在粒子系说明为什么得到同一结果。
+\Diagram{fig:m1lifeq}{粒子从产生点飞向距离为$L$的探测平面}{\draw[axis](-.3,0)--(5,0)node[right]{$x$};\fill(0,0)circle(2pt)node[below]{$O$};\draw[curve](4,-.7)--(4,1.2)node[above]{探测面};\draw[->,thick](.4,.3)--(2,.3)node[above]{$v$};\draw[<->](0,-.5)--(4,-.5)node[midway,below]{$L$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1lifeq}中实验室飞行时间为$t=L/v$，粒子经历的固有时为$\tau=t/\gamma_v$。恒定衰变概率对应$\dd N/\dd\tau=-N/\tau_0$。分离变量并用$N(0)=N_0$，
+\[
+ \int_{N_0}^{N(\tau)}\frac{\dd n}{n}
+ =-\frac1{\tau_0}\int_0^\tau\dd s,
+ \qquad \ln\frac{N(\tau)}{N_0}=-\frac{\tau}{\tau_0}.
+\]
+取指数并代入飞行固有时，得
+\[
+ \frac N{N_0}=\exp\left[-\frac{L}{\gamma_vv\tau_0}\right].
+\]
+\Diagram{fig:m1lifea}{粒子系中探测面向静止粒子运动}{\fill(0,0)circle(2pt)node[above]{粒子};\draw[curve](3,-.7)--(3,1.2);\draw[axis](2.7,.5)--(1.5,.5)node[midway,above]{$v$};\draw[<->](0,-.5)--(3,-.5)node[midway,below]{$L/\gamma_v$};}
+在图\ref{fig:m1lifea}的粒子系，产生点到探测面在同一时刻的距离缩短为$L/\gamma_v$，探测面以$v$靠近，所需时间$L/(\gamma_vv)$，恰为上面的固有时间。这里“平均寿命”不代表所有粒子都在同一时刻衰变，结果是统计存活比例。
+\end{solution}
+
+\begin{exercise}\label{ex:m1crossvelocity}
+飞船$S'$以$V$相对实验室运动，在船上沿$y'$方向发射速度为$u$的粒子。求实验室速度、洛伦兹因子及粒子运动到船系坐标$y'=H$时的实验室位置。
+\Diagram{fig:m1crossq}{船内的横向发射}{\draw[curve](0,0)rectangle(3,2.2);\fill(1,0)circle(1.5pt);\draw[axis](1,0)--(1,1.8)node[left]{$u$};\node[right]at(1,2){$H$};\draw[axis](3.4,1)--(4.6,1)node[right]{$V$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1crossq}中$v'_x=0,v'_y=u$。逆速度变换给$v_x=V,v_y=u/\gamma$。于是
+\[
+ 1-v^2/c^2=(1-\beta^2)(1-u^2/c^2),\quad \gamma_v=\gamma\gamma_u.
+\]
+到达上边界的事件在船系为$t'=H/u,x'=0,y'=H$。逆坐标变换得$t=\gamma H/u$，$x=\gamma VH/u$，$y=H$。
+\Diagram{fig:m1crossa}{实验室中粒子轨迹斜向前方，与船保持相同纵向速度}{\draw[axis](-.3,0)--(4.8,0)node[right]{$x$};\draw[axis](0,-.2)--(0,2.5)node[above]{$y$};\draw[very thick,->](0,0)--(3.7,2);\draw[guide](0,2)--(3.7,2)--(3.7,0);\node[left]at(0,2){$H$};\node[below]at(3.7,0){$\gamma VH/u$};}
+图\ref{fig:m1crossa}的斜率$H/(\gamma VH/u)=u/(\gamma V)$也等于$v_y/v_x$。若直接使用伽利略合成$v_y=u$，会使坐标变换与轨迹速度互相矛盾。
+\end{solution}
+
+\begin{exercise}\label{ex:m1coneenergy}
+静止系各向同性的单次闪光总能量为$E_0$，各方向的光谱相同。实验室观察前向锥$\theta\leq\arccos\beta$。求锥内光子数与能量各占整次闪光的比例。
+\Diagram{fig:m1coneq}{前向锥恰好由静止系前半球变换而来}{\draw[axis](-.3,0)--(4,0)node[right]{$x$};\draw[curve](0,0)--(3,1.3);\draw[curve](0,0)--(3,-1.3);\draw[guide](3,-1.3)--(3,1.3);\node[right]at(3,1.3){$\cos\theta_c=\beta$};}
+\end{exercise}
+\begin{solution}
+由例\ref{ex:m1aberration}，图\ref{fig:m1coneq}中的光锥来自$0\leq\mu'\leq1$。静止系光子数各向同性，变换不改变光子数，所以数目占比为$1/2$。
+\Diagram{fig:m1conea}{在静止系积分能量权重，权重为$\gamma(1+\beta\mu')$}{\draw[axis](0,0)--(3.8,0)node[right]{$\mu'$};\draw[axis](0,0)--(0,2.8)node[above]{能量权重};\draw[curve](0,1)--(3,2.3);\draw[guide](3,0)--(3,2.3);\node[below]at(3,0){$1$};\node[left]at(0,1){$\gamma$};}
+能量按图\ref{fig:m1conea}的权重变换，锥内能量为
+\[
+ E_c=\frac{\gamma E_0}{2}\int_0^1(1+\beta\mu')\dd\mu'
+ =\frac{\gamma E_0}{2}\left[\mu'+\frac\beta2\mu'^2\right]_0^1
+ =\gamma E_0\left(\frac12+\frac\beta4\right).
+\]
+整个闪光的能量为$\gamma E_0$，故能量份额为$1/2+\beta/4$。即使高相对论速度，静止系前半球所含光子的实验室能量份额也只趋向$3/4$；这与小立体角内较大的角能量密度并不冲突。
+\end{solution}
+
+\begin{exercise}\label{ex:m1transverse}
+运动光源的静止频率为$\nu_0$。分别求实验室观察方向与速度垂直、以及光源系发射方向与速度垂直时的实验室频率。
+\Diagram{fig:m1transq}{“横向”可指两个不同惯性系中的方向}{\draw[axis](0,0)--(3.4,0)node[right]{$V$};\draw[axis](0,0)--(0,2)node[above]{$\theta=\pi/2$};\draw[->,thick](0,0)--(2.6,1.6)node[right]{$\theta'=\pi/2$的光};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m1transq}中竖直的实验室光线有$\cos\theta=0$，所以$\nu=\nu_0/\gamma$，发生红移。若取源系$\cos\theta'=0$，则由逆能量变换$\nu=\gamma\nu_0$，发生蓝移。
+\Diagram{fig:m1transa}{两个横向条件对应不同实验室角度}{\draw[axis](0,0)--(3.5,0)node[right]{$x$};\draw[curve](0,0)--(0,2);\draw[curve](0,0)--(2.6,1.6);\node[left]at(0,1.7){$\nu_0/\gamma$};\node[right]at(2.6,1.6){$\gamma\nu_0$};\draw[->](.9,0)arc(0:31.6:.9);\node[above]at(1.3,1.1){$\cos\theta=\beta$};}
+第二种光线在实验室满足$\cos\theta=\beta$，如图\ref{fig:m1transa}。将其代入$\nu=\nu_0/[\gamma(1-\beta\cos\theta)]$，分母成为$\gamma(1-\beta^2)=1/\gamma$，与直接变换吻合。叙述横向多普勒效应时必须说明横向角在哪个系定义。
+\end{solution}
+
+\begin{exercise}\label{ex:m1fourwork}
+静质量$m$的粒子由静止开始受恒定三力$f$沿$x$加速。求其动量、能量、速度和位移随实验室时间的变化，以及经历的固有时。
+\Diagram{fig:m1workq}{实验室恒定三力的直线运动}{\draw[axis](-.3,0)--(4.7,0)node[right]{$x$};\fill(0,0)circle(2pt)node[below]{$m$};\draw[very thick,->](.2,.5)--(2,.5)node[midway,above]{$f$};}
+\end{exercise}
+\begin{solution}
+以图\ref{fig:m1workq}的出发事件为$t=x=0$。恒三力满足$\dd p/\dd t=f$；用$p(0)=0$，有$\int_0^{p(t)}\dd p_1=f\int_0^t\dd t_1$，即$p=ft$。质壳关系和$v=pc^2/E$给
+\[
+ E=mc^2\sqrt{1+s^2},\qquad
+ v=\frac{cs}{\sqrt{1+s^2}},\qquad s=\frac{ft}{mc}.
+\]
+位移的定积分为
+\begin{align*}
+ x(t)&=\int_0^t v(t_1)\dd t_1
+ =\frac{mc^2}f\int_0^s\frac{q\dd q}{\sqrt{1+q^2}}\\
+ &=\frac{mc^2}f[\sqrt{1+q^2}]_0^s
+ =\frac{mc^2}f[\sqrt{1+s^2}-1].
+\end{align*}
+于是$fx=E-mc^2$，外力做功恰等于动能增加。
+\Diagram{fig:m1worka}{恒力世界线渐近于光线，虚线斜率为1}{\draw[axis](-.2,0)--(4.5,0)node[right]{$fx/(mc^2)$};\draw[axis](0,-.2)--(0,4.5)node[above]{$ft/(mc)$};\draw[curve,domain=0:4,samples=80]plot({sqrt(1+\x*\x)-1},\x);\draw[guide](0,1)--(3.4,4.4);}
+固有时间应沿图\ref{fig:m1worka}的加速世界线累计。由$\gamma_v=\sqrt{1+s^2}$，
+\[
+ \tau=\frac{mc}f\int_0^s\frac{\dd q}{\sqrt{1+q^2}}
+ =\frac{mc}f\operatorname{arsinh}s.
+\]
+最后一步令$q=\sinh\eta$，则$\dd q=\cosh\eta\dd\eta$、$\sqrt{1+q^2}=\cosh\eta$，上下限为$0,\operatorname{arsinh}s$，积分为$[\eta]_0^{\operatorname{arsinh}s}$。反解$s=\sinh(f\tau/mc)$，代回得到
+\[
+ ct=\frac{mc^2}f\sinh\frac{f\tau}{mc},\qquad
+ x=\frac{mc^2}f\left(\cosh\frac{f\tau}{mc}-1\right).
+\]
+从$v(t)=cs(1+s^2)^{-1/2}$用乘积与链式法则求导，
+\[
+ \frac{\dd v}{\dd t}=c\frac{\dd s}{\dd t}
+ \left[(1+s^2)^{-1/2}-s^2(1+s^2)^{-3/2}\right]
+ =\frac fm(1+s^2)^{-3/2}.
+\]
+纵向固有加速度为$\gamma_v^3\dd v/\dd t=f/m$。恒三力对应恒纵向固有加速度，实验室加速度则不断减小。$s\ll1$时$x\simeq ft^2/(2m)$、$\tau\simeq t$，任何有限$t$都有$v<c$。
+\end{solution}
+\input{lecture1_practice}

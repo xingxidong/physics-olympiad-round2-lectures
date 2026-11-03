@@ -1,0 +1,24 @@
+\usepackage[paperwidth=176mm,paperheight=250mm,inner=21mm,outer=18mm,top=20mm,bottom=20mm,headheight=14pt,headsep=6mm,footskip=10mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,bm,mathtools,booktabs,array,enumitem,float}
+\usepackage{tikz,fancyhdr,hyperref}
+\usetikzlibrary{arrows.meta,calc,patterns,angles,quotes}
+\hypersetup{hidelinks,pdftitle={静电静磁进阶：物理竞赛二轮讲义},pdfauthor={}}
+\setlength{\parindent}{2em}\setlength{\parskip}{3pt}\setlength{\emergencystretch}{2em}
+\linespread{1.18}\raggedbottom\setcounter{tocdepth}{1}
+\ctexset{chapter={name={第,讲},number=\chinese{chapter},format=\LARGE\bfseries\centering,beforeskip=16pt,afterskip=22pt},section={format=\Large\bfseries},subsection={format=\large\bfseries}}
+\pagestyle{fancy}\fancyhf{}\fancyhead[LE,RO]{\small\thepage}\fancyhead[LO]{\small 静电静磁进阶}\fancyhead[RE]{\small\leftmark}
+\renewcommand{\headrulewidth}{0pt}\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\thepage}\renewcommand{\headrulewidth}{0pt}}
+\theoremstyle{definition}\newtheorem{example}{例}[chapter]\newtheorem{exercise}{习题}[chapter]
+\newcommand{\SolutionStart}{\par\medskip\ifdim\pagetotal>0pt\ifdim\dimexpr\pagegoal-\pagetotal\relax<3\baselineskip\newpage\fi\fi\noindent\textbf{解}\quad\ignorespaces}
+\newenvironment{solution}{\SolutionStart}{\par\medskip}
+\numberwithin{equation}{chapter}
+\newcommand{\dd}{\mathop{}\!\mathrm d}\newcommand{\ee}{\mathrm e}\newcommand{\ii}{\mathrm i}\newcommand{\vct}[1]{\bm{#1}}
+\DeclareMathOperator{\arsinh}{arsinh}\DeclareMathOperator{\arcosh}{arcosh}\DeclareMathOperator{\artanh}{artanh}\DeclareMathOperator{\sgn}{sgn}\DeclareMathOperator{\sech}{sech}
+\tikzset{axis/.style={->,>=Stealth,line width=.4pt},curve/.style={line width=.7pt},guide/.style={dashed,line width=.35pt},every node/.style={font=\small}}
+\setlist[enumerate]{itemsep=3pt,topsep=4pt,leftmargin=2em}
+\newcommand{\Needspace}[1]{\par\ifdim\dimexpr\pagegoal-\pagetotal\relax<#1\newpage\fi}
+\newcommand{\ke}{k_{\rm e}}
+\let\LectureContents\tableofcontents
+\renewcommand{\tableofcontents}{\begingroup\small\linespread{1}\selectfont\LectureContents\endgroup}
+
+\providecommand{\ExpansionDiagram}[3]{\begin{figure}[H]\centering\begin{tikzpicture}#3\end{tikzpicture}\caption{#2}\label{#1}\end{figure}}

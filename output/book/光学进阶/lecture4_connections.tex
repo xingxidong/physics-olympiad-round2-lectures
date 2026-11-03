@@ -1,0 +1,32 @@
+\section{闭合偏振路径中的干涉相位}
+\subsection{单束可以删去的共同相位，在两臂间仍可测量}
+两个非零Jones矢量若只相差共同相位，其单束强度和偏振椭圆相同，与同一参考光干涉时却会产生不同的条纹位置。依次投影到几个偏振态后，即使偏振方向回到初态，也可能留下可测的路径相位。因此比较两臂时，应保留各元件作用后的完整复振幅。
+
+归一化偏振态$|a\rangle$的理想投影元件写$P_a=|a\rangle\langle a|$。它选择该态并保留投影的复数系数。初态$|a\rangle$依次经$P_b,P_c,P_a$后，输出为
+\[
+ |a\rangle\langle a|c\rangle\langle c|b\rangle\langle b|a\rangle.
+\]
+三个内积的积包含透过幅度与路径相位。把任一态改写为$\ee^{\mathrm i\alpha}|a\rangle$并不改变投影算符，积中的相位也成对抵消。因此所求相位不是任选Jones代表元造成的假象。实际元件还可能有传播相位，干涉装置中需事先平衡或把它们明确加入模型。
+
+\begin{example}交换偏振投影顺序，最后方向相同而条纹移动
+取$|H\rangle=(1,0)^{\mathsf T}$、$|D\rangle=(1,1)^{\mathsf T}/\sqrt2$、$|R\rangle=(1,\mathrm i)^{\mathsf T}/\sqrt2$。干涉仪两臂在进入元件前均为场$E_0|H\rangle$。参考臂附加相位为$\delta$，信号臂先经$P_D$、再$P_R$、最后$P_H$。求信号透过率与干涉强度；再交换$P_D,P_R$，比较条纹。投影元件按上述算符定义，其他光程相位已补偿。
+\ExpansionDiagram{fig:dep-o4-loop-q}{两条信号路径最终都回到水平偏振，参考臂保留相位基准}{
+\node[draw]at(0,1){$H$};\node[draw]at(2,1){$D$};\node[draw]at(4,1){$R$};\node[draw]at(6,1){$H$};\draw[->](.4,1)--(1.6,1);\draw[->](2.4,1)--(3.6,1);\draw[->](4.4,1)--(5.6,1);\draw[->](0,-.3)--(6,-.3)node[midway,below]{参考臂$\ee^{\mathrm i\delta}H$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o4-loop-q}第一步幅度系数为$\langle D|H\rangle=1/\sqrt2$，第二步为$\langle R|D\rangle=(1-\mathrm i)/2$，第三步为$\langle H|R\rangle=1/\sqrt2$。保留三个复系数相乘，得
+\[
+ c=\frac{1-\mathrm i}{4}=\frac1{2\sqrt2}\ee^{-\mathrm i\pi/4}.
+\]
+信号透过率$|c|^2=1/8$，最后偏振仍为$H$。参考臂与信号臂叠加时
+\[
+ I=I_0|\ee^{\mathrm i\delta}+c|^2
+ =I_0\left[\frac98+\frac1{\sqrt2}\cos(\delta+\pi/4)\right],
+\]
+其中$I_0=|E_0|^2$采用同一强度单位。
+\ExpansionDiagram{fig:dep-o4-loop-a}{两种顺序的信号系数互为共轭，参考相位扫描看到相反偏移}{
+\draw[->](-.2,0)--(3.5,0)node[right]{实部};\draw[->](0,-2)--(0,2)node[above]{虚部};\draw[->,thick](0,0)--(2,-2)node[right]{$(1-\mathrm i)/4$};\draw[->,thick](0,0)--(2,2)node[right]{$(1+\mathrm i)/4$};\draw[dashed](2,-2)--(2,2);}
+交换后$c'=\langle H|D\rangle\langle D|R\rangle\langle R|H\rangle=(1+\mathrm i)/4$。图\ref{fig:dep-o4-loop-a}中两信号模相同、辐角相差$\pi/2$，新强度为$I_0[9/8+\cos(\delta-\pi/4)/\sqrt2]$。两条纹相差四分之一个周期，可见度同为$4\sqrt2/9$。
+
+两种顺序得到的信号具有相同强度和偏振，与共同参考臂叠加后才显出路径相位差。仅计算单束偏振时可以删去共同相位；计算干涉时，须另行保留它相对于参考臂的值。逐片归一化并丢掉投影复系数，会同时丢失透过率和条纹位移。
+\end{solution}

@@ -1,0 +1,2124 @@
+\chapter{对称性、互易与网络变换}
+复杂电阻网络可先按连接关系列出节点方程，再利用对称性归并未知量。可用的对称变换必须同时保持电阻分布与外部注流条件。某一对端口下等势的节点，换一对端口测量时可能具有不同电位。
+
+
+
+\section{唯一性与等势节点的归并}\label{sec:c2-sym}
+等势归并依据的是电位解的唯一性。一个变换若同时保持连接、电阻和端口注流，变换前后的电位解便相同，被互换的节点因而等势。
+
+对连通的无源电阻网络，指定参考电位与节点注流后，节点解唯一。设有两个解，其差为$w_a$，则所有节点差方程为$\sum_b(w_a-w_b)/r_{ab}=0$。乘以$w_a$并对节点求和，每条边合成
+\[
+ \sum_{(a,b)}\frac{(w_a-w_b)^2}{r_{ab}}=0.
+\]
+由于$r_{ab}>0$，每条边两端的$w$必须相等。网络连通，便有全部$w_a$为同一常数；参考点将此常数定为零。由此可严密使用反射和旋转，而不必依靠视觉猜测。
+
+若网络及源汇在某变换下不变，变换后的解必须等于原解。互换的节点于是等势，可用理想导线连接。若变换同时使全部注流反号，取中性参考电位后，互换点电位互为相反数；不动点为零势。反对称折叠须保留这个负号。
+
+“拆点”也有条件：拆开的各部分在所研究激励下必须自然具有相同电位，否则拆开会改变电流分配。可以先根据对称性证明，再拆分或短接；不能把任意交叉点删去后声称图形仍然对称。
+
+\Needspace{6\baselineskip}
+\begin{example}[二阶方格的对角端口]\label{ex:c2-grid2}
+九个节点组成$2\times2$小方格，各相邻节点间电阻$r$。电流从一个大正方形顶角$A$注入、从对角$B$流出。求等效电阻，并讨论中心处两条交叉导线若改成互不连接是否改变结果。 见图~\ref{fig:c2-grid2-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(p0x0)at(0.0,0.0);
+\coordinate(p0x1)at(-1.1,1.1);
+\coordinate(p0x2)at(-2.2,2.2);
+\coordinate(p1x0)at(1.1,1.1);
+\coordinate(p1x1)at(0.0,2.2);
+\coordinate(p1x2)at(-1.1,3.3000000000000003);
+\coordinate(p2x0)at(2.2,2.2);
+\coordinate(p2x1)at(1.1,3.3000000000000003);
+\coordinate(p2x2)at(0.0,4.4);
+\draw[curve](p0x0)--(p1x0);
+\draw[curve](p0x0)--(p0x1);
+\draw[curve](p0x1)--(p1x1);
+\draw[curve](p0x1)--(p0x2);
+\draw[curve](p0x2)--(p1x2);
+\draw[curve](p1x0)--(p2x0);
+\draw[curve](p1x0)--(p1x1);
+\draw[curve](p1x1)--(p2x1);
+\draw[curve](p1x1)--(p1x2);
+\draw[curve](p1x2)--(p2x2);
+\draw[curve](p2x0)--(p2x1);
+\draw[curve](p2x1)--(p2x2);
+\fill(p0x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(p0x1)circle(1.3pt);
+\fill(p0x2)circle(1.3pt);
+\fill(p1x0)circle(1.3pt);
+\fill(p1x1)circle(1.3pt);
+\fill(p1x2)circle(1.3pt);
+\fill(p2x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(p2x1)circle(1.3pt);
+\fill(p2x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{图中所有实点连接；交叉中心是一个四支路节点。}\label{fig:c2-grid2-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c2-grid2-q}的格点坐标为$(i,j)$，$0\le i,j\le2$，端口为$(0,0)$与$(2,2)$，电位分别设为$V,0$。关于$AB$的反射保持源汇，所以$(i,j)$与$(j,i)$等势。关于另一条对角线的反射互换源汇，故$i+j=2$上的三个不动点均为$V/2$。
+
+这样五层$i+j=0,1,2,3,4$分别只有一个电位未知量；各层内部没有通流边，相邻层间依次有$2,4,4,2$条$r$。注意这里的等势已经由两项对称性证明，并非任意斜截面都可短接。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);\coordinate(n4)at(8,0);
+\Res{n0}{n1}{r/2}
+\Res{n1}{n2}{r/4}
+\Res{n2}{n3}{r/4}
+\Res{n3}{n4}{r/2}
+\fill(n0)circle(1.5pt)node[below]{$A$};
+\fill(n1)circle(1.5pt)node[below]{$L_1$};
+\fill(n2)circle(1.5pt)node[below]{$L_2$};
+\fill(n3)circle(1.5pt)node[below]{$L_3$};
+\fill(n4)circle(1.5pt)node[below]{$B$};
+
+\end{tikzpicture}
+\caption{按等势层计数并联支路，不能把所有画在同一条斜线上的点都任意短接。}\label{fig:c2-grid2-s}
+\end{figure}
+图~\ref{fig:c2-grid2-s}归并各层后，总电流$I$通过每一层间截面，相邻层压降依次为$Ir/2,Ir/4,Ir/4,Ir/2$，因此
+\[
+ V=I\left(\frac r2+\frac r4+\frac r4+\frac r2\right),\qquad
+ \boxed{R_{AB}=\frac32r}.
+\]
+中心节点原有的四条边中，上、右邻点处于同一层，下、左邻点处于同一层。若将中心交叉线拆成两个互不相连的两支路节点，每个新节点都夹在一个高势邻点与一个低势邻点之间。两电阻相等，两个中心电位各自仍为$V/2$，而且分别满足一入一出的守恒。故此次拆点不改变端口电阻。
+
+这个结论依赖当前对角端口激励。改换源汇后，两拆分节点未必自然等势，不能据此认为中心连接在所有测量中都可删去。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[三阶方格的非等势中间层]\label{ex:c2-grid3}
+十六个节点组成$3\times3$小方格，所有小边电阻均为$r$。求相对顶角$A,B$间的电阻。 见图~\ref{fig:c2-grid3-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(p0x0)at(0.0,0.0);
+\coordinate(p0x1)at(-1.1,1.1);
+\coordinate(p0x2)at(-2.2,2.2);
+\coordinate(p0x3)at(-3.3000000000000003,3.3000000000000003);
+\coordinate(p1x0)at(1.1,1.1);
+\coordinate(p1x1)at(0.0,2.2);
+\coordinate(p1x2)at(-1.1,3.3000000000000003);
+\coordinate(p1x3)at(-2.2,4.4);
+\coordinate(p2x0)at(2.2,2.2);
+\coordinate(p2x1)at(1.1,3.3000000000000003);
+\coordinate(p2x2)at(0.0,4.4);
+\coordinate(p2x3)at(-1.1,5.5);
+\coordinate(p3x0)at(3.3000000000000003,3.3000000000000003);
+\coordinate(p3x1)at(2.2,4.4);
+\coordinate(p3x2)at(1.1,5.5);
+\coordinate(p3x3)at(0.0,6.6000000000000005);
+\draw[curve](p0x0)--(p1x0);
+\draw[curve](p0x0)--(p0x1);
+\draw[curve](p0x1)--(p1x1);
+\draw[curve](p0x1)--(p0x2);
+\draw[curve](p0x2)--(p1x2);
+\draw[curve](p0x2)--(p0x3);
+\draw[curve](p0x3)--(p1x3);
+\draw[curve](p1x0)--(p2x0);
+\draw[curve](p1x0)--(p1x1);
+\draw[curve](p1x1)--(p2x1);
+\draw[curve](p1x1)--(p1x2);
+\draw[curve](p1x2)--(p2x2);
+\draw[curve](p1x2)--(p1x3);
+\draw[curve](p1x3)--(p2x3);
+\draw[curve](p2x0)--(p3x0);
+\draw[curve](p2x0)--(p2x1);
+\draw[curve](p2x1)--(p3x1);
+\draw[curve](p2x1)--(p2x2);
+\draw[curve](p2x2)--(p3x2);
+\draw[curve](p2x2)--(p2x3);
+\draw[curve](p2x3)--(p3x3);
+\draw[curve](p3x0)--(p3x1);
+\draw[curve](p3x1)--(p3x2);
+\draw[curve](p3x2)--(p3x3);
+\fill(p0x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(p0x1)circle(1.3pt);
+\fill(p0x2)circle(1.3pt);
+\fill(p0x3)circle(1.3pt);
+\fill(p1x0)circle(1.3pt);
+\fill(p1x1)circle(1.3pt);
+\fill(p1x2)circle(1.3pt);
+\fill(p1x3)circle(1.3pt);
+\fill(p2x0)circle(1.3pt);
+\fill(p2x1)circle(1.3pt);
+\fill(p2x2)circle(1.3pt);
+\fill(p2x3)circle(1.3pt);
+\fill(p3x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(p3x1)circle(1.3pt);
+\fill(p3x2)circle(1.3pt);
+\fill(p3x3)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{同一横截层中的外侧点与中心点未必等势。}\label{fig:c2-grid3-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c2-grid3-q}的$A=(0,0)$、$B=(3,3)$，端点电位为$V,-V$。互换端口的反射将$i+j=3$的四个节点定为零势。主对角线反射保持激励，故第一层两点同为$u$，第二层两个边界点为$v$，内部点为$w$。
+
+逐点列流出电流之和为零。第一层节点连向$V,v,w$；外侧$v$连向$u$及两个零势点；内部$w$连向两个$u$和两个零势点。乘$r$后为
+\[
+ (u-V)+(u-v)+(u-w)=0,\quad
+ (v-u)+v+v=0,\quad 2(w-u)+2w=0.
+\]
+所以$v=u/3$、$w=u/2$，两者确实不同，同一$i+j=2$层不能整体归并。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(0,0);\coordinate(U)at(2,0);\coordinate(V)at(4,1);\coordinate(W)at(4,-1);\coordinate(Z)at(6,0);
+\Res{A}{U}{r/2}\Res{U}{V}{r/2}\Res{U}{W}{r/2}
+\Res{V}{Z}{r/4}\Res{W}{Z}{r/2}
+\node[left]at(A){$V$};\node[above]at(U){$u$};\node[above]at(V){$v$};\node[below]at(W){$w$};\node[right]at(Z){$0$};
+
+\end{tikzpicture}
+\caption{外侧与内侧节点有不同的并联出路，保留两个未知电位。}\label{fig:c2-grid3-s}
+\end{figure}
+将$v,w$代入第一式，图~\ref{fig:c2-grid3-s}中的未知量依次确定：
+\[
+ \left(3-\frac13-\frac12\right)u=V,
+ \qquad u=\frac{6V}{13},\quad v=\frac{2V}{13},\quad w=\frac{3V}{13}.
+\]
+$A$只有两条相同出边，各流$(V-u)/r=7V/(13r)$。端电压为$2V$，故
+\[
+ I=\frac{14V}{13r},\qquad\boxed{R_{AB}=\frac{2V}I=\frac{13}7r}.
+\]
+若用半网表示，$A$到第一层的两条$r$并联为$r/2$；半网总电阻为$V/I=13r/14$，余下部分为$13r/14-r/2=3r/7$。这一数值来自保留$v,w$后的节点解，不能把层间电阻只按总边数计算。
+\end{solution}
+
+
+\section{三端网络的星三角变换}\label{sec:c2-star}
+三端等效须保持任意允许注流下的端电压关系。对线性无源三端网络，第三端开路的三组两点测量足以确定这些关系。
+
+等效三端网络须对三端所有允许的注流方式给出相同电位差，而非只匹配某一对端子的电阻。设星形的三臂分别为$x_A,x_B,x_C$，三角形三边为$R_{AB},R_{BC},R_{CA}$。第三端开路时的两端电阻应相同：
+\[
+ x_A+x_B=\frac{R_{AB}(R_{BC}+R_{CA})}{S},\qquad
+ S=R_{AB}+R_{BC}+R_{CA},
+\]
+另两式循环得到。将涉及$x_A$的两式相加，再减去不含$x_A$的一式，得
+\[
+ \boxed{x_A=\frac{R_{AB}R_{CA}}S},\quad
+ x_B=\frac{R_{AB}R_{BC}}S,\quad x_C=\frac{R_{BC}R_{CA}}S.
+\]
+反变换可先由$x_Ax_B+x_Bx_C+x_Cx_A
+=R_{AB}R_{BC}R_{CA}/S$，再分别除以星形对臂：
+\[
+ \boxed{R_{AB}=x_A+x_B+\frac{x_Ax_B}{x_C}
+ =\frac{x_Ax_B+x_Bx_C+x_Cx_A}{x_C}},
+\]
+其余两边循环排列。分母总是“不接在该三角边端点上的星臂”。若某臂为零，应先取物理短接极限，不能机械除以零。
+
+\Needspace{6\baselineskip}
+\begin{example}[不等三角形的三端等效]\label{ex:c2-star-ex}
+三角形电阻$R_{AB}=r,R_{BC}=2r,R_{CA}=3r$。改成星形后，分别求三臂电阻，并计算$A,B$端口在$C$开路时的电阻。 见图~\ref{fig:c2-star-ex-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(B)at(2,0);
+\coordinate(C)at(0,2.7);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[curve](C)--(A);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\path(A)--(B)node[midway,above,sloped]{$r$};
+\path(B)--(C)node[midway,above,sloped]{$2r$};
+\path(C)--(A)node[midway,above,sloped]{$3r$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{星形等效保持三个外端，不保留三角形内部的支路电流。}\label{fig:c2-star-ex-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-star-ex-q}三角边的总和$S=r+2r+3r=6r$。星臂以其所接外端命名，变换中每一星臂的分子为该端相邻两三角边之积，故
+\[
+ \begin{aligned}
+ x_A&=\frac{R_{AB}R_{CA}}S=\frac{r\cdot3r}{6r}=\frac r2,\\
+ x_B&=\frac{R_{AB}R_{BC}}S=\frac{r\cdot2r}{6r}=\frac r3,\\
+ x_C&=\frac{R_{BC}R_{CA}}S=\frac{2r\cdot3r}{6r}=r.
+ \end{aligned}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(B)at(2,0);
+\coordinate(C)at(0,2.7);
+\coordinate(O)at(0,0.9);
+\draw[curve](A)--(O);
+\draw[curve](B)--(O);
+\draw[curve](C)--(O);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\path(A)--(O)node[midway,above,sloped]{$r/2$};
+\path(B)--(O)node[midway,above,sloped]{$r/3$};
+\path(C)--(O)node[midway,above,sloped]{$r$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{开路的星臂不参与所求两端电阻，但仍是完整三端等效的一部分。}\label{fig:c2-star-ex-s}
+\end{figure}
+图~\ref{fig:c2-star-ex-s}的$C$端开路，星形$C$臂没有通流出路。由$C$处KCL，其电流为零，所以星中心与$C$等势，$A,B$间电流只经过$x_A,x_B$，两臂串联：
+\[
+ \boxed{R_{AB}^{\rm port}=x_A+x_B=\frac56r}.
+\]
+在原三角形中，从$A$到$B$有直接的$r$和绕经$C$的$3r+2r=5r$，两条路径并联给出$r(5r)/(6r)=5r/6$，端口测量相同。
+
+为区分端口等效与支路等同，若在$A,B$施加电压$U$，原图直接边电流为$U/r$，经$C$路径电流为$U/(5r)$；星形两通流臂则都流过总电流$6U/(5r)$。星形的开路臂无电流，并不意味着原三角形中与$C$相接的两边也无电流。变换保留外端响应，不保留内部各边的电流与发热。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[正四面体棱中点组成的网络]\label{ex:c2-tetra-mid}
+正四面体四个顶点为$C,C',D,D'$，六条棱在中点分为两段，每个小段电阻$r$。同一面内的三个棱中点也两两以$r$连接。$A,B$分别是相对棱$CC',DD'$的中点，另四个中点为$E,E',F,F'$。求$R_{AB}$。 见图~\ref{fig:c2-tetra-mid-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1.25]
+\coordinate(C)at(0,3);
+\coordinate(Cp)at(-1.4,0);
+\coordinate(D)at(3.2,2.3);
+\coordinate(Dp)at(3.2,0);
+\coordinate(A)at(-0.7,1.5);
+\coordinate(B)at(3.2,1.15);
+\coordinate(E)at(1.6,2.65);
+\coordinate(Ep)at(0.9,0);
+\coordinate(F)at(1.6,1.5);
+\coordinate(Fp)at(0.9,1.15);
+\draw[curve](C)--(A);
+\draw[curve](A)--(Cp);
+\draw[curve](D)--(B);
+\draw[curve](B)--(Dp);
+\draw[curve](C)--(E);
+\draw[curve](E)--(D);
+\draw[curve](Cp)--(Ep);
+\draw[curve](Ep)--(Dp);
+\draw[curve](C)--(F);
+\draw[curve](F)--(Dp);
+\draw[curve](Cp)--(Fp);
+\draw[curve](Fp)--(D);
+\draw[curve](A)--(E);
+\draw[curve](A)--(Ep);
+\draw[curve](A)--(F);
+\draw[curve](A)--(Fp);
+\draw[curve](B)--(E);
+\draw[curve](B)--(Ep);
+\draw[curve](B)--(F);
+\draw[curve](B)--(Fp);
+\draw[curve](E)--(F);
+\draw[curve](E)--(Fp);
+\draw[curve](Ep)--(F);
+\draw[curve](Ep)--(Fp);
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(Cp)circle(1.3pt)node[below left,fill=white,inner sep=1pt]{$C'$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(Dp)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D'$};
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(Ep)circle(1.3pt)node[below,fill=white,inner sep=1pt]{$E'$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\fill(Fp)circle(1.3pt)node[below left,fill=white,inner sep=1pt]{$F'$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{四个原顶点与六个棱中点是十个不同节点；透视交叉不连接。}\label{fig:c2-tetra-mid-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-tetra-mid-q}中，交换$C,C'$或交换$D,D'$均保持$A,B$端口不变，使$E,E',F,F'$互相等价；再交换两对原顶点时源汇反号。因此这四个中点均处于端口中间电位，可归并为$X$。同理$C,C'$等势，$D,D'$等势。
+
+从$A$到$X$有两类出路。四条直接的中点连线各为$r$，并联为$r/4$。绕经原顶点的出路中，$A$到$C,C'$的两只$r$并联为$r/2$；这两个原顶点各有两条$r$通向$X$，共四只并联为$r/4$。间接出路因此为$r/2+r/4=3r/4$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r/4}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{3r/4}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$X$};\node at(2,-2){半网 $3r/16$，两半串联};
+\end{tikzpicture}
+\caption{先将四个中间电位节点归并，再保留直接与间接两条路径。}\label{fig:c2-tetra-mid-s}
+\end{figure}
+图~\ref{fig:c2-tetra-mid-s}中的直接与间接出路跨接同一对节点，应并联而非串联。半网电阻为
+\[
+ R_{AX}=\frac{(r/4)(3r/4)}{r/4+3r/4}=\frac{3r}{16}.
+\]
+$B$侧完全相同，端口总电流从$A$经中间等势层流向$B$，故
+\[
+ \boxed{R_{AB}=R_{AX}+R_{XB}=\frac38r}.
+\]
+若总电流为$I$，半网压降为$3Ir/16$，直接路径总流为$3I/4$，间接路径总流为$I/4$，两者相加为$I$。四个中间节点之间原有的连线两端等势，电流为零，因此归并不损失耗散。$A,B$是相对棱的中点，若换成原四面体顶点，节点和出路计数都会改变。
+\end{solution}
+
+
+
+\subsection{消去内部节点为什么保留所有端口}
+将节点分为外端$p$与内部节点$i$。内部没有外部注流时，节点方程可分块写为
+\[
+ \binom{\vct I_p}{0}=
+ \begin{pmatrix}L_{pp}&L_{pi}\\L_{ip}&L_{ii}\end{pmatrix}
+ \binom{\vct V_p}{\vct V_i}.
+\]
+若内部各连通分量都与外端相连，$L_{ii}$可逆，由下行得$\vct V_i=-L_{ii}^{-1}L_{ip}\vct V_p$。代回上行，
+\[
+ \vct I_p=(L_{pp}-L_{pi}L_{ii}^{-1}L_{ip})\vct V_p.
+\]
+星三角变换便是这种消元的三端情形。它对任意允许的端电压都成立，因而比只匹配一次两点测量更强。消元后端口功率保持，但内部支路电流通常改变；要恢复原网络的某条电流，应回到消元前的节点关系。
+
+
+\section{对称性之外的桥式网络}
+桥臂阻值不相等时，两个内部节点一般不等势。桥电流应保留为未知量；只有求出的节点电位相等，才能将桥支路删去。
+
+对称性成立时，等势短接能显著减少未知量；对称性稍有破坏，就应保留原节点方程。仍可利用电路的端口结构组织计算：固定输入电压，只求内部少数节点，再由端口总电流得到电阻。桥支路电流的方向由解决定，画图时的箭头只是参考。
+
+\Needspace{6\baselineskip}
+\begin{example}[不平衡桥与桥电流方向]\label{ex:c2-wheatstone}
+桥形网络端点为$A,B$，内部节点为$X,Y$。$AX,XB,AY,XY$电阻均为$r$，$YB$为$2r$。求输入电阻以及$I_{X\to Y}$与总输入电流之比。 见图~\ref{fig:c2-wheatstone-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,2);
+\coordinate(B)at(0,-2);
+\coordinate(X)at(-2,0);
+\coordinate(Y)at(2,0);
+\draw[curve](A)--(X);
+\draw[curve](X)--(B);
+\draw[curve](A)--(Y);
+\draw[curve](Y)--(B);
+\draw[curve](X)--(Y);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(X)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$X$};
+\fill(Y)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$Y$};
+\path(A)--(X)node[midway,above,sloped]{$r$};
+\path(X)--(B)node[midway,above,sloped]{$r$};
+\path(A)--(Y)node[midway,above,sloped]{$r$};
+\path(Y)--(B)node[midway,above,sloped]{$2r$};
+\path(X)--(Y)node[midway,above,sloped]{$r$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{右下臂与其余桥臂不同，左右节点不能视为等势。}\label{fig:c2-wheatstone-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-wheatstone-q}中设$V_A=U$、$V_B=0$，先保留桥支路。节点$X$连向$A,B,Y$，节点$Y$连向$A,B,X$，其中$YB$为$2r$。因此
+\[
+ \frac{V_X-U}r+\frac{V_X}r+\frac{V_X-V_Y}r=0,
+ \quad
+ \frac{V_Y-U}r+\frac{V_Y}{2r}+\frac{V_Y-V_X}r=0.
+\]
+乘$r$后整理为$3V_X-V_Y=U$、$(5/2)V_Y-V_X=U$。由第一式$V_Y=3V_X-U$，代入第二式得
+\[
+ \frac52(3V_X-U)-V_X=U,
+ \quad13V_X=7U,
+ \quad V_X=\frac{7U}{13},\quad V_Y=\frac{8U}{13}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,2);
+\coordinate(B)at(0,-2);
+\coordinate(X)at(-2,0);
+\coordinate(Y)at(2,0);
+\draw[curve](A)--(X);
+\draw[curve](X)--(B);
+\draw[curve](A)--(Y);
+\draw[curve](Y)--(B);
+\draw[curve](X)--(Y);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$U$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$0$};
+\fill(X)circle(1.3pt)node[left,fill=white,inner sep=1pt]{$7U/13$};
+\fill(Y)circle(1.3pt)node[right,fill=white,inner sep=1pt]{$8U/13$};
+\end{scope}
+\draw[axis](.8,.7)--(-.8,.7)node[midway,above]{$U/(13r)$};
+\end{tikzpicture}
+\caption{内部电位先决定桥电流方向，再由输入支路电流求端口电阻。}\label{fig:c2-wheatstone-s}
+\end{figure}
+图~\ref{fig:c2-wheatstone-s}的桥支路参考方向取$X\to Y$，故$I_{X\to Y}=(V_X-V_Y)/r=-U/(13r)$，实际方向为$Y\to X$。输入电流须计$A$的两条出边：
+\[
+ I=\frac{U-V_X}r+\frac{U-V_Y}r=\frac{6U+5U}{13r},
+ \qquad\boxed{R_{AB}=\frac{13}{11}r,\quad\frac{I_{X\to Y}}I=-\frac1{11}}.
+\]
+$B$处收流为$V_X/r+V_Y/(2r)=(7+4)U/(13r)$，与输入相同。只有把$YB$也改为$r$，$X,Y$才因对称而等势；此时桥电阻无论取何正值都无电流。当前失衡网络不能先删桥再作普通串并联。
+\end{solution}
+\subsection{增添一条支路时的精确修正}
+假设旧网络从$A$向$B$输入电流$I$，内部$X,Y$间电压为$V_{XY}$。现在在$X,Y$间增添电导$g>0$。新边流过电流$J$时，它相当于对旧网施加附加注流：在$X$抽出$J$，在$Y$注入$J$。因此旧网内的$X,Y$电压被降低$JR_{XY}$，新边满足
+\[
+ J=g(V_{XY}-JR_{XY}),\qquad
+ J=\frac{gV_{XY}}{1+gR_{XY}}.
+\]
+由第~\ref{sec:c2-multiport}节证明的互易关系，这一附加源汇使$A,B$端压差减少$J V_{XY}/I$。于是
+\[
+ \boxed{R_{AB}^{\rm new}=R_{AB}^{\rm old}
+ -\frac{g(V_{XY}/I)^2}{1+gR_{XY}}}.
+\]
+这里$R_{XY}$是在旧完整网络中的两点电阻，测量时其他外端不带外部注流。修正总非负；等势节点之间加边，端口电阻不变。该式把电阻单调性量化到具体连接位置。
+
+\Needspace{6\baselineskip}
+\begin{example}[从开桥状态预测接桥后的电阻]\label{ex:c2-add-edge}
+先把例~\ref{ex:c2-wheatstone}的$XY$支路去掉，再接回$r$。用单边修正式求输入电阻，并确定修正量为何较小。 见图~\ref{fig:c2-add-edge-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,2);
+\coordinate(B)at(0,-2);
+\coordinate(X)at(-2,0);
+\coordinate(Y)at(2,0);
+\draw[curve](A)--(X);
+\draw[curve](X)--(B);
+\draw[curve](A)--(Y);
+\draw[curve](Y)--(B);
+\draw[guide](X)--(Y);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(X)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$X$};
+\fill(Y)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$Y$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{虚线是待接入支路；先在不含这条边的网络求各响应。}\label{fig:c2-add-edge-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-add-edge-q}开桥后，$A-X-B$为$2r$，$A-Y-B$为$3r$。设端电压$U$，由分压及输入电流得
+\[
+ R_{AB}^{\rm old}=\frac{2r\cdot3r}{5r}=\frac65r,\quad
+ V_X=\frac U2,\quad V_Y=\frac{2U}3,\quad I=\frac{5U}{6r}.
+\]
+因此旧网转移电阻$t=(V_X-V_Y)/I=(-U/6)/(5U/(6r))=-r/5$。测量旧网$X,Y$两点电阻时，不再维持$A,B$原有电压；它们无外部注流。两条出路$X-A-Y$和$X-B-Y$分别为$2r,3r$，故$R_{XY}=6r/5$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\coordinate(X)at(0,1);\coordinate(Y)at(4,1);
+\coordinate(C)at(0,-.4);\coordinate(D)at(4,-.4);
+\Res{X}{Y}{2r}\Res{C}{D}{3r}\draw[curve](X)--(C) (Y)--(D);
+\node[left]at(X){$X$};\node[right]at(Y){$Y$};
+\node at(2,-1.1){旧网测量：$R_{XY}=2r\parallel3r$};
+
+\end{tikzpicture}
+\caption{计算新支路反馈所需的$R_{XY}$，仍在未加边的旧网络中测量。}\label{fig:c2-add-edge-s}
+\end{figure}
+图~\ref{fig:c2-add-edge-s}所需的量均在旧网求得。接入$g=1/r$的新边后，其反馈使桥电流$J=g(It-JR_{XY})$，即
+\[
+ \frac JI=\frac{gt}{1+gR_{XY}}
+ =\frac{-1/5}{1+6/5}=-\frac1{11}.
+\]
+电流实际由$Y$到$X$。同一反馈使端电阻减少$gt^2/(1+gR_{XY})$：
+\[
+ R_{AB}^{\rm new}=\frac65r-\frac{(1/r)(r/5)^2}{1+6/5}
+ =\frac65r-\frac r{55}=\boxed{\frac{13}{11}r}.
+\]
+本例开桥转移电阻的大小仅为$r/5$，修正中还出现平方，故改变量$r/55$较小。分母$1+gR_{XY}$体现原网络对桥电流的反作用，不能只用开桥电压乘新边电导求实际桥电流。
+\end{solution}
+
+
+\section{线性叠加与正多面体}\label{sec:c2-super}
+均匀分布的辅助源汇常能保留几何对称性。把两组辅助激励相加，可让非端口节点的源汇抵消，再由剩余的实际注流求端口电阻。
+
+设固定电阻网络有两种节点注流$\vct s,\vct t$，解为$\vct\varphi,\vct\psi$。节点方程$L\vct\varphi=\vct s$、$L\vct\psi=\vct t$相加即得$L(\vct\varphi+\vct\psi)=\vct s+\vct t$。支路电流也线性相加。电阻和拓扑始终保持不变；不能把两次求得的“等效电阻”直接相加，也不能把功率当作线性响应。
+
+对高度对称的有限网络，可先在一个顶点注入$J$，从其余$n-1$个顶点各抽出$J/(n-1)$；再叠加另一个顶点的反向激励。最后只有两个顶点保留净源汇，其真实端口电流为$nJ/(n-1)$，应在最后除回这个系数。
+
+\Needspace{6\baselineskip}
+\begin{example}[正方体相邻顶点的电阻]\label{ex:c2-cube}
+正方体十二条棱各接电阻$r$，求相邻顶点$A,B$之间的电阻。 见图~\ref{fig:c2-cube-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(3,0);
+\coordinate(C)at(4,1);
+\coordinate(F)at(1,1);
+\coordinate(E)at(0,2.8);
+\coordinate(H)at(3,2.8);
+\coordinate(D)at(4,3.8);
+\coordinate(G)at(1,3.8);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[guide](C)--(F);
+\draw[guide](F)--(A);
+\draw[curve](E)--(H);
+\draw[curve](H)--(D);
+\draw[curve](D)--(G);
+\draw[curve](G)--(E);
+\draw[curve](A)--(E);
+\draw[curve](B)--(H);
+\draw[curve](C)--(D);
+\draw[guide](F)--(G);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(H)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$H$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(G)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$G$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{空间透视图保留八个顶点，虚线也是实际电阻。}\label{fig:c2-cube-q}
+\end{figure}
+\begin{solution}
+先构造辅助激励：向图~\ref{fig:c2-cube-q}的$A$注入$J$，其余七点各抽出$J/7$。注流总和为零，节点问题有解。保持$A$的旋转使三条出棱完全等价，故每条流$J/3$，$A$到邻点$B$的电压降为$U_{AB}^{(1)}=Jr/3$。
+
+再构造第二次激励：在$B$抽出$J$，其余七点各注入$J/7$。它是以$B$为中心的均匀激励的反向，仍有$U_{AB}^{(2)}=Jr/3$。这里电压按$A$减$B$定义，两次压差同号。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\node[draw,align=center]at(-2.4,0){$A:+J$\\其余各$-J/7$};
+\node at(0,0){$+$};\node[draw,align=center]at(2.4,0){$B:-J$\\其余各$+J/7$};
+\node at(0,-1.5){$A:+8J/7,\quad B:-8J/7$};
+\end{tikzpicture}
+\caption{先相加节点注流，再由相加后的端口电流求电阻。}\label{fig:c2-cube-s}
+\end{figure}
+图~\ref{fig:c2-cube-s}中，叠加后的节点注流必须逐点相加：
+\[
+ s_A=J+\frac J7=\frac{8J}7,\qquad
+ s_B=-\frac J7-J=-\frac{8J}7,\qquad
+ s_{\rm other}=-\frac J7+\frac J7=0.
+\]
+这才是只有$A,B$两个端口的实际测量。电压相加为$2Jr/3$，于是
+\[
+ \boxed{R_{AB}=\frac{U_{AB}^{(1)}+U_{AB}^{(2)}}{s_A}
+ =\frac{2Jr/3}{8J/7}=\frac7{12}r}.
+\]
+若把最终端口电流记为$I$，则辅助激励应取$J=7I/8$。每条棱的实际电流是两次辅助激励的有向电流之和；辅助解中的$J/3$只是其中一项。端口电阻也相应以叠加后的总电流$8J/7$归一化。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[正方体的面对角与体对角端口]\label{ex:c2-cube-face}
+在同一正方体网络中，求面对角端口$A,C$和体对角端口$A,D$的电阻。 见图~\ref{fig:c2-cube-face-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(3,0);
+\coordinate(C)at(4,1);
+\coordinate(F)at(1,1);
+\coordinate(E)at(0,2.8);
+\coordinate(H)at(3,2.8);
+\coordinate(D)at(4,3.8);
+\coordinate(G)at(1,3.8);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[guide](C)--(F);
+\draw[guide](F)--(A);
+\draw[curve](E)--(H);
+\draw[curve](H)--(D);
+\draw[curve](D)--(G);
+\draw[curve](G)--(E);
+\draw[curve](A)--(E);
+\draw[curve](B)--(H);
+\draw[curve](C)--(D);
+\draw[guide](F)--(G);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(H)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$H$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(G)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$G$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{图中$AC$跨两条棱，$AD$跨三条棱。}\label{fig:c2-cube-face-q}
+\end{figure}
+\begin{solution}
+在图~\ref{fig:c2-cube-face-q}中先向$A$注入$J$，其余七点各抽出$J/7$。按到$A$的图距分层，节点数为$1,3,3,1$，跨层棱数为$3,6,3$。每层节点由保留$A$的对称变换互换，故同层等势。
+
+首截面通过$J$，每棱流$J/3$；第一层三个节点共抽走$3J/7$，第二截面剩$4J/7$，每棱流$2J/21$；第二层又抽走$3J/7$，末截面剩$J/7$，每棱流$J/21$。由沿路径的压降相加，
+\[
+ U_2=Jr\left(\frac13+\frac2{21}\right)=\frac{3Jr}7,
+ \qquad U_3=Jr\left(\frac13+\frac2{21}+\frac1{21}\right)=\frac{10Jr}{21}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);
+\draw[axis](n0)--(n1)node[midway,above]{$Jr/3$};
+\draw[axis](n1)--(n2)node[midway,above]{$2Jr/21$};
+\draw[axis](n2)--(n3)node[midway,above]{$Jr/21$};
+\fill(n0)circle(1.5pt)node[below]{$0$};
+\fill(n1)circle(1.5pt)node[below]{$1$};
+\fill(n2)circle(1.5pt)node[below]{$2$};
+\fill(n3)circle(1.5pt)node[below]{$3$};
+
+\end{tikzpicture}
+\caption{三条标记是压降而非新增电阻；实际跨层边数依次为3、6、3。}\label{fig:c2-cube-face-s}
+\end{figure}
+图~\ref{fig:c2-cube-face-s}记录的是辅助激励的层间压降；链上标记不能当作原网络新加的电阻。分别在目标点$C$或$D$叠加反向均匀激励：除两端外所有注流抵消，实际端口电流都是$8J/7$。
+
+正方体有互换两目标顶点的对称变换，因此反向辅助激励对相应端口贡献同样大小的压差。最终端电压分别为$2U_2,2U_3$，故
+\[
+ \boxed{R_{AC}=\frac{2(3Jr/7)}{8J/7}=\frac34r},\qquad
+ \boxed{R_{AD}=\frac{2(10Jr/21)}{8J/7}=\frac56r}.
+\]
+面对角与体对角的图距分别为二和三，应沿实际棱计数。正方体的对称性保证上述同层节点等势；一般网络中，仅有图距相同还不足以作等势归并。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[正十二面体的相邻端口]\label{ex:c2-dodeca}
+正十二面体二十个顶点、三十条棱组成网络，每棱电阻$r$。求相邻顶点间电阻，并用一次注流构造说明其余非相邻端口的求法。 见图~\ref{fig:c2-dodeca-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(0)at(2.143131898507868e-16,3.5);
+\coordinate(1)at(3.3286978070330373,1.0815594803123159);
+\coordinate(2)at(2.057248383023656,-2.831559480312316);
+\coordinate(3)at(-2.0572483830236554,-2.831559480312316);
+\coordinate(4)at(-3.3286978070330377,1.0815594803123154);
+\coordinate(5)at(1.5920408388915593e-16,2.6);
+\coordinate(6)at(2.472746942367399,0.8034441853748633);
+\coordinate(7)at(1.5282416559604302,-2.1034441853748636);
+\coordinate(8)at(-1.52824165596043,-2.1034441853748636);
+\coordinate(9)at(-2.4727469423673996,0.803444185374863);
+\coordinate(10)at(1.0580134541264516,1.4562305898749055);
+\coordinate(11)at(1.7119017293312764,-0.5562305898749054);
+\coordinate(12)at(1.1021821192326179e-16,-1.8);
+\coordinate(13)at(-1.7119017293312764,-0.5562305898749055);
+\coordinate(14)at(-1.0580134541264519,1.4562305898749053);
+\coordinate(15)at(0.5290067270632258,0.7281152949374528);
+\coordinate(16)at(0.8559508646656382,-0.2781152949374527);
+\coordinate(17)at(5.5109105961630896e-17,-0.9);
+\coordinate(18)at(-0.8559508646656382,-0.27811529493745274);
+\coordinate(19)at(-0.5290067270632259,0.7281152949374526);
+\draw[curve](0)--(1);
+\draw[curve](0)--(5);
+\draw[curve](5)--(10);
+\draw[curve](5)--(14);
+\draw[curve](10)--(15);
+\draw[curve](15)--(16);
+\draw[curve](1)--(2);
+\draw[curve](1)--(6);
+\draw[curve](6)--(11);
+\draw[curve](6)--(10);
+\draw[curve](11)--(16);
+\draw[curve](16)--(17);
+\draw[curve](2)--(3);
+\draw[curve](2)--(7);
+\draw[curve](7)--(12);
+\draw[curve](7)--(11);
+\draw[curve](12)--(17);
+\draw[curve](17)--(18);
+\draw[curve](3)--(4);
+\draw[curve](3)--(8);
+\draw[curve](8)--(13);
+\draw[curve](8)--(12);
+\draw[curve](13)--(18);
+\draw[curve](18)--(19);
+\draw[curve](4)--(0);
+\draw[curve](4)--(9);
+\draw[curve](9)--(14);
+\draw[curve](9)--(13);
+\draw[curve](14)--(19);
+\draw[curve](19)--(15);
+\fill(0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$0$};
+\fill(1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$1$};
+\fill(2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$2$};
+\fill(3)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$3$};
+\fill(4)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$4$};
+\fill(5)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$5$};
+\fill(6)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$6$};
+\fill(7)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$7$};
+\fill(8)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$8$};
+\fill(9)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$9$};
+\fill(10)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$10$};
+\fill(11)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$11$};
+\fill(12)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$12$};
+\fill(13)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$13$};
+\fill(14)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$14$};
+\fill(15)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$15$};
+\fill(16)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$16$};
+\fill(17)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$17$};
+\fill(18)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$18$};
+\fill(19)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$19$};
+\end{scope}
+\end{tikzpicture}
+\caption{这是拓扑展开图；所有三十条实际棱的电阻相同，画线长短不表示电阻大小。}\label{fig:c2-dodeca-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c2-dodeca-q}的顶点0为$A$。先向$A$注入$J$、从其余十九点各抽出$J/19$，总注流为零。保持$A$的旋转使其三条出棱等价，各流$J/3$；所以$A$到任一邻点$B$的压差为$Jr/3$。
+
+再叠加以$B$为中心的反向激励：$B$抽出$J$，其余点各注入$J/19$。利用互换$A,B$的网络对称性，这次$A$减$B$的电压仍为$Jr/3$。最终$A$的净注流为$J+J/19=20J/19$，$B$净抽出同量，其余点抵消。因此
+\[
+ \boxed{R_{\text{邻}}=\frac{2Jr/3}{20J/19}=\frac{19}{30}r}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\foreach \i/\n in {0/1,1/3,2/6,3/6,4/3,5/1}{\draw[draw]({1.2*\i},0)circle(.28);\node[above]at({1.2*\i},.4){$\n$};\node[below]at({1.2*\i},-.4){$\i$};}
+\draw[axis](.3,0)--(5.7,0);\node at(3,-1.1){节点数；下标为图距};
+\end{tikzpicture}
+\caption{六个距离层为单点注流提供可计算的分流结构。}\label{fig:c2-dodeca-s}
+\end{figure}
+非邻端口也可使用图~\ref{fig:c2-dodeca-s}的同一辅助解。按到$A$的图距，六层节点数为$1,3,6,6,3,1$，相邻层间棱数为$3,6,6,6,3$。该图具有距离层的对称性，同层点等势；层内连线因而不通流。
+
+对第$k$层外侧截面，先减去此前各层已经抽走的电流，再除以跨层棱数。例如第一层外侧剩余$J-3J/19=16J/19$，分到六棱后，每棱压降为$8Jr/57$。逐层累加即可求$A$到任一图距层的压差，最后叠加目标点的反向激励，并除以$20J/19$。不能把层间总电流直接乘$r$，因为每个截面通常含多条并联棱。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[正十二面体的全部非邻端口]\label{ex:c2-dodeca-far}
+在例~\ref{ex:c2-dodeca}中，$E$与$A$的图距为$d$。分别求$d=2,3,4,5$时的$R_{AE}$，并说明为何端口位置必须按图中连接定义。 见图~\ref{fig:c2-dodeca-far-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(0)at(2.143131898507868e-16,3.5);
+\coordinate(1)at(3.3286978070330373,1.0815594803123159);
+\coordinate(2)at(2.057248383023656,-2.831559480312316);
+\coordinate(3)at(-2.0572483830236554,-2.831559480312316);
+\coordinate(4)at(-3.3286978070330377,1.0815594803123154);
+\coordinate(5)at(1.5920408388915593e-16,2.6);
+\coordinate(6)at(2.472746942367399,0.8034441853748633);
+\coordinate(7)at(1.5282416559604302,-2.1034441853748636);
+\coordinate(8)at(-1.52824165596043,-2.1034441853748636);
+\coordinate(9)at(-2.4727469423673996,0.803444185374863);
+\coordinate(10)at(1.0580134541264516,1.4562305898749055);
+\coordinate(11)at(1.7119017293312764,-0.5562305898749054);
+\coordinate(12)at(1.1021821192326179e-16,-1.8);
+\coordinate(13)at(-1.7119017293312764,-0.5562305898749055);
+\coordinate(14)at(-1.0580134541264519,1.4562305898749053);
+\coordinate(15)at(0.5290067270632258,0.7281152949374528);
+\coordinate(16)at(0.8559508646656382,-0.2781152949374527);
+\coordinate(17)at(5.5109105961630896e-17,-0.9);
+\coordinate(18)at(-0.8559508646656382,-0.27811529493745274);
+\coordinate(19)at(-0.5290067270632259,0.7281152949374526);
+\draw[curve](0)--(1);
+\draw[curve](0)--(5);
+\draw[curve](5)--(10);
+\draw[curve](5)--(14);
+\draw[curve](10)--(15);
+\draw[curve](15)--(16);
+\draw[curve](1)--(2);
+\draw[curve](1)--(6);
+\draw[curve](6)--(11);
+\draw[curve](6)--(10);
+\draw[curve](11)--(16);
+\draw[curve](16)--(17);
+\draw[curve](2)--(3);
+\draw[curve](2)--(7);
+\draw[curve](7)--(12);
+\draw[curve](7)--(11);
+\draw[curve](12)--(17);
+\draw[curve](17)--(18);
+\draw[curve](3)--(4);
+\draw[curve](3)--(8);
+\draw[curve](8)--(13);
+\draw[curve](8)--(12);
+\draw[curve](13)--(18);
+\draw[curve](18)--(19);
+\draw[curve](4)--(0);
+\draw[curve](4)--(9);
+\draw[curve](9)--(14);
+\draw[curve](9)--(13);
+\draw[curve](14)--(19);
+\draw[curve](19)--(15);
+\fill(0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$0$};
+\fill(1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$1$};
+\fill(2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$2$};
+\fill(3)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$3$};
+\fill(4)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$4$};
+\fill(5)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$5$};
+\fill(6)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$6$};
+\fill(7)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$7$};
+\fill(8)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$8$};
+\fill(9)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$9$};
+\fill(10)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$10$};
+\fill(11)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$11$};
+\fill(12)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$12$};
+\fill(13)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$13$};
+\fill(14)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$14$};
+\fill(15)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$15$};
+\fill(16)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$16$};
+\fill(17)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$17$};
+\fill(18)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$18$};
+\fill(19)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$19$};
+\end{scope}
+\end{tikzpicture}
+\caption{非邻顶点分属四种图距，不能仅写一个未说明位置的字母端口。}\label{fig:c2-dodeca-far-q}
+\end{figure}
+\begin{solution}
+沿图~\ref{fig:c2-dodeca-far-q}的距离层，辅助激励仍取$A$注$J$、其余十九点各抽$J/19$。逐个截面作电流守恒，得
+\[
+ \begin{array}{c|ccccc}
+ \text{跨越层}&0\to1&1\to2&2\to3&3\to4&4\to5\\\hline
+ \text{已抽节点数}&0&3&9&15&18\\
+ \text{剩余电流}/J&1&16/19&10/19&4/19&1/19\\
+ \text{跨层棱数}&3&6&6&6&3
+ \end{array}
+\]
+同一截面各棱等价，每棱电流为该列剩余电流除以棱数，再乘$r$即为层间压降。因此五次压降依次为
+\[
+ \Delta U_k=Jr\left(\frac13,\frac8{57},\frac5{57},\frac2{57},\frac1{57}\right).
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);\coordinate(n4)at(8,0);\coordinate(n5)at(10,0);
+\draw[axis](n0)--(n1)node[midway,above]{$1/3$};
+\draw[axis](n1)--(n2)node[midway,above]{$8/57$};
+\draw[axis](n2)--(n3)node[midway,above]{$5/57$};
+\draw[axis](n3)--(n4)node[midway,above]{$2/57$};
+\draw[axis](n4)--(n5)node[midway,above]{$1/57$};
+\fill(n0)circle(1.5pt)node[below]{$0$};
+\fill(n1)circle(1.5pt)node[below]{$1$};
+\fill(n2)circle(1.5pt)node[below]{$2$};
+\fill(n3)circle(1.5pt)node[below]{$3$};
+\fill(n4)circle(1.5pt)node[below]{$4$};
+\fill(n5)circle(1.5pt)node[below]{$5$};
+
+\end{tikzpicture}
+\caption{此链记录辅助问题的电压增量，最后还须乘叠加的归一化系数。}\label{fig:c2-dodeca-far-s}
+\end{figure}
+图~\ref{fig:c2-dodeca-far-s}的链记录这些压降。累加前$d$项，得到
+\[
+ \frac{U_d}{Jr}=\frac13,\quad\frac{19+8}{57}=\frac9{19},\quad
+ \frac{32}{57},\quad\frac{34}{57},\quad\frac{35}{57}.
+\]
+在$E$叠加反向均匀激励后，端电压加倍、端电流为$20J/19$，故$R_{AE}/r=(19/10)U_d/(Jr)$。分别代入，
+\[
+ \boxed{\begin{array}{c|ccccc}d&1&2&3&4&5\\\hline
+ R_{AE}/r&19/30&9/10&16/15&17/15&7/6\end{array}}.
+\]
+图距须沿实际棱的最短路径数出，不能按展开图中两点的平面距离判断。层内边虽然不流过辅助电流，仍属于原网络；当前归并依赖这项激励及其对称性，换端口时应重新确定相应的辅助中心。
+\end{solution}
+
+
+\section{相邻端口电阻之和}\label{sec:c2-foster}
+同一网络中，各条实际边两端的等效电阻虽然未必相同，它们按边电导加权的总和却只取决于独立节点数。
+
+设连通图有$n$个顶点，各实际边电阻均为$r$，以$R_e$表示该边两端在完整网络中的等效电阻。则
+\[
+ \boxed{\sum_{\text{实际边 }e}R_e=(n-1)r}.
+\]
+这里每条实际边计一次；不包括没有电阻直接相连的顶点对，也不把边本身的$r$误当成$R_e$。
+
+可用节点矩阵证明。选一个参考点，令$B$为约化关联矩阵，每列$\vct b_e$在一端取$+1$、另一端取$-1$，约化电导矩阵为$L=BB^{\mathsf T}/r$。向边的两端施加单位源汇，电位解为$L^{-1}\vct b_e$，故$R_e=\vct b_e^{\mathsf T}L^{-1}\vct b_e$。求和并用迹的循环性：
+\[
+ \sum_e\frac{R_e}r
+ =\operatorname{tr}\!\left[L^{-1}\frac{BB^{\mathsf T}}r\right]
+ =\operatorname{tr}I_{n-1}=n-1.
+\]
+不等边电阻时对应的形式是$\sum_e R_e/r_e=n-1$，仍须连通且只对实际边求和。
+
+\Needspace{6\baselineskip}
+\begin{example}[四边形加悬边]\label{ex:c2-tail}
+电阻$r$组成四边环$A-C-D-B-A$，在$D$再接一条电阻$r$到悬空端$E$。逐类求实际边端的等效电阻并验证相邻端口和式。 见图~\ref{fig:c2-tail-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(B)at(0,-1);
+\coordinate(C)at(0,1);
+\coordinate(D)at(2,0);
+\coordinate(E)at(3.5,1.3);
+\draw[curve](A)--(B);
+\draw[curve](B)--(D);
+\draw[curve](D)--(C);
+\draw[curve](C)--(A);
+\draw[curve](D)--(E);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{悬边与四边环连接为五顶点网络。}\label{fig:c2-tail-q}
+\end{figure}
+\begin{solution}
+先把电流源接到图~\ref{fig:c2-tail-q}的任意环边两端。$E$没有外部注流，且只连一条$DE$，其节点方程为$(V_E-V_D)/r=0$，所以$V_E=V_D$、$i_{DE}=0$。此时悬边确实不影响端口。
+
+环边自身的$r$与沿环绕行的另三边$3r$构成两条并联路径，四个环边端口因旋转等价，都有
+\[
+ R_{\rm ring}=r\parallel3r=\frac{r\cdot3r}{r+3r}=\frac34r.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{3r}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};\node at(2,-2.2){四个环边：$3r/4$；悬边：$r$};
+\end{tikzpicture}
+\caption{环边端口测量时，另一条环路径与本边并联。}\label{fig:c2-tail-s}
+\end{figure}
+再测图~\ref{fig:c2-tail-s}的$D,E$端口。这次电流$I$从$E$注入、从$D$抽出，$E$节点唯一出路仍是$DE$，所以该边流$I$，压差$V_E-V_D=Ir$。其余四边环只经$D$一个节点接入，没有另一个源汇端；以$V_D$为边界，唯一的无源解是环上各点均为$V_D$，因此没有绕环电流，$R_{DE}=r$。
+
+全网络有五点五边，逐实际边端口求和，得到
+\[
+ \sum_eR_e=4\cdot\frac34r+r=4r=(5-1)r.
+\]
+悬边对环边测量无电流，与悬边自身端口测量流过全部电流，分别对应不同外部激励。判断一条支路是否可删，必须同时说明电源接在哪两个节点。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[用相邻端口和式求正方体邻边]\label{ex:c2-cube-foster}
+不重复完整节点计算，利用相邻端口和式求正方体的邻边电阻，并说明为何此法不能独自求面对角电阻。 见图~\ref{fig:c2-cube-foster-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(3,0);
+\coordinate(C)at(4,1);
+\coordinate(F)at(1,1);
+\coordinate(E)at(0,2.8);
+\coordinate(H)at(3,2.8);
+\coordinate(D)at(4,3.8);
+\coordinate(G)at(1,3.8);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[guide](C)--(F);
+\draw[guide](F)--(A);
+\draw[curve](E)--(H);
+\draw[curve](H)--(D);
+\draw[curve](D)--(G);
+\draw[curve](G)--(E);
+\draw[curve](A)--(E);
+\draw[curve](B)--(H);
+\draw[curve](C)--(D);
+\draw[guide](F)--(G);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(H)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$H$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(G)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$G$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{八顶点、十二条实际棱都属于同一对称类别。}\label{fig:c2-cube-foster-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-cube-foster-q}中正方体有八个顶点、十二条实际棱。任意棱都能通过保持网络的旋转移到另一棱；同时搬动源汇后，测量电阻不变，故所有棱端口电阻相等，记为$R_*$。
+
+相邻端口和式中的每一项，是在完整网络上测得的某棱两端电阻，不是该棱单独的$r$。于是
+\[
+ \sum_{e=1}^{12}\frac{R_e}r=8-1,
+ \qquad12R_*=7r,
+ \qquad\boxed{R_*=\frac7{12}r}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\node[draw]at(0,0){$12R_*=(8-1)r$};\node[draw]at(0,-1.2){$30R_{\text{十二面体邻}}=(20-1)r$};
+\end{tikzpicture}
+\caption{旋转对称使所有实际棱端口的电阻相同，求和式因而只含一个未知量。}\label{fig:c2-cube-foster-s}
+\end{figure}
+图~\ref{fig:c2-cube-foster-s}中的等值关系使一个和式只剩一个未知量。若只有边数、顶点数而没有边的等价性，和式只能给加权总和，不能逐边除以十二；例如边界方格中的辐边与外围边就必须分开。
+
+面对角和体对角没有对应的实际电阻边，因此并不出现在上述十二项中。即使知道所有邻边电阻，也不能从这一个等式推出两个非邻端口的数值，仍须用叠加法或节点方程。
+
+同理，正十二面体二十顶点、三十等价棱给出$30R_*=(20-1)r$，即$R_*=19r/30$。这项计算同时说明和式的使用顺序：先明确求和范围，再证明各项相等，最后才用点数与边数求单项。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[二阶方格的两种相邻边]\label{ex:c2-grid-edge}
+$2\times2$方格每边$r$。中心到边中点的四个辐边端口电阻记为$R_i$，外围八边端口电阻记为$R_o$。求二者。 见图~\ref{fig:c2-grid-edge-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(p0x0)at(0.0,0.0);
+\coordinate(p0x1)at(0.0,1.5);
+\coordinate(p0x2)at(0.0,3.0);
+\coordinate(p1x0)at(1.5,0.0);
+\coordinate(p1x1)at(1.5,1.5);
+\coordinate(p1x2)at(1.5,3.0);
+\coordinate(p2x0)at(3.0,0.0);
+\coordinate(p2x1)at(3.0,1.5);
+\coordinate(p2x2)at(3.0,3.0);
+\draw[curve](p0x0)--(p1x0);
+\draw[curve](p0x1)--(p1x1);
+\draw[curve](p0x2)--(p1x2);
+\draw[curve](p1x0)--(p2x0);
+\draw[curve](p1x1)--(p2x1);
+\draw[curve](p1x2)--(p2x2);
+\draw[curve](p0x0)--(p0x1);
+\draw[curve](p0x1)--(p0x2);
+\draw[curve](p1x0)--(p1x1);
+\draw[curve](p1x1)--(p1x2);
+\draw[curve](p2x0)--(p2x1);
+\draw[curve](p2x1)--(p2x2);
+\fill(p0x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$a$};
+\fill(p0x1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$b$};
+\fill(p0x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$c$};
+\fill(p1x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$M$};
+\fill(p1x1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\fill(p1x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$d$};
+\fill(p2x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$a$};
+\fill(p2x1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$b$};
+\fill(p2x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$c$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{同一网络中相邻边分成两类，不能都用平均值替代。}\label{fig:c2-grid-edge-q}
+\end{figure}
+\begin{solution}
+测图~\ref{fig:c2-grid-edge-q}的中心$O$至下侧中点$M$端口，设$V_O=V,V_M=0$。关于竖直中线反射，可把其余节点记为下角$a$、左右边中点$b$、上角$c$、上中点$d$。逐点按相邻支路列KCL并乘$r$，得
+\[
+ 2a-b=0,\quad3b-a-c-V=0,\quad
+ 2c-b-d=0,\quad3d-2c-V=0.
+\]
+第一式给$a=b/2$。第三式给$c=(b+d)/2$，代入第四式得$3d-b-d-V=0$，故$d=(b+V)/2$、$c=(3b+V)/4$。再代入第二式：
+\[
+ 3b-\frac b2-\frac{3b+V}4-V=0
+ \quad\Rightarrow\quad7b=5V.
+\]
+因此$b=5V/7$，$a=5V/14$，$c=11V/14$，$d=6V/7$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(p0x0)at(0.0,0.0);
+\coordinate(p0x1)at(0.0,1.5);
+\coordinate(p0x2)at(0.0,3.0);
+\coordinate(p1x0)at(1.5,0.0);
+\coordinate(p1x1)at(1.5,1.5);
+\coordinate(p1x2)at(1.5,3.0);
+\coordinate(p2x0)at(3.0,0.0);
+\coordinate(p2x1)at(3.0,1.5);
+\coordinate(p2x2)at(3.0,3.0);
+\draw[curve](p0x0)--(p1x0);
+\draw[curve](p0x1)--(p1x1);
+\draw[curve](p0x2)--(p1x2);
+\draw[curve](p1x0)--(p2x0);
+\draw[curve](p1x1)--(p2x1);
+\draw[curve](p1x2)--(p2x2);
+\draw[curve](p0x0)--(p0x1);
+\draw[curve](p0x1)--(p0x2);
+\draw[curve](p1x0)--(p1x1);
+\draw[curve](p1x1)--(p1x2);
+\draw[curve](p2x0)--(p2x1);
+\draw[curve](p2x1)--(p2x2);
+\fill(p0x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$a$};
+\fill(p0x1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$b$};
+\fill(p0x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$c$};
+\fill(p1x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$M$};
+\fill(p1x1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\fill(p1x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$d$};
+\fill(p2x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$a$};
+\fill(p2x1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$b$};
+\fill(p2x2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$c$};
+\end{scope}
+\node[right]at(4,2.5){$O:V,\quad M:0$};\node[right]at(4,1.5){$b=5V/7$};\node[right]at(4,.5){$d=6V/7$};
+\end{tikzpicture}
+\caption{先单独求一类端口，再用全网和式求另一类。}\label{fig:c2-grid-edge-s}
+\end{figure}
+图~\ref{fig:c2-grid-edge-s}中，中心的四条出边分别通向$0,b,b,d$，总电流为
+\[
+ I=\frac{V}r+2\frac{V-b}r+\frac{V-d}r
+ =\frac{12V}{7r},\qquad R_i=\frac VI=\frac7{12}r.
+\]
+剩余外围八边彼此等价，中心四辐边彼此等价，九顶点网络的和式只含这两类：
+\[
+ 8R_o+4R_i=8r,
+ \qquad\boxed{R_o=\frac{8r-4(7r/12)}8=\frac{17}{24}r}.
+\]
+两类的加权平均是$2r/3$，但并非任何一类的实际测量值。中心边得到的结果应保留节点计算，不能把全部十二边仅因电阻相同就视为等价。
+\end{solution}
+
+
+\section{互易定理与多端口}\label{sec:c2-multiport}
+将电流源与理想电压表交换位置，并同时交换端口的参考方向，线性无源电阻网络给出相同的转移电阻。它来自节点电导矩阵的对称性。
+
+将约化电导矩阵记为$L$，无源电阻的每一支路对两个节点的耦合相同，所以$L=L^{\mathsf T}$。两种注流$\vct s,\vct t$产生电位$\vct\varphi=L^{-1}\vct s$、$\vct\psi=L^{-1}\vct t$，于是
+\[
+ \boxed{\vct t^{\mathsf T}\vct\varphi
+ =\vct s^{\mathsf T}\vct\psi}.
+\]
+这就是保持端口方向一致后的互易关系。一般$n$端网络只有$n-1$个独立注流，因为总注流必须为零；选参考端后，$(n-1)\times(n-1)$电阻矩阵对称，其非对角项是互阻，可能为负。互阻的符号不是耗散电阻的符号。
+
+三个端点的响应可由三个两点电阻确定，因此连通无源三端网络能用星形或三角形等效表示；选其中一端作公共参考后，它只有两个独立端口。四端时有六个独立的两点电阻；若只量某一对端口，无法确定其余端口的转移响应。
+
+\Needspace{6\baselineskip}
+\begin{example}[四端电压与六个两点电阻]\label{ex:c2-four-terminal}
+在连通无源电阻网络的$A,B$端注入、抽出电流$I$，用无限大内阻表测$C,D$间电压$U_{CD}$。证明转移电阻
+$R_{AB,CD}=U_{CD}/I=(R_{AD}+R_{BC}-R_{AC}-R_{BD})/2$，并给出互易关系。 见图~\ref{fig:c2-four-terminal-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,fill=gray!8](-2,-1)rectangle(2,1);
+\foreach \x/\y/\z in {-2/.6/A,-2/-.6/B,2/.6/C,2/-.6/D}{\fill(\x,\y)circle(1.5pt)node[right]{$\z$};}
+\draw[axis](-3,.6)--(-2,.6)node[midway,above]{$I$};
+\draw[axis](-2,-.6)--(-3,-.6);\node at(0,0){无源线性网络};
+\end{tikzpicture}
+\caption{电流端口与电压端口分开，电压表不改变网络注流。}\label{fig:c2-four-terminal-q}
+\end{figure}
+\begin{solution}
+在图~\ref{fig:c2-four-terminal-q}中任选参考节点，记约化电导矩阵为$L$、其逆为$Z$。若端点恰为参考点，其对应$Z$行列可补零，以下电位差公式仍成立。向$A$注$I$、从$B$抽$I$时，
+\[
+ V_C=I(Z_{CA}-Z_{CB}),\quad V_D=I(Z_{DA}-Z_{DB}),\quad
+ \frac{U_{CD}}I=Z_{CA}-Z_{CB}-Z_{DA}+Z_{DB}.
+\]
+单独测$X,Y$两点电阻时，同样由单位注流求电位差，有$R_{XY}=Z_{XX}+Z_{YY}-2Z_{XY}$，其中用了$Z$的对称性。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,fill=gray!8](-2,-1)rectangle(2,1);
+\node at(-2.6,.6){$A$};\node at(-2.6,-.6){$B$};\node at(2.5,.6){$C$};\node at(2.5,-.6){$D$};
+\draw[axis](3,.6)--(2,.6)node[midway,above]{$I$};\draw[axis](2,-.6)--(3,-.6);
+\node at(0,0){测$U_{AB}$};
+\end{tikzpicture}
+\caption{互换激励与测量端口时，参考方向也一起互换。}\label{fig:c2-four-terminal-s}
+\end{figure}
+按图~\ref{fig:c2-four-terminal-s}所约定的端口方向，把题中四个电阻展开：
+\[
+ \begin{aligned}
+ R_{AD}+R_{BC}-R_{AC}-R_{BD}
+ &=-2Z_{AD}-2Z_{BC}+2Z_{AC}+2Z_{BD}\\
+ &=2(Z_{CA}-Z_{CB}-Z_{DA}+Z_{DB}).
+ \end{aligned}
+\]
+对角项各出现一正一负，恰好抵消，故
+\[
+ \boxed{R_{AB,CD}=\tfrac12(R_{AD}+R_{BC}-R_{AC}-R_{BD})}.
+\]
+互换激励与测量，$Z=Z^{\mathsf T}$给$R_{AB,CD}=R_{CD,AB}$。反接任一端口会使注流向量或测量差反号，所以互阻变号；两端口同时反接则恢复原值。无限大内阻表保证$C,D$没有额外注流，若电表阻值有限，应把其支路加入网络后重新求解。
+\end{solution}
+
+\subsection{端口方向、互阻与功率}
+电阻矩阵的对角元给单个端口的耗散，非对角元给两个有向激励的耦合。矩阵正定只要求所有实际电流组合的总功率为正，并不要求每个互阻都为正。改变一个端口方向，会同时改变其电流坐标和相关互阻的符号，物理功率不变。
+
+\Needspace{6\baselineskip}
+\begin{example}[三角形网络中负的互阻]\label{ex:c2-mutual-power}
+三角形$A,B,C$每边$r$。激励一为$A$注入$I$、$B$抽出$I$，激励二为$B$注入$I$、$C$抽出$I$。求两激励的互阻，以及叠加后的总耗散。 见图~\ref{fig:c2-mutual-power-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(4,0);
+\coordinate(C)at(2,3);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[curve](C)--(A);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{第二端口方向为$B\to C$，与第一端口共享节点$B$。}\label{fig:c2-mutual-power-q}
+\end{figure}
+\begin{solution}
+第一激励在图~\ref{fig:c2-mutual-power-q}的$A$注$I$、$B$抽$I$，$C$无外部注流。取$V_B=0$，则$C$节点方程为$2V_C-V_A=0$，$A$节点方程为$2V_A-V_C=Ir$。联立得
+\[
+ V_A=\frac{2Ir}3,\quad V_C=\frac{Ir}3,
+ \qquad\boxed{R_{AB,BC}=\frac{V_B-V_C}I=-\frac r3}.
+\]
+第二端口按$B\to C$定义，负号来自这个测量次序。每个单独两端激励的自阻均为$r\parallel2r=2r/3$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(4,0);
+\coordinate(C)at(2,3);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[curve](C)--(A);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\end{scope}
+\draw[axis](-1,0)--(0,0)node[midway,above]{$I$};\draw[axis](2,3)--(2,4)node[above]{$I$};
+\end{tikzpicture}
+\caption{叠加后中间节点无外注流，端口变为$A,C$。}\label{fig:c2-mutual-power-s}
+\end{figure}
+图~\ref{fig:c2-mutual-power-s}中，叠加后$B$的$-I$与$+I$抵消，只有$A$注$I$、$C$抽$I$。因此$P=I^2R_{AC}=2rI^2/3$。
+
+用端口功率展开也能看清相消项。若两激励幅度为$I_1,I_2$，则
+\[
+ P=R_{11}I_1^2+2R_{12}I_1I_2+R_{22}I_2^2,
+ \quad R_{11}=R_{22}=\frac{2r}3,\quad R_{12}=-\frac r3.
+\]
+取$I_1=I_2=I$，有$P=(2/3-2/3+2/3)rI^2=2rI^2/3$。若只把两次发热相加，会得到$4rI^2/3$，漏掉支路电流平方中的交叉项。
+
+该电阻矩阵的两个特征值为$r/3,r$，都为正；互阻为负与网络耗散为正完全相容。物理原因是两激励在部分支路方向相反，叠加后局部电流减小，而每一电阻仍按$r i_e^2\ge0$发热。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[由三端测量恢复星形参数]\label{ex:c2-threeport-matrix}
+一个无源三端网络量得$R_{AB}=3r,R_{BC}=4r,R_{CA}=5r$。求等效星臂，以$C$为参考端写二端口电阻矩阵，再求同时向$A,B$各注入$I$时的电位与功率。 见图~\ref{fig:c2-threeport-matrix-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(B)at(2,0);
+\coordinate(C)at(0,2.5);
+\coordinate(O)at(0,0.8);
+\draw[curve](A)--(O);
+\draw[curve](B)--(O);
+\draw[curve](C)--(O);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{三端星形保留三个外端，任意注流总和为零。}\label{fig:c2-threeport-matrix-q}
+\end{figure}
+\begin{solution}
+三端星形的任一开路两点测量只流过相应两臂，所以图~\ref{fig:c2-threeport-matrix-q}给出$x_A+x_B=3r$、$x_B+x_C=4r$、$x_C+x_A=5r$。将第一、第三式相加再减第二式，得$2x_A=4r$；另两项循环求得
+\[
+ x_A=2r,\qquad x_B=r,\qquad x_C=3r.
+\]
+三个值均为正，可以用普通无源电阻实现。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(B)at(2,0);
+\coordinate(C)at(0,2.5);
+\coordinate(O)at(0,0.8);
+\draw[curve](A)--(O);
+\draw[curve](B)--(O);
+\draw[curve](C)--(O);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\path(A)--(O)node[midway,above,sloped]{$2r$};
+\path(B)--(O)node[midway,above,sloped]{$r$};
+\path(C)--(O)node[midway,above,sloped]{$3r$};
+\end{scope}
+\node[right]at(1,1.8){$I_C=-2I$};
+\end{tikzpicture}
+\caption{公共回流臂的电流是两个输入电流之和，产生矩阵中的互阻。}\label{fig:c2-threeport-matrix-s}
+\end{figure}
+取图~\ref{fig:c2-threeport-matrix-s}的$C$为零势，星中心为$O$。外部向$A,B$注入$I_A,I_B$，从$C$抽出$I_A+I_B$，因此$O\to C$臂流$I_A+I_B$。逐段相加压降：
+\[
+ V_O=3r(I_A+I_B),\quad
+ V_A=2rI_A+V_O,\quad V_B=rI_B+V_O.
+\]
+由此而非仅靠填入对角元，得到
+\[
+ \binom{V_A}{V_B}
+ =r\begin{pmatrix}5&3\\3&4\end{pmatrix}\binom{I_A}{I_B}.
+\]
+当$I_A=I_B=I$，$V_O=6rI$，所以$V_A=8rI$、$V_B=7rI$，端口输入功率为$\boxed{P=I_AV_A+I_BV_B=15rI^2}$。
+
+按三臂计算得$2rI^2+rI^2+3r(2I)^2=15rI^2$，与端口一致。互阻$3r$来自公共回流臂；该臂通过$2I$，若误按$I$计算，就会漏掉两个端口在公共路径中的耦合发热。
+\end{solution}
+
+
+
+两个有向端口的响应矩阵记为$Z_p$，则端口输入功率为
+\[
+ P=R_{11}I_1^2+2R_{12}I_1I_2+R_{22}I_2^2.
+\]
+固定$I_1$而改变$I_2$，无源性要求此二次式始终非负，故$R_{12}^2\le R_{11}R_{22}$。也可把每一激励的边电流分别记为$i_e^{(1)},i_e^{(2)}$，由Cauchy不等式得到
+\[
+ \left|\sum_e r_ei_e^{(1)}i_e^{(2)}\right|^2
+ \le\left(\sum_e r_e(i_e^{(1)})^2\right)
+       \left(\sum_e r_e(i_e^{(2)})^2\right).
+\]
+交叉项可以为负，但大小受两个自阻约束。若两端口线性独立且网络连通、各电阻有限为正，则功率矩阵正定；当两个端口实际上相同或互为反向时，会出现退化的等号情形。
+
+
+\section{电阻变化的灵敏度}
+一条支路的电阻发生微小变化时，端口电阻的一阶变化可由扰动前的支路电流求出。以下始终固定端口输入电流。
+
+若只改变某条边的电阻$r_e$，总输入电流$I$保持固定，耗散极值原理给
+\[
+ \boxed{\frac{\partial R_{\rm eff}}{\partial r_e}
+ =\left(\frac{i_e}I\right)^2}.
+\]
+在$I$固定时，对$P=I^2R_{\rm eff}=\sum_k r_ki_k^2$用乘积与链式法则求导：
+\[I^2\frac{\partial R_{\rm eff}}{\partial r_e}
+=i_e^2+2\sum_k r_ki_k\frac{\partial i_k}{\partial r_e}.\]
+令边$k$的正向为$a\to b$，用$r_ki_k=V_a-V_b$将第二项按节点归组：
+\[\sum_k r_ki_k\frac{\partial i_k}{\partial r_e}
+=\sum_aV_a\frac{\partial}{\partial r_e}
+\left(\sum_bi_{a\to b}\right)=0.\]
+最后一个等号来自各节点注流固定，包括端口。除以$I^2$即得灵敏度公式；电流分配变化的间接贡献在一阶相消，因此只需扰动前的支路电流。灵敏度非负，等势支路的一阶影响为零。
+
+若所有边电阻同时乘比例$1+\delta$，端口电阻也乘同比例。逐边微分便得$\sum_e r_e(i_e/I)^2=R_{\rm eff}$，它正是耗散等式。灵敏度公式与能量关系相互对应，但前者还能比较不同位置的元件误差。
+
+\Needspace{6\baselineskip}
+\begin{example}[正方体单棱误差的不同影响]\label{ex:c2-cube-error}
+体对角端口$A,D$的正方体网络，每棱$r$。将与$A$相接的一条棱改为$r+\delta r$；另比较把中间两层之间的一条棱改为同样数值。求两种情况的输入电阻一阶变化。 见图~\ref{fig:c2-cube-error-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(3,0);
+\coordinate(C)at(4,1);
+\coordinate(F)at(1,1);
+\coordinate(E)at(0,2.8);
+\coordinate(H)at(3,2.8);
+\coordinate(D)at(4,3.8);
+\coordinate(G)at(1,3.8);
+\draw[curve](A)--(B);
+\draw[curve](B)--(C);
+\draw[guide](C)--(F);
+\draw[guide](F)--(A);
+\draw[curve](E)--(H);
+\draw[curve](H)--(D);
+\draw[curve](D)--(G);
+\draw[curve](G)--(E);
+\draw[curve](A)--(E);
+\draw[curve](B)--(H);
+\draw[curve](C)--(D);
+\draw[guide](F)--(G);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(H)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$H$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(G)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$G$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{以体对角端口的实际分流确定灵敏度，不使用相邻端口的辅助均匀抽流。}\label{fig:c2-cube-error-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-cube-error-q}采用实际的体对角端口激励。三条离开$A$的棱由旋转对称性各流$I/3$；第一中间层与第二中间层之间共有六条等价棱，各流$I/6$；最后三条汇入$D$的棱各流$I/3$。同层电位相同，跨层电流和在每个截面都是$I$。
+
+固定端口电流时，$P=I^2R$。单棱电阻变化$\delta r$的显式发热变化为$i_e^2\delta r$，其余电流重新分配的一阶项按节点守恒相消，因而
+\[
+ \delta R=\left(\frac{i_e}I\right)^2\delta r+O((\delta r)^2/r).
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);
+\draw[axis](n0)--(n1)node[midway,above]{$I/3$};
+\draw[axis](n1)--(n2)node[midway,above]{$I/6$};
+\draw[axis](n2)--(n3)node[midway,above]{$I/3$};
+\fill(n0)circle(1.5pt)node[below]{$A$};
+\fill(n1)circle(1.5pt)node[below]{第一层};
+\fill(n2)circle(1.5pt)node[below]{第二层};
+\fill(n3)circle(1.5pt)node[below]{$D$};
+\node at(3,1){每条棱的实际电流};
+\end{tikzpicture}
+\caption{端层有三条棱，中间有六条棱，灵敏度取单棱电流的平方。}\label{fig:c2-cube-error-s}
+\end{figure}
+代入图~\ref{fig:c2-cube-error-s}中两类单棱电流，得到
+\[
+ \boxed{\delta R_{\text{端}}=\frac{\delta r}{9}},\qquad
+ \boxed{\delta R_{\text{中}}=\frac{\delta r}{36}}
+ \quad\text{（保留一阶）}.
+\]
+同样大小的局部误差，在端层的影响是中层的四倍，因为灵敏度取电流比的平方，而非电流比本身。
+
+若十二棱同时增加$\delta r$，端层共六棱，中层共六棱，总变化为
+\[
+ \delta R=6\frac{\delta r}{9}+6\frac{\delta r}{36}
+ =\frac56\delta r,
+\]
+与$R_{AD}=5r/6$随全部电阻同比例缩放一致。这里使用的是实际两端注流分布，不能代入“单点注流、其余七点均匀抽流”的辅助问题电流；单棱改变较大时，也不能继续把原电流分布当成精确值。
+\end{solution}
+
+
+\Needspace{6\baselineskip}
+\begin{example}[完全图中一条边的变化]\label{ex:c2-complete}
+$n\ge3$个顶点两两相连，除$A,B$之间电阻为$r_d>0$外，其余边均为$r$。求$A,B$端口电阻，讨论$r_d=r$及去掉$AB$边的极限。若仅改变两个非端口顶点之间的一条边，结果是否改变？ 见图~\ref{fig:c2-complete-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-2,0);
+\coordinate(B)at(2,0);
+\coordinate(X)at(0,2);
+\coordinate(Y)at(0,-2);
+\coordinate(Z)at(.65,.55);
+\draw[curve](A)--(B);
+\draw[curve](A)--(X);
+\draw[curve](A)--(Y);
+\draw[curve](A)--(Z);
+\draw[curve](B)--(X);
+\draw[curve](B)--(Y);
+\draw[curve](B)--(Z);
+\draw[curve](X)--(Y);
+\draw[curve](X)--(Z);
+\draw[curve](Y)--(Z);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(X)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$X$};
+\fill(Y)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$Y$};
+\fill(Z)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$Z$};
+\path(A)--(B)node[midway,above,sloped]{$r_d$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{示意五顶点完全图；只改变直接端口边，其余实际边均为$r$。}\label{fig:c2-complete-q}
+\end{figure}
+\begin{solution}
+置$V_A=V,V_B=0$。其余$n-2$个顶点彼此等价，并由互换端口的反对称性确定电位$V/2$。这些点之间的支路无电流，源点总流出
+$I=V/r_d+(n-2)V/(2r)$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r_d}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{2r/(n-2)}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{等势中间节点使所有内部横向边无电流，余下直接与间接两组路径并联。}\label{fig:c2-complete-s}
+\end{figure}
+
+图~\ref{fig:c2-complete-s}中，直接支路与经过中间节点的$n-2$条两棱路径并联。于是
+\[
+ \boxed{R_{AB}=\left(\frac1{r_d}+\frac{n-2}{2r}\right)^{-1}}.
+\]
+取$r_d=r$，恢复等阻完全图的$2r/n$；去掉直接边即$r_d\to\infty$，得到$2r/(n-2)$。
+最后一种改动从所有边均为$r$的完全图出发，只改变两个非端口点之间的一条边。原电位解在该边上仍有零压差，节点方程继续满足。由唯一性，端口电阻保持$2r/n$，即使该内部边最终删除也如此；有两个非端口点要求$n\ge4$。端口边和原先等势的内部边具有不同作用，元件数相同不能代替连接位置的判断。
+\end{solution}
+
+
+\Needspace{6\baselineskip}
+\begin{example}[两组节点之间的完全连接]\label{ex:c2-bipartite}
+节点分为$m$个$A$类和$n$个$B$类，每个$A$与每个$B$以$r$连接，同类间不连。求同类两点电阻及异类两点电阻，$m,n\ge2$。 见图~\ref{fig:c2-bipartite-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A1)at(0,0);
+\coordinate(A2)at(0,1.5);
+\coordinate(A3)at(0,3);
+\coordinate(B1)at(4,0.4);
+\coordinate(B2)at(4,2.6);
+\draw[curve](A1)--(B1);
+\draw[curve](A1)--(B2);
+\draw[curve](A2)--(B1);
+\draw[curve](A2)--(B2);
+\draw[curve](A3)--(B1);
+\draw[curve](A3)--(B2);
+\fill(A1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A_1$};
+\fill(A2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A_2$};
+\fill(A3)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A_3$};
+\fill(B1)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B_1$};
+\fill(B2)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B_2$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{示意$m=3,n=2$，两组内部没有电阻。}\label{fig:c2-bipartite-q}
+\end{figure}
+\begin{solution}
+同类$A_1,A_2$端口取电位$V/2,-V/2$。交换这两点会使激励反号，其余所有点保持不动，故全部$B$点及其余$A$点为零势。$A_1$有$n$条$r$通向零势点，注流$I=nV/(2r)$，所以$R_{AA}=V/I=2r/n$。交换两组可得$R_{BB}=2r/m$。
+
+异类端口取图~\ref{fig:c2-bipartite-q}的$A_1=V,B_1=0$。只允许同类的非端口点相互归并，记其余$A$点电位$x$、其余$B$点电位$y$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,2);
+\coordinate(X)at(0,0);
+\coordinate(B)at(4,0);
+\coordinate(Y)at(4,2);
+\draw[curve](A)--(B);
+\draw[curve](A)--(Y);
+\draw[curve](X)--(B);
+\draw[curve](X)--(Y);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$V$};
+\fill(X)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$x$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$0$};
+\fill(Y)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$y$};
+\end{scope}
+\node at(2,-.9){$nx=(n-1)y,\quad my=V+(m-1)x$};
+\end{tikzpicture}
+\caption{未作端口的同类点归并，支路数保留在节点方程系数中。}\label{fig:c2-bipartite-s}
+\end{figure}
+图~\ref{fig:c2-bipartite-s}中，每个$x$连向一个零势点和$n-1$个$y$；每个$y$连向一个$V$和$m-1$个$x$。于是
+\[
+ nx=(n-1)y,\qquad my=V+(m-1)x.
+\]
+用$x=(n-1)y/n$代入第二式，乘$n$得$[mn-(m-1)(n-1)]y=nV$。括号等于$m+n-1$，故
+\[
+ y=\frac{nV}{m+n-1},\qquad x=\frac{(n-1)V}{m+n-1}.
+\]
+$A_1$的一条边直通$B_1$，其余$n-1$条边通向$y$，因此
+\[
+ I=\frac{V+(n-1)(V-y)}r=\frac{mnV}{r(m+n-1)},
+ \qquad\boxed{R_{AB}=\frac{m+n-1}{mn}r}.
+\]
+实际边共有$mn$条且彼此等价，$mnR_{AB}=(m+n-1)r$，符合$m+n$顶点的和式；同类端口虽有确定电阻，却没有直接连边，不属于这个求和范围。
+\end{solution}
+
+
+\section{轮形网络与无限递推}\label{sec:c2-wheel-recur}
+轮形网络中，相邻圆周节点与公共中心组成重复单元。有限节点数给出两端边界；节点数趋于无穷时，还须依据无源性选取递推的正根。
+
+圆周导线和直径导线的计数应以题目指定的电阻单位为准。以下圆周相邻两端口之间的每段电阻为$r$，每整条直径的总电阻也为$r$，且所有直径在中心连接。因此中心到圆周的每根辐条是$r/2$。如果另规定每根辐条本身为$r$，就是另一网络。
+
+\Needspace{6\baselineskip}
+\begin{example}[十个圆周节点的轮形网络]\label{ex:c2-wheel}
+圆周有$2N=10$个等分节点，每相邻圆弧电阻$r$，五条直径总电阻各为$r$且中心连通。求相对圆周点$A,B$间电阻。 见图~\ref{fig:c2-wheel-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(O)at(0,0);
+\coordinate(v0)at(1.4695761589768238e-16,2.4);
+\coordinate(v1)at(1.4106846055019355,1.9416407864998737);
+\coordinate(v2)at(2.282535639108368,0.7416407864998737);
+\coordinate(v3)at(2.282535639108368,-0.7416407864998737);
+\coordinate(v4)at(1.4106846055019355,-1.9416407864998737);
+\coordinate(v5)at(1.4695761589768238e-16,-2.4);
+\coordinate(v6)at(-1.4106846055019353,-1.9416407864998737);
+\coordinate(v7)at(-2.282535639108368,-0.741640786499874);
+\coordinate(v8)at(-2.2825356391083687,0.7416407864998734);
+\coordinate(v9)at(-1.4106846055019358,1.9416407864998735);
+\draw[curve](v0)--(v1);
+\draw[curve](O)--(v0);
+\draw[curve](v1)--(v2);
+\draw[curve](O)--(v1);
+\draw[curve](v2)--(v3);
+\draw[curve](O)--(v2);
+\draw[curve](v3)--(v4);
+\draw[curve](O)--(v3);
+\draw[curve](v4)--(v5);
+\draw[curve](O)--(v4);
+\draw[curve](v5)--(v6);
+\draw[curve](O)--(v5);
+\draw[curve](v6)--(v7);
+\draw[curve](O)--(v6);
+\draw[curve](v7)--(v8);
+\draw[curve](O)--(v7);
+\draw[curve](v8)--(v9);
+\draw[curve](O)--(v8);
+\draw[curve](v9)--(v0);
+\draw[curve](O)--(v9);
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\fill(v0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(v1)circle(1.3pt);
+\fill(v2)circle(1.3pt);
+\fill(v3)circle(1.3pt);
+\fill(v4)circle(1.3pt);
+\fill(v5)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(v6)circle(1.3pt);
+\fill(v7)circle(1.3pt);
+\fill(v8)circle(1.3pt);
+\fill(v9)circle(1.3pt);
+\end{scope}
+\node[right]at(2.7,1){圆弧：$r$};\node[right]at(2.7,.2){辐条：$r/2$};
+\end{tikzpicture}
+\caption{所有直径在中心$O$相连，不能把交叉中心当作互不连接。}\label{fig:c2-wheel-q}
+\end{figure}
+\begin{solution}
+取图~\ref{fig:c2-wheel-q}的中心势为零，端口电位为$\pm V$。过$AB$直径的反射使左右对称节点等势。沿一侧半圆，记$v_j$为第$j$点电位，$v_0=V,v_5=-V$。
+节点方程为
+\[
+ \frac{v_j-v_{j-1}}r+\frac{v_j-v_{j+1}}r+\frac{v_j}{r/2}=0,
+ \quad\Rightarrow\quad v_{j+1}-4v_j+v_{j-1}=0.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);\coordinate(n4)at(8,0);\coordinate(n5)at(10,0);
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\Res{n3}{n4}{r}
+\Res{n4}{n5}{r}
+\fill(n0)circle(1.5pt)node[below]{$A$};
+\fill(n1)circle(1.5pt)node[below]{$v_1$};
+\fill(n2)circle(1.5pt)node[below]{$v_2$};
+\fill(n3)circle(1.5pt)node[below]{$v_3$};
+\fill(n4)circle(1.5pt)node[below]{$v_4$};
+\fill(n5)circle(1.5pt)node[below]{$B$};
+\node at(5,1){$v_4=-v_1,\quad v_3=-v_2$};
+\foreach \j in {0,1,2,3,4,5}{
+ \coordinate(o\j)at({2*\j},-1.6);
+ \Res{n\j}{o\j}{r/2}}
+\draw[curve](o0)--(o5);
+\node[below]at(5,-1.6){共同中心 $O:\ 0$};
+\end{tikzpicture}
+\caption{半圆上的两端边界和内部差分方程共同决定节点电位。}\label{fig:c2-wheel-s}
+\end{figure}
+
+图~\ref{fig:c2-wheel-s}中由反对称$v_{5-j}=-v_j$，有$v_3=-v_2,v_4=-v_1$。
+对$j=1,2$分别得$4v_1-V-v_2=0$、$5v_2-v_1=0$。
+解出$v_2=V/19$、$v_1=5V/19$。
+端口$A$流向中心$2V/r$，向左右相邻点各流$(V-v_1)/r$，故
+$I=[2V+2(V-5V/19)]/r=66V/(19r)$。
+\[
+ \boxed{R_{AB}=\frac{2V}I=\frac{19}{33}r}.
+\]
+中心各辐条流入的电流总和为零；中心零势由反对称性确定，而非预先接了地线。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[六条直径与无限圆周极限]\label{ex:c2-wheel6}
+将例~\ref{ex:c2-wheel}的圆周改为十二等分，即$N=6$。再求$N\to\infty$时相对圆周点的电阻极限，电阻单位保持不变。 见图~\ref{fig:c2-wheel6-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(O)at(0,0);
+\coordinate(v0)at(1.4695761589768238e-16,2.4);
+\coordinate(v1)at(1.1999999999999997,2.078460969082653);
+\coordinate(v2)at(2.0784609690826525,1.2);
+\coordinate(v3)at(2.4,0.0);
+\coordinate(v4)at(2.078460969082653,-1.1999999999999995);
+\coordinate(v5)at(1.1999999999999997,-2.078460969082653);
+\coordinate(v6)at(1.4695761589768238e-16,-2.4);
+\coordinate(v7)at(-1.1999999999999995,-2.078460969082653);
+\coordinate(v8)at(-2.078460969082652,-1.2000000000000008);
+\coordinate(v9)at(-2.4,-2.9391523179536476e-16);
+\coordinate(v10)at(-2.0784609690826525,1.2000000000000002);
+\coordinate(v11)at(-1.200000000000001,2.078460969082652);
+\draw[curve](v0)--(v1);
+\draw[curve](O)--(v0);
+\draw[curve](v1)--(v2);
+\draw[curve](O)--(v1);
+\draw[curve](v2)--(v3);
+\draw[curve](O)--(v2);
+\draw[curve](v3)--(v4);
+\draw[curve](O)--(v3);
+\draw[curve](v4)--(v5);
+\draw[curve](O)--(v4);
+\draw[curve](v5)--(v6);
+\draw[curve](O)--(v5);
+\draw[curve](v6)--(v7);
+\draw[curve](O)--(v6);
+\draw[curve](v7)--(v8);
+\draw[curve](O)--(v7);
+\draw[curve](v8)--(v9);
+\draw[curve](O)--(v8);
+\draw[curve](v9)--(v10);
+\draw[curve](O)--(v9);
+\draw[curve](v10)--(v11);
+\draw[curve](O)--(v10);
+\draw[curve](v11)--(v0);
+\draw[curve](O)--(v11);
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\fill(v0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(v1)circle(1.3pt);
+\fill(v2)circle(1.3pt);
+\fill(v3)circle(1.3pt);
+\fill(v4)circle(1.3pt);
+\fill(v5)circle(1.3pt);
+\fill(v6)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(v7)circle(1.3pt);
+\fill(v8)circle(1.3pt);
+\fill(v9)circle(1.3pt);
+\fill(v10)circle(1.3pt);
+\fill(v11)circle(1.3pt);
+\end{scope}
+\node[right]at(2.7,1){圆弧：$r$};\node[right]at(2.7,.2){辐条：$r/2$};
+\end{tikzpicture}
+\caption{增加的是电阻元件数量，单段圆弧电阻与整条直径电阻仍为$r$。}\label{fig:c2-wheel6-q}
+\end{figure}
+\begin{solution}
+当$N=6$，反对称给$v_3=0$、$v_4=-v_2$、$v_5=-v_1$。
+方程$4v_1-V-v_2=0$、$4v_2-v_1=0$给
+$v_1=4V/15$、$v_2=V/15$。
+$A$处总电流为
+$I=2V/r+2(V-4V/15)/r=52V/(15r)$，所以
+$\boxed{R_{AB}=15r/26}$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r/2}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{r+X}
+\coordinate(a2)at(0,-2);\coordinate(b2)at(4,-2);\Res{a2}{b2}{r+X}
+\draw[curve](a0)--(a2);\draw[curve](b0)--(b2);\node[left]at(a0){$A$};\node[right]at(b0){$O$};\node at(2,-3){$R_*=r/(2\sqrt3)$};
+\end{tikzpicture}
+\caption{单端到中心的两条半无限出路与本地辐条并联。}\label{fig:c2-wheel6-s}
+\end{figure}
+
+无限极限中，两端附近的扰动相距无限远。设从一个圆周点向一侧延伸的半无限梯形等效电阻为$X$；首节点直接经$r/2$接中心，另一条出路为$r+X$，故
+\[
+ X=\frac{(r/2)(r+X)}{3r/2+X},\qquad
+ X^2+rX-\frac{r^2}{2}=0.
+\]
+取正根$X=(\sqrt3-1)r/2$。一个端口到中心有自身$r/2$及左右两条$r+X$，其电阻
+\[
+ R_*=\left[\frac2r+\frac2{r+X}\right]^{-1}
+ =\frac{r}{2\sqrt3}.
+\]
+图~\ref{fig:c2-wheel6-s}中的两端阻抗相同，故
+$\boxed{R_{AB}\to2R_*=r/\sqrt3}$。
+负根不能作为无源电阻，有限网络的正值序列也不可能收敛到它。
+\end{solution}
+
+\subsection{轮形网络的一般参数}
+轮缘每段电阻$r$、每根辐条电阻$s$时，节点方程为
+$v_{j+1}-(2+\mu)v_j+v_{j-1}=0$，其中$\mu=r/s$。记
+\[
+ b=\frac{2+\mu-\sqrt{\mu(\mu+4)}}2,\qquad0<b<1.
+\]
+这个衰减根随辐条电阻改变；前述整条直径$r$的模型对应$s=r/2$、$\mu=2$、$b=2-\sqrt3$。把电阻单位写清后，有限轮与无限梯形便可用同样的差分工具求解。
+
+\Needspace{6\baselineskip}
+\begin{example}[一般辐条的有限轮]\label{ex:c2-wheel-general}
+圆周$2N$点、轮缘每段$r$、每根辐条$s$，中心全部连接。求相对圆周点$A,B$之间的电阻，并恢复十节点及十二节点的结果。 见图~\ref{fig:c2-wheel-general-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(O)at(0,0);
+\coordinate(v0)at(1.4695761589768238e-16,2.4);
+\coordinate(v1)at(1.4106846055019355,1.9416407864998737);
+\coordinate(v2)at(2.282535639108368,0.7416407864998737);
+\coordinate(v3)at(2.282535639108368,-0.7416407864998737);
+\coordinate(v4)at(1.4106846055019355,-1.9416407864998737);
+\coordinate(v5)at(1.4695761589768238e-16,-2.4);
+\coordinate(v6)at(-1.4106846055019353,-1.9416407864998737);
+\coordinate(v7)at(-2.282535639108368,-0.741640786499874);
+\coordinate(v8)at(-2.2825356391083687,0.7416407864998734);
+\coordinate(v9)at(-1.4106846055019358,1.9416407864998735);
+\draw[curve](v0)--(v1);
+\draw[curve](O)--(v0);
+\draw[curve](v1)--(v2);
+\draw[curve](O)--(v1);
+\draw[curve](v2)--(v3);
+\draw[curve](O)--(v2);
+\draw[curve](v3)--(v4);
+\draw[curve](O)--(v3);
+\draw[curve](v4)--(v5);
+\draw[curve](O)--(v4);
+\draw[curve](v5)--(v6);
+\draw[curve](O)--(v5);
+\draw[curve](v6)--(v7);
+\draw[curve](O)--(v6);
+\draw[curve](v7)--(v8);
+\draw[curve](O)--(v7);
+\draw[curve](v8)--(v9);
+\draw[curve](O)--(v8);
+\draw[curve](v9)--(v0);
+\draw[curve](O)--(v9);
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$O$};
+\fill(v0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(v1)circle(1.3pt);
+\fill(v2)circle(1.3pt);
+\fill(v3)circle(1.3pt);
+\fill(v4)circle(1.3pt);
+\fill(v5)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(v6)circle(1.3pt);
+\fill(v7)circle(1.3pt);
+\fill(v8)circle(1.3pt);
+\fill(v9)circle(1.3pt);
+\end{scope}
+\node[right]at(2.7,1){圆弧：$r$};\node[right]at(2.7,.2){辐条：$s$};
+\end{tikzpicture}
+\caption{本题单独指定辐条$s$，不再把整条直径固定为$r$。}\label{fig:c2-wheel-general-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-wheel-general-q}取中心零势、端点为$V,-V$。半圆内部节点满足
+\[
+ v_{j+1}-(2+\mu)v_j+v_{j-1}=0,\qquad\mu=r/s.
+\]
+把$v_j=\lambda^j$代入差分方程并约去$\lambda^{j-1}$，得到
+$\lambda^2-(2+\mu)\lambda+1=0$。特征根为$b,b^{-1}$，其中
+$b=(2+\mu-\sqrt{\mu(\mu+4)})/2$满足$0<b<1$。
+因此$v_j=C b^j+D b^{-j}$。两个边界逐一给出
+\[
+ C+D=V,\qquad Cb^N+Db^{-N}=-V.
+\]
+以$D=V-C$消元，再乘$b^N$，有$C(b^{2N}-1)=-V(b^N+1)$，所以
+\[
+ C=\frac{V}{1-b^N},\qquad D=-\frac{Vb^N}{1-b^N}.
+\]
+代回通解，得到
+\[
+ v_j=V\frac{b^j-b^{N-j}}{1-b^N}.
+\]
+它在$j=0,N$分别等于$V,-V$，同时有$v_{N-j}=-v_j$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\foreach \j/\x/\lab in {0/0/0,1/1.3/1,2/2.6/2,3/4.5/{N-1},4/5.8/N}{
+ \coordinate(v\j)at(\x,0);\coordinate(o\j)at(\x,-1.5);
+ \Res{v\j}{o\j}{s}\fill(v\j)circle(1.2pt);
+ \node[above]at(v\j){$v_{\lab}$};}
+\Res{v0}{v1}{r}\Res{v1}{v2}{r}\draw[guide](v2)--(v3);\Res{v3}{v4}{r}
+\draw[curve](o0)--(o4);\node[below]at(2.9,-1.5){$O:\ 0$};
+\node[left]at(v0){$A$};\node[right]at(v4){$B$};
+\node at(2.9,.85){半圆各节点均经辐条接到同一中心};
+
+\end{tikzpicture}
+\caption{半圆上的有限差分网络，省略部分仍包含辐条；$v_0=V,v_N=-V$。}\label{fig:c2-wheel-general-s}
+\end{figure}
+图~\ref{fig:c2-wheel-general-s}中，源点既沿辐条流向中心，也沿两段轮缘流向相邻点，故
+\[
+ \frac IV=\frac1s+\frac2r\left(1-\frac{b-b^{N-1}}{1-b^N}\right).
+\]
+乘$r$后用$\mu+2=b+b^{-1}$，分子逐项合并：
+\[
+ \frac{rI}V=
+ \frac{(b+b^{-1})(1-b^N)-2b+2b^{N-1}}{1-b^N}
+ =(b^{-1}-b)\frac{1+b^N}{1-b^N}.
+\]
+又$b^{-1}-b=\sqrt{\mu(\mu+4)}$、端电压为$2V$，于是
+\[
+ \boxed{R_{AB}=\frac{2r}{\sqrt{\mu(\mu+4)}}\frac{1-b^N}{1+b^N}}.
+\]
+当$s=r/2$时，$\mu=2,b=a=2-\sqrt3$，恢复$r(1-a^N)/[\sqrt3(1+a^N)]$。$N=5,6$分别给$19r/33,15r/26$；$N\to\infty$时$b^N\to0$，得到$r/\sqrt3$。有限轮从下方趋近此极限；闭合双轨采用另一种横向结构，不能仅因都含周期边界便混用公式。
+\end{solution}
+
+
+\section{逐层内接三角形的自洽电阻}
+相似图形的尺寸变化会进入电阻递推。均匀细线的电阻正比于长度，内层越小，电阻也越小；若把各层对应的元件阻值人为保持不变，便得到另一组递推系数。下面分别计算这两种模型。
+
+\Needspace{6\baselineskip}
+\begin{example}[三等分内接三角形的无限网络]\label{ex:c2-triangle-nested}
+等边三角形$ABC$每边长$l$，用单位长度电阻$\rho$的细线围成。在$AB,BC,CA$上分别取从前一顶点起$1/3$处的点，连成下一层三角形，按同样规则无限继续，交点均连接。求$A,B$间电阻。再比较“各层电阻不随边长缩小”的理想元件变式。 见图~\ref{fig:c2-triangle-nested-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(0,0);
+\coordinate(B)at(4,0);
+\coordinate(C)at(2,3.464);
+\coordinate(D)at(1.333,0);
+\coordinate(E)at(3.333,1.155);
+\coordinate(F)at(1.333,2.309);
+\draw[curve](A)--(D);
+\draw[curve](D)--(B);
+\draw[curve](B)--(E);
+\draw[curve](E)--(C);
+\draw[curve](C)--(F);
+\draw[curve](F)--(A);
+\draw[curve](D)--(E);
+\draw[curve](E)--(F);
+\draw[curve](F)--(D);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\fill(E)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$E$};
+\fill(F)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$F$};
+\end{scope}
+\draw[guide](2,.385)--(2.667,1.540)--(1.333,1.540)--cycle;
+\end{tikzpicture}
+\caption{每层三等分取点的方向一致，下一层边长为上一层的$1/\sqrt3$。}\label{fig:c2-triangle-nested-q}
+\end{figure}
+\begin{solution}
+记外层整边电阻$r=\rho l$，所求$R_{AB}=xr$。图~\ref{fig:c2-triangle-nested-q}的内三角形边长缩为$1/\sqrt3$，因此其全部内部网络在三个端口间的等效电阻为$xr/\sqrt3$。
+三端循环对称使它可换成三条相等的三角边，每条为$3xr/(2\sqrt3)=\alpha xr$，其中$\alpha=\sqrt3/2$。
+
+对外顶点$A$及两个相邻内端点组成的三角形，其三边为$r/3,2r/3,\alpha xr$，总和$r(1+\alpha x)$。星形变换得到通向$A$的臂
+$r_0=2r/[9(1+\alpha x)]$，另两臂之和
+$r_1+r_2=\alpha xr/(1+\alpha x)$。
+具体地，与$r/3$相邻的内侧星臂为
+$r_1=\alpha xr/[3(1+\alpha x)]$，与$2r/3$相邻的另一臂为
+$r_2=2\alpha xr/[3(1+\alpha x)]$。相邻两个星中心之间恰好依次经过一条$r_1$和一条$r_2$，所以新内三角的三边都为$r_1+r_2$，而不是某一只星臂。第三外端$C$开路时，其$r_0$臂无电流；$A,B$的两只$r_0$仍各通过完整端口电流。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(A)at(-3,0);\coordinate(B)at(3,0);\coordinate(C)at(0,4.5);
+\coordinate(X)at(-1.8,1);\coordinate(Y)at(1.8,1);\coordinate(Z)at(0,3);
+\Res{A}{X}{r_0}\Res{B}{Y}{r_0}\Res{C}{Z}{r_0}
+\Res{X}{Y}{s}\Res{Y}{Z}{s}\Res{Z}{X}{s}
+\foreach \v/\pos in {A/left,B/right,C/above,X/below,Y/below,Z/left}{\fill(\v)circle(1.5pt)node[\pos]{$\v$};}
+\node at(0,-.7){$s=r_1+r_2$};
+\end{tikzpicture}
+\caption{三次星形变换把递归部分压缩到三个星中心，外端仍为$A,B,C$。}\label{fig:c2-triangle-nested-s}
+\end{figure}
+
+图~\ref{fig:c2-triangle-nested-s}中三颗新星的中心构成等边电阻三角；$A,B$端之间为两条$r_0$及该三角形端口串联，所以
+\[
+ x=\frac{4/9+(2\alpha/3)x}{1+\alpha x},
+ \quad\alpha x^2+\left(1-\frac1{\sqrt3}\right)x-\frac49=0.
+\]
+取正根，
+\[
+ \boxed{R_{AB}=r\,
+ \frac{-(1-1/\sqrt3)+
+ \sqrt{(1-1/\sqrt3)^2+16\alpha/9}}{2\alpha}},
+ \qquad\alpha=\frac{\sqrt3}{2}.
+\]
+若每层对应网络的电阻人为保持不随尺寸变化，则内层端口为$xr$，应改取$\alpha=3/2$。相同消元给
+$\alpha x^2=4/9$，即$x=\sqrt{8/27}$。
+这两个正根都须由有限截断得到。只保留外三角形时$x_0=2/3$；每添一层，只增加内部通路，端口电阻递减。把除$A$外的节点全部短接，$A$的两条出边$r/3,2r/3$并联为$2r/9$，所以每次截断都有$x_n\ge2/9$，序列存在正极限。图~\ref{fig:c2-triangle-nested-s}的变换给
+\[
+ x_{n+1}=\frac{4/9+(2\alpha/3)x_n}{1+\alpha x_n}.
+\]
+分母在$x_n\ge0$时不为零，可以对递推取极限。所得二次方程的常数项为负、二次项系数为正，恰有一个正根，因而有限网络确实选中上面的解。
+均匀细线模型采用随长度缩放的电阻；固定元件模型采用不变的对应电阻，两种条件分别对应上述两个根。
+\end{solution}
+
+
+
+\input{lecture2_depth}
+\section{习题与解答}
+
+\begin{exercise}[等势线上的附加电阻]\label{ex:c2-h1}
+平衡电桥四臂为$R_1,R_2,R_3,R_4$，上支路依次$A-R_1-C-R_2-B$，下支路依次$A-R_3-D-R_4-B$，在$C,D$间接任意正电阻$R_5$。求它不影响端口电阻的条件及此时$R_{AB}$。 见图~\ref{fig:c2-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(A)at(-3,0);
+\coordinate(B)at(3,0);
+\coordinate(C)at(0,1.5);
+\coordinate(D)at(0,-1.5);
+\draw[curve](A)--(C);
+\draw[curve](C)--(B);
+\draw[curve](A)--(D);
+\draw[curve](D)--(B);
+\draw[curve](C)--(D);
+\fill(A)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$A$};
+\fill(B)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$B$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$C$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$D$};
+\path(A)--(C)node[midway,above,sloped]{$R_1$};
+\path(C)--(B)node[midway,above,sloped]{$R_2$};
+\path(A)--(D)node[midway,above,sloped]{$R_3$};
+\path(D)--(B)node[midway,above,sloped]{$R_4$};
+\path(C)--(D)node[midway,above,sloped]{$R_5$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{跨桥支路能否删去，应由两中点电位决定。}\label{fig:c2-h1-q}
+\end{figure}
+\begin{solution}
+先断开图~\ref{fig:c2-h1-q}的桥边，取$V_A=U,V_B=0$。两条支路分别串联，因此
+\[
+ I_{\rm up}=\frac{U}{R_1+R_2},\quad
+ I_{\rm down}=\frac{U}{R_3+R_4},\quad
+ V_C=I_{\rm up}R_2,\quad V_D=I_{\rm down}R_4.
+\]
+接回任意正$R_5$而不改变原解，必须且只须原先$V_C=V_D$。两分压相等要求
+\[
+ \frac{R_2}{R_1+R_2}=\frac{R_4}{R_3+R_4}
+ \quad\Rightarrow\quad R_2R_3+R_2R_4=R_1R_4+R_2R_4,
+\]
+故平衡条件为$\boxed{R_1R_4=R_2R_3}$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{R_1+R_2}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{R_3+R_4}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{平衡时桥臂无电流，剩余两条完整支路并联。}\label{fig:c2-h1-s}
+\end{figure}
+满足该条件时，图~\ref{fig:c2-h1-s}的桥电流$(V_C-V_D)/R_5=0$，各节点原有守恒仍成立，由唯一性原解就是接桥后的解。输入电导为两完整支路电导之和：
+\[
+ \boxed{R_{AB}=\left(\frac1{R_1+R_2}+\frac1{R_3+R_4}\right)^{-1}}.
+\]
+反之，若开桥压差非零，接入有限正电导$g=1/R_5$会使输入电阻降低$g(V_{CD}/I)^2/(1+gR_{CD})>0$，因而不可能保持原端口电阻。这也证明条件的必要性。很大的$R_5$只会使影响很小，不能使失衡桥严格等效于断桥。
+\end{solution}
+
+\begin{exercise}[正四面体与正八面体的邻边]\label{ex:c2-h2}
+正四面体和正八面体的每条棱都接电阻$r$，分别求邻边端口电阻。再求正八面体相对顶点间的电阻。 见图~\ref{fig:c2-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\begin{scope}[scale=.85]
+\coordinate(A)at(0,0);\coordinate(B)at(2.5,0);\coordinate(C)at(1.25,2.1);\coordinate(D)at(1.25,.75);
+\draw[curve](A)--(B)--(C)--cycle (D)--(A) (D)--(B) (D)--(C);
+\foreach \p in {A,B,C,D}\fill(\p)circle(1.5pt)node[above left]{$\p$};
+\node at(1.25,-.65){四面体};
+\end{scope}
+\begin{scope}[xshift=4.1cm,scale=.85]
+\coordinate(P)at(1,2.3);\coordinate(Q)at(1,-.5);
+\coordinate(E)at(0,.9);\coordinate(F)at(.65,1.45);\coordinate(G)at(2,.9);\coordinate(H)at(1.35,.35);
+\draw[curve](E)--(F)--(G)--(H)--cycle;
+\foreach \p in {E,F,G,H}{\draw[curve](P)--(\p)--(Q);\fill(\p)circle(1.5pt);}
+\fill(P)circle(1.5pt)node[above]{$P$};\fill(Q)circle(1.5pt)node[below]{$Q$};
+\node at(1,-1.1){八面体：$P,Q$相对};
+\end{scope}
+
+\end{tikzpicture}
+\caption{两种多面体的全部实际棱均为$r$；右图的透视交叉不另设连接点。}\label{fig:c2-h2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-h2-q}左侧正四面体有四顶点六棱，棱端口在旋转下等价。相邻端口和式只对这六条实际棱求和，故$6R_{\rm tet}=(4-1)r$，得到$R_{\rm tet}=r/2$。正八面体六顶点十二棱同样棱等价，所以
+\[
+ 12R_{\rm oct,adj}=(6-1)r,
+ \qquad\boxed{R_{\rm oct,adj}=\frac5{12}r}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{r+r}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{r+r}
+\coordinate(a2)at(0,-2);\coordinate(b2)at(4,-2);\Res{a2}{b2}{r+r}
+\coordinate(a3)at(0,-3);\coordinate(b3)at(4,-3);\Res{a3}{b3}{r+r}
+\draw[curve](a0)--(a3);\draw[curve](b0)--(b3);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{相对端口的四条两棱路径并联，各中点由对称性保持等势。}\label{fig:c2-h2-s}
+\end{figure}
+正八面体相对顶点$A,B$没有直接棱，不能由上述一个和式求出。图~\ref{fig:c2-h2-s}中取$V_A=V,V_B=0$，保持端口的四重旋转使赤道上四点等势，互换两极的反射又将其电位定为$V/2$。
+
+四条$A$至中层棱各流$V/(2r)$，所以输入$I=4V/(2r)=2V/r$，从而
+\[
+ \boxed{R_{\rm oct,opp}=\frac VI=\frac r2}.
+\]
+等效图也可看成$A$至中层四只$r$并联为$r/4$、中层至$B$同样为$r/4$，两段串联。赤道四条棱两端电位相同，当前激励下不发热；若移走端口或破坏等阻条件，就必须恢复这些连接重新求解。
+\end{solution}
+
+\begin{exercise}[互阻的负号]\label{ex:c2-h3}
+四点无支路的电阻链$A-r-C-r-D-r-B$，在$A,B$间注入、抽出$I$。求$R_{AB,CD}$及$R_{AB,DC}$，并用四个两点电阻复核。 见图~\ref{fig:c2-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\fill(n0)circle(1.5pt)node[below]{$A$};
+\fill(n1)circle(1.5pt)node[below]{$C$};
+\fill(n2)circle(1.5pt)node[below]{$D$};
+\fill(n3)circle(1.5pt)node[below]{$B$};
+
+\end{tikzpicture}
+\caption{链中电流从$A$到$B$，电压端口反接会改变互阻符号。}\label{fig:c2-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c2-h3-q}中没有旁支，各内部节点仅两条边，所以稳恒时三段均流$I$，方向为$A\to C\to D\to B$。以$B$为零势，逐段向上游累加压降，得到
+\[
+ V_D=Ir,\quad V_C=2Ir,\quad V_A=3Ir.
+\]
+因此按$C$减$D$测量与按$D$减$C$测量分别为
+\[
+ \boxed{R_{AB,CD}=\frac{V_C-V_D}I=r},\qquad
+ \boxed{R_{AB,DC}=-r}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\fill(n0)circle(1.5pt)node[below]{$A$};
+\fill(n1)circle(1.5pt)node[below]{$C$};
+\fill(n2)circle(1.5pt)node[below]{$D$};
+\fill(n3)circle(1.5pt)node[below]{$B$};
+\draw[axis](2,-.8)--(4,-.8)node[midway,below]{$U_{CD}>0$};
+\end{tikzpicture}
+\caption{测量箭头与电流方向一致为正，反向为负。}\label{fig:c2-h3-s}
+\end{figure}
+图~\ref{fig:c2-h3-s}反接的是电压测量端口，源汇没有交换。为了用两点电阻核对，每一次两点测量都保持其他端点开路；链上悬出的末段无电流，故只计测量点之间的串联段数：
+\[
+ R_{AD}=2r,\quad R_{BC}=2r,\quad R_{AC}=r,\quad R_{BD}=r.
+\]
+代入得$R_{AB,CD}=(2r+2r-r-r)/2=r$。若将$C,D$互换，公式中正负配对也随之交换，结果为$-r$。
+
+负值说明测量方向与电位下降方向相反，不表示某段电阻产生能量。三段实际耗散之和为$3I^2r$，恰等于输入功率$I(V_A-V_B)$；无论电压表如何接线，这项耗散不变。
+\end{solution}

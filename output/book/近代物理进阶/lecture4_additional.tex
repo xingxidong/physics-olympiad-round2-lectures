@@ -1,0 +1,54 @@
+\begin{exercise}\label{ex:m4tunnel}
+质量$m$的粒子以能量$0<E<V_0$从左射向$0<x<a$的矩形势垒，势垒外$V=0$。求透射率，并给出厚势垒极限，解释它与束缚态边界的联系。
+\Diagram{fig:m4tunnelq}{有限禁区两侧都是传播区}{\draw[axis](-1.5,0)--(5,0)node[right]{$x$};\draw[curve](-1.2,0)--(0,0)--(0,2.4)--(3,2.4)--(3,0)--(4.7,0);\draw[guide](-1.2,1)--(4.7,1);\node[right]at(4.7,1){$E$};\node[above]at(1.5,2.4){$V_0$};\node[below]at(3,0){$a$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4tunnelq}取$k=\sqrt{2mE}/\hbar$、$\kappa=\sqrt{2m(V_0-E)}/\hbar$。三段波函数分别为$\ee^{ikx}+r\ee^{-ikx}$、$A\ee^{\kappa x}+B\ee^{-\kappa x}$、$t\ee^{ikx}$。右界面两连续条件给
+\[
+ A\ee^{\kappa a}=\frac{t\ee^{ika}}2(1+ik/\kappa),\quad
+ B\ee^{-\kappa a}=\frac{t\ee^{ika}}2(1-ik/\kappa).
+\]
+代回左界面，先算出
+\begin{align*}
+ A+B&=t\ee^{ika}[\cosh\kappa a-i(k/\kappa)\sinh\kappa a],\\
+ \kappa(A-B)&=t\ee^{ika}[-\kappa\sinh\kappa a+ik\cosh\kappa a].
+\end{align*}
+左界面条件为$1+r=A+B$、$ik(1-r)=\kappa(A-B)$。第二式除以$ik$，再与第一式相加，消去$r$，得
+\[
+ t\ee^{ika}=\left[\cosh\kappa a+
+ i\frac{\kappa^2-k^2}{2k\kappa}\sinh\kappa a\right]^{-1}.
+\]
+\Diagram{fig:m4tunnela}{有限禁区需要两指数支，透射侧只保留向右传播波}{\draw[axis](-1.5,0)--(5,0)node[right]{$x$};\draw[guide](0,-.6)--(0,2.3);\draw[guide](3,-.6)--(3,2.3);\draw[curve,domain=0:3,samples=60]plot(\x,{1.8*exp(-.65*\x)});\draw[->](3.4,.6)--(4.7,.6)node[above]{透射};\node[above]at(1.5,2.4){振幅包络示意};}
+两侧传播介质相同，$T=|t|^2$。分母的模平方为
+\begin{align*}
+ T^{-1}&=\cosh^2\kappa a+
+ \frac{(\kappa^2-k^2)^2}{4k^2\kappa^2}\sinh^2\kappa a\\
+ &=1+\frac{(\kappa^2+k^2)^2}{4k^2\kappa^2}\sinh^2\kappa a.
+\end{align*}
+使用$\kappa^2+k^2=2mV_0/\hbar^2$和$k^2\kappa^2=4m^2E(V_0-E)/\hbar^4$，得到
+\[
+ T=\left[1+\frac{V_0^2\sinh^2\kappa a}{4E(V_0-E)}\right]^{-1}.
+\]
+图\ref{fig:m4tunnela}的厚垒极限$\kappa a\gg1$给$T\simeq16E(V_0-E)\ee^{-2\kappa a}/V_0^2$。有限禁区内不能先删增长支；它与衰减支一起满足两端匹配，正如有限光隙中的受抑全反射。
+\end{solution}
+
+\begin{exercise}\label{ex:m4fieldemission}
+金属表面外的电子势垒近似为$V(x)=W-eFx$，$0<x<W/(eF)$，其中$F>0$是外加电场大小。以表面内电子能量为零，求半经典穿透概率的主要指数，解释增大电场的作用。
+\Diagram{fig:m4emissionq}{外场使表面势垒成为有限宽三角形}{\draw[axis](-.6,0)--(4.9,0)node[right]{$x$};\draw[axis](0,0)--(0,3.2)node[above]{$V$};\draw[curve](0,2.6)--(3.8,0);\node[left]at(0,2.6){$W$};\node[below]at(3.8,0){$W/(eF)$};\draw[->](-.5,.3)--(-.05,.3);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4emissionq}禁区局部虚动量大小$|p|=\sqrt{2m(W-eFx)}$。先计算禁区积分，取$q=W-eFx$，$\dd x=-\dd q/(eF)$，空间上下限对应$q=W,0$：
+\begin{align*}
+ \int_0^{W/(eF)}|p|\dd x
+ &=-\frac{\sqrt{2m}}{eF}\int_W^0q^{1/2}\dd q\\
+ &=\frac{\sqrt{2m}}{eF}\left[\frac23q^{3/2}\right]_0^W
+ =\frac{2\sqrt{2m}W^{3/2}}{3eF}.
+\end{align*}
+WKB振幅的衰减因子为$\exp[-\int|p|\dd x/\hbar]$；概率需平方，故
+\[
+ \mathcal T\propto\exp\left[-\frac2\hbar\int_0^{W/(eF)}|p|\dd x\right]
+ =\exp\left[-\frac{4\sqrt{2m}W^{3/2}}{3e\hbar F}\right].
+\]
+\Diagram{fig:m4emissiona}{电场增大使势垒变窄，指数抑制减弱}{\draw[axis](0,0)--(4.8,0)node[right]{$x$};\draw[axis](0,0)--(0,3.2)node[above]{$V$};\draw[curve](0,2.6)--(4,0);\draw[guide](0,2.6)--(2,0);\node[right]at(3,1.2){较弱场};\node[left]at(-.4,1.4){较强场};\draw[guide](-.3,1.4)--(.8,1.56);}
+图\ref{fig:m4emissiona}中势垒高度仍为$W$，宽度却随$1/F$减小，所以穿透概率随电场迅速上升。若画$\ln\mathcal T$对$1/F$，领先指数给负斜率直线；实际电流还含电子供给与前因子，不能仅凭此式求出绝对电流。这个过程不要求入射光子能量超过功函数，和经典过垒光电逃逸属于不同模型。
+\end{solution}

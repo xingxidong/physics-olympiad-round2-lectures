@@ -1,0 +1,144 @@
+\section{从测量强度还原偏振态}
+\begin{example}\label{ex:o4stokesmeasure}
+同一未知光束经六种理想分析器测得强度：水平6、竖直4、45度7、135度3、正圆偏振分析6、负圆偏振分析4。圆分析正态定义为Jones矢量$(1,i)^{\mathsf T}/\sqrt2$。求斯托克斯量、完整偏振度以及线偏振扫描的可见度。
+\Diagram{fig:o4measureq}{同一光束依次采用六种偏振分析设置}{\draw[curve](0,0)rectangle(2.2,1);\node at(1.1,.5){未知光};\draw[->](2.4,.5)--(3.3,.5);\node[right]at(3.5,.5){$H,V,D,A,+,-$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4measureq}三组互补强度之和都为10，彼此相容。故$S_0=10$，$S_1=I_H-I_V=2$，$S_2=I_D-I_A=4$，$S_3=I_+-I_-=2$。完整偏振度$\mathcal P=\sqrt{2^2+4^2+2^2}/10=\sqrt6/5\simeq.4899$。
+\Diagram{fig:o4measurea}{完整偏振矢量的长度大于其线偏振平面投影}{\draw[axis](0,0)--(3.4,0)node[right]{$S_1$};\draw[axis](0,0)--(0,3)node[above]{$S_2$};\draw[axis](0,0)--(-1.5,-1.2)node[left]{$S_3$};\draw[->,thick](0,0)--(1.8,2.2);\draw[guide](1.8,0)--(1.8,2.2);\node[right]at(2.1,1){三维分量示意};}
+旋转线检偏器强度$I(\theta)=\tfrac12[S_0+S_1\cos2\theta+S_2\sin2\theta]$，调制振幅$\sqrt{20}/2$，所以可见度$\sqrt{20}/10=1/\sqrt5\simeq.4472$。图\ref{fig:o4measurea}说明单线检偏只看$S_1,S_2$投影，忽略$S_3$会低估完整偏振度。此组数据含不可定相的自然成分，不能指定一个唯一Jones矢量代表全部光。
+\end{solution}
+
+\begin{example}\label{ex:o4quarteranalysis}
+证明快轴45度、慢轴135度的理想四分之一波片接水平检偏器，可测得正圆分析强度$S_0/2+S_3/2$。说明转片或交换快慢轴怎样测另一旋向。
+\Diagram{fig:o4analysisq}{四分之一波片把圆基分量转成正交线基分量}{\draw[axis](-1,0)--(5.5,0);\draw[curve](0,-1)--(0,1);\draw[curve](3,-1)--(3,1);\node[above]at(0,1){$Q(45^\circ)$};\node[above]at(3,1){水平检偏};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4analysisq}中，快轴沿45度、慢轴沿135度，令快轴相位为零、慢轴增相$\pi/2$，波片矩阵为
+\[
+ Q_{45}=\frac12\begin{pmatrix}1+i&1-i\\1-i&1+i\end{pmatrix}.
+\]
+后接水平检偏器只保留第一行，因此$E'_H=[(1+i)E_x+(1-i)E_y]/2=(1+i)(E_x-iE_y)/2$。公共因子模平方为$1/2$，故
+\[
+ I_H'=\tfrac12\langle|E_x-iE_y|^2\rangle.
+\]
+\Diagram{fig:o4analysisa}{两圆偏振基在该波片后分别成为水平、竖直线偏振}{\node at(0,1){$(1,i)$};\node at(0,-.3){$(1,-i)$};\draw[->](1,1)--(2.3,1);\draw[->](1,-.3)--(2.3,-.3);\node[right]at(2.5,1){水平};\node[right]at(2.5,-.3){竖直};}
+按本讲$S_3=-2\operatorname{Im}\langle E_xE_y^*\rangle$的约定，展开模平方，
+\begin{align*}
+ \langle|E_x-iE_y|^2\rangle
+ &=\langle|E_x|^2+|E_y|^2+iE_xE_y^*-iE_yE_x^*\rangle\\
+ &=S_0-2\operatorname{Im}\langle E_xE_y^*\rangle=S_0+S_3.
+\end{align*}
+因此测得$(S_0+S_3)/2$。图\ref{fig:o4analysisa}可用圆基$(1,i)/\sqrt2$、$(1,-i)/\sqrt2$逐个代入：前者经过波片成为水平线偏振，后者成为竖直线偏振，水平片分别全透与阻断。
+
+快轴改为135度，或交换快慢轴，可测得$(S_0-S_3)/2$。波片本身是无损相位元件，输出总强度仍为$S_0$；圆偏振的选择发生在随后的检偏器中。描述“正圆”时必须同时保留时间因子与$S_3$符号约定，避免只用旋向名称造成歧义。
+\end{solution}
+
+\begin{example}\label{ex:o4ellipseinverse}
+完全偏振光的长短半轴为$A,B$，$A\geq B\geq0$，长轴与$x$成$\psi$，从$+x$向$+y$的旋向取正。求斯托克斯量与椭圆几何的关系，说明哪一个量携带旋向。
+\Diagram{fig:o4inverseellipseq}{椭圆的尺寸、倾角和旋向是独立几何信息}{\draw[axis](-2.2,0)--(2.5,0)node[right]{$x$};\draw[axis](0,-1.5)--(0,1.8)node[above]{$y$};\draw[curve,rotate=25](0,0)ellipse(1.8 and .8);\draw[guide](-1.8,-.84)--(1.8,.84);\node at(1,.2){$\psi$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:o4inverseellipseq}的主轴基中，正旋Jones矢量可取$(A,iB)$，所以$S_0=A^2+B^2$、$S_1=A^2-B^2$、$S_2=0$、$S_3=2AB$。将坐标旋转$\psi$，线偏振分量在斯托克斯平面旋转双角，得到
+\[
+ S_1=(A^2-B^2)\cos2\psi,\quad
+ S_2=(A^2-B^2)\sin2\psi,\quad S_3=\pm2AB.
+\]
+\Diagram{fig:o4inverseellipsea}{相同轨迹反向走动，只改变$S_3$符号}{\begin{scope}[xshift=-2cm]\draw[curve](0,0)ellipse(1.2 and .65);\draw[->](1.2,0)arc(0:65:1.2 and .65);\node[below]at(0,-1){$S_3>0$};\end{scope}\begin{scope}[xshift=2cm]\draw[curve](0,0)ellipse(1.2 and .65);\draw[->](1.2,0)arc(0:-65:1.2 and .65);\node[below]at(0,-1){$S_3<0$};\end{scope}}
+图\ref{fig:o4inverseellipsea}相同长短轴和倾角下，旋向只由$S_3$的符号区分。验证$S_1^2+S_2^2+S_3^2=(A^2+B^2)^2$，正是完全偏振条件；圆偏振$A=B$时$S_1=S_2=0$，长轴方向不再可定义，此时$\tan2\psi$不再确定唯一倾角。
+\end{solution}
+
+\section{晶体中的波矢与能流}
+\begin{example}\label{ex:o4walkoff}
+单轴晶体$n_o=1.60,n_e=1.50$，非普通光波矢与光轴成45度。求有效相折射率、能流方向和走离角。忽略频率色散。
+\Diagram{fig:o4walkoffq}{波矢与光轴成$45^\circ$，能流偏向远离光轴的一侧}{
+\draw[axis](0,0)--(3.8,0)node[right]{$x$};\draw[axis](0,0)--(0,3.4)node[above]{光轴$z$};
+\draw[axis](0,0)--(2.15,2.15)node[above left]{$\vct k$};
+\draw[axis](0,0)--({2.15*2.56/2.25},2.15)node[right]{$\vct S$};
+\draw(0,.85)arc(90:45:.85);\node at(.6,1.12){$\vartheta$};
+\draw(45:2.55)arc(45:41.308:2.55);
+\draw[thin](43.154:2.55)--(3.1,1.1)node[right]{$\rho$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4walkoffq}取光轴为$z$、波矢位于$x,z$平面。非普通波色散为$k_x^2/n_e^2+k_z^2/n_o^2=(\omega/c)^2$。令$k=n_{\rm eff}\omega/c$、$k_x=k\sin\vartheta$、$k_z=k\cos\vartheta$，得
+\[
+ \frac1{n_{\rm eff}^2}=\frac{\sin^2\vartheta}{n_e^2}
+ +\frac{\cos^2\vartheta}{n_o^2}.
+\]
+取$\vartheta=45^\circ$、$n_o=1.60,n_e=1.50$，得到$n_{\rm eff}=1.5476$。这决定沿$\vct k$的相位速度$c/n_{\rm eff}$。
+\Diagram{fig:o4walkoffa}{等频椭圆的外法线给出能流方向，虚线延长波矢方向}{
+\draw[axis](0,0)--(3.8,0)node[right]{$k_x$};\draw[axis](0,0)--(0,3.5)node[above]{$k_z$（光轴）};
+\draw[curve](2.4,0)arc(0:90:2.4 and 2.56);
+\pgfmathsetmacro{\p}{1/sqrt(1/2.4^2+1/2.56^2)}
+\fill(\p,\p)circle(1.5pt)node[below right]{$P$};
+\draw[axis](0,0)--(\p,\p)node[midway,below right]{$\vct k$};
+\draw[guide](\p,\p)--({\p+1.05},{\p+1.05});
+\draw[axis](\p,\p)--({\p+.95*2.56/2.25},{\p+.95})node[right]{$\vct S$};
+\draw(0,.7)arc(90:45:.7);\node at(.4,.94){$45^\circ$};
+\node[align=left]at(3.4,.65){$\vartheta_S=48.69^\circ$\\$\rho=3.69^\circ$};}
+无色散时，群速度为$\vct v_g=\nabla_{\vct k}\omega$。固定$k_z$，对色散式的两边关于$k_x$求导；再固定$k_x$，关于$k_z$求导，分别有
+\[
+ \frac{2k_x}{n_e^2}=\frac{2\omega}{c^2}\frac{\partial\omega}{\partial k_x},
+ \qquad
+ \frac{2k_z}{n_o^2}=\frac{2\omega}{c^2}\frac{\partial\omega}{\partial k_z}.
+\]
+解出两个偏导数，得到
+\[
+ v_{gx}=\frac{c^2k_x}{\omega n_e^2},\qquad
+ v_{gz}=\frac{c^2k_z}{\omega n_o^2},
+\]
+因此图\ref{fig:o4walkoffa}的能流方向满足
+\[
+ \tan\vartheta_S=\frac{v_{gx}}{v_{gz}}
+ =\frac{n_o^2}{n_e^2}\tan\vartheta
+ =\frac{2.56}{2.25},\quad \vartheta_S=48.69^\circ.
+\]
+走离角$\rho=\vartheta_S-\vartheta=3.69^\circ$，方向远离光轴。图中的箭头沿等频椭圆在$P$点的外法线，虚线则沿波矢方向延长，两者夹角为$\rho$。若入射点取原点、出射端面为$z=h$，光束中心横坐标为$h\tan\vartheta_S$；相位法线方向对应$h\tan\vartheta$，二者横向差为$h(\tan\vartheta_S-\tan\vartheta)$。因此光斑位置与波面相位不能用同一个折射角描述。
+\end{solution}
+
+\begin{example}\label{ex:o4reflectionpolar}
+自然光射向无损介质界面。给定菲涅耳反射率$R_s,R_p$，求反射光的线偏振度和总强度，讨论正入射、布儒斯特角和掠入射三个极限。
+\Diagram{fig:o4reflectionq}{自然光的两正交份额分别被不同反射率筛选}{\node at(0,.6){$I_0/2:s$};\node at(0,-.6){$I_0/2:p$};\draw[->](1.2,.6)--(2.6,.6)node[midway,above]{$R_s$};\draw[->](1.2,-.6)--(2.6,-.6)node[midway,below]{$R_p$};\node[right]at(2.8,0){反射束};}
+\end{example}
+\begin{solution}
+图\ref{fig:o4reflectionq}反射强度$I_r=I_0(R_s+R_p)/2$，两正交分量不相干，所以线偏振度$\mathcal P=|R_s-R_p|/(R_s+R_p)$。若$R_s>R_p$，主要偏振沿$s$。
+\Diagram{fig:o4reflectiona}{布儒斯特角处纯$s$，两端极限偏振度回落}{\draw[axis](0,0)--(5.2,0)node[right]{$i$};\draw[axis](0,0)--(0,2.8)node[above]{$\mathcal P$};\draw[curve](0,0)..controls(1.7,.2)and(2.6,2.3)..(3.1,2.3)..controls(3.8,2.3)and(4.4,.7)..(4.8,0);\node[below]at(3.1,0){$i_B$};\node[below]at(4.8,0){$\pi/2$};}
+正入射$R_s=R_p$，偏振度0；布儒斯特角$R_p=0$，偏振度1；掠入射两者都趋1，偏振度又趋0，图\ref{fig:o4reflectiona}表示这种趋势。若总反射强度为零，例如完全无折射率差的界面，则比值为$0/0$，无反射光可谈偏振，不能随意给偏振度0或1。
+\end{solution}
+
+\section{全反射延迟与边界附近能流}
+\begin{example}\label{ex:o4rhomb}
+玻璃向空气全反射两次，两次入射面共面且偏振基连续对应。求实现总相对延迟$\pi/2$所需的单次相位差条件；对$n=1.5$推导可用入射角方程。
+\Diagram{fig:o4rhombq}{两次全反射的相位差相加}{\draw[curve](0,0)--(4,0)--(5,2)--(1,2)--cycle;\draw[->](.4,.8)--(1.2,0)--(3.2,2)--(4.4,.8);\node[below]at(1.2,0){$R_1$};\node[above]at(3.2,2){$R_2$};}
+\end{example}
+\begin{solution}
+设$m=n_2/n_1=2/3$，$g=\sqrt{\sin^2i-m^2}$。单次相位$\phi_s=-2\arctan(g/\cos i)$、$\phi_p=-2\arctan(g/(m^2\cos i))$。图\ref{fig:o4rhombq}两次基底对应相同，需$|\phi_p-\phi_s|=\pi/4$。
+\Diagram{fig:o4rhomba}{两相量相位差每次增加45度，两次累积90度}{\draw[axis](0,0)--(2.8,0)node[right]{$s$参考};\draw[->](0,0)--(1.6,-1.6)node[right]{一次};\draw[->,thick](0,0)--(0,-2.3)node[below]{两次};\draw[guide](2.3,0)arc(0:-90:2.3);}
+令$x=g/\cos i>0$，用反正切差公式，条件为
+\[
+ \frac{x(1/m^2-1)}{1+x^2/m^2}=\tan(\pi/8).
+\]
+记$u=\tan(\pi/8)$，化为二次式$ux^2-(1-m^2)x+m^2u=0$，两根为
+\[
+ x_\pm=\frac{1-m^2\pm\sqrt{(1-m^2)^2-4m^2u^2}}{2u}.
+\]
+代入$m=2/3$，得$x_-=0.59795$、$x_+=0.74328$。又由$x^2=(\sin^2i-m^2)/(1-\sin^2i)$，整理为$(1+x^2)\sin^2i=x^2+m^2$，故
+\[
+ i_\pm=\arcsin\sqrt{\frac{x_\pm^2+m^2}{1+x_\pm^2}}.
+\]
+两解约为50.23度和53.26度，均大于临界角41.81度。图\ref{fig:o4rhomba}画的是相对延迟的累积；实际棱镜的入射、出射面若还引入振幅失配或相位差，也应计入总Jones矩阵。
+\end{solution}
+
+\begin{example}\label{ex:o4evanescentflux}
+$s$偏振倏逝波在$z>0$介质中为$E_y=E_t\ee^{ik_xx-\kappa z-i\omega t}$，$k_x,\kappa$均为正实数。直接由麦克斯韦方程求平均坡印廷矢量，验证法向能流为零而沿界面不为零。
+\Diagram{fig:o4evanq}{倏逝振幅沿法向衰减，相位沿界面前进}{\draw[axis](-.3,0)--(4.5,0)node[right]{$x$};\draw[axis](0,0)--(0,3.2)node[above]{$z$};\foreach\y/\l in{.3/3.8,.8/2.6,1.3/1.8,1.8/1.2}{\draw[curve](.2,\y)--(\l,\y);}\node[right]at(2,2.5){$\ee^{-\kappa z}$};}
+\end{example}
+\begin{solution}
+取复波矢$\vct k=(k_x,0,i\kappa)$，图\ref{fig:o4evanq}的$\vct H=(\vct k\times\vct E)/(\mu\omega)$，所以$H_x=-i\kappa E_y/(\mu\omega)$、$H_z=k_xE_y/(\mu\omega)$。复坡印廷乘积为
+\[
+ \vct E\times\vct H^*
+ =\frac{|E_y|^2}{\mu\omega}(k_x\hat{\vct x}-i\kappa\hat{\vct z}).
+\]
+\Diagram{fig:o4evana}{时间平均实能流平行界面，法向虚部表示往返储能交换}{\draw[curve](-.5,0)--(4.5,0);\foreach\y in{.5,1,1.5}{\draw[axis](.3,\y)--({3.5*exp(-.5*\y)},\y);}\node[right]at(3,1.7){$\langle S_z\rangle=0$};}
+取一半实部，得$\langle S_x\rangle=k_x|E_t|^2\ee^{-2\kappa z}/(2\mu\omega)$，$\langle S_z\rangle=0$，如图\ref{fig:o4evana}。场在低折射率侧非零与无净法向透射并不矛盾。若存在第二界面产生另一指数支，交叉项可给实法向能流，必须重新计算而不能保留单支结果。
+\end{solution}

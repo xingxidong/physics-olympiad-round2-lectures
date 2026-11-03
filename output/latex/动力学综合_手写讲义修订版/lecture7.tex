@@ -1,0 +1,1494 @@
+\chapter{连续体问题}
+
+
+
+\section{连续体的微元、弹性与边界功}
+
+连续体的内部受力和形变随位置变化，仅有整体平衡通常不能确定应力与位移。微元方程结合材料关系求局部解，再由连接条件和端部功确定整体响应。
+
+
+
+\subsection{连续体微元与弹性常数}
+杨氏模量$Y$联系单向拉伸的应力和应变；剪切模量$G$联系切应力和小剪切角；体积模量$K=-V\dd p/\dd V$联系均匀压强与相对体积变化。三者对应不同形变，不能互换。泊松比描述拉伸时横向与纵向应变的负比值。
+
+对初始位置$x$处的质元，$u(x,t)$表示其位移，纵向应变为$u_x$。截面内力$F(x)$与$F(x+\dd x)$的差是微元合力。用本构关系表示截面内力，再对长度为$\dd x$的质元列牛顿方程，便得到波动方程。以下用未形变时的材料坐标标记质元，当前位置由该坐标加位移得到。
+\subsubsection{边界条件、能流与弹性模型}
+一维小振动常可写成$w(x)u_{tt}=\partial_x[p(x)u_x]$。$w$表示单位长度惯性，$pu_x$表示与位移共轭的截面力或力矩。其能量满足
+\[
+ E=\frac12\int_0^L(wu_t^2+pu_x^2)\dd x,\qquad
+ \dot E=[pu_xu_t]_0^L.
+\]
+固定端规定$u=0$，自由端规定$pu_x=0$；无集中质量的连接处要求位移及截面内力连续。自由端通常可以运动，其边界条件来自截面内力为零。分离变量后，空间方程为$-(pX')'=\omega^2wX$，频率由材料、几何和边界共同决定。
+
+对各向同性线弹性材料，泊松比记为$\nu_P$。单向应力产生纵向应变$\sigma/Y$和两个横向应变$-\nu_P\sigma/Y$；将三个正交方向的载荷叠加，可得
+\[
+ \epsilon_x=\frac{\sigma_x-\nu_P(\sigma_y+\sigma_z)}Y,
+\]
+另两个方向由下标循环置换得到。均匀压强下$\sigma_x=\sigma_y=\sigma_z=-p$，所以体积应变为
+\[
+ \epsilon_V=\epsilon_x+\epsilon_y+\epsilon_z
+ =-\frac{3(1-2\nu_P)}Yp.
+\]
+由$K=-p/\epsilon_V$，得$K=Y/[3(1-2\nu_P)]$。再考虑纯剪切应力$\tau$：将坐标轴转过$45^\circ$，两个主应力分别为$\tau,-\tau$，第三个为零。相应主应变为$\epsilon_1=(1+\nu_P)\tau/Y$、$\epsilon_2=-(1+\nu_P)\tau/Y$。小形变时，原坐标的工程剪切应变是$\gamma=\epsilon_1-\epsilon_2=2(1+\nu_P)\tau/Y$，与$\tau=G\gamma$比较，得到
+\[
+ Y=2G(1+\nu_P).
+\]
+这些关系适用于同一种各向同性线弹性材料。细杆纵波、体纵波和剪切波的应力约束不同，传播速度仍可以不同。例如体纵波的横向应变为零，令$\epsilon_y=\epsilon_z=0$，由对称性有$\sigma_y=\sigma_z=\nu_P\sigma_x/(1-\nu_P)$。代回$\epsilon_x$，得到
+\[
+ \sigma_x=\frac{Y(1-\nu_P)}{(1+\nu_P)(1-2\nu_P)}\epsilon_x
+ =\left(K+\frac43G\right)\epsilon_x.
+\]
+因此体纵波的有效纵向模量为$K+4G/3$，而横向可自由收缩的细杆只用$Y$。将相应模量代入微元运动方程，才得到各自的波速。
+
+\LectureNeedspace{8\baselineskip}
+
+
+\subsection{弹性系统的能量与边界功}
+\label{sec:deep7-energy}
+细杆的位移是材料点的位移。以未形变杆上的坐标$x$标记材料点，令截面刚度$p(x)=Y(x)S(x)$、线密度$\lambda(x)=\rho(x)S(x)$。在线弹性、小应变近似下，轴力$N=p u_x$以拉伸为正；若单位原长体力为$f$，微段运动方程为
+\[
+ \lambda u_{tt}=\partial_x(pu_x)+f.
+\]
+截面有突加集中力时，$N$可以跳变；没有裂隙或脱开的连接处，位移仍须连续。截面力由接头受力决定，位移连续则来自连接处不脱开的条件。
+
+方程乘以 $u_t$，其中 $p,\lambda$ 不随时间变化。分别整理惯性项和内力项，
+\[
+\lambda u_{tt}u_t=\partial_t(\lambda u_t^2/2),\qquad
+\partial_x(pu_x)u_t=\partial_x(pu_xu_t)-pu_xu_{xt},
+\]
+且 $pu_xu_{xt}=\partial_t(pu_x^2/2)$。于是得到局部能量关系
+\[
+ \partial_t\left(\frac12\lambda u_t^2+\frac12p u_x^2\right)
+ +\partial_x(-Nu_t)=fu_t.
+\]
+括号内两项分别为单位长度动能和弹性能，沿$x$正向的功率流为$\mathcal P=-Nu_t$。将此式在$[a,b]$上积分，
+\[
+ \frac{\dd E_{[a,b]}}{\dd t}
+ =N(b)u_t(b)-N(a)u_t(a)+\int_a^bfu_t\dd x.
+\]
+右端的端点项正好是外界对这段杆所做的功率。端点固定时速度为零；自由端轴力为零。这两种边界都没有端点能流，却给出不同的位移反射符号。
+
+对均匀杆，$c=\sqrt{p/\lambda}$，阻抗$Z=\lambda c=p/c$。右行波$u=F(t-x/c)$满足$N=-Zu_t$，左行波$u=G(t+x/c)$满足$N=+Zu_t$。若记两列波的粒子速度为$v_+,v_-$，则
+\[
+ v=v_++v_-,\qquad N=Z(-v_++v_-),\qquad
+ \mathcal E=\lambda(v_+^2+v_-^2).
+\]
+速度和轴力先叠加，再计算能量。上式中的交叉项在动能与弹性能之间抵消；两列波相遇时，局部粒子速度或应力可以加倍，总能量仍等于两列波各自能量之和。
+
+\subsubsection{由弹性能求位移}
+线弹性静力系统的应变能为轴力、弯矩和扭矩各自贡献之和。在细长杆梁的适用范围内，
+\[
+ U_e=\int\frac{N^2}{2YS}\dd x
+ +\int\frac{M_b^2}{2YI}\dd x
+ +\int\frac{M_t^2}{2GJ_p}\dd x.
+\]
+这些积分采用相应的细杆、细梁近似；剪切变形和截面翘曲若不可忽略，须另计其贡献。若外力为缓慢施加的独立广义力$P_i$，其作用点沿相应方向的位移为$q_i$，线性关系写成$q_i=\sum_jC_{ij}P_j$。从无载荷态按同一比例加载，令$P_i(s)=sP_i$、$q_i(s)=sq_i$，其中$0\le s\le1$。没有耗散时，外力功全部储存为应变能，故
+\[
+ U_e=\int_0^1\sum_i sP_iq_i\,\dd s
+ =\left[\frac{s^2}{2}\right]_0^1\sum_iP_iq_i
+ =\frac12\sum_{i,j}P_iC_{ij}P_j.
+\]
+为说明柔度矩阵为何对称，先不预设$C_{ij}=C_{ji}$。将上式对任一载荷$P_k$求偏导，两个因子各贡献一项：
+\[
+ \frac{\partial U_e}{\partial P_k}
+ =\frac12\sum_j(C_{kj}+C_{jk})P_j.
+\]
+另一方面，对任意缓慢的载荷增量，虚功关系给出
+\[
+ \dd U_e=\sum_iP_i\dd q_i
+ =\sum_k\left(\sum_iP_iC_{ik}\right)\dd P_k.
+\]
+比较$\dd P_k$的系数，并利用各个$P_j$相互独立，得$C_{kj}=C_{jk}$。再代回能量的偏导，就有
+\[
+ \frac{\partial U_e}{\partial P_k}=\sum_jC_{kj}P_j=q_k.
+\]
+求偏导时须保留其他独立载荷。若先把两个力设置成相等再求导，得到的是两处位移之和，未必是某一个作用点的位移。分段杆的两个载荷点可分别说明这两种导数的含义。
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[有质量弹簧的自重伸长与纵波]\label{ex:hw7-3}
+
+均匀弹簧原长$l$、质量$m$、整根劲度系数$k$。(1)竖直悬挂，上端固定，下端自由，求静止长度；(2)将其放在光滑水平面上，弹簧足够长，求小纵波传播速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-.5,0)--(.5,0);\draw[spring](0,0)--(0,-3);\draw[axis](.8,0)--(.8,-3.4)node[below]{$x$};\node at(-1,-1.5){$l,m,k$};
+\end{tikzpicture}
+\caption{自重作用下竖直悬挂的有质量弹簧}\label{fig:hw7-3-q}
+\end{figure}
+
+\begin{solution}
+取未伸长材料坐标$x$从上端向下。将弹簧等分为 $n$ 段，各段劲度为 $k_n$，串联关系 $1/k=n/k_n$ 给出 $k_n=nk$。一段原长 $\Delta x=l/n$，伸长为 $u_x\Delta x$，故 $T=k_nu_x\Delta x=klu_x$。图\ref{fig:hw7-3-s}中静态截面承担其下方质量，$T(x)=(m/l)(l-x)g$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](-.5,0)--(.5,0);
+\draw[curve,domain=0:1,samples=420]plot({.13*sin(5040*\x)},{-3.5*\x+.5*\x*\x});
+\node[left]at(-.3,-.25){$x=0$};\node[left]at(-.3,-3){$x=l$};\node[left]at(-.35,-1.625){截面$x$};
+\draw[guide](-.4,-1.625)--(.5,-1.625);\draw[axis](0,-1.625)--(0,-.9)node[right]{$T(x)$};
+\node at(0,-3.6){上段伸长率较大};
+\begin{scope}[shift={(3.3,-2.8)}]
+\draw[axis](0,0)--(2.8,0)node[right]{$x/l$};\draw[axis](0,0)--(0,2.5)node[above]{$T/(mg)$};
+\draw[curve](0,2)--(2.2,0);\node[left]at(0,2){$1$};\node[below]at(2.2,0){$1$};\node at(1.4,-.7){按原长标记截面};
+\end{scope}
+\end{tikzpicture}
+\caption{自重使上段伸长率较大，张力沿原长坐标线性减小}\label{fig:hw7-3-s}
+\end{figure}
+
+由 $klu_x=T(x)$，先得 $u_x=mg(l-x)/(kl^2)$。用固定端条件 $u(0)=0$，逐段累加伸长：
+\[
+ u(x)=\int_0^x\frac{mg}{kl^2}(l-s)\,\dd s
+ =\frac{mg}{kl^2}\left[ls-\frac{s^2}{2}\right]_0^x
+ =\frac{mg}{kl^2}\left(lx-\frac{x^2}{2}\right).
+\]
+上段承重更多、伸长率更大。图\ref{fig:hw7-3-s}中的截面$x$应按原长坐标识别，不能将变形后到悬点的实际距离直接代入$m(1-x/l)$。
+
+在末端代入 $x=l$，$u(l)=mg(l^2-l^2/2)/(kl^2)=mg/(2k)$，故
+\[
+ \boxed{l_{\text{静}}=l+mg/(2k)}.
+\]
+弹簧水平时，对微元列 $kl u_{xx}\dd x=(m/l)\dd x\,u_{tt}$，即 $u_{tt}=(kl^2/m)u_{xx}$。为求传播速度，代入行波 $u=A\cos(qx-\omega t)$。逐次求导得 $u_x=-Aq\sin(qx-\omega t)$、$u_{xx}=-Aq^2\cos(qx-\omega t)$，以及 $u_t=A\omega\sin(qx-\omega t)$、$u_{tt}=-A\omega^2\cos(qx-\omega t)$。比较系数，$\omega^2=(kl^2/m)q^2$，于是
+\[
+ \boxed{c=l\sqrt{k/m}}.
+\]
+这一速度按原长坐标定义；若弹簧已经显著预伸长且本构关系改变，应重新线性化。
+
+在竖直静平衡附近研究小振动时，也可令总位移为$u_0(x)+w(x,t)$。静态方程$klu_0''+(m/l)g=0$与动力学方程相减，仍得$w_{tt}=l^2(k/m)w_{xx}$，但顶端、底端的扰动边界条件分别为$w(0,t)=0$、$w_x(l,t)=0$。自重改变平衡形状；在这一本构近似中，它不额外改变材料坐标下的线性波速。
+
+\end{solution}
+
+
+
+\begin{example}[圆弧软绳的瞬时冲量分布]\label{ex:hw7-7}
+
+质量$m$、半径$r$、圆心角$\theta_0$的均匀不可伸长柔绳，初始静止置于光滑水平面，围成一段圆弧。于$A$端沿离开绳的切向施加大小$I_0$的瞬时拉冲量，$B$端自由。以$\theta\in[0,\theta_0]$沿绳从$A$向$B$计，求绳各处碰后瞬时速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,domain=0:85,samples=70]plot({2.2*cos(\x)},{2.2*sin(\x)});\draw[guide](0,0)--(2.2,0);\draw[guide](0,0)--({2.2*cos(85)},{2.2*sin(85)});\node[below]at(2.2,0){$A,\theta=0$};\node[above]at({2.2*cos(85)},{2.2*sin(85)}){$B,\theta_0$};\draw[axis](2.2,0)--(2.2,-1)node[right]{$I_0$};
+\end{tikzpicture}
+\caption{圆弧柔绳端点受到向外的切向冲量}\label{fig:hw7-7-q}
+\end{figure}
+
+\begin{solution}
+设张力对时间的积分为$P(\theta)$，切向单位矢量$\vct t$沿$\theta$增加，外径向单位矢量为$\vct e_r$，有$\partial_\theta\vct t=-\vct e_r$。图\ref{fig:hw7-7-s}对小绳段列冲量方程，线密度$\lambda=m/(r\theta_0)$：
+\[
+ \lambda r\vct v=P'\vct t-P\vct e_r.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,domain=0:85,samples=70]plot({2.2*cos(\x)},{2.2*sin(\x)});
+\draw[guide](0,0)--(2.2,0);\draw[guide](0,0)--({2.2*cos(85)},{2.2*sin(85)});
+\node[below left]at(2.2,0){$A$};\node[above]at(.19174,2.19163){$B$};\draw[axis](2.2,0)--(2.2,-.9)node[right]{$I_0$};
+\draw[axis](1.555635,1.555635)--(1.06066,2.05061)node[above left]{$\vct t$};
+\draw[axis](1.555635,1.555635)--(2.192031,2.192031)node[right]{$\vct e_r$};
+\begin{scope}[shift={(5.2,1.5)}]
+\fill(0,0)circle(1.5pt);\draw[axis](0,0)--(-.5,-.5)node[left]{$v_r\vct e_r$};
+\draw[axis](0,0)--(.75,-.75)node[right]{$v_t\vct t$};
+\draw[guide](-.5,-.5)--(.25,-1.25)--(.75,-.75);\draw[axis](0,0)--(.25,-1.25)node[below]{$\vct v$};
+\node[align=center]at(.2,.8){$v_t=P'/(\lambda r)<0$\\[4pt]$v_r=-P/(\lambda r)\le0$};\end{scope}
+\end{tikzpicture}
+\caption{局部基矢与速度分量分开表示，径向分量一般不为零}\label{fig:hw7-7-s}
+\end{figure}
+
+将速度分成$v_t=P'/(\lambda r)$与$v_r=-P/(\lambda r)$，并用$\vct e_r'=\vct t$、$\vct t'=-\vct e_r$，得
+\[
+ \partial_\theta\vct v=\frac1{\lambda r}
+ [(P''-P)\vct t-2P'\vct e_r].
+\]
+绳长的一阶变化率正比于这一导数的切向分量，所以它必须为零。
+
+不可伸长条件要求 $\partial_\theta\vct v\cdot\vct t=0$，因此 $P''-P=0$。特征根为 $\pm1$，可取通解 $P=C\cosh\theta+D\sinh\theta$。边界 $P(0)=I_0$ 给出 $C=I_0$；自由端条件 $P(\theta_0)=0$ 给出 $D=-I_0\coth\theta_0$。用双曲函数差角公式整理，得到
+\[
+ P(\theta)=I_0\frac{\sinh(\theta_0-\theta)}{\sinh\theta_0}.
+\]
+再求导，$P'=-I_0\cosh(\theta_0-\theta)/\sinh\theta_0$，其中负号来自内层函数 $\theta_0-\theta$ 的导数。代回速度分量，得到
+\[
+ \boxed{\vct v(\theta)=-\frac{I_0\theta_0}{m\sinh\theta_0}
+ [\cosh(\theta_0-\theta)\vct t+
+ \sinh(\theta_0-\theta)\vct e_r]}.
+\]
+自由端$B$处虽然$P(\theta_0)=0$，其导数却不为零，因此该端仍获得切向速度$-I_0\theta_0\vct t(\theta_0)/(m\sinh\theta_0)$。在受冲击端，径向分量也不为零；端点的切向外冲量经绳内张力传递后，一般会使绳元同时获得切向和径向速度。图\ref{fig:hw7-7-s}把这些分量分别画出。
+
+张力冲量非负，符合柔绳只能拉的条件。全绳动量的积分可利用 $\vct t'=-\vct e_r$ 合并：
+\[
+\vct p=\int_0^{\theta_0}(P'\vct t-P\vct e_r)\,\dd\theta
+=\int_0^{\theta_0}(P\vct t)'\,\dd\theta
+=[P\vct t]_0^{\theta_0}=-I_0\vct t(0).
+\]
+动能用 $\dd m=\lambda r\,\dd\theta$ 计算。由于 $P''=P$，有 $(PP')'=P'^2+P^2$，故
+\[
+\begin{aligned}
+K&=\frac1{2\lambda r}\int_0^{\theta_0}(P'^2+P^2)\,\dd\theta
+=\frac1{2\lambda r}[PP']_0^{\theta_0}\\
+&=\frac{I_0^2\coth\theta_0}{2\lambda r}
+=\frac{I_0^2\theta_0\coth\theta_0}{2m}.
+\end{aligned}
+\]
+当 $\theta_0\to0$，$\theta_0\coth\theta_0\to1$，动能趋于整条直绳取得同一切向速度的结果 $I_0^2/(2m)$。速度的大小和方向均随弧长位置改变，正是柔绳不可伸长约束在弯曲构形中的结果。
+
+
+\end{solution}
+
+
+
+\begin{example}[分段杆的轴力、位移与柔度]\label{deep7:ex-stepped}
+两段同材料细杆首尾连接，左段$OA$长$a$、截面积$S_1$，右段$AB$长$b$、截面积$S_2$，杨氏模量均为$Y$。$O$固定，在$A$和$B$处分别缓慢施加向右的恒力$Q$、$P$，$P,Q>0$。忽略自重，求轴力、位移分布和应变能；用应变能的偏导求两载荷点位移，并写出以$u_A,u_B$为坐标的刚度矩阵。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.8)--(0,.8);\draw[curve](0,-.22)rectangle(3,.22);\draw[curve](3,-.36)rectangle(6,-.36+.72);
+\fill(3,0)circle(1.6pt);\fill(6,0)circle(1.6pt);
+\node[above left]at(0,.8){$O$};\node[below]at(3,-.4){$A$};\node[below]at(6,-.4){$B$};
+\draw[axis](3,.65)--(4.3,.65)node[right]{$Q$};\draw[axis](6,0)--(7.3,0)node[right]{$P$};
+\draw[<->](0,-.95)--(3,-.95)node[midway,below]{$a,S_1$};\draw[<->](3,-.95)--(6,-.95)node[midway,below]{$b,S_2$};
+\draw[axis](.3,1.2)--(1.7,1.2)node[right]{$x$};
+\end{tikzpicture}
+\caption{载荷$Q$在连接点施加，两段杆承受的轴力不同}\label{deep7:fig-stepped-q}
+\end{figure}
+\end{example}
+\begin{solution}
+取图\ref{deep7:fig-stepped-q}中任意截面右侧的部分列平衡方程。$AB$段只传递端力$P$，$OA$段须同时传递$P$和$Q$，因此
+\[
+ N(x)=\begin{cases}P+Q,&0<x<a,\\P,&a<x<a+b.\end{cases}
+\]
+在 $A$ 处 $N(a^+)-N(a^-)=-Q$。连接点外力使轴力产生跳变，杆的黏结连接则要求 $u(a^-)=u(a^+)$。分段积分 $u'=N/(YS)$：在左段，$u(x)=\int_0^x(P+Q)/(YS_1)\,\dd s=(P+Q)x/(YS_1)$；在右段，应从连接点接续，$u(x)=u(a)+\int_a^xP/(YS_2)\,\dd s$。因此
+\[
+ u(x)=\begin{cases}
+ (P+Q)x/(YS_1),&0\le x\le a,\\
+ (P+Q)a/(YS_1)+P(x-a)/(YS_2),&a\le x\le a+b.
+ \end{cases}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=.9cm]
+\draw[axis](0,0)--(7,0)node[right]{$x$};\draw[axis](0,0)--(0,2.6)node[above]{$N$};
+\draw[curve](0,2.1)--(3,2.1);\draw[curve](3,1.1)--(6,1.1);\draw[guide](3,0)--(3,2.1);\draw[guide](6,0)--(6,1.1);
+\node[left]at(0,2.1){$P+Q$};\node[left]at(0,1.1){$P$};\node[below]at(3,0){$a$};\node[below]at(6,0){$a+b$};
+\draw[axis](4.1,2.1)--(4.1,1.1)node[midway,right]{$Q$};
+\end{tikzpicture}
+\caption{轴力在$A$处下降$Q$，两段弹性能须分别积分}\label{deep7:fig-stepped-s}
+\end{figure}
+按图\ref{deep7:fig-stepped-s}，应变能为 $\int N^2/(2YS)\,\dd x$，两段分别积分：
+\[
+U_e=\int_0^a\frac{(P+Q)^2}{2YS_1}\,\dd x
++\int_a^{a+b}\frac{P^2}{2YS_2}\,\dd x
+=\frac{(P+Q)^2}{2YS_1}[x]_0^a+\frac{P^2}{2YS_2}[x]_a^{a+b},
+\]
+即
+\[
+ U_e=\frac{(P+Q)^2a}{2YS_1}+\frac{P^2b}{2YS_2}.
+\]
+保留 $P,Q$ 为两个独立变量。平方项按链式法则求偏导，例如 $\partial(P+Q)^2/\partial Q=2(P+Q)$、$\partial(P+Q)^2/\partial P=2(P+Q)$，从而
+\[
+ \frac{\partial U_e}{\partial Q}=\frac{(P+Q)a}{YS_1}=u_A,
+ \qquad
+ \frac{\partial U_e}{\partial P}=\frac{(P+Q)a}{YS_1}+\frac{Pb}{YS_2}=u_B.
+\]
+两式均与直接积分一致。若题设数值恰有$P=Q=F$，须在求偏导后再代入；把能量先写成$U_e(F,F)$再求导，链式法则给出$u_A+u_B$。
+
+令$k_1=YS_1/a$、$k_2=YS_2/b$。两段伸长分别是$u_A$与$u_B-u_A$，所以
+\[
+ U_e=\frac12k_1u_A^2+\frac12k_2(u_B-u_A)^2.
+\]
+由 $Q=\partial U_e/\partial u_A=k_1u_A-k_2(u_B-u_A)$、$P=\partial U_e/\partial u_B=k_2(u_B-u_A)$，整理为
+\[
+ \begin{pmatrix}Q\\P\end{pmatrix}
+ =\begin{pmatrix}k_1+k_2&-k_2\\-k_2&k_2\end{pmatrix}
+ \begin{pmatrix}u_A\\u_B\end{pmatrix}.
+\]
+矩阵对称，其两个顺序主子式为$k_1+k_2>0$和$k_1k_2>0$，因而固定$O$后不存在零能量的整体平移。这个静态刚度矩阵若与节点质量矩阵相配，便可用于离散弹性系统的小振动。
+\end{solution}
+
+
+
+\section{行波、反射与动态边界}
+
+波速取决于惯性和弹性，反射取决于端部或界面的条件。入射、反射与透射使用同一种物理量表示，再由位移连续和力平衡确定系数。
+
+
+
+\subsection{从微元受力到行波}
+\label{sec:complete7}
+对截面积$S$、密度$\rho$的均匀细杆，纵向应变为$u_x$，线弹性截面力为$N=YSu_x$。长度$\dd x$微元的两端受力相反，合力为$N(x+\dd x)-N(x)$。因此
+\[
+ \rho S\dd x\,u_{tt}=YS\,u_{xx}\dd x,
+ \qquad u_{tt}=c_L^2u_{xx},\quad c_L=\sqrt{Y/\rho}.
+\]
+对剪切长条，将$Y$换成$G$；对圆截面杆扭转，将位移换成转角$\theta$，截面力矩为$GJ_p\theta_x$、单位长度转动惯量为$\rho J_p$，得到同样的波速$\sqrt{G/\rho}$。$J_p=\int r_\perp^2\dd S$是截面的极二次矩，不能与整根杆的转动惯量混为一谈。
+
+均匀介质的波动算符可分解为
+\[
+ (\partial_t-c\partial_x)(\partial_t+c\partial_x)u=0,
+ \qquad u=f(x-ct)+g(x+ct).
+\]
+上述行波通解可在特征坐标 $\xi=x-ct$、$\zeta=x+ct$ 中求得。链式法则给出 $u_{tt}-c^2u_{xx}=-4c^2u_{\xi\zeta}=0$，先对 $\zeta$ 积分，$u_\xi$ 只依赖 $\xi$；再对 $\xi$ 积分，得 $u=f(\xi)+g(\zeta)$。函数 $f$ 沿 $x$ 增大方向传播，$g$ 沿相反方向传播。
+
+无限长介质给定 $u(x,0)=f_0(x)$、$u_t(x,0)=g_0(x)$ 时，初值要求 $f+g=f_0$、$-cf'+cg'=g_0$。将前式求导后与后式联立，
+\[
+f'=\frac12(f_0'-g_0/c),\qquad
+g'=\frac12(f_0'+g_0/c).
+\]
+分别积分，再将 $\xi=x-ct$、$\zeta=x+ct$ 代回；两原函数的常量之和由 $f+g=f_0$ 确定为零。$g_0$ 的两个积分相减，合成从 $x-ct$ 到 $x+ct$ 的定积分，得到达朗贝尔解
+\[
+ u(x,t)=\frac{f_0(x-ct)+f_0(x+ct)}2
+ +\frac1{2c}\int_{x-ct}^{x+ct}g_0(\xi)\dd\xi.
+\]
+有界介质还须同时满足端部条件，不能把无限长介质的解直接截断。
+
+
+\subsection{反射、连接与端部质量}
+\label{sec:complete7-boundary}
+纵杆或弦的统一截面力写成$pu_x$。固定端由$u=0$要求位移反射反号，自由端则由$u_x=0$要求位移反射同号。应力或截面力的反射符号与位移不完全相同，应从空间导数重新计算。
+
+两个半无限均匀杆在$x=0$连接，取入射、反射、透射位移为
+\[
+ A_i e^{\mathrm i(\omega t-k_1x)},\quad
+ A_r e^{\mathrm i(\omega t+k_1x)},\quad
+ A_t e^{\mathrm i(\omega t-k_2x)}.
+\]
+连续条件为$A_i+A_r=A_t$及$p_1k_1(A_i-A_r)=p_2k_2A_t$。令机械阻抗$Z_j=p_j/c_j$，得到
+\[
+ \frac{A_r}{A_i}=\frac{Z_1-Z_2}{Z_1+Z_2},\qquad
+ \frac{A_t}{A_i}=\frac{2Z_1}{Z_1+Z_2}.
+\]
+平均能流正比于$Z\omega^2|A|^2$，从而反射、透射能流系数之和为一。连接处无反射的条件是两侧阻抗相等，波速相同还不够。
+
+端部若连接集中质量$M$，该处既非固定端也非无应力自由端。对右端质量列牛顿方程，得到
+\[
+ -p u_x(L,t)=M u_{tt}(L,t).
+\]
+力矩问题则将$M$换成端部转动惯量。动态边界条件把连续介质与集中参数系统联在一起，频率方程一般为超越方程。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[固定底端长条的剪切驻波]\label{ex:hw7-1}
+
+密度$\rho$、剪切模量$G$、截面积$A$、长度$L$的均匀长条，下端固定，上端无应力。各横截面只沿同一个横向方向平移，截面不旋转，求这种剪切振动的固有周期。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(1.5,3);\draw[thick](-.4,0)--(1.9,0);\draw[guide](0,1.6)--(1.5,1.6);\draw[axis](1.5,1.6)--(2.5,1.6)node[above]{$u(x,t)$};\draw[axis](-.6,0)--(-.6,3.5)node[above]{$x$};\node at(.75,3.4){$A$};
+\end{tikzpicture}
+\caption{固定底端、自由顶端的剪切长条}\label{fig:hw7-1-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw7-1-s}中相邻截面相对位移为$u_x\dd x$，小剪切角为$u_x$，截面切向力为$GAu_x$。对微元列式：
+\[
+ GA[u_x(x+\dd x)-u_x(x)]=\rho A\dd x\,u_{tt},
+ \quad u_{tt}=c_s^2u_{xx},\quad c_s=\sqrt{G/\rho}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(1.5,3);\draw[thick](-.4,0)--(1.9,0);\draw[guide](0,1.6)--(1.5,1.6);\draw[axis](1.5,1.6)--(2.5,1.6)node[above]{$u(x,t)$};\draw[axis](-.6,0)--(-.6,3.5)node[above]{$x$};\node at(.75,3.4){$A$};\draw[curve,domain=0:3,samples=60]plot({.7+.6*sin(30*\x)},\x);\node at(3.4,2.6){$u_x(L,t)=0$};\node at(3.4,.3){$u(0,t)=0$};
+\draw[guide](.7,0)--(.7,3);\draw[<->](.7,2.35)--(1.266,2.35)node[midway,above]{$u$};
+\end{tikzpicture}
+\caption{剪切位移振型及两端边界条件}\label{fig:hw7-1-s}
+\end{figure}
+
+取 $u=X(x)\cos\omega t$，则 $u_{tt}=-\omega^2X\cos\omega t$、$u_{xx}=X''\cos\omega t$。代入波动方程并比较时间因子，得 $X''+k^2X=0$、$k=\omega/c_s$。对 $k>0$，通解及导数为
+\[
+X=C\sin kx+D\cos kx,\qquad X'=kC\cos kx-kD\sin kx.
+\]
+固定底端 $X(0)=0$ 给出 $D=0$；自由顶端 $X'(L)=0$ 给出 $kC\cos kL=0$。非零振型须 $C\ne0$，所以 $kL=(2n+1)\pi/2$。于是
+\[
+ \boxed{\omega_n=\frac{(2n+1)\pi}{2L}\sqrt{G/\rho},\quad
+ T_n=\frac{4L}{2n+1}\sqrt{\rho/G},\quad n=0,1,\ldots}.
+\]
+基频振型为$X_0(x)=C\sin(\pi x/2L)$，顶端是位移腹而非位移节点，底端则相反。其四分之一波长恰等于$L$，所以$T_0=4L/c_s$。图\ref{fig:hw7-1-s}的虚线表示未形变截面的参考位置。
+
+固定端约束位移，自由端约束应力，因而给出不同的边界条件。这里各截面只平移，所求为剪切波；细梁弯曲波还要计入截面转动。
+
+
+弹性能变分的端点项给出同样的边界条件。由 $U=\tfrac12\int_0^LGAu_x^2\dd x$，先对平方项变分，再分部积分：
+\[
+\delta U=\int_0^LGAu_x(\delta u)_x\,\dd x
+=[GAu_x\delta u]_0^L-\int_0^LGAu_{xx}\delta u\,\dd x.
+\]
+底端位移固定，$\delta u(0)=0$；顶端可以自由移动，$\delta u(L)$ 任意，故必须有 $GAu_x(L)=0$。这正是图\ref{fig:hw7-1-s}中顶部切线竖直、截面剪切力为零的条件。它不要求 $u(L)=0$。
+
+该模型以截面不转动为题设约束。若将其用于没有这种约束的普通细长悬臂梁，弯曲与截面转动会参与运动，不能把这里的四分之一波长公式直接当作梁的固有周期。
+
+\end{solution}
+
+
+
+\begin{example}[自由圆柱的扭转振动]\label{ex:hw7-2}
+
+密度$\rho$、剪切模量$G$、长度$L$、截面积$A$的均匀圆柱，在各截面圆周切线方向受到微扰，端面均无外力矩。求扭转振动频率，说明零频模式。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(1 and .3);\draw(-1,0)--(-1,3);\draw(1,0)--(1,3);\draw(0,3)ellipse(1 and .3);\draw[guide](0,0)--(0,3.6);\draw[axis](.7,3)arc(0:240:.7 and .2)node[left]{$\vartheta$};\node at(2,1.6){$L,\rho,G$};
+\end{tikzpicture}
+\caption{两端无外力矩的圆柱扭转}\label{fig:hw7-2-q}
+\end{figure}
+
+\begin{solution}
+令截面转角为$\vartheta(x,t)$，半径为$r$的质元切向位移为$r\vartheta$，剪切应变为$r\vartheta_x$。图\ref{fig:hw7-2-s}中截面力矩为
+\[
+ M=\int_A Gr\vartheta_x\,r\dd A=GJ_p\vartheta_x,
+ \quad J_p=\int_A r^2\dd A.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(1 and .3);\draw(-1,0)--(-1,3);\draw(1,0)--(1,3);\draw(0,3)ellipse(1 and .3);\draw[guide](0,0)--(0,3.6);\draw[axis](.7,3)arc(0:240:.7 and .2)node[left]{$\vartheta$};\node at(2,1.6){$L,\rho,G$};\draw[guide](-1,1.3)arc(180:360:1 and .3);\draw[axis](.7,1.3)arc(0:250:.7 and .2);\node at(2.6,.5){$M=GJ_p\vartheta_x$};\node at(-2,1.6){$\tau=Gr\vartheta_x$};
+\node[below]at(0,-.4){$x=0$};\node[above right]at(1,3.3){$x=L$};
+\end{tikzpicture}
+\caption{截面剪应力积分为扭转力矩}\label{fig:hw7-2-s}
+\end{figure}
+
+微段转动惯量为 $\rho J_p\dd x$，两侧内力矩之差为 $M_x\dd x=GJ_p\vartheta_{xx}\dd x$。两者相等，约去 $J_p\dd x$，得 $\vartheta_{tt}=(G/\rho)\vartheta_{xx}$。两端自由给出 $\vartheta_x(0,t)=\vartheta_x(L,t)=0$。
+令 $\vartheta=X(x)\cos\omega t$，代入得 $X''+k^2X=0$，其中 $k=\omega\sqrt{\rho/G}$。对 $k>0$，$X=C\cos kx+D\sin kx$，$X'=-kC\sin kx+kD\cos kx$。左端 $X'(0)=0$ 给出 $D=0$；右端 $X'(L)=0$ 给出 $\sin kL=0$，故
+\[
+ \boxed{\omega_n=\frac{n\pi}{L}\sqrt{G/\rho},\quad n=1,2,\ldots}.
+\]
+对非零根，振型为$X_n=\cos(n\pi x/L)$，两端均是转角腹；截面力矩正比于$X_n'$，故两端力矩为零。$n=1$时两端转角反向，中间截面的转角为零。
+
+零频情况须另解：空间方程 $X''=0$ 给出 $X=C+Dx$，两端 $X'=0$ 要求 $D=0$；时间方程 $\ddot q=0$ 依次积分为 $\dot q=B$、$q=A+Bt$。因此该模式转角处处相同，代表整体静止转角或匀速转动，不是有限周期振动。圆柱半径在弹性力矩和转动惯量中同时以 $J_p$ 出现，因此波速中消去。
+
+
+总角动量可以区分整体转动与扭转振动。圆柱关于轴线的角动量为
+\[
+ L_z=\int_0^L\rho J_p\vartheta_t\dd x.
+\]
+两端外力矩为零，故 $L_z$ 守恒。对 $\vartheta=A+Bt$，有 $L_z=\rho J_pLB$；而每个 $n\ge1$ 模式的空间积分为
+\[
+\int_0^L\cos\frac{n\pi x}{L}\,\dd x
+=\left[\frac{L}{n\pi}\sin\frac{n\pi x}{L}\right]_0^L=0,
+\]
+故不携带整体角动量。相应能量为
+\[
+ E=\frac12\int_0^L[\rho J_p\vartheta_t^2+GJ_p\vartheta_x^2]\dd x.
+\]
+整体匀速转动只有动能，扭转模态则在两项之间周期交换。图\ref{fig:hw7-2-s}中的$M=GJ_p\vartheta_x$是截面上的内力矩，不能理解为自由端仍受外加力矩。
+
+\end{solution}
+
+
+
+\begin{example}[细长弹性杆中的纵向声波]\label{ex:hw7-4}
+
+一根均匀细长杆，密度$\rho$、杨氏模量$Y$、截面积$S$。横向尺寸远小于波长，横截面可自由发生泊松收缩，求纵向波的传播速度。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(4,.7);\draw[guide](1.7,0)--(1.7,.7);\draw[guide](2,0)--(2,.7);\draw[axis](1.7,1)--(2.7,1)node[right]{$u$};\node at(1.85,-.4){$\dd x$};\node at(3,1.6){$Y,\rho,S$};
+\end{tikzpicture}
+\caption{细长杆内的纵向位移与材料微元}\label{fig:hw7-4-q}
+\end{figure}
+
+\begin{solution}
+沿图\ref{fig:hw7-4-q}的杆轴取材料微段，先由两端的位移差求纵向应变，再求截面内力之差。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)rectangle(2,.7);\node at(1,.35){$\rho S\dd x$};
+\draw[axis](0,.35)--(-1.2,.35)node[above]{$F(x)$};
+\draw[axis](2,.35)--(3.4,.35)node[above]{$F(x+\dd x)$};
+\draw[<->](0,-.4)--(2,-.4)node[midway,below]{$\dd x$};\node at(1,1.25){$F=YSu_x$};
+\node at(1,-1.2){$F(x+\dd x)-F(x)=\rho S\dd x\,u_{tt}$};
+\end{tikzpicture}
+\caption{隔离材料微元，截面内力之差驱动纵向加速度}\label{fig:hw7-4-s}
+\end{figure}
+
+图\ref{fig:hw7-4-s}中的$x$标记平衡时的材料位置。两端位移差给出微段长度
+\[
+ \dd x+u(x+\dd x,t)-u(x,t)=(1+u_x)\dd x,
+\]
+故应变为$u_x$。应力正号表示拉伸；左侧截面对微段的力向左，右侧向右，合力为
+\[
+ [\sigma(x+\dd x,t)-\sigma(x,t)]S
+ =YSu_{xx}\dd x.
+\]
+令合力等于微段质量$\rho S\dd x$乘以加速度$u_{tt}$，约去$S\dd x$，得$u_{tt}=(Y/\rho)u_{xx}$。代入行波$u=A\cos(kx-\omega t)$，按链式法则有
+\[
+u_x=-Ak\sin(kx-\omega t),\quad u_{xx}=-Ak^2\cos(kx-\omega t),
+\]
+\[
+u_t=A\omega\sin(kx-\omega t),\quad u_{tt}=-A\omega^2\cos(kx-\omega t).
+\]
+比较波动方程两侧的系数，得$\omega^2=(Y/\rho)k^2$。取正频率、正波数支，$\omega=\sqrt{Y/\rho}\,k$，所以
+\[
+ \boxed{c_L=\frac\omega k=\sqrt{Y/\rho}}.
+\]
+群速度$\dd\omega/\dd k$也等于$c_L$，在这个一维长波近似下没有频散。截面积同时出现在回复力与微段质量中，约去后不影响波速。无限大弹性介质的纵波则用模量$K+4G/3$，其来由已由前文的横向零应变条件推得，速度为$\sqrt{(K+4G/3)/\rho}$；横向可自由收缩的细杆采用本题结果。
+
+例如在自由杆端，轴向力为零，边界是$u_x=0$；若杆端被夹紧，边界则是$u=0$。求有限杆的驻波时，应先按图中的轴力确定端点条件，再用本题得到的波速。
+
+\end{solution}
+
+
+
+\begin{example}[空气中的绝热声速]\label{ex:hw7-5}
+
+空气看成摩尔质量$M=29\,\mathrm{g\,mol^{-1}}$的双原子理想气体，$R_g=8.31\,\mathrm{J\,mol^{-1}K^{-1}}$，平衡温度$T_0=300\,\mathrm K$。用微元位移及绝热压缩推导声速并计算数值。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,-1.1)--(5,-1.1);\draw[thick](0,1.1)--(5,1.1);\draw[guide](2,-1.1)--(2,1.1);\draw[guide](2.6,-1.1)--(2.6,1.1);\draw[axis](2,1.5)--(3,1.5)node[right]{$u$};\node at(1,-1.45){$p(x,t)$};\node at(4,-1.45){$p(x+\dd x,t)$};
+\end{tikzpicture}
+\caption{空气层位移与相邻截面的压强}\label{fig:hw7-5-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw7-5-s}中气层原体积 $S\dd x$，位移使相对体积改变量为 $u_x$。跟随同一气层写质量守恒：
+\[
+\rho_0S\dd x=(\rho_0+\delta\rho)S(1+u_x)\dd x.
+\]
+展开后略去二阶项 $\delta\rho\,u_x$，得 $\delta\rho=-\rho_0u_x$。绝热关系为 $p\rho^{-\gamma}=p_0\rho_0^{-\gamma}$，对乘积求一阶微分，
+\[
+\rho_0^{-\gamma}\delta p-\gamma p_0\rho_0^{-\gamma-1}\delta\rho=0,
+\qquad \frac{\delta p}{p_0}=\gamma\frac{\delta\rho}{\rho_0}.
+\]
+因而
+\[
+ \delta p=\gamma p_0\frac{\delta\rho}{\rho_0}=-\gamma p_0u_x.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](0,-.5)rectangle(2,.5);\draw[guide](0,-.6)--(0,.6);\draw[guide](2,-.6)--(2,.6);
+\draw[axis](0,.1)--(.85,.1);\node[above left]at(0,.3){$p(x,t)S$};
+\draw[axis](2,-.1)--(1.15,-.1);\node[below right]at(2,-.3){$p(x+\dd x,t)S$};
+\draw[axis](0,.95)--(.6,.95)node[above]{$u(x,t)$};\draw[axis](2,.95)--(2.7,.95)node[above]{$u(x+\dd x,t)$};
+\draw[<->](0,-1.05)--(2,-1.05)node[midway,below]{$\dd x$};
+\node at(1,-1.9){$\delta\rho=-\rho_0u_x,\quad \delta p=-\gamma p_0u_x$};
+\end{tikzpicture}
+\caption{同一气层两侧压力相向，位移差决定密度和压强扰动}\label{fig:hw7-5-s}
+\end{figure}
+
+气层两侧压强差产生合力$-S\delta p_x\dd x$，故$u_{tt}=(\gamma p_0/\rho_0)u_{xx}$。利用$p_0/\rho_0=R_gT_0/M$及双原子气体$\gamma=7/5$，得到
+\[
+ \boxed{c=\sqrt{\gamma R_gT_0/M}
+ =\sqrt{\frac{(7/5)\times8.31\times300}{0.029}}
+ \simeq347\,\mathrm{m\,s^{-1}}}.
+\]
+代入时，摩尔质量的单位取$\mathrm{kg\,mol^{-1}}$。声振动期间相邻气层间的热交换来不及充分进行，因此采用绝热关系。
+
+
+图\ref{fig:hw7-5-s}中两侧压力都指向气层内部，所以合力为左侧压力减右侧压力，负号正由此而来。
+
+在题设双原子理想气体近似中，平动和转动共五个有效自由度，摩尔定容热容为$5R_g/2$；由$C_p-C_V=R_g$得$C_p=7R_g/2$，所以$\gamma=C_p/C_V=7/5$。若误用等温关系，便会得到$\sqrt{R_gT_0/M}$，比本题绝热声速小$1/\sqrt\gamma$倍。
+
+\end{solution}
+
+
+
+\begin{example}[截面积突变处的纵波反射]\label{ex:sup7-reflection}
+两根同材料、同密度的半无限细杆在$x=0$同轴连接，截面积分别为$S$和$4S$，接头无质量、无耗散。一列角频率$\omega$、位移振幅$A$的纵波从细杆射向粗杆。求位移反射系数、透射系数和能流比例，并求透射截面力振幅与入射截面力振幅的比值。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-3,.28)rectangle(0,-.28);\draw[curve](0,.56)rectangle(3,-.56);
+\draw[guide](0,-.9)--(0,1.5);\node[below]at(0,-.9){$x=0$};
+\node at(-1.5,-.75){$S$};\node at(1.5,-.95){$4S$};
+\draw[axis](-2.8,1)--(-.6,1)node[midway,above]{$A_i=A$};
+\end{tikzpicture}
+\caption{同材料杆在截面积突变处连接，入射方向向右}\label{fig:sup7-reflection-q}
+\end{figure}
+\end{example}
+\begin{solution}
+两杆波速相同$c=\sqrt{Y/\rho}$，但图\ref{fig:sup7-reflection-q}中的惯性与截面刚度均相差四倍，机械阻抗满足$Z_2=4Z_1$，其中$Z_1=\rho Sc$。将位移写成同一时间相位的复振幅，连接处的位移连续给出$A+A_r=A_t$。
+
+采用共同时间因子 $e^{i\omega t}$，左、右两侧复位移分别为 $Ae^{-ikx}+A_re^{ikx}$、$A_te^{-ikx}$。空间求导分别得 $-ikAe^{-ikx}+ikA_re^{ikx}$、$-ikA_te^{-ikx}$；在 $x=0$ 令截面力 $YSu_x$ 连续，约去共同因子 $-i$，得到
+\[
+ YSk(A-A_r)=4YSkA_t.
+\]
+将 $A_t=A+A_r$ 代入力连续式，$A-A_r=4(A+A_r)$，所以 $-5A_r=3A$，进而
+\[
+ A_r=-\frac35A,\qquad A_t=\frac25A.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](-3,0)--(3,0);\draw[guide](0,-1.3)--(0,1.5);
+\draw[curve](-2.8,0)..controls(-2.5,1.2)and(-1.7,1.2)..(-1.4,0);
+\draw[curve](-1.3,0)..controls(-1.1,-.72)and(-.5,-.72)..(-.3,0);
+\draw[curve](.8,0)..controls(1,.48)and(1.6,.48)..(1.8,0);
+\draw[axis](-2.7,1.25)--(-1.5,1.25)node[midway,above]{$A$};
+\draw[axis](-.35,-1.05)--(-1.3,-1.05)node[midway,below]{$-3A/5$};
+\draw[axis](.8,.85)--(1.9,.85)node[midway,above]{$2A/5$};
+\node[below]at(2.5,0){$x$};
+\end{tikzpicture}
+\caption{位移波包的符号与传播方向示意；三列波分开画出以比较振幅}\label{fig:sup7-reflection-s}
+\end{figure}
+图\ref{fig:sup7-reflection-s}中反射位移反号。能流须同时计入截面积。以右行实波 $u=A\cos(kx-\omega t)$ 为例，$u_x=-kA\sin(kx-\omega t)$、$u_t=\omega A\sin(kx-\omega t)$，沿正 $x$ 方向的瞬时功率为 $-YSu_xu_t=Z\omega^2A^2\sin^2(kx-\omega t)$。一个周期 $T=2\pi/\omega$ 的平均值中，
+\[
+\frac1T\int_0^T\sin^2(kx-\omega t)\,\dd t
+=\frac1T\left[\frac t2+\frac{\sin(2kx-2\omega t)}{4\omega}\right]_0^T=\frac12.
+\]
+因此单列波的平均能流大小为 $Z\omega^2|A|^2/2$，反射、透射与入射能流之比为
+\[
+ R_E=\frac9{25},\qquad
+ T_E=\frac{Z_2}{Z_1}\left|\frac{A_t}A\right|^2=\frac{16}{25},
+ \qquad R_E+T_E=1.
+\]
+单列行波的截面力振幅为$YSk|A|=Z\omega|A|$，所以$F_t/F_i=4\times2/5=8/5$。透射侧位移振幅减小，截面力振幅增大；它们共同给出的平均能流仍满足上述守恒关系。
+\end{solution}
+
+
+
+\begin{example}[端部质量改变弹性杆的频率]\label{ex:sup7-rodmass}
+均匀细杆长$L$、截面积$S$、密度$\rho$、杨氏模量$Y$，左端固定，右端连接只能沿杆轴运动的集中质量$M>0$，忽略重力。求纵向固有频率方程，并在$M\gg\rho SL$时求最低频率的一阶杆质量修正。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.7)--(0,.7);\draw[curve](0,-.18)rectangle(4.4,.18);
+\draw[curve](4.4,-.5)rectangle(5.2,.5);\node at(4.8,0){$M$};
+\draw[<->](0,-.8)--(4.4,-.8)node[midway,below]{$L$};
+\draw[axis](4.8,.9)--(6,.9)node[right]{$u(L,t)$};
+\node[above]at(2,.25){$Y,S,\rho$};
+\end{tikzpicture}
+\caption{固定端弹性杆与集中端部质量}\label{fig:sup7-rodmass-q}
+\end{figure}
+\end{example}
+\begin{solution}
+杆内仍满足 $u_{tt}=c^2u_{xx}$，$c=\sqrt{Y/\rho}$。令 $u=X(x)\cos\omega t$，代入 $u_{tt}=-\omega^2X\cos\omega t$、$u_{xx}=X''\cos\omega t$，得 $X''+k^2X=0$、$k=\omega/c$。通解 $X=A\sin kx+B\cos kx$ 由左端 $X(0)=0$ 确定 $B=0$，因此 $X'=Ak\cos kx$。图\ref{fig:sup7-rodmass-q}右端质量受杆向左的截面力，故边界方程为
+\[
+ -YSu_x(L,t)=Mu_{tt}(L,t).
+\]
+代入模态得$YSk\cos kL=M\omega^2\sin kL$。令$z=kL$、$m_r=\rho SL$，频率方程为
+\[
+ \boxed{\cot z=\frac{M}{m_r}z},\qquad \omega=\frac cLz.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,0)--(0,1.7)node[above]{$X$};
+\draw[curve,domain=0:4.4,samples=80]plot(\x,{1.5*sin(65*\x/4.4)});
+\draw[guide](0,0)--(4.4,{1.5*sin(65)});\fill(4.4,{1.5*sin(65)})circle(2pt)node[right]{$X(L)$};
+\node[below]at(4.4,0){$L$};\node[above]at(2.5,1.55){$0<k_1L<\pi/2$};
+\end{tikzpicture}
+\caption{最低纵向模态与端部质量很大时的近似线性位移}\label{fig:sup7-rodmass-s}
+\end{figure}
+最低根位于 $0<z<\pi/2$。端部质量趋零时，它趋于固定--自由杆的 $\pi/2$；端部质量很大时，图\ref{fig:sup7-rodmass-s}的振型趋近直线。由正弦、余弦展开，
+\[
+\cot z=\frac{1-z^2/2+O(z^4)}{z(1-z^2/6+O(z^4))}
+=\frac1z\bigl(1-z^2/2\bigr)\bigl(1+z^2/6\bigr)+O(z^3)
+=\frac1z-\frac z3+O(z^3).
+\]
+代入频率方程并乘以 $z$，得到
+\[
+ 1=\left(\frac M{m_r}+\frac13\right)z^2+O(z^4),
+ \qquad \omega_1^2\simeq\frac{YS/L}{M+m_r/3}.
+\]
+写成相对杆质量的一阶修正，令 $\varepsilon=m_r/M\ll1$，则
+\[
+\omega_1^2=\frac{YS}{ML}\left[1-\frac\varepsilon3+O(\varepsilon^2)\right],\qquad
+\omega_1=\sqrt{\frac{YS}{ML}}\left[1-\frac\varepsilon6+O(\varepsilon^2)\right].
+\]
+其中第二式用了 $(1+s)^{1/2}=1+s/2+O(s^2)$。杆身贡献 $m_r/3$ 的等效质量，也可令 $q(t)=u(L,t)$、$u(x,t)\simeq xq(t)/L$，直接计算杆的动能：
+\[
+K_r\simeq\frac12\int_0^L\rho S\frac{x^2}{L^2}\dot q^2\,\dd x
+=\frac{\rho S\dot q^2}{2L^2}\left[\frac{x^3}{3}\right]_0^L
+=\frac12\frac{m_r}{3}\dot q^2.
+\]
+零频率不是固有模态：左端固定后，静态齐次解 $X=Cx$ 在右端力为零时要求 $YSC=0$，只能为零解。
+\end{solution}
+
+
+
+\begin{example}[压缩脉冲在固定端和自由端的反射]\label{deep7:ex-pulse}
+均匀细杆占据$x\le0$，截面积$S$、密度$\rho$、杨氏模量$Y$。一列向右传播的矩形压缩脉冲抵达端点$x=0$，入射粒子速度为$V>0$，持续时间$\tau$。令脉冲前沿到端点的时刻为$t=0$。分别讨论端点固定、端点自由时的速度和轴力反射，并求端部作用在杆上的总冲量、反射后的能量及波重叠区的最大应力或最大粒子速度。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-5,-.18)rectangle(0,.18);\draw[curve](0,-.6)--(0,.6);
+\draw[axis](-5,1.1)--(.7,1.1)node[right]{$x$};\node[below right]at(0,-.6){$0$};
+\draw[curve](-4,1.1)--(-4,1.8)--(-2,1.8)--(-2,1.1);\node[above]at(-3,1.8){$v_i=V$};
+\draw[axis](-3.6,.6)--(-2.3,.6);\draw[<->](-4,-.7)--(-2,-.7)node[midway,below]{$c\tau$};
+\node[align=center]at(2,-.05){固定端或\\无载自由端};
+\end{tikzpicture}
+\caption{右行压缩脉冲，波的传播方向与入射粒子速度方向均向右}\label{deep7:fig-pulse-q}
+\end{figure}
+\end{example}
+\begin{solution}
+图\ref{deep7:fig-pulse-q}中的矩形波可写为$f(s)=1$当$0<s<\tau$、其余为零。忽略前沿的理想跃变点，入射波满足
+\[
+ v_i=Vf(t-x/c),\qquad N_i=-ZVf(t-x/c),
+ \qquad Z=\rho Sc.
+\]
+负轴力对应压缩。反射波沿负$x$传播，故写成$v_r=sVf(t+x/c)$、$N_r=sZVf(t+x/c)$，而不能把速度与轴力的反射系数都取成同一个符号。
+
+固定端满足$v(0,t)=0$，得到$s=-1$；自由端满足$N(0,t)=0$，得到$s=+1$。因此
+\[
+ \begin{array}{c|cc}
+ &v_r/v_i\text{（对应波形）}&N_r/N_i\text{（对应波形）}\\\hline
+ \text{固定端}&-1&+1\\
+ \text{自由端}&+1&-1
+ \end{array}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\begin{scope}[shift={(-2.6,0)}]
+\draw[axis](-1.8,0)--(.6,0)node[right]{$x$};\draw[curve](0,-.15)--(0,1.3);
+\draw[curve](-1.5,.25)rectangle(-.05,.85);\node[above]at(-.9,1){固定端重叠区};
+\draw[axis](-.1,-.45)--(-1.3,-.45)node[midway,below]{$F_{\rm end}=-2ZV$};
+\node[align=center]at(-.7,-1.5){$v=0$\\$N=-2ZV$};
+\end{scope}
+\begin{scope}[shift={(2.5,0)}]
+\draw[axis](-1.8,0)--(.6,0)node[right]{$x$};\draw[curve](-1.7,.25)--(0,.25);
+\draw[axis](-1.4,.7)--(-.1,.7)node[midway,above]{$v=2V$};\node[align=center]at(-.7,-1.5){自由端重叠区\\$N=0$};
+\end{scope}
+\end{tikzpicture}
+\caption{两个等幅脉冲重叠时，固定端附近应力加倍，自由端附近粒子速度加倍}\label{deep7:fig-pulse-s}
+\end{figure}
+图\ref{deep7:fig-pulse-s}的固定端在 $0<t<\tau$ 对杆施加向左的力 $-2ZV$，故 $J_{\rm fixed}=\int_0^\tau(-2ZV)\,\dd t=[-2ZVt]_0^\tau$；自由端外力恒为零。因此
+\[
+ J_{\rm fixed}=-2ZV\tau,\qquad J_{\rm free}=0.
+\]
+入射脉冲所带动量为$\rho Sc\tau V=ZV\tau$。固定端反射后粒子速度反向，动量变为$-ZV\tau$；自由端反射后粒子速度仍向右，动量保持$ZV\tau$。波包向左传播时，粒子速度仍可向右；动量方向由后者决定。
+
+单列行波的单位长度动能为 $\rho SV^2/2$。其单位长度弹性能为 $N_i^2/(2YS)=Z^2V^2/(2YS)=\rho SV^2/2$，最后一步用了 $Z=\rho Sc$、$Y=\rho c^2$。波包长 $c\tau$，以沿波包的长度 $s$ 积分，入射总能量为
+\[
+ E_i=\int_0^{c\tau}\rho SV^2\,\dd s
+ =\rho SV^2[s]_0^{c\tau}=ZV^2\tau.
+\]
+固定端速度为零，自由端外力为零，两者均不向外界传递边界功，因而$E_r=E_i$。在完全重叠区，固定端速度为零、应力为$-2ZV/S=-2\rho cV$；自由端轴力为零、速度为$2V$。两种情况下局部能量密度均为$2\rho SV^2$，恰为两列行波能量密度相加。应力或速度加倍并不意味着总能量变成四倍。
+\end{solution}
+
+
+
+\begin{example}[匀速推动有限长弹性杆]\label{deep7:ex-drive}
+均匀细杆长$L$、截面积$S$、密度$\rho$、杨氏模量$Y$，初始静止且无应变，右端自由。理想执行器从$t=0$起使左端始终以速度$V>0$向右运动，允许执行器推杆或拉杆。忽略横向运动，$V/c\ll1$。求第一个$4L/c$内的端部驱动力、做功及反射过程中的杆内速度、轴力状态。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.6)--(0,.6);\draw[curve](0,-.2)rectangle(6,.2);\draw[axis](-1.6,0)--(-.15,0)node[midway,above]{$V$};
+\draw[<->](0,-.8)--(6,-.8)node[midway,below]{$L$};\node[below left]at(-.2,-.25){执行器};\node[above]at(6,.3){自由端};
+\draw[axis](.5,1.1)--(2,1.1)node[right]{$x$};
+\end{tikzpicture}
+\caption{左端位移规定为$u(0,t)=Vt$，端部力由波的往返反射确定}\label{deep7:fig-drive-q}
+\end{figure}
+\end{example}
+\begin{solution}
+令$t_0=L/c$、$Z=\rho Sc$。图\ref{deep7:fig-drive-q}的执行器先发出右行压缩波，波后$v=V$、$N=-ZV$，波前仍为静止未变形状态。对$0<t<t_0$，
+\[
+ (v,N)=\begin{cases}(V,-ZV),&0<x<ct,\\(0,0),&ct<x<L.\end{cases}
+\]
+在$t=t_0$，波抵达右端。自由端要求$N=0$，反射波增加$+ZV$的轴力和$+V$的速度。因此$t_0<t<2t_0$时，以反射前沿$x=2L-ct$为界，
+\[
+ (v,N)=\begin{cases}(V,-ZV),&0<x<2L-ct,\\(2V,0),&2L-ct<x<L.\end{cases}
+\]
+杆的自由端速度此时是执行器速度的两倍。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1.3cm,y=.8cm]
+\draw[axis](0,0)--(3.9,0)node[right]{$x$};\draw[axis](0,0)--(0,6.5)node[above]{$t$};
+\draw[guide](3,0)--(3,6);\draw[curve](0,0)--(3,1.5)--(0,3)--(3,4.5)--(0,6);
+\foreach \y/\lab in {1.5/{t_0},3/{2t_0},4.5/{3t_0},6/{4t_0}}{\draw(-.06,\y)--(.06,\y);\node[left]at(-.08,\y){$\lab$};}
+\node[below]at(3,0){$L$};
+\node[align=center]at(.85,1.35){$V,-ZV$};\node[align=center]at(2.5,.4){$0,0$};\node[align=center]at(2.25,3){$2V,0$};
+\node[align=center]at(.85,4.5){$V,+ZV$};\node[align=center]at(2.25,5.85){$0,0$};
+\node[right,align=left]at(3.2,2){右端反射：$N=0$};\node[right,align=left]at(3.2,4.8){标注顺序为$(v,N)$};
+\end{tikzpicture}
+\caption{材料坐标中的波前往返轨迹，各区域标注粒子速度与轴力}\label{deep7:fig-drive-s}
+\end{figure}
+在$t=2t_0$，反射波抵达左端；若不修正，左端将有$v=2V$。为维持规定的$v=V$，执行器发出一列速度增量$-V$的右行波，其轴力增量为$+ZV$。因此$2t_0<t<3t_0$时，新前沿$x=c(t-2t_0)$左侧为$(V,+ZV)$，右侧为$(2V,0)$。
+
+在$t=3t_0$，这列拉伸波到达自由端。反射后速度再减少$V$，轴力减小$ZV$。于是$3t_0<t<4t_0$时，前沿$x=4L-ct$左侧为$(V,+ZV)$，右侧为$(0,0)$。这四种状态和传播顺序见图\ref{deep7:fig-drive-s}。
+
+左端外力与内轴力相反，$F=-N(0,t)$，故除理想波前到达的瞬间外，
+\[
+ F(t)=\begin{cases}ZV,&0<t<2t_0,\\-ZV,&2t_0<t<4t_0.\end{cases}
+\]
+前半周期执行器做正功，后半周期做负功。按力的两段取值积分：
+\[
+\begin{aligned}
+W(2t_0)&=\int_0^{2t_0}ZV^2\,\dd t=ZV^2[t]_0^{2t_0},\\
+W(4t_0)&=\int_0^{2t_0}ZV^2\,\dd t+\int_{2t_0}^{4t_0}(-ZV^2)\,\dd t
+=2ZV^2t_0-2ZV^2t_0.
+\end{aligned}
+\]
+于是
+\[
+ W(2t_0)=2ZV^2t_0=2\rho SLV^2,
+ \qquad W(4t_0)=0.
+\]
+在$t=2t_0$反射前的极限状态，整杆速度为$2V$、应变为零，动能为$2\rho SLV^2$，与输入功一致。在$t=4t_0$反射前，杆又全部静止、无应变，但整体已向右平移$4VL/c$。执行器继续运动时，上述波过程重新开始，驱动力以$4L/c$为周期变化。
+
+负驱动力是维持恒速边界所必需的拉力。若装置只能单侧推动，$2L/c$之后将发生脱离，题设边界条件必须改为自由端，后半过程便不再适用。
+\end{solution}
+
+
+
+\section{驻波、模态正交与初始条件}
+
+有限介质的边界条件选出允许振型，初位移和初速度确定各振型的系数。存在端部集中质量时，该质量也进入模态正交的内积。
+
+
+
+\subsection{初始条件与模态系数}
+\label{sec:complete7-initial}
+两端固定的均匀弦有$X_n=\sin(n\pi x/L)$、$\omega_n=n\pi c/L$。写
+\[
+ u(x,t)=\sum_{n=1}^\infty
+ [A_n\cos\omega_nt+B_n\sin\omega_nt]X_n(x),
+\]
+利用$\int_0^L X_nX_m\dd x=L\delta_{nm}/2$，得
+\[
+ A_n=\frac2L\int_0^Lf_0(x)X_n(x)\dd x,\qquad
+ B_n=\frac2{L\omega_n}\int_0^Lg_0(x)X_n(x)\dd x.
+\]
+初位移确定余弦项系数，初速度确定正弦项系数。若存在端部质量，模态正交内积也应包含该集中质量的惯性项；只对杆身积分会漏项。
+
+
+\subsubsection{加权正交关系与初态投影}
+一般的非均匀弦、杆满足 $-(pX_n')'=\omega_n^2wX_n$。将第 $n$ 式乘 $X_m$、第 $m$ 式乘 $X_n$ 后相减，并积分，左侧为
+\[
+\begin{aligned}
+&\int_0^L[-X_m(pX_n')'+X_n(pX_m')']\dd x\\
+&=[-X_mpX_n'+X_npX_m']_0^L
++\int_0^L(pX_m'X_n'-pX_n'X_m')\dd x.
+\end{aligned}
+\]
+最后的积分两项相消，得到
+\[(\omega_n^2-\omega_m^2)\int_0^LwX_nX_m\dd x
+=[p(X_nX_m'-X_mX_n')]_0^L.
+\]
+对固定端、自由端或相同的齐次线性边界，右端为零。不同频率的模态因而在权$w$下正交，不能在质量密度不均匀时仍使用不带权的普通积分。令$N_n=\int_0^LwX_n^2\dd x$，并设$u(x,0)=f_0(x)$、$u_t(x,0)=g_0(x)$，展开式在$t=0$给
+\[f_0=\sum_nA_nX_n,\qquad
+g_0=\sum_n\omega_nB_nX_n.
+\]
+分别乘$wX_m$积分，除所求模态外其余项消去，故
+\[A_m=\frac{\int_0^Lwf_0X_m\dd x}{N_m},\qquad
+B_m=\frac{\int_0^Lwg_0X_m\dd x}{\omega_mN_m}.
+\]
+初始位移和初始速度由此分别确定各模态的系数。系统含有哪些振动频率由边值问题决定，各频率以多大振幅参与则取决于初态；基频最低并不保证它占主导。
+
+若$x=L$处有集中质量$M_e$，其边界方程是$pX'(L)=M_e\omega^2X(L)$，边界项不能直接置零。代回前面的正交恒等式，整理为
+\[(\omega_n^2-\omega_m^2)
+\left[\int_0^LwX_nX_m\dd x+M_eX_n(L)X_m(L)\right]=0.
+\]
+因此应定义带端部惯性的内积
+\[\langle f,g\rangle_M=\int_0^Lwfg\dd x+M_ef(L)g(L),
+\]
+并将前述投影式中的所有积分统一换成这个内积。分母、初位移和初速度的投影都要同时修改；只改频率方程而不改模态归一化，会算错端部质量参与的振幅。
+
+若系统有零频模态，例如两端自由的杆可整体平移，该模态的时间函数为$A_0+B_0t$。其初速度系数直接投影$g_0$，不除以零频率。有限模态近似还应与初始形状的光滑性相配：初态含尖点时高阶模态衰减较慢，局部曲线的误差可能大于整体能量误差。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[两端固定弦的完整运动]\label{ex:hw7-6}
+
+均匀细弦长$l$、质量$m$，两端固定，张力$T$保持不变。忽略阻力，给定小初位移$f(x)$及初速度$g(x)$，求弦的运动规律。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[thick](0,-.4)--(0,.5);\draw[thick](5,-.4)--(5,.5);\draw[curve,domain=0:5,samples=80]plot(\x,{.45*sin(36*\x)});\draw[guide](0,0)--(5,0);\draw[<->](0,-.7)--(5,-.7)node[midway,below]{$l$};
+\end{tikzpicture}
+\caption{两端固定弦的一种小位移}\label{fig:hw7-6-q}
+\end{figure}
+
+\begin{solution}
+令线密度$\lambda=m/l$。图\ref{fig:hw7-6-s}中微段两端张力大小相同，竖直合力为$T[u_x(x+\dd x)-u_x(x)]$，所以
+\[
+ u_{tt}=c^2u_{xx},\quad c=\sqrt{T/\lambda}=\sqrt{Tl/m}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve,domain=0:2,samples=60]plot(\x,{.4-.2*(\x-1)^2});
+\draw[axis](.5,.35)--(-.5,.15)node[left]{$-T\vct t_-$};
+\draw[axis](1.5,.35)--(2.5,.15)node[right]{$T\vct t_+$};
+\draw[guide](.5,-.25)--(.5,.35);\draw[guide](1.5,-.25)--(1.5,.35);
+\draw[<->](.5,-.2)--(1.5,-.2)node[midway,below]{$\dd x$};
+\node at(1,1){横向合力$=T u_{xx}\dd x$};\node at(1,-1){微元质量$=\lambda\dd x$};
+\end{tikzpicture}
+\caption{弦微元两端的张力大小相等，切线斜率不同}\label{fig:hw7-6-s}
+\end{figure}
+
+两端力在一阶近似中可写为$-T(1,u_x(x))$与$T(1,u_x(x+\dd x))$，水平分量抵消，竖直分量之差才产生横向加速度。使用恒定张力的条件是$|u_x|\ll1$且由弯曲带来的额外伸长可忽略。
+
+对非零模态作分离变量 $u=X(x)q(t)$，代入并除以 $Xq$，得 $\ddot q/q=c^2X''/X=-\omega^2$。空间方程 $X''+k^2X=0$ 的通解是 $C\sin kx+D\cos kx$，$k=\omega/c$。固定端 $X(0)=0$ 给出 $D=0$，$X(l)=0$ 给出 $kl=n\pi$、$n\ge1$。时间方程 $\ddot q+\omega^2q=0$ 的两个特征根为 $\pm i\omega$，通解为 $A\cos\omega t+B\sin\omega t$。叠加全部模态，得到
+\[
+ \boxed{u(x,t)=\sum_{n=1}^\infty
+ [A_n\cos\omega_nt+B_n\sin\omega_nt]\sin\frac{n\pi x}{l},
+ \quad\omega_n=\frac{n\pi c}{l}}.
+\]
+确定初态系数前，先计算空间振型的内积。当 $n\ne j$ 时，用积化和差公式，
+\[
+\begin{aligned}
+\int_0^l\sin\frac{n\pi x}{l}\sin\frac{j\pi x}{l}\,\dd x
+&=\frac12\left[\frac{l\sin((n-j)\pi x/l)}{(n-j)\pi}
+-\frac{l\sin((n+j)\pi x/l)}{(n+j)\pi}\right]_0^l=0.
+\end{aligned}
+\]
+当 $n=j$ 时，$\sin^2\alpha=(1-\cos2\alpha)/2$，积分为 $[x/2-l\sin(2n\pi x/l)/(4n\pi)]_0^l=l/2$。因此，在 $t=0$ 代入级数及其时间导数，再乘第 $n$ 个振型积分，分别有
+\[
+\int_0^lf(x)\sin\frac{n\pi x}{l}\,\dd x=\frac l2A_n,\qquad
+\int_0^lg(x)\sin\frac{n\pi x}{l}\,\dd x=\frac l2\omega_nB_n.
+\]
+解出系数，得到
+\[
+ A_n=\frac2l\int_0^lf(x)\sin\frac{n\pi x}{l}\dd x,\quad
+ B_n=\frac2{l\omega_n}\int_0^lg(x)\sin\frac{n\pi x}{l}\dd x.
+\]
+固有频率$\omega_n$由弦和边界决定，展开系数由初态决定。给定的初位移、初速度须与固定端条件相容，上述级数才描述这一初态随时间的演化。
+
+
+初速度展开中多出的 $1/\omega_n$，来自时间因子 $\sin\omega_nt$ 求导后产生的 $\omega_n$。
+
+令$q_n=A_n\cos\omega_nt+B_n\sin\omega_nt$，图\ref{fig:hw7-6-s}对应的总能量可逐模态相加：
+\[
+ E=\frac12\int_0^l(\lambda u_t^2+Tu_x^2)\dd x
+ =\frac{\lambda l}{4}\sum_{n=1}^\infty
+ (\dot q_n^2+\omega_n^2q_n^2)
+ =\frac{\lambda l}{4}\sum_{n=1}^\infty\omega_n^2(A_n^2+B_n^2).
+\]
+不同模式的交叉项因正交性消去。对有限能量初态，这个恒定值同时说明每个模式的幅度如何进入整根弦的机械能。
+
+\end{solution}
+
+
+
+\begin{example}[拨弦初态的谐波成分]\label{ex:sup7-pluck}
+均匀弦长$L$、线密度$\lambda$，两端固定，张力$T$。将$x=a$处拨至横向位移$H$后静止释放，$0<a<L$，其余部分由两段直线连接端点，且$H\ll\min(a,L-a)$。求此后的振动；当$a=L/2$时，求基频模态所占初始能量比例。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](0,0)--(7,0);\draw[curve](0,0)--(2.5,1.3)--(7,0);
+\foreach \x in {0,7}{\fill(\x,0)circle(2pt);\draw[curve](\x,-.3)--(\x,.3);}
+\draw[guide](2.5,0)--(2.5,1.3);\draw[<->](2.8,0)--(2.8,1.3)node[midway,right]{$H$};
+\node[below]at(0,0){$0$};\node[below]at(2.5,0){$a$};\node[below]at(7,0){$L$};
+\draw[axis](.5,-.7)--(2,-.7)node[right]{$x$};
+\end{tikzpicture}
+\caption{释放前的三角形拨弦位移，两端位置固定}\label{fig:sup7-pluck-q}
+\end{figure}
+\end{example}
+\begin{solution}
+图\ref{fig:sup7-pluck-q}的初位移为
+\[
+ f_0(x)=\begin{cases}Hx/a,&0\le x\le a,\\
+ H(L-x)/(L-a),&a\le x\le L,\end{cases}\qquad g_0(x)=0.
+\]
+波速$c=\sqrt{T/\lambda}$，两端固定给出$\omega_n=n\pi c/L$。因初速度为零，只须展开余弦时间因子。令$k_n=n\pi/L$，对两段分别分部积分：
+\[
+ \begin{aligned}
+ A_n&=\frac{2H}{L}\left[\frac1a\int_0^ax\sin k_nx\dd x
+ +\frac1{L-a}\int_a^L(L-x)\sin k_nx\dd x\right].
+ \end{aligned}
+\]
+其中两个分部积分的原函数及端点值分别为
+\[
+\begin{aligned}
+\int_0^ax\sin k_nx\,\dd x
+&=\left[-\frac{x\cos k_nx}{k_n}+\frac{\sin k_nx}{k_n^2}\right]_0^a
+=-\frac{a\cos k_na}{k_n}+\frac{\sin k_na}{k_n^2},\\
+\int_a^L(L-x)\sin k_nx\,\dd x
+&=\left[\frac{(x-L)\cos k_nx}{k_n}-\frac{\sin k_nx}{k_n^2}\right]_a^L\\
+&=\frac{(L-a)\cos k_na}{k_n}+\frac{\sin k_na}{k_n^2}.
+\end{aligned}
+\]
+各除以 $a$、$L-a$ 后，两个余弦项相消；剩下的正弦项系数为 $(1/a+1/(L-a))/k_n^2=L/[k_n^2a(L-a)]$，所以
+\[
+A_n=\frac{2H\sin(k_na)}{k_n^2a(L-a)}
+=\frac{2HL^2}{n^2\pi^2a(L-a)}\sin\frac{n\pi a}{L}.
+\]
+完整运动为
+\[
+ u(x,t)=\sum_{n=1}^{\infty}A_n\sin\frac{n\pi x}L\cos\omega_nt.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=.9cm,y=.95cm]
+\draw[axis](0,0)--(7.4,0)node[right]{$x$};
+\draw[curve,domain=0:7,samples=90]plot(\x,{.81*sin(180*\x/7)});
+\draw[guide,domain=0:7,samples=120]plot(\x,{-.09*sin(540*\x/7)});
+\draw[dotted,domain=0:7,samples=150]plot(\x,{.0324*sin(900*\x/7)});
+\node[above]at(3.5,.9){$n=1$};\node[below,align=center]at(3.5,-.55){中点拨弦只含奇次模态\\$A_1=8H/\pi^2,\quad A_3=-A_1/9$};
+\node[below]at(0,0){$0$};\node[below]at(7,0){$L$};
+\end{tikzpicture}
+\caption{中点拨弦的前三个非零模态，按其初始带符号振幅绘制}\label{fig:sup7-pluck-s}
+\end{figure}
+图\ref{fig:sup7-pluck-s}中的偶次模态在中点有节点，其投影为零。初始能量直接由弦的斜率求出：
+\[
+ E=\frac T2\left[\int_0^a\frac{H^2}{a^2}\,\dd x
+ +\int_a^L\frac{H^2}{(L-a)^2}\,\dd x\right]
+ =\frac{TH^2}{2}\left(\frac1a+\frac1{L-a}\right)
+ =\frac{TH^2L}{2a(L-a)}.
+\]
+第$n$模态的能量为$E_n=\lambda L\omega_n^2A_n^2/4$。当$a=L/2$时，$E=2TH^2/L$，$A_1=8H/\pi^2$，因此
+\[
+ \frac{E_1}{E}=\frac8{\pi^2}.
+\]
+初始折角允许用能量有限的模态级数表示；折角处二阶空间导数不宜按普通光滑函数逐点解释，释放后它对应向两侧传播的斜率变化。
+\end{solution}
+
+
+
+\section{梁的弯曲、曲率与端部条件}
+
+弯矩引起的曲率沿梁积累为转角和位移。截面内力的正方向统一后，由支承条件确定积分常数；位移条件与受力条件分别列写。
+
+
+
+\subsection{弯曲、曲率与边界条件}
+\label{sec:complete7-bending}
+小弯曲时截面保持平面，距中性轴$z$的纤维纵向应变为$-zy''$。应力与$z$成正比，轴向合力为零，弯矩的大小为
+\[
+ M_b=YI|y''|,\qquad I=\int z^2\dd S.
+\]
+符号按弯矩和挠度的约定取定。矩形截面竖直厚度为$a$、水平宽度为$b$时，$I=ba^3/12$。弯曲刚度与厚度的三次方成正比，互换$a,b$对应绕另一截面轴弯曲。
+
+固支端规定$y=y'=0$。自由端若没有集中力偶，弯矩为零；没有横向集中力时，剪力也为零。例\ref{ex:hw7-8}先由截面右侧的端力求弯矩，再积分两次，用固支端条件确定常数。对于分布载荷，应先积分其力矩分布，不能把总载荷集中在自由端。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[悬臂尺的端点位移]\label{ex:hw7-8}
+
+一根均匀尺的一端固定在墙内，露出长度$l$，杨氏模量$Y$，矩形截面宽$b$、竖直厚度$a$。自由端受到竖直力$F$，形变很小。求端点位移。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[fill=gray!15](-.4,-.5)rectangle(0,.5);\draw[curve](0,0)--(4,0);\draw[axis](4,0)--(4,1)node[above]{$F$};\draw[<->](0,-.5)--(4,-.5)node[midway,below]{$l$};\draw[curve](5,-.4)rectangle(6,.4);\node at(5.5,.8){$b$};\node at(6.4,0){$a$};
+\end{tikzpicture}
+\caption{矩形截面悬臂尺的端点受力}\label{fig:hw7-8-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw7-8-s}中中性层既不伸长也不缩短，距中性层$z$的纤维应变为$-z\kappa$，应力为$-Yz\kappa$。对截面应力矩积分，得
+\[
+ M=YI\kappa,\quad I=b\int_{-a/2}^{a/2}z^2\,\dd z
+ =b\left[\frac{z^3}{3}\right]_{-a/2}^{a/2}=\frac{ba^3}{12}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[fill=gray!15](-.4,-.5)rectangle(0,.5);\draw[guide](0,0)--(4,0);\draw[curve,domain=0:4,samples=70]plot(\x,{.00625*(12*\x*\x-\x*\x*\x)});\draw[axis](4,.8)--(4,1.8)node[above]{$F$};\draw[<->](0,-.5)--(4,-.5)node[midway,below]{$l$};\draw[guide](2,-.3)--(2,.25);\node at(1.7,1.1){$M(x)=F(l-x)$};\draw[curve](6.2,-.4)rectangle(7.2,.4);\node at(6.7,.8){$b$};\node at(7.6,0){$a$};
+\draw[guide](4,.8)--(4.7,.8);\draw[guide](4,0)--(4.7,0);\draw[<->](4.45,0)--(4.45,.8)node[midway,right]{$y(l)$};
+\end{tikzpicture}
+\caption{端力作用于变形后的自由端}\label{fig:hw7-8-s}
+\end{figure}
+
+从墙边量 $x$，截面弯矩为 $F(l-x)$。小挠度时 $\kappa\simeq y''$，因此 $YIy''=F(l-x)$。先积分一次，$YIy'=F(lx-x^2/2)+C_1$；用 $y'(0)=0$ 得 $C_1=0$。再积分，$YIy=F(lx^2/2-x^3/6)+C_2$；用 $y(0)=0$ 得 $C_2=0$。整理为
+\[
+ y(x)=\frac F{6YI}(3lx^2-x^3),\qquad
+ \boxed{y(l)=\frac{Fl^3}{3YI}=\frac{4Fl^3}{Yba^3}}.
+\]
+自由端还满足 $YIy''(l)=0$，与端部没有外加力偶相符，而 $YI\dd^3y/\dd x^3=-F$ 对应恒定剪力。
+
+位移与力同向，端点斜率为$Fl^2/(2YI)$，须远小于1，才与小挠度近似一致。厚度以三次方进入分母，尺翻转截面方向后，位移会有明显变化。
+
+
+图\ref{fig:review7-stress}进一步画出截面上的应变与应力。中性层上方、下方的纤维分别缩短和伸长，轴向合力$\int_A\sigma\dd A=0$，但力矩不为零。对矩形截面，
+\[
+ |\sigma(x,z)|=\frac{F(l-x)|z|}{I}.
+\]
+最大应力位于固支端的最外层纤维，为$|\sigma|_{\max}=6Fl/(ba^2)$。挠度公式除要求端点斜率很小，还要求材料保持线弹性。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,-1.4)--(0,1.5)node[above]{$z$};\draw[axis](-1.5,0)--(1.7,0)node[right]{$\sigma$};\draw[curve](-1,1.05)--(1,-1.05);\draw[guide](-1,1.05)--(0,1.05)node[right]{$a/2$};\draw[guide](1,-1.05)--(0,-1.05)node[left]{$-a/2$};\node at(-1.2,1.45){受压};\node at(1.2,-1.45){受拉};
+\begin{scope}[shift={(4.7,0)}]\draw[curve](-.65,-1.05)rectangle(.65,1.05);\draw[guide](-.95,0)--(.95,0);\node[right]at(.95,0){中性层};\draw[<->](-.65,-1.5)--(.65,-1.5)node[midway,below]{$b$};\draw[<->](-1,-1.05)--(-1,1.05)node[midway,left]{$a$};\end{scope}
+\end{tikzpicture}
+\caption{向上弯曲截面的线性应力分布与矩形截面的中性层}\label{fig:review7-stress}
+\end{figure}
+
+用弹性储能也可求得端点位移。弯曲能为
+\[
+ U=\int_0^l\frac{M(x)^2}{2YI}\dd x
+ =\frac{F^2}{2YI}\int_0^l(l-x)^2\,\dd x
+ =\frac{F^2}{2YI}\left[-\frac{(l-x)^3}{3}\right]_0^l
+ =\frac{F^2l^3}{6YI}.
+\]
+线性加载时外力做功为$Fy(l)/2$，故$y(l)=2U/F=Fl^3/(3YI)$，与逐次积分完全一致。这里的$y$按图\ref{fig:hw7-8-s}取向上为正，正弯矩使$y''>0$；力若反向，位移、曲率与上下层应力符号也同时反向。
+
+\end{solution}
+
+
+
+\input{lecture7_depth}
+\section{习题与解答}
+
+\begin{exercise}[端部转盘与扭转杆]\label{ex:sup7-torsion}
+均匀圆杆长$L$、密度$\rho$、剪切模量$G$，截面极二次矩为$J_p$。左端固定，右端固接绕杆轴转动惯量为$I_d$的薄转盘。求小扭转的频率方程，并求$I_d\gg\rho J_pL$时的最低频率及杆身的等效转动惯量。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.8)--(0,.8);\draw[curve](0,-.15)rectangle(4.1,.15);
+\draw[curve](4.15,0)ellipse(.25 and .9);\node[right]at(4.5,.5){$I_d$};
+\draw[axis](4.15,0)--(5.6,0)node[right]{$x$};
+\draw[<->](0,-1.1)--(4.15,-1.1)node[midway,below]{$L$};
+\end{tikzpicture}
+\caption{固支扭转杆带动端部转盘}\label{fig:sup7-torsion-q}
+\end{figure}
+\end{exercise}
+\begin{solution}
+图\ref{fig:sup7-torsion-q}中，截面力矩为 $GJ_p\theta_x$，单位长度转动惯量为 $\rho J_p$。微段两侧力矩之差为 $GJ_p\theta_{xx}\dd x$，等于 $\rho J_p\dd x\,\theta_{tt}$，得 $\theta_{tt}=(G/\rho)\theta_{xx}$。
+取 $\theta=\Theta(x)\cos\omega t$，代入得 $\Theta''+k^2\Theta=0$、$\omega=k\sqrt{G/\rho}$。通解为 $\Theta=A\sin kx+B\cos kx$，固定端 $\Theta(0)=0$ 给出 $B=0$；因此 $\Theta'=Ak\cos kx$。
+
+右端转盘由杆施加的力矩为 $-GJ_p\theta_x(L,t)$，所以 $-GJ_p\theta_x=I_d\theta_{tt}$。代入模态的导数，$GJ_pk\cos kL=I_d\omega^2\sin kL$。约去非零 $k$，再用 $\omega^2=(G/\rho)k^2$，得 $\cot kL=I_dk/(\rho J_p)$。以 $z=kL$ 表示，得到
+\[
+ \cot z=\frac{I_d}{\rho J_pL}z.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.2,0)node[right]{$x$};\draw[axis](0,0)--(0,1.6)node[above]{$\Theta$};
+\draw[curve](0,0)--(4.4,1.25);\draw[guide](4.4,0)--(4.4,1.25);
+\node[right]at(4.4,1.25){$\Theta_L$};\node[below]at(4.4,0){$L$};
+\node[above]at(2,1.3){$\Theta(x)\simeq x\Theta_L/L$};
+\end{tikzpicture}
+\caption{大转盘最低模态中的近似线性扭转角分布}\label{fig:sup7-torsion-s}
+\end{figure}
+图\ref{fig:sup7-torsion-s}的近似给出杆身动能
+\[
+ T_{\rm rod}=\frac{\rho J_p\dot\theta_L^2}{2L^2}\int_0^Lx^2\dd x
+ =\frac{\rho J_p\dot\theta_L^2}{2L^2}\left[\frac{x^3}{3}\right]_0^L
+ =\frac12\frac{\rho J_pL}{3}\dot\theta_L^2,
+\]
+线性转角分布给出 $\theta_x=\theta_L/L$，故弹性能为 $\tfrac12\int_0^LGJ_p(\theta_L/L)^2\dd x=GJ_p\theta_L^2/(2L)$。将转盘与杆身动能合并，运动方程是 $(I_d+\rho J_pL/3)\ddot\theta_L+(GJ_p/L)\theta_L=0$，因此最低频率为
+\[
+ \omega_1^2\simeq\frac{GJ_p/L}{I_d+\rho J_pL/3}.
+\]
+从精确频率方程也可得到这一修正：取 $\cot z=z^{-1}-z/3+O(z^3)$ 并乘以 $z$，得 $1=[I_d/(\rho J_pL)+1/3]z^2+O(z^4)$；再用 $\omega^2=(G/\rho)z^2/L^2$ 即得上式。杆的轴向转动惯量为 $\rho J_pL$。最低模态中，各截面角速度从固支端起逐渐增大，按速度平方积分得到其三分之一的等效量。
+\end{solution}
+
+
+\begin{exercise}[端力与均布载荷共同弯曲悬臂梁]\label{ex:sup7-beam}
+均匀悬臂梁长$L$，截面为水平宽$b$、竖直厚$a$的矩形，杨氏模量$Y$。梁承受竖直向下的均布载荷$w$及自由端向下集中力$P$。在小挠度范围内求挠曲线、自由端挠度与转角，并求固支截面最大弯曲正应力。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,-.6)--(0,.7);\draw[curve](0,0)--(6,0);
+\foreach \x in {.6,1.4,2.2,3,3.8,4.6,5.4}{\draw[axis](\x,.8)--(\x,.05);}
+\node[above]at(3,.85){$w$};\draw[axis](6,0)--(6,-1.1)node[right]{$P$};
+\draw[<->](0,-1.5)--(6,-1.5)node[midway,below]{$L$};
+\end{tikzpicture}
+\caption{悬臂梁的均布载荷和自由端集中力}\label{fig:sup7-beam-q}
+\end{figure}
+\end{exercise}
+\begin{solution}
+取向下挠度为$y>0$，$x$从固支端量起。图\ref{fig:sup7-beam-q}中，截面$x$右侧均布载荷的合力为$w(L-x)$，作用点距该截面为$(L-x)/2$，故
+\[
+ M_b(x)=P(L-x)+\frac w2(L-x)^2.
+\]
+在小挠度近似下采用$YIy''=M_b$，矩形截面$I=ba^3/12$。先积分一次：
+\[
+ YIy'(x)=P\left(Lx-\frac{x^2}{2}\right)
+ +\frac w2\left(L^2x-Lx^2+\frac{x^3}{3}\right)+C_1.
+\]
+固支端的切线方向固定，$y'(0)=0$，所以$C_1=0$。再积分并整理各载荷项：
+\[
+ YIy(x)=\frac{Px^2(3L-x)}6
+ +\frac{wx^2(6L^2-4Lx+x^2)}{24}+C_2.
+\]
+固支端没有位移，$y(0)=0$，给出$C_2=0$。上式除以$YI$即为全梁挠曲线。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](0,0)--(6,0);\draw[curve](0,-.5)--(0,.6);
+\draw[curve,domain=0:6,samples=80]plot(\x,{-.9*(\x/6)^2*(3-\x/6)/2-.3*(\x/6)^2*(6-4*\x/6+(\x/6)^2)/3});
+\draw[<->](6.4,0)--(6.4,-1.2)node[midway,right]{$y(L)$};
+\draw[guide](4.8,-.85)--(6.5,-1.345833);\node[below]at(4.8,-1.6){自由端切线};
+\draw[axis](0,-.05)--(0,-1.1)node[left]{$y$};
+\end{tikzpicture}
+\caption{向下挠曲线及自由端位移，图中变形放大示意}\label{fig:sup7-beam-s}
+\end{figure}
+在挠度式和斜率式中分别取$x=L$，得到图\ref{fig:sup7-beam-s}中的端点位移和切线小转角：
+\[
+ \begin{aligned}
+ y(L)&=\frac{PL^3(3-1)}{6YI}
+ +\frac{wL^4(6-4+1)}{24YI}
+ =\boxed{\frac{PL^3}{3YI}+\frac{wL^4}{8YI}},\\
+ y'(L)&=\frac{PL^2(1-1/2)}{YI}
+ +\frac{wL^3(1-1+1/3)}{2YI}
+ =\boxed{\frac{PL^2}{2YI}+\frac{wL^3}{6YI}}.
+ \end{aligned}
+\]
+对于题设向下的$P,w\ge0$，$M_b'(x)=-P-w(L-x)\le0$，最大弯矩位于固支端，为$PL+wL^2/2$。弯曲正应力满足$|\sigma|=M_b|z|/I$，最外层纤维距中性轴$a/2$，因此
+\[
+ \boxed{|\sigma|_{\max}
+ =\frac{(PL+wL^2/2)a}{2I}
+ =\frac{6(PL+wL^2/2)}{ba^2}}.
+\]
+上述线性叠加要求材料处于线弹性范围且全梁$|y'|\ll1$。不能把均布载荷直接移到自由端：这样会改变它相对各截面的力臂，得到不同的弯矩分布和挠度。
+\end{solution}
+
+
+\begin{exercise}[有质量弹簧悬挂端部重物]\label{ex:sup7-heavyspring}
+均匀弹簧自然长$L$、质量$m$、整根劲度系数$k$，上端固定、下端悬挂质量$M$的物块。弹簧沿竖直方向的小形变满足线弹性关系，重力加速度为$g$。求静态伸长分布和总伸长；再求平衡附近的纵向频率方程，并求$M\gg m$时的最低频率。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-.8,0)--(.8,0);
+\draw[curve,domain=0:1,samples=500]plot({.12*sin(4320*\x)},{-3*(1.4*\x-.2*\x*\x)/1.2});
+\draw[curve](-.5,-3)rectangle(.5,-3.7);\node at(0,-3.35){$M$};
+\draw[axis](1.4,0)--(1.4,-3.8)node[below]{$x$};
+\node[right]at(.4,-1.4){$m,k,L$};
+\end{tikzpicture}
+\caption{弹簧的材料坐标从固定上端向下量起}\label{fig:sup7-heavyspring-q}
+\end{figure}
+\end{exercise}
+\begin{solution}
+图\ref{fig:sup7-heavyspring-q}的$x$为自然态材料坐标。长度$\dd x$弹簧段的劲度为$kL/\dd x$，所以截面张力为$kLu_0'(x)$。静态时该截面悬挂的总质量为$M+m(1-x/L)$，于是
+\[
+ kLu_0'(x)=[M+m(1-x/L)]g.
+\]
+由 $u_0(0)=0$，静态位移的积分为
+\[
+\begin{aligned}
+u_0(x)&=\frac g{kL}\int_0^x\left(M+m-\frac{ms}{L}\right)\dd s\\
+&=\frac g{kL}\left[(M+m)s-\frac{ms^2}{2L}\right]_0^x.
+\end{aligned}
+\]
+故
+\[
+ u_0(x)=\frac{(M+m)gx}{kL}-\frac{mgx^2}{2kL^2},\qquad
+ u_0(L)=\frac{Mg}{k}+\frac{mg}{2k}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(4.8,0)node[right]{$x$};\draw[axis](0,0)--(0,2.5)node[above]{张力};
+\draw[curve](0,2.1)--(4.2,.8);\draw[guide](4.2,0)--(4.2,.8);
+\node[left]at(0,2.1){$(M+m)g$};\node[right]at(4.2,.8){$Mg$};\node[below]at(4.2,0){$L$};
+\end{tikzpicture}
+\caption{静态张力沿弹簧向下线性减小，端部张力为重物重力}\label{fig:sup7-heavyspring-s}
+\end{figure}
+图\ref{fig:sup7-heavyspring-s}给出的张力对材料长度积分，再除以$kL$，也得到总伸长。对静态解叠加小位移$\eta(x,t)$，重力项与静态张力梯度抵消：
+\[
+ \frac mL\eta_{tt}=kL\eta_{xx},\qquad
+ \eta(0,t)=0,\qquad -kL\eta_x(L,t)=M\eta_{tt}(L,t).
+\]
+令 $\eta=X(x)\cos\omega t$，代入波动方程得 $X''+q^2X=0$、$q^2=m\omega^2/(kL^2)$。通解 $X=A\sin qx+B\cos qx$ 由上端固定条件确定 $B=0$。下端条件代入 $\eta_x=Aq\cos qx\cos\omega t$、$\eta_{tt}=-A\omega^2\sin qx\cos\omega t$，得
+\[
+kLq\cos qL=M\omega^2\sin qL.
+\]
+令 $z=qL$，并用 $\omega^2=kz^2/m$ 约去非零 $z$，得到
+\[
+ \omega=z\sqrt{k/m},\qquad \cot z=\frac Mm z.
+\]
+最低模态在 $M\gg m$ 时对应 $z\ll1$。代入 $\cot z=1/z-z/3+O(z^3)$ 并乘以 $z$，得 $1=(M/m+1/3)z^2+O(z^4)$，所以 $\omega_1^2=kz^2/m\simeq k/(M+m/3)$。静态伸长中的弹簧质量以 $m/2$ 出现，最低动态等效质量以 $m/3$ 出现；前者来自静态张力的积分，后者来自振型速度平方的积分。
+\end{solution}
+
+
+\begin{exercise}[均布载荷下的简支梁]\label{deep7:ex-simplebeam}
+长$L$的均匀梁两端简支，承受向下的均布载荷$w$。矩形截面水平宽$b$、竖直厚$a$，杨氏模量$Y$。梁的自重也计入$w$。采用小挠度梁模型，求支座反力、剪力、弯矩、挠曲线、最大挠度和最大弯曲正应力，并由弯矩积分求应变能。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](0,0)--(6,0);\draw[curve](-.2,-.35)--(0,0)--(.2,-.35)--cycle;\draw[curve](5.8,-.35)--(6,0)--(6.2,-.35)--cycle;\draw(5.84,-.45)circle(.08);\draw(6.16,-.45)circle(.08);
+\foreach \x in {.4,1.2,2,2.8,3.6,4.4,5.2,5.8}{\draw[axis](\x,.8)--(\x,.05);}\node[above]at(3,.85){$w$};
+\node[left]at(-.25,-.3){$A$};\node[right]at(6.35,-.3){$B$};\draw[<->](0,-1)--(6,-1)node[midway,below]{$L$};
+\end{tikzpicture}
+\caption{两端简支不限制端部转角，均布载荷遍布全梁}\label{deep7:fig-simplebeam-q}
+\end{figure}
+\end{exercise}
+\begin{solution}
+图\ref{deep7:fig-simplebeam-q}中的载荷关于中点对称，总力为$wL$，两支座反力均向上、大小为$wL/2$。从$A$沿梁取$x$，以左段竖直合力为剪力$V_s$、下缘受拉的弯矩为正，得
+\[
+ V_s(x)=w(L/2-x),\qquad M_b(x)=\frac w2x(L-x),
+ \qquad M_b'=V_s.
+\]
+弯矩在两端为零，中点最大，为$wL^2/8$。
+
+令向下挠度 $y$ 为正，此处正弯矩对应 $y''<0$，所以 $YIy''=-M_b$，其中 $I=ba^3/12$。将 $-M_b=-wLx/2+wx^2/2$ 逐项积分：
+\[
+YIy'=-\frac{wLx^2}{4}+\frac{wx^3}{6}+C_1,\qquad
+YIy=-\frac{wLx^3}{12}+\frac{wx^4}{24}+C_1x+C_2.
+\]
+由 $y(0)=0$ 得 $C_2=0$；再代 $y(L)=0$，$-wL^4/12+wL^4/24+C_1L=0$，所以 $C_1=wL^3/24$。整理得
+\[
+ y'(x)=\frac{w}{24YI}(L^3-6Lx^2+4x^3),
+ \qquad
+ y(x)=\frac{wx}{24YI}(L^3-2Lx^2+x^3).
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](0,0)--(6,0);\draw[curve,domain=0:6,samples=90]plot(\x,{-3.84*(\x/6)*(1-2*(\x/6)^2+(\x/6)^3)});
+\draw[guide](3,0)--(3,-1.2);\draw[<->](3.3,0)--(3.3,-1.2)node[midway,right]{$y_{\max}$};
+\draw[guide](-.4,1.1)--(6.4,1.1);\draw[curve,domain=0:6,samples=70]plot(\x,{1.1+1.2*4*(\x/6)*(1-\x/6)});
+\node[right]at(6.5,1.6){$M_b$图};\node[left]at(0,1.1){$0$};\node[above]at(3,2.3){$wL^2/8$};\node[below]at(3,-1.45){挠曲线（变形放大）};
+\end{tikzpicture}
+\caption{弯矩与挠度均在中点达到最大，两端斜率可以不为零}\label{deep7:fig-simplebeam-s}
+\end{figure}
+对$0<x<L/2$，上式$y'(x)>0$，中点为零；右半段由对称性斜率为负。因此图\ref{deep7:fig-simplebeam-s}的最大向下挠度为
+\[
+ y_{\max}=y(L/2)=\frac{5wL^4}{384YI}.
+\]
+最外层纤维距中性轴$a/2$，最大弯曲正应力的绝对值
+\[
+ |\sigma|_{\max}=\frac{(wL^2/8)(a/2)}I=\frac{3wL^2}{4ba^2}.
+\]
+按弯矩分布积分，弹性能为
+\[
+\begin{aligned}
+U_e&=\int_0^L\frac{M_b^2}{2YI}\dd x
+=\frac{w^2}{8YI}\int_0^L(L^2x^2-2Lx^3+x^4)\dd x\\
+&=\frac{w^2}{8YI}\left[\frac{L^2x^3}{3}-\frac{Lx^4}{2}+\frac{x^5}{5}\right]_0^L
+=\frac{w^2L^5}{8YI}\left(\frac13-\frac12+\frac15\right)
+=\frac{w^2L^5}{240YI}.
+\end{aligned}
+\]
+也可缓慢增加$w$，用$U_e=\tfrac12\int_0^Lwy(x)\dd x$得到相同结果。简支条件是端点挠度与端弯矩为零；若误加$y'(0)=y'(L)=0$，求出的将是另一种支承模型。
+\end{solution}
+
+
+\begin{exercise}[细杆屈曲与初始弯曲的放大（选做）]\label{deep7:ex-buckling}
+长$L$的细直杆两端铰支，弯曲刚度为$YI$，沿两端连线施加大小相等的恒定轴向压力$P$。在小斜率模型中，用总势能求直杆失去稳定性的临界压力及各阶屈曲形状。若杆在无载荷时有微小初始弯曲$y_0(x)=a_0\sin(\pi x/L)$，再求低于临界压力时的静态挠度，并说明临界附近线性式的适用限制。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[guide](0,0)--(6,0);\draw[curve,domain=0:6,samples=90]plot(\x,{.4*sin(180*\x/6)});
+\draw[axis](-1.4,0)--(-.15,0)node[midway,above]{$P$};\draw[axis](7.4,0)--(6.15,0)node[midway,above]{$P$};
+\fill(0,0)circle(2pt);\fill(6,0)circle(2pt);\node[below]at(0,0){铰支};\node[below]at(6,0){铰支};
+\node[above]at(3,.45){微小初弯$y_0$};\draw[<->](0,-.7)--(6,-.7)node[midway,below]{$L$};
+\end{tikzpicture}
+\caption{轴向恒力沿端点连线作用，侧向形变会缩短两端间距}\label{deep7:fig-buckling-q}
+\end{figure}
+\end{exercise}
+\begin{solution}
+先取理想直杆。小斜率时，中心线弧长与两端距离之差为$\Delta\simeq\tfrac12\int_0^L(y')^2\dd x$。图\ref{deep7:fig-buckling-q}中的恒定压力对这一端缩做正功，故总势能的二次部分为
+\[
+ \Pi[y]=\frac12YI\int_0^L(y'')^2\dd x
+ -\frac12P\int_0^L(y')^2\dd x.
+\]
+铰支端规定 $y(0)=y(L)=0$，端部不传力偶。对满足端位移条件的 $y$ 变分，两次分部积分为
+\[
+\begin{aligned}
+\delta\Pi&=YI\int_0^Ly''\delta y''\,\dd x-P\int_0^Ly'\delta y'\,\dd x\\
+&=[YIy''\delta y'-YIy'''\delta y-Py'\delta y]_0^L
++\int_0^L(YIy''''+Py'')\delta y\,\dd x.
+\end{aligned}
+\]
+两端 $\delta y=0$，但 $\delta y'$ 任意，所以边界项要求 $y''(0)=y''(L)=0$；内部 $\delta y$ 任意，得到
+\[
+ YI y''''+Py''=0.
+\]
+当 $P>0$ 时，记 $q=\sqrt{P/(YI)}$。特征方程为 $s^2(s^2+q^2)=0$，空间通解为 $y=C_0+C_1x+C_2\cos qx+C_3\sin qx$。先由 $y''(0)=0$ 得 $C_2=0$，由 $y(0)=0$ 得 $C_0=0$；再由 $y''(L)=0$、$y(L)=0$，依次得 $C_3\sin qL=0$、$C_1L=0$。非零形状须有 $C_3\ne0$，所以 $qL=n\pi$，即 $y_n=A_n\sin(n\pi x/L)$，对应
+\[
+ P_n=YI\left(\frac{n\pi}L\right)^2,\qquad n=1,2,\ldots.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=.9cm]
+\draw[guide](0,0)--(6,0);\draw[curve,domain=0:6,samples=90]plot(\x,{sin(180*\x/6)});\node[right]at(6.2,.5){$n=1$};
+\begin{scope}[yshift=-2cm]\draw[guide](0,0)--(6,0);\draw[curve,domain=0:6,samples=90]plot(\x,{.7*sin(360*\x/6)});\node[right]at(6.2,.4){$n=2$};\end{scope}
+\node[below]at(3,-3){$P_2=4P_1,\quad P_{\rm cr}=P_1$};
+\end{tikzpicture}
+\caption{两端铰支的前两阶形状，首先失稳的是无内部节点的第一阶}\label{deep7:fig-buckling-s}
+\end{figure}
+用正弦级数展开任意允许扰动，各阶正交使二次能量分开：
+\[
+ \Pi=\frac L4\sum_{n=1}^{\infty}
+ \left[YI\left(\frac{n\pi}L\right)^4
+ -P\left(\frac{n\pi}L\right)^2\right]A_n^2.
+\]
+所有系数为正的条件为$P<P_1$，因此图\ref{deep7:fig-buckling-s}的第一阶决定
+\[
+ \boxed{P_{\rm cr}=\pi^2YI/L^2}.
+\]
+在临界值处，线性模型中第一阶的二次能量为零；超过此值，该方向的二次能量为负。有限幅度的屈曲后形状和稳定性须保留高阶几何项，不能由二次能量确定。
+
+对初弯杆，弯曲应变由曲率相对自然曲率的变化给出，所以弯曲能改为$\tfrac12YI\int(y''-y_0'')^2\dd x$。令$y=a\sin(\pi x/L)$，忽略与$a$无关的常数，有
+\[
+ \Pi(a)=\frac{YI\pi^4}{4L^3}(a-a_0)^2
+ -\frac{P\pi^2}{4L}a^2.
+\]
+对 $a$ 求导，两个平方项分别产生 $2(a-a_0)$、$2a$，故
+\[
+\frac{\dd\Pi}{\dd a}=\frac{YI\pi^4}{2L^3}(a-a_0)-\frac{P\pi^2}{2L}a=0.
+\]
+除以 $YI\pi^4/(2L^3)$，得 $(1-P/P_{\rm cr})a=a_0$，所以
+\[
+ \boxed{a=\frac{a_0}{1-P/P_{\rm cr}}},\qquad 0\le P<P_{\rm cr}.
+\]
+有初弯时，杆在临界压力以下已有侧向挠度，并随压力增大而连续放大。公式所要求的小斜率为$\pi|a|/L\ll1$，即$\pi|a_0|/[L(1-P/P_{\rm cr})]\ll1$；在分母趋零之前，线性近似通常已经失效。
+\end{solution}
+
+
+\begin{exercise}[自重下的等强度悬杆（选做）]\label{deep7:ex-taper}
+密度$\rho$、杨氏模量$Y$的竖直细杆自然长$L$，上端固定，下端悬挂质量$M$的重物。允许截面积$S(x)$沿自然态材料坐标$x$变化，$x$从上端向下量起。希望全杆工程拉应力均为给定的$\sigma_*>0$，且$\sigma_*/Y\ll1$。计入杆的自重，求截面积分布、杆质量、静态位移和弹性能；在所有应力不超过$\sigma_*$的同材料悬杆中，说明此设计为何具有最小质量。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[curve](-1.2,0)--(1.2,0);
+\draw[curve,domain=0:3.2,samples=60]plot({-.7*exp(-.35*\x)},{-\x});\draw[curve,domain=0:3.2,samples=60]plot({.7*exp(-.35*\x)},{-\x});
+\draw[curve](-.6,-3.3)rectangle(.6,-4);\draw[curve](-.2284,-3.2)--(-.2284,-3.3);\draw[curve](.2284,-3.2)--(.2284,-3.3);\node at(0,-3.65){$M$};
+\draw[axis](1.5,0)--(1.5,-3.4)node[below]{$x$};\draw[<->](-1.2,0)--(-1.2,-3.2)node[midway,left]{$L$};
+\draw[guide](-.415,-1.5)--(.415,-1.5);\node[right]at(.6,-1.5){$S(x)$};
+\end{tikzpicture}
+\caption{上部截面承担更多自重，等强度设计由上向下连续变细；外形仅为示意}\label{deep7:fig-taper-q}
+\end{figure}
+\end{exercise}
+\begin{solution}
+图\ref{deep7:fig-taper-q}中的截面张力等于截面以下全部物质的重力，
+\[
+ N(x)=Mg+\rho g\int_x^LS(\xi)\dd\xi,
+ \qquad N'(x)=-\rho gS(x),\quad N(L)=Mg.
+\]
+等强度条件为 $N=\sigma_*S$，代入微段平衡式得到 $S'=-(\rho g/\sigma_*)S$。记 $\alpha=\rho g/\sigma_*$，底部条件是 $S(L)=Mg/\sigma_*$。分离变量，并从下端积到任意截面：
+\[
+\int_{S(L)}^{S(x)}\frac{\dd s}{s}=-\alpha\int_L^x\dd\xi,\qquad
+\ln\frac{S(x)}{S(L)}=-\alpha(x-L).
+\]
+两边取指数，得到
+\[
+ \boxed{S(x)=\frac{Mg}{\sigma_*}
+ \exp\left[\frac{\rho g}{\sigma_*}(L-x)\right]}.
+\]
+截面积指数随$x$下降；若截面保持相似形状，横向线度与$\sqrt{S(x)}$成正比，外形曲线的指数是截面积指数的一半。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+\draw[axis](0,0)--(5.2,0)node[right]{$x$};\draw[axis](0,0)--(0,3.2)node[above]{$N/(Mg)=S/S(L)$};
+\draw[curve,domain=0:4.4,samples=70]plot(\x,{exp(1-.2272727*\x)});
+\draw[guide](0,1)--(4.4,1)--(4.4,0);\node[below]at(4.4,0){$L$};\node[left]at(0,1){$1$};\node[left]at(0,2.718){$e^{\rho gL/\sigma_*}$};
+\end{tikzpicture}
+\caption{张力与截面积具有相同的指数分布，底端张力仍为$Mg$}\label{deep7:fig-taper-s}
+\end{figure}
+按图\ref{deep7:fig-taper-s}的截面积积分，杆质量为
+\[
+\begin{aligned}
+m_{\rm rod}&=\frac{\rho Mg}{\sigma_*}\int_0^L\ee^{\alpha(L-x)}\dd x
+=\frac{\rho Mg}{\sigma_*}\left[-\frac1\alpha\ee^{\alpha(L-x)}\right]_0^L\\
+&=\frac{\rho Mg}{\alpha\sigma_*}(\ee^{\alpha L}-1)
+=M(\ee^{\alpha L}-1).
+\end{aligned}
+\]
+上端张力 $Mg e^{\alpha L}=(M+m_{\rm rod})g$，满足整体平衡。应变 $u'=N/(YS)=\sigma_*/Y$ 为常量，用 $u(0)=0$ 积分得 $u(x)=\int_0^x(\sigma_*/Y)\dd\xi=\sigma_*x/Y$。能量积分则可利用已经算出的总体积：
+\[
+U_e=\int_0^L\frac{\sigma_*^2S(x)}{2Y}\,\dd x
+=\frac{\sigma_*^2}{2\rho Y}m_{\rm rod}.
+\]
+故
+\[
+ u(x)=\frac{\sigma_*}{Y}x,\qquad
+ \Delta L=\frac{\sigma_*L}{Y},\qquad
+ U_e=\int_0^L\frac{N^2}{2YS}\dd x
+ =\frac{M\sigma_*^2}{2\rho Y}(e^{\alpha L}-1).
+\]
+以上以自然态坐标计算工程应变和单位原长自重，在小应变近似内一致。
+
+对任意满足应力上限的设计，它在每处必须有$S(x)\ge N(x)/\sigma_*$。将平衡方程从下端向上写，以$z=L-x$为自变量，
+\[
+ \frac{\dd N}{\dd z}=\rho gS\ge\alpha N,
+ \qquad N(0)=Mg.
+\]
+乘以积分因子 $\ee^{-\alpha z}>0$，按乘积求导，
+\[
+\frac{\dd}{\dd z}(N\ee^{-\alpha z})
+=\ee^{-\alpha z}\left(\frac{\dd N}{\dd z}-\alpha N\right)\ge0.
+\]
+从 $0$ 到 $z$ 积分得 $N(z)\ee^{-\alpha z}-Mg\ge0$，所以 $N(z)\ge Mg\ee^{\alpha z}$，进而 $S(z)\ge Mg\ee^{\alpha z}/\sigma_*$。等强度设计在每一截面都取到这个下界，故总体积和质量也达到最小。该结论只比较纯轴向、小形变且不另受制造尺寸限制的悬杆。
+\end{solution}
+

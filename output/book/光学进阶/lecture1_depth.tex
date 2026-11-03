@@ -1,0 +1,90 @@
+\providecommand{\ExpansionDiagram}[3]{\begin{figure}[H]\centering\begin{tikzpicture}#3\end{tikzpicture}\caption{#2}\label{#1}\end{figure}}
+\section{有限孔径、光瞳与可成像的视场}
+\subsection{成像条件并不保证光线能够通过}
+矩阵给出光线的交点，镜框、光阑和透镜边缘则限制哪些光线能够到达该处。求出像面后，还需逐面计算光线高度，与各面的通光口径比较。
+
+取物面光线坐标为$(y,p)^{\mathsf T}$，其中$p=n_O\theta$。从物面到第$j$个孔径平面的矩阵第一行为$(A_j,B_j)$，该孔径半宽为$a_j$，则通过条件是
+\[
+ |A_jy+B_jp|\leq a_j.
+\]
+给定物点高度$y$，每个孔径在$p$轴上限定一个区间，通过全部孔径的光线方向由这些区间的交集确定。$B_j=0$时，该孔径只限制物高；$B_j\ne0$时，它限制该物点可用的光线方向。交集缩小会造成渐晕，交集为空则该物点没有光到达像面。采用同一套有向光线坐标时，这一判定也适用于虚物和无焦系统。
+
+对轴上物点$y=0$，最先限制入射角的孔径是孔径光阑。它通过前方光学元件所成的像称为入瞳，通过后方元件所成的像称为出瞳。光瞳可以是虚像，不能把入瞳一律画在真实光阑处。主光线通过孔径光阑中心；边缘光线通过光阑边缘。前者便于追踪视场，后者便于判断数值孔径。
+
+\ExpansionDiagram{fig:dep-o1-interval}{固定物高时，不同孔径对入射方向的限制形成区间交集}{
+\draw[->](0,0)--(8,0)node[right]{$p$};
+\draw[very thick](1,.7)--(5,.7);\draw(1,.55)--(1,.85);\draw(5,.55)--(5,.85);\node[left]at(.9,.7){孔径1};
+\draw[very thick](3,1.5)--(7,1.5);\draw(3,1.35)--(3,1.65);\draw(7,1.35)--(7,1.65);\node[left]at(2.9,1.5){孔径2};
+\fill[gray!20](3,-.25)rectangle(5,.25);\node[below]at(4,-.35){通过区间};
+\draw[dashed](3,-.25)--(3,1.6);\draw[dashed](5,-.25)--(5,1.6);}
+图\ref{fig:dep-o1-interval}中的阴影是两个允许区间的交集。物高变化时，区间通常发生相对平移，所以边缘视场的有效通光量可能低于轴上通光量，即使两个物点都严格成像。
+
+\subsection{光学不变量与通光量的几何限制}
+设同一系统中的两条近轴光线为$(y_1,p_1)$、$(y_2,p_2)$。约化矩阵的行列式为1，故
+\[
+ H=y_1p_2-y_2p_1
+\]
+在近轴传播和折射中保持不变。直接代入$y_j'=Ay_j+Bp_j$、$p_j'=Cy_j+Dp_j$，展开两乘积，$ACy_1y_2$及$BDp_1p_2$项相消，剩下$H'=(AD-BC)(y_1p_2-y_2p_1)=H$。它是二维光线相空间中的有向面积。选一条从轴上物点出发的边缘光线和一条从轴外物点出发的主光线，在物面得到$|H|=n_O|y_O\theta_O|$，在像面则为$n_I|y_I\theta_I|$。因此
+\[
+ n_O|y_O\theta_O|=n_I|y_I\theta_I|.
+\]
+放大像高以后，像方角孔径相应减小。孔径遮挡能删去一部分光线，却不能在保留全部入射光线的同时任意压缩这块相空间面积。这里使用近轴角度；大角度系统应以正弦形式及相应光学条件重新讨论。
+
+\begin{example}两孔径引起的渐晕
+空气中薄透镜焦距$f>0$、半口径$a$，物面在透镜前$2f$。透镜后$f$处有半宽同为$a$的光阑。求像面位置、轴上角孔径，以及物高$h$变化时可通过的方向区间和无光视场边界。
+\ExpansionDiagram{fig:dep-o1-aperture-q}{透镜与后置光阑分别限制光线高度}{
+\draw[->](-3.5,0)--(4,0)node[right]{$z$};
+\draw[<->,thick](0,-1)--(0,1);\node[above]at(0,1.2){透镜};\draw[<->](-.45,0)--(-.45,1)node[midway,left]{$a$};
+\draw[very thick](1.5,1)--(1.5,1.7);\draw[very thick](1.5,-1)--(1.5,-1.7);\node[above]at(1.5,1.8){光阑};
+\draw[->](-3,0)--(-3,.8)node[above]{$h$};\draw[dashed](3,-1.4)--(3,1.4)node[above]{像面};
+\draw(-3,-.5)--(0,-.5)node[midway,below]{$2f$};\draw(0,-1.9)--(1.5,-1.9)node[midway,below]{$f$};}
+\end{example}
+\begin{solution}
+由$1/(2f)+1/v=1/f$得$v=2f$，横向放大率为$-1$。图\ref{fig:dep-o1-aperture-q}中像面在光阑之后，光阑本身不改变成像位置。
+
+设物点发射角为$\theta$。到达透镜时高度$y_L=h+2f\theta$，折射后方向为
+\[
+ \theta_+=\theta-\frac{y_L}{f}=-\frac hf-\theta.
+\]
+再传播$f$到光阑，高度变为$y_S=y_L+f\theta_+=f\theta$。两个通过条件分别给出
+\[
+ \frac{-a-h}{2f}\leq\theta\leq\frac{a-h}{2f},
+ \qquad -\frac af\leq\theta\leq\frac af.
+\]
+轴上第一段较窄，所以透镜边缘是孔径光阑，轴上角半宽$a/(2f)$。
+\ExpansionDiagram{fig:dep-o1-aperture-a}{方向区间随物高平移；临界时交集收缩为一点}{
+\draw[->](0,0)--(7,0)node[right]{$f\theta/a$};
+\draw[very thick](1,.5)--(5,.5);\node[left]at(.9,.5){后光阑};
+\draw[very thick](2,1.2)--(4,1.2);\node[right]at(4.1,1.2){$h=0$};
+\draw[very thick](0,1.9)--(2,1.9);\node[right]at(2.1,1.9){$h=2a$};
+\draw[very thick](-1,2.6)--(1,2.6);\node[right]at(1.1,2.6){$h=3a$};
+\node[below]at(1,0){$-1$};\node[below]at(3,0){$0$};\node[below]at(5,0){$1$};\draw[dashed](1,.2)--(1,2.8);}
+在图\ref{fig:dep-o1-aperture-a}中，透镜允许区间的中心为$-h/(2f)$，半宽$a/(2f)$；后光阑的区间固定。由两个端点比较可得方向区间长度
+\[
+ \Delta\theta=\begin{cases}
+ a/f,& |h|\leq a,\\
+ (3a-|h|)/(2f),&a<|h|<3a,\\
+ 0,&|h|\geq3a.
+ \end{cases}
+\]
+$|h|=3a$时仅剩一条几何边界光线，其连续光束通量为零；$|h|>3a$时完全遮挡。这里求的是一个子午截面的方向宽度，不能直接把它当作三维圆孔系统的光通量比例；三维情况还需积分允许方向的面积。
+\end{solution}
+
+\begin{example}像面偏离与弥散斑
+仍取焦距$f$、半口径$a$的薄透镜，轴上物点在$2f$处。屏从理想像面沿$+z$移开$\delta$。求几何弥散斑半径；若物点还发生小轴向位移$\Delta z_O$，求一阶合并后的离焦量。忽略衍射，要求$|\delta|,|\Delta z_O|\ll f$。
+\ExpansionDiagram{fig:dep-o1-defocus-q}{像点两侧的截面都可能形成弥散斑}{
+\draw[->](-.5,0)--(6,0)node[right]{$z$};\draw[<->,thick](0,-1.3)--(0,1.3);
+\draw(0,1.2)--(4,0)--(5,-.3);\draw(0,-1.2)--(4,0)--(5,.3);
+\fill(4,0)circle(1.4pt)node[below]{$I$};\draw[thick](5,-1)--(5,1)node[above]{屏};\draw[<->](4,.65)--(5,.65)node[midway,above]{$\delta$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o1-defocus-q}中任一到达透镜高度$y_L$的光线，在透镜后为$y(z)=y_L(1-z/(2f))$。屏在$z=2f+\delta$，故$y=-y_L\delta/(2f)$。取$|y_L|\leq a$即得斑半径
+\[
+ r_g=\frac{a|\delta|}{2f}.
+\]
+物点坐标向右移动$\Delta z_O$意味着物距由$2f$变为$2f-\Delta z_O$。对$1/u+1/v=1/f$求微分，$-\dd u/u^2-\dd v/v^2=0$，故$\dd v/\dd u=-v^2/u^2$。在$u=v=2f$代入得$\dd v=-\dd u$，所以像点向右移动$\Delta z_I=\Delta z_O$。屏相对新像面的离焦量为$\delta-\Delta z_O$。
+\ExpansionDiagram{fig:dep-o1-defocus-a}{物面移动与屏面移动共同决定实际离焦}{
+\draw[->](0,0)--(7,0)node[right]{$z$};\fill(2,0)circle(1.4pt)node[below]{$I$};\fill(3,0)circle(1.4pt)node[below]{$I'$};
+\draw[thick](5,-1)--(5,1)node[above]{屏};\draw[<->](2,.4)--(3,.4)node[midway,above]{$\Delta z_O$};\draw[<->](3,-.7)--(5,-.7)node[midway,below]{$\delta-\Delta z_O$};}
+因此一阶结果为$r_g\simeq a|\delta-\Delta z_O|/(2f)$。图\ref{fig:dep-o1-defocus-a}中两种位移同向且相等时，一阶离焦消失。若需要更高精度，应使用新的像距与新的像方角度；若斑半径已接近衍射尺度，则几何斑不能单独作为实际点像宽度。
+\end{solution}

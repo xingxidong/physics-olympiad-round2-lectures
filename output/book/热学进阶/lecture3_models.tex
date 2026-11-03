@@ -1,0 +1,226 @@
+\section{过程设计与可用功}
+比较传热与做功方案时，应先约定允许的操作。外界热源、机械储能和选择膜都会改变可达末态。以下各题分别给出这些约束，再用能量与熵确定过程的限度。
+
+\begin{example}[分批接触为何仍有熵产生]
+热容均为 $C$ 的热水和冷水初温为 $T_h>T_c$。仍采用热水等分 $n$ 份、逐份与全部冷水接触后移走的协议。求有限 $n$ 的总熵增表达式，并证明 $n\to\infty$ 时过程仍不可逆。
+\Diagram{fig:batchentropyq}{各份热水最终温度不同，必须逐份计熵}{
+ \node[draw]at(0,0){冷水 $C,T_n$};\foreach \x/\s in{3.1/1,5.5/2,7.9/n}{\node[draw,align=center]at(\x,0){第\s 份热水\\$C/n,T_{\s}$};}\node at(3.9,-1){末态包含冷水与全部移走的热水};
+}
+\end{example}
+\begin{solution}
+设 $r=n/(n+1)$，前文递推给 $T_j=T_h+(T_c-T_h)r^j$。图\ref{fig:batchentropyq}中，第 $j$ 份热水移走时的温度为 $T_j$，以后不再变化；只有一直保留的冷水最终达到 $T_n$。因此
+\[
+ \Delta S_n=C\ln\frac{T_n}{T_c}
+ +\frac Cn\sum_{j=1}^n\ln\frac{T_j}{T_h}.
+\]
+有限 $n$ 时，每次有有限温差接触，故每段熵增都非负。考察连续分份极限，令累计使用份额 $s=j/n\in[0,1]$，则 $T(s)=T_h-(T_h-T_c)\ee^{-s}$，满足 $\dd T/\dd s=T_h-T$。
+全部冷水和移走的热水共同构成绝热整体。连续极限下，热水各份的熵变之和成为$C\int_0^1\ln[T(s)/T_h]\dd s$，积分变量$s$是已使用的热容份额。
+
+\Diagram{fig:batchentropya}{每个无穷小热水份仍从同一个高初温冷却}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$s$};\draw[axis](0,0)--(0,3)node[above]{$T$};\draw[curve]plot[domain=0:4](\x,{2.6-1.7*exp(-\x/4)});\draw[guide](0,2.6)--(4.2,2.6)node[right]{$T_h$};\node[left]at(0,.9){$T_c$};
+}
+图\ref{fig:batchentropya}中的一小份热水热容为 $C\dd s$。它冷却到当时冷水的温度，熵变为 $C\ln(T/T_h)\dd s$；冷水升温的熵变为 $C\dd T/T$。相加得
+\[
+ \frac{\dd S}{C\dd s}=\frac{T_h-T}{T}+\ln\frac T{T_h}
+ =z-1-\ln z,\qquad z=T_h/T>1.
+\]
+因 $\ln z<z-1$，每一阶段仍有正熵产，所以极限总熵
+\[
+ \Delta S_\infty=C\ln\frac{T(1)}{T_c}
+ +C\int_0^1\ln\frac{T(s)}{T_h}\dd s>0.
+\]
+每份热水虽趋于无穷小，仍须从$T_h$冷却到当前冷水温度；这段有限温差传热保留了熵产生。代入$100^\circ\mathrm C$与$0^\circ\mathrm C$的数据时，熵公式中的温度须取$373.15\,\mathrm K$和$273.15\,\mathrm K$。
+\end{solution}
+
+\begin{example}[不同热容物体的温度转移端点]
+一个物体热容为 $C$、初温 $600\,\mathrm K$，另一物体热容为 $2C$、初温 $300\,\mathrm K$。允许前述可逆机、热泵与归零的储功装置，整体绝热且净外功为零。求第二物体最高温度、第一物体末温，以及两者同温时暂存的最大机械功。
+\Diagram{fig:transfernumericq}{先取得机械功，再将其用于热泵}{
+ \node[draw]at(0,0){$C,600\,\mathrm K$};\node[draw]at(5,0){$2C,300\,\mathrm K$};\node[draw]at(2.5,-1.3){可逆装置＋储功};\draw[<->](.8,-.3)--(1.6,-1);\draw[<->](4.2,-.3)--(3.4,-1);
+}
+\end{example}
+\begin{solution}
+图\ref{fig:transfernumericq}对应 $\xi=2$、$\eta=1/2$。令两末温分别为 $600x$、$600y$，能量与熵约束为
+\[
+ x+2y=2,\qquad x(2y)^2=1.
+\]
+消去 $x$，$2y^3-2y^2+1/4=0$。已知初态根为 $y=1/2$，多项式因式分解为 $2(y-1/2)(y^2-y/2-1/4)=0$。另一正根
+\[
+ y_{\max}=\frac{1+\sqrt5}{4},\quad x=\frac{3-\sqrt5}{2}.
+\]
+因此第二物体最高温度 $150(1+\sqrt5)\,\mathrm K\approx485.41\,\mathrm K$，第一物体末温 $300(3-\sqrt5)\,\mathrm K\approx229.18\,\mathrm K$。
+因式分解后的二次因子还有一负根 $(1-\sqrt5)/4$，它对应负温度，不在本题模型范围内；初态根则只代表未作温度转移。所求正根使原热物体低于原冷物体初温，表明第二阶段必须反向作为热泵运行。两者同温时储功达到最大，因为沿总熵不变的轨迹，其总内能在这一点最小；继续把能量向第二物体集中，需要从储功中支付机械能，直至另一端点把它恰好用完。
+
+\Diagram{fig:transfernumerica}{同熵曲线上暂存功先增加后减少到零}{
+ \draw[axis](0,0)--(5,0)node[right]{过程进程};\draw[axis](0,0)--(0,2.7)node[above]{$W_{\rm store}$};\draw[curve](.4,0)to[out=70,in=180](2.5,2)to[out=0,in=110](4.6,0);\node[above]at(2.5,2){两体同温};\node[below]at(.4,0){初态};\node[below]at(4.6,0){转移端点};
+}
+两体同温时 $T_r=600^{1/3}300^{2/3}=600\,2^{-2/3}\,\mathrm K$。图\ref{fig:transfernumerica}顶点的储功为
+\[
+ W_{\rm store,max}=C[1200-1800\,2^{-2/3}]\,\mathrm K
+ \approx66.07\,C\,\mathrm K.
+\]
+此后把这些功全部用于热泵，直到储功归零，才能达到另一等初熵端点。第一物体温度低于原冷物体初温并不矛盾：整个过程同时改变了两者，且并未把热量从低温送往高温而不付任何中间代价。
+\end{solution}
+
+\begin{example}[两级非理想热机的中间温度]
+两台热机串联工作在恒温热源 $T_h>T_c$ 之间，中间热源温度为 $T_m$。每台实际效率均为同温区卡诺效率的 $q$ 倍，$0<q<1$。第一级排出的热量全部成为第二级的吸热。求总效率及使之最大的 $T_m$，再讨论 $q=1$。
+\Diagram{fig:cascadeq}{两级热机通过中间热源传递热量}{
+ \node[draw]at(0,2.2){$T_h$};\node[draw,circle]at(0,1){1};\node[draw]at(0,-.2){$T_m$};\node[draw,circle]at(0,-1.4){2};\node[draw]at(0,-2.6){$T_c$};
+ \foreach \y in{1.8,.6,-.6,-1.8}{\draw[axis](0,\y)--(0,\y-.4);}\draw[axis](.5,1)--(2,1)node[right]{$W_1$};\draw[axis](.5,-1.4)--(2,-1.4)node[right]{$W_2$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:cascadeq}第一级吸热为 $Q_h$，其排热为 $Q_m=(1-\eta_1)Q_h$，第二级排热为 $Q_c=(1-\eta_2)Q_m$。因此总效率
+\[
+ \eta=1-(1-\eta_1)(1-\eta_2),
+ \quad\eta_1=q(1-T_m/T_h),\quad\eta_2=q(1-T_c/T_m).
+\]
+展开剩余热量比例，
+\[
+ 1-\eta=(1-q)^2+q^2\frac{T_c}{T_h}
+ +q(1-q)\left(\frac{T_m}{T_h}+\frac{T_c}{T_m}\right).
+\]
+当$0<q<1$时，只有括号内的两项随$T_m$变化，且其系数$q(1-q)>0$。提高总效率等价于使这两项的和最小。
+
+\Diagram{fig:cascadea}{需要最小化的中间温度函数}{
+ \draw[axis](0,0)--(5,0)node[right]{$T_m$};\draw[axis](0,0)--(0,2.8)node[above]{$1-\eta$};\draw[curve](.7,2.3)to[out=-65,in=180](2.5,.8)to[out=0,in=230](4.5,2.1);\node[below]at(2.5,0){$\sqrt{T_hT_c}$};
+}
+图\ref{fig:cascadea}中唯一变项的导数为 $1/T_h-T_c/T_m^2$，二阶导为 $2T_c/T_m^3>0$，故最优 $T_m=\sqrt{T_hT_c}$。总效率最大值
+\[
+ \eta_{\max}=1-\left(1-q+q\sqrt{T_c/T_h}\right)^2.
+\]
+若 $q=1$，总效率对任何允许的中间温度均为 $1-T_c/T_h$。因此中间温度取几何平均是本题非理想效率模型的最优选择；串联可逆机的总效率则与这一选择无关。
+\end{solution}
+
+\begin{example}[导热活动隔板后的平衡状态]
+绝热刚性容器内有一块可导热、无摩擦的活动隔板，两侧气体不能混合。隔板初始静止，热容忽略。两侧初态为$N_1,V_1,T_1$和$N_2,V_2,T_2$，均是常热容理想气体，系统定容热容为$C_1,C_2$。允许气体内部耗散使其最终静止平衡，求终温、终压、两侧终体积与熵增。
+\Diagram{fig:conductpistonq}{隔板允许传热和位移，禁止粒子穿过}{
+ \draw(0,0)rectangle(6,1.8);\draw[line width=2pt](2.5,0)--(2.5,1.8);\node[align=center]at(1.2,.9){$N_1,V_1,T_1$\\$C_1$};\node[align=center]at(4.3,.9){$N_2,V_2,T_2$\\$C_2$};\draw[<->](2,2.2)--(3,2.2);
+}
+\end{example}
+\begin{solution}
+图\ref{fig:conductpistonq}整体绝热且外壁不动。隔板内部做功和传热会改变各侧能量，却在整体能量式中相抵消。最终两侧同温 $T_f$，所以
+\[
+ T_f=\frac{C_1T_1+C_2T_2}{C_1+C_2}.
+\]
+无摩擦静止隔板要求两侧同压，$N_1\kb T_f/V_{1f}=N_2\kb T_f/V_{2f}$，再用总体积 $V=V_1+V_2$ 固定，得
+\[
+ V_{if}=\frac{N_i}{N_1+N_2}V,\qquad
+ p_f=\frac{(N_1+N_2)\kb T_f}{V}.
+\]
+也可从熵极值推导终态。允许微小能量交换，总熵的相应导数为 $1/T_1-1/T_2$，平衡条件给出同温；再允许隔板微移，导数为 $(p_1-p_2)/T$，给出同压。结合整体能量守恒确定终温，再由状态方程确定隔板位置。两侧粒子数各自固定，同温、同压使最终体积比等于粒子数之比。
+
+\Diagram{fig:conductpistona}{最终隔板位置按粒子数分配体积}{
+ \draw(0,0)rectangle(6,1.6);\draw[line width=2pt](2,0)--(2,1.6);\node[align=center]at(1,.8){$T_f,p_f$\\$V_{1f}$};\node[align=center]at(4,.8){$T_f,p_f$\\$V_{2f}$};\node at(3,-.6){$V_{1f}/V_{2f}=N_1/N_2$};
+}
+图\ref{fig:conductpistona}中各组分仍被隔板隔开，熵变应按自己的终体积计算：
+\[
+ \Delta S=\sum_{i=1}^2\left[C_i\ln\frac{T_f}{T_i}
+ +N_i\kb\ln\frac{V_{if}}{V_i}\right].
+\]
+活动隔板保留了两侧各自的粒子边界，所以熵公式使用 $V_{if}$；撤去隔板的混合题才让各组分占据总容积 $V$。此外，题设的静止终态依赖内部弛豫。若完全没有阻尼，隔板可能持续振荡，不能按已经达到平衡处理。
+\end{solution}
+
+\begin{example}[等温压强不均匀气体的最大功]
+两侧理想气体用不透粒子的活动隔板分开，均由温度 $T_0$ 的同一热源维持恒温，粒子数 $N_1,N_2$ 固定。初体积为 $V_1,V_2$，总体积不变。通过可逆外部负载控制隔板移动至机械平衡，求最大输出功。
+\Diagram{fig:pressureworkq}{隔板对外负载输出压差功}{
+ \draw(0,0)rectangle(6,1.7);\draw[line width=2pt](2.4,0)--(2.4,1.7);\node at(1.2,.85){$p_1,T_0$};\node at(4.2,.85){$p_2,T_0$};\draw[axis](2.4,2)--(4,2)node[right]{负载};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:pressureworkq}中左侧体积增加 $\dd V_1$，右侧减少同量。两侧对隔板的净功为 $(p_1-p_2)\dd V_1$，可逆负载将其全部输出。令总体积 $V$、变化变量为 $v=V_1$，则
+\[
+ W=\kb T_0\int_{V_1}^{V_{1f}}
+ \left(\frac{N_1}v-\frac{N_2}{V-v}\right)\dd v.
+\]
+第二项令$w=V-v$，$\dd w=-\dd v$，于是原函数为$N_2\ln(V-v)$。两项合起来的端点差为$[N_1\ln v+N_2\ln(V-v)]_{V_1}^{V_{1f}}$，所以
+\[
+ W_{\max}=\kb T_0\left[N_1\ln\frac{V_{1f}}{V_1}
+ +N_2\ln\frac{V_{2f}}{V_2}\right],
+ \quad V_{if}=\frac{N_i}{N_1+N_2}V.
+\]
+功积分的上限先作为未知末位置处理，对其求导得到 $\dd W/\dd V_{1f}=p_{1f}-p_{2f}$。只有压差为零时，继续移动隔板不再能取得一阶正功。若初态恰已等压，上限就等于原位置，所有对数项相消，最大功为零；若初态不等压，可逆负载使隔板逐步释放压差功。
+
+\Diagram{fig:pressureworka}{功作为隔板位置的函数在等压点最大}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$V_{1f}$};\draw[axis](0,0)--(0,2.8)node[above]{$W$};\draw[curve](.6,.4)to[out=60,in=180](2.5,2.2)to[out=0,in=115](4.3,.5);\node at(2.6,2.7){$p_1=p_2$};
+}
+图\ref{fig:pressureworka}的二阶导为 $-\kb T_0[N_1/v^2+N_2/(V-v)^2]<0$，所以等压点为唯一最大值。气体总内能因恒温不变，输出功全部来自热源供热 $Q=W_{\max}$；气体熵增为 $W_{\max}/T_0$，热源熵减恰好抵消。隔板不透气，两侧粒子数$N_1,N_2$始终不变；改变的是两侧体积和压强。只要取得了正功，气体终态便不同于初态，因而这不是单热源循环做功。
+\end{solution}
+
+\begin{example}[理想混合气体的可逆分离功]
+温度 $T_0$、总压强 $p$ 的二元理想气体混合物，共 $\nu$ 摩尔，摩尔分数为 $x$、$1-x$。利用对各组分选择透过的理想膜，在同温同压条件下将其分离成纯组分。求最小输入功、放热量与总熵变化。
+\Diagram{fig:separationq}{理想选择膜可分别限制两种分子的可达区域}{
+ \draw(0,0)rectangle(5.5,1.7);\draw[dashed](1.8,0)--(1.8,1.7);\draw[dotted,line width=1pt](3.7,0)--(3.7,1.7);\node at(.9,.85){组分1};\node at(2.75,.85){混合};\node at(4.6,.85){组分2};
+}
+\end{example}
+\begin{solution}
+混合物总体积 $V=\nu RT_0/p$。图\ref{fig:separationq}中的理想膜允许分别控制两种组分，各组分起初都可达 $V$，分离后纯组分体积分别为 $xV$、$(1-x)V$。对每组分作可逆等温压缩，输入功
+\[
+ W_{\rm on,1}=\nu xRT_0\ln\frac1x,\quad
+ W_{\rm on,2}=\nu(1-x)RT_0\ln\frac1{1-x}.
+\]
+每个组分的压缩功来自 $W_{{\rm on},i}=-\int_V^{V_i}p_i\dd V_i$，其中过程中的 $p_i=\nu_iRT_0/V_i$。积分上限小于下限，因此外界输入功为正。末态纯组分体积按其物质的量分配，使各自压强仍等于 $p$；总体积并未凭空减少。恒温压缩的内能不变，输入机械功须以热量排给恒温热源。对可逆选择膜取到的是最小功，真实膜阻力或混杂损失会增加所需功。
+
+\Diagram{fig:separationa}{分离后的体积之和保持不变}{
+ \draw(0,0)rectangle(5.5,1.6);\draw[line width=1.4pt](2,0)--(2,1.6);\node at(1,.8){$xV$};\node at(3.75,.8){$(1-x)V$};\node at(2.75,-.6){两纯组分均为 $T_0,p$};
+}
+图\ref{fig:separationa}末态的总内能与初态相同，因此最小功
+\[
+ W_{\min}=-\nu RT_0[x\ln x+(1-x)\ln(1-x)]
+ =T_0\Delta S_{\rm mix}.
+\]
+系统向热源放热同量，系统熵减少 $\Delta S_{\rm mix}$，热源熵增加相同量，总熵变为零。自由混合能量不变，却使此后可逆分离需要功；混合不可逆性的代价体现在熵和自由能，而不一定体现在内能上。
+\end{solution}
+
+\begin{example}[直接传热损失的可用功]
+两个常热容物体初温 $T_1,T_2$ 均高于环境温度 $T_0$。比较两种方案：分别通过可逆热机冷却到环境；先直接接触到 $T_d$，再共同通过可逆热机冷却到环境。求第二方案比第一方案少得到的功。
+\Diagram{fig:lostworkq}{先直接接触会改变后续可用功}{
+ \node[draw]at(0,1){$C_1,T_1$};\node[draw]at(0,-1){$C_2,T_2$};\draw[axis](1.2,1)--(3,0);\draw[axis](1.2,-1)--(3,0);\node[draw]at(4.3,0){$C_1+C_2,T_d$};
+}
+\end{example}
+\begin{solution}
+单个物体相对环境的最大功由习题中“有限热物体对无限冷源的最大功”的完整积分给出，$A_i=C_i[(T_i-T_0)-T_0\ln(T_i/T_0)]$。方案一得到$W_1=A_1+A_2$。图\ref{fig:lostworkq}的直接接触保持总内能，所以$(C_1+C_2)T_d=C_1T_1+C_2T_2$；方案二得到
+\[
+ W_2=(C_1+C_2)[(T_d-T_0)-T_0\ln(T_d/T_0)].
+\]
+两方案最终都降至$T_0$，初末总能量差相同。直接接触保持两物体总内能，却产生熵，改变了后续热机可取得的功。
+
+\Diagram{fig:lostworka}{能量项相消后损失由熵产决定}{
+ \node[draw]at(0,0){$W_1-W_2$};\node at(2.2,0){$=$};\node[draw]at(4.7,0){$T_0\Delta S_{\rm contact}$};
+}
+两式相减，线性能量项消去，得
+\[
+ W_1-W_2=T_0\left[(C_1+C_2)\ln T_d-C_1\ln T_1-C_2\ln T_2\right]
+ =T_0\Delta S_{\rm contact}\ge0.
+\]
+图\ref{fig:lostworka}描述的是给定环境下的可用功减少。式中的$T_0$为环境温度；同样的熵产生在不同环境温度下，对应不同的输出功损失。
+\end{solution}
+
+\begin{example}[有限物体间的辐射换热时间]
+两个常热容均为 $C$ 的均温物体构成绝热整体，彼此净辐射换热率为 $P=K(t_1^4-t_2^4)$，$K>0$，初温 $T_1>T_2$。求温差的时间关系与总熵变化，忽略传播时延和辐射场储能。
+\Diagram{fig:radcontactq}{两有限物体仅通过净辐射交换能量}{
+ \node[draw,minimum height=1cm]at(0,0){$C,t_1$};\node[draw,minimum height=1cm]at(5,0){$C,t_2$};\draw[decorate,decoration={snake,amplitude=1.2pt,segment length=8pt},->](1.2,0)--(3.8,0);\node at(2.5,.8){$K(t_1^4-t_2^4)$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:radcontactq}的能量式给 $C\dot t_1=-P$、$C\dot t_2=P$，所以 $t_1+t_2=2\bar T$ 恒定，$\bar T=(T_1+T_2)/2$。令 $u=(t_1-t_2)/(2\bar T)$，即 $t_{1,2}=\bar T(1\pm u)$。展开四次方差，$t_1^4-t_2^4=8\bar T^4u(1+u^2)$，从而
+\[
+ \dot u=-\frac{8K\bar T^3}C u(1+u^2).
+\]
+分离变量，用$1/[u(1+u^2)]=1/u-u/(1+u^2)$。后一项令$z=1+u^2$、$\dd z=2u\dd u$，故原函数为$\ln u-\tfrac12\ln(1+u^2)$。取$u_0\to u(t)$和$0\to t$作两侧上下限，得到
+\[
+ \ln\frac{u}{\sqrt{1+u^2}}-
+ \ln\frac{u_0}{\sqrt{1+u_0^2}}
+ =-\frac{8K\bar T^3}C t.
+\]
+为得到显式温差，可令 $Y(t)=u_0\ee^{-\gamma t}/\sqrt{1+u_0^2}$，其中 $\gamma=8K\bar T^3/C$。积分结果成为 $u/\sqrt{1+u^2}=Y$，两边平方并解出正根，得到 $u=Y/\sqrt{1-Y^2}$。正根由始终 $t_1\ge t_2$ 决定。温差很小时 $u\ll1$，分母近于1，才恢复通常的指数衰减；大温差时仍须保留这一非线性反解。
+
+\Diagram{fig:radcontacta}{变换后的温差按指数规律衰减}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$t$};\draw[axis](0,0)--(0,2.8)node[above]{$u/\sqrt{1+u^2}$};\draw[curve]plot[domain=0:4.4](\x,{2.4*exp(-.7*\x)});
+}
+图\ref{fig:radcontacta}给出的是变换后的量，并非 $u$ 在大温差下严格指数衰减。总熵相对于初态为
+\[
+ \Delta S(t)=C\ln\frac{t_1t_2}{T_1T_2}
+ =C\ln\frac{1-u^2}{1-u_0^2}.
+\]
+随 $u$ 下降，熵单调增加，最终熵增为 $C\ln[\bar T^2/(T_1T_2)]$。改变传热定律会改变到达过程的时间，却不改变在同一能量约束下的直接接触终态和总熵增。
+\end{solution}

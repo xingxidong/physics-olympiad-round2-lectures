@@ -1,0 +1,91 @@
+\section{矩阵成像与高斯光束的连接}
+\subsection{高斯积分的归一化与带相位形式}
+光束传播与相干平均都会用到
+\[
+ \mathcal G(a,b)=\int_{-\infty}^{\infty}\exp(-ax^2+bx)\dd x,
+ \qquad \operatorname{Re}a>0.
+\]
+先取实数$a>0,b=0$。将积分平方写成二维积分，再取极坐标，
+\[
+ \mathcal G(a,0)^2=\int_0^{2\pi}\dd\varphi\int_0^\infty
+ r\ee^{-ar^2}\dd r
+ =2\pi\left[-\frac{\ee^{-ar^2}}{2a}\right]_0^\infty=\frac\pi a.
+\]
+原积分为正，故$\mathcal G(a,0)=\sqrt{\pi/a}$。对$b$求导并分部积分，
+\begin{align*}
+ \partial_b\mathcal G
+ &=\int_{-\infty}^{\infty}x\ee^{-ax^2+bx}\dd x\\
+ &=-\frac1{2a}[\ee^{-ax^2+bx}]_{-\infty}^{\infty}
+ +\frac b{2a}\int_{-\infty}^{\infty}\ee^{-ax^2+bx}\dd x
+ =\frac b{2a}\mathcal G.
+\end{align*}
+边界项由$\operatorname{Re}a>0$保证为零。乘积分因子$\exp[-b^2/(4a)]$，有$\partial_b\{\ee^{-b^2/(4a)}\mathcal G\}=0$，以$b=0$的值确定常数，得到
+\begin{equation}\label{eq:o1gaussintegral}
+ \mathcal G(a,b)=\sqrt{\frac\pi a}\exp\frac{b^2}{4a}.
+\end{equation}
+对复数$a$取在正实轴上为正的连续平方根。积分与右侧在$\operatorname{Re}a>0$均解析，上式由实正$a$连续延拓到该半平面；它适用于后面含二次相位的收敛积分。
+
+\subsection{光束宽度与波前曲率需要同时传播}
+束腰附近的有限光斑会发生衍射扩展，需要同时计算场的振幅与相位。对沿$+z$传播、时间因子为$\ee^{-\mathrm i\omega t}$的标量场，写作$E=U(x,y,z)\ee^{\mathrm ikz}$。在$|\partial_z^2U|\ll|k\partial_zU|$的近轴条件下，Helmholtz方程化为
+\[
+ 2\mathrm ik\partial_zU+\nabla_\perp^2U=0.
+\]
+均匀介质中试取轴对称解$U=Cq^{-1}\exp[\mathrm ikr^2/(2q)]$。对$z,r$分别求导，
+\begin{align*}
+ \frac{\partial_zU}{U}&=-\frac{q'}q-\frac{\mathrm ikr^2q'}{2q^2},\\
+ \frac{\partial_rU}{U}&=\frac{\mathrm ikr}q,\qquad
+ \frac{\partial_r^2U}{U}=\frac{\mathrm ik}q-\frac{k^2r^2}{q^2},\\
+ \frac{\nabla_\perp^2U}{U}&=\frac{2\mathrm ik}q-\frac{k^2r^2}{q^2}.
+\end{align*}
+代入近轴方程，剩余$(1-q')[2\mathrm ik/q-k^2r^2/q^2]=0$，要求$q'=1$。以束腰处$q(z_w)=-\mathrm iz_R$为初值，$q(z)-q(z_w)=\int_{z_w}^z\dd s=z-z_w$，故
+\[
+ q=z-z_w-\mathrm iz_R,\qquad z_R>0,
+ \quad\frac1q=\frac1{R_w}+\mathrm i\frac2{kw^2}.
+\]
+这里$z_w$为束腰位置，$w$是场振幅降至轴上$1/\ee$的半径，也即强度降至$1/\ee^2$的半径；$R_w$为波前有向曲率半径。这个$q$的虚部为负，与所选传播相位一致，不能与另一套相位约定的$q=z+\mathrm iz_R$混用。
+
+由复数倒数直接比较实虚部，得到
+\[
+ w^2(z)=w_0^2\left[1+\frac{(z-z_w)^2}{z_R^2}\right],
+ \quad z_R=\frac{kw_0^2}{2}=\frac{\pi n w_0^2}{\lambda_0},
+\]
+\[
+ R_w=(z-z_w)+\frac{z_R^2}{z-z_w}.
+\]
+束腰处$R_w$无限大，只表示该处波前近乎平面，并不意味着光束以后不发散。远处的发散半角为$w_0/z_R=\lambda_0/(\pi n w_0)$。
+\ExpansionDiagram{fig:dep-o1-gaussian}{束腰附近的光束边界；虚线为远区渐近线}{
+\draw[->](-3.4,0)--(3.5,0)node[right]{$z-z_w$};\draw[thick,domain=-3:3,samples=90]plot(\x,{.55*sqrt(1+(\x)^2)});\draw[thick,domain=-3:3,samples=90]plot(\x,{-.55*sqrt(1+(\x)^2)});\draw[dashed](-3,1.65)--(3,-1.65);\draw[dashed](-3,-1.65)--(3,1.65);\draw[<->](0,-.55)--(0,.55);\node[right,fill=white,inner sep=1pt]at(.12,.23){$2w_0$};}
+图\ref{fig:dep-o1-gaussian}的上下曲线分别为$\pm w(z)$，不是硬边界；边界外仍有指数尾部。计算遮挡功率时要积分实际强度，不能把$\pi w^2$内外简单当作有光与无光。
+
+\subsection{同一ABCD矩阵怎样作用于复参数}
+在同一均匀介质的光线坐标$(y,\theta)$下，自由传播使$q\mapsto q+d$。薄透镜附加相位$\exp[-\mathrm ikr^2/(2f)]$，使$1/q\mapsto1/q-1/f$。两者与光线矩阵一致，因此由这些元件组成的系统满足
+\[
+ q_{\rm out}=\frac{Aq_{\rm in}+B}{Cq_{\rm in}+D}.
+\]
+可逐个乘矩阵验证分式变换的复合规律。若使用约化坐标$(y,n\theta)$或跨越不同外部介质，应同步改变复参数定义，不能在矩阵中保留折射率而在$q$中忽略它。本节例题两侧均为空气。
+
+\begin{example}透镜后的束腰未必在几何焦平面
+一高斯光束恰在薄正透镜平面有束腰，腰半径$w_0$、Rayleigh长度$z_R$，透镜焦距$f>0$。求透镜后的新束腰位置和腰半径，比较$z_R\gg f$与$z_R=f$两种情况。
+\ExpansionDiagram{fig:dep-o1-gaussfocus-q}{透镜位于原束腰面，入射波前平坦但束宽有限}{
+\draw[->](-3,0)--(4.5,0)node[right]{$z$};\draw[<->,thick](0,-1.4)--(0,1.4)node[above]{透镜};\draw[thick,domain=-2.5:0,samples=70]plot(\x,{.7*sqrt(1+(\x/3)^2)});\draw[thick,domain=-2.5:0,samples=70]plot(\x,{-.7*sqrt(1+(\x/3)^2)});\draw[dashed](3,-1.2)--(3,1.2)node[above]{$f$};\node[left]at(0,-1.6){原束腰};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o1-gaussfocus-q}中入射$q_-=-\mathrm iz_R$。薄透镜后
+\[
+ \frac1{q_+}=-\frac1f+\frac{\mathrm i}{z_R},\qquad
+ q_+=-\frac{fz_R^2}{f^2+z_R^2}
+ -\mathrm i\frac{f^2z_R}{f^2+z_R^2}.
+\]
+继续传播距离$z$后，$q(z)=q_++z$。新束腰要求实部为零，所以
+\[
+ z_w'=\frac{fz_R^2}{f^2+z_R^2},\qquad
+ z_R'=\frac{f^2z_R}{f^2+z_R^2},\qquad
+ \frac{w_0'}{w_0}=\sqrt{\frac{z_R'}{z_R}}
+ =\frac f{\sqrt{f^2+z_R^2}}.
+\]
+\ExpansionDiagram{fig:dep-o1-gaussfocus-a}{新束腰在几何焦点之前；图示$z_R=f$时位于$f/2$}{
+\draw[->](0,0)--(6,0)node[right]{$z$};\draw[thick,domain=0:5,samples=90]plot(\x,{.55*sqrt(1+(\x-2)^2/4)});\draw[thick,domain=0:5,samples=90]plot(\x,{-.55*sqrt(1+(\x-2)^2/4)});\draw[<->](0,-1.5)--(0,1.5);\draw[dashed](2,-1.2)--(2,1.2)node[above]{$f/2$};\draw[dashed](4,-1.5)--(4,1.5)node[above]{$f$};}
+当$z_R\gg f$，$z_w'\simeq f$、$w_0'\simeq\lambda_0f/(\pi w_0)$，几何焦平面近似成立。若$z_R=f$，图\ref{fig:dep-o1-gaussfocus-a}中$z_w'=f/2,z_R'=f/2,w_0'=w_0/\sqrt2$。原波前虽平坦，有限腰半径意味着角谱本来就有宽度，不能把它等同于所有光线严格平行的无限平面波。
+
+该结果假定透镜孔径足够大、无明显像差，且新束腰仍满足近轴条件$\lambda_0/(\pi w_0')\ll1$。若透镜把光束截断，单一高斯$q$参数已不能表示完整衍射场，应回到带实际孔径的积分。
+\end{solution}

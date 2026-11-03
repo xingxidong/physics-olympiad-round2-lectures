@@ -1,0 +1,70 @@
+\begin{exercise}[两种横档交替的半无限梯形]\label{ex:rev-c3-alternate}
+双轨半无限电阻梯形中，每一段上、下轨电阻均为$r$，横档依次为$r,2r,r,2r,\ldots$。输入端就在第一根横档两端。求从$r$横档开始和从$2r$横档开始的两种输入电阻，并说明有限截断的被动网络为何趋于该结果。
+\ExpansionDiagram{fig:rev-c3-alternate-q}{横档按两格周期重复，入口横档必须计入}{
+\foreach\x/\v in{0/r,2/2r,4/r,6/2r}{\Res{\x,0}{\x,2}{\v}}
+\foreach\x/\y in{0/2,2/4,4/6}{\Res{\x,0}{\y,0}{r}\Res{\x,2}{\y,2}{r}}
+\draw(6,0)--(7,0);\draw(6,2)--(7,2);\node[right]at(7,1){$\cdots$};\draw[->](-1,2)--(-.1,2)node[midway,above]{入口};}
+\end{exercise}
+\begin{solution}
+记两种入口电阻为$Z_A,Z_B$。图\ref{fig:rev-c3-alternate-q}从$A$型入口向右去掉一格，剩余部分为$B$型，反之亦然；不能用一个平均横档电阻代替这个周期。令$x=Z_A/r,y=Z_B/r$，则
+\[
+ x=\frac{2+y}{3+y},\qquad
+ y=\frac{2(2+x)}{4+x}.
+\]
+这里分子中的$2$来自上下轨各一个$r$；它们与后续网络串联，再与入口横档并联。
+\ExpansionDiagram{fig:rev-c3-alternate-s}{自洽式分别保留入口横档与下一型网络}{
+\begin{scope}\draw(0,0)--(0,2)--(2.5,2)--(2.5,0)--cycle;\node[above]at(1.25,2.1){$Z_A$};\Res{0,0}{0,2}{r}\node[draw,fill=white]at(2.5,1){$2r+Z_B$};\end{scope}
+\begin{scope}[xshift=5cm]\draw(0,0)--(0,2)--(2.5,2)--(2.5,0)--cycle;\node[above]at(1.25,2.1){$Z_B$};\Res{0,0}{0,2}{2r}\node[draw,fill=white]at(2.5,1){$2r+Z_A$};\end{scope}}
+消去$y$，图\ref{fig:rev-c3-alternate-s}的两格递推变为
+\[
+ x=F(x)=\frac{12+4x}{16+5x},\qquad
+ 5x^2+12x-12=0.
+\]
+二次方程的两根为$(-6\pm4\sqrt6)/5$。被动网络输入电阻非负，舍去负根，代回$y$得
+\[
+ \boxed{Z_A=\frac{4\sqrt6-6}{5}r,\qquad
+ Z_B=\frac{4(\sqrt6-1)}5r}.
+\]
+还须确定有限网络是否选中这组根。任意非负有限末端电阻经两格变换后均满足$3/4\le F(x)<4/5$，并且
+\[
+ F'(x)=\frac{4(16+5x)-5(12+4x)}{(16+5x)^2}
+ =\frac4{(16+5x)^2}\le\frac1{64}\quad(x\ge0).
+\]
+由中值定理，连续两次截断结果的差每增加一个两格单元至多缩小为原来的$1/64$，并在闭区间$[3/4,4/5]$内收敛到唯一不动点。开路末端可先取$x\to\infty$，一次变换后成为$4/5$，随后同样收敛。短路末端取$x=0$也适用。因此这两个输入电阻不依赖远端被动封口的具体选择；入口横档类型的差别却始终保留。
+\end{solution}
+
+\begin{exercise}[由有限梯形的测量反求参数]\label{ex:rev-c3-inverse}
+均匀双轨梯形中，每段轨道电阻$r$和每根横档电阻$q$均未知且为正。只保留一根横档时测得输入电阻$R_0=q$；增加上下轨各一段及第二根横档后测得$R_1=p$。由$q,p$求$r$与半无限网络的输入电阻，给出测量值的可行范围，并讨论$r$对$p$的小误差的敏感程度。计算$q=100\,\Omega,p=75\,\Omega$的结果。
+\ExpansionDiagram{fig:rev-c3-inverse-q}{两次测量共用同一横档参数，第二次增加完整一格}{
+\Res{0,0}{0,2}{q}\node[below]at(0,-.5){$R_0=q$};
+\begin{scope}[xshift=3cm]\Res{0,0}{0,2}{q}\Res{0,2}{3,2}{r}\Res{0,0}{3,0}{r}\Res{3,0}{3,2}{q}\node[below]at(1.5,-.5){$R_1=p$};\end{scope}}
+\end{exercise}
+\begin{solution}
+图\ref{fig:rev-c3-inverse-q}第二次测量为$q$与$2r+q$并联，故
+\[
+ p=\frac{q(2r+q)}{2r+2q},\qquad
+ 2pr+2pq=2qr+q^2.
+\]
+移项后，$2(q-p)r=q(2p-q)$，于是
+\[
+ \boxed{r=\frac{q(2p-q)}{2(q-p)}}.
+\]
+当$r$从零增至无穷，第二支路电阻$2r+q$从$q$增至无穷，故必须满足$q/2<p<q$；超出此范围的测量值与题设的正电阻模型不相容。
+\ExpansionDiagram{fig:rev-c3-inverse-s}{可行测量区间，两端对应不同的退化极限}{
+\draw[axis](0,0)--(6.5,0)node[right]{$p$};\draw[line width=1.2pt](1,0)--(5.5,0);\draw[fill=white](1,0)circle(2pt);\draw[fill=white](5.5,0)circle(2pt);\node[below]at(1,0){$q/2$};\node[below]at(5.5,0){$q$};\node[above]at(1,.2){$r\to0$};\node[above]at(5.5,.2){$r\to\infty$};\node at(3.2,.8){$r>0$};}
+半无限输入电阻$Z$满足$Z=q(2r+Z)/(q+2r+Z)$。交叉相乘并约去$qZ$，得到$Z^2+2rZ-2rq=0$，取正根，
+\[
+ \boxed{Z=\sqrt{r^2+2rq}-r}.
+\]
+在给定数据下，$r=100(150-100)/[2(100-75)]=100\,\Omega$，故$Z=100(\sqrt3-1)\,\Omega\simeq73.21\,\Omega$。
+
+若$q$已准确确定，只考虑$p$的误差，则对反演式求导：
+\[
+ \frac{\dd r}{\dd p}
+ =\frac q2\frac{2(q-p)+(2p-q)}{(q-p)^2}
+ =\frac{q^2}{2(q-p)^2},\qquad
+ \frac{\delta r}{r}\simeq
+ \frac{q\,\delta p}{(q-p)(2p-q)}.
+\]
+图\ref{fig:rev-c3-inverse-s}的两端附近，分母都趋于零：靠近$q$时，有限测量难以区分两个很大的$r$；靠近$q/2$时，$r$本身很小，固定绝对测量误差会造成很大的相对误差。线性误差式还要求$|\delta p|$远小于$p-q/2$和$q-p$，否则应直接用测量区间代入反演式。
+\end{solution}

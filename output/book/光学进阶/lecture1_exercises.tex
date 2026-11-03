@@ -1,0 +1,93 @@
+\section{习题与解答}
+\input{lecture1_supplement}
+\input{lecture1_additional}
+\input{lecture1_practice}
+\begin{exercise}\label{ex:o1magnification}
+薄透镜在空气中$f>0$，物高$h$，物距$u>f$。求像距与横向放大率，并由两条光线画出$u=5f/3$的像。
+\Diagram{fig:o1magnifyq}{已知物高、物距与焦距}{\OptAxis\draw[<->](2,-1.8)--(2,1.8);\draw[->,thick](0,0)--(0,1);\node[left]at(0,1){$h$};\fill(3.2,0)circle(1.3pt)node[below]{$F'$};\draw[<->](0,-.6)--(2,-.6)node[midway,below]{$u$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1magnifyq}中$1/u+1/v=1/f$，解得$v=fu/(u-f)$。通过光心的近轴光线保持方向，由相似三角形$h'/v=-h/u$，所以横向放大率$m_y=h'/h=-v/u=-f/(u-f)$。
+\Diagram{fig:o1magnifya}{平行轴光线经后焦点，过光心光线不偏折，两者交于倒立实像}{\OptAxis\draw[<->](2,-1.9)--(2,1.9);\draw[->,thick](0,0)--(0,1);\draw[->,thick](5,0)--(5,-1.5);\draw[->](0,1)--(2,1);\draw[->](2,1)--(5,-1.5);\draw[->](0,1)--(5,-1.5);\fill(3.2,0)circle(1.2pt)node[above]{$F'$};}
+取$u=5f/3$，则$v=5f/2$、$m_y=-3/2$。图\ref{fig:o1magnifya}按$f=1.2$、$u=2$作图，实像在$z=5$、像高$-1.5h$，交点与计算吻合。真实透镜在大孔径或大物高时需考虑像差，本图只表达近轴模型。
+\end{solution}
+
+\begin{exercise}\label{ex:o1afocal}
+正透镜$f_1>0$、$f_2>0$相隔$f_1+f_2$。求平行细光束通过后的束径比与小角偏转比，并说明无焦系统是否“没有作用”。
+\Diagram{fig:o1afocalq}{共焦双正透镜系统}{\OptAxis\draw[<->](1,-1.4)--(1,1.4);\draw[<->](5,-1.1)--(5,1.1);\draw[guide](3.5,-1.6)--(3.5,1.6);\node[above]at(3.5,1.6){$F'_1=F_2$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1afocalq}中$d=f_1+f_2$，直接乘矩阵得到
+\[
+ M=\begin{pmatrix}-f_2/f_1&f_1+f_2\\0&-f_1/f_2\end{pmatrix}.
+\]
+对于轴向平行光$\theta_i=0$，$y_o=-(f_2/f_1)y_i$，输出仍平行，束径绝对比$f_2/f_1$。
+\Diagram{fig:o1afocala}{轴向光束先会聚再重新平行，图取两焦距不同}{\OptAxis\draw[<->](1,-1.4)--(1,1.4);\draw[<->](5,-1.4)--(5,1.4);\draw[->](0,1)--(1,1);\draw[->](1,1)--(5,-.6);\draw[->](5,-.6)--(6.5,-.6);\draw[->](0,-1)--(1,-1);\draw[->](1,-1)--(5,.6);\draw[->](5,.6)--(6.5,.6);}
+对整体倾斜的小角平行光，$\theta_o=-(f_1/f_2)\theta_i$，与高度无关。图\ref{fig:o1afocala}取$f_1/f_2=5/3$，中间焦点位于第一透镜后2.5图示单位。无焦仅表示$C=0$、平行束仍为平行束；系统仍可扩束、缩束和改变角度，绝非恒等映射。
+\end{solution}
+
+\begin{exercise}\label{ex:o1glassplate}
+一块厚度$d$、折射率$n$的平行玻璃板插入原本将于空气中会聚的近轴光束，板面垂直轴。求焦点沿轴的位移，忽略反射。
+\Diagram{fig:o1glassq}{会聚光束在平行板内传播的斜率减小}{\OptAxis\draw[curve](2,-1.1)rectangle(3,1.1);\draw[guide](0,1.3)--(4.8,0);\draw[guide](0,-1.3)--(4.8,0);\node[above]at(2.5,1.1){$n,d$};\fill(4.8,0)circle(1.3pt)node[below]{$F_0$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1glassq}中原光线以斜率$\theta<0$会聚。进入平面板后$\theta_g=\theta/n$，传播$d$导致高度变化$d\theta/n$；若仍为空气则变化$d\theta$。出板后倾角恢复$\theta$，故高度比原光线高出$\Delta y=d\theta(1/n-1)>0$。
+\Diagram{fig:o1glassa}{出板后两光线平行，新的交轴点向后移动}{\OptAxis\draw[curve](2,-1.1)rectangle(3,1.1);\draw[->](0,1.2)--(2,.7)--(3,.575)--(5.3,0);\draw[guide](2,.7)--(4.8,0);\fill(4.8,0)circle(1.2pt)node[below]{$F_0$};\fill(5.3,0)circle(1.2pt)node[above right]{$F$};}
+图\ref{fig:o1glassa}中的轴向位移由$\theta\Delta z=-\Delta y$得$\Delta z=d(1-1/n)>0$。矩阵角度看，是把空气传播长度$d$的约化距离$d$替换为$d/n$，而折射后的外部倾角不变。大孔径时不同光线位移并不完全相同，会引入球差。
+\end{solution}
+
+\begin{exercise}\label{ex:o1turning}
+水平分层介质$n(y)=n_0\sqrt{1-y^2/a^2}$。光线从$y=0$以与$+z$轴成$\alpha_0$的方向进入。用守恒量求最大高度，不使用近轴条件。
+\Diagram{fig:o1turnq}{光线在折射率下降区弯折至水平}{\OptAxis\draw[axis](0,0)--(0,2.7)node[above]{$y$};\draw[curve](0,0)..controls(1,1)and(2,1.8)..(3.2,1.8);\draw[guide](0,1.8)--(4,1.8);\node[left]at(0,1.8){$y_t$};\node at(.8,.3){$\alpha_0$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1turnq}中，介质沿$z$平移不变，$b=n\cos\alpha=n_0\cos\alpha_0$守恒。用$y'=\tan\alpha$表示方向，得到
+\[
+ n^2(y)=b^2(1+y'^2),\qquad
+ y'^2=\frac{\sin^2\alpha_0-y^2/a^2}{\cos^2\alpha_0}.
+\]
+真实射线要求右侧非负，允许区域为$|y|\leq a|\sin\alpha_0|$。最高点$y'=0$，所以正向上射线的最大高度为$y_t=a\sin\alpha_0$；若只讨论幅度，则为$a|\sin\alpha_0|$。
+\Diagram{fig:o1turna}{允许高度由$n(y)\geq n_0\cos\alpha_0$确定}{\draw[axis](0,0)--(4.2,0)node[right]{$y/a$};\draw[axis](0,0)--(0,2.8)node[above]{$n/n_0$};\draw[curve,domain=0:.99,samples=70]plot({3.5*\x},{2.3*sqrt(1-\x*\x)});\draw[guide](0,1.7)--(3.7,1.7);\node[left]at(0,1.7){$\cos\alpha_0$};}
+图\ref{fig:o1turna}中的折射率曲线与水平$b$线相交处就是转点。还可将方程积分，以核对近轴极限。对$0<\alpha_0<\pi/2$的上升支，令$A=a\sin\alpha_0$，则
+\[
+ \int_0^{y}\frac{\dd q}{\sqrt{A^2-q^2}}
+ =\frac1{a\cos\alpha_0}\int_0^z\dd s,\qquad
+ [\arcsin(q/A)]_0^{y}=\frac{z}{a\cos\alpha_0}.
+\]
+这里用$q=A\sin u$，在上升支$0\leq u\leq\pi/2$有$\dd q=A\cos u\dd u$、$\sqrt{A^2-q^2}=A\cos u$。反解得$y=A\sin[z/(a\cos\alpha_0)]$，在转点处接续下降支。
+精确轴向周期是$2\pi a\cos\alpha_0$，最高点在$z_t=\pi a\cos\alpha_0/2$。小角时振幅$A\simeq a\alpha_0$、周期趋$2\pi a$，恢复近轴解。有限角度下转点高度与周期都应使用轴向守恒量求出，不能仅保留振幅修正而仍把近轴周期称为精确周期。
+\end{solution}
+
+\begin{exercise}\label{ex:o1centralturn}
+圆对称介质在某区域$n(r)=n_a a/r$。求一条非径向光线能否有孤立最近点，推导其轨迹形状。讨论守恒量$b=n_a a$的特殊情形。
+\Diagram{fig:o1centralq}{径向折射率场中的光线与径向夹角}{\draw[curve](0,0)circle(1);\draw[curve](0,0)circle(2);\draw[axis](0,0)--(2,1)node[right]{$r$};\draw[axis](2,1)--(2.5,2.2)node[above]{切向};\node[below left]at(0,0){$O$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o1centralq}的$n(r)r=n_aa$为常数，所以$\sin\psi=b/(n_aa)$也为常数。若$0<b<n_aa$，夹角固定且不等于直角，不存在孤立转点。由$\dd r/\dd s=\cos\psi$、$r\dd\varphi/\dd s=\sin\psi$，得$\dd\varphi/\dd r=\tan\psi/r$。
+\Diagram{fig:o1centrala}{固定夹角对应对数螺线，图只画有限介质区域}{\draw[axis](-2.3,0)--(2.5,0);\draw[axis](0,-2.3)--(0,2.5);\draw[curve,domain=0:300,samples=100]plot({.35*exp(.006*\x)*cos(\x)},{.35*exp(.006*\x)*sin(\x)});\node[below left]at(0,0){$O$};}
+以$(r_0,\varphi_0)$为初始点积分，$\int_{\varphi_0}^{\varphi}\dd\phi=\tan\psi\int_{r_0}^{r}\dd q/q=\tan\psi[\ln q]_{r_0}^{r}$，得$\varphi-\varphi_0=\tan\psi\ln(r/r_0)$，即图\ref{fig:o1centrala}的对数螺线。向内支的$\cos\psi<0$，须保留$\tan\psi$的符号。若$b=n_aa$，则$\psi=\pi/2$，光线可保持任意给定半径的圆周轨道；此时不能再除以$\dd r/\dd s$，应直接使用切向关系。该折射率在$r=0$奇异，轨迹仅适用于题定介质区域。
+\end{solution}
+
+\begin{exercise}\label{ex:o1phasors}
+同频同偏振两束光复振幅为$A$和$2A\ee^{i\delta}$。求合振幅的大小、相位以及最大最小强度，并说明相位求值应怎样处理象限。
+\Diagram{fig:o1phasorq}{两相量大小之比为1:2}{\draw[axis](0,0)--(1.5,0)node[right]{$A$};\draw[axis](0,0)--(1.5,2.598076)node[right]{$2A\ee^{i\delta}$};\draw(.6,0)arc(0:60:.6);\node at(.8,.4){$\delta$};}
+\end{exercise}
+\begin{solution}
+以第一束的相位为零，图\ref{fig:o1phasorq}中合复振幅为
+\[
+ \frac{\mathcal E}A=1+2\ee^{i\delta}
+ =1+2\cos\delta+2i\sin\delta.
+\]
+因此$|\mathcal E|^2/A^2=(1+2\cos\delta)^2+4\sin^2\delta=5+4\cos\delta$，合振幅大小为$A\sqrt{5+4\cos\delta}$，相位为
+\[
+ \phi=\operatorname{atan2}(2\sin\delta,1+2\cos\delta).
+\]
+该函数由实、虚两分量共同确定象限；单独取反正切商只能给出相差整数$\pi$的一组可能值。
+\Diagram{fig:o1phasora}{合相量实部可能为负，单值反正切会丢失象限}{\begin{scope}[scale=.7]\draw[axis](-2.2,0)--(3.4,0)node[right]{实部};\draw[axis](0,-2.3)--(0,2.8)node[above]{虚部};\draw[curve](1,0)circle(2);\draw[->,thick](0,0)--(-.5,1.322876);\node[left]at(-.5,1.322876){$\mathcal E$};\end{scope}}
+图\ref{fig:o1phasora}的合相量末端以$(A,0)$为圆心、$2A$为半径。原点位于圆内，合相量会经过左半平面，但不会为零，因为两束振幅不等。若$A$对应单束强度$I_1$，则
+\[
+ I_{\max}=9I_1\quad(\delta=2m\pi),\qquad
+ I_{\min}=I_1\quad(\delta=(2m+1)\pi),
+\]
+可见度为$(9-1)/(9+1)=4/5$。合相量越过虚轴、实部变号时，相位连续经过$\pm\pi/2$；越过负实轴时，取值区间为$(-\pi,\pi]$的主值相位才会发生$2\pi$跳变。本题在$\delta=\pi$通过负实轴，可按连续相位消去这种记号上的跳变。场本身始终连续且不为零，相位也始终有定义。
+\end{solution}

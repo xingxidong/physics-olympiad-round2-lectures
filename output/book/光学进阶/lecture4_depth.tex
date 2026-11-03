@@ -1,0 +1,78 @@
+\section{偏振元件的损耗与色散}
+\subsection{相位延迟和选择性衰减改变不同的量}
+以下继续以$C$表示相干矩阵、$J$表示Jones矩阵，元件作用为$C'=JCJ^\dagger$。第\ref{th:o4coherence}节已证明偏振度由$C$的迹与行列式确定；无损波片保持这两个量。二向色元件则对两个本征方向作不同衰减，改变$C$的本征值比例，因此可能以损失通光量为代价提高偏振度。
+
+设主轴方向上的能量透过率为$t_x,t_y$，无额外相位延迟，则$D=\operatorname{diag}(\sqrt{t_x},\sqrt{t_y})$。若自然光入射，$C=I_0\mathbb I/2$，则$C_D=DCD^\dagger=I_0\operatorname{diag}(t_x,t_y)/2$。取其迹与两个本征值之差，得到出射强度和偏振度
+\[
+ I=\frac{I_0(t_x+t_y)}2,\qquad
+ P=\frac{|t_x-t_y|}{t_x+t_y}.
+\]
+以上偏振度公式要求$I_0>0$且$t_x+t_y>0$；若两方向都完全遮光，出射强度为零，偏振度无定义。随后接一块无损波片，强度和偏振度不变，偏振成分却可变为椭圆偏振。两元件的先后顺序须按$QD$或$DQ$计算，它们一般不对易。
+
+\begin{example}部分圆偏振光的产生与检偏
+自然光强度为$I_0$，先通过主轴能量透过率$t_x=1,t_y=1/4$的二向色元件，再通过快轴与$x$成$45^\circ$的理想四分之一波片。按本讲Jones矩阵约定，删去共同相位后，$x$线偏振变为$(1,-\mathrm i)^{\mathsf T}/\sqrt2$。求出射强度、偏振度及旋转线检偏器的强度范围。比较交换两元件顺序的结果。
+\ExpansionDiagram{fig:dep-o4-loss-q}{先选择性衰减、后相位延迟的偏振光路}{
+\draw[->](0,0)--(7,0);\draw[fill=white](1,-.7)rectangle(2,.7)node[midway]{$D$};\draw[fill=white](3,-.7)rectangle(4,.7)node[midway]{$Q$};\draw[fill=white](5,-.7)rectangle(6,.7)node[midway]{$A_\theta$};\node[above]at(1.5,.9){$t_x\ne t_y$};\node[above]at(3.5,.9){$45^\circ$};}
+\end{example}
+\begin{solution}
+由图\ref{fig:dep-o4-loss-q}先经$D$，得$C_D=I_0\operatorname{diag}(1,1/4)/2$。按第\ref{th:o4coherence}节的本征值分解，将它分成自然光与完全偏振光：
+\[
+ C_D=\frac{I_0}{8}\mathbb I+\frac{3I_0}{8}
+ \begin{pmatrix}1&0\\0&0\end{pmatrix}.
+\]
+第一项是总强度$I_0/4$的自然光，第二项是强度$3I_0/8$的$x$线偏振。通过$Q$后，第一项不变，第二项按题设变为圆偏振，所以
+\[
+ I_{\rm out}=\frac{5I_0}{8},\qquad
+ P=\frac{3I_0/8}{5I_0/8}=\frac35.
+\]
+\ExpansionDiagram{fig:dep-o4-loss-a}{相干矩阵分解中的自然成分与完全偏振成分}{
+\draw(0,0)rectangle(2,1.2);\node at(1,.8){自然光};\node at(1,.35){$I_0/4$};\node at(2.5,.6){$+$};\draw(3,0)rectangle(5,1.2);\node at(4,.8){圆偏振};\node at(4,.35){$3I_0/8$};\node at(5.5,.6){$\longrightarrow$};\node at(7,.6){$P=3/5$};}
+图\ref{fig:dep-o4-loss-a}中两种成分通过任意方向的理想线检偏器，都各透过一半。因此$I(\theta)=5I_0/16$恒定，虽然$P=3/5$并不为零。线检偏扫描没有起伏不能单独证明自然光。
+
+若交换为先$Q$后$D$，自然光先经无损波片仍是自然光，最后输出恰为$C_D$。其强度和$P$仍相同，但偏振成分是线偏振，检偏强度为
+\[
+ I(\theta)=\frac{I_0}{2}\cos^2\theta+\frac{I_0}{8}\sin^2\theta,
+\]
+最大$I_0/2$、最小$I_0/8$。顺序变化改变了相干矩阵的方向结构，而本题两个顺序恰好有相同特征值；这不意味着任意入射态都保持相同输出强度。
+\end{solution}
+
+\subsection{复合波片的一阶消色差条件}
+单片延迟量$\delta=2\pi h\Delta n(\lambda)/\lambda$同时受到折射率色散和$1/\lambda$因子的影响。即使忽略材料色散，延迟量也不与波长无关。两材料波片主轴平行或互相垂直时，延迟量可以代数相加：
+\[
+ \delta(\lambda)=\frac{2\pi}{\lambda}
+ [h_1\Delta n_1(\lambda)+s h_2\Delta n_2(\lambda)],\qquad s=\pm1.
+\]
+这里$s=-1$表示把第二片的快慢轴对调。若两片轴任意夹角，应乘Jones矩阵，不能再直接加延迟量。
+
+令$L(\lambda)=h_1\Delta n_1+s h_2\Delta n_2$。厚度固定时，对$\delta=2\pi L/\lambda$用商法则求导，得
+\[
+ \delta'(\lambda)=2\pi\left[\frac{L'(\lambda)}{\lambda}-\frac{L(\lambda)}{\lambda^2}\right].
+\]
+在目标波长$\lambda_0$处设计零级四分之一波片，并令$\delta'(\lambda_0)=0$，需要
+\[
+ L(\lambda_0)=\frac{\lambda_0}{4},\qquad
+ L'(\lambda_0)=\frac{L(\lambda_0)}{\lambda_0}=\frac14.
+\]
+第二式中的非零$L'$补偿了$1/\lambda$因子的变化。厚度误差、温度膨胀和材料高阶色散仍须计入延迟量；一阶消色差条件没有消除这些影响。
+
+\begin{example}两材料波片的厚度设计
+两材料在$\lambda_0=500\,\mathrm{nm}$附近满足$\Delta n_1=0.010-10^{-5}(\lambda-500)$、$\Delta n_2=0.020-5\times10^{-5}(\lambda-500)$，式中波长数值以纳米为单位。将两片主轴交叉，求使总延迟为$\pi/2$且一阶消色差的正厚度。
+\ExpansionDiagram{fig:dep-o4-achrom-q}{第二片主轴对调，使两片延迟量相减}{
+\draw(0,0)rectangle(2,1.8);\draw[<->](.3,.9)--(1.7,.9)node[midway,above]{快轴1};\draw(3,0)rectangle(5,1.8);\draw[<->](4,.2)--(4,1.6);\node[right]at(4,1){快轴2};\node[below]at(1,0){$h_1$};\node[below]at(4,0){$h_2$};}
+\end{example}
+\begin{solution}
+按图\ref{fig:dep-o4-achrom-q}取$s=-1$。厚度也用纳米表示，中心延迟条件和导数条件分别为
+\[
+ 0.010h_1-0.020h_2=125,
+ \qquad -10^{-5}h_1+5\times10^{-5}h_2=\frac14.
+\]
+第一式给$h_1=12500+2h_2$，代入第二式为$-0.125+3\times10^{-5}h_2=0.25$，故
+\[
+ h_2=12500\,\mathrm{nm}=12.5\,\mu\mathrm m,
+ \qquad h_1=37.5\,\mu\mathrm m.
+\]
+两片单独的光程差为375 nm和250 nm，其差125 nm给$\pi/2$；导数之差为$-0.375-(-0.625)=0.25$，同时满足要求。
+\ExpansionDiagram{fig:dep-o4-achrom-a}{两片光程差的差值随波长保持所需的一阶斜率}{
+\draw[->](0,0)--(6,0)node[right]{$\lambda$};\draw[->](0,0)--(0,3.1)node[above]{光程差};\draw[thick](.5,2.3)--(5.3,1.7)node[right]{$h_1\Delta n_1$};\draw[dashed](.5,1.6)--(5.3,.6)node[right]{$h_2\Delta n_2$};\draw[<->](3,1.08)--(3,1.99)node[midway,right]{$L(\lambda)$};}
+图\ref{fig:dep-o4-achrom-a}中的两条线都下降，但第二条下降更快，所以差值$L$随波长增加。本题给定的严格线性模型恰使$L=\lambda/4$，在该模型适用区间内总延迟恒定；实际材料的二阶以上色散会留下残差。这里不能凭线性模型推断无限宽带性能。
+\end{solution}

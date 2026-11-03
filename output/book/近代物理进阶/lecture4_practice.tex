@@ -1,0 +1,96 @@
+\begin{exercise}\label{ex:m4angularvariant}
+光电角度模型改为只在向外半球产生电子，概率密度按$\cos\theta$分布，即$\dd P=C\cos\theta\dd\Omega$。法向势垒仍为$W$。求归一化常数和逃逸比例，与全空间各向同性模型比较。
+\Diagram{fig:m4angularq}{方向权重偏向表面法线}{\draw[curve](-2,0)--(2,0);\draw[axis](0,0)--(0,2.6)node[above]{法线};\draw[->](0,0)--(.7,2.1);\draw[->](0,0)--(1.7,.8);\node[right]at(1.7,.8){$\cos\theta$权重};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4angularq}在向外半球归一化：
+\[
+ 1=2\pi C\int_0^{\pi/2}\cos\theta\sin\theta\dd\theta
+ =2\pi C\left[\frac{\sin^2\theta}{2}\right]_0^{\pi/2}
+ =\pi C,
+\]
+故$C=1/\pi$。当$h\nu\geq W$时，可逸出角域为$0\leq\theta\leq\theta_c$，其中$\cos\theta_c=\sqrt{W/(h\nu)}$。在同一原函数中代入新的上限，
+\[
+ P_{\rm esc}=2\int_0^{\theta_c}\cos\theta\sin\theta\dd\theta
+ =[\sin^2\theta]_0^{\theta_c}=1-\frac W{h\nu}.
+\]
+低于阈值时比例为零。
+\Diagram{fig:m4angulara}{同一势垒，不同初始角分布产生不同逃逸曲线}{\draw[axis](0,0)--(4.6,0)node[right]{$h\nu/W$};\draw[axis](0,0)--(0,2.7)node[above]{$P_{\rm esc}$};\draw[curve,domain=1:4,samples=60]plot(\x,{2.3*(1-1/\x)});\draw[guide,domain=1:4,samples=60]plot(\x,{1.15*(1-sqrt(1/\x))});}
+图\ref{fig:m4angulara}中此比例在高能趋1，而全空间各向同性模型趋$1/2$。势垒决定允许角域，产生机制决定各方向的权重。因此，相同能量阈值可以对应不同光电产额。
+\end{solution}
+
+\begin{exercise}\label{ex:m4radiativecool}
+热容量$C$近似恒定的黑球表面积$A$，置于温度$T_0$的大黑腔。球温$T=T_0+\Delta T$，$|\Delta T|\ll T_0$。推导小温差弛豫时间，并说明面积和热容量怎样进入。
+\Diagram{fig:m4coolq}{黑球与大腔壁双向辐射交换}{\draw[curve](0,0)circle(.8);\draw[curve](-2,-1.7)rectangle(2,1.7);\node at(0,0){$T$};\node[above]at(0,1.7){$T_0$};\draw[->](.9,.3)--(1.7,.3);\draw[->](-1.7,-.3)--(-.9,-.3);}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4coolq}中，腔内平衡辐射各向同性，球吸收功率为$A\sigma T_0^4$，自身发射功率为$A\sigma T^4$。以整球热容量$C$列能量方程，得
+\[
+ C\frac{\dd T}{\dd t}=-A\sigma(T^4-T_0^4).
+\]
+写$T=T_0+\Delta T$，展开得$T^4-T_0^4=4T_0^3\Delta T+6T_0^2\Delta T^2+\cdots$。在$|\Delta T|/T_0\ll1$时保留线性项，
+\[
+ \frac{\dd\Delta T}{\dd t}=-\frac{\Delta T}{\tau},\qquad
+ \tau=\frac{C}{4A\sigma T_0^3}.
+\]
+\Diagram{fig:m4coola}{小温差以指数形式衰减}{\draw[axis](0,0)--(4.5,0)node[right]{$t/\tau$};\draw[axis](0,0)--(0,2.6)node[above]{$\Delta T/\Delta T(0)$};\draw[curve,domain=0:4,samples=60]plot(\x,{2.2*exp(-\x)});}
+当$\Delta T(0)\ne0$时分离变量，
+\[
+ \int_{\Delta T(0)}^{\Delta T(t)}\frac{\dd q}{q}
+ =-\frac1\tau\int_0^t\dd s,
+ \quad \ln\frac{|\Delta T(t)|}{|\Delta T(0)|}=-\frac t\tau.
+\]
+温差的符号不变，故$\Delta T(t)=\Delta T(0)\ee^{-t/\tau}$，得到图\ref{fig:m4coola}的曲线；初温恰等于腔温时，另有恒解$\Delta T=0$。初温低于腔温时，负温差也按同一式趋于零。量纲上$A\sigma T_0^3$为功率每温度，与$C$相除给时间。
+
+对同材料均匀实心球，$C=\rho c_p(4\pi a^3/3)$、$A=4\pi a^2$，所以$\tau=\rho c_pa/(12\sigma T_0^3)$，半径越大弛豫越慢。该结论要求内部导热足够快，使整球可用单一温度描述。若环境温度可忽略，则原方程改为$\dot T=-(A\sigma/C)T^4$。分离变量，
+\[
+ \int_{T(0)}^{T(t)}T^{-4}\dd T=-\frac{A\sigma}{C}\int_0^t\dd s,
+ \quad \left[-\frac1{3T^3}\right]_{T(0)}^{T(t)}=-\frac{A\sigma t}{C},
+\]
+得到$T^{-3}(t)=T^{-3}(0)+3A\sigma t/C$，为代数冷却。它采用不同的环境条件，不能沿用小温差指数律。
+\end{solution}
+
+\begin{exercise}\label{ex:m4spectralpeak}
+求黑体“每对数频率间隔”的能量谱峰值方程，并说明它为什么不同于$u_\nu$的峰。
+\Diagram{fig:m4logq}{相同对数宽度在高频处包含更大的线性频率区间}{\draw[axis](0,0)--(5.4,0)node[right]{$\nu$};\draw[very thick](.5,0)--(1,0);\draw[very thick](2,0)--(4,0);\node[above]at(.75,.5){$\nu\to2\nu$};\node[above]at(3,.5){$4\nu\to8\nu$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4logq}比较等比例频率区间。因$\dd\nu=\nu\dd\ln\nu$，对数谱为$\nu u_\nu$，以$x=h\nu/(\kb T)$表示正比$f_4(x)=x^4/(\ee^x-1)$。在例\ref{ex:m4wien}已逐步求出的$f_j'$中取$j=4$，
+\[
+ f_4'(x)=\frac{x^3\ee^x}{(\ee^x-1)^2}
+ [4(1-\ee^{-x})-x].
+\]
+除去边界根$0$，峰值方程为$4(1-\ee^{-x})=x$，非零正根$x\simeq3.92069$。
+\Diagram{fig:m4loga}{对数谱多一个频率权重，峰向高频移动}{\draw[axis](0,0)--(5.3,0)node[right]{$h\nu/(\kb T)$};\draw[axis](0,0)--(0,2.8)node[above]{对数谱};\draw[curve,domain=.05:8,samples=80]plot({.6*\x},{.4*\x^4/(exp(\x)-1)});\draw[guide](2.3524,0)--(2.3524,2);}
+图\ref{fig:m4loga}中的峰对应每相同倍频带的能量贡献，而$u_\nu$比较每相同赫兹的能量。它也等于每对数波长间隔能量谱的峰所对应的同一物理频率，因为$|\dd\ln\lambda|=|\dd\ln\nu|$；线性波长谱则还有不同雅可比。
+\end{solution}
+
+\begin{exercise}\label{ex:m4welltransition}
+无限深方阱宽度缓慢从$L$变为$2L$，粒子始终留在同一量子数$n$的定态分支。求能量与典型动量的变化，并用作用量解释“缓慢”的意义。
+\Diagram{fig:m4expandq}{缓慢移动硬壁使阱宽加倍}{\draw[curve](0,2)--(0,0)--(2,0)--(2,2);\draw[guide](4,0)--(4,2);\draw[->](2.2,1)--(3.8,1);\node[below]at(2,-.4){$L\to2L$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4expandq}的定态能量$E_n=n^2h^2/(8mL^2)$，所以阱宽加倍，能量减为$1/4$，动量大小$p_n=nh/(2L)$减为$1/2$。定态内平均动量为0，但$\langle p^2\rangle^{1/2}=p_n$，不要把典型动量大小等同于平均动量。
+\Diagram{fig:m4expanda}{相轨道长宽反比变化，面积$2pL=nh$保持}{\draw[axis](0,0)--(5,0)node[right]{$x$};\draw[axis](0,-1.8)--(0,2)node[above]{$p$};\draw[curve](0,-1.3)rectangle(2,1.3);\draw[guide](0,-.65)rectangle(4,.65);}
+图\ref{fig:m4expanda}说明缓变过程中作用量$J=2pL$近似保持，量子上要求壁运动足够慢，避免显著跃迁到别的$n$。若壁突然移动，原波函数不再是新阱单一定态，需要展开为新本征态之和，本题能量比例就不能直接使用。
+\end{solution}
+
+\begin{exercise}\label{ex:m4oscforce}
+谐振子势中加入恒定力$F$，势为$m\omega^2x^2/2-Fx$。求能级、平衡位置和能级间隔，说明零点项是否改变。
+\Diagram{fig:m4forceq}{恒力使抛物势横移并下移}{\draw[axis](-2.2,0)--(3.4,0)node[right]{$x$};\draw[axis](0,-1)--(0,3)node[above]{$V$};\draw[guide,domain=-1.8:1.8,samples=50]plot(\x,{.7*\x*\x});\draw[curve,domain=-1:2.8,samples=50]plot(\x,{.7*(\x-.9)^2-.567});}
+\end{exercise}
+\begin{solution}
+逐项求导得$V'(x)=m\omega^2x-F$，令其为零，平衡位置为$x_0=F/(m\omega^2)$；再求导得$V''=m\omega^2>0$，故这是稳定平衡。配方得$V=\tfrac12m\omega^2(x-x_0)^2-F^2/(2m\omega^2)$。图\ref{fig:m4forceq}中的势曲率不变，运动频率仍为$\omega$，能级为$E_n=\hbar\omega(n+1/2)-F^2/(2m\omega^2)$。
+\Diagram{fig:m4forcea}{所有能级整体平移，间隔$\hbar\omega$保持}{\foreach\y in{0,.7,1.4,2.1}{\draw[curve](-2,\y)--(-.3,\y);\draw[curve](1,{\y-.5})--(2.7,{\y-.5});}\draw[->](0,1.4)--(.7,.9);\node[above]at(1.8,2.3){有恒力};}
+图\ref{fig:m4forcea}中零点能相对势阱最低点仍为$\hbar\omega/2$，但相对原来的能量零点发生共同平移。边界仍是两个平滑转点，故作用量偏移$1/2$不变。只看总能量可能出现负值，并不表示振动激发能或频率为负。
+\end{solution}
+
+\begin{exercise}\label{ex:m4hydrogenscaling}
+氢样离子核电荷由$Z$变为$2Z$，量子数保持$n$。分别讨论非相对论玻尔半径、速度、束缚能和相邻能级频率的缩放，指出何时这种缩放失效。
+\Diagram{fig:m4Zq}{同一$n$下增大核电荷，轨道缩小}{\draw[curve](-1.5,0)circle(1.1);\fill(-1.5,0)circle(2pt);\draw[curve](2,0)circle(.55);\fill(2,0)circle(2pt);\node[below]at(-1.5,-1.3){$Z$};\node[below]at(2,-1.3){$2Z$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m4Zq}依$r_n\propto1/Z$、$v_n\propto Z$、$E_n\propto-Z^2$，半径减半、速率加倍、束缚能绝对值乘4。固定两量子数的谱线差同乘4，频率也乘4。
+\Diagram{fig:m4Za}{速度尺度$Z\alpha/n$决定非相对论近似的适用性}{\draw[axis](0,0)--(4.5,0)node[right]{$Z\alpha/n$};\draw[axis](0,0)--(0,2.7)node[above]{$v/c$};\draw[curve](0,0)--(3.7,2.3);\node[right]at(3.7,2.3){近1时须改模型};}
+图\ref{fig:m4Za}中$Z\alpha/n\ll1$是非相对论条件。增大$Z$会增强相对论修正；当参数逼近1，圆轨道半经典模型本身也失去常规适用性，有限核尺寸、自旋和完整量子动力学不可忽略。缩放律是在固定模型条件下的结果，不是任意核电荷都可无限外推。
+\end{solution}

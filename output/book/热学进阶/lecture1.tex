@@ -1,0 +1,727 @@
+\chapter{分子运动的统计描述}
+
+\section{从状态概率到速度分布}
+\label{th:mb}
+宏观气体处于平衡时，单个分子的速度仍不断变化。统计描述用概率表示相同宏观条件下各微观状态的占据情况。若有 $N_i$ 个粒子占据第 $i$ 个单粒子状态，则 $p_i=N_i/N$，且 $\sum_i p_i=1$。在经典稀薄气体近似下，温度为 $T$ 的热平衡分布为
+\begin{equation}
+ p_i=A\ee^{-E_i/(\kb T)},\qquad A^{-1}=\sum_i\ee^{-E_i/(\kb T)}.
+\end{equation}
+若能量 $E_i$ 对应 $r_i$ 个不同状态，整个能级的概率应为 $r_iA\ee^{-E_i/(\kb T)}$。简并度计数与指数因子承担不同作用：前者计算可占据状态的数目，后者比较每个状态的权重。
+
+这里的单粒子状态必须区分清楚。能量相同并不意味着状态相同；速度大小相同而方向不同，就是不同状态。经典分布还要求量子简并效应可忽略，粒子间相互作用对能量和计数的影响足够小。平动服从本讲分布，并不意味着转动、振动等内部自由度在任意温度都充分激发。
+
+\subsection{速度分量的归一化}
+\label{th:gaussian}
+没有宏观流动与外场方向偏置时，平动能
+\[
+ E_k=\frac m2(v_x^2+v_y^2+v_z^2)
+\]
+使三维概率密度可分离为三个相同的一维因子。记 $\alpha=m/(2\kb T)$，一维密度为 $f_x(v_x)=A\ee^{-\alpha v_x^2}$。概率是密度乘速度区间，$\dd P=f_x(v_x)\dd v_x$，故 $f_x$ 的量纲是速率的倒数，而不是无量纲概率。
+
+归一化需要 $\int_{-\infty}^{\infty}f_x\dd v_x=1$。先令 $I=\int_{-\infty}^{\infty}\ee^{-\alpha x^2}\dd x$，利用两个独立积分相乘，有
+\begin{align}
+ I^2&=\iint_{\mathbb R^2}\ee^{-\alpha(x^2+y^2)}\dd x\dd y\\
+ &=\int_0^{2\pi}\dd\theta\int_0^\infty \ee^{-\alpha r^2}r\dd r\\
+ &=2\pi\lim_{L\to\infty}
+ \left[-\frac{\ee^{-\alpha r^2}}{2\alpha}\right]_0^L
+ =\frac\pi\alpha.
+\end{align}
+因 $I>0$，得到 $I=\sqrt{\pi/\alpha}$，从而
+\begin{equation}\label{eq:maxwellvector}
+ f_x(v_x)=\sqrt{\frac{m}{2\pi\kb T}}\ee^{-mv_x^2/(2\kb T)},\quad
+ f(\vct v)=\left(\frac{m}{2\pi\kb T}\right)^{3/2}\ee^{-mv^2/(2\kb T)}.
+\end{equation}
+三维归一化测度为 $\dd^3v=\dd v_x\dd v_y\dd v_z$。速度分量的独立性来自这里的平衡分布。非平衡气流若存在方向关联，联合密度就需要另行确定。
+
+\Diagram{fig:gaussianarea}{高斯积分中直角坐标面积与极坐标面积的对应}{
+ \draw[axis](-.4,0)--(4.3,0)node[right]{$x$};\draw[axis](0,-.4)--(0,3.3)node[above]{$y$};
+ \draw[curve](0,0)circle(2.4);\draw[guide](0,0)circle(2.7);
+ \fill[gray!20](0,0)--(35:2.7)arc(35:47:2.7)--(47:2.4)arc(47:35:2.4)--cycle;
+ \draw(0,0)--(41:2.7);\node at(1.2,1.35){$r$};\node[anchor=west]at(2.9,1.9){$r\dd r\dd\theta$};
+ \draw[->](.8,0)arc(0:41:.8);\node at(1.1,.35){$\theta$};
+}
+图\ref{fig:gaussianarea}中小扇环的径向宽度为 $\dd r$，切向长度为 $r\dd\theta$，两者相乘得到面积元。因子 $r$ 就来自切向长度随半径的增长。
+
+\subsection{计算矩所需的积分}
+\label{th:integrals}
+定义半轴高斯矩
+\[
+ I_s(\alpha)=\int_0^\infty x^s\ee^{-\alpha x^2}\dd x,\qquad s>-1.
+\]
+偶函数的半轴积分为整轴的一半，故$I_0=\sqrt\pi/(2\sqrt\alpha)$。
+对$I_1$取$u=\alpha x^2$，则$\dd u=2\alpha x\dd x$，端点仍为$0,\infty$，所以
+\[
+ I_1=\frac1{2\alpha}\int_0^\infty\ee^{-u}\dd u
+ =\frac1{2\alpha}\lim_{U\to\infty}[-\ee^{-u}]_0^U
+ =\frac1{2\alpha}.
+\]
+在积分号内对参数求导，$\partial_\alpha\ee^{-\alpha x^2}=-x^2\ee^{-\alpha x^2}$，因此
+\[
+ \frac{\dd I_s}{\dd\alpha}
+ =-\int_0^\infty x^{s+2}\ee^{-\alpha x^2}\dd x=-I_{s+2}.
+\]
+递推式用分部积分建立。将$I_{s+2}$中的$x\ee^{-\alpha x^2}\dd x$
+写成$-\dd(\ee^{-\alpha x^2})/(2\alpha)$，便有
+\[
+ \begin{aligned}
+ I_{s+2}&=-\frac1{2\alpha}
+ [x^{s+1}\ee^{-\alpha x^2}]_0^\infty
+ +\frac{s+1}{2\alpha}\int_0^\infty x^s\ee^{-\alpha x^2}\dd x\\
+ &=\frac{s+1}{2\alpha}I_s.
+ \end{aligned}
+\]
+$s>-1$保证零端点的$x^{s+1}$趋零，无穷远端则由指数衰减消去边界项。
+例如$I_4=3I_2/(2\alpha)=3I_0/(4\alpha^2)$、
+$I_5=2I_3/\alpha=2I_1/\alpha^2$。需要频繁使用的结果为
+\[
+ \begin{array}{c|cccccc}
+ s&0&1&2&3&4&5\\ \hline
+ I_s&\dfrac{\sqrt\pi}{2\sqrt\alpha}&\dfrac1{2\alpha}&
+ \dfrac{\sqrt\pi}{4\alpha^{3/2}}&\dfrac1{2\alpha^2}&
+ \dfrac{3\sqrt\pi}{8\alpha^{5/2}}&\dfrac1{\alpha^3}
+ \end{array}
+\]
+积分区间是半轴还是整轴，要在代入前确定。偶函数的整轴积分是半轴的两倍；奇函数的整轴积分为零，不能用半轴积分代替。
+
+\input{lecture1_equilibrium}
+\begin{example}[两个能级的占有与热容]\label{ex:twolevels}
+独立粒子只有能量 $0$ 和 $\varepsilon$ 两个能级，简并度分别为 $1$、$r$。粒子数 $N$ 固定，求激发态占比、内能和定容热容，并讨论高、低温极限。
+\Diagram{fig:twolevelq}{两个能级及其简并度}{
+ \draw[axis](0,0)--(0,2.4)node[above]{$E$};\draw[curve](.5,.3)--(3.5,.3)node[right]{$0\;(1)$};
+ \foreach \x in{.5,1.55,2.6}{\draw[curve](\x,1.65)--({\x+.8},1.65);}\node[right]at(3.5,1.65){$\varepsilon\;(r)$};
+ \draw[->](2,.5)--(2,1.35)node[midway,right]{$T$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:twolevelq}中的上能级包含 $r$ 个状态。把各状态权重相加，单粒子归一化因子为 $Z=1+r\ee^{-x}$，其中 $x=\varepsilon/(\kb T)$。于是
+\[
+ P_1=\frac{r\ee^{-x}}{1+r\ee^{-x}},\qquad U=N\varepsilon P_1.
+\]
+由于$x=\varepsilon T^{-1}/\kb$，有$\dd x/\dd T=-\varepsilon/(\kb T^2)=-x/T$。
+占有率的商式求导逐项给出
+\[
+ \frac{\dd P_1}{\dd x}
+ =\frac{(-r\ee^{-x})(1+r\ee^{-x})-(r\ee^{-x})(-r\ee^{-x})}
+ {(1+r\ee^{-x})^2}
+ =-\frac{r\ee^{-x}}{(1+r\ee^{-x})^2}.
+\]
+再对$U=N\varepsilon P_1(x(T))$使用链式法则，
+\[
+ C_V=N\varepsilon\frac{\dd P_1}{\dd x}\frac{\dd x}{\dd T}
+ =N\kb x^2\frac{r\ee^{-x}}{(1+r\ee^{-x})^2}.
+\]
+热容的温度导数是在粒子数不变的条件下取的。还可把结果中的分式写成 $P_1(1-P_1)$：占有率接近0或1时，粒子很少改变能级，内能随温度的变化便很小。对单粒子有 $\langle E^2\rangle=\varepsilon^2P_1$，所以
+\[
+ C_V=\frac{N}{\kb T^2}
+ \bigl(\langle E^2\rangle-\langle E\rangle^2\bigr).
+\]
+这里的方差指一个粒子的能量涨落。$N$ 个独立粒子的总方差为它的 $N$ 倍，与上面直接求导相符。高温极限中各微观状态等概率，上能级占比仍由其简并度决定。
+
+\Diagram{fig:twolevela}{能量与温度的两个极限}{
+ \draw[axis](0,0)--(5,0)node[right]{$T$};\draw[axis](0,0)--(0,2.3)node[above]{$U/N$};
+ \draw[curve]plot[domain=.12:4.5,samples=60](\x,{1.8*exp(-1/\x)/(1+exp(-1/\x))});
+ \draw[guide](0,.9)--(4.6,.9)node[right]{$r\varepsilon/(1+r)$};\node at(3.5,1.7){示意取 $r=1$};
+}
+图\ref{fig:twolevela}显示有限能级系统的内能有上界。低温 $x\gg1$ 时激发被冻结，$C_V\sim N\kb r x^2\ee^{-x}$；高温 $x\ll1$ 时各微观状态近乎等概率，$P_1\to r/(1+r)$。此时内能接近饱和值，继续升温引起的内能增量趋于零，热容也趋于零。这与具有无界二次型能量的经典自由度不同。
+\end{solution}
+
+\section{速率、方向与抽样方式}
+\label{th:speed}
+速度矢量落入速度空间体积元的概率为 $f(\vct v)\dd^3v$。若只问速率在 $v$ 与 $v+\dd v$ 之间，就要把所有方向相加。各向同性时，球壳体积为 $4\pi v^2\dd v$，故
+\begin{equation}\label{eq:speeddensity}
+ g(v)=4\pi\left(\frac{m}{2\pi\kb T}\right)^{3/2}v^2\ee^{-mv^2/(2\kb T)},\qquad v\ge0.
+\end{equation}
+\Diagram{fig:velocityshell}{速度空间中厚度为\(\dd v\)的球壳}{
+ \draw[axis](-2.1,0)--(2.4,0)node[right]{$v_x$};\draw[axis](0,-1.8)--(0,2.1)node[above]{$v_z$};
+ \draw[axis](-1.7,-1.2)--(1.7,1.2)node[right]{$v_y$};
+ \draw[curve](0,0)circle(1.45);\draw[guide](0,0)circle(1.62);
+ \draw[curve](0,0)ellipse(1.45 and .4);\draw[guide](0,0)ellipse(1.62 and .45);
+ \draw[->](0,0)--(35:1.45)node[midway,above]{$v$};
+ \draw[<->](315:1.45)--(315:1.62);\node[right]at(1.5,-1.2){$\dd v$};
+}
+$f(\vct v)$ 在原点最大，而 $g(v)$ 在 $v=0$ 为零。这两个结论并不矛盾：球壳因子 $v^2$ 把不同方向的状态数计入速率概率。图\ref{fig:velocityshell}中的球壳是概率求和的几何区域，并非分子在真实空间的轨道。
+
+\subsection{三个特征速率与一般矩}
+\label{th:moments}
+令 $B=4\pi[m/(2\pi\kb T)]^{3/2}$，则
+\[
+ \langle v^s\rangle=B I_{s+2}(\alpha)
+ =\frac2{\sqrt\pi}\Gamma\!\left(\frac{s+3}{2}\right)
+ \left(\frac{2\kb T}{m}\right)^{s/2}.
+\]
+这里的一般矩由$u=\alpha v^2$得到：$\dd v=\dd u/(2\sqrt{\alpha u})$，因而
+\[
+ I_{s+2}=\frac1{2\alpha^{(s+3)/2}}
+ \int_0^\infty u^{(s+1)/2}\ee^{-u}\dd u
+ =\frac{\Gamma((s+3)/2)}{2\alpha^{(s+3)/2}},\qquad s>-3.
+\]
+最后的积分定义了$\Gamma$函数。整数矩也可直接使用前节递推。平均速率由$I_3$给出：
+\[
+ \bar v=B\frac1{2\alpha^2}=\sqrt{\frac{8\kb T}{\pi m}}.
+\]
+均方速率由 $I_4$ 给出，$\langle v^2\rangle=3\kb T/m$，故 $v_{\rm rms}=\sqrt{3\kb T/m}$。最概然速率需对密度 $g(v)$ 求极值：
+\[
+ g'(v)=B[2v\ee^{-\alpha v^2}+v^2(-2\alpha v)\ee^{-\alpha v^2}]
+ =2Bv\ee^{-\alpha v^2}(1-\alpha v^2)=0,
+ \qquad v_p=\sqrt{\frac{2\kb T}{m}}.
+\]
+除 $v=0$ 端点外，只有一个峰值。因此 $v_p<\bar v<v_{\rm rms}$。此外
+\[
+ \langle v^3\rangle=\sqrt{\frac{128}\pi}\left(\frac{\kb T}{m}\right)^{3/2},\quad
+ \langle v^4\rangle=15\left(\frac{\kb T}{m}\right)^2.
+\]
+等分定理在这里可直接验证：$\langle v_x^2\rangle=\kb T/m$，每个平动二次项的平均能量为 $\kb T/2$。能量由二阶矩决定，碰撞通量由一阶矩决定，不能用同一个“平均速度”处理所有问题。
+
+\begin{example}[能量密度的最概然值]
+求平动能 $E=mv^2/2$ 的概率密度 $h(E)$、平均值与最概然值。为什么把 $v_p$ 代入 $mv^2/2$，不等于能量密度的峰值位置？
+\Diagram{fig:energydensityq}{速率区间映射为不等宽的能量区间}{
+ \draw[axis](0,1.7)--(5,1.7)node[right]{$v$};\draw[axis](0,0)--(5,0)node[right]{$E$};
+ \draw[line width=2pt](1,1.7)--(1.5,1.7);\draw[line width=2pt](1,0)--(1.8,0);
+ \draw[->](1.25,1.4)--(1.4,.3)node[midway,right]{$\dd E=mv\dd v$};
+}
+\end{example}
+\begin{solution}
+同一批粒子的概率不因变量替换而变，图\ref{fig:energydensityq}中两段对应 $h(E)\dd E=g(v)\dd v$。由 $v=\sqrt{2E/m}$、$\dd v/\dd E=1/\sqrt{2mE}$，得到
+\[
+ h(E)=\frac2{\sqrt\pi}\frac{\sqrt E}{(\kb T)^{3/2}}\ee^{-E/(\kb T)},\quad E\ge0.
+\]
+平均值可直接由二阶速率矩得到 $\langle E\rangle=3\kb T/2$。对密度取对数后求导，
+\[
+ \frac{\dd\ln h}{\dd E}=\frac1{2E}-\frac1{\kb T}=0
+ \quad\Rightarrow\quad E_p=\frac12\kb T.
+\]
+变量替换中的幂次可以逐项追踪：原密度里的 $v^2$ 变为与 $E$ 成正比，雅可比里的 $1/v$ 又给出 $E^{-1/2}$，相乘才得到 $E^{1/2}$。密度的量纲也从 $1/v$ 变为 $1/E$。例如一小段能量区间的概率近似为 $h(E)\Delta E$；比较两个区间的粒子数时，既要比较密度，又要比较区间宽度。以速率等宽和以能量等宽划分样本，所比较的本来就是不同的区间。
+
+\Diagram{fig:energydensitya}{能量概率密度的峰值与平均值}{
+ \begin{scope}[yscale=3]
+ \draw[axis](0,0)--(5,0)node[right]{$E/(\kb T)$};\draw[axis](0,0)--(0,.85)node[above]{$\kb T h$};
+ \draw[curve]plot[domain=0:4.5,samples=90](\x,{2/sqrt(pi)*sqrt(\x)*exp(-\x)});
+ \draw[guide](.5,0)--(.5,.484)node[above left]{$E_p$};\draw[guide](1.5,0)--(1.5,.308)node[above right]{$\langle E\rangle$};
+ \end{scope}
+}
+图\ref{fig:energydensitya}的横轴为能量。用 $mv_p^2/2$ 得到 $\kb T$，它只表示速率密度峰值所对应的能量，不是 $h(E)$ 的峰值。概率密度的极大位置会受变量变换中的雅可比影响；具有直接不变意义的是某一区间的积分概率。
+\end{solution}
+
+\begin{example}[速度分量的阈值与尾概率]
+平衡气体温度为 $T$。求 $v_x>u$ 的粒子比例及其中的条件平均 $\langle v_x\mid v_x>u\rangle$，其中 $u\ge0$。
+\Diagram{fig:tailq}{一维速度分布中的阈值区域}{
+ \draw[axis](-3,0)--(3,0)node[right]{$v_x$};\draw[axis](0,0)--(0,2.3)node[above]{$f_x$};
+ \fill[gray!20](1,0)--plot[domain=1:2.7](\x,{1.8*exp(-\x*\x)})--(2.7,0)--cycle;
+ \draw[curve]plot[domain=-2.7:2.7,samples=70](\x,{1.8*exp(-\x*\x)});\node[below]at(1,0){$u$};
+}
+\end{example}
+\begin{solution}
+按图\ref{fig:tailq}只积分右侧阴影，不再乘二。设 $z=\sqrt\alpha u$，定义
+\[
+ \erfc z=(2/\sqrt\pi)\int_z^\infty\ee^{-t^2}\dd t,
+\]
+则
+\[
+ P(v_x>u)=\int_u^\infty\sqrt{\frac\alpha\pi}\ee^{-\alpha v_x^2}\dd v_x
+=\frac1{\sqrt\pi}\int_z^\infty\ee^{-t^2}\dd t
+=\frac12\erfc z.
+\]
+其中$t=\sqrt\alpha v_x$，$\dd v_x=\dd t/\sqrt\alpha$，下限$u$变为$z$，上限仍为无穷大。
+条件平均的分子为 $\int_u^\infty v_x\sqrt{\alpha/\pi}\ee^{-\alpha v_x^2}\dd v_x$。利用 $\dd(\ee^{-\alpha v_x^2})=-2\alpha v_x\ee^{-\alpha v_x^2}\dd v_x$，有
+\[
+ \int_u^\infty v_x f_x\dd v_x
+ =\sqrt{\frac\alpha\pi}\lim_{L\to\infty}
+ \left[-\frac{\ee^{-\alpha v_x^2}}{2\alpha}\right]_u^L
+ =\frac{\ee^{-z^2}}{2\sqrt{\pi\alpha}},\qquad
+ \langle v_x\mid v_x>u\rangle=
+ \frac{\ee^{-z^2}}{\sqrt{\pi\alpha}\,\erfc z}.
+\]
+条件抽样可直接写成归一化密度
+\[
+ q(v_x)=\frac{f_x(v_x)}{P(v_x>u)},\qquad v_x>u,
+\]
+阈值之外密度为零。分子积分只给出原总体中这部分粒子贡献的速度一阶矩，除以尾概率才是子样本的平均值。对 $u=0$，原总体一半粒子被选中；对 $u>0$，所选比例进一步减小。由于保留的每个速度都大于 $u$，所得条件平均也应大于 $u$，这与把一个未经归一化的一阶矩误当平均值的结果有明显区别。
+
+\Diagram{fig:taila}{阈值右侧重新归一化后的条件密度}{
+ \draw[axis](-.3,0)--(4.5,0)node[right]{$v_x$};\draw[axis](0,0)--(0,3.3)node[above]{$q$};
+ \fill[gray!15](1,0)--plot[domain=1:3.5,samples=70](\x,{7.1739*exp(-\x*\x)})--(3.5,0)--cycle;
+ \draw[curve](1,0)--(1,{7.1739*exp(-1)});\draw[curve]plot[domain=1:3.5,samples=70](\x,{7.1739*exp(-\x*\x)});
+ \node[below]at(1,0){$u$};\node at(2.8,1.8){面积为1};\node at(2.3,-.7){$q=f_x/P(v_x>u)$};
+}
+$u=0$ 时结果为 $\sqrt{2\kb T/(\pi m)}$。图\ref{fig:taila}强调，这是从某一时刻的气体中筛选速度分量；若按单位时间撞壁的粒子抽样，还要额外乘碰撞速率，不能沿用这个条件密度。
+\end{solution}
+
+\input{lecture1_sampling}
+\section{相对运动、碰撞与自由程}
+\label{th:relative}
+取同温、互不相关的两个粒子，质量为 $m_1,m_2$，令 $M_t=m_1+m_2$、$\mu=m_1m_2/M_t$。相对速度与质心速度定义为
+\[
+ \vct u=\vct v_1-\vct v_2,\qquad
+ \vct V_c=\frac{m_1\vct v_1+m_2\vct v_2}{M_t}.
+\]
+反解为 $\vct v_1=\vct V_c+(m_2/M_t)\vct u$、$\vct v_2=\vct V_c-(m_1/M_t)\vct u$。沿任一坐标方向的变换行列式为
+\[
+ \det\frac{\partial(v_1,v_2)}{\partial(u,V_c)}
+ =\begin{vmatrix}m_2/M_t&1\\-m_1/M_t&1\end{vmatrix}=1.
+\]
+因而六维测度也满足 $\dd^3v_1\dd^3v_2=\dd^3u\dd^3V_c$。概率变量变换中使用的是行列式绝对值。一般非正交变换把小矩形变成平行四边形，面积不是随意把两个微分相乘所得的结果。
+
+把反解代入动能，交叉项的系数为$2[m_1m_2/M_t-m_2m_1/M_t]=0$，相对速度平方的系数为$[m_1m_2^2+m_2m_1^2]/M_t^2=\mu$，所以
+\[
+ m_1v_1^2+m_2v_2^2=M_tV_c^2+\mu u^2.
+\]
+联合密度的指数因而分成$\exp[-M_tV_c^2/(2\kb T)]$与$\exp[-\mu u^2/(2\kb T)]$两因子。对质心速度的积分使用式\eqref{eq:maxwellvector}已证的三维高斯归一化，其值为$(2\pi\kb T/M_t)^{3/2}$。与原联合密度的系数相乘后，利用$m_1m_2/M_t=\mu$，得到
+\begin{equation}\label{eq:relative}
+ f_u(\vct u)=\left(\frac\mu{2\pi\kb T}\right)^{3/2}
+ \ee^{-\mu u^2/(2\kb T)},\qquad
+ \bar u=\sqrt{\frac{8\kb T}{\pi\mu}},\quad
+ \langle u^2\rangle=\frac{3\kb T}\mu.
+\end{equation}
+这里 $\langle\vct u\rangle=\vct0$，而 $\bar u=\langle|\vct u|\rangle>0$。矢量平均与速率平均不能混写。
+
+\begin{example}[不同分子之间的碰撞速率]\label{ex:relative}
+温度 $T$ 下，气体组分1的质量为 $m_1$、数密度为 $n_1$，组分2为 $m_2,n_2$。硬球半径分别为 $r_1,r_2$。求每个组分1粒子与组分2粒子的平均碰撞频率，以及单位体积、单位时间的异种碰撞次数。
+\Diagram{fig:relativeq}{实验室系的两速度与粒子2参照系中的相对运动}{
+ \node at(1.1,1.7){实验室系};
+ \node[particle,label=below:$1$](a)at(0,0){};\node[particle,label=below:$2$](b)at(2.5,0){};
+ \draw[axis](a)--(1.1,.5)node[above]{$\vct v_1$};\draw[axis](b)--(3.3,.5)node[right]{$\vct v_2$};
+ \begin{scope}[xshift=5.4cm]
+ \node at(1.2,1.7){以粒子2为参照};\node[particle,label=below:$2$]at(2.2,0){};
+ \draw[guide](2.2,0)circle(.7);\node[particle,label=below:$1$]at(0,.4){};
+ \draw[axis](0,.4)--(1.25,.4)node[midway,above]{$\vct u$};
+ \draw[<->](2.2,0)--(2.2,.7);\node[right]at(2.3,.8){$r_1+r_2$};
+ \end{scope}
+}
+\end{example}
+\begin{solution}
+图\ref{fig:relativeq}中两球接触时中心距为 $r_1+r_2$。把粒子2的中心固定，另一中心以相对速度 $\vct u$ 运动，对应碰撞截面
+\[
+ \sigma_{12}=\pi(r_1+r_2)^2.
+\]
+在一小段时间 $\dd t$ 内，相对运动扫过体积为 $\sigma_{12}u\dd t$。先对速度平均，再乘靶粒子数密度，得到单个粒子的平均频率
+\[
+ z_{12}=n_2\sigma_{12}\bar u
+ =n_2\pi(r_1+r_2)^2\sqrt{\frac{8\kb T}{\pi\mu}}.
+\]
+式中需要的是两粒子中心之间的相对扫掠长度。若直接把组分1的平均速率代入，会把组分2也在运动这一事实漏掉。对独立速度分量有
+\[
+ \langle u_x^2\rangle=\langle v_{1x}^2\rangle+
+ \langle v_{2x}^2\rangle
+ =\kb T\left(\frac1{m_1}+\frac1{m_2}\right).
+\]
+括号正好是 $1/\mu$，与前文相对速度分布的宽度一致。只有求出这一相对分布的一阶速率矩后，才能与截面、靶密度相乘。截面按中心接触条件定义，半径已经包含两球半径之和。
+
+\Diagram{fig:relativea}{相对运动扫掠的碰撞圆柱}{
+ \draw[curve](0,-.6)--(4,-.6)arc(-90:90:.2 and .6)--(0,.6);
+ \draw[curve](0,0)ellipse(.2 and .6);\draw[axis](.2,0)--(3.8,0)node[midway,above]{$u\dd t$};
+ \node at(2,-1.1){横截面 $\sigma_{12}$};
+}
+图\ref{fig:relativea}的每个圆柱以一个组分1粒子为起点，故体积碰撞率为 $R_{12}=n_1z_{12}$。每一对异种粒子按“1碰2”计数一次，无须再除以二。若统计同一种气体的所有碰撞，同一事件会从两个参与者各计一次，结果应除以二。
+\end{solution}
+
+\subsection{平均自由程与无碰撞概率}
+\label{th:collisions}
+同种硬球半径为 $r$ 时，$\sigma=4\pi r^2$，$\bar u=\sqrt2\bar v$。用平均率 $z=n\sigma\bar u$ 近似碰撞过程，若 $P(t)$ 表示从一次碰撞后持续到 $t$ 仍未再次碰撞的概率，则
+\[
+ P(t+\dd t)=P(t)(1-z\dd t),\qquad
+ \dot P=-zP,\qquad P(0)=1.
+\]
+分离变量并用初始概率归一化，
+\[\int_1^{P(t)}\frac{\dd p}{p}=-z\int_0^t\dd s,
+\qquad[\ln p]_1^{P(t)}=-zt,\qquad P(t)=\ee^{-zt}.\]
+等待时间密度为$w(t)=-\dot P=z\ee^{-zt}$。其归一化与平均时间分别为
+\[\begin{aligned}
+\int_0^\infty w(t)\dd t&=[-e^{-zt}]_0^\infty=1,\\
+\tau=\int_0^\infty tw(t)\dd t
+&=\left[-\left(t+\frac1z\right)e^{-zt}\right]_0^\infty=\frac1z.
+\end{aligned}\]
+第二个原函数可由$\int t e^{-zt}\dd t$分部积分得到。平均自由程采用分子运动论的平均定义
+\begin{equation}
+ \lambda=\bar v\tau=\frac{\bar v}{n\sigma\bar u}
+=\frac{\bar v}{n\sigma\sqrt2\bar v}=\frac1{\sqrt2n\sigma}.
+\end{equation}
+严格说，给定速度的分子碰撞率依赖该速度，混合不同速度后的生存概率不一定是单一指数。上面的泊松模型用于平均率估算；把固定靶粒子的扫掠模型与全部粒子均运动的模型混用，会漏掉 $\sqrt2$。
+
+\begin{example}[自由程与稀薄程度]\label{ex:freepath}
+硬球气体的有效直径为 $d$，压强 $p$、温度 $T$。求平均自由程；在长为 $L$ 的管中，用平均碰撞模型估计分子穿越全管而不碰撞的概率。说明 $\lambda\gg L$ 与 $\lambda\ll L$ 各自意味着什么。
+\Diagram{fig:freepathq}{管长与平均自由程的比较}{
+ \draw[curve](0,0)rectangle(5,1);\draw[axis](.3,.5)--(4.6,.5);\draw[<->](0,-.4)--(5,-.4)node[midway,below]{$L$};
+ \draw[guide](1,0)--(1,1);\draw[guide](2,0)--(2,1);\node at(1.5,1.4){典型长度 $\lambda$};
+}
+\end{example}
+\begin{solution}
+碰撞中心允许的最小距离为 $d$，截面 $\sigma=\pi d^2$。由 $n=p/(\kb T)$ 得
+\[
+ \lambda=\frac{\kb T}{\sqrt2\pi d^2p}.
+\]
+若用图\ref{fig:freepathq}中沿管轴的平均运动近似，取穿越时间 $t\simeq L/\bar v$，则 $P\simeq\ee^{-t/\tau}=\ee^{-L/\lambda}$。这不是对所有入射角、所有速度严格平均后的透射率；它衡量的是体碰撞是否重要。
+定义 $\mathrm{Kn}=\lambda/L$，则这里的估计是 $P\simeq\ee^{-1/\mathrm{Kn}}$。当 $\mathrm{Kn}\gg1$，展开指数可得 $P\simeq1-L/\lambda$，一次体碰撞都不发生的粒子占绝大多数；当 $\mathrm{Kn}\ll1$，这类粒子的比例指数小。压强在定温下增大一倍，会使数密度和平均碰撞频率增大一倍，自由程减半。上述判断只涉及分子间碰撞；即使体碰撞很少，管壁的反射、吸附和孔道几何仍会影响传输。
+
+\Diagram{fig:freepatha}{两种尺度下的典型轨迹}{
+ \draw(0,0)rectangle(2.5,1);\draw[->](.15,.3)--(2.3,.7);\node at(1.25,-.4){$L/\lambda\ll1$};
+ \draw(3.6,0)rectangle(6.1,1);\draw[->](3.75,.3)--(4.1,.7)--(4.4,.2)--(4.8,.8)--(5.1,.5)--(5.8,.7);\node at(4.85,-.4){$L/\lambda\gg1$};
+}
+图\ref{fig:freepatha}左图主要由壁面碰撞和几何边界决定输运；右图体碰撞多，局部平衡较容易建立。但“碰撞多”本身仍不能保证过程可逆，还需宏观变化足够慢、压强和温度梯度足够小。
+\end{solution}
+
+\section{活塞、分子流与壁面通量}
+\begin{example}[自由管与活塞的相对速度]\label{ex:piston}
+水平光滑面上有长管，管质量为 $m_2$，可无摩擦滑动的活塞质量为 $m_1$。管的右端开口，左端封闭，活塞最初位于中点。初始气体体积为 $V_0/2$、温度为 $T_0$、物质的量为 $\nu$。外界真空，装置起初静止。忽略气体质量相对于 $m_1,m_2$ 的贡献，气体可视为准静态绝热膨胀，$C_{V,m}$ 恒定。求活塞刚离开管口时相对于管的速度。
+\Diagram{fig:pistonq}{初始半管气体与可反冲的管体}{
+ \draw[curve](0,1.3)--(0,0)--(5,0);\draw[curve](0,1.3)--(5,1.3);\draw[line width=2pt](2.5,0)--(2.5,1.3);
+ \node at(1.25,.65){$T_0,V_0/2$};\node[above]at(2.5,1.3){$m_1$};\node[below]at(1,-.15){管 $m_2$};\node at(4,.65){真空};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:pistonq}的管体也可运动，不能把它当作固定边界。水平总动量为零；设两物体速度为 $v_1,v_2$，有 $m_1v_1+m_2v_2=0$。令 $u=v_1-v_2$，解得
+\[
+ v_1=\frac{m_2}{m_1+m_2}u,\qquad v_2=-\frac{m_1}{m_1+m_2}u.
+\]
+将两速度代入动能，得到
+\[
+ \frac12m_1v_1^2+\frac12m_2v_2^2
+ =\frac12\frac{m_1m_2(m_1+m_2)}{(m_1+m_2)^2}u^2
+ =\frac12\mu_pu^2,
+ \quad \mu_p=\frac{m_1m_2}{m_1+m_2}.
+\]
+到管口时气体体积从半管增至全管。准静态绝热过程中，第一定律为
+\[
+ \nu C_{V,m}\dd T=-p\dd V
+ =-\frac{\nu RT}{V}\dd V.
+\]
+除以$\nu C_{V,m}T$，把温度和体积分离后按实际端点积分：
+\[
+ \int_{T_0}^{T_f}\frac{\dd T}{T}
+ =-\frac R{C_{V,m}}\int_{V_0/2}^{V_0}\frac{\dd V}{V},
+ \quad [\ln T]_{T_0}^{T_f}
+ =-\frac R{C_{V,m}}[\ln V]_{V_0/2}^{V_0}.
+\]
+于是$\ln(T_f/T_0)=-(R/C_{V,m})\ln2$，指数化得
+\[
+ T_f=T_0\,2^{1-\gamma},\qquad\gamma=1+\frac R{C_{V,m}},
+ \quad T_0(V_0/2)^{\gamma-1}=T_fV_0^{\gamma-1}.
+\]
+这里的体积是管与活塞之间的相对几何体积，管体反冲不改变它由半管增至全管的事实。对整体使用能量守恒时，管与活塞所受气体力做的功都是内部能量交换，不再另加一次$\int p\dd V$。
+
+\Diagram{fig:pistona}{离开管口前的能量和动量关系}{
+ \draw[curve](0,0)rectangle(4.5,1);\draw[line width=2pt](4.5,0)--(4.5,1);\node at(2.1,.5){$T_f,V_0$};
+ \draw[axis](4.5,1.4)--(5.7,1.4)node[right]{$v_1$};\draw[axis](1,1.4)--(-.2,1.4)node[left]{$v_2$};
+ \node at(2.8,-.6){$\Delta U+\tfrac12\mu_pu^2=0$};
+}
+图\ref{fig:pistona}中内能减少转化为管和活塞的动能，故
+\[
+ \frac12\mu_pu^2=\nu C_{V,m}(T_0-T_f),\qquad
+ u=\sqrt{\frac{2\nu C_{V,m}T_0}{\mu_p}(1-2^{1-\gamma})}.
+\]
+该结果以气体能及时重新平衡为前提。估计 $u^2/v_{\rm th}^2\sim\nu M/\mu_p$，所以 $\nu M\ll\mu_p$ 有利于活塞运动远慢于热运动；分子碰撞和声学松弛的时间也须远短于体积显著改变的时间。在这些条件下，气体才可沿一列平衡态演化并采用可逆绝热关系 $TV^{\gamma-1}=\text{常量}$。
+\end{solution}
+
+\subsection{运动壁面的碰撞积分}
+\label{th:movingwall}
+当 $L\ll\lambda$ 时，分子主要在壁面间自由飞行，瞬时速度分布通常带有历史信息。此时要计算碰撞次数及每次交换的动量，不能预先给气体套用平衡绝热线。先处理局部已知入射分布的壁面模型：平面壁沿 $+x$ 方向以速度 $U$ 运动，气体在壁左侧，入射分子必须满足 $v_x>U$。单位面积、单位时间入射数为 $n(v_x-U)f_x(v_x)\dd v_x$，弹性反射给予壁面的冲量为 $2m(v_x-U)$。因此
+\begin{equation}\label{eq:movingwall}
+ p_w(U)=2mn\int_U^\infty(v_x-U)^2f_x(v_x)\dd v_x.
+\end{equation}
+这是给定壁前入射分布时的瞬时力，不表示整个有限气体在后续时刻始终保持同一 Maxwell 分布。反射后的分子可能再次撞壁，须随边界更新分布。
+
+\begin{example}[缓慢退让壁面的压强]\label{ex:movingwall}
+气体入射分布在实验室系中保持温度 $T$、数密度 $n$ 的 Maxwell 分布。求运动壁面压强的闭式表达，并求 $|U|\ll\sqrt{\kb T/m}$ 时的一阶修正。
+\Diagram{fig:movingwallq}{退让壁面只接收追得上它的分子}{
+ \draw[line width=1.6pt](3,-.5)--(3,1.5);\node[particle]at(0,.4){};\draw[axis](0,.4)--(1.6,.4)node[midway,above]{$v_x$};
+ \draw[axis](3,1.2)--(4.2,1.2)node[right]{$U$};\node at(1.4,-.5){$v_x>U$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:movingwallq}的碰撞速度是 $v_x-U$，它同时出现在通量和冲量中。设 $z=\sqrt\alpha U$，代入式\eqref{eq:movingwall}并令 $t=\sqrt\alpha v_x$，得
+\[
+ p_w=\frac{2mn}{\alpha\sqrt\pi}\int_z^\infty(t-z)^2\ee^{-t^2}\dd t.
+\]
+记$A_j=\int_z^\infty t^j\ee^{-t^2}\dd t$。零阶项按$\erfc$的定义为
+$A_0=\sqrt\pi\erfc z/2$，一阶项直接使用指数原函数：
+\[
+ A_1=\lim_{L\to\infty}\left[-\frac12\ee^{-t^2}\right]_z^L
+ =\frac12\ee^{-z^2}.
+\]
+二阶项分部积分，得到
+\[
+ \begin{aligned}
+ A_2&=\left[-\frac t2\ee^{-t^2}\right]_z^\infty
+ +\frac12\int_z^\infty\ee^{-t^2}\dd t\\
+ &=\frac z2\ee^{-z^2}+\frac{\sqrt\pi}4\erfc z.
+ \end{aligned}
+\]
+展开$(t-z)^2$，原积分为$A_2-2zA_1+z^2A_0$。代入三项并用$1/\alpha=2\kb T/m$，得到
+\[
+ p_w=n\kb T\left[(1+2z^2)\erfc z-\frac{2z}{\sqrt\pi}\ee^{-z^2}\right].
+\]
+分部积分的边界项在$z$处保留，在无穷远处为零。压强来自非负被积函数的积分，始终非负；一阶速度修正同时包含碰撞频率和单次冲量的变化。
+
+\Diagram{fig:movingwalla}{壁面功率来自相对速度决定的力}{
+ \draw[line width=1.5pt](2,0)--(2,1.5);\draw[axis](2,.4)--(3.4,.4)node[right]{$F=Ap_w$};
+ \draw[axis](2,1.2)--(3.1,1.2)node[right]{$U$};\node at(.4,.7){气体};\node at(2.1,-.6){$\dot W=Ap_wU$};
+}
+在 $z=0$ 邻域，$\erfc z=1-2z/\sqrt\pi+O(z^3)$，所以
+\[
+ p_w=n\kb T\left[1-\frac4{\sqrt\pi}\sqrt{\frac m{2\kb T}}U
+ +O\!\left(\frac{mU^2}{\kb T}\right)\right].
+\]
+退让 $U>0$ 时压强减小；迎面运动时增大。图\ref{fig:movingwalla}中壁所获功率为 $Ap_wU$，正负随运动方向改变。$U=0$ 时恢复 $n\kb T$，也是积分系数的直接校核。
+\end{solution}
+
+\subsection{壁面通量及余弦定律}
+\label{th:wallflux}
+取面元 $\dd S$，法线与速度夹角为 $\theta$。能够在 $\dd t$ 内撞上该面元的粒子，来自体积 $v\cos\theta\,\dd t\dd S$。各向同性分布的方向概率为 $\dd\Omega/(4\pi)$，且 $\dd\Omega=2\pi\sin\theta\dd\theta$。因此
+\[
+ \dd N=n g(v)\dd v\frac{\dd\Omega}{4\pi}
+ v\cos\theta\dd t\dd S.
+\]
+只积入射半球 $0\le\theta\le\pi/2$，有
+\[
+ j=\frac{\dd N}{\dd S\dd t}=n\bar v\int_0^{\pi/2}\frac12\sin\theta\cos\theta\dd\theta
+=\frac{n\bar v}{4}[\sin^2\theta]_0^{\pi/2}
+ =\frac14n\bar v.
+\]
+单独给出方向时，撞壁样本的立体角密度为 $\cos\theta/\pi$；对方位角积分后的极角密度为 $2\sin\theta\cos\theta$。它在 $45^\circ$ 处最大，并不意味着单位立体角的通量在斜向最大。
+
+\begin{example}[由撞壁冲量求气体压强]\label{ex:gaspressure}
+用各向同性速率分布 $g(v)$ 计算理想弹性壁面的压强，再代入 Maxwell 分布，推出理想气体状态方程。
+\Diagram{fig:gaspressureq}{入射与反射的法向动量变化}{
+ \draw[line width=1.4pt](3,-1)--(3,1.6);\draw[->](.5,1.4)--(3,0);\draw[->](3,0)--(.5,-1.4);
+ \draw[guide](1,0)--(4,0)node[right]{法线};\node at(1.8,.9){$\theta$};\node at(1.7,-1){$\theta$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:gaspressureq}中粒子法向动量从 $mv\cos\theta$ 变为 $-mv\cos\theta$，壁面得到 $2mv\cos\theta$ 的冲量。把该冲量乘入射数，并除以面积和时间，
+\begin{align*}
+ p&=n\int_0^\infty g(v)\dd v\int_0^{\pi/2}
+ \frac12\sin\theta\dd\theta\,(v\cos\theta)(2mv\cos\theta)\\
+ &=nm\langle v^2\rangle\int_0^{\pi/2}\sin\theta\cos^2\theta\dd\theta
+ =\frac13nm\langle v^2\rangle.
+\end{align*}
+角积分中令$\mu=\cos\theta$，则$\dd\mu=-\sin\theta\dd\theta$，入射半球对应$\mu$从1降至0，所以
+\[
+ \int_0^{\pi/2}\sin\theta\cos^2\theta\dd\theta
+ =-\int_1^0\mu^2\dd\mu
+ =\left[\frac{\mu^3}3\right]_0^1=\frac13.
+\]
+径向积分留下的是二阶速率矩，而非平均速率的平方。对各向异性气体，沿$x$法向的壁面应使用$p_x=nm\langle v_x^2\rangle$；本题因三个方向等价，才有$\langle v_x^2\rangle=\langle v^2\rangle/3$，并可用一个标量压强描述各个壁面。
+
+\Diagram{fig:gaspressurea}{通量中的法向投影与弹性反射冲量}{
+ \draw[line width=1.3pt](2.5,-1.2)--(2.5,1.5);
+ \draw[axis](.1,1.1)--(2.5,0)node[midway,above]{$\vct v$};\draw[axis](2.5,0)--(.1,-1.1);
+ \draw[guide](.2,0)--(3.2,0);\draw[axis](.2,-1.5)--(2.2,-1.5)node[midway,below]{$v_n=v\cos\theta$};
+ \draw(1.6,0)arc[start angle=180,end angle=155.4,radius=.9];\node at(1.36,.23){$\theta$};
+ \node[right,align=left]at(3.6,.8){单位时间入射数\\含因子 $v_n$};
+ \node[right,align=left]at(3.6,-.6){每次反射给壁面\\冲量 $2mv_n$};
+}
+图\ref{fig:gaspressurea}中的两个余弦分别来自扫掠体积和冲量；漏掉任何一个都会得到错误角因子。代入 $m\langle v^2\rangle=3\kb T$，得 $p=n\kb T$，再用 $N=\nu N_A$、$R=N_A\kb$，即 $pV=\nu RT$。
+\end{solution}
+
+\begin{example}[逸出粒子的速率与能量]\label{ex:effusivesample}
+容器中气体处于温度 $T$ 的平衡态。壁上小孔尺寸远小于平均自由程，孔外真空，孔薄且不额外筛选方向。求穿孔粒子的归一化速率密度、平均速率和平均平动能。
+\Diagram{fig:effusiveq}{小孔泄流与容器内的粒子抽样}{
+ \draw[curve](0,0)--(0,2)--(3,2)--(3,1.15);\draw[curve](3,.85)--(3,0)--(0,0);
+ \foreach \p in{(.4,.5),(.8,1.4),(1.6,.8),(2.3,1.5)}\node[particle]at\p{};
+ \draw[axis](3,1)--(4.7,1)node[right]{真空};\node at(1.5,-.5){$T,n$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:effusiveq}中的小孔按“单位时间经过”抽样，同速率下快粒子有更多穿孔机会。角积分对各速率都给相同的 $1/4$，故归一化后的密度
+\[
+ g_e(v)=\frac{vg(v)}{\bar v}=2\alpha^2v^3\ee^{-\alpha v^2},\qquad
+ \int_0^\infty g_e\dd v=2\alpha^2 I_3=1.
+\]
+于是
+\[
+ \bar v_e=\frac{\langle v^2\rangle}{\bar v}
+ =\frac{3\pi}8\bar v,\qquad
+ \langle v^2\rangle_e=2\alpha^2 I_5=\frac{4\kb T}{m}.
+\]
+加权后的密度仍按 $\dd v$ 归一化，平均值计算中的分母始终为同一个总通量。平均速率与平均能量分别涉及原分布的二阶、三阶矩，因而两者受快粒子的影响程度不同。逸出速率密度的峰值由 $3/v-2\alpha v=0$ 确定，对应 $v^2=3/(2\alpha)$；它比体内速率分布的峰向右移动。此处只改变了被观察的样本，容器在这一瞬时的温度仍是原来的 $T$，不能据束流平均能量另给它定义一个平衡温度。
+
+\Diagram{fig:effusivea}{相同温度下体内分布与逸出分布的比较}{
+ \draw[axis](0,0)--(5,0)node[right]{$v$};\draw[axis](0,0)--(0,2.3)node[above]{密度};
+ \draw[curve]plot[domain=0:4.5,samples=70](\x,{4/sqrt(pi)*\x*\x*exp(-\x*\x)});
+ \draw[curve,dashed]plot[domain=0:4.5,samples=70](\x,{2*\x*\x*\x*exp(-\x*\x)});
+ \node at(3.3,1.9){实线 $g$};\node at(3.4,1.4){虚线 $g_e$（示意）};
+}
+逸出粒子的平均平动能为 $2\kb T$，高于体内的 $3\kb T/2$。图\ref{fig:effusivea}显示快粒子权重增加；容器若绝热且不补充气体，余气会冷却。冷却程度要进一步对变化的 $N,T$ 写能量守恒，不能只以“快粒子少了”代替计算。
+\end{solution}
+
+\input{lecture1_kinetic}
+\input{lecture1_models}
+\input{lecture1_depth}
+\section{习题与解答}
+\begin{exercise}[两种温度下的曲线缩放]
+同种气体由 $T$ 变为 $4T$，粒子数不变。求速率分布峰值位置、峰高和区间概率 $P(a<v<b)$ 的变换关系。
+\Diagram{fig:scaleq}{不同温度下分布变宽而面积保持为一}{
+ \draw[axis](0,0)--(5.6,0)node[right]{$v$};\draw[axis](0,0)--(0,2.4)node[above]{$g$};
+ \draw[curve]plot[domain=0:5,samples=80](\x,{4/sqrt(pi)*\x*\x*exp(-\x*\x)});
+ \draw[curve,dashed]plot[domain=0:5,samples=80](\x,{1/(2*sqrt(pi))*\x*\x*exp(-\x*\x/4)});\node at(4,1.9){$T\to4T$};
+}
+\end{exercise}
+\begin{solution}
+设原密度为 $g_T(v)$，直接代入式\eqref{eq:speeddensity}，有 $g_{4T}(v)=\tfrac12g_T(v/2)$。图\ref{fig:scaleq}中横向伸长两倍、纵向降低一半，面积因而不变。峰值位置 $v_p\to2v_p$，峰高减半。
+在变换后的密度中，温度的 $T^{-3/2}$ 因子给出 $1/8$，指数中的 $v^2/T$ 则通过 $v/2$ 保持原形；同时原密度内的速度平方又产生因子4，合起来才是前面的 $1/2$。区间积分另有 $\dd v=2\dd w$，正好与纵向缩放抵消。图中的两段区间代表同一组无量纲端点 $v/\sqrt T$；固定实验室速率端点时，端点相对于热运动尺度的位置已变化，因此其概率不会普遍保持不变。
+
+\Diagram{fig:scalea}{概率区间随无量纲速度一起变换}{
+ \draw[axis](0,1.2)--(5,1.2)node[right]{$T$};\draw[axis](0,0)--(5,0)node[right]{$4T$};
+ \draw[line width=2pt](1,1.2)--(2,1.2);\draw[line width=2pt](2,0)--(4,0);
+ \node[above]at(1,1.2){$a$};\node[above]at(2,1.2){$b$};\node[below]at(2,0){$2a$};\node[below]at(4,0){$2b$};
+}
+令 $w=v/2$，则 $P_{4T}(a<v<b)=\int_{a/2}^{b/2}g_T(w)\dd w$。图\ref{fig:scalea}表示的是 $P_{4T}(2a<v<2b)=P_T(a<v<b)$；若区间端点不跟随温度缩放，概率通常会改变。
+\end{solution}
+
+\begin{exercise}[阈值以上的速率]
+求平衡气体中 $v>v_0$ 的比例，并令 $v_0=v_p$ 写成误差函数形式。
+\Diagram{fig:speedtailq}{速率阈值右侧的概率}{
+ \draw[axis](0,0)--(5,0)node[right]{$v$};\draw[axis](0,0)--(0,2)node[above]{$g$};
+ \draw[curve]plot[domain=0:4.5,samples=70](\x,{3*\x*\x*exp(-\x*\x)});\draw[guide](1.5,0)--(1.5,1.7);\node[below]at(1.5,0){$v_0$};
+}
+\end{exercise}
+\begin{solution}
+令$t=\sqrt\alpha v$，则$\dd v=\dd t/\sqrt\alpha$，下限$v_0$变为$z=\sqrt\alpha v_0$、上限仍为无穷大。图\ref{fig:speedtailq}右侧概率因而为$(4/\sqrt\pi)\int_z^\infty t^2\ee^{-t^2}\dd t$。分部积分取$t$与$t\ee^{-t^2}\dd t$，得到
+\[
+ P(v>v_0)=\erfc z+\frac{2z}{\sqrt\pi}\ee^{-z^2}.
+\]
+分部积分的具体边界项为 $[-t\ee^{-t^2}/2]_z^\infty=z\ee^{-z^2}/2$，剩余积分为原高斯尾的一半。乘上速率密度归一化常数后，便分别形成图中的两项。阈值取最概然速率时 $\alpha v_p^2=1$，所以应把无量纲下限取为1。最概然值只给出密度峰的位置，不把总体分成各占一半的两部分；本题的积分一般也不等于 $1/2$。
+
+\Diagram{fig:speedtaila}{速率尾积分由边界项和高斯尾组成}{
+ \node[draw]at(0,0){边界项 $2z\ee^{-z^2}/\sqrt\pi$};\node at(3,0){$+$};\node[draw]at(5,0){$\erfc z$};
+}
+当 $v_0=v_p$ 时 $z=1$，结果为 $\erfc1+2/(\ee\sqrt\pi)$。图\ref{fig:speedtaila}中的边界项不能省去；速率密度有 $v^2$ 因子，与一维速度分量的尾概率不同。$z=0$ 给出1，$z\to\infty$ 给出0。
+\end{solution}
+
+\begin{exercise}[不同温度的相对速度]
+两个独立粒子质量为 $m_1,m_2$，各自服从温度 $T_1,T_2$ 的无漂移 Maxwell 分布。求相对速率的平均值和均方值。能否仍把 $T_1$ 或 $T_2$ 直接代入约化质量公式？
+\Diagram{fig:twotq}{两个独立速度分布的差}{
+ \node[draw,align=center]at(0,0){$m_1,T_1$\\$\vct v_1$};\node[draw,align=center]at(3.4,0){$m_2,T_2$\\$\vct v_2$};\draw[->](.8,-.9)--(2.6,-.9)node[midway,below]{$\vct u=\vct v_1-\vct v_2$};
+}
+\end{exercise}
+\begin{solution}
+每个方向的速度分量均为零均值高斯，方差分别为 $\kb T_1/m_1$、$\kb T_2/m_2$。图\ref{fig:twotq}中的两者独立，差的方差相加，记 $s^2=\kb T_1/m_1+\kb T_2/m_2$，有 $u_x,u_y,u_z$ 独立且方差均为 $s^2$。
+方差相加之前先展开 $u_x^2=v_{1x}^2+v_{2x}^2-2v_{1x}v_{2x}$。独立且均值均为零时，交叉项平均为 $\langle v_{1x}\rangle\langle v_{2x}\rangle=0$。三个方向具有相同方差，所以均方相对速率是三个分量二阶矩之和。若两组分还存在不同的宏观漂移速度，交叉项的处理要先减去各自均值，相对分布的中心也会偏移；本题给出的零漂移条件正是中心位于原点的依据。
+
+\Diagram{fig:twota}{相对速度各分量的方差相加}{
+ \draw[axis](-2.7,0)--(2.7,0)node[right]{$u_x$};\draw[curve]plot[domain=-2.5:2.5,samples=60](\x,{1.7*exp(-\x*\x/2)});\draw[<->](-1,-.4)--(1,-.4)node[midway,below]{$2s$};
+}
+故三维相对速率仍为 Maxwell 形状，$g_u(u)=\sqrt{2/\pi}\,u^2s^{-3}\ee^{-u^2/(2s^2)}$，于是 $\bar u=\sqrt{8/\pi}\,s$、$\langle u^2\rangle=3s^2$。图\ref{fig:twota}的宽度由两个温度共同决定，计算时应保留 $\kb T_1/m_1+\kb T_2/m_2$ 的完整组合；当 $T_1=T_2=T$ 时，才简化为 $s^2=\kb T/\mu$。
+\end{solution}
+
+\begin{exercise}[同种气体的碰撞计数]
+体积 $V$ 内有 $N$ 个相同硬球，温度 $T$、有效截面 $\sigma$。求总体每秒碰撞次数，并比较用“每粒子的频率乘粒子数”得到的结果。
+\Diagram{fig:paircountq}{同一次碰撞涉及两个粒子}{
+ \node[circle,draw,minimum size=9mm](a)at(0,0){$i$};\node[circle,draw,minimum size=9mm](b)at(2,0){$j$};\draw[->](a)--(.7,0);\draw[->](b)--(1.3,0);\node at(1,-.8){一对 $\{i,j\}$};
+}
+\end{exercise}
+\begin{solution}
+单个粒子的平均碰撞频率为 $z=n\sigma\sqrt2\bar v$。图\ref{fig:paircountq}中一次碰撞同时出现在 $i$ 和 $j$ 的计数中，因此总体碰撞次数率为
+\[
+\mathcal R=\frac12Nz\simeq\frac{N^2\sigma}{\sqrt2V}\sqrt{\frac{8\kb T}{\pi m}}.
+\]
+单粒子频率$z$按参与者计数，$Nz$便把每次碰撞计入两次。图中合并这两条有序记录时，截面和相对运动的平均不变；有限粒子数还须排除与自身配对的项。
+
+\Diagram{fig:paircounta}{有序计数转换为无序粒子对}{
+ \node[draw]at(0,0){$i\to j$};\node[draw]at(2,0){$j\to i$};\draw[->](0,-.4)--(1,-1);\draw[->](2,-.4)--(1,-1);\node[below]at(1,-1){同一事件，除以二};
+}
+图\ref{fig:paircounta}中两条有序记录对应同一次碰撞，因此总计数除以二。有限$N$时还要排除粒子与自身配对，将靶粒子密度改为$(N-1)/V$，同一稀薄无关联模型给
+\[\mathcal R=\frac{N(N-1)\sigma}{\sqrt2V}
+\sqrt{\frac{8\kb T}{\pi m}}.\]
+宏观气体$N\gg1$时，它与前式的相对差为$1/N$。
+\end{solution}
+
+\begin{exercise}[小孔两侧的平衡条件]
+两容器以很小的薄孔相通，孔的尺度远小于两侧平均自由程。两侧为相同气体，温度 $T_1,T_2$ 由外界维持。求零净粒子通量时 $p_1/p_2$，并说明零粒子通量是否意味着无能量传递。
+\Diagram{fig:thermaltransq}{不同温度容器通过分子流小孔相连}{
+ \draw(0,0)rectangle(5,1.6);\draw(2.5,0)--(2.5,.65);\draw(2.5,.95)--(2.5,1.6);\node at(1.2,.8){$p_1,T_1$};\node at(3.8,.8){$p_2,T_2$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:thermaltransq}两侧各自向孔贡献 $j_i=n_i\bar v_i/4$。零净粒子流要求 $n_1\sqrt{T_1}=n_2\sqrt{T_2}$。用 $p_i=n_i\kb T_i$ 消去数密度，得
+\[
+ \frac{p_1}{\sqrt{T_1}}=\frac{p_2}{\sqrt{T_2}},\qquad
+ \frac{p_1}{p_2}=\sqrt{\frac{T_1}{T_2}}.
+\]
+热侧在同压下密度较小，而平均速率较大，结合后单向通量正比于$p_i/\sqrt{T_i}$。孔口处是分子流，两侧没有通过密集碰撞建立共同压强；恒温装置仍需补入或取走穿孔传递的净能量。
+
+\Diagram{fig:thermaltransa}{粒子流相抵时能量流仍可不相抵}{
+ \draw[axis](0,.5)--(4,.5)node[midway,above]{$j\times2\kb T_1$};\draw[axis](4,-.5)--(0,-.5)node[midway,below]{$j\times2\kb T_2$};
+}
+对单原子气体，每个逸出粒子带走 $2\kb T_i$，故图\ref{fig:thermaltransa}给出净能流 $2\kb j(T_1-T_2)$。只有温度也相同才无净热传递。这里由外界恒温，不要求两侧构成孤立平衡系统。
+\end{solution}
+
+\begin{exercise}[束流的角分布与圆锥筛选]
+由薄孔逸出的分子在远场可视为余弦束。收集器只接受与孔法线夹角 $0\le\theta\le\theta_0$ 的分子。求收集到的比例和归一化角密度；若筛选只与方向有关，收集束的平均能量是否改变？
+\Diagram{fig:coneq}{小孔法线周围的收集圆锥剖面}{
+ \draw[line width=1.2pt](0,-1.2)--(0,-.15);\draw[line width=1.2pt](0,.15)--(0,1.2);
+ \draw[axis](0,0)--(4,0)node[right]{法线};\draw[curve](0,0)--(3,1.2);\draw[curve](0,0)--(3,-1.2);
+ \draw[->](.9,0)arc(0:21.8:.9);\node at(1.4,.4){$\theta_0$};\node[left]at(0,.3){孔};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:coneq}是以法线为轴的三维圆锥的剖面。对整个方位角积分后，原束的极角密度为 $q(\theta)=2\sin\theta\cos\theta$，所以
+\[
+ P_c=\int_0^{\theta_0}q(\theta)\dd\theta
+=[\sin^2\theta]_0^{\theta_0}=\sin^2\theta_0,
+ \qquad q_c(\theta)=\frac{2\sin\theta\cos\theta}{\sin^2\theta_0}.
+\]
+收集比例的分母对应整个向外半球。方向密度 $\cos\theta/\pi$ 乘立体角环带 $2\pi\sin\theta\dd\theta$，才成为所用的极角密度。它的积分是 $\sin^2\theta$；不能仅以圆锥立体角占半球的比例 $1-\cos\theta_0$ 代替，因为偏斜方向的通量还受到余弦投影抑制。小角度时收集比例约为 $\theta_0^2$，缩小接受角主要减少粒子数，不额外筛选快慢。
+
+\Diagram{fig:conea}{速度权重与方向权重可分离}{
+ \node[draw]at(0,0){$g_e(v)\dd v$};\node at(2,0){$\times$};\node[draw]at(4,0){$q_c(\theta)\dd\theta$};\node at(2,-.8){方向筛选不改变速率密度};
+}
+原联合密度中速率与方向相乘，图\ref{fig:conea}的筛选只改变角因子的归一化。因此收集束仍有 $\langle E_k\rangle=2\kb T$。若孔道很长，透射概率可能依赖速率、壁面吸附和再发射，便不能仅凭这一角度模型推断。
+\end{solution}
+
+\begin{exercise}[重分子与轻分子的泄流分离]
+容器内有两种理想气体，质量分别为 $m_a,m_b$，粒子数为 $N_a,N_b$，共同温度 $T$。在温度和容器体积保持不变的小孔泄流过程中，求逸出流的组分比和余气组分随时间的变化。
+\Diagram{fig:isotopeq}{同一小孔对不同质量粒子的通量不同}{
+ \draw(0,0)rectangle(3,1.6);\fill[white](2.95,.65)rectangle(3.05,.95);\node at(1.5,1.05){$N_a,m_a$};\node at(1.5,.5){$N_b,m_b$};\draw[->](3,.8)--(4.5,.8);
+}
+\end{exercise}
+\begin{solution}
+由图\ref{fig:isotopeq}，两种气体共享孔面积 $A_h$ 和体积 $V$。各自数流率为
+\[
+ J_i=\frac{A_hN_i}{V}\sqrt{\frac{\kb T}{2\pi m_i}}=\kappa_iN_i,
+ \qquad \kappa_i=\frac{A_h}{V}\sqrt{\frac{\kb T}{2\pi m_i}}.
+\]
+所以瞬时逸出流的组分比为
+\[
+ \frac{J_a}{J_b}=\frac{N_a}{N_b}\sqrt{\frac{m_b}{m_a}}.
+\]
+微分方程分离为$\dd N_i/N_i=-\kappa_i\dd t$。从$N_i(0)=N_{i0}>0$积分，
+\[\int_{N_{i0}}^{N_i(t)}\frac{\dd N}{N}
+=-\kappa_i\int_0^t\dd s,
+\qquad[\ln N]_{N_{i0}}^{N_i(t)}=-\kappa_i[s]_0^t.\]
+所以$\ln[N_i(t)/N_{i0}]=-\kappa_it$，取指数给出下述各组分数目。若$m_a<m_b$，则$\kappa_a>\kappa_b$，轻组分在瞬时逸出流中富集，也在容器内消耗得更快。逸出流比为$J_a/J_b$，余气比为$N_a/N_b$，两者相差一个质量平方根因子。
+
+\Diagram{fig:isotopea}{恒温泄流时两组分分别指数减少}{
+ \draw[axis](0,0)--(5,0)node[right]{$t$};\draw[axis](0,0)--(0,2.3)node[above]{$N_i/N_{i0}$};
+ \draw[curve]plot[domain=0:4.6](\x,{2*exp(-\x)});\draw[curve,dashed]plot[domain=0:4.6](\x,{2*exp(-\x/2)});\draw(-.06,2)--(.06,2);\node[left]at(0,2){$1$};\node at(3,1.6){轻组分减少较快};
+}
+两组分数目为$N_i=N_{i0}\ee^{-\kappa_it}$，余气比值为$(N_{a0}/N_{b0})\ee^{-(\kappa_a-\kappa_b)t}$。图\ref{fig:isotopea}实线示意较轻组分。外界持续供热使温度不变，$\kappa_i$才保持常数；若改为绝热容器，泄流系数中的$\sqrt{T(t)}$须与气体能量方程联立求解。
+\end{solution}
+
+\begin{exercise}[自由管模型的质量极限]
+在例\ref{ex:piston}中，保持初始气体状态不变，分别取 $m_2\to\infty$ 与 $m_1=m_2=M_p$。求活塞实验室速度和管体速度，比较相对速度与可用于喷出活塞的机械能。
+\Diagram{fig:recoillimitq}{同一膨胀能量分配给两个可运动物体}{
+ \node[draw,minimum width=1.5cm]at(0,0){管 $m_2$};\node[draw]at(3,0){活塞 $m_1$};\draw[axis](-.8,-.6)--(-1.5,-.6);\draw[axis](3,-.6)--(4,-.6);\node at(1.5,.8){总机械能 $E$ 固定};
+}
+\end{exercise}
+\begin{solution}
+令 $E=\nu C_{V,m}T_0(1-2^{1-\gamma})$。图\ref{fig:recoillimitq}要求总动量为零，故 $u=\sqrt{2E/\mu_p}$，$v_1=m_2u/(m_1+m_2)$，$v_2=-m_1u/(m_1+m_2)$。
+把相对速度代回两物体速度后，动能分配可不依赖具体气体参数写成
+\[
+ E_1=\frac{m_2}{m_1+m_2}E,\qquad
+ E_2=\frac{m_1}{m_1+m_2}E.
+\]
+两项相加恢复总膨胀能 $E$。较轻的物体获得较大的速度和较多的动能，但两者动量大小始终相等、方向相反。固定管极限和等质量极限都可由这两个分配系数直接读出，避免把相对运动的约化质量误认成活塞在实验室系中的实际质量。
+
+\Diagram{fig:recoillimita}{固定管与等质量反冲的速度分配}{
+ \node at(0,1){$m_2\to\infty$};\draw[axis](0,0)--(1.6,0)node[right]{$v_1=\sqrt{2E/m_1}$};
+ \node at(0,-1){$m_1=m_2$};\draw[axis](0,-2)--(1.4,-2)node[right]{$v_1=\sqrt{E/M_p}$};\draw[axis](0,-2)--(-1.4,-2)node[left]{$v_2=-v_1$};
+}
+固定管极限$\mu_p\to m_1$，管速度趋零，全部机械能进入活塞：
+\[u\longrightarrow\sqrt{\frac{2E}{m_1}},\qquad
+v_1\longrightarrow\sqrt{\frac{2E}{m_1}},\qquad v_2\longrightarrow0.\]
+等质量时$\mu_p=M_p/2$，两物体各得$E/2$，且
+\[u=2\sqrt{\frac E{M_p}},\qquad
+v_1=\frac u2=\sqrt{\frac E{M_p}},\qquad
+v_2=-\frac u2=-\sqrt{\frac E{M_p}}.\]
+图\ref{fig:recoillimita}中相对速度增大，而活塞分得的能量减少；管体反冲既贡献了相对速度，也带走一半机械能。
+\end{solution}

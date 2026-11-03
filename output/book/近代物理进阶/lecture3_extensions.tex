@@ -1,0 +1,177 @@
+\section{从三力到轨迹}
+对$\vct p=m\gamma_u\vct u$求导，可把三力写成
+\[
+ \vct f=m\gamma_u\vct a+m\gamma_u^3
+ \frac{\vct u\cdot\vct a}{c^2}\vct u.
+\]
+平行于瞬时速度的投影给$f_\parallel=m\gamma_u^3a_\parallel$，垂直投影给$f_\perp=m\gamma_ua_\perp$。再反解为
+\[
+ \vct a=\frac1{m\gamma_u}
+ \left[\vct f-\frac{\vct f\cdot\vct u}{c^2}\vct u\right].
+\]
+这个矢量式比引入方向依赖的“质量”更直接：静质量$m$是同一不变量，方向差异出自动量与速度的非线性关系。
+
+\begin{example}\label{ex:m3transconstant}
+粒子初始动量为$p_0\hat{\vct x}$，从$t=0$起受固定方向恒定三力$f\hat{\vct y}$。求速度和轨迹，说明为何它一般不是匀速圆周运动。
+\Diagram{fig:m3transq}{固定方向力只在初始瞬间垂直速度}{\draw[axis](0,0)--(3.7,0)node[right]{$p_0$};\draw[axis](0,0)--(0,2.6)node[above]{$f$};\fill(0,0)circle(2pt);}
+\end{example}
+\begin{solution}
+图\ref{fig:m3transq}中，三力固定沿$y$，故$\dd p_x/\dd t=0$、$\dd p_y/\dd t=f$，初值给$p_x=p_0$、$p_y=ft$。记$E_a=\sqrt{m^2c^4+p_0^2c^2}$，由质壳关系
+\[
+ E=\sqrt{E_a^2+f^2c^2t^2},\qquad
+ u_x=\frac{c^2p_0}{E},\quad u_y=\frac{c^2ft}{E}.
+\]
+令$s=fct/E_a$，位移的两个定积分分别为
+\begin{align*}
+ x&=\frac{cp_0}f\int_0^s\frac{\dd q}{\sqrt{1+q^2}}
+ =\frac{cp_0}f[\operatorname{arsinh}q]_0^s
+ =\frac{cp_0}f\operatorname{arsinh}s,\\
+ y&=\frac{E_a}f\int_0^s\frac{q\dd q}{\sqrt{1+q^2}}
+ =\frac{E_a}f[\sqrt{1+q^2}]_0^s
+ =\frac{E_a}f(\sqrt{1+s^2}-1).
+\end{align*}
+\Diagram{fig:m3transa}{动量沿直线增长，空间轨迹逐渐转向力的方向}{\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[axis](0,0)--(0,4.1)node[above]{$y$};\draw[curve,domain=0:3.5,samples=80]plot({ln(\x+sqrt(1+\x*\x))},{sqrt(1+\x*\x)-1});\draw[->](1.8,2)--(1.95,2.6);}
+当$p_0\ne0$时消去$s$，空间轨迹为
+\[
+ y=\frac{E_a}f\left[\cosh\left(\frac{fx}{cp_0}\right)-1\right].
+\]
+图\ref{fig:m3transa}中的曲线逐渐转向力的方向。由上式$E-E_a=fy$，可直接核对恒力做功；只在初始瞬间力与速度正交，随后$fu_y>0$，速率增大，因此不是匀速圆周运动。短时展开给$x\simeq c^2p_0t/E_a$、$y\simeq fc^2t^2/(2E_a)$，初始横向加速度为$f/(m\gamma_{u0})$。若$p_0=0$，粒子始终沿$y$直线运动，含$1/p_0$的消参式不适用，应使用原来的参数解。
+\end{solution}
+
+\begin{example}\label{ex:m3massgain}
+质量$M$的静止物体完全吸收一个能量$E$的光子，不向外辐射。求吸收后物体静质量与速度；为什么不能把其静质量简单写成$M+E/c^2$？
+\Diagram{fig:m3gainq}{吸收一个光子同时带入能量和动量}{\draw[->,thick](-2,.5)--(0,.5)node[midway,above]{$E$};\draw[curve](.3,0)rectangle(2,1);\node at(1.15,.5){$M$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3gainq}中，入射光子动量为$E/c$，吸收后物体必须反冲。全系统总能量、动量分别为$E_T=Mc^2+E$、$P_T=E/c$，故
+\[
+ M_f^2c^4=E_T^2-c^2P_T^2=M^2c^4+2Mc^2E.
+\]
+令$\epsilon=E/(Mc^2)$，得到$M_f=M\sqrt{1+2\epsilon}$、$V=c\epsilon/(1+\epsilon)$。后式由$V=P_Tc^2/E_T$求出，不能把总动量除以末静质量当作速度。
+\Diagram{fig:m3gaina}{光能一部分成为物体静能，一部分成为整体反冲动能}{\draw[curve](0,0)rectangle(5,1);\draw[curve](3.4,0)--(3.4,1);\node at(1.7,.5){$(M_f-M)c^2$};\node at(4.2,.5){$K_f$};\node[above]at(2.5,1){总输入$E$};}
+图\ref{fig:m3gaina}的两部分分别为
+\[
+ \Delta U=Mc^2(\sqrt{1+2\epsilon}-1),\quad
+ K_f=Mc^2(1+\epsilon-\sqrt{1+2\epsilon}).
+\]
+后一括号可有理化为$\epsilon^2/[1+\epsilon+\sqrt{1+2\epsilon}]$，因此正且在低能时为$\epsilon^2/2$。于是$\Delta U\simeq E-E^2/(2Mc^2)$、$K_f\simeq E^2/(2Mc^2)$，总和严格为$E$。
+
+若错误地取$M_f=M+E/c^2$，便已把全部光能算入静能，却又保留非零末动量，末态总能量会超过初态。两束等能反向光子同时吸收时总动量为零，才可把全部输入能量计为静能。对吸收所致的变质量过程，$u\cdot F=c^2\dd M/\dd\tau$一般非零，与静质量不变点电荷的洛伦兹四力应区别。
+\end{solution}
+
+\section{电荷、电流与场的同一变换}
+\begin{example}\label{ex:m3movingcharge}
+点电荷$q$沿$x$以$V$匀速运动，在$t=0$经过原点。由静止库仑场求实验室时刻$t$、位置$(x,y,z)$的电磁场，描述纵向与横向方向的差别。
+\Diagram{fig:m3chargeq}{相对电荷同时位置的矢量$\vct R$}{\draw[axis](-1,0)--(4.5,0)node[right]{$x$};\fill(1,0)circle(2pt)node[below]{$q,\ Vt$};\fill(3,1.8)circle(1.5pt)node[right]{$P$};\draw[->](1,0)--(3,1.8)node[midway,above]{$\vct R$};\draw[axis](1,.4)--(2,.4)node[above]{$V$};}
+\end{example}
+\begin{solution}
+取图\ref{fig:m3chargeq}的$R_x=x-Vt$、$\vct R_\perp=(y,z)$。变到电荷静止系，场点相对电荷坐标为$(\gamma R_x,y,z)$，距离$r'=\sqrt{\gamma^2R_x^2+R_\perp^2}$，库仑场$\vct E'=q(\gamma R_x,y,z)/(4\pi\varepsilon_0r'^3)$、$\vct B'=0$。逆场变换保持平行分量，横向分量乘$\gamma$，所以
+\[
+ \vct E=\frac{q\gamma\vct R}{4\pi\varepsilon_0(\gamma^2R_x^2+R_\perp^2)^{3/2}},\quad
+ \vct B=\frac{\vct V\times\vct E}{c^2}.
+\]
+\Diagram{fig:m3chargea}{等距球面上横向电场增强，纵向减弱}{\draw[axis](-2.4,0)--(2.7,0)node[right]{$V$};\draw[guide](0,0)circle(1.5);\draw[axis](0,1.5)--(0,2.7)node[above]{$\gamma E_C$};\draw[axis](1.5,0)--(2,0);\node[below]at(1.8,-.3){$E_C/\gamma^2$};\fill(0,0)circle(2pt);}
+沿纵向$R_\perp=0$，$E=E_C/\gamma^2$；纯横向$R_x=0$，$E=\gamma E_C$，其中$E_C=q/(4\pi\varepsilon_0R^2)$。图\ref{fig:m3chargea}说明角分布被压向横向。场沿同时位置的$\vct R$指向并不意味着作用瞬时传播；这是匀速轨迹的完整延迟场化简结果，电荷加速时不能继续照用。
+\end{solution}
+
+\begin{example}\label{ex:m3wireforce}
+实验室电中性无限直导线沿$x$，电流$I>0$。测试电荷$q$位于$y=r>0$并以$V\hat{\vct x}$运动。求实验室和电荷瞬时静止系中的横向力，用导线的变换电荷密度解释后一结果。
+\Diagram{fig:m3wireforceq}{导线上方的磁场沿$+z$，正电荷受力向下}{\draw[axis](-2,0)--(3,0)node[right]{$I$};\fill(0,1.7)circle(2pt)node[left]{$q$};\draw[axis](0,1.7)--(1.6,1.7)node[above]{$V$};\draw(.5,.8)circle(.12);\fill(.5,.8)circle(.8pt);\node[right]at(.8,.8){$B_z$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3wireforceq}中$B_z=\mu_0I/(2\pi r)$、$E_y=0$，实验室$f_y=-qVB_z$。变到电荷系，$E_y'=-\gamma VB_z$，电荷静止只受电力，故$f_y'=qE_y'=-\gamma qVB_z=\gamma f_y$，与横向三力变换一致。
+\Diagram{fig:m3wireforcea}{电荷系导线带负线密度，产生向导线的电场}{\draw[curve](-2,0)--(3,0);\foreach\x in{-1.8,-1.1,-.4,.3,1,1.7,2.4}{\node at(\x,.25){$-$};}\fill(0,1.7)circle(2pt);\draw[axis](0,1.5)--(0,.5)node[right]{$E_y'<0$};}
+由四电流变换，$\lambda'=-\gamma VI/c^2$。无限线电荷在图\ref{fig:m3wireforcea}处电场为
+\[
+ E_y'=\lambda'/(2\pi\varepsilon_0r)=-\gamma V\mu_0I/(2\pi r),
+\]
+与场变换完全相同。这个模型把实验室的纯磁力解释为电荷系的电力，但不意味着可以在所有空间点、所有电荷速度下选同一个系消去全部磁场。
+\end{solution}
+
+\begin{example}\label{ex:m3drift}
+正交均匀场$\vct E=E\hat{\vct y}$、$\vct B=B\hat{\vct z}$满足$E<cB$。求可匀速直线通过而不偏转的带电粒子速度，并从消电场参考系解释。
+\Diagram{fig:m3driftq}{速度选择器中电力与磁力相反}{\draw[axis](0,0)--(3.7,0)node[right]{$v_d$};\draw[axis](1,0)--(1,1.5)node[right]{$qE$};\draw[axis](1,0)--(1,-1.5)node[right]{$qv_dB$};\draw(2,1)circle(.15);\fill(2,1)circle(1pt);\node[right]at(2.3,1){$B$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3driftq}中令一般速度为$(v_x,v_y,v_z)$。叉乘逐分量为$\vct v\times\vct B=(Bv_y,-Bv_x,0)$，零力条件给
+\[
+ Bv_y=0,\qquad E-Bv_x=0.
+\]
+因此全部无偏转速度构成一族：
+\[
+ \vct v=\frac EB\hat{\vct x}+v_z\hat{\vct z},\qquad
+ |v_z|<\sqrt{c^2-\frac{E^2}{B^2}}.
+\]
+沿磁场的速度分量不产生磁力，因此保留为自由参数。只有额外规定$v_z=0$时，才得到唯一的二维选择速度$E/B$。
+\Diagram{fig:m3drifta}{消电场系中的无偏转速度沿磁场；实验室还具有共同横向漂移}{\begin{scope}\draw[axis](0,0)--(2.6,0)node[right]{$x$};\draw[axis](0,-1.4)--(0,1.8)node[above]{$z$};\draw[->,thick](0,0)--(1.7,1.1)node[right]{$\vct v$};\draw[guide](0,1.1)--(1.7,1.1)--(1.7,0);\node[below]at(1.4,0){$E/B$};\node[left]at(0,.9){$v_z$};\end{scope}\begin{scope}[xshift=4cm]\draw[axis](0,0)--(2,0)node[right]{$x\prime$};\draw[axis](0,-1.4)--(0,1.8)node[above]{$z\prime$};\draw[->,thick](0,0)--(0,1.2)node[right]{$v_z\prime$};\draw[->](1.1,-.6)--(1.1,1)node[above]{$\vct B\prime$};\node[below]at(.7,-1){$\vct E\prime=0$};\end{scope}}
+取消电场系沿$+x$以$V_d=E/B$运动，记$\gamma_d=(1-V_d^2/c^2)^{-1/2}$。场变换给
+\[
+ E'_y=\gamma_d(E-V_dB)=0,\qquad
+ B'_z=\gamma_d(B-V_dE/c^2)=B/\gamma_d.
+\]
+对上述速度族，$v'_x=v'_y=0$，而
+\[
+ v'_z=\frac{v_z}{\gamma_d(1-V_d^2/c^2)}=\gamma_dv_z.
+\]
+图\ref{fig:m3drifta}中粒子在新系沿$\vct B'$直行，仍不受力；$|v'_z|<c$正好给出实验室的速度界限。若新系另有垂直于$\vct B'$的速度分量，粒子就会回旋，那是有偏转运动，已不属于题目所求的无偏转速度族。$E\geq cB$时不存在有质量粒子的这一亚光速速度族。
+\end{solution}
+
+\section{散射与衰变中的不变质量}
+\begin{example}\label{ex:m3decay}
+静质量$M$的粒子在自身静止系衰变为两个光子。实验室母粒子以速度$V$运动。求两光子实验室能量的范围；若源系两光子都垂直运动轴，求实验室夹角。
+\Diagram{fig:m3decayq}{母粒子系两光子能量相等、方向相反}{\draw[->,thick](0,0)--(2,1.3)node[right]{$Mc^2/2$};\draw[->,thick](0,0)--(-2,-1.3)node[left]{$Mc^2/2$};\draw[axis](0,0)--(3,0)node[right]{$V$};}
+\end{example}
+\begin{solution}
+图\ref{fig:m3decayq}静止系动量守恒给两光子能量均为$E_*=Mc^2/2$。若第一光子源系方向余弦为$\mu_*$，则$E_1=\gamma E_*(1+\beta\mu_*)$、$E_2=\gamma E_*(1-\beta\mu_*)$，两者之和为$\gamma Mc^2$。单个能量范围为$[\gamma E_*(1-\beta),\gamma E_*(1+\beta)]$。
+\Diagram{fig:m3decaya}{源系横向光子在实验室形成前向对称双束}{\draw[axis](0,0)--(4,0)node[right]{$x$};\draw[->,thick](0,0)--(3,1.6);\draw[->,thick](0,0)--(3,-1.6);\node[right]at(3,1.6){$E_1=\gamma E_*$};\node[right]at(3,-1.6){$E_2=\gamma E_*$};}
+若$\mu_*=0$，每个光子在实验室有$\cos\theta=\beta$，夹角为$2\arccos\beta$，如图\ref{fig:m3decaya}。再由两光子不变质量$2E_1E_2(1-\cos2\theta)=M^2c^4$核对：$1-\cos2\theta=2/\gamma^2$，正好恢复母粒子质量。
+\end{solution}
+
+\begin{example}\label{ex:m3nuclearpair}
+光子撞击静止核，产生电子正电子对，核最终仍为原静质量$M$，电子质量$m$。忽略束缚能，求光子能量阈值，解释核反冲不能完全忽略的原因。
+\Diagram{fig:m3nuclearq}{核提供反冲动量，末态总静质量至少$M+2m$}{\draw[->,thick](-2,0)--(0,0)node[midway,above]{$E$};\fill(.5,0)circle(4pt)node[below]{$M$};\draw[->](1,0)--(2,0);\foreach\x/\t in{2.7/M,3.7/{e^-},4.7/{e^+}}{\fill(\x,0)circle(2pt)node[below]{$\t$};}}
+\end{example}
+\begin{solution}
+图\ref{fig:m3nuclearq}初态不变量$s=M^2c^4+2Mc^2E$。阈值时末态三粒子在质心系无相对动量，总质心能量$(M+2m)c^2$。因此
+\[
+ M^2c^4+2Mc^2E_{\rm th}=(M+2m)^2c^4,
+\quad E_{\rm th}=2mc^2\left(1+\frac mM\right).
+\]
+\Diagram{fig:m3nucleara}{阈值在质心系三粒子同速，实验室仍须整体反冲}{\draw[curve](0,-.5)rectangle(4,.7);\foreach\x/\t in{.7/M,2/{e^-},3.3/{e^+}}{\fill(\x,0)circle(2pt)node[above]{$\t$};}\draw[axis](4.2,.1)--(5.5,.1)node[above]{$V_{\rm cm}$};}
+大核质量极限才趋$2mc^2$。图\ref{fig:m3nucleara}中阈值末态在实验室具有共同质心速度，额外项提供反冲能量。若题设改为电子作靶且末态多一个电子，必须重新计总静质量，不能只把$M=m$代入后忽略相同粒子与末态计数。
+\end{solution}
+
+\begin{example}\label{ex:m3fourtensor}
+在本书度规约定下，构造使$F^\mu=q\mathcal F^{\mu\nu}u_\nu$再现洛伦兹三力的反对称场张量，并说明反对称性怎样保证静质量不变。
+\Diagram{fig:m3tensorq}{同一洛伦兹力的时间分量是功率，空间分量是三力}{\draw[axis](0,0)--(3.2,0)node[right]{$\vct u$};\draw[axis](0,0)--(1.3,2.1)node[above]{$\vct E$};\draw(2,1)circle(.15);\fill(2,1)circle(1pt);\node[right]at(2.3,1){$\vct B$};}
+\end{example}
+\begin{solution}
+按$(ct,x,y,z)$排序、度规取$(+,-,-,-)$，图\ref{fig:m3tensorq}所用场张量为
+\[
+ \mathcal F^{\mu\nu}=\begin{pmatrix}
+ 0&-E_x/c&-E_y/c&-E_z/c\\
+ E_x/c&0&-B_z&B_y\\
+ E_y/c&B_z&0&-B_x\\
+ E_z/c&-B_y&B_x&0
+ \end{pmatrix}.
+\]
+粒子四速度降指标后为$u_\nu=\gamma_u(c,-u_x,-u_y,-u_z)$。矩阵第0行给$F^0=q\gamma_u\vct E\cdot\vct u/c$；第$x$行给
+\[
+ F^x=q\gamma_u(E_x+u_yB_z-u_zB_y).
+\]
+其余两行循环置换指标，得到$\vct F=q\gamma_u(\vct E+\vct u\times\vct B)$。再除以$\gamma_u$便还原洛伦兹三力。
+\Diagram{fig:m3tensora}{反对称张量与对称速度乘积缩并为零}{\draw[curve](0,0)rectangle(2.6,1.1);\node at(1.3,.55){$\mathcal F^{\mu\nu}=-\mathcal F^{\nu\mu}$};\draw[->](2.8,.55)--(3.7,.55);\node[right]at(3.8,.55){$u_\mu F^\mu=0$};}
+图\ref{fig:m3tensora}中的正交关系来自反对称性。设$Q=u_\mu\mathcal F^{\mu\nu}u_\nu$，交换两个求和哑指标得
+\[
+ Q=u_\nu\mathcal F^{\nu\mu}u_\mu
+ =-u_\mu\mathcal F^{\mu\nu}u_\nu=-Q,
+\]
+故$Q=0$。为说明它与静质量的关系，暂不预设$m$恒定，将$p^\mu=mu^\mu$代入：
+\[
+ u_\mu\frac{\dd p^\mu}{\dd\tau}
+ =c^2\frac{\dd m}{\dd\tau}
+ +\frac m2\frac{\dd(u_\mu u^\mu)}{\dd\tau}
+ =c^2\frac{\dd m}{\dd\tau}.
+\]
+左端由洛伦兹四力为零，所以$\dd m/\dd\tau=0$。电磁场可改变点电荷的运动能量和动量，但在此无内部激发的模型中不改变其静质量。
+\end{solution}

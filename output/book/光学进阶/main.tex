@@ -1,0 +1,28 @@
+\documentclass[UTF8,11pt,twoside,openany]{ctexbook}
+\input{preamble}
+
+% 分册与十编合订本共用的定位页码；局部章、图、题号保持原有对应。
+\newcommand{\CoursePartNumber}{10}
+\geometry{inner=19.5mm,outer=19.5mm,headheight=16pt}
+\AtBeginDocument{%
+  \fancyhead{}\fancyhead[C]{\small 光学进阶}%
+  \fancyfoot[C]{\small\CoursePartNumber-\thepage}%
+  \fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\CoursePartNumber-\thepage}\renewcommand{\headrulewidth}{0pt}}%
+}
+
+\begin{document}
+\frontmatter
+\begin{titlepage}\centering\vspace*{28mm}
+{\Large 物理竞赛二轮讲义\quad 第十编\par}\vspace{8mm}
+{\Huge\bfseries 光学进阶\par}\vspace{12mm}{\Large 物理竞赛二轮讲义\par}\vfill\end{titlepage}
+\chapter*{编写说明}
+成像问题从光线和参考面列式，干涉、衍射问题从光程和复振幅列式，偏振问题则要同时保留分量方向与相对相位。本编按这条线索安排四讲，先讨论近轴系统和渐变介质，再推导相干叠加、孔径积分及界面电磁波。
+
+每个模型先说明介质、边界和近似条件，再求光线、场或能流。例题和习题的题设图与解答图相互接续，所用符号与计算保持一致。相位约定、角度方向和强度归一化在各讲中统一，便于比较不同装置的结果。
+\tableofcontents
+\mainmatter
+\input{lecture1}
+\input{lecture2}
+\input{lecture3}
+\input{lecture4}
+\end{document}

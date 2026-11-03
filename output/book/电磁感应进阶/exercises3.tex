@@ -1,0 +1,786 @@
+
+\section{习题与解答}\label{sec:i3-exercises}
+以下习题讨论不同初态、边界条件及电路参数的影响。导轨中仍记$\beta=B\ell$；除题目特别说明外，忽略辐射、接触电阻和导轨摩擦。
+
+
+\begin{exercise}[磁镜的损失锥]\label{ex:i3-h1}
+在磁场极小处$B_0$有各向同性、等速率粒子，沿两方向的最大磁场均为$B_{\max}=\eta B_0$，$\eta>1$。求可从任一端逃逸的粒子比例。 见图~\ref{fig:i3-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\foreach\a in{.45,.9}{
+\draw[curve](-2.2,\a*.55)..controls(-.8,\a*1.4)and(.8,\a*1.4)..(2.2,\a*.55);
+\draw[curve](-2.2,-\a*.55)..controls(-.8,-\a*1.4)and(.8,-\a*1.4)..(2.2,-\a*.55);}
+\draw[->](-.4,0)--(.6,.25)node[above]{$\vct v$};
+\node[below]at(0,-1.4){$B_0$};\node[right]at(2.3,.6){$\eta B_0$};\node[left]at(-2.3,.6){$\eta B_0$};
+\end{tikzpicture}
+\caption{两端增强的磁镜场}\label{fig:i3-h1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h1-q}的中心是初始位置。设某粒子速率为$v$，初始速度与正向磁场的夹角为$\theta$。磁矩守恒与静磁场中的动能守恒分别给出
+\[
+\frac{mv_\perp^2}{2B}=\frac{mv^2\sin^2\theta}{2B_0},
+\qquad v_\parallel^2+v_\perp^2=v^2.
+\]
+先由第一式求出强场端的垂直速率，再代入第二式：
+\[
+v_{\perp,\max}^2=\eta v^2\sin^2\theta,\qquad
+v_{\parallel,\max}^2=v^2(1-\eta\sin^2\theta).
+\]
+要到达端部，后一式必须非负。于是沿正向逃逸的速度落在$0\le\theta\le\theta_c$内，沿反向逃逸的速度落在$\pi-\theta_c\le\theta\le\pi$内，其中
+\[
+\sin^2\theta_c=\eta^{-1},\qquad
+\cos\theta_c=\sqrt{1-\eta^{-1}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.3);\draw[axis](-1.7,0)--(1.8,0)node[right]{$v_\parallel$};
+\draw(0,0)--(35:1.3);\draw(0,0)--(-35:1.3);\draw(0,0)--(145:1.3);\draw(0,0)--(215:1.3);
+\draw[->](.55,0)arc(0:35:.55)node[right]{$\theta_c$};
+\end{tikzpicture}
+\caption{速度球面上两个损失锥的截面}\label{fig:i3-h1-s}
+\end{figure}
+图~\ref{fig:i3-h1-s}画出这两个损失锥的截面。各向同性表示速度方向在单位球面上均匀分布，概率元为$\dd P=\sin\theta\,\dd\theta\,\dd\varphi/(4\pi)$。一个端口对应的比例为
+\[
+P_+=\frac1{4\pi}\int_0^{2\pi}\dd\varphi
+\int_0^{\theta_c}\sin\theta\,\dd\theta
+=\frac1{4\pi}[\varphi]_0^{2\pi}[-\cos\theta]_0^{\theta_c}
+=\frac{1-\cos\theta_c}{2}.
+\]
+两端对称且不重叠，故总逃逸比例及俘获比例分别为
+\[
+\boxed{P_{\rm esc}=2P_+=1-\sqrt{1-\eta^{-1}}},
+\qquad P_{\rm trap}=\sqrt{1-\eta^{-1}}.
+\]
+当$\eta\to1^+$时几乎全部方向均可逃逸；当$\eta\gg1$时，展开平方根得$P_{\rm esc}\simeq1/(2\eta)$。临界角轨道在理想磁场极大点处可能渐近到达，但它在连续角分布中的测度为零，不改变上述概率。
+\end{solution}
+
+\begin{exercise}[非均匀体电荷的弛豫]\label{ex:i3-h2}
+半径$a$的孤立均匀导体具有$\varepsilon,\sigma$，初始体电荷密度$\rho(r,0)=\rho_0(1-r^2/a^2)$，表面初始无电荷。求体电荷、表面总电荷与球内电场。 见图~\ref{fig:i3-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!8](0,0)circle(1.45);\draw[curve](0,0)circle(1.45);
+\node[below left]at(0,0){$O$};\draw[->](0,0)--(40:1.45)node[midway,below right]{$a$};
+\node at(-.45,.75){$\rho(r,0)$};\draw[->](0,0)--(-1,0)node[midway,above]{$r$};
+\end{tikzpicture}
+\caption{球对称电荷分布的径向截面}\label{fig:i3-h2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h2-q}的圆轮廓代表球面$r=a$。均匀材料中，连续性方程、Ohm定律与Gauss定律给出
+\[
+\partial_t\rho=-\nabla\cdot\vct j
+=-\sigma\nabla\cdot\vct E=-\frac{\sigma}{\varepsilon}\rho.
+\]
+这是每个固定空间点处的一阶方程。固定$r<a$后，分离变量有$\int_{\rho(r,0)}^{\rho(r,t)}\dd u/u=-t/\tau$，原函数为$\ln|u|$。密度保持初始符号，代入初始分布得
+\[
+\ln\frac{\rho(r,t)}{\rho(r,0)}=-\frac t\tau,\quad
+\tau=\frac{\varepsilon}{\sigma},\qquad
+\rho(r,t)=\rho_0\left(1-\frac{r^2}{a^2}\right)e^{-t/\tau}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.5);\draw[guide](0,0)circle(.85);\draw[->](0,0)--(25:.85)node[midway,above]{$r$};
+\foreach\a in{0,45,...,315}{\draw[->](\a:.95)--(\a:1.35);}
+\node[right]at(1.6,0){$Q_s(t)$};
+\end{tikzpicture}
+\caption{径向电流输运体电荷，虚线球用于求内场}\label{fig:i3-h2-s}
+\end{figure}
+图~\ref{fig:i3-h2-s}的虚线球半径为$r$。球对称性使该面上的电场沿径向、大小处处相同，所包体电荷为
+\[
+\begin{aligned}
+Q(r,t)&=4\pi\int_0^r\rho(s,t)s^2\dd s\\
+&=4\pi\rho_0e^{-t/\tau}
+\left[\frac{s^3}{3}-\frac{s^5}{5a^2}\right]_0^r\\
+&=4\pi\rho_0e^{-t/\tau}
+\left(\frac{r^3}{3}-\frac{r^5}{5a^2}\right).
+\end{aligned}
+\]
+将它代入$4\pi r^2\varepsilon E_r=Q(r,t)$，得到
+\[
+\boxed{E_r(r,t)=\frac{\rho_0}{\varepsilon}e^{-t/\tau}
+\left(\frac r3-\frac{r^3}{5a^2}\right)},\quad 0\le r<a.
+\]
+取$r=a$，初始总电荷$Q_0=8\pi\rho_0a^3/15$，体内剩余电荷为$Q_b=Q_0e^{-t/\tau}$。球孤立，流出体内的电荷全部到达表面，因此
+\[
+\boxed{Q_s=Q_0(1-e^{-t/\tau})},\qquad
+\sigma_s=\frac{Q_s}{4\pi a^2}.
+\]
+还可由表面径向电流核对输运量：
+$4\pi a^2j_r(a^-)=4\pi a^2\sigma E_r(a^-)=Q_0e^{-t/\tau}/\tau=\dot Q_s$。均匀球面电荷在球内的场为零，故内场不需另加表面项；外部真空场始终为$Q_0/(4\pi\varepsilon_0r^2)$。
+\end{solution}
+
+\begin{exercise}[行波磁场中的电感修正]\label{ex:i3-h3}
+矩形线圈高$h$、沿波向宽$\ell$，电阻$R$、电感$L$，以恒速度$v$通过$B=B_0\cos(\omega t-kx)$。求稳态平均推进力，设$u=\omega/k$。 见图~\ref{fig:i3-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,-.8)rectangle(2,.8);\draw[axis](-.6,-1.2)--(3.2,-1.2)node[right]{$x$};
+\draw[->](2.2,0)--(3.1,0)node[right]{$v$};\node[above]at(1,.9){$R,L$};\node[left]at(0,0){$h$};\node[below]at(1,-.8){$\ell$};
+\end{tikzpicture}
+\caption{矩形线圈与行波传播方向}\label{fig:i3-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h3-q}中取回路正向为逆时针，左、右竖边分别位于$x$与$x+\ell$，并定义$\Delta B=B(x,t)-B(x+\ell,t)$。由$\partial_tB=-u\partial_xB$，随线圈运动的外磁通变化率为
+\[
+\frac{\dd\Phi}{\dd t}
+=h(v-u)[B(x+\ell,t)-B(x,t)]
+=h(u-v)\Delta B.
+\]
+所以$\mathcal E=-h(u-v)\Delta B$。两竖边的安培力相加，得到$F_x=hI[B(x+\ell)-B(x)]=-hI\Delta B$。
+
+令$\delta_v=u-v$，线圈看到的有向角频率为$\nu=k\delta_v$。用三角恒等式展开两边场差，可将它写成
+\[
+\Delta B=D_B\cos\chi,\quad
+\chi=\nu t+\chi_0,\quad D_B=2B_0|\sin(k\ell/2)|.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(2.3,0)node[right]{$\mathcal E$};
+\draw[->](0,0)--(1.5,-.9)node[right]{$I$};\draw[->](.6,0)arc(0:-31:.6)node[right]{$\delta$};
+\node[below]at(.9,-1.4){$Z=R+i\nu L$};
+\end{tikzpicture}
+\caption{$\nu>0$时的相量图；$\nu<0$时反应性分量反向，平均力仍由同相分量决定}\label{fig:i3-h3-s}
+\end{figure}
+图~\ref{fig:i3-h3-s}表示电路的相位关系。对正、负滑差统一设稳态$I=A\cos\chi+C\sin\chi$。代入$L\dot I+RI=-h\delta_vD_B\cos\chi$，比较两项系数：
+\[
+RA+\nu LC=-h\delta_vD_B,\qquad RC-\nu LA=0.
+\]
+由第二式$C=\nu LA/R$，代入第一式解得
+\[
+I=-\frac{h\delta_vD_B}{R^2+\nu^2L^2}
+(R\cos\chi+\nu L\sin\chi).
+\]
+周期平均时，$\langle\cos^2\chi\rangle=1/2$、$\langle\sin\chi\cos\chi\rangle=0$，故
+\[
+\boxed{\langle F_x\rangle
+=\frac{h^2(u-v)D_B^2R}{2[R^2+L^2k^2(u-v)^2]}}.
+\]
+同样平均$I^2R$可得
+\[
+\langle I^2R\rangle
+=\frac{h^2(u-v)^2D_B^2R}{2[R^2+\nu^2L^2]}
+=(u-v)\langle F_x\rangle\ge0.
+\]
+因此平均力总使速度趋近波速。若$u=v$或$k\ell=2\pi n$，电动势恒为零；已有电流只剩暂态衰减。上述周期解取在暂态结束后；将其用于缓慢变速过程，还需电路响应与机械变化的时间尺度分离。
+\end{solution}
+
+\begin{exercise}[闭合双线圈的磁链约束]\label{ex:i3-h4}
+两相同理想闭合线圈自感均为$L$，互感$M(x)$，两线圈的守恒磁链均为$\Lambda$，$|M|<L$。求电流和沿分离坐标$x$的力。 见图~\ref{fig:i3-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2.6,0)--(2.9,0)node[right]{$x$};
+\draw[curve](-1.3,0)ellipse(.55 and 1.5);\draw[curve](1.4,0)ellipse(.35 and .75);
+\node[above]at(-1.3,1.6){$C_1,I_1$};\node[above]at(1.4,.85){$C_2,I_2$};
+\draw[<->](-1.3,-1.9)--(1.4,-1.9)node[midway,below]{$x$};
+\end{tikzpicture}
+\caption{两线圈取对称的磁链初态}\label{fig:i3-h4-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h4-q}沿分离方向取坐标$x$，两个正向磁链都为$\Lambda$。两个回路的磁链方程为
+\[
+LI_1+M(x)I_2=\Lambda,\qquad
+M(x)I_1+LI_2=\Lambda.
+\]
+相减得到$(L-M)(I_1-I_2)=0$。题设$|M|<L$，所以$L-M\ne0$，从而$I_1=I_2=I$；再将它代回任一方程，
+\[
+\boxed{I(x)=\frac{\Lambda}{L+M(x)}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$x$};\draw[axis](0,-.1)--(0,2.5)node[above]{$W$};
+\draw[curve,domain=0:4]plot(\x,{2/(1+.8*exp(-\x))});
+\draw[->](2.3,1.75)--(1.5,1.75)node[midway,above]{$F_x<0$};
+
+\end{tikzpicture}
+\caption{距离减小时正互感增大，固定磁链下的磁能降低}\label{fig:i3-h4-s}
+\end{figure}
+图~\ref{fig:i3-h4-s}给出固定磁链条件下的能量曲线。两个回路的自能与互能之和为
+\[
+W=\frac12LI_1^2+\frac12LI_2^2+MI_1I_2
+=(L+M)I^2=\frac{\Lambda^2}{L+M}.
+\]
+系统没有电源做功，虚位移$\dd x$满足$F_x\dd x=-\dd W$。求导时$\Lambda,L$固定，因此
+\[
+\boxed{F_x=-\frac{\dd W}{\dd x}
+=\frac{\Lambda^2M'}{(L+M)^2}=I^2M'}.
+\]
+若$M>0$且随距离减小而增大，则$M'<0$，力向负$x$，即相互吸引。若需计算平衡附近的恢复刚度，应继续对完整结果求导：
+\[
+\begin{aligned}
+F_x'&=\Lambda^2\frac{\dd}{\dd x}\big[M'(L+M)^{-2}\big]\\
+&=\Lambda^2\left[\frac{M''}{(L+M)^2}
+-\frac{2(M')^2}{(L+M)^3}\right].
+\end{aligned}
+\]
+第二项来自电流随位置变化。矩阵的两个特征电感为$L+M,L-M$，题设保证二者为正，所用固定磁链能量函数因而有定义。
+\end{solution}
+
+\begin{exercise}[整体相似放大的电阻回路]\label{ex:i3-h5}
+把细导线闭合回路的所有长度，包括线径，都扩大$s$倍，材料电阻率不变。求自感、电阻和自由衰减时间常数的比例。与只放大轮廓、线径不变的情况比较。 见图~\ref{fig:i3-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(.7);\draw[curve](2.6,0)circle(1.1);\draw[->](.9,0)--(1.3,0)node[midway,above]{$s$};
+\end{tikzpicture}
+\caption{轮廓和线径同时缩放}\label{fig:i3-h5-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h5-q}中的放大包括导线截面。记原轮廓上的位置为$\vct r$，放大后$\vct r'=s\vct r$，于是线元变为$s\dd\vct\ell$，两点距离变为$s|\vct r_1-\vct r_2|$。在Neumann积分中逐项代入：
+\[
+L'=\frac{\mu_0}{4\pi}\oint\!\oint
+\frac{s\dd\vct\ell_1\cdot s\dd\vct\ell_2}
+{s|\vct r_1-\vct r_2|}=sL.
+\]
+自积分的线径截断也扩大$s$倍，所以这里没有遗漏截断所引起的对数修正。设原导线长度$p$、截面积$S$、电阻率$\rho_e$，放大后
+\[
+p'=sp,\quad S'=s^2S,\quad
+\mathcal R'=\frac{\rho_ep'}{S'}=\frac{\mathcal R}{s}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,2.5)node[above]{$I/I_0$};
+\draw[curve,domain=0:4]plot(\x,{1.8*exp(-\x)});
+\draw[dashed,domain=0:4]plot(\x,{1.8*exp(-\x/4)});
+\draw(-.06,1.8)--(.06,1.8);\node[left]at(0,1.8){$1$};
+\node[right]at(4,.7){$s=2$};
+
+\end{tikzpicture}
+\caption{整体放大两倍使衰减时间增至四倍}\label{fig:i3-h5-s}
+\end{figure}
+自由衰减仍满足例~\ref{ex:i3-e8}已经分离变量求解的$L\dot I+\mathcal RI=0$，故时间常数为$\tau=L/\mathcal R$。因此图~\ref{fig:i3-h5-s}中放大回路的时间常数为
+\[
+\boxed{\tau'=\frac{L'}{\mathcal R'}=s^2\tau}.
+\]
+图中$s=2$，在同一时刻较大的回路剩余电流比例更高；两条曲线使用相同初始电流作归一化。
+
+若只放大轮廓而不改变线径，截面积仍为$S$，故$\mathcal R'=s\mathcal R$。细线自感的对数主项为$\mu_0p\ln(p/a_{\rm w})/(2\pi)$；轮廓相似放大后，非局部项按$s$缩放，而对数内增加$\ln s$，得到
+\[
+L'\simeq sL+\frac{\mu_0sp}{2\pi}\ln s,\qquad
+\tau'\simeq\frac{L+\mu_0p\ln s/(2\pi)}{\mathcal R}.
+\]
+这与$s^2\tau$对应不同的线径条件。以上细线展开要求放大前后线径都远小于轮廓的曲率和边间距离。
+\end{solution}
+
+\begin{exercise}[有输运电流的超导平板]\label{ex:i3-h6}
+超导平板$-a<z<a$的两侧磁场为$B_x(a)=B_0$、$B_x(-a)=-B_0$。求$B_x,j_y$和沿$y$方向的总片电流。 见图~\ref{fig:i3-h6-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!12](-1.1,-1)rectangle(1.1,1);\draw[curve](-1.1,-1)--(-1.1,1);\draw[curve](1.1,-1)--(1.1,1);
+\draw[->](-1.5,.5)--(-1.5,-.5)node[below]{$-B_0$};\draw[->](1.5,-.5)--(1.5,.5)node[above]{$B_0$};
+\draw[axis](-2,-1.4)--(2,-1.4)node[right]{$z$};
+\end{tikzpicture}
+\caption{两侧反向磁场对应非零输运电流}\label{fig:i3-h6-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h6-q}中的场沿$x$，只随$z$变化。第二London方程与Ampère定律合成
+\[
+\frac{\dd^2B_x}{\dd z^2}=\frac{B_x}{\lambda_L^2},\qquad
+B_x=A\cosh(z/\lambda_L)+C\sinh(z/\lambda_L).
+\]
+分别在$z=\pm a$代入边界条件：
+\[
+A\cosh(a/\lambda_L)+C\sinh(a/\lambda_L)=B_0,
+\]
+\[
+A\cosh(a/\lambda_L)-C\sinh(a/\lambda_L)=-B_0.
+\]
+两式相加给$A=0$，相减给$C=B_0/\sinh(a/\lambda_L)$，所以
+\[
+\boxed{B_x(z)=B_0\frac{\sinh(z/\lambda_L)}{\sinh(a/\lambda_L)}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-1.7,0)--(1.8,0)node[right]{$z$};\draw[axis](0,-.1)--(0,2.1)node[above]{$j_y$};
+\draw[curve,domain=-1.2:1.2]plot(\x,{.6*cosh(1.3*\x)});
+\node[below]at(-1.2,0){$-a$};\node[below]at(1.2,0){$a$};
+\end{tikzpicture}
+\caption{同向输运电流在两侧增强}\label{fig:i3-h6-s}
+\end{figure}
+图~\ref{fig:i3-h6-s}给出电流分布。由旋度的$y$分量$(\nabla\times\vct B)_y=\partial_zB_x$，
+\[
+j_y=\frac1{\mu_0}\frac{\dd B_x}{\dd z}
+=\frac{B_0}{\mu_0\lambda_L}
+\frac{\cosh(z/\lambda_L)}{\sinh(a/\lambda_L)}.
+\]
+它是正的偶函数，两侧电流同向。厚度方向积分时，
+\[
+\begin{aligned}
+K_y&=\frac{B_0}{\mu_0\lambda_L\sinh(a/\lambda_L)}
+\int_{-a}^a\cosh(z/\lambda_L)\dd z\\
+&=\frac{B_0}{\mu_0\sinh(a/\lambda_L)}
+[\sinh(z/\lambda_L)]_{-a}^a
+=\boxed{\frac{2B_0}{\mu_0}}.
+\end{aligned}
+\]
+当$a\ll\lambda_L$时，分子$\cosh(z/\lambda_L)\simeq1$，分母$\sinh(a/\lambda_L)\simeq a/\lambda_L$，故$j_y\simeq B_0/(\mu_0a)$近似均匀。厚板中电流主要位于两侧穿透层。非零$K_y$表示净输运电流；两侧同向外场所产生的反向屏蔽电流则有零净片电流。
+\end{solution}
+
+\begin{exercise}[持续电流环的悬浮刚度]\label{ex:i3-h7}
+近超导平面的圆环不接电源，而保持总磁链$\Lambda$。设有效自感为$\mathcal L(h)>0$，在$a_{\rm w}\ll h\ll r$范围有$\mathcal L'(h)=\mu_0r/h$。求平衡条件及小振动频率。 见图~\ref{fig:i3-h7-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!12](-2.2,-.25)rectangle(2.2,0);\draw[curve](-2.2,0)--(2.2,0);
+\draw[curve](0,1.3)ellipse(1.25 and .35);\draw[->](1.25,1.3)arc(0:85:1.25 and .35);\node[right]at(1.5,1.4){$I$};
+\draw[<->](-1.7,0)--(-1.7,1.3)node[midway,left]{$h$};\draw[guide](-1.7,1.3)--(0,1.3);
+\node[above left]at(-.3,1.95){$m,r$};\node[below]at(0,-.3){理想Meissner平面};
+\end{tikzpicture}
+\caption{电流随高度变化的闭合环}\label{fig:i3-h7-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h7-q}中的圆环未接电源，守恒的是包含平面响应的总磁链$\Lambda$。有效自感随高度变化，故
+\[
+\Lambda=\mathcal L(h)I(h),\quad
+I(h)=\frac{\Lambda}{\mathcal L(h)},\quad
+I'(h)=-I\frac{\mathcal L'}{\mathcal L}.
+\]
+固定磁链磁能为$W=\Lambda^2/(2\mathcal L)$。对高度求负导数并代入题设的$\mathcal L'=\mu_0r/h$：
+\[
+F_z=-W'=\frac{\Lambda^2\mathcal L'}{2\mathcal L^2}
+=\frac{\mu_0rI(h)^2}{2h}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!12](-2.2,-.25)rectangle(2.2,0);\draw[curve](-2.2,0)--(2.2,0);
+\draw[curve](0,1.3)ellipse(1.25 and .35);\draw[->](1.25,1.3)arc(0:85:1.25 and .35);\node[right]at(1.5,1.4){$I$};
+\draw[<->](-1.7,0)--(-1.7,1.3)node[midway,left]{$h$};\draw[guide](-1.7,1.3)--(0,1.3);
+\node[above left]at(-.3,1.95){$m,r$};\node[below]at(0,-.3){理想Meissner平面};\draw[guide](0,-1.3)ellipse(1.25 and .35);\node[right]at(1.3,-1.3){$-I$};
+\draw[->](.3,1.5)--(.3,2.4)node[right]{$F_z$};\draw[->](-.3,1.5)--(-.3,.65)node[left]{$mg$};\node[right]at(2.1,1.8){$I(h)=\Lambda/\mathcal L(h)$};
+\end{tikzpicture}
+\caption{镜像几何之外，还要计入电流随高度的变化}\label{fig:i3-h7-s}
+\end{figure}
+图~\ref{fig:i3-h7-s}的镜像给出向上磁力，重力向下。平衡高度应满足
+\[
+\frac{\mu_0r\Lambda^2}{2h_0\mathcal L(h_0)^2}=mg.
+\]
+求微振动时，对随高度变化的$F_z(h)$求导：
+\[
+\begin{aligned}
+F_z'&=\frac{\mu_0r}{2}
+\left(\frac{2II'}h-\frac{I^2}{h^2}\right)\\
+&=-F_z\left(\frac{2\mathcal L'}{\mathcal L}+\frac1h\right).
+\end{aligned}
+\]
+令$h=h_0+\xi$，用$F_z(h_0)=mg$消去常数项，得到$m\ddot\xi=F_z'(h_0)\xi$。于是
+\[
+\boxed{\omega^2=-\frac{F_z'(h_0)}m
+=g\left[\frac1{h_0}+
+\frac{2\mu_0r}{h_0\mathcal L(h_0)}\right]}.
+\]
+两项均为正，平衡在此近似范围内稳定。第一项是保持电流时的几何刚度；第二项来自升高后有效自感增加、电流减小。要数值求$h_0$，还需给出参考自感或初始磁链，并验证$a_{\rm w},\lambda_L\ll h_0\ll r$。
+\end{solution}
+
+\begin{exercise}[预充电电容与运动杆]\label{ex:i3-h8}
+水平电容导轨初态为$v_0,q_0$，串联$R>0$。求末态和全过程焦耳热，判断何时杆会在过渡过程中反向。 见图~\ref{fig:i3-h8-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.5,-1)--(2.5,-1);\draw[curve](-1.5,1)--(2.5,1);
+\draw[curve](-1.2,-1)--(-1.2,-.3);\draw[curve](-1.2,.3)--(-1.2,1);
+\node[draw,fill=white,minimum width=.6cm,minimum height=.6cm]at(-1.2,0){$R,C$};
+\draw[line width=1.1pt](1.7,-1)--(1.7,1);\node[above]at(1.7,1){$A$};\node[below]at(1.7,-1){$D$};
+\draw[->](1.7,0)--(2.6,0)node[right]{$v$};\draw[->](1.7,-.7)--(1.7,.6)node[midway,left]{$I$};
+\node at(.15,.4){$\otimes$};\node at(.65,.4){$\vct B$};\draw[<->](3,-1)--(3,1)node[midway,right]{$\ell$};
+\draw[axis](-.5,-1.6)--(2.5,-1.6)node[right]{$x$};\node[right]at(1.9,-.65){$m$};
+\end{tikzpicture}
+\caption{初始电荷可为正或负}\label{fig:i3-h8-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h8-q}取杆电流向上为正，$I=\dot q$。杆的运动方程与回路方程分别为
+\[
+m\dot v=-\beta\dot q,\qquad R\dot q+\frac qC=\beta v.
+\]
+第一式从初态积分，得到$mv+\beta q=P$，其中$P=mv_0+\beta q_0$。将$v=(P-\beta q)/m$代入电路式，并记$D=m+C\beta^2$：
+\[
+R\dot q+\frac{D}{mC}q=\frac{\beta P}{m}.
+\]
+在电流为零的末态，$\dot q=0$，所以
+\[
+q_\infty=\frac{C\beta P}{D},\qquad
+v_\infty=\frac{P-\beta q_\infty}{m}=\frac PD.
+\]
+令$u_q=q-q_\infty$，方程化为$\dot u_q=-u_q/\tau$，$\tau=mRC/D$。对非零初偏差从$u_q(0)=q_0-q_\infty$积分，$[\ln|u|]_{u_q(0)}^{u_q(t)}=-t/\tau$。解保持初始符号，取指数后为$u_q(t)=u_q(0)e^{-t/\tau}$；初偏差为零时则是恒零解。因而
+\[
+q=q_\infty+(q_0-q_\infty)e^{-t/\tau},\quad
+v=v_\infty+(v_0-v_\infty)e^{-t/\tau}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$q$};\draw[axis](0,-.1)--(0,2.5)node[above]{$E$};
+\draw[curve,domain=.1:3.9]plot(\x,{.45+.4*(\x-2)^2});
+\draw[guide](2,0)--(2,.45);\node[below]at(2,0){$q_\infty$};
+
+\end{tikzpicture}
+\caption{固定守恒组合$P$时能量在$q_\infty$处最低}\label{fig:i3-h8-s}
+\end{figure}
+图~\ref{fig:i3-h8-s}在同一守恒量$P$下画出储能。展开并配方：
+\[
+\begin{aligned}
+E(q)&=\frac{(P-\beta q)^2}{2m}+\frac{q^2}{2C}\\
+&=\frac{D}{2mC}q^2-\frac{\beta P}{m}q+\frac{P^2}{2m}\\
+&=\frac{P^2}{2D}+\frac{D}{2mC}(q-q_\infty)^2.
+\end{aligned}
+\]
+无外力和电源做功，初末能量之差全部变为热，故
+\[
+\boxed{Q_J=\frac{D}{2mC}(q_0-q_\infty)^2}.
+\]
+速度在初值与末值之间单调变化，故有限时间内反向的条件是$v_0v_\infty<0$。令上式$v(t)=0$，先得$e^{-t/\tau}=-v_\infty/(v_0-v_\infty)$，再取对数：
+\[
+t_{\rm rev}=\tau\ln\frac{v_0-v_\infty}{-v_\infty}.
+\]
+当$v_\infty=0$时，非零初速只渐近衰减至零；若$v_0=v_\infty$，则初态已相容，电流始终为零。
+\end{solution}
+
+\begin{exercise}[竖直电容导轨的耗散量]\label{ex:i3-h9}
+竖直电容导轨含电阻$R$，初始$v=q=I=0$。已知$\tau=mRC/(m+C\beta^2)$。求$t$内焦耳热，并说明为何它长时间持续增长。 见图~\ref{fig:i3-h9-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.2,-1.6)--(-1.2,1.6);\draw[curve](1.2,-1.6)--(1.2,1.6);
+\draw[curve](-1.2,1.2)--(-.4,1.2);\draw[curve](.4,1.2)--(1.2,1.2);
+\node[draw,fill=white,minimum width=.8cm,minimum height=.45cm]at(0,1.2){$R,C$};
+\draw[line width=1.1pt](-1.2,-.5)--(1.2,-.5);\node[right]at(1.2,-.5){$m$};
+\draw[->](1.7,-.2)--(1.7,-1.1)node[midway,right]{$v$};\draw[<->](-1.2,-1.3)--(1.2,-1.3)node[midway,below]{$\ell$};
+\node at(-.45,.1){$\otimes$};\node at(.45,.1){$\vct B$};\draw[->](-.5,-.5)--(.5,-.5)node[midway,above]{$I$};
+\end{tikzpicture}
+\caption{有限电阻不使竖直电容导轨达到有限终速}\label{fig:i3-h9-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h9-q}以向下为速度正向，杆中向右电流为正。先列出两条基本方程：
+\[
+m\dot v=mg-\beta I,\qquad RI+\frac qC=\beta v,\quad \dot q=I.
+\]
+对电路式求时间导数，再消去$\dot v$：
+\[
+R\dot I+\frac IC=\beta g-\frac{\beta^2}{m}I,\qquad
+\dot I+\frac I\tau=\frac{\beta g}{R}.
+\]
+其中$\tau=mRC/(m+C\beta^2)$。例~\ref{ex:i3-e11}已用积分因子求解这一方程。令$I_\infty=\beta g\tau/R=mC\beta g/(m+C\beta^2)$，将$I(0)=0$代入通解$I=I_\infty+Ke^{-t/\tau}$，得$K=-I_\infty$，所以
+\[
+I=I_\infty(1-e^{-t/\tau}).
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,2.5)node[above]{$I$};
+\draw[curve,domain=0:4]plot(\x,{1.7*(1-exp(-\x))});
+\draw[guide](0,1.7)--(4.1,1.7)node[right]{$I_\infty$};
+
+\end{tikzpicture}
+\caption{稳态电流并不意味着杆速度为常量}\label{fig:i3-h9-s}
+\end{figure}
+图~\ref{fig:i3-h9-s}的电流先增大，再趋于非零常量。将电流平方展开后逐项积分，热量为
+\[
+\begin{aligned}
+Q_J(t)&=R\int_0^tI(s)^2\dd s\\
+&=RI_\infty^2\int_0^t(1-2e^{-s/\tau}+e^{-2s/\tau})\dd s\\
+&=RI_\infty^2\left[s+2\tau e^{-s/\tau}-\frac\tau2e^{-2s/\tau}\right]_0^t\\
+&=\boxed{RI_\infty^2
+\left[t-2\tau(1-e^{-t/\tau})
++\frac\tau2(1-e^{-2t/\tau})\right]}.
+\end{aligned}
+\]
+小时间$I\simeq I_\infty t/\tau$，所以$Q_J\simeq RI_\infty^2t^3/(3\tau^2)$；长时间指数项消失，$Q_J\simeq RI_\infty^2(t-3\tau/2)$，热量按时间线性增长。
+
+积分电流与加速度还可得
+\[
+q=\int_0^tI_\infty(1-e^{-s/\tau})\dd s
+=I_\infty[s+\tau e^{-s/\tau}]_0^t
+=I_\infty[t-\tau(1-e^{-t/\tau})],
+\]
+\[
+v=\frac{mg}{m+C\beta^2}t+
+\frac{\beta I_\infty\tau}{m}(1-e^{-t/\tau}).
+\]
+杆继续下降，速度和电荷均无界增长。将两条基本方程分别乘$v,I$并相加，有
+$mgv=\dd(mv^2/2+q^2/(2C))/\dd t+RI^2$。持续减少的重力势能同时供应动能、电场能和焦耳热，因此不存在由有限初动能决定的热量上限。
+\end{solution}
+
+\begin{exercise}[欠阻尼导轨的电流峰值]\label{ex:i3-h10}
+无外力$RL$导轨满足$\gamma<\Omega_0$，初态$v(0)=v_0>0,I(0)=0$。求首次电流峰值时刻，并求此时速度。 见图~\ref{fig:i3-h10-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.5,-1)--(2.5,-1);\draw[curve](-1.5,1)--(2.5,1);
+\draw[curve](-1.2,-1)--(-1.2,-.3);\draw[curve](-1.2,.3)--(-1.2,1);
+\node[draw,fill=white,minimum width=.6cm,minimum height=.6cm]at(-1.2,0){$R,L$};
+\draw[line width=1.1pt](1.7,-1)--(1.7,1);\node[above]at(1.7,1){$A$};\node[below]at(1.7,-1){$D$};
+\draw[->](1.7,0)--(2.6,0)node[right]{$v$};\draw[->](1.7,-.7)--(1.7,.6)node[midway,left]{$I$};
+\node at(.15,.4){$\otimes$};\node at(.65,.4){$\vct B$};\draw[<->](3,-1)--(3,1)node[midway,right]{$\ell$};
+\draw[axis](-.5,-1.6)--(2.5,-1.6)node[right]{$x$};\node[right]at(1.9,-.65){$m$};
+\end{tikzpicture}
+\caption{电流峰值与杆速度零点不同}\label{fig:i3-h10-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h10-q}中以初始运动方向为正，并取$v_0>0$。两方程为$L\dot I+RI=\beta v$、$m\dot v=-\beta I$。消去$v$后，
+\[
+\ddot I+2\gamma\dot I+\Omega_0^2I=0,\quad
+\gamma=\frac R{2L},\quad\Omega_0=\frac{\beta}{\sqrt{mL}}.
+\]
+初态$I(0)=0$，且电路式给$\dot I(0)=\beta v_0/L$。欠阻尼特征根为$-\gamma\pm i\omega_d$，$\omega_d=\sqrt{\Omega_0^2-\gamma^2}$，所以
+\[
+I=K e^{-\gamma t}\sin\omega_dt,\qquad
+K=\frac{\beta v_0}{L\omega_d}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,2.5)node[above]{$I$};
+\draw[curve,domain=0:4,samples=90]plot(\x,{2*exp(-.4*\x)*sin(deg(1.3*\x))});
+\draw[line width=.4pt](0,-.5)--(0,0);\draw[guide](.98,0)--(.98,1.3);\node[below]at(.98,0){$t_I$};
+
+\end{tikzpicture}
+\caption{电流先达到峰值，杆随后才达到首次零速度}\label{fig:i3-h10-s}
+\end{figure}
+图~\ref{fig:i3-h10-s}的第一次峰值在第一个正半波中。求导：
+\[
+\dot I=K e^{-\gamma t}
+(\omega_d\cos\omega_dt-\gamma\sin\omega_dt).
+\]
+令其为零，并选$0<\omega_dt_I<\pi/2$的根，
+\[
+\boxed{t_I=\frac1{\omega_d}\arctan\frac{\omega_d}{\gamma}}.
+\]
+此处导数由正变负，确为极大值。由直角三角关系，
+$\sin\omega_dt_I=\omega_d/\sqrt{\gamma^2+\omega_d^2}=\omega_d/\Omega_0$，因此
+\[
+\boxed{I_{\max}=v_0\sqrt{\frac mL}e^{-\gamma t_I}}.
+\]
+峰值时$\dot I=0$，电感电压为零，原电路式化为$\beta v=RI_{\max}$，故
+\[
+\boxed{v(t_I)=\frac{RI_{\max}}{\beta}
+=\frac{R}{L\Omega_0}v_0e^{-\gamma t_I}>0}.
+\]
+杆此时仍向前。杆第一次零速满足$\cos\omega_dt+(\gamma/\omega_d)\sin\omega_dt=0$，其相位在第二象限，所以晚于电流峰值。只有$R\to0$时，两时刻才共同趋于$\pi/(2\Omega_0)$。
+\end{solution}
+
+\begin{exercise}[电感初始储能的影响]\label{ex:i3-h11}
+理想无阻电感导轨初始$v_0$、电流$I_0$均可非零，$x_0=0$。求运动范围与第一次零速度的求法。 见图~\ref{fig:i3-h11-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.5,-1)--(2.5,-1);\draw[curve](-1.5,1)--(2.5,1);
+\draw[curve](-1.2,-1)--(-1.2,-.3);\draw[curve](-1.2,.3)--(-1.2,1);
+\node[draw,fill=white,minimum width=.6cm,minimum height=.6cm]at(-1.2,0){$L$};
+\draw[line width=1.1pt](1.7,-1)--(1.7,1);\node[above]at(1.7,1){$A$};\node[below]at(1.7,-1){$D$};
+\draw[->](1.7,0)--(2.6,0)node[right]{$v$};\draw[->](1.7,-.7)--(1.7,.6)node[midway,left]{$I$};
+\node at(.15,.4){$\otimes$};\node at(.65,.4){$\vct B$};\draw[<->](3,-1)--(3,1)node[midway,right]{$\ell$};
+\draw[axis](-.5,-1.6)--(2.5,-1.6)node[right]{$x$};\node[right]at(1.9,-.65){$m$};
+\end{tikzpicture}
+\caption{初始电流可以先加速或先减速杆}\label{fig:i3-h11-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h11-q}中无电阻，$L\dot I=\beta\dot x$。从$x(0)=0,I(0)=I_0$积分得
+\[
+LI-\beta x=LI_0,\qquad I=I_0+\frac{\beta x}{L}.
+\]
+代入$m\ddot x=-\beta I$，整理为
+\[
+\ddot x+\Omega^2(x-x_c)=0,\quad
+\Omega=\frac{\beta}{\sqrt{mL}},\quad x_c=-\frac{LI_0}{\beta}.
+\]
+令$y=x-x_c$，通解为$y=A\cos\Omega t+B\sin\Omega t$。初态$y(0)=-x_c$给$A=LI_0/\beta$；$\dot y(0)=v_0$给$B=v_0/\Omega$，所以
+\[
+x=x_c+\frac{LI_0}{\beta}\cos\Omega t
++\frac{v_0}{\Omega}\sin\Omega t,
+\]
+\[
+v=v_0\cos\Omega t-I_0\sqrt{\frac Lm}\sin\Omega t.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-2,0)--(2.3,0)node[right]{$x$};\draw[axis](-.5,-1.4)--(-.5,1.5)node[above]{$v/\Omega$};
+\draw[curve](-.5,0)circle(1.1);\node[below left]at(-.5,0){$x_c$};\node[below]at(.6,0){$x_c+A_x$};
+\end{tikzpicture}
+\caption{移位后的简谐相轨迹}\label{fig:i3-h11-s}
+\end{figure}
+图~\ref{fig:i3-h11-s}中的相轨迹来自消去时间：
+\[
+(x-x_c)^2+\left(\frac v\Omega\right)^2=A_x^2,\qquad
+A_x=\sqrt{\left(\frac{LI_0}{\beta}\right)^2+
+\left(\frac{v_0}{\Omega}\right)^2}.
+\]
+因此运动范围为$\boxed{x_c-A_x\le x\le x_c+A_x}$。为确定第一次正时刻零速，记
+\[
+V=\sqrt{v_0^2+\frac LmI_0^2},\quad
+\cos\phi=\frac{v_0}{V},\quad
+\sin\phi=\frac{I_0\sqrt{L/m}}V.
+\]
+则$v=V\cos(\Omega t+\phi)$。从$t=(\pi/2+n\pi-\phi)/\Omega$中选最小的严格正值，即所求时刻。$\phi$由正弦、余弦同时确定，保留了初始电流和速度的符号。若$v_0=I_0=0$，杆始终静止，全部时刻速度都为零。
+
+将运动式代回可得$I=I_0\cos\Omega t+v_0\sqrt{m/L}\sin\Omega t$。展开平方后交叉项相消，验证$mv^2/2+LI^2/2=mv_0^2/2+LI_0^2/2$。
+\end{solution}
+
+\begin{exercise}[恒拉力下的水平电阻电感杆]\label{ex:i3-h12}
+水平$RL$导轨从静止开始，杆受到恒定向右外力$F$，电路无电源。求末态，给出欠阻尼速度解。 见图~\ref{fig:i3-h12-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-1.5,-1)--(2.5,-1);\draw[curve](-1.5,1)--(2.5,1);
+\draw[curve](-1.2,-1)--(-1.2,-.3);\draw[curve](-1.2,.3)--(-1.2,1);
+\node[draw,fill=white,minimum width=.6cm,minimum height=.6cm]at(-1.2,0){$R,L$};
+\draw[line width=1.1pt](1.7,-1)--(1.7,1);\node[above]at(1.7,1){$A$};\node[below]at(1.7,-1){$D$};
+\draw[->](1.7,0)--(2.6,0)node[right]{$v$};\draw[->](1.7,-.7)--(1.7,.6)node[midway,left]{$I$};
+\node at(.15,.4){$\otimes$};\node at(.65,.4){$\vct B$};\draw[<->](3,-1)--(3,1)node[midway,right]{$\ell$};
+\draw[axis](-.5,-1.6)--(2.5,-1.6)node[right]{$x$};\node[right]at(1.9,-.65){$m$};\draw[->](2,.65)--(3,.65)node[right]{$F$};
+\end{tikzpicture}
+\caption{恒外力通过电磁耦合持续供给热功率}\label{fig:i3-h12-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h12-q}取向右为正。题设初始电流与速度均为零，两条方程为
+\[
+m\dot v=F-\beta I,\qquad L\dot I+RI=\beta v.
+\]
+若到达恒速末态，$\dot v=\dot I=0$，第一式给$I_*=F/\beta$，第二式给
+\[
+\boxed{v_*=\frac{RF}{\beta^2}},\qquad I_*=\frac F\beta.
+\]
+为求全过程，由第一式$I=(F-m\dot v)/\beta$、$\dot I=-m\ddot v/\beta$，代入第二式：
+\[
+-Lm\ddot v+R(F-m\dot v)=\beta^2v.
+\]
+整理得到
+\[
+\ddot v+2\gamma\dot v+\Omega_0^2(v-v_*)=0,\quad
+\gamma=\frac R{2L},\quad\Omega_0^2=\frac{\beta^2}{mL}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,2.5)node[above]{$v$};
+\draw[curve,domain=0:4,samples=80]plot(\x,{1-exp(-.65*\x)*(cos(deg(1.3*\x))-.75*sin(deg(1.3*\x)))});
+\draw[guide](0,1)--(4.1,1)node[right]{$v_*$};
+
+\end{tikzpicture}
+\caption{拉力驱动的速度可能超调再趋于终速}\label{fig:i3-h12-s}
+\end{figure}
+图~\ref{fig:i3-h12-s}画出欠阻尼的速度超调。令$w=v-v_*$，通解$w=e^{-\gamma t}(A\cos\omega_dt+B\sin\omega_dt)$。初值$v(0)=0$给$A=-v_*$；初始无电流，运动式给$\dot v(0)=F/m$，故$-\gamma A+\omega_dB=F/m$。于是
+\[
+\boxed{v=v_*+e^{-\gamma t}
+\left[-v_*\cos\omega_dt+
+\frac{F/m-\gamma v_*}{\omega_d}\sin\omega_dt\right]}.
+\]
+继续求速度导数，按指数与三角函数分别求导并合并系数，
+\[\dot v=e^{-\gamma t}\left[\frac Fm\cos\omega_dt
++\frac{\Omega_0^2v_*-\gamma F/m}{\omega_d}\sin\omega_dt\right].\]
+由于$\Omega_0^2v_*=2\gamma F/m$，正弦系数化为$\gamma F/(m\omega_d)$。用$I=(F-m\dot v)/\beta$恢复电流，得到
+\[
+I=I_*\left[1-e^{-\gamma t}
+\left(\cos\omega_dt+\frac{\gamma}{\omega_d}\sin\omega_dt\right)\right].
+\]
+它满足$I(0)=\dot I(0)=0$，与初始电路方程相容。末态时$Fv_*=RI_*^2$，而全过程的功率关系为
+\[
+Fv=\frac{\dd}{\dd t}\left(\frac12mv^2+\frac12LI^2\right)+RI^2.
+\]
+过渡过程中，外力功同时增加动能、磁能并产生焦耳热；达到恒速末态后，储能不再改变，外力功率才全部转化为焦耳热功率。
+\end{solution}
+
+\begin{exercise}[电阻随圆环半径变化的抽拉模型]\label{ex:i3-h13}
+恒力抽拉柔线圈时，若没有固定主电阻，只有圆形部分贡献电阻，其材料电阻率为$\rho_e$、截面积为$S$，求$r_0\to r_{\min}$的时间。其余准静态假定不变。 见图~\ref{fig:i3-h13-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)circle(1.2);\draw[curve](0,1.2)--(2.6,1.2);\draw[->](2.6,1.2)--(3.4,1.2)node[right]{$F$};
+\node at(0,0){$\otimes B$};\node[below]at(0,-1.5){$\mathcal R(r)=2\pi\rho_er/S$};
+\end{tikzpicture}
+\caption{电阻来自正在收缩的圆形导线段}\label{fig:i3-h13-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h13-q}的圆形部分周长为$2\pi r$，截面积$S$恒定，故它的电阻是
+\[
+\mathcal R(r)=\rho_e\frac{2\pi r}{S}.
+\]
+圆形部分收缩时$\dot r<0$，磁通减少，感应电动势的大小为$-2\pi Br\dot r$。于是
+\[
+I=\frac{-2\pi Br\dot r}{2\pi\rho_er/S}
+=-\frac{BS}{\rho_e}\dot r.
+\]
+还需把电流与拉力联系起来。抽出总长度满足$\dot x=-2\pi\dot r$；忽略惯性和自感时，$F\dot x=I\mathcal E$，即
+\[
+F(-2\pi\dot r)=I(-2\pi Br\dot r).
+\]
+对正在收缩的过程约去$-2\pi\dot r$，得到$F=IBr$。将前面的$I$代入：
+\[
+\dot r=-\frac{F\rho_e}{B^2Sr}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.1,0)--(4.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,2.5)node[above]{$r^2$};
+\draw[curve](0,2)--(4,.3);\node[left]at(0,2){$r_0^2$};\node[below]at(4,0){$T$};
+
+\end{tikzpicture}
+\caption{可变电阻使半径平方随时间线性减少}\label{fig:i3-h13-s}
+\end{figure}
+图~\ref{fig:i3-h13-s}中的线性量是$r^2$。将微分方程写为$r\dd r=-F\rho_e\dd t/(B^2S)$，从$r_0$积分到$r_{\min}$，
+\[
+\int_{r_0}^{r_{\min}}r\dd r
+=\left[\frac{r^2}{2}\right]_{r_0}^{r_{\min}}
+=\frac{r_{\min}^2-r_0^2}{2}
+=-\frac{F\rho_e}{B^2S}T,
+\qquad
+\boxed{T=\frac{B^2S}{2F\rho_e}
+(r_0^2-r_{\min}^2)}.
+\]
+恒电阻模型则有$r^3$随时间线性变化；两种幂次对应不同电阻规律。若抽出导线仍串在回路中且电阻不可忽略，总电阻就不再等于本题的$2\pi\rho_er/S$，应按实际回路重新列式。有限线径、发热与惯性也限制了$r_{\min}$可以取多小。
+\end{solution}
+
+\begin{exercise}[细超导环的动能电感（选做）]\label{ex:i3-h14}
+细超导环周长$p$、截面积$S\ll\lambda_L^2$，超导电流截面近似均匀，几何自感为$L_g$。用London载流子模型求动能电感。若另给磁通子约束$\Phi_{\rm ext}+(L_g+L_k)I=n\Phi_0$，求持续电流，$\Phi_0=h/(2e)$。 见图~\ref{fig:i3-h14-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)ellipse(1.6 and .7);\draw[->](1.6,0)arc(0:70:1.6 and .7);
+\node at(0,0){$\Phi_{\rm ext}$};\node[below]at(0,-1){$p,S$};
+\end{tikzpicture}
+\caption{多连通细环中的几何磁能与载流子动能}\label{fig:i3-h14-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:i3-h14-q}中超导电流在截面内近似均匀。载流子密度为$n_s$，单个Cooper对电荷$q_s$、质量$m_s$，漂移速度为$v_s$，则
+\[
+I=n_sq_sv_sS,\qquad v_s=\frac{I}{n_sq_sS}.
+\]
+环中载流子数为$n_spS$。将速度代入总动能：
+\[
+\begin{aligned}
+E_k&=\frac12(n_spS)m_sv_s^2\\
+&=\frac12n_spSm_s\frac{I^2}{n_s^2q_s^2S^2}
+=\frac12\frac{m_sp}{n_sq_s^2S}I^2.
+\end{aligned}
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(-1,0);\node[draw,fill=white]at(-.5,0){$L_g$};\draw[curve](0,0)--(1,0);
+\node[draw,fill=white]at(1.5,0){$L_k$};\draw[curve](2,0)--(2.5,0);\node[below]at(.3,-.6){磁场储能与载流子动能相加};
+\end{tikzpicture}
+\caption{动能电感与几何电感相加，而非取代几何电感}\label{fig:i3-h14-s}
+\end{figure}
+图~\ref{fig:i3-h14-s}把此动能与几何磁能分别表示成两个串联储能项。比较$E_k=L_kI^2/2$，再用$\lambda_L^2=m_s/(\mu_0n_sq_s^2)$，有
+\[
+\boxed{L_k=\frac{m_sp}{n_sq_s^2S}
+=\frac{\mu_0\lambda_L^2p}{S}},\qquad
+W=\frac12(L_g+L_k)I^2.
+\]
+把它代入题目另给的磁通子约束，逐项移项得到
+\[
+(L_g+L_k)I=n\Phi_0-\Phi_{\rm ext},\qquad
+\boxed{I_n=\frac{n\Phi_0-\Phi_{\rm ext}}{L_g+L_k}}.
+\]
+相应储能为$W_n=(n\Phi_0-\Phi_{\rm ext})^2/[2(L_g+L_k)]$。若允许$n$充分转换，最低能态取离$\Phi_{\rm ext}/\Phi_0$最近的整数；半整数处相邻两态等能。若实验中磁通子数被锁定，则应保持原来的$n$，不能每改变一点外场就自动切换到最低能分支。
+
+动能电感来自载流子惯性，几何电感来自空间磁场，二者可同时存在。量子化约束是额外的整体相位条件，局域London方程并不单独决定整数$n$。
+\end{solution}

@@ -1,0 +1,71 @@
+\section{有限加速装置的距离与信号}
+\subsection{固定固有距离、等实验室距离与雷达距离}
+本讲的加速坐标已给出$\dd s^2=c^2(1+\alpha\xi/c^2)^2\dd\tau^2-\dd\xi^2$。在同一坐标时间的局部静止切片上，沿杆的长度元是$\dd\xi$。所以前后端固定在$\xi=0,L$时，杆的固有长度保持$L$；前端固有加速度却为$\alpha/(1+\alpha L/c^2)$。这是有限装置保持固有长度的一种安排，需要不同位置的动力控制配合。
+
+另一种安排是两个飞船从实验室同时启动，始终使用相同实验室运动程序，它们的实验室间距保持原值。这不保持加速过程中的共动距离。第三种距离是某一站按发射、接收光的往返时间定义的雷达距离，它还包含信号传播期间的加速影响。题目中的“距离保持不变”必须先说明属于哪一种。
+
+\begin{example}加速杆上的钟与后端雷达
+一根保持固有长度$L$的杆沿$x$方向加速，后端$A$的固有加速度恒为$\alpha$，前端$B$固定在加速坐标$\xi=L$。后端发出光，经前端理想反射后返回。求后端测得的往返固有时间和雷达距离，并求前端向后端持续发光时的接收频率比。
+\ExpansionDiagram{fig:dep-m2-radar-q}{固定加速坐标中的两站及往返信号，图示$\alpha L/c^2=1$}{
+\draw[->](0,0)--(6,0)node[right]{$\xi$};\draw[thick](1,-.4)--(1,2.5)node[above]{$A:0$};\draw[thick](5,-.4)--(5,2.5)node[above]{$B:L$};\draw[->,domain=1:5,samples=70]plot(\x,{.3+ln(1+(\x-1)/4)});\draw[->,domain=5:1,samples=70]plot(\x,{.3+2*ln(2)-ln(1+(\x-1)/4)});\node[left]at(.9,.3){发射};\node[left]at(.9,1.6863){返回};\node[left]at(.9,2.3){$\tau$};}
+\end{example}
+\begin{solution}
+在图\ref{fig:dep-m2-radar-q}的坐标中，前行光满足$\dd\xi/\dd\tau=c(1+\alpha\xi/c^2)$。分离变量，从0积分到$L$，单程所需后端坐标时间为
+\[
+ t_+=\int_0^L\frac{\dd\xi}{c(1+\alpha\xi/c^2)}
+ =\left[\frac c\alpha\ln(1+\alpha\xi/c^2)\right]_0^L
+ =\frac c\alpha\ln(1+\alpha L/c^2).
+\]
+反向光的坐标速度反号，但区间次序也反向，故$t_-=t_+$。后端钟的固有时就是该坐标时间，得到
+\[
+ \Delta\tau_A=\frac{2c}{\alpha}\ln(1+\alpha L/c^2),\qquad
+ D_A=\frac{c\Delta\tau_A}{2}
+ =\frac{c^2}{\alpha}\ln(1+\alpha L/c^2).
+\]
+\ExpansionDiagram{fig:dep-m2-radar-a}{雷达距离与固定固有长度的比较}{
+\draw[->](0,0)--(4,0)node[right]{$\alpha L/c^2$};\draw[->](0,0)--(0,3.4)node[above]{$\alpha D_A/c^2$};\draw[dashed](0,0)--(3.1,3.1);\draw[thick,domain=0:3.1,samples=80]plot(\x,{ln(1+\x)});\node[right]at(2.9,1.2){$\ln(1+x)$};}
+图\ref{fig:dep-m2-radar-a}中$D_A<L$。弱加速展开为$D_A=L-\alpha L^2/(2c^2)+\cdots$，这与局部测尺得到$L$不同，是两种测量程序的差别。
+
+前端相邻两个波峰的发射固有时间间隔为$\Delta\tau_B$。固定两站之间的坐标传播时间不随发射时刻变化，因此相邻波峰的接收坐标时间间隔等于发射坐标间隔。又$\Delta\tau_B=(1+\alpha L/c^2)\Delta\tau$、$\Delta\tau_A=\Delta\tau$，所以
+\[
+ \frac{\nu_A}{\nu_B}=1+\frac{\alpha L}{c^2}.
+\]
+这里$\nu_B$按前端本地钟定义。若只讨论后端发出再由固定前端反射回来的光，两个方向的频率因子相乘抵消，返回后端的频率等于原发射频率；单程两站比较与同站往返比较不可混用。
+\end{solution}
+
+\subsection{相同加速程序造成的有限长度效应}
+两端距离很短时，瞬时长度收缩关系可以估算共动长度。有限间距下，同一瞬时惯性系选出的两个端点事件往往处于不同加速阶段，须先求同时面与两条世界线的交点，再计算其空间距离。
+
+\begin{example}始终保持实验室间距的两飞船
+两飞船初始静止，实验室间距$d>0$。从$t=0$起，两者均沿$+x$保持相同固有加速度$\alpha$，并持续加速。后船$A$的快度为$\chi$时，在其瞬时静止惯性系中，与该事件同时的前船$B$事件具有何种快度？求该系中的两船距离。
+\ExpansionDiagram{fig:dep-m2-bell-q}{两条世界线在实验室等时切片上的间距恒为$d$}{
+\draw[->](-.3,0)--(4,0)node[right]{$x$};\draw[->](0,0)--(0,3.4)node[above]{$ct$};\draw[thick,domain=0:1.5,samples=60]plot({cosh(\x)-1},{sinh(\x)});\draw[thick,domain=0:1.5,samples=60]plot({cosh(\x)-.4},{sinh(\x)});\draw[dashed](.543,1.175)--(1.143,1.175)node[midway,above]{$d$};\node[below]at(0,0){$A$};\node[below]at(.6,0){$B$};}
+\end{example}
+\begin{solution}
+设$\ell_\alpha=c^2/\alpha$。图\ref{fig:dep-m2-bell-q}的两条世界线参数为
+\[
+ ct_A=\ell_\alpha\sinh\chi,\quad
+ x_A=\ell_\alpha(\cosh\chi-1),
+\]
+\[
+ ct_B=\ell_\alpha\sinh\eta,\quad
+ x_B=d+\ell_\alpha(\cosh\eta-1).
+\]
+在$A$的瞬时系中同时，要求$\Delta(ct)'=\cosh\chi\,\Delta(ct)-\sinh\chi\,\Delta x=0$。将两条世界线代入，使用双曲正弦差角公式得到
+\[
+ \ell_\alpha\sinh(\eta-\chi)=d\sinh\chi,
+ \qquad \eta=\chi+\operatorname{arsinh}
+ \left(\frac d{\ell_\alpha}\sinh\chi\right).
+\]
+这表明前船上所选的同时事件晚于实验室等时所选事件，且在持续加速期间已经具有更大的快度。
+\ExpansionDiagram{fig:dep-m2-bell-a}{后船瞬时系的同时线与前船世界线相交于更晚事件}{
+\draw[->](-.3,0)--(4,0)node[right]{$x$};\draw[->](0,0)--(0,3.4)node[above]{$ct$};\draw[thick,domain=0:1.8,samples=70]plot({cosh(\x)-1},{sinh(\x)});\draw[thick,domain=0:1.8,samples=70]plot({cosh(\x)-.4},{sinh(\x)});\draw[dashed](.543,1.175)--(3.5,1.175);\draw[->](.543,1.175)--(2.9,2.97)node[right]{同时线};\fill(.543,1.175)circle(1.5pt)node[left]{$A$};\fill(2.324,2.533)circle(1.5pt)node[right]{$B$};}
+距离须变换空间分量：
+\begin{align*}
+ D_A&=\cosh\chi\,\Delta x-\sinh\chi\,\Delta(ct)\\
+ &=d\cosh\chi+\ell_\alpha[\cosh(\eta-\chi)-1]\\
+ &=d\cosh\chi+\ell_\alpha\left[
+ \sqrt{1+(d/\ell_\alpha)^2\sinh^2\chi}-1\right].
+\end{align*}
+图\ref{fig:dep-m2-bell-a}中的同时线不是实验室水平切片，所以有限间距的精确结果比$d\cosh\chi$还大。当$(d/\ell_\alpha)|\sinh\chi|\ll1$时，第二项约为$d^2\sinh^2\chi/(2\ell_\alpha)$，此时才可用$D_A\simeq d\gamma$近似。若两船在某实验室时刻停止加速，则前船上所取事件可能已经进入匀速段，必须分段接续世界线，不能继续沿用此式。
+\end{solution}

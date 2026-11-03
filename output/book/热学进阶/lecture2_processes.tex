@@ -1,0 +1,90 @@
+\subsection{由状态关系到过程方程}
+\label{th:processclosure}
+状态方程规定允许的平衡态，过程约束规定系统怎样在这些状态之间变化。对固定物质的量，式\eqref{eq:duvt}给出内能微分，再用第一定律才能确定热量和功。若过程准静态且只有体积功，$\delta W=p\dd V$，于是
+\[
+ \delta Q=C_V\dd T+
+ T\left(\frac{\partial p}{\partial T}\right)_V\dd V.
+\]
+这一式与气体的$T\dd S$相同；若外界热源与气体存在有限温差，气体和热源组成的整体仍会产生熵，不能仅凭此式断定整体过程可逆。若外压与内部压强不同，实际功应按边界的外压计算，差值须在不可逆能量转化和熵产生中处理。
+
+给定过程 $V=V(T)$ 后，沿这一路径的热量与温变之比为
+\[
+ C_{\cal P}=\frac{\delta Q}{\dd T}
+ =C_V+T\left(\frac{\partial p}{\partial T}\right)_V
+ \frac{\dd V}{\dd T}.
+\]
+它取决于路径，通常既不是$C_V$也不是$C_p$。路径热容可以为负，即吸热时温度下降。例如对内能只随温度变化且$C_V>0$的理想气体，若吸收热量少于同时对外做的功，差额由内能支付，温度便下降。实际气体的内能还可能含体积项，须联立完整的$\dd U$判断温变。平衡稳定性中的热容条件针对指定约束下的状态响应，应明确保持哪些变量不变。
+
+\begin{example}[多方过程的热量、功与路径热容]
+\label{ex:polytropicheat}
+$\nu$ 摩尔常热容理想气体经历可逆过程 $pV^a=\text{常量}$，初末体积为 $V_1,V_2$。已知 $C_V=\nu c_{V,m}$、$\gamma=1+\nu R/C_V$。求 $a\ne1$ 时的功、热量和路径热容，并说明 $1<a<\gamma$ 的膨胀过程为什么吸热却降温。
+\Diagram{fig:polytropicheatq}{从同一初态出发的等温、多方与绝热线}{
+ \draw[axis](0,0)--(5,0)node[right]{$V/V_1$};
+ \draw[axis](0,0)--(0,3.2)node[above]{$p/p_1$};
+ \foreach \a/\s in{1/solid,1.2/dashed,1.4/densely dotted}
+  \draw[curve,\s]plot[domain=1:4.5](\x,{2.5/\x^\a});
+ \fill(1,2.5)circle(1.2pt)node[above]{$A$};
+ \node at(3.7,2.4){实线 $a=1$};
+ \node at(3.7,1.9){虚线 $a=1.2$};
+ \node at(3.7,1.4){点线 $\gamma=1.4$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:polytropicheatq}的三条曲线经过同一初态。由理想气体状态方程，
+$TV^{a-1}=T_1V_1^{a-1}$，故
+$T_2/T_1=(V_1/V_2)^{a-1}$。令 $K=p_1V_1^a$，逐项积分得
+\[
+ W=\int_{V_1}^{V_2}KV^{-a}\dd V
+ =\left[\frac{KV^{1-a}}{1-a}\right]_{V_1}^{V_2}
+ =\frac{p_2V_2-p_1V_1}{1-a}
+ =\frac{\nu R(T_2-T_1)}{1-a}.
+\]
+再由 $\Delta U=C_V(T_2-T_1)$ 和 $Q=\Delta U+W$，
+\[
+ Q=C_V\frac{\gamma-a}{1-a}(T_2-T_1),
+ \qquad C_{\cal P}=C_V\frac{\gamma-a}{1-a}.
+\]
+\Diagram{fig:polytropicheata}{路径热容的符号由两个特征指数分隔}{
+ \draw[axis](0,0)--(6.7,0)node[right]{$a$};
+ \draw(2.2,-.15)--(2.2,.15)node[above]{$1$};
+ \draw(4.4,-.15)--(4.4,.15)node[above]{$\gamma$};
+ \node at(1,-.6){$C_{\cal P}>0$};
+ \node at(3.3,-.6){$C_{\cal P}<0$};
+ \node at(5.5,-.6){$C_{\cal P}>0$};
+ \node at(3.3,1){$a=1$ 等温；$a=\gamma$ 可逆绝热};
+}
+在图\ref{fig:polytropicheata}的中间区间，膨胀给$T_2<T_1$，而$C_{\cal P}<0$，故$Q>0$。功仍为正，且$W>Q$，多出的功来自内能减少。定压过程$a=0$恢复$C_{\cal P}=C_p$；$a=\gamma$给$Q=0$。$a=1$时温变为零，应单独积分：$W=\nu RT\int_{V_1}^{V_2}\dd V/V=\nu RT[\ln V]_{V_1}^{V_2}=\nu RT\ln(V_2/V_1)$，且$\Delta U=0$给$Q=W$，此时热量除以温变不定义有限的路径热容。
+\end{solution}
+
+\subsection{内能与熵积分中的参考函数}
+由一个偏导积分得到的“常数”可能仍依赖其他变量。例如给出
+$U_V|_T=F(T,V)$，积分得到
+\[
+ U(T,V)=\int_{V_\ast}^{V}F(T,w)\dd w+\Phi(T).
+\]
+再对温度求导，
+\[
+ C_V(T,V)=\int_{V_\ast}^{V}
+ \left(\frac{\partial F}{\partial T}\right)_w\dd w+\Phi'(T).
+\]
+指定参考体积上的热容，才确定 $\Phi'(T)$；再给一个内能参考值，才确定最终的加法常数。若热容已经在所有体积上给出，它必须满足式\eqref{eq:cvcompat}，才能与同一内能函数相容。
+
+熵的积分有相同结构。用一条先定容、后等温的路径，
+\[
+ S(T,V)-S(T_\ast,V_\ast)
+ =\int_{T_\ast}^{T}\frac{C_V(t,V_\ast)}{t}\dd t
+ +\int_{V_\ast}^{V}\left(\frac{\partial p(T,w)}{\partial T}\right)_w\dd w.
+\]
+第二项沿终温 $T$ 的等温线积分。对整个结果求温度导数，利用相容关系，可恢复终体积处的 $C_V(T,V)/T$。若选择先等温、后定容的另一条路径，相应的等温段应取初温，定容段也应改在终体积处积分；两段须一起调整。
+
+\subsection{实际气体的绝热线与机械稳定区}
+可逆绝热约束由熵微分直接给出，
+\[
+ \frac{C_V(T,V)}{T}\dd T+
+ \left(\frac{\partial p}{\partial T}\right)_V\dd V=0.
+\]
+只有在系数具有可分离形式时，才可积分成简单幂律。对 $p=\nu RT/(V-B)-A/V^2$ 且总定容热容为常数的模型，
+$(\partial p/\partial T)_V=\nu R/(V-B)$，由积分得到温度与有效自由体积的关系。吸引项虽然不直接出现在熵的体积系数中，却仍影响内能、绝热功和机械稳定性。
+
+若路径进入 $(\partial p/\partial V)_T>0$ 的均匀态分支，微小密度扰动会进一步增大，单相均匀模型失稳。此时沿形式上的代数曲线继续积分，并不代表真实平衡过程；应改用两相共存条件及相比例。第四讲讨论的相变平台正是状态描述发生变化的地方。
+

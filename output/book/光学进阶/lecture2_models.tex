@@ -1,0 +1,140 @@
+\begin{example}\label{ex:o2three}
+三束等振幅、等相邻相位差光叠加，求主极大、零点与次极大，并画出一个周期内强度。
+\Diagram{fig:o2threeq}{三个等长相量相邻夹角相同}{\draw[axis](0,0)--(2,0);\draw[axis](0,0)--(1.285575,1.532089);\draw[axis](0,0)--(-.347296,1.969616);\node[right]at(2,0){$A$};\node[above right]at(1.285575,1.532089){$A\ee^{i\delta}$};\node[left]at(-.347296,1.969616){$A\ee^{2i\delta}$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2threeq}的三相量依次为$A,A\ee^{i\delta},A\ee^{2i\delta}$。提出公共相位得
+\[
+ \mathcal E=A\ee^{i\delta}(\ee^{-i\delta}+1+\ee^{i\delta})
+ =A\ee^{i\delta}(1+2\cos\delta),
+\]
+所以$I/I_1=(1+2\cos\delta)^2$。零场条件为$\cos\delta=-1/2$，在$0\leq\delta\leq2\pi$内给$2\pi/3$、$4\pi/3$。
+\Diagram{fig:o2threea}{三束干涉的两个零点和中央次极大}{\draw[axis](0,0)--(6.7,0)node[right]{$\delta$};\draw[axis](0,0)--(0,3.3)node[above]{$I/I_1$};\draw[curve,domain=0:6.283,samples=120]plot(\x,{(1+2*cos(\x r))^2/3});\foreach\x/\t in{2.094/{2\pi/3},3.142/\pi,4.189/{4\pi/3},6.283/{2\pi}}{\node[below]at(\x,0){$\t$};}\node[left]at(0,3){$9$};}
+为区别极大与零点，对强度求导：
+\[
+ \frac1{I_1}\frac{\dd I}{\dd\delta}
+ =-4(1+2\cos\delta)\sin\delta.
+\]
+除零场点外，驻点为$0,\pi,2\pi$。在$0,2\pi$三相量同向，强度为9；$\pi$处相量依次为$A,-A,A$，余下$A$，强度为1。由$\delta=\pi+\epsilon$时$1+2\cos\delta=-1+\epsilon^2+O(\epsilon^4)$，得到$I/I_1=1-2\epsilon^2+\cdots$，因此$\pi$确为次极大。
+
+图\ref{fig:o2threea}的一个周期含一个次极大和两个完全暗点。周期平均强度为$\langle I\rangle/I_1=1+4\langle\cos\delta\rangle+4\langle\cos^2\delta\rangle=3$，等于三束单独强度之和；峰值9来自相干重排，不能解释为总能量增为三倍。
+\end{solution}
+
+\begin{example}\label{ex:o2unequal}
+三束光的振幅依次为$A,2A,3A$，相邻相位差$\delta$。求强度、全局极值和可见度，判断是否有完全暗点。
+\Diagram{fig:o2unequalq}{三个相量的长度为1、2、3，方向按$\delta$递增}{\draw[axis](0,0)--(1,0)node[right]{$1$};\draw[axis](0,0)--(1.285575,1.532089)node[right]{$2$};\draw[axis](0,0)--(-.520945,2.954423)node[left]{$3$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2unequalq}给$\mathcal E/A=1+2\ee^{i\delta}+3\ee^{2i\delta}$。乘共轭时，每一对相量只产生一项余弦：
+\begin{align*}
+ I/I_1&=1+4+9+4\cos\delta+12\cos\delta+6\cos2\delta\\
+ &=12\cos^2\delta+16\cos\delta+8.
+\end{align*}
+令$x=\cos\delta\in[-1,1]$，这是开口向上的二次式，顶点$x=-2/3$，最小值$8/3$。端点$x=1$强度36，$x=-1$强度4，所以全局最大36。
+\Diagram{fig:o2unequala}{不等振幅的强度曲线不接触零轴}{\draw[axis](0,0)--(6.8,0)node[right]{$\delta$};\draw[axis](0,0)--(0,3.4)node[above]{$I/I_1$};\draw[curve,domain=0:6.283,samples=140]plot(\x,{(12*cos(\x r)^2+16*cos(\x r)+8)/12});\node[left]at(0,3){$36$};\draw[guide](0,.2222)--(6.3,.2222);\node[right]at(6.3,.35){$8/3$};}
+图\ref{fig:o2unequala}没有完全暗点。全局可见度$(36-8/3)/(36+8/3)=25/29$。在$\delta=\pi$虽有局部次极大4，但它不决定全局可见度；求导时要区分关于$x$的端点和关于$\delta$的驻点。
+\end{solution}
+
+\begin{example}\label{ex:o2spacing}
+三等振幅缝位置为$0,d,5d$。令$\delta=2\pi d\sin\theta/\lambda$，求强度和轴旁第一个零点。
+\Diagram{fig:o2spacingq}{三缝的相邻间距为$d$和$4d$}{\draw[axis](-.3,0)--(6.1,0)node[right]{$x/d$};\foreach\x/\t in{0/0,1/1,5/5}{\draw[very thick](\x,-.4)--(\x,.5);\node[above]at(\x,.5){$\t$};}\draw[<->](1,-.8)--(5,-.8)node[midway,below]{$4d$};}
+\end{example}
+\begin{solution}
+图\ref{fig:o2spacingq}给$\mathcal E/A=1+\ee^{i\delta}+\ee^{i5\delta}$，乘共轭得到$I/I_1=3+2\cos\delta+2\cos4\delta+2\cos5\delta$。完全相长在$\delta=2k\pi$，强度9。
+\Diagram{fig:o2spacinga}{完全相消时三个等长相量构成正三角形}{\draw[->,thick](0,0)--(2,0)node[midway,below]{$1$};\draw[->,thick](2,0)--(1,1.732)node[midway,right]{$\ee^{i\delta}$};\draw[->,thick](1,1.732)--(0,0)node[midway,left]{$\ee^{i5\delta}$};}
+三个等长矢量和为零必须彼此相差$2\pi/3$。由图\ref{fig:o2spacinga}，含有相位0和$\delta$的一对须满足$\delta=\pm2\pi/3$模$2\pi$；此时$5\delta$确为另一方向。因此首个正零点$\delta=2\pi/3$，$\sin\theta_0=\lambda/(3d)$。这一零点只有在$\lambda\leq3d$时属于传播角域；等号时位于掠射方向。不等间距不能直接把$N=3$代入等间距几何级数来解释全部旁瓣，但本题首零点恰好相同。
+\end{solution}
+
+\input{lecture2_derivations}
+\input{lecture2_extensions}
+\input{lecture2_depth}
+\input{lecture2_connections}
+\section{习题与解答}
+\input{lecture2_supplement}
+\input{lecture2_practice}
+\begin{exercise}\label{ex:o2visibility}
+两相干光强比为9:1，偏振方向夹角$\eta$，求条纹可见度。若希望完全相消，需同时满足什么条件？
+\Diagram{fig:o2visibilityq}{两束电场的偏振方向夹角}{\draw[axis](0,0)--(3,0)node[right]{$\vct e_1$};\draw[axis](0,0)--(1.5,2.2)node[right]{$\vct e_2$};\node at(.8,.4){$\eta$};}
+\end{exercise}
+\begin{solution}
+以图\ref{fig:o2visibilityq}的第一束偏振为$x$轴，令两束实振幅为$3A,A$。第二束可分成$A\cos\eta$的平行分量和$A\sin\eta$的正交分量。合场分量为
+\[
+ E_x=3A+A\cos\eta\ee^{i\delta},\qquad
+ E_y=A\sin\eta\ee^{i\delta}.
+\]
+探测器记录两正交分量强度之和，因此$I/I_A=|E_x/A|^2+|E_y/A|^2=10+6\cos\eta\cos\delta$。
+\Diagram{fig:o2visibilitya}{正交分量不能被另一束光抵消}{\draw[axis](0,0)--(2.4,0)node[right]{$\parallel\vct e_1$};\draw[axis](0,0)--(0,2.2)node[above]{垂直分量};\draw[->,thick](0,0)--(1.4,1.6);\draw[guide](1.4,0)--(1.4,1.6)--(0,1.6);}
+图\ref{fig:o2visibilitya}中的正交分量不能与第一束相消。相位变化时，$I_{\max}/I_A=10+6|\cos\eta|$、$I_{\min}/I_A=10-6|\cos\eta|$，所以$\mathcal V=3|\cos\eta|/5$。即使偏振平行，最暗仍为$4I_A$，因为$3A-A=2A$。
+
+一般两束完全相干线偏振光的可见度为$2\sqrt{I_1I_2}|\cos\eta|/(I_1+I_2)$。由$2\sqrt{I_1I_2}\leq I_1+I_2$与$|\cos\eta|\leq1$，完全暗点要求两不等式同时取等号：两束等强、偏振共线，再选择相反的复场相位。若把偏振矢量方向反转，振幅相位也随之改变$\pi$，应以两束总电场反向为最终判据。部分相干时交叉项还要乘$|\gamma_{12}|$。
+\end{solution}
+
+\begin{exercise}\label{ex:o2filmindex}
+空气—薄膜—基底的折射率依次为$1,n_f,n_s$，$1<n_f<n_s$。垂直照射，求使反射最弱的最小膜厚；进一步求两反射振幅可完全抵消的折射率条件。
+\Diagram{fig:o2antirefq}{法向入射时两反射同向；分列画出各束以显示传播次序}{
+\draw[curve](-2,0)--(2.4,0);\draw[curve](-2,-.9)--(2.4,-.9);
+\node[left]at(-2,1.25){$1$};\node[left]at(-2,-.45){$n_f$};\node[left]at(-2,-1.3){$n_s$};
+\draw[->](-1.2,1.5)--(-1.2,0)node[midway,left]{入射};
+\draw[->](-.65,0)--(-.65,1.5)node[above]{$r_{01}$};
+\draw[->](.35,.2)--(.35,-.9);
+\draw[->](.9,-.9)--(.9,1.5)node[above]{$r_{12}\ee^{2i\phi}$};
+\draw[<->](1.9,0)--(1.9,-.9)node[midway,right]{$h$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2antirefq}中两界面均由低折射率向高折射率反射，$r_{01},r_{12}$都为负；两反射的相对初相位为零。要使两束因传播反相，最小正厚度满足$2n_fh=\lambda_0/2$，故$h=\lambda_0/(4n_f)$。这给出相位条件，完全消反还需振幅匹配。
+
+令单程膜内相位为$\phi$。纳入多次反射，首个由下界面返回的振幅为$t_{01}t_{10}r_{12}\ee^{2i\phi}$，后续倍率为$r_{10}r_{12}\ee^{2i\phi}$。因$r_{10}=-r_{01}$、$t_{01}t_{10}=1-r_{01}^2$，
+\[
+ r=r_{01}+\frac{(1-r_{01}^2)r_{12}\ee^{2i\phi}}
+ {1+r_{01}r_{12}\ee^{2i\phi}}
+ =\frac{r_{01}+r_{12}\ee^{2i\phi}}{1+r_{01}r_{12}\ee^{2i\phi}}.
+\]
+\Diagram{fig:o2antirefa}{四分之一波膜让往返传播相位成为$\pi$}{\draw[axis](0,0)--(2.7,0)node[right]{$r_{01}$};\draw[axis](0,0)--(-2.7,0)node[left]{$r_{12}\ee^{i\pi}$};\node[above]at(0,1){两反射相量等大反向时消失};}
+在图\ref{fig:o2antirefa}的四分之一波厚度，$\ee^{2i\phi}=-1$，消反要求$r_{01}=r_{12}$。代入界面系数并交叉相乘，
+\[
+ (1-n_f)(n_f+n_s)=(n_f-n_s)(1+n_f)
+ \quad\Longrightarrow\quad n_f^2=n_s.
+\]
+因此$n_f=\sqrt{n_s}$。若入射介质改为$n_0$，相同推导给$n_f^2=n_0n_s$。匹配只针对给定波长和法向入射；色散或斜入射会改变相位与两偏振的导纳。若折射率不匹配，四分之一波厚度仍使反射最小，但最低反射率为$[(r_{01}-r_{12})/(1-r_{01}r_{12})]^2$，一般不为零。
+\end{solution}
+
+\begin{exercise}\label{ex:o2ringliquid}
+同一牛顿环装置在空气和未知液体中用同一波长测得相隔$p$级暗环的直径平方差分别为$D_a,D_l$。求液体折射率，说明如何消去中心小间隙影响。
+\Diagram{fig:o2liquidq}{同一球面间隙先后由空气和液体填充}{\draw[curve](-2.3,0)--(2.3,0);\draw[curve,domain=-2:2,samples=50]plot(\x,{.15+.18*\x*\x});\node at(0,.6){$n$};\node[above]at(0,1.4){几何$R$不变};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2liquidq}中暗环直径$d_m=2r_m$，所以$d_{m+p}^2-d_m^2=4pR\lambda_0/n$。空气近似$n_a=1$，两次相除得$n=D_a/D_l$。
+\Diagram{fig:o2liquida}{直径平方差消除所有环共同的厚度偏移}{\draw[axis](0,0)--(4.5,0)node[right]{级次$m$};\draw[axis](0,-.5)--(0,3)node[above]{$d_m^2$};\draw[curve](.7,0)--(3.8,2.6);\draw[curve](.7,0)--(4.2,1.6);\node[right]at(3.8,2.6){空气};\node[right]at(4.2,1.6){液体};}
+中心间隙$h_0$只使$d_m^2$增加共同截距$-8Rh_0$，图\ref{fig:o2liquida}的斜率不受影响。如果充液引起透镜受力、曲率或接触状态改变到不能视为同一$R$，该消元就不成立；应使用同一机械装置、相同测量级差。
+\end{solution}
+
+\begin{exercise}\label{ex:o2doubleline}
+迈克耳孙干涉仪受两条等强、互不相干的近邻谱线$\lambda$和$\lambda+\Delta\lambda$照射。求随光程差变化的条纹可见度包络，以及相邻可见度消失位置之间的镜移量。
+\Diagram{fig:o2doubleq}{两频率各形成条纹，记录器相加强度}{\draw[curve](0,0)rectangle(2,1);\node at(1,.5){两条谱线};\draw[->](2,.5)--(3,.5);\draw[curve](3,0)rectangle(5.4,1);\node at(4.2,.5){光程差$\mathcal D$};}
+\end{exercise}
+\begin{solution}
+取每条谱线的条纹强度为$I_0[1+\cos(k_i\mathcal D)]$。图\ref{fig:o2doubleq}的和为$2I_0[1+\cos((k_1-k_2)\mathcal D/2)\cos((k_1+k_2)\mathcal D/2)]$，所以包络可见度为$|\cos(\Delta k\mathcal D/2)|$。
+\Diagram{fig:o2doublea}{快速干涉条纹受慢变化拍频包络调制}{\draw[axis](0,0)--(6.5,0)node[right]{$\mathcal D$};\draw[curve,domain=0:6,samples=170]plot(\x,{1+cos(60*\x)*cos(720*\x)});\draw[guide,domain=0:6,samples=80]plot(\x,{1+abs(cos(60*\x))});\draw[guide,domain=0:6,samples=80]plot(\x,{1-abs(cos(60*\x))});}
+图\ref{fig:o2doublea}相邻包络零点相差$\Delta\mathcal D=2\pi/|\Delta k|$。由于$|\Delta k|\simeq2\pi|\Delta\lambda|/\lambda^2$，得到$\Delta\mathcal D\simeq\lambda^2/|\Delta\lambda|$。单镜位移是光程差改变的一半，所以$\Delta d\simeq\lambda^2/(2|\Delta\lambda|)$。不能把两条不同频率的复电场长期相干相加来计算静态条纹。
+\end{solution}
+
+\begin{exercise}\label{ex:o2Nwidth}
+有$N=100$条等间距相干缝，周期$d=10\,\mu\mathrm m$，波长$500\,\mathrm{nm}$。求一级主极大角度、首零半宽及瑞利可分辨的最小波长差。
+\Diagram{fig:o2Nq}{有限数目缝的主峰角宽}{\draw[curve](0,-1.3)--(0,1.3);\foreach\y in{-1,-.5,0,.5,1}{\draw[->](0,\y)--(3,{\y+.8});}\node[above]at(0,1.5){$N$缝};\draw[guide](0,0)--(4,0);\node[right]at(3,.8){$\theta_1$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:o2Nq}的相邻缝相位差为$\delta=2\pi d\sin\theta/\lambda$。一级主极大对应$\delta=2\pi$，所以$\sin\theta_1=.5\,\mu\mathrm m/(10\,\mu\mathrm m)=.05$、$\theta_1=2.866^\circ$。在主峰附近令$\delta=2\pi+\epsilon$，阵列因子首零满足$N\epsilon/2=\pm\pi$，即$|\epsilon|=2\pi/N$。对角度线性展开，
+\[
+ \Delta\theta_0=\frac{\lambda}{Nd\cos\theta_1}
+ =5.006\times10^{-4}\ \mathrm{rad}.
+\]
+\Diagram{fig:o2Na}{主峰到相邻首零的距离与另一谱线峰位比较}{\draw[axis](-3,0)--(3.7,0)node[right]{角度偏移};\draw[curve,domain=-2.7:-.01,samples=100]plot(\x,{2.3*(sin(180*\x)/(pi*\x))^2});\draw[curve,domain=.01:2.7,samples=100]plot(\x,{2.3*(sin(180*\x)/(pi*\x))^2});\draw[curve](-.01,2.29924)--(0,2.3)--(.01,2.29924);\draw[guide](1,0)--(1,2.3);\node[below]at(0,0){$\theta_1$};\node[below]at(1,0){首零};}
+图\ref{fig:o2Na}中的瑞利条件要求一条谱线的主峰落在另一条首零处。同级角色散由$d\sin\theta=m\lambda$给$\Delta\theta\simeq m\Delta\lambda/(d\cos\theta)$。令它等于首零半宽，得到
+\[
+ \frac{m\Delta\lambda}{d\cos\theta}
+ =\frac{\lambda}{Nd\cos\theta},\qquad
+ \Delta\lambda_{\min}=\frac{\lambda}{mN}=5\,\mathrm{nm}.
+\]
+此处$m=1$，分辨本领100。首零半宽不是半高全宽；两者都随$1/N$变化，但系数不同。题设未给单缝宽度，因此只计算阵列峰的宽度和理想瑞利分辨率；该级能否被包络压低，还需单缝孔径信息。
+\end{solution}

@@ -1,0 +1,2110 @@
+\chapter{天体运动进阶}
+
+
+
+\section{二体运动、有效势与径向分支}
+
+双星运动可以分成质心运动与相对运动，再用角动量把径向方程独立出来。有效势给出可达区域和圆轨道稳定性，零角动量的径向运动另行处理。
+
+
+
+\subsection{二体问题与相对运动}
+中心力的方向始终沿着质点与力心的连线。若力心固定于惯性系，且力的大小只依赖距离，便可写成
+\[
+ \vct F=F(r)\vct e_r=-\frac{\dd U}{\dd r}\vct e_r.
+\]
+约定径向向外为正，吸引力对应 $F(r)<0$。力矩 $\vct r\times\vct F=0$，角动量矢量守恒。角动量不为零时，$\vct r$ 与 $\vct v$ 始终位于垂直于角动量的固定平面内，以下就在这个平面中求运动。零角动量对应直线径向运动，需另列方程；涉及除以角动量的轨道公式不适用于这一退化情形。
+
+\subsubsection{约化质量和引力参数}
+
+两个质量分别为 $M,m$ 的质点只受彼此的引力。令
+\[
+ \vct r=\vct r_m-\vct r_M,\qquad
+ \vct R_C=\frac{M\vct r_M+m\vct r_m}{M+m},\qquad
+ \mu_{\rm r}=\frac{Mm}{M+m}.
+\]
+将两个牛顿方程相减，再按第三讲的质心动能分解式分离整体平动和相对运动，得到
+\begin{align}
+ \ddot{\vct R}_C&=0, &
+ \mu_{\rm r}\ddot{\vct r}&=-\frac{GMm}{r^3}\vct r,\\
+ T&=\frac12(M+m)\dot{\vct R}_C^{\,2}+\frac12\mu_{\rm r}\dot{\vct r}^{\,2}.
+\end{align}
+于是相对坐标满足
+\begin{equation}\label{sup8:eq:d8-relative}
+ \ddot{\vct r}=-\frac{\mu}{r^3}\vct r,\qquad \mu=G(M+m).
+\end{equation}
+本讲的记号中，$\mu$ 是引力参数，$\mu_{\rm r}$ 是约化质量。若 $m\ll M$，可忽略大质量天体的运动，取 $\mu\simeq GM$；此时 $\vct r$ 就是小物体相对于固定天体的位置。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.95]
+ \coordinate (M) at (-2,0);\coordinate (m) at (3,0);\coordinate (C) at (0,0);
+ \draw[guide] (-3,0)--(4,0);
+ \fill (M) circle (2.5pt) node[above left=3pt] {$M$};
+ \fill (m) circle (2pt) node[below=5pt] {$m$};
+ \fill (C) circle (1.4pt) node[below=5pt] {$C$};
+ \draw[axis] (-1.9,.7)--(2.9,.7) node[midway,above] {$\vct r=\vct r_m-\vct r_M$};
+ \draw[<->,>=Stealth] (-2,-1.35)--(0,-1.35) node[midway,below] {$\dfrac{m}{M+m}r$};
+ \draw[<->,>=Stealth] (0,-1.35)--(3,-1.35) node[midway,below] {$\dfrac{M}{M+m}r$};
+ \draw[axis] (M)--++(.9,0) node[above] {$\vct F_M$};
+ \draw[axis] (m)--++(-.9,0) node[above] {$\vct F_m$};
+ \draw[axis] (M)--++(0,-.8) node[left] {$\vct v_{M/C}$};
+ \draw[axis] (m)--++(0,1.2) node[right] {$\vct v_{m/C}$};
+\end{tikzpicture}
+\caption{相对坐标与质心坐标。图示 $M>m$，相对运动的正转向为逆时针。}\label{sup8:fig:d8-two-body}
+\end{figure}
+
+由图\ref{sup8:fig:d8-two-body} 中质心 $C$ 的位置，两个物体相对于质心的坐标为
+\[
+ \vct r_{M/C}=-\frac{m}{M+m}\vct r,\qquad
+ \vct r_{m/C}=\frac{M}{M+m}\vct r.
+\]
+它们的轨道是相对轨道按上述比例缩放、再分别取正反方向所得的曲线。两条轨道周期相同，但半长轴一般不同。
+
+将相对运动的能量和角动量除以约化质量，定义
+\begin{equation}\label{sup8:eq:d8-invariants}
+ \varepsilon=\frac12v^2-\frac{\mu}{r},\qquad
+ \vct h=\vct r\times\vct v,\qquad h=r^2\dot\varphi.
+\end{equation}
+取正转向使 $h>0$。相对运动的实际能量为 $E_{\rm rel}=\mu_{\rm r}\varepsilon$，实际角动量为 $\vct L_{\rm rel}=\mu_{\rm r}\vct h$。二体系统的总能量还包括质心动能。以下凡使用 $\varepsilon,h$，均按单位质量或单位约化质量定义。
+
+
+\subsection{有效势、转向点与圆轨道}
+\subsubsection{把径向运动单独列出}
+
+极坐标下
+\[
+ v^2=\dot r^2+r^2\dot\varphi^2=\dot r^2+\frac{h^2}{r^2}.
+\]
+若单位质量势能为 $\Phi(r)$，则
+\begin{equation}\label{sup8:eq:d8-effective}
+ \frac12\dot r^2+\Phi_{\rm eff}(r)=\varepsilon,\qquad
+ \Phi_{\rm eff}(r)=\Phi(r)+\frac{h^2}{2r^2}.
+\end{equation}
+$h^2/(2r^2)$ 是消去角变量后保留下来的横向动能项。它已包含在有效势中，若再计入完整动能，就会重复计算横向动能。
+
+反平方引力的有效势为
+\begin{equation}
+ \Phi_{\rm eff}(r)=\frac{h^2}{2r^2}-\frac{\mu}{r}.
+\end{equation}
+对半径求导，
+\[
+\Phi_{\rm eff}'=-\frac{h^2}{r^3}+\frac\mu{r^2},\qquad
+\Phi_{\rm eff}''=\frac{3h^2}{r^4}-\frac{2\mu}{r^3}.
+\]
+令一阶导数为零，得 $r_c=h^2/\mu$；在该处二阶导数为 $\mu/r_c^3>0$。对于 $h\ne0$，有效势在 $r\to0$ 时趋于正无穷，在 $r\to\infty$ 时从下方趋近零，并在
+\[
+ r_c=\frac{h^2}{\mu},\qquad
+ \Phi_{\rm eff}(r_c)=-\frac{\mu^2}{2h^2}
+\]
+处取极小值。图\ref{sup8:fig:d8-effective} 中能量水平线与曲线的交点满足 $\dot r=0$，即径向转向点。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1.6cm,y=1.8cm]
+ \draw[axis] (0,0)--(4.5,0) node[right] {$r/r_c$};
+ \draw[axis] (0,-1.2)--(0,1.25) node[above] {$\Phi_{\rm eff}/(\mu/r_c)$};
+ \draw[curve,domain=.4:4.2,samples=150] plot (\x,{.5/(\x*\x)-1/\x});
+ \draw[guide] (.55,-.32)--(4.2,-.32) node[right] {$\varepsilon<0$};
+ \draw[guide] (.4,.35)--(4.2,.35) node[right] {$\varepsilon>0$};
+ \draw[guide] (1,0)--(1,-.5);
+ \fill (1,-.5) circle (1.1pt) node[below=5pt] {圆轨道};
+ \fill (.625,-.32) circle (1.1pt);\fill (2.5,-.32) circle (1.1pt);
+ \node[above] at (.625,0) {$r_p$};\node[above] at (2.5,0) {$r_a$};
+ \draw[<->,>=Stealth] (.65,-1.02)--(2.48,-1.02) node[midway,below] {束缚运动的径向区间};
+\end{tikzpicture}
+\caption{固定 $h$ 时的引力有效势。横轴取 $r_c=h^2/\mu$ 为单位，图中的 $r_p,r_a$ 表示相应的无量纲位置。}\label{sup8:fig:d8-effective}
+\end{figure}
+
+允许的能量满足 $\varepsilon\ge\min\Phi_{\rm eff}$。在理想点质量引力场中，负能量的非圆轨道有两个转向点，零能量和正能量轨道只有一个有限的最近点。若天体有实体半径 $R$，运动还受到表面限制：实际经过的半径须不小于 $R$，负能量轨道也可能撞击表面。
+
+\subsubsection{圆轨道的稳定性}
+
+一般中心势中的圆轨道由
+\[
+ \Phi_{\rm eff}'(r_c)=0
+ \quad\Longleftrightarrow\quad
+ h^2=r_c^3\Phi'(r_c)
+\]
+确定。一般有效势的二阶导数为 $\Phi_{\rm eff}''=\Phi''+3h^2/r^4$。令 $r=r_c+\xi$，在固定 $h$ 下将径向方程展开为
+\[
+\ddot\xi=-\Phi_{\rm eff}'(r_c)-\Phi_{\rm eff}''(r_c)\xi+O(\xi^2).
+\]
+常数项因圆轨道条件而为零，二阶导数中的 $h^2$ 用 $r_c^3\Phi'(r_c)$ 替换，得
+\begin{equation}\label{sup8:eq:d8-stability}
+ \ddot\xi+\omega_r^2\xi=0,\qquad
+ \omega_r^2=\Phi''(r_c)+\frac{3\Phi'(r_c)}{r_c}.
+\end{equation}
+$\omega_r^2>0$ 时，小径向扰动作振动；$\omega_r^2<0$ 时，扰动指数增长。等于零时，二阶展开不能给出稳定结论，须回到原方程。
+
+引力场中 $\Phi=-\mu/r$，所以
+\[
+ \omega_r^2=\frac{\mu}{r_c^3},\qquad
+ \omega_\varphi=\frac{h}{r_c^2}=\sqrt{\frac{\mu}{r_c^3}}.
+\]
+径向振动一周与绕力心转动一周相合，这是近圆引力轨道没有近心点进动的结果。对于其他中心势，两个频率通常不同。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[质量不可忽略的双星]\label{sup8:problem-example-1}\label{sup8:ex:d8-e1}
+两颗可视为质点的恒星质量分别为 $M,m$，系统质心静止。某时刻两星相距 $r_0$，相对速度垂直于连线，大小为
+\[
+ v_0=\sqrt{\frac{3G(M+m)}{2r_0}}.
+\]
+求相对轨道的半长轴、偏心率、最近和最远距离，以及两星各自绕质心的轨道尺度和共同周期。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[guide] (-3,0)--(3,0);
+ \fill (-1.2,0) circle (2.3pt) node[above left=3pt] {$M$};
+ \fill (1.8,0) circle (1.8pt) node[below=4pt] {$m$};
+ \fill (0,0) circle (1.1pt) node[below=4pt] {$C$};
+ \draw[<->,>=Stealth] (-1.2,.6)--(1.8,.6) node[midway,above] {$r_0$};
+ \draw[axis] (-1.2,0)--(-1.2,-1) node[left] {$\vct v_M$};
+ \draw[axis] (1.8,0)--(1.8,1.5) node[right] {$\vct v_m$};
+ \node[align=left] at (4,0) {$\vct v_0=\vct v_m-\vct v_M$\\$\vct v_0\perp\vct r_0$};
+\end{tikzpicture}
+\caption{双星的初态。$C$ 静止，图示质量比仅用于示意。}\label{sup8:fig:d8-e1-q}
+\end{figure}
+\begin{solution}
+图\ref{sup8:fig:d8-e1-q} 给出的是相对速度，而不是某一颗恒星的速度。取 $\mu=G(M+m)$，单位约化质量的两个守恒量为
+\[
+ \varepsilon=\frac{v_0^2}2-\frac{\mu}{r_0}=-\frac{\mu}{4r_0},\qquad
+ h=r_0v_0,\quad h^2=\frac32\mu r_0.
+\]
+负能量说明相对轨道为椭圆。由 $\varepsilon=-\mu/(2a)$ 和式\eqref{sup8:eq:d8-eccentricity}，
+\[
+ a=2r_0,\qquad e^2=1-\frac34=\frac14,\qquad e=\frac12.
+\]
+初始径向速度为零。又因 $v_0>\sqrt{\mu/r_0}$，此时的径向加速度
+\[
+ \ddot r=\frac{v_0^2}{r_0}-\frac{\mu}{r_0^2}=\frac{\mu}{2r_0^2}>0,
+\]
+故初始点是近心点，不是远心点。因此
+\[
+ r_p=a(1-e)=r_0,\qquad r_a=a(1+e)=3r_0.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.9]
+ \begin{scope}[xshift=-2.4cm,scale=.55]
+  \draw[curve] (-1,0) ellipse (2 and 1.732);
+  \fill (0,0) circle (2pt) node[below] {$O$};
+  \fill (1,0) circle (2pt) node[right] {$P$};\fill (-3,0) circle (2pt) node[left] {$A$};
+  \draw[axis] (1,0)--(1,1.3) node[right] {$v_0$};
+  \node at (-1,-2.3) {相对轨道：$a=2r_0$};
+ \end{scope}
+ \begin{scope}[xshift=2.8cm,scale=1.15]
+  \draw[curve] (-.6,0) ellipse (1.2 and 1.039);
+  \draw[curve] (.4,0) ellipse (.8 and .693);
+  \fill (0,0) circle (1.5pt) node[above=3pt] {$C$};
+  \fill (.6,0) circle (2pt) node[above right] {$m$};
+  \fill (-.4,0) circle (2.4pt) node[below left] {$M$};
+  \draw[axis] (.6,0)--(.6,.8);\draw[axis] (-.4,0)--(-.4,-.533333);
+  \node[align=center] at (0,-2.25) {质心系中的两条轨道\\按质量比分别缩放};
+ \end{scope}
+\end{tikzpicture}
+\caption{左图的 $OP=r_0,OA=3r_0$；右图以同一焦点 $C$ 表示两颗恒星的质心轨道。}\label{sup8:fig:d8-e1-s}
+\end{figure}
+图\ref{sup8:fig:d8-e1-s} 右图由相对椭圆按质心关系得到，故
+\[
+ a_M=\frac{m}{M+m}\,2r_0,\qquad
+ a_m=\frac{M}{M+m}\,2r_0.
+\]
+每颗恒星轨道的偏心率都是 $1/2$，近、远质心距离分别为本星半长轴的 $1/2,3/2$。两星始终位于质心两侧，对应的近心点方向相反；它们在同一时刻经过各自的近心点。
+
+共同周期必须由相对半长轴计算：
+\[
+ T=2\pi\sqrt{\frac{(2r_0)^3}{G(M+m)}}.
+\]
+质心静止还给出 $\vct v_M=-m\vct v_0/(M+m)$、$\vct v_m=M\vct v_0/(M+m)$。题设的 $v_0$ 因而大于任一恒星的速率；上述能量与周期均使用相对速度计算。
+\end{solution}
+
+
+
+\begin{example}[逆平方力与逆立方力的轨道]\label{ex:hw8-3}
+
+质量$m$的质点受到固定中心力。(1)$\vct F=-GMm\vct e_r/r^2$时求轨道，并说明何时为椭圆；(2)$\vct F=-\alpha m\vct e_r/r^3$、$\alpha>0$时分类求轨道。取非零比角动量$h$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](-.2,0)--(4.2,0)node[right]{$r$};\draw[axis](0,-1.05)--(0,1.65)node[above]{$V_{\rm eff}$};
+\path[fill=gray!15](.612574,-.3)--plot[domain=.612574:2.720759,samples=80](\x,{.5/(\x*\x)-1/\x})--(2.720759,-.3)--cycle;
+\draw[curve,domain=.35:4,samples=120]plot(\x,{.5/(\x*\x)-1/\x});\draw[guide](.35,-.3)--(4,-.3)node[right]{$\varepsilon$};
+\draw[guide](.612574,0)--(.612574,-.8);\draw[guide](2.720759,0)--(2.720759,-.8);
+\node[below]at(.612574,-.8){$r_p$};\node[below]at(2.720759,-.8){$r_a$};\node at(2.9,1){允许的径向区间};
+\end{tikzpicture}
+\caption{逆平方引力的比有效势；负能量线两交点给出近、远心距}\label{fig:hw8-3-q}
+\end{figure}
+
+\begin{solution}
+逆平方力的比奈方程为 $u''+u=\mu/h^2$，这里 $u=1/r$、撇号表示对极角求导。取常数特解 $u_p=\mu/h^2$，齐次方程的特征根为 $\pm i$，故通解为
+\[
+u=\frac\mu{h^2}+A\cos\theta+B\sin\theta
+=\frac\mu{h^2}[1+e\cos(\theta-\theta_p)],
+\]
+其中 $e=(h^2/\mu)\sqrt{A^2+B^2}\ge0$，$\theta_p$ 由 $A=(\mu e/h^2)\cos\theta_p$、$B=(\mu e/h^2)\sin\theta_p$ 确定。又 $\dot r=-hu'$、$r\dot\theta=hu$，能量为
+\[
+\begin{aligned}
+\varepsilon&=\frac{h^2}{2}(u'^2+u^2)-\mu u\\
+&=\frac{\mu^2}{2h^2}\left[e^2\sin^2(\theta-\theta_p)
++(1+e\cos(\theta-\theta_p))^2-2(1+e\cos(\theta-\theta_p))\right]\\
+&=\frac{\mu^2}{2h^2}(e^2-1).
+\end{aligned}
+\]
+解出偏心率并取 $r=1/u$，得到
+\[
+ \boxed{r=\frac{h^2/\mu}{1+e\cos(\theta-\theta_p)},\qquad
+ e^2=1+\frac{2\varepsilon h^2}{\mu^2}}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}
+\draw[axis](0,0)--(2.7,0)node[right]{$\theta$};\draw[axis](0,0)--(0,1.9)node[above]{$u$};
+\draw[curve,domain=0:2.4,samples=70]plot(\x,{1.5*cos(37.5*\x)});\node at(1.2,-.6){$h^2>\alpha$};\end{scope}
+\begin{scope}[shift={(4,0)}]
+\draw[axis](0,0)--(2.7,0)node[right]{$\theta$};\draw[axis](0,0)--(0,1.9)node[above]{$u$};
+\draw[curve](0,1.5)--(2.4,0);\node at(1.2,-.6){$h^2=\alpha$};\end{scope}
+\begin{scope}[shift={(8,0)}]
+\draw[axis](0,0)--(2.7,0)node[right]{$\theta$};\draw[axis](0,0)--(0,1.9)node[above]{$u$};
+\draw[curve,domain=0:2.5,samples=70]plot(\x,{1.5*exp(-\x)});\node at(1.2,-.6){$h^2<\alpha$};\end{scope}
+\end{tikzpicture}
+\caption{逆立方力三类轨道各取一支示意，实际运动只取正的倒数半径}\label{fig:hw8-3-s}
+\end{figure}
+
+由图\ref{fig:hw8-3-q}的有效势可见，$\varepsilon<0$对应$0\le e<1$，轨道为椭圆；零能量为抛物线，正能量为双曲线。因而椭圆轨道还要求能量为负。
+
+固定$h$时，逆平方有效势的最低值为$-\mu^2/(2h^2)$。实际初态的能量不得更低；等号对应$e=0$的圆轨道，严格介于该值与零之间才是非圆椭圆。图中能量线与有效势的两个交点分别是$r_p,r_a$。
+
+逆立方力则有 $u''+(1-\alpha/h^2)u=0$。特征方程 $s^2+1-\alpha/h^2=0$ 的根随 $h$ 改变：$h^2>\alpha$ 时为 $\pm ik$，其中 $k=\sqrt{1-\alpha/h^2}$；相等时为二重零根，$u''=0$ 依次积分得 $u'=B$、$u=A+B\theta$；$h^2<\alpha$ 时为 $\pm\nu$，其中 $\nu=\sqrt{\alpha/h^2-1}$。三类通解为
+\[
+ \boxed{\begin{array}{ll}
+ h^2>\alpha:&u=A\cos(k\theta)+B\sin(k\theta),\\
+ h^2=\alpha:&u=A+B\theta,\\
+ h^2<\alpha:&u=Ae^{\nu\theta}+Be^{-\nu\theta},\quad
+ \nu=\sqrt{\alpha/h^2-1}.
+ \end{array}}
+\]
+逆立方力的比势能 $\Phi$ 满足 $\Phi'(r)=\alpha/r^3$。取无穷远为零点，积分为 $\Phi(r)=\int_\infty^r\alpha s^{-3}\dd s=[-\alpha/(2s^2)]_\infty^r=-\alpha/(2r^2)$，因而
+\[
+ V_{\rm eff}=\frac{h^2-\alpha}{2r^2},\qquad
+ \varepsilon=\frac{h^2}{2}\left[(u')^2+
+ \left(1-\frac\alpha{h^2}\right)u^2\right].
+\]
+该能量式同时约束各支解的积分常数。$h^2>\alpha$时有效势单调向无穷远降至零，无有限半径的稳定圆轨道；$h^2<\alpha$时向心塌缩可能出现，不能把指数解误认作椭圆。
+
+各式均以$r=1/u>0$的角区间为实际轨道，如图\ref{fig:hw8-3-s}所示。临界情形$B=0,A>0$允许任意半径的圆轨道；它没有径向回复刚度。小于临界的指数解可形成趋向中心的螺旋段。上述解中的常数必须由初始半径、径向速度及角位置确定。
+
+
+图\ref{fig:review8-potential}将逆立方力与第一问的势阱分开表示。$h^2>\alpha$时$V_{\rm eff}>0$且单调下降，有限运动必须有$\varepsilon>0$，只可能有一个最近距离；$h^2=\alpha$时离心项与势能恰好抵消，径向运动满足$\ddot r=0$；$h^2<\alpha$时有效势向中心降至负无穷，不出现阻止向心运动的势垒。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}\draw[axis](0,0)--(2.6,0)node[right]{$r$};\draw[axis](0,-1.3)--(0,1.65)node[above]{$V_{\rm eff}$};\draw[curve,domain=.55:2.4,samples=60]plot(\x,{.42/(\x*\x)});\node at(1.25,-1.65){$h^2>\alpha$};\end{scope}
+\begin{scope}[shift={(3.75,0)}]\draw[axis](0,0)--(2.6,0)node[right]{$r$};\draw[axis](0,-1.3)--(0,1.65);\draw[curve](.1,.025)--(2.4,.025);\node at(1.25,.55){$V_{\rm eff}=0$};\node at(1.25,-1.65){$h^2=\alpha$};\end{scope}
+\begin{scope}[shift={(7.5,0)}]\draw[axis](0,0)--(2.6,0)node[right]{$r$};\draw[axis](0,-1.3)--(0,1.65);\draw[curve,domain=.58:2.4,samples=60]plot(\x,{-.42/(\x*\x)});\node at(1.25,-1.65){$h^2<\alpha$};\end{scope}
+\end{tikzpicture}
+\caption{逆立方力的比有效势为$(h^2-\alpha)/(2r^2)$；三种情形均没有稳定势阱}\label{fig:review8-potential}
+\end{figure}
+
+积分常数也可直接从初态求出。令初始角位置为零，$u_0=1/r_0$。由链式法则，$u'=(\dd u/\dd t)/\dot\theta=(-\dot r/r^2)/(h/r^2)=-\dot r/h$，故 $u_0'=-v_{r0}/h$。当 $h^2>\alpha$ 时，$u'=-kA\sin k\theta+kB\cos k\theta$，代入零角得 $A=u_0$、$B=u_0'/k$；临界时直接有 $A=u_0$、$B=u_0'$；当 $h^2<\alpha$ 时，零角条件为 $A+B=u_0$、$\nu(A-B)=u_0'$，相加、相减得 $A=(u_0+u_0'/\nu)/2$、$B=(u_0-u_0'/\nu)/2$。代回相应的解，并只保留 $u>0$ 的区间，即得到由指定初态出发的轨道。
+
+\end{solution}
+
+
+
+\begin{example}[从静止开始的径向落下]\label{sup8:problem-example-4}\label{sup8:ex:d8-e4}
+半径为 $R$ 的球形天体在外部产生引力参数为 $\mu$ 的场。质点从距球心 $r_0>R$ 处由静止释放。求到达表面的速率和时间，并求理想点质量极限 $R\to0$ 下的落下时间。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[curve,fill=black!5] (0,0) circle (1);
+ \fill (0,0) circle (1.5pt) node[below] {$O$};\fill (4,0) circle (1.8pt) node[above] {$P_0$};
+ \draw[axis] (3.7,0)--(2.8,0) node[midway,above] {落下};
+ \draw[<->,>=Stealth] (0,-1.35)--(4,-1.35) node[midway,below] {$r_0$};
+ \draw[curve] (0,0)--(1,0) node[midway,above] {$R$};\node[right] at (4,.7) {$v_0=0$};
+\end{tikzpicture}
+\caption{零角动量的径向落下，运动在天体表面终止。}\label{sup8:fig:d8-e4-q}
+\end{figure}
+\begin{solution}
+图\ref{sup8:fig:d8-e4-q} 中初速度为零，故 $h=0$。机械能守恒直接给出
+\[
+ \frac12\dot r^2-\frac\mu r=-\frac\mu{r_0},\qquad
+ \dot r=-\sqrt{2\mu\left(\frac1r-\frac1{r_0}\right)}.
+\]
+负号对应由 $P_0$ 向 $O$ 靠近的分支。表面速率为
+\[
+ v_R=\sqrt{2\mu\left(\frac1R-\frac1{r_0}\right)}.
+\]
+飞行时间为
+\[
+ t_R=\int_R^{r_0}\frac{\dd r}{\sqrt{2\mu(1/r-1/r_0)}}.
+\]
+令 $r=r_0\cos^2\eta$。从释放点开始，$\eta$ 由 $0$ 增大到 $\eta_R=\arccos\sqrt{R/r_0}$，而
+\[
+ \dd r=-2r_0\sin\eta\cos\eta\,\dd\eta,\qquad
+ \sqrt{2\mu(1/r-1/r_0)}=\sqrt{\frac{2\mu}{r_0}}\tan\eta.
+\]
+将微分与分母中的 $\tan\eta$ 约分，并反转积分上下限，得到
+\[
+\begin{aligned}
+t_R&=\sqrt{\frac{2r_0^3}{\mu}}\int_0^{\eta_R}\cos^2\eta\,\dd\eta\\
+&=\sqrt{\frac{2r_0^3}{\mu}}\left[\frac\eta2+\frac{\sin2\eta}{4}\right]_0^{\eta_R}.
+\end{aligned}
+\]
+用 $\sin2\eta=2\sin\eta\cos\eta$ 整理，得
+\begin{equation}
+ \boxed{t_R=\sqrt{\frac{r_0^3}{2\mu}}
+   \left(\eta_R+\sin\eta_R\cos\eta_R\right)}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=4.7cm,y=2.7cm]
+ \draw[axis] (0,0)--(1.8,0) node[right] {$\tau=t\sqrt{2\mu/r_0^3}$};
+ \draw[axis] (0,0)--(0,1.18) node[above] {$r/r_0$};
+ \draw[curve,domain=0:90,samples=120,variable=\s] plot ({\s*pi/180+sin(\s)*cos(\s)},{cos(\s)^2});
+ \draw[guide] (0,.5)--(1.2854,.5)--(1.2854,0);
+ \fill (1.2854,.5) circle (.9pt) node[above right] {$r=r_0/2$};
+ \node[below] at (1.5708,0) {$\pi/2$};\node[left] at (0,1) {$1$};
+\end{tikzpicture}
+\caption{径向落下的时间曲线。图中 $r=r_0/2$ 对应 $\eta=\pi/4$，不是半个落下时间。}\label{sup8:fig:d8-e4-s}
+\end{figure}
+图\ref{sup8:fig:d8-e4-s} 中起点切线水平，符合由静止释放；越向内运动，径向速率越大。当 $R\to0$ 时，$\eta_R\to\pi/2$，得到
+\[
+ t_0=\frac\pi{2\sqrt2}\sqrt{\frac{r_0^3}{\mu}}.
+\]
+到 $r_0/2$ 的时间为 $\sqrt{r_0^3/(2\mu)}(\pi/4+1/2)$，大于 $t_0/2$。落下距离与时间并不成比例。真实天体表面以内的引力规律一般改变，不能将外部 $-\mu/r$ 势直接延伸到球心；本题的 $t_0$ 只属于点质量模型。
+\end{solution}
+
+
+
+\section{由初态确定轨道的形状与方向}
+
+位置与速度共同确定轨道能量、轨道平面和近心点方向。径向与切向分量用于辨认圆锥曲线的分支，力心在椭圆中心的情形则作对照。
+
+
+
+\subsection{从初态求圆锥曲线}
+\subsubsection{轨道方程的推导}
+
+令 $u=1/r$，撇号表示对 $\varphi$ 求导。由 $\dot\varphi=hu^2$，逐次使用链式法则，
+\[
+\dot r=-u^{-2}u'\dot\varphi=-hu',\qquad
+\ddot r=-hu''\dot\varphi=-h^2u^2u''.
+\]
+同时 $r\dot\varphi^2=u^{-1}(hu^2)^2=h^2u^3$。
+将其代入 $\ddot r-r\dot\varphi^2=F(r)/m$，得到 Binet 方程
+\begin{equation}\label{sup8:eq:d8-binet}
+ u''+u=-\frac{F(1/u)}{mh^2u^2}.
+\end{equation}
+若用 $f_r=F/m$ 表示单位质量的径向力，右边写作 $-f_r(1/u)/(h^2u^2)$。引力场中右边为常数 $\mu/h^2$。常特解为 $u_p=\mu/h^2$，齐次方程的特征根为 $\pm\mathrm i$，故以初始方位 $\varphi_0$ 为基准的实通解为
+\[
+u=\frac\mu{h^2}+A\cos(\varphi-\varphi_0)+B\sin(\varphi-\varphi_0).
+\]
+由 $r(\varphi_0)=r_0$、$\dot r(\varphi_0)=v_{r0}=-hu'(\varphi_0)$，确定 $A=1/r_0-\mu/h^2$、$B=-v_{r0}/h$。将两个三角项合成为 $e\mu\cos(\varphi-\varphi_p)/h^2$，其中 $e\ge0$，再取倒数，故
+\begin{equation}\label{sup8:eq:d8-conic}
+ r=\frac{p}{1+e\cos f},\qquad
+ p=\frac{h^2}{\mu},\qquad f=\varphi-\varphi_p.
+\end{equation}
+$f$ 称真近点角，从近心点方向沿运动方向量起；$p$ 为半通径，$e\ge0$ 为偏心率。物理轨道只取 $r>0$ 的部分。对双曲线，不能将分母为负的极坐标分支也当作同一运动轨道。
+
+由 $\dot r=-hu'$ 和 $v_\varphi=h/r$，有
+\begin{equation}\label{sup8:eq:d8-velocities}
+ v_r=\frac{\mu e}{h}\sin f,\qquad
+ v_\varphi=\frac{\mu}{h}(1+e\cos f).
+\end{equation}
+代回能量式，
+\[
+\begin{aligned}
+\varepsilon
+&=\frac{\mu^2}{2h^2}\left[e^2\sin^2 f+(1+e\cos f)^2\right]
+-\frac{\mu^2}{h^2}(1+e\cos f)\\
+&=\frac{\mu^2}{2h^2}(e^2-1).
+\end{aligned}
+\]
+一次余弦项相消，平方项用 $\sin^2 f+\cos^2 f=1$ 合并，得到
+\begin{equation}\label{sup8:eq:d8-eccentricity}
+ e^2=1+\frac{2\varepsilon h^2}{\mu^2}.
+\end{equation}
+在 $h\ne0$ 的引力问题中，$0\le e<1$ 对应椭圆，$e=1$ 对应抛物线，$e>1$ 对应双曲线。$e=0$ 是椭圆中的圆。径向直落虽然也使上式形式上得到 $e=1$，却不是通常所说的非退化抛物线。
+
+\subsubsection{椭圆的几何量和速度}
+
+当 $\varepsilon<0$ 时，最近、最远位置分别对应$f=0,\pi$，所以$r_p=p/(1+e)$、$r_a=p/(1-e)$。两者之和为长轴长，因而
+\[
+ a=\frac{r_p+r_a}{2}
+ =\frac p2\left(\frac1{1+e}+\frac1{1-e}\right)
+ =\frac p{1-e^2}.
+\]
+由椭圆几何关系$b_{\rm ell}^2=a^2-(ae)^2$，得到半短轴；再将$p=h^2/\mu=a(1-e^2)$代入式\eqref{sup8:eq:d8-eccentricity}，能量满足
+\[
+ \varepsilon=\frac{\mu^2(e^2-1)}{2h^2}
+ =-\frac{\mu^2(1-e^2)}{2\mu a(1-e^2)}
+ =-\frac\mu{2a}.
+\]
+这些关系汇集为
+\begin{align}
+ r_p&=a(1-e), &r_a&=a(1+e),\\
+ p&=a(1-e^2), &b_{\rm ell}&=a\sqrt{1-e^2},\\
+ \varepsilon&=-\frac{\mu}{2a}, &h^2&=\mu a(1-e^2).
+\end{align}
+这里 $b_{\rm ell}$ 是椭圆半短轴；后文散射问题的瞄准距离用 $b$，不能混淆。由能量立即得到活力公式
+\begin{equation}\label{sup8:eq:d8-vis-viva}
+ v^2=\mu\left(\frac2r-\frac1a\right).
+\end{equation}
+在近心点和远心点，速度纯沿切向，故 $r_pv_p=r_av_a=h$。其他位置一般有 $v_r\ne0$，不能把 $rv$ 当作 $h$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.85]
+ \draw[curve] (-1.5,0) ellipse (3 and 2.598);
+ \draw[guide] (-4.8,0)--(2,0);
+ \coordinate (O) at (0,0);\coordinate (C) at (-1.5,0);\coordinate (P) at (-.3,2.381);
+ \fill (O) circle (1.8pt) node[below right] {$O$};
+ \fill (C) circle (1.2pt) node[below] {$C$};
+ \fill (1.5,0) circle (1.5pt) node[right] {$P_p$};
+ \fill (-4.5,0) circle (1.5pt) node[left] {$P_a$};
+ \fill (P) circle (1.5pt) node[above right] {$P$};
+ \draw[axis] (O)--(P) node[midway,right] {$r$};
+ \draw (0.7,0) arc[start angle=0,end angle=97.18,radius=.7] node[midway,above right] {$f$};
+ \draw[axis] (P)--++(-1.05,.423) node[above left] {$\vct v$};
+ \draw[<->,>=Stealth] (-4.5,-.7)--(0,-.7) node[midway,below] {$r_a=a(1+e)$};
+ \draw[<->,>=Stealth] (0,-.7)--(1.5,-.7) node[midway,below] {$r_p$};
+ \draw[<->,>=Stealth] (-1.5,0)--(-1.5,2.598) node[midway,left] {$b_{\rm ell}$};
+\end{tikzpicture}
+\caption{力心位于椭圆焦点 $O$，$C$ 为几何中心；真近点角从 $OP_p$ 方向量起。}\label{sup8:fig:d8-ellipse}
+\end{figure}
+
+\subsubsection{由任意位置和速度确定轨道方向}
+
+轨道的尺度和形状由 $a,e$ 确定，平面中的朝向还需由初速度方向确定。已知 $r_0,v_{r0},v_{\varphi0}$ 时，先算
+\[
+ h=r_0v_{\varphi0},\quad
+ \varepsilon=\frac12(v_{r0}^2+v_{\varphi0}^2)-\frac{\mu}{r_0},
+\]
+再由
+\begin{equation}\label{sup8:eq:d8-initial-angle}
+ e\cos f_0=\frac{h^2}{\mu r_0}-1,\qquad
+ e\sin f_0=\frac{hv_{r0}}{\mu}
+\end{equation}
+确定 $f_0$ 的象限。$v_{r0}>0$ 表示向外飞行，$v_{r0}<0$ 表示向内飞行；只求 $\arccos$ 会丢失这一分支信息。圆轨道没有唯一近心点，不能再要求唯一的 $f_0$。
+
+也可定义偏心率矢量
+\begin{equation}
+ \vct e=\frac{\vct v\times\vct h}{\mu}-\vct e_r.
+\end{equation}
+该矢量在反平方引力下守恒，逐项求导的证明见第\ref{sec:complete8}节。它的模为$e$，非圆轨道中指向近心点，可用于求瞬时冲量前后轨道朝向的改变。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[带径向分量的初速度]\label{sup8:problem-example-2}\label{sup8:ex:d8-e2}
+固定点质量产生引力参数为 $\mu$ 的场。质点位于图\ref{sup8:fig:d8-e2-q} 中的 $P_0=(0,r_0)$，初始径向速度向外，大小 $v_{r0}=\tfrac12\sqrt{\mu/r_0}$；横向速度沿 $-x$ 方向，大小 $v_{\varphi0}=\sqrt{\mu/r_0}$。求完整轨道方程、近远心距离及初始真近点角，并确定此后先经过哪个拱点。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[axis] (-2,0)--(2.3,0) node[right] {$x$};\draw[axis] (0,-.5)--(0,3.6) node[above] {$y$};
+ \fill (0,0) circle (1.7pt) node[below right] {$O$};\fill (0,2) circle (1.7pt) node[right] {$P_0$};
+ \draw[curve] (0,0)--(0,2) node[midway,right] {$r_0$};
+ \draw[axis] (0,2)--(0,2.8) node[right] {$v_{r0}$};
+ \draw[axis] (0,2)--(-1.6,2) node[left] {$v_{\varphi0}$};
+ \draw[axis] (0,2)--(-1.6,2.8) node[above left] {$\vct v_0$};
+\end{tikzpicture}
+\caption{初速度同时含径向与横向分量，运动方向为逆时针。}\label{sup8:fig:d8-e2-q}
+\end{figure}
+\begin{solution}
+以图\ref{sup8:fig:d8-e2-q} 的 $O$ 为力心。横向分量决定 $h$，两个分量共同决定能量：
+\[
+ h=\sqrt{\mu r_0},\qquad
+ \varepsilon=\frac12\left(\frac14+1\right)\frac\mu{r_0}-\frac\mu{r_0}
+ =-\frac{3\mu}{8r_0}.
+\]
+因此
+\[
+ p=r_0,\quad a=\frac{4r_0}3,\quad
+ e=\sqrt{1+\frac{2\varepsilon h^2}{\mu^2}}=\frac12.
+\]
+式\eqref{sup8:eq:d8-initial-angle} 给出
+\[
+ e\cos f_0=0,\qquad e\sin f_0=\frac12.
+\]
+两式共同确定 $f_0=\pi/2$。既然初始半径指向 $+y$，近心点方向便指向 $+x$。用题图的极角 $\varphi$ 表示，$f=\varphi$，完整轨道为
+\[
+ \boxed{r=\frac{r_0}{1+\tfrac12\cos\varphi}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.5]
+ \draw[curve] (-.667,0) ellipse (1.333 and 1.155);
+ \draw[axis] (-2.3,0)--(1,0) node[right] {$x$};\draw[guide] (0,-.2)--(0,1.4);
+ \fill (0,0) circle (1.1pt) node[below right] {$O$};
+ \fill (0,1) circle (1.1pt) node[right] {$P_0$};
+ \fill (.667,0) circle (1.1pt) node[below right] {$P_p$};\fill (-2,0) circle (1.1pt) node[left] {$P_a$};
+ \draw[axis] (0,1)--(-.65,1.325) node[above] {$\vct v_0$};
+ \draw (0.35,0) arc (0:90:.35) node[midway,above right] {$f_0$};
+ \draw[axis] plot[domain=104:135,samples=20] ({cos(\x)/(1+.5*cos(\x))},{sin(\x)/(1+.5*cos(\x))});
+ \node at (-.65,-1.55) {$OP_p=2r_0/3,\quad OP_a=2r_0$};
+\end{tikzpicture}
+\caption{解出的轨道朝向。$P_0$ 处向外运动，沿上半椭圆先到远心点 $P_a$。}\label{sup8:fig:d8-e2-s}
+\end{figure}
+图\ref{sup8:fig:d8-e2-s} 中两个拱点的距离为
+\[
+ r_p=\frac{p}{1+e}=\frac{2r_0}3,\qquad
+ r_a=\frac{p}{1-e}=2r_0.
+\]
+初始 $v_r>0$，所以 $f$ 从 $\pi/2$ 增大到 $\pi$，质点先到 $P_a$，再沿下半椭圆返回 $P_p$。在 $P_0$ 处，轨道的切向斜率为 $v_y/v_x=-1/2$，与速度箭头相符。初始速率 $v_0=\sqrt{5\mu/(4r_0)}$ 只确定能量；横向分量与径向分量还分别提供了确定 $p$、朝向和运动分支所需的信息。
+\end{solution}
+
+
+
+\begin{example}[切向发射的全部分支]\label{sup8:problem-example-3}\label{sup8:ex:d8-e3}
+在理想点质量引力场中，质点于距力心 $r_0$ 处沿切向发射，速率为 $v_0=\beta\sqrt{\mu/r_0}$，其中 $\beta>0$。按 $\beta$ 的取值确定轨道种类、发射点是近心点还是远心点，并求有限的拱点距离。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \fill (0,0) circle (2pt) node[below] {$O$};\fill (3,0) circle (1.7pt) node[below] {$P_0$};
+ \draw[curve] (0,0)--(3,0) node[midway,below] {$r_0$};
+ \draw[axis] (3,0)--(3,1.8) node[right] {$\beta\sqrt{\mu/r_0}$};
+ \draw[guide] (0,0) circle (3);
+ \node at (0,1.9) {参考圆轨道};
+\end{tikzpicture}
+\caption{同一发射位置，初速度纯切向；虚线圆仅作为 $\beta=1$ 的参照。}\label{sup8:fig:d8-e3-q}
+\end{figure}
+\begin{solution}
+由图\ref{sup8:fig:d8-e3-q} 的垂直关系，$h=r_0v_0$，所以
+\[
+ \varepsilon=\frac{\mu}{2r_0}(\beta^2-2),\qquad
+ p=\beta^2r_0,\qquad e=|\beta^2-1|.
+\]
+发射点的 $\dot r=0$，但它是哪一个拱点，须由
+\[
+ \ddot r(0)=\frac{\mu}{r_0^2}(\beta^2-1)
+\]
+判断。$\beta<1$ 时从发射点开始向内运动，$\beta>1$ 时开始向外运动。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.75]
+ \begin{scope}[xshift=-3.6cm]
+  \draw[curve] (0,0) ellipse (1.5 and 1.2);\fill (-.9,0) circle (2pt) node[below] {$O$};
+  \fill (1.5,0) circle (2pt) node[right] {$P_0=P_a$};\draw[axis] (1.5,0)--(1.5,1);
+  \draw[axis] plot[domain=0:45,samples=20] ({1.5*cos(\x)},{1.2*sin(\x)});
+  \node at (0,-1.8) {$0<\beta<1$};
+ \end{scope}
+ \begin{scope}[xshift=2.5cm]
+  \draw[curve] (-.9,0) ellipse (1.5 and 1.2);\fill (0,0) circle (2pt) node[below] {$O$};
+  \fill (.6,0) circle (2pt) node[right] {$P_0=P_p$};\draw[axis] (.6,0)--(.6,1);
+  \draw[axis] plot[domain=0:45,samples=20] ({-.9+1.5*cos(\x)},{1.2*sin(\x)});
+  \node at (-.7,-1.8) {$1<\beta<\sqrt2$};
+ \end{scope}
+ \node[align=center] at (0,-3) {$\beta=1$：圆；$\beta=\sqrt2$：抛物线；$\beta>\sqrt2$：双曲线};
+\end{tikzpicture}
+\caption{两种椭圆分支的发射点不同。抛物线和双曲线的切向发射点也是近心点。}\label{sup8:fig:d8-e3-s}
+\end{figure}
+对 $0<\beta<1$，$e=1-\beta^2$，故
+\[
+ r_a=r_0,\qquad r_p=\frac{\beta^2}{2-\beta^2}r_0,\qquad
+ a=\frac{r_0}{2-\beta^2}.
+\]
+图\ref{sup8:fig:d8-e3-s} 左图的力心在发射点的远侧焦点，符合发射点为远心点的几何关系。对 $1<\beta<\sqrt2$，$e=\beta^2-1$，则
+\[
+ r_p=r_0,\qquad r_a=\frac{\beta^2}{2-\beta^2}r_0,
+ \qquad a=\frac{r_0}{2-\beta^2}.
+\]
+$\beta=1$ 时 $e=0$，轨道为半径 $r_0$ 的圆，没有区分开的近、远心点。$\beta=\sqrt2$ 时 $\varepsilon=0,e=1$，轨道为近心距离 $r_0$ 的抛物线；$\beta>\sqrt2$ 时 $\varepsilon>0,e>1$，轨道为双曲线，最近距离仍为 $r_0$，均没有有限的远心点。
+
+若中心天体有实体半径 $R<r_0$，第一种椭圆还须比较 $r_p$ 与 $R$。形式上闭合的椭圆可能被表面截断。题设排除了 $\beta=0$；该情形是径向直落，应另列径向方程。
+\end{solution}
+
+
+
+\begin{example}[垂直速度与二倍速率的最小偏心率]\label{ex:hw8-6}
+
+彗星在同一条开普勒轨道上两点的速度相互垂直，且$|\vct v_1|=2|\vct v_2|$。求轨道偏心率的最小可能值。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3,0)node[right]{$v_x$};\draw[axis](0,0)--(0,3)node[above]{$v_y$};\coordinate(A)at(0,2);\coordinate(B)at(1,0);\fill(A)circle(2pt)node[above right]{$\vct v_1$};\fill(B)circle(2pt)node[below right]{$\vct v_2$};\draw[curve](-.5,.5)circle(1.581);\fill(-.5,.5)circle(1pt)node[left]{$H$};
+\draw[axis](0,0)--(0,2);\draw[axis](0,0)--(1,0);\fill(0,0)circle(1pt)node[below right]{$O$};
+\end{tikzpicture}
+\caption{两个相互垂直且速率比为二的速度}\label{fig:hw8-6-q}
+\end{figure}
+
+\begin{solution}
+逆平方力的速度轨迹是圆：由$\vct e=\vct v\times\vct h/\mu-\vct e_r$可知，速度圆半径为$R_v=\mu/h$，圆心距速度原点为$eR_v$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3,0)node[right]{$v_x$};\draw[axis](0,0)--(0,3)node[above]{$v_y$};\coordinate(A)at(0,2);\coordinate(B)at(1,0);\fill(A)circle(2pt)node[above right]{$\vct v_1$};\fill(B)circle(2pt)node[below right]{$\vct v_2$};\draw[curve](-.5,.5)circle(1.581);\fill(-.5,.5)circle(1pt)node[left]{$H$};\draw[guide](-.5,.5)--(0,0);\draw[guide](-.5,.5)--(1,0);\node at(2.5,-1){$e=OH/R_v$};
+\draw[axis](0,0)--(0,2);\draw[axis](0,0)--(1,0);\fill(0,0)circle(1pt)node[below right]{$O$};
+\end{tikzpicture}
+\caption{最小偏心率对应的速度圆心}\label{fig:hw8-6-s}
+\end{figure}
+
+取近心方向为位置$x$轴时，速度分量为$(-\mu\sin\theta/h,\mu(e+\cos\theta)/h)$，直接满足
+\[
+ v_x^2+\left(v_y-\frac{\mu e}{h}\right)^2=
+ \left(\frac\mu h\right)^2.
+\]
+旋转速度坐标轴不改变圆心距与半径之比，故可把两已知速度放在互相垂直的坐标轴上求最小值。
+
+以$u=|\vct v_2|$为单位，将图\ref{fig:hw8-6-s}的两个速度端点写成$A=(0,2)$、$B=(1,0)$。设速度圆心$H=(a,b)$，等距条件给出$a=2b-3/2$，因此
+\[
+ |OH|^2=5b^2-6b+9/4=:N,\quad
+ R_v^2=5b^2-10b+25/4=:D.
+\]
+偏心率平方为$e^2=N/D$。直接计算
+\[
+ 5N-D=5(2b-1)^2\ge0,
+\]
+故$e^2\ge1/5$。当$b=1/2,a=-1/2$时等号成立，圆半径为$\sqrt{5/2}$、圆心距为$1/\sqrt2$，确有一条椭圆满足两速度条件。
+\[
+ \boxed{e_{\min}=1/\sqrt5}.
+\]
+上述速度圆给出了达到下界的轨道。两个已知速度相互垂直，分别把它们认作近、远心点速度并不符合题设。
+
+
+最后确认等号情形的两个速度端点确实可达。用$\vct w_i=\vct v_i/u$，圆心$H=(-1/2,1/2)$、半径$\sqrt{5/2}$，有
+\[
+ \frac{A-H}{R_v}=\frac{(1,3)}{\sqrt{10}},\qquad
+ \frac{B-H}{R_v}=\frac{(3,-1)}{\sqrt{10}}.
+\]
+它们都是单位向量，且互相垂直，所以是速度圆上两个真实而不同的点。所求$e=1/\sqrt5<1$，对应的开普勒椭圆会遍历整个速度圆，故不存在因只取双曲线某一圆弧而使这两点不可达的问题。图\ref{fig:hw8-6-s}的构造给出的下界可以由实际椭圆轨道达到。
+
+\end{solution}
+
+
+
+\begin{example}[力心在椭圆中心的轨道]\label{sup8:problem-example-9}\label{sup8:ex:d8-e9}
+质点受平面中心力 $\vct F=-k\vct r$，质量为 $m$。初始位置为 $(A,0)$，初速度为 $(0,v_0)$，其中 $0<v_0<A\sqrt{k/m}$。求轨道、角动量、能量及相邻拱点的角间隔，说明它与引力椭圆的区别。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[axis] (-1,0)--(3.6,0) node[right] {$x$};\draw[axis] (0,-.5)--(0,2.8) node[above] {$y$};
+ \fill (0,0) circle (1.6pt) node[below left] {$O$};\fill (3,0) circle (1.6pt) node[below] {$P_0=(A,0)$};
+ \draw[axis] (3,0)--(3,1.5) node[right] {$v_0$};
+ \draw[axis] (3,0)--(1.6,0) node[midway,above] {$kA$};
+\end{tikzpicture}
+\caption{各向同性线性中心力，初始速度与半径垂直。}\label{sup8:fig:d8-e9-q}
+\end{figure}
+\begin{solution}
+取 $\omega=\sqrt{k/m}$。图\ref{sup8:fig:d8-e9-q} 的两个坐标满足同频率的独立方程
+\[
+ \ddot x+\omega^2x=0,\qquad\ddot y+\omega^2y=0.
+\]
+各坐标的通解为 $x=C_x\cos\omega t+D_x\sin\omega t$、$y=C_y\cos\omega t+D_y\sin\omega t$。初位置给出 $C_x=A,C_y=0$；通解求导后，初速度给出 $\omega D_x=0,\omega D_y=v_0$。代入这些常数，有
+\[
+ x=A\cos\omega t,\qquad y=B\sin\omega t,\qquad B=\frac{v_0}{\omega}<A.
+\]
+消去时间得 $x^2/A^2+y^2/B^2=1$，力心 $O$ 位于椭圆几何中心。相对于力心的单位质量角动量、总角动量与机械能分别为
+\[
+ h=x\dot y-y\dot x=\omega AB=Av_0,\qquad L=mh=mAv_0,
+\]
+\[
+ E=\frac12m\omega^2(A^2+B^2).
+\]
+这里势能零点取在 $O$，所有非静止轨道的 $E$ 均为正，仍然束缚。引力问题中的“负能量对应束缚”依赖其在无穷远取零的势能，不能搬到本题。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.9]
+ \draw[curve] (0,0) ellipse (3 and 1.7);\draw[guide] (-3.4,0)--(3.5,0);\draw[guide] (0,-2.2)--(0,2.3);
+ \fill (0,0) circle (1.7pt) node[below left] {$O$};
+ \fill (3,0) circle (1.5pt) node[right] {$P_a$};\fill (0,1.7) circle (1.5pt) node[above] {$P_p$};
+ \draw[axis] plot[domain=15:55,samples=25] ({3*cos(\x)},{1.7*sin(\x)});
+ \draw (.6,0) arc (0:90:.6) node[midway,above right] {$\pi/2$};
+ \draw[<->,>=Stealth] (-3,-2.1)--(3,-2.1) node[midway,below] {$2A$};
+ \node[right] at (3.7,1) {$r_{\max}=A$};\node[right] at (3.7,.3) {$r_{\min}=B$};
+\end{tikzpicture}
+\caption{线性中心力的椭圆以力心为中心，相邻远、近拱点夹角为 $\pi/2$。}\label{sup8:fig:d8-e9-s}
+\end{figure}
+由图\ref{sup8:fig:d8-e9-s}，从 $P_a$ 出发，经过 $\pi/(2\omega)$ 到 $P_p$。进一步写出
+\[
+ r^2=A^2\cos^2\omega t+B^2\sin^2\omega t
+ =\frac{A^2+B^2}2+\frac{A^2-B^2}2\cos2\omega t.
+\]
+所以径向运动周期为 $\pi/\omega$，而质点回到同一位置和速度的周期为 $2\pi/\omega$。一圈中有两个最近点、两个最远点，相邻同类拱点的角间隔为 $\pi$。在圆极限 $A=B$，半径恒定，不再有区分开的拱点。
+
+引力椭圆的力心在焦点，相邻远、近拱点相隔 $\pi$。两种中心力都能产生椭圆，力心的位置却不同；由轨道形状反推力律时，这个位置也是所需条件。
+\end{solution}
+
+
+
+\section{面积定律、飞行时间与会合相位}
+
+轨道形状确定后，飞行时间由面积定律或径向积分求出。转移轨道的半周期给出飞行时长，会合还要求两物体在终点具有相同相位。
+
+
+
+\subsection{面积定律与飞行时间}
+\subsubsection{周期由面积求出}
+
+半径矢量在 $\dd t$ 内扫过的面积为 $\dd S=\tfrac12r^2\dd\varphi$，所以
+\begin{equation}
+ \frac{\dd S}{\dd t}=\frac h2.
+\end{equation}
+椭圆面积 $\pi ab_{\rm ell}$ 除以面积速度，得到
+\begin{equation}\label{sup8:eq:d8-period}
+ T=\frac{2\pi ab_{\rm ell}}h=2\pi\sqrt{\frac{a^3}{\mu}}.
+\end{equation}
+这个周期用于相对轨道时，$a$ 是两物体间距轨道的半长轴，$\mu=G(M+m)$。若代入单个恒星绕质心的半长轴，必须同时改变相应参数，不能原样套用。
+
+\subsubsection{偏近点角与开普勒方程}
+
+求一段轨道的时间时，应先确定运动分支，再求扫过面积。对椭圆，引入偏近点角 $\mathcal E$。图\ref{sup8:fig:d8-anomaly} 以几何中心 $C$ 为原点画辅助圆，椭圆点的参数为
+\[
+ x_C=a\cos\mathcal E,\qquad y_C=b_{\rm ell}\sin\mathcal E.
+\]
+力心在 $x_C=ae$ 处，因此相对于力心
+\begin{equation}
+ x=a(\cos\mathcal E-e),\quad
+ y=b_{\rm ell}\sin\mathcal E,\quad
+ r=a(1-e\cos\mathcal E).
+\end{equation}
+又因
+\[
+ x\frac{\dd y}{\dd\mathcal E}-y\frac{\dd x}{\dd\mathcal E}
+ =ab_{\rm ell}(1-e\cos\mathcal E),
+\]
+面积定律要求 $h\dd t=(x\dd y/\dd\mathcal E-y\dd x/\dd\mathcal E)\dd\mathcal E$。从近心点 $\mathcal E=0,t=t_p$ 积分，
+\[
+t-t_p=\frac{ab_{\rm ell}}h\int_0^{\mathcal E}(1-e\cos u)\dd u
+=\frac{ab_{\rm ell}}h[u-e\sin u]_0^{\mathcal E}.
+\]
+又 $h/(ab_{\rm ell})=\sqrt{\mu/a^3}=n$，因此
+\begin{equation}\label{sup8:eq:d8-kepler}
+ n(t-t_p)=\mathcal E-e\sin\mathcal E,\qquad
+ n=\sqrt{\frac{\mu}{a^3}}.
+\end{equation}
+$t_p$ 为一次经过近心点的时刻。跨过远心点后，$\mathcal E$ 应继续从 $\pi$ 增大到 $2\pi$，不能在反余弦的主值区间中折回。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.9]
+ \coordinate (C) at (0,0);\coordinate (O) at (1.8,0);
+ \coordinate (Q) at (1.268,2.719);\coordinate (P) at (1.268,2.175);
+ \draw[guide] (C) circle (3);
+ \draw[curve] (C) ellipse (3 and 2.4);
+ \draw[guide] (-3.4,0)--(3.5,0);\draw[guide] (Q)--(1.268,0);
+ \draw (C)--(Q);\draw[axis] (O)--(P) node[midway,right] {$r$};
+ \fill (C) circle (1.3pt) node[below] {$C$};\fill (O) circle (1.7pt) node[below] {$O$};
+ \fill (Q) circle (1.3pt) node[above right] {$Q$};\fill (P) circle (1.3pt) node[below left] {$P$};
+ \draw (.7,0) arc (0:65:.7) node[midway,right] {$\mathcal E$};
+ \draw[<->,>=Stealth] (0,-.55)--(1.8,-.55) node[midway,below] {$ae$};
+ \node[right,align=left] at (3.2,2) {辅助圆半径 $a$\\椭圆半短轴 $b_{\rm ell}$};
+\end{tikzpicture}
+\caption{偏近点角在几何中心 $C$ 处量取；真近点角在焦点 $O$ 处量取，两者一般不相等。}\label{sup8:fig:d8-anomaly}
+\end{figure}
+
+从真近点角换到偏近点角，可先把上述坐标除以$r$：
+\[
+ \cos f=\frac{\cos\mathcal E-e}{1-e\cos\mathcal E},\qquad
+ \sin f=\frac{\sqrt{1-e^2}\sin\mathcal E}{1-e\cos\mathcal E}.
+\]
+第一式交叉相乘，得$(1+e\cos f)\cos\mathcal E=e+\cos f$；由此又有$1-e\cos\mathcal E=(1-e^2)/(1+e\cos f)$。将它代入第二式，便得到
+\[
+ \cos\mathcal E=\frac{e+\cos f}{1+e\cos f},\qquad
+ \sin\mathcal E=\frac{\sqrt{1-e^2}\sin f}{1+e\cos f}.
+\]
+两个式子一起保留象限。若只求半个周期，近心点到远心点直接用 $T/2$，无需再积分。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[由速度方向确定椭圆与飞行时间]\label{ex:hw8-1}
+
+行星椭圆轨道周期为$T$。真近点角为$\theta_1$时，向外径向与速度矢量的有向夹角为$\alpha_1$，行星按$\theta$增加方向运行。求真近点角$\theta_2$处的速度夹角$\alpha_2$，以及从$\theta_1$到$\theta_2$的运行时间。角度以同一近心方向为基准。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(2.3 and 1.5);\coordinate(F)at(1.74356,0);\coordinate(P)at(1.47841,1.14907);\fill(F)circle(2pt)node[below]{$F$};\fill(P)circle(2pt)node[above right]{$P$};\draw[guide](F)--(P);\draw[axis](P)--(.59746,1.63116)node[above]{$\vct v$};\draw[guide](-2.5,0)--(2.7,0);\draw(2.14356,0)arc(0:103:.4)node[midway,above right]{$\theta$};
+\draw[thin](P)--++(-.2,.87);\draw(1.3411,1.7446)arc(103:151.32:.611);\node at(1.03,1.78){$\alpha$};
+\end{tikzpicture}
+\caption{椭圆焦点、真近点角与切向速度}\label{fig:hw8-1-q}
+\end{figure}
+
+\begin{solution}
+由 $r=p/(1+e\cos\theta)$，按链式法则对极角求导，$\dd r/\dd\theta=pe\sin\theta/(1+e\cos\theta)^2$。再乘 $\dot\theta=h/r^2=h(1+e\cos\theta)^2/p^2$，得 $v_r=(he/p)\sin\theta$；横向速度则是 $v_\theta=r\dot\theta=h/r=h(1+e\cos\theta)/p$。用 $p=h^2/\mu$，图\ref{fig:hw8-1-s}中的两个分量分别为
+\[
+ v_r=\frac{\mu}{h}e\sin\theta,\qquad
+ v_\theta=\frac{\mu}{h}(1+e\cos\theta).
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)ellipse(2.3 and 1.5);\coordinate(F)at(1.74356,0);\coordinate(P)at(1.47841,1.14907);\fill(F)circle(2pt)node[below]{$F$};\fill(P)circle(2pt)node[above right]{$P$};\draw[guide](F)--(P);\draw[axis](P)--(.59746,1.63116)node[above]{$\vct v$};\draw[guide](-2.5,0)--(2.7,0);\draw(2.14356,0)arc(0:103:.4)node[midway,above right]{$\theta$};\draw[axis](1.47841,1.14907)--(1.3284,1.799)node[right]{$v_r$};\draw[axis](1.47841,1.14907)--(.7475,.9802)node[below]{$v_\theta$};\node at(-.5,-2){$M=E-e\sin E$};\draw[thin](P)--++(-.2,.87);\draw(1.3411,1.7446)arc(103:151.32:.611);\node at(1.03,1.78){$\alpha$};
+\end{tikzpicture}
+\caption{速度分解及径向与速度的夹角}\label{fig:hw8-1-s}
+\end{figure}
+
+因为 $\cot\alpha=v_r/v_\theta$，令 $q=\cot\alpha_1$，有 $q=e\sin\theta_1/(1+e\cos\theta_1)$。交叉相乘并将含 $e$ 的项合并，$q=e(\sin\theta_1-q\cos\theta_1)$，因此一般情况下
+\[
+ \boxed{e=\frac{q}{\sin\theta_1-q\cos\theta_1}},\qquad
+ \boxed{\alpha_2=\operatorname{atan2}(1+e\cos\theta_2,e\sin\theta_2)}.
+\]
+应检验$0\le e<1$。若已知点恰是拱点且速度切向，两个角不能单独确定$e$；上述分式此时为$0/0$，题目数据不足，须再给一个形状条件。
+
+用偏近点角 $E$ 处理时间，先由真近点角求
+\[
+E(\theta)=\operatorname{atan2}(\sqrt{1-e^2}\sin\theta,e+\cos\theta).
+\]
+沿真实运动将 $E$ 连续展开。为推导时间积分，采用焦点为原点、近心方向为 $x$ 轴的辅助圆参数 $x=a(\cos E-e)$、$y=b\sin E$，其中 $b=a\sqrt{1-e^2}$。对 $E$ 求导，$x_E=-a\sin E$、$y_E=b\cos E$，于是
+\[
+xy_E-yx_E=ab[(\cos E-e)\cos E+\sin^2E]=ab(1-e\cos E).
+\]
+面积定律为 $h=x\dot y-y\dot x=(xy_E-yx_E)\dot E$。用 $h=nab$、$n=2\pi/T$，得 $\dd t/\dd E=(1-e\cos E)/n$。因此
+\[
+\Delta t=\frac1n\int_{E_1}^{E_2}(1-e\cos E)\,\dd E
+=\frac1n[E-e\sin E]_{E_1}^{E_2},
+\]
+即
+\[
+\boxed{\Delta t=\frac{T}{2\pi}[E_2-E_1-e(\sin E_2-\sin E_1)]}.
+\]
+记 $M=E-e\sin E$，则 $\dot M=n$。$\operatorname{atan2}$ 保留分子、分母的象限信息，因此比只用正切函数更适合跨象限的轨道计时。
+
+若跨过近心方向或多运行整圈，展开角中的$2\pi$不可丢掉。圆轨道时$e=0$，结果退化为均匀角速度运动。
+
+
+\end{solution}
+
+
+
+\begin{example}[两次切向脉冲与会合相位]\label{deep8:problem-example-5}\label{deep8:ex:d8-e5}
+卫星原在半径 $r_1$ 的圆轨道上逆时针运动，拟用与内外圆相切的半椭圆，转移至半径 $r_2=4r_1$ 的同向圆轨道。求两次速度增量及转移时间。若外圆上另有目标按圆周运动，求卫星第一次脉冲时目标应领先的相位角。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.68]
+ \draw[guide] (0,0) circle (1);\draw[curve] (0,0) circle (4);
+ \draw[curve] plot[domain=0:180,samples=100] ({-1.5+2.5*cos(\x)},{2*sin(\x)});
+ \fill (0,0) circle (2pt) node[below right] {$O$};
+ \fill (1,0) circle (2pt) node[below right] {$P_1$};\fill (-4,0) circle (2pt) node[left] {$P_2$};
+ \draw[axis] (1,0)--(1,1.4) node[right] {第一次脉冲};
+ \draw[axis] (-4,0)--(-4,-1) node[left] {第二次脉冲};
+ \fill ({4*cos(91.05)},{4*sin(91.05)}) circle (2pt) node[above] {目标初位置 $Q_0$};
+ \draw (.6,0) arc (0:91.05:.6) node[midway,above right] {$\delta$};
+\end{tikzpicture}
+\caption{转移从右端 $P_1$ 开始，沿上半椭圆到左端 $P_2$；目标也沿逆时针方向运动。}\label{deep8:fig:d8-e5-q}
+\end{figure}
+\begin{solution}
+图\ref{deep8:fig:d8-e5-q} 中 $OP_1=r_1,OP_2=4r_1$ 分别为转移椭圆的近、远心距离，所以
+\[
+ a_t=\frac52r_1,\qquad e_t=\frac35.
+\]
+令 $v_c=\sqrt{\mu/r_1}$。两条圆轨道上的速率分别为 $v_c,v_c/2$。由活力公式，转移椭圆两端速率为
+\[
+ v_{t1}=\sqrt{\mu\left(\frac2{r_1}-\frac2{5r_1}\right)}
+       =\frac4{\sqrt{10}}v_c,\qquad
+ v_{t2}=\sqrt{\mu\left(\frac2{4r_1}-\frac2{5r_1}\right)}
+       =\frac1{\sqrt{10}}v_c.
+\]
+两端均须沿当时运动方向加速：
+\[
+ \Delta v_1=\left(\frac4{\sqrt{10}}-1\right)v_c,\qquad
+ \Delta v_2=\left(\frac12-\frac1{\sqrt{10}}\right)v_c.
+\]
+发动机两次提供的速度增量按大小相加，得 $\Delta v_{\rm sum}=(3/\sqrt{10}-1/2)v_c$。两个脉冲发生在不同位置，方向也不同，燃料需求所对应的是这个标量和。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \begin{scope}[xshift=-2.3cm]
+  \fill (0,0) circle (1.6pt) node[below] {$P_1$};
+  \draw[axis,line width=1pt] (0,0)--(0,2.53) node[above] {$v_{t1}$};
+  \draw[axis] (.65,0)--(.65,2) node[right] {$v_c$};
+  \draw[axis] (1.65,2)--(1.65,2.53) node[midway,right] {$\Delta v_1$};
+  \draw[guide] (0,2)--(1.65,2);\draw[guide] (0,2.53)--(1.65,2.53);
+ \end{scope}
+ \begin{scope}[xshift=2.2cm]
+  \fill (0,2.53) circle (1.6pt) node[above] {$P_2$};
+  \draw[axis] (0,2.53)--(0,{2.53-2/sqrt(10)}) node[left] {$v_{t2}$};
+  \draw[axis,line width=1pt] (.65,2.53)--(.65,1.53) node[below right=2pt] {$v_c/2$};
+  \draw[axis] (1.75,{2.53-2/sqrt(10)})--(1.75,1.53) node[midway,right] {$\Delta v_2$};
+  \draw[guide] (0,{2.53-2/sqrt(10)})--(1.75,{2.53-2/sqrt(10)});\draw[guide] (.65,1.53)--(1.75,1.53);
+ \end{scope}
+ \node at (0,-.55) {$\Delta\varphi_{\text{卫星}}=\pi,\quad\Delta\varphi_{\text{目标}}=n_2t_t$};
+\end{tikzpicture}
+\caption{两图的速度箭头采用相同标度。$P_1$ 处速度向上，$P_2$ 处速度向下，两个脉冲均沿各自的运动方向。}\label{deep8:fig:d8-e5-s}
+\end{figure}
+图\ref{deep8:fig:d8-e5-s} 的箭头方向对应题图的两个接触点。飞行经过半个转移椭圆，故
+\[
+ t_t=\pi\sqrt{\frac{(5r_1/2)^3}{\mu}}.
+\]
+目标在外圆上的角速度为 $n_2=\sqrt{\mu/(4r_1)^3}$。以卫星的初始半径 $OP_1$ 为零角，目标初始角度为 $\delta$，会合条件为
+\[
+ \delta+n_2t_t=\pi\pmod{2\pi}.
+\]
+取 $0\le\delta<2\pi$，得到
+\[
+ \boxed{\delta=\pi\left[1-\left(\frac58\right)^{3/2}\right]
+ \simeq1.5893\ \mathrm{rad}\simeq91.1^\circ}.
+\]
+会合的初相位由转移时间和目标角速度共同确定。上述结果限于指定的两次切向转移；若允许增加脉冲或改变中间轨道，最优方案须另行求解。
+\end{solution}
+
+
+
+\section{瞬时变轨、碰撞截面与散射}
+
+冲量把发生在同一位置的前后两条轨道连接起来。讨论碰撞或散射时，轨道最近距离还须与天体半径及相对入射速度对应。
+
+
+
+\subsection{冲量、碰撞与散射的边界}
+\subsubsection{瞬时变轨分前后两条轨道}
+
+短时发动机作用可理想化为固定位置上的速度突变 $\Delta\vct v$。忽略这段时间内引力的冲量，位置连续，而
+\begin{equation}\label{sup8:eq:d8-impulse}
+ \varepsilon_+-\varepsilon_-=\vct v_-\cdot\Delta\vct v
+       +\frac12|\Delta\vct v|^2,\qquad
+ \vct h_+-\vct h_-=\vct r\times\Delta\vct v.
+\end{equation}
+冲量前后分别使用守恒量；跨过冲量的瞬间，机械能和角动量一般不守恒。纯径向冲量不改 $\vct h$，切向冲量通常同时改变能量和角动量。若中心天体的质量被外界突然改变，则即使速度连续，引力势也会突变，前后能量仍不能直接相等。
+
+两圆轨道间的两次切向变轨可选用与两圆相切的半椭圆。内、外圆半径为 $r_1<r_2$ 时，转移椭圆半长轴 $a_t=(r_1+r_2)/2$，由活力公式分别计算两端速度差，转移时间为 $\pi\sqrt{a_t^3/\mu}$。这是指定共面、两次切向脉冲方案的结果；是否与目标会合，还须满足目标的相位条件。
+
+\subsubsection{有限半径天体和引力聚焦}
+
+物体从无穷远以速率 $v_\infty$ 飞来，瞄准距离 $b$ 是入射渐近直线到力心的垂距，而不是最近距离。守恒量为
+\[
+ \varepsilon=\frac12v_\infty^2,\qquad h=bv_\infty.
+\]
+最近点 $\dot r=0$，速率全为切向分量 $v_p=h/r_p=bv_\infty/r_p$。由能量守恒，
+\[
+\frac12v_\infty^2=\frac{b^2v_\infty^2}{2r_p^2}-\frac\mu{r_p}.
+\]
+乘以 $2r_p^2/v_\infty^2$，最近距离 $r_p$ 满足
+\begin{equation}\label{sup8:eq:d8-focusing}
+ b^2=r_p^2+\frac{2\mu r_p}{v_\infty^2}.
+\end{equation}
+对于半径 $R$ 的吸收天体，令 $r_p=R$ 得擦边条件。比这一临界 $b$ 更小的入射轨道先接触表面，点质量轨道向表面以内的延拓没有实际意义。计算碰撞截面时用 $\pi b_{\max}^2$，不能用 $\pi R^2$ 代替引力聚焦后的入射区域。
+
+\subsubsection{散射角和参考系}
+
+散射角是速度入射方向与出射方向之间的夹角，取$0\le\chi\le\pi$。考虑$b>0$的吸引性反平方散射。将$\varepsilon=v_\infty^2/2$、$h=bv_\infty$代入偏心率公式，得
+\[
+ e=\sqrt{1+\frac{b^2v_\infty^4}{\mu^2}}>1.
+\]
+轨道在$f=\pm f_\infty$处趋于无穷远，分母趋零给出$\cos f_\infty=-1/e$，故$\pi/2<f_\infty<\pi$。入射位置射线与入射速度反向，速度偏转角为$\chi=2f_\infty-\pi$，因此
+\[
+ \sin\frac\chi2=\sin\left(f_\infty-\frac\pi2\right)
+ =-\cos f_\infty=\frac1e.
+\]
+在$0<\chi<\pi$内，$\cos(\chi/2)=\sqrt{e^2-1}/e$为正，再取两者之比，得到
+\[
+ \tan\frac\chi2=\frac1{\sqrt{e^2-1}}
+ =\frac{\mu}{bv_\infty^2}.
+\]
+求这些角度时，入射渐近射线指向远处，入射速度却指向遭遇区，二者方向相反。速度偏转角须按入射、出射速度量取。排斥性反平方力的偏转角大小也有相同形式，弯曲方向则与吸引情形相反，最近距离公式中的符号随之改变。
+
+若力心以速度 $\vct V$ 运动，应在近似惯性的力心系中先求散射。在这一参考系中，入射、出射相对速度的模相等；变回原参考系后，速率一般不等。引力辅助中的能量转移正是由这一步速度相加得到的。参考系、势能零点和中心天体是否可视为固定，均须在列式前确定。
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[圆轨道卫星抛出载荷]\label{ex:hw8-4}
+
+质量$m$的卫星绕质量$M$的中心天体作半径$r_0$的圆周运动，中心天体视为固定。瞬间抛出质量$m/10$的载荷，发射的相对速度与原轨道正向切线夹角为$60^\circ$，并有向外径向分量。发射释放机械能$\Delta E=9GMm/(2r_0)$，抛出后两部分之间的相互引力忽略不计。求余下卫星新轨道的近心距、远心距及长轴方向。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.6);\fill(0,0)circle(2pt)node[left]{$M$};\coordinate(P)at(1.6,0);\fill(P)circle(2pt)node[below]{$P$};\draw[axis](P)--(1.6,1.3)node[left]{$v_c$};\draw[axis](P)--(2.6,.58)node[right]{抛出方向};\draw[guide](0,0)--(P);\node at(.8,-.3){$r_0$};
+\end{tikzpicture}
+\caption{载荷从圆轨道卫星向外侧抛出}\label{fig:hw8-4-q}
+\end{figure}
+
+\begin{solution}
+置$v_c=\sqrt{GM/r_0}$。发射前后在同一点，外引力势能不变，故释放能量全部增加系统动能。在质心系中，剩余卫星与载荷的约化质量为$9m/100$，于是
+\[
+ \frac12\frac{9m}{100}u^2=\frac92mv_c^2,
+ \qquad u=10v_c.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[guide,gray](0,0)circle(1.8);
+\begin{scope}[shift={(1.35,-.77942286)},rotate=150]\draw[curve](0,0)ellipse(1.8 and .9);\end{scope}
+\draw[guide](-.9,.519615)--(3.12,-1.80133);
+\fill(0,0)circle(2pt)node[below left]{$M$};\fill(1.8,0)circle(2pt)node[below right]{$P$};
+\fill(-.20884573,.12057714)circle(1.5pt);\draw[thin](-.20884573,.12057714)--(-.55,.65);\node[fill=white,inner sep=1pt]at(-.55,.85){$Q_p$};
+\fill(2.90884573,-1.67942286)circle(1.5pt)node[below right]{$Q_a$};
+\draw[axis](0,0)--(-1.04,.6)node[above left]{$\vct e$};
+\draw[axis](1.8,0)--(1.02,0)node[above]{$v_r'$};\draw[axis](1.8,0)--(1.8,.45)node[right]{$v_t'$};
+\draw[guide](0,0)--(1.8,0);\node[below]at(.8,0){$r_0$};
+\draw[guide,gray](-1.4,-2.4)--(-.7,-2.4)node[right]{原圆轨道};
+\draw[curve](1.1,-2.4)--(1.8,-2.4)node[right]{反冲后轨道};
+\end{tikzpicture}
+\caption{反冲后的椭圆与原圆相交于发射点，长轴沿偏心率矢量}\label{fig:hw8-4-s}
+\end{figure}
+
+图\ref{fig:hw8-4-s}中载荷相对卫星的速度为$u(\sin60^\circ\vct e_r+\cos60^\circ\vct e_t)$。动量守恒使卫星反冲速度等于该矢量的$-1/10$，因此
+\[
+ (v_r',v_t')=(-\sqrt3v_c/2,v_c/2).
+\]
+余下卫星的比能量仍为$-GM/(2r_0)$，所以$a=r_0$；比角动量$h=r_0v_c/2$，故$p=r_0/4$、$e=\sqrt3/2$。于是
+\[
+ \boxed{r_p=r_0(1-\sqrt3/2),\quad r_a=r_0(1+\sqrt3/2)}.
+\]
+偏心率矢量为
+\[
+ \vct e=\left(\frac{v_t'^2}{v_c^2}-1\right)\vct e_r
+ -\frac{v_r'v_t'}{v_c^2}\vct e_t
+ =-\frac34\vct e_r+\frac{\sqrt3}{4}\vct e_t.
+\]
+图\ref{fig:hw8-4-s}将新轨道画成以中心天体为焦点的椭圆，$Q_p,Q_a$是新近、远心点，$P$为发射点。半短轴为$b=a\sqrt{1-e^2}=r_0/2$。发射时$v_r'<0$，所以卫星先朝$Q_p$运行；把$P$直接标作远心点会与这一径向速度矛盾。
+
+故从发射点向外径向转向原运动切向量起，近心方向为$150^\circ$，无向长轴与原径向线成$30^\circ$。若载荷改向内侧抛出，轨道形状相同，长轴方向镜像反射。
+
+
+\end{solution}
+
+
+
+\begin{example}[减速后的轨道与撞击条件]\label{deep8:problem-example-6}\label{deep8:ex:d8-e6}
+卫星原在半径 $r_0>R$ 的圆轨道上运行，中心天体的半径为 $R$，引力参数为 $\mu$。一次瞬时切向制动使速率变为原来的 $q$ 倍，$0<q<1$，方向不变。求新轨道参数、能量和角动量的变化，并求不会撞击天体的 $q$ 的范围。擦过表面单列为临界情形。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.85]
+ \draw[curve,fill=black!7] (0,0) circle (.65);\draw[guide] (0,0) circle (2);
+ \fill (0,0) circle (1.6pt) node[below] {$O$};\fill (2,0) circle (1.6pt) node[below right] {$A$};
+ \draw[axis] (2,0)--(2,2) node[above] {$v_c$};
+ \draw[axis,line width=1pt] (2.8,0)--(2.8,1.2) node[right] {$qv_c$};
+ \draw[axis] (3.8,2)--(3.8,1.2) node[midway,right] {制动};
+ \draw[curve] (0,0)--(2,0) node[midway,below] {$r_0$};
+ \draw (0,0)--(-.46,.46) node[midway,above left] {$R$};
+\end{tikzpicture}
+\caption{在 $A$ 处减小切向速度。$v_c=\sqrt{\mu/r_0}$，制动后仍沿原转向运行。}\label{deep8:fig:d8-e6-q}
+\end{figure}
+\begin{solution}
+由图\ref{deep8:fig:d8-e6-q}，制动前后位置相同、径向速度均为零。制动后的守恒量为
+\[
+ \varepsilon_+=-\frac{\mu}{2r_0}(2-q^2),\qquad
+ h_+=q\sqrt{\mu r_0}.
+\]
+因此
+\[
+ a=\frac{r_0}{2-q^2},\quad e=1-q^2,\quad
+ r_a=r_0,\quad r_p=\frac{q^2r_0}{2-q^2}.
+\]
+由于 $q<1$，$A$ 为远心点。制动后 $\ddot r<0$，卫星先沿新的椭圆向内飞行。对质量为 $m$ 的卫星，制动造成的变化为
+\[
+ E_+-E_-=-\frac{m\mu}{2r_0}(1-q^2),\qquad
+ L_+-L_-=m\sqrt{\mu r_0}(q-1).
+\]
+制动力所做的功和冲量矩分别改变能量与角动量。这两项量各自在制动前、后的自由飞行阶段守恒。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.25]
+ \draw[curve,fill=black!7] (0,0) circle (.65);
+ \pgfmathsetmacro{\periEight}{2*.6^2/(2-.6^2)}
+ \pgfmathsetmacro{\centerEight}{(2-\periEight)/2}
+ \pgfmathsetmacro{\aEight}{(2+\periEight)/2}
+ \pgfmathsetmacro{\bEight}{sqrt(2*\periEight)}
+ \draw[curve] (.675,0) ellipse [x radius=1.325,y radius={sqrt(1.3)}];
+ \draw[guide] (\centerEight,0) ellipse [x radius=\aEight,y radius=\bEight];
+ \fill (0,0) circle (1.2pt) node[below] {$O$};
+ \fill (2,0) circle (1.3pt) node[right] {$A$};
+ \fill (-.65,0) circle (1.3pt) node[left] {$P_p$};
+ \draw[axis] plot[domain=40:75,samples=20] ({.675+1.325*cos(\x)},{sqrt(1.3)*sin(\x)});
+ \node[align=left] at (3,1) {实线：$r_p=R$\\虚线：$r_p<R$};
+ \draw[axis] (3,.1)--(3,-.9) node[below] {$q\text{ 减小}$};
+\end{tikzpicture}
+\caption{两图均取 $R/r_0=0.325$。实线为擦边椭圆；虚线取 $q=0.6$，在表面以内的部分只是点质量轨道的延拓。}\label{deep8:fig:d8-e6-s}
+\end{figure}
+图\ref{deep8:fig:d8-e6-s} 中的不撞击条件为 $r_p>R$。令 $\lambda=R/r_0\in(0,1)$，有
+\[
+ \frac{q^2}{2-q^2}>\lambda
+ \quad\Longleftrightarrow\quad
+ \boxed{\sqrt{\frac{2\lambda}{1+\lambda}}<q<1}.
+\]
+等号时擦过表面；小于临界值时撞击。若轨道未被表面截断，从 $A$ 到 $P_p$ 的时间为
+\[
+ t_{a\to p}=\pi\sqrt{\frac{r_0^3}{\mu(2-q^2)^3}}.
+\]
+撞击时，首次接触早于这个时间。若需接触时刻，可取 $\mathcal E=\pi$ 为制动点，令
+\[
+ C_R=\frac{1-R/a}{e},\qquad
+ \mathcal E_R=2\pi-\arccos C_R,
+\]
+在撞击分支 $r_p<R<r_a$ 上有 $-1<C_R<1$。以 $n=\sqrt{\mu/a^3}$ 表示平均角速度，首次接触的时间积分为
+\[
+t_R=\frac1n\int_\pi^{\mathcal E_R}(1-e\cos\mathcal E)\,\dd\mathcal E
+=\frac1n[\mathcal E-e\sin\mathcal E]_\pi^{\mathcal E_R}.
+\]
+利用 $\sin\pi=0$，得到
+\[
+ t_R=\frac{\mathcal E_R-e\sin\mathcal E_R-\pi}{\sqrt{\mu/a^3}}.
+\]
+这里取 $\mathcal E_R\in(\pi,2\pi)$，才对应图中由远心点向内运动的一段。
+\end{solution}
+
+
+
+\begin{example}[引力聚焦的碰撞截面]\label{deep8:problem-example-7}\label{deep8:ex:d8-e7}
+半径 $R$、引力参数 $\mu$ 的球形天体静止。一束稀薄质点从无穷远平行入射，速率均为 $v_\infty$。入射直线到球心的垂距为瞄准距离 $b$。忽略质点之间的作用，接触表面即被吸收。求最近距离与 $b$ 的关系、最大碰撞瞄准距离和碰撞截面，并讨论高速与低速极限。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[curve,fill=black!7] (1,0) circle (1);\fill (1,0) circle (1.5pt) node[below] {$O$};
+ \draw[guide] (-6,0)--(3,0);\draw[guide] (-5.8,2)--(1.8,2);
+ \draw[axis] (-5.8,2)--(-4.5,2) node[midway,above] {$v_\infty$};
+ \draw[<->,>=Stealth] (-5.8,0)--(-5.8,2) node[midway,left] {$b$};
+ \draw[curve,domain=165:90,samples=140,variable=\s] plot ({1+2*cos(\s)/(1+cos(\s)+sin(\s))},{2*sin(\s)/(1+cos(\s)+sin(\s))});
+ \draw[axis,domain=140:120,samples=30,variable=\s] plot ({1+2*cos(\s)/(1+cos(\s)+sin(\s))},{2*sin(\s)/(1+cos(\s)+sin(\s))});
+ \fill (1,1) circle (1.5pt) node[above right] {$P$};
+ \draw (1,0)--(1,1) node[midway,right] {$R$};
+\end{tikzpicture}
+\caption{入射双曲线在 $P$ 处接触球面并终止。虚线是入射渐近直线，$b$ 是它到球心的垂距。}\label{deep8:fig:d8-e7-q}
+\end{figure}
+\begin{solution}
+图\ref{deep8:fig:d8-e7-q} 中的 $b$ 和入射速率给出
+\[
+ \varepsilon=\frac12v_\infty^2,\qquad h=bv_\infty.
+\]
+图\ref{deep8:fig:d8-e7-q} 中的接触点 $P$ 通常仍有径向速度。先按点质量场延拓轨道，并把最近点记为 $P_p$；在该处 $\dot r=0$。设切向速率为 $v_p$，由角动量和能量守恒分别得
+\[
+ r_pv_p=bv_\infty,\qquad
+ \frac12v_p^2-\frac\mu{r_p}=\frac12v_\infty^2.
+\]
+消去 $v_p$，得到
+\[
+ r_p^2+\frac{2\mu}{v_\infty^2}r_p-b^2=0.
+\]
+只取非负根，故
+\begin{equation}
+ \boxed{r_p=\frac{\sqrt{\mu^2+b^2v_\infty^4}-\mu}{v_\infty^2}}
+ =\frac{b^2v_\infty^2}{\sqrt{\mu^2+b^2v_\infty^4}+\mu}.
+\end{equation}
+当 $b$ 很小时，后一形式避免了两个接近的数相减，适合数值计算。$b=0$ 的径向入射可由连续极限或径向方程单独求得。
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \begin{scope}[xshift=-2.5cm]
+  \draw[curve,fill=black!7] (0,0) circle (1);
+  \fill (0,0) circle (1.5pt) node[below] {$O$};\fill (1,0) circle (1.5pt) node[right] {$P_p$};
+  \draw[axis] (1,0)--(1,1.4) node[right] {$v_p$};
+  \draw[curve] (0,0)--(1,0) node[midway,below] {$R$};
+  \node at (0,-1.5) {临界最近点：$r_p=R$};
+ \end{scope}
+ \begin{scope}[xshift=2.3cm]
+  \draw[fill=black!4] (0,0) circle ({sqrt(5)});\draw[curve] (0,0) circle (1);
+  \fill (0,0) circle (1.5pt);\draw[axis] (0,0)--({sqrt(2.5)},{sqrt(2.5)}) node[above right] {$b_{\max}$};
+  \draw (0,0)--(-1,0) node[midway,below] {$R$};
+  \node at (0,-2.65) {垂直入射方向的瞄准平面};
+ \end{scope}
+\end{tikzpicture}
+\caption{左图用擦边轨道求临界守恒量；右图的外圆是能导致碰撞的入射区域，内圆是天体几何投影。}\label{deep8:fig:d8-e7-s}
+\end{figure}
+由图\ref{deep8:fig:d8-e7-s} 左图，擦边满足 $r_p=R$。由于 $b^2=r_p^2+2\mu r_p/v_\infty^2$ 随 $r_p\ge0$ 严格增加，碰撞条件恰为 $0\le b\le b_{\max}$，其中
+\[
+ b_{\max}=R\sqrt{1+\frac{2\mu}{Rv_\infty^2}},\qquad
+ \boxed{\sigma=\pi R^2\left(1+\frac{2\mu}{Rv_\infty^2}\right)}.
+\]
+图中右侧面积是入射平面上的面积，不是天体表面的面积。令 $v_{\rm esc}=\sqrt{2\mu/R}$，聚焦因子为 $1+v_{\rm esc}^2/v_\infty^2$。
+
+若 $v_\infty\gg v_{\rm esc}$，$\sigma\simeq\pi R^2$，轨道接近直线；若 $v_\infty\ll v_{\rm esc}$，$\sigma\simeq2\pi\mu R/v_\infty^2$。对孤立天体，后式随 $v_\infty\to0$ 发散。它描述从无穷远入射的临界面积，实际可用范围仍受飞行时间、其他天体和外场限制。
+\end{solution}
+
+
+
+\begin{example}[排斥性反平方散射]\label{deep8:problem-example-8}\label{deep8:ex:d8-e8}
+固定力心对质量为 $m$ 的质点施加排斥力 $\vct F=k\vct e_r/r^2$，$k>0$。质点从无穷远以速率 $v_\infty$、瞄准距离 $b>0$ 入射。求最近距离、散射角 $\chi$，并由入射环带面积推导微分散射截面 $\dd\sigma/\dd\Omega$。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.8]
+ \fill (0,0) circle (2pt) node[left] {$O$};
+ \fill (1.5,0) circle (1.5pt) node[below right] {$P_p$};
+ \draw[axis] (1.5,0)--(2.4,0) node[above] {$\vct F$};
+ \draw[curve,domain=-40:40,samples=100,variable=\s] plot ({1.5*cos(\s)/(2*cos(\s)-1)},{1.5*sin(\s)/(2*cos(\s)-1)});
+ \draw[axis,domain=38:28,samples=20,variable=\s] plot ({1.5*cos(\s)/(2*cos(\s)-1)},{1.5*sin(\s)/(2*cos(\s)-1)}) node[above left] {$\vct v_{\rm in}$};
+ \draw[axis,domain=-28:-38,samples=20,variable=\s] plot ({1.5*cos(\s)/(2*cos(\s)-1)},{1.5*sin(\s)/(2*cos(\s)-1)}) node[below left] {$\vct v_{\rm out}$};
+ \draw[guide] (.5,-.866)--(3,3.464);\draw[guide] (1,0)--(3,-3.464);
+ \draw[<->,>=Stealth] (0,0)--(.75,-.433) node[below left] {$b$};
+ \node[right,align=left] at (3.2,0) {排斥力\\指向外侧};
+\end{tikzpicture}
+\caption{排斥双曲线的一个示意分支。两条位置渐近射线的夹角与速度偏转角互为补角。}\label{deep8:fig:d8-e8-q}
+\end{figure}
+\begin{solution}
+令 $\alpha=k/m$，并用 $h=bv_\infty>0$ 表示单位质量角动量的模。单位质量势能为 $+\alpha/r$，与引力势的符号相反。最近点处的能量式为
+\[
+ \frac12v_\infty^2=\frac{b^2v_\infty^2}{2r_p^2}+\frac\alpha{r_p},
+\]
+所以
+\[
+ \boxed{r_p=\frac{\alpha+\sqrt{\alpha^2+b^2v_\infty^4}}{v_\infty^2}}>b.
+\]
+这一不等式符合图\ref{deep8:fig:d8-e8-q} 中排斥力把质点推离力心的方向。排斥情形的 Binet 方程为 $u''+u=-\alpha/h^2$。常数特解是 $-\alpha/h^2$，齐次通解为 $C\cos f+D\sin f$。令最近点为 $f=0$，此处 $u'(0)=0$，而 $u'=-C\sin f+D\cos f$，所以 $D=0$；再由 $u(0)=1/r_p$ 得 $C=1/r_p+\alpha/h^2$。将 $C$ 写为 $\alpha e/h^2$，并代入已求出的 $r_p$，得到
+\[
+ r=\frac{h^2/\alpha}{e\cos f-1},\qquad
+ e=\sqrt{1+\frac{b^2v_\infty^4}{\alpha^2}}.
+\]
+无穷远对应 $f=\pm f_\infty$，其中 $\cos f_\infty=1/e$。入射速度指向力心一侧，故速度偏转角为 $\chi=\pi-2f_\infty$，于是
+\[
+ \sin\frac\chi2=\frac1e,\qquad
+ \boxed{\tan\frac\chi2=\frac\alpha{bv_\infty^2}},\qquad
+ b=\frac\alpha{v_\infty^2}\cot\frac\chi2.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \begin{scope}[xshift=-2.7cm]
+  \draw[curve] (0,0) circle (1.1);\draw[curve] (0,0) circle (1.4);
+  \fill[black!12,even odd rule] (0,0) circle (1.4) (0,0) circle (1.1);
+  \fill (0,0) circle (1.4pt);\draw[axis] (0,0)--(1.1,0) node[midway,below] {$b$};
+  \draw[<->,>=Stealth] (.778,.778)--(.99,.99) node[right] {$\dd b$};
+  \node at (0,-1.9) {$\dd\sigma=2\pi b\,|\dd b|$};
+ \end{scope}
+ \begin{scope}[xshift=2.4cm]
+  \draw[axis] (0,0)--(3,0) node[right] {入射方向};
+  \draw[axis] (0,0)--(1.3,2.252) node[above] {出射方向};
+  \draw[guide] (0,0)--(1.67,1.99);
+  \draw (.7,0) arc (0:60:.7) node[midway,right] {$\chi$};
+  \draw[<->,>=Stealth] ({1.7*cos(50)},{1.7*sin(50)}) arc (50:60:1.7) node[midway,above] {$\dd\chi$};
+  \node[align=center] at (1,-1.9) {$|\dd\Omega|=2\pi\sin\chi\,|\dd\chi|$};
+ \end{scope}
+\end{tikzpicture}
+\caption{入射环带与出射角带对应。$b$ 随 $\chi$ 增大而减小，截面计算取导数绝对值。}\label{deep8:fig:d8-e8-s}
+\end{figure}
+图\ref{deep8:fig:d8-e8-s} 中入射环带的面积为 $\dd\sigma=2\pi b|\dd b|$，对应出射角带的立体角为 $\dd\Omega=2\pi\sin\chi\,\dd\chi$。由于本题 $b(\chi)$ 单调，这两个角带一一对应，相除得
+\[
+ \frac{\dd\sigma}{\dd\Omega}
+ =\frac b{\sin\chi}\left|\frac{\dd b}{\dd\chi}\right|.
+\]
+令 $A=\alpha/v_\infty^2$。对 $b=A\cot(\chi/2)$ 求导，外层余切产生 $-\csc^2(\chi/2)$，内层半角产生 $1/2$，即 $\dd b/\dd\chi=-(A/2)\csc^2(\chi/2)$。因此
+\[
+ \left|\frac{\dd b}{\dd\chi}\right|=\frac A2\csc^2\frac\chi2,
+ \qquad \sin\chi=2\sin\frac\chi2\cos\frac\chi2.
+\]
+代入后，$\cos(\chi/2)$ 约去，得到
+\[
+ \boxed{\frac{\dd\sigma}{\dd\Omega}=
+ \left(\frac{k}{2mv_\infty^2}\right)^2\csc^4\frac\chi2},\qquad 0<\chi<\pi.
+\]
+量纲为面积。前向 $\chi\to0$ 的发散对应任意大的 $b$ 仍有微小偏转，是无限作用范围模型的结果；若只统计偏转超过固定 $\chi_0>0$ 的粒子，截面有限，为 $\pi A^2\cot^2(\chi_0/2)$。
+\end{solution}
+
+
+
+\section{轨道微扰、进动与潮汐}
+
+偏离反平方力后，能量与角动量仍可能守恒，椭圆方向却可能发生进动。偏心率矢量和近圆展开用于分析这种变化；潮汐形变与耗散导致的长期演化另作区分。
+
+
+
+\subsection{LRL矢量及其微扰变化}
+\label{sec:complete8}
+比角动量为$\vct h=\vct r\times\vct v$，引力参数为$\mu=GM$。令
+\[
+ \vct e=\frac{\vct v\times\vct h}{\mu}-\vct e_r,
+ \qquad \vct B=m\mu\vct e.
+\]
+后者为本讲采用的LRL矢量。角动量非零时运动位于固定平面，取$\vct h=h\vct e_z$。因$\vct e_r\times\vct h=-h\vct e_\theta$，在反平方引力下
+\[
+ \frac{\dd\vct e}{\dd t}
+ =-\frac{\vct e_r\times\vct h}{r^2}
+ -\dot\theta\vct e_\theta
+ =\left(\frac h{r^2}-\dot\theta\right)\vct e_\theta=0.
+\]
+与$\vct e_r$点乘，$\vct e\cdot\vct e_r=h^2/(\mu r)-1$；取$\vct e$方向为真近点角零点，便得到$r=(h^2/\mu)/(1+e\cos\theta)$。偏心率矢量的模确定形状，方向确定近心位置。圆轨道$\vct e=0$，近心方向没有唯一含义。
+
+若再叠加小的径向加速度$\delta f(r)\vct e_r$，$\vct h$仍守恒，而
+\[
+ \dot{\vct e}=-\frac{h\,\delta f(r)}{\mu}\vct e_\theta.
+\]
+例\ref{ex:hw8-5}的均匀密度背景产生$\delta f=-\nu^2r$，其中$\nu^2=4\pi G\rho/3$。先沿未扰动的微偏心椭圆求一周期积累，使用$\dd t=r^2\dd\theta/h$：
+\[
+ \Delta\vct e=\frac{\nu^2}{\mu}\int_0^{2\pi}r^3\vct e_\theta\dd\theta.
+\]
+取近心方向为 $x$ 正向，$r=a(1-e\cos\theta)+O(e^2)$，故 $r^3=a^3(1-3e\cos\theta)+O(e^2)$；又 $\vct e_\theta=(-\sin\theta,\cos\theta)$。分别计算两个分量所需的积分，
+\[
+\begin{aligned}
+\int_0^{2\pi}(-\sin\theta+3e\sin\theta\cos\theta)\dd\theta
+&=[\cos\theta-\tfrac32e\cos^2\theta]_0^{2\pi}=0,\\
+\int_0^{2\pi}(\cos\theta-3e\cos^2\theta)\dd\theta
+&=\left[\sin\theta-3e\left(\frac\theta2+\frac{\sin2\theta}4\right)\right]_0^{2\pi}
+=-3\pi e.
+\end{aligned}
+\]
+乘回 $\nu^2a^3/\mu$，再以 $\Delta e_y/e$ 取一阶方向变化，得到
+\[
+ \Delta\vct e=-\frac{3\pi\nu^2a^3}{\mu}e\vct e_y+O(e^2),
+ \quad \Delta\varpi=-\frac{3\pi\nu^2a^3}{\mu}.
+\]
+以$n=\sqrt{\mu/a^3}$记未扰动平均角速度，进动角速度为$-3\nu^2/(2n)$，负号表示逆行进动。例题用径向频率与角向频率之差求解，在密度扰动和偏心率所保留的阶数内，两种推导给出相同结果。以上积累只保留密度扰动的一阶；不能把一周期近似在长时间内重复使用而忽略轨道要素的缓慢变化。
+
+\subsubsection{中心势中的近圆频率}
+一般中心加速度$f(r)$下，圆轨道满足$h^2=-r_0^3f(r_0)$。沿用前文固定$h$的径向线性化，将式\eqref{sup8:eq:d8-stability}中的$\Phi'=-f$、$\Phi''=-f'$代入，并令$r=r_0+\xi$，得到
+\[
+ \ddot\xi+\kappa_r^2\xi=0,\qquad
+ \kappa_r^2=-f'(r_0)-\frac{3f(r_0)}{r_0},\qquad
+ \Omega^2=-\frac{f(r_0)}{r_0}.
+\]
+径向往返一周对应角位移$2\pi\Omega/\kappa_r$。若两频率之比有理，线性近圆近似中轨迹闭合；一般有限偏心率轨道是否闭合，还须检验完整轨道方程。二阶径向回复消失时，应回到有效势的高阶项，不能只凭$\kappa_r=0$断言稳定。
+
+
+
+\LectureNeedspace{4\baselineskip}
+
+
+\subsection{例题与模型变式}
+
+\begin{example}[均匀暗物质导致的近圆轨道进动]\label{ex:hw8-5}
+
+在质量$M$的中心天体附近有均匀密度$\rho$的球对称暗物质分布。某小天体的参考圆轨道半径为$r_0$，$\rho r_0^3\ll M$。对圆轨道施加无穷小偏心扰动，求近心方向的进动周期及方向。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](0,0)circle(2);\draw[guide](0,0)circle(1.5);\draw[curve,domain=0:346.153846,samples=240]plot({1.5*(1-.12*cos(1.04*\x))*cos(\x)},{1.5*(1-.12*cos(1.04*\x))*sin(\x)});\draw[thin,domain=346.153846:692.307692,samples=240]plot({1.5*(1-.12*cos(1.04*\x))*cos(\x)},{1.5*(1-.12*cos(1.04*\x))*sin(\x)});\fill(0,0)circle(2pt)node[below]{$M$};\node at(3,1){$\rho r_0^3\ll M$};
+\end{tikzpicture}
+\caption{均匀背景引力中的近圆轨道}\label{fig:hw8-5-q}
+\end{figure}
+
+\begin{solution}
+半径$r$内暗物质质量为$4\pi\rho r^3/3$，中心加速度为$f(r)=-\mu/r^2-\nu^2r$，其中$\mu=GM$、$\nu^2=4\pi G\rho/3$。圆轨道角频率满足
+\[
+ \Omega^2=\frac{\mu}{r_0^3}+\nu^2.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\fill[gray!10](0,0)circle(2);\draw[guide](0,0)circle(1.5);\draw[curve,domain=0:346.153846,samples=240]plot({1.5*(1-.12*cos(1.04*\x))*cos(\x)},{1.5*(1-.12*cos(1.04*\x))*sin(\x)});\draw[thin,domain=346.153846:692.307692,samples=240]plot({1.5*(1-.12*cos(1.04*\x))*cos(\x)},{1.5*(1-.12*cos(1.04*\x))*sin(\x)});\fill(0,0)circle(2pt)node[below]{$M$};\node at(3,1){$\rho r_0^3\ll M$};\draw[axis](0,0)--(1.32,0);\draw[axis](0,0)--(1.28165,-.3159);\node[right]at(1.65,.15){原近心};\node[right]at(1.65,-.5){后继近心};\node at(0,-2.5){$\kappa>\Omega$};
+\draw[axis](.8,0)arc(0:-13.84615:.8);\draw[axis](-1.59748,-.58143)arc(200:230:1.7);\node at(-1.25,-1.7){公转正向};
+\end{tikzpicture}
+\caption{连续两次近心方向沿公转反向偏移}\label{fig:hw8-5-s}
+\end{figure}
+
+图\ref{fig:hw8-5-s}的微小径向偏离以频率 $\kappa$ 振动。求导时须保持比角动量 $h$ 不变，而不是在扰动过程中始终令角速度等于圆轨道角速度。有效势和参考圆轨道条件为
+\[
+ V_{\rm eff}=\frac{h^2}{2r^2}-\frac\mu r+\frac{\nu^2r^2}{2},\qquad
+ h^2=\mu r_0+\nu^2r_0^4.
+\]
+先按幂函数逐项求导，再代入圆轨道对应的 $h$：
+\[
+V_{\rm eff}'=-\frac{h^2}{r^3}+\frac\mu{r^2}+\nu^2r,\qquad
+V_{\rm eff}''=\frac{3h^2}{r^4}-\frac{2\mu}{r^3}+\nu^2.
+\]
+令 $r=r_0+\xi$，径向方程 $\ddot r=-V_{\rm eff}'(r)$ 在平衡点附近化为 $\ddot\xi+V_{\rm eff}''(r_0)\xi=0$，所以
+\[
+\kappa^2=\frac{3(\mu r_0+\nu^2r_0^4)}{r_0^4}-\frac{2\mu}{r_0^3}+\nu^2
+=\frac\mu{r_0^3}+4\nu^2.
+\]
+
+每次从一个近心点到下一个，转过角 $2\pi\Omega/\kappa<2\pi$，因此进动逆于公转方向。令 $n=\sqrt{\mu/r_0^3}$、$\delta=\nu^2/n^2\ll1$，用 $(1+s)^{1/2}=1+s/2+O(s^2)$ 分别展开：
+\[
+\Omega=n\sqrt{1+\delta}=n(1+\delta/2+O(\delta^2)),\qquad
+\kappa=n\sqrt{1+4\delta}=n(1+2\delta+O(\delta^2)).
+\]
+两式相减，给出
+\[
+ \Omega_{\text{进}}=\Omega-\kappa\simeq-\frac{3\nu^2}{2n}
+ =-\frac{2\pi G\rho}{n},\quad
+ \boxed{T_{\text{进}}\simeq\frac{n}{G\rho}}.
+\]
+严格圆轨道没有唯一近心方向，故这里取无穷小偏心轨道的极限。偏心率有限时，应另作摄动平均；$r_0$处的线性频率只描述近圆运动。
+
+
+进动角也可按一个径向周期计算。利用上面两个展开，作比值时再用 $(1+2\delta)^{-1}=1-2\delta+O(\delta^2)$，有
+\[
+ \frac\Omega\kappa=\sqrt{\frac{1+\delta}{1+4\delta}}
+ =1-\frac32\delta+O(\delta^2),
+ \qquad
+ \Delta\varpi=2\pi\left(\frac\Omega\kappa-1\right)
+ \simeq-\frac{4\pi^2\rho r_0^3}{M}.
+\]
+图\ref{fig:hw8-5-s}中后继近心方向落在原近心方向的公转反侧，与负号相符。用径向周期$2\pi/\kappa$除以每次进动角的绝对值、再乘$2\pi$，得到$T_{\text{进}}=2\pi/|\Omega-\kappa|$，从而还原$n/(G\rho)$。这里周期指近心线在惯性空间转过整周所需时间。
+
+\end{solution}
+
+
+
+\begin{example}[带逆平方势修正的进动轨道（选做）]\label{sup8:problem-example-10}\label{sup8:ex:d8-e10}
+某平面中心势的单位质量势能为
+\[
+ \Phi(r)=-\frac\mu r+\frac{\beta}{2r^2},\qquad \mu>0.
+\]
+其中 $\beta$ 为可正可负的常数。对给定的非零 $h$，求非圆轨道方程、圆轨道存在条件及近圆轨道的近心点进动量。讨论 $h^2+\beta\le0$ 时为何不能沿用稳定圆轨道结论。
+\end{example}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1.6cm,y=1.3cm]
+ \draw[axis] (0,0)--(4.6,0) node[right] {$r$};\draw[axis] (0,-1.1)--(0,1.5) node[above] {$\Phi_{\rm eff}$};
+ \draw[curve,domain=.3:4.2,samples=140] plot (\x,{.4/(\x*\x)-1/\x});
+ \draw[guide] (.8,0)--(.8,-.625);\fill (.8,-.625) circle (1pt) node[below] {$r_c$};
+ \node[align=left] at (2.9,1) {$\Phi_{\rm eff}=\dfrac{h^2+\beta}{2r^2}-\dfrac\mu r$\\图示 $h^2+\beta>0$};
+\end{tikzpicture}
+\caption{修正项与横向动能共同决定小半径处的有效势屏障。}\label{sup8:fig:d8-e10-q}
+\end{figure}
+\begin{solution}
+实际单位质量力由势能求导：$-\Phi'(r)=-[\mu r^{-2}-\beta r^{-3}]=-\mu/r^2+\beta/r^3$。代入 Binet 方程，
+\[
+ u''+\left(1+\frac\beta{h^2}\right)u=\frac\mu{h^2}.
+\]
+设 $h^2+\beta>0$，令 $s=\sqrt{1+\beta/h^2}$。取常数特解 $u_p=\mu/(h^2s^2)=\mu/(h^2+\beta)$；齐次方程的特征根为 $\pm is$，所以 $u=u_p+C\cos s\varphi+D\sin s\varphi$。把两个三角项合成 $u_pe_*\cos[s(\varphi-\varphi_p)]$，其中 $e_*=\sqrt{C^2+D^2}/u_p$，再取倒数，得到
+\begin{equation}
+ r=\frac{p_*}{1+e_*\cos[s(\varphi-\varphi_p)]},\qquad
+ p_*=\frac{h^2+\beta}{\mu}.
+\end{equation}
+$e_*$ 是本题解的振幅参数，一般不能解释为某条固定圆锥曲线的几何偏心率。对 $0<e_*<1$，半径有界且为正；相邻两个近心点满足相位差 $2\pi$，所以
+\[
+ \Delta\varphi_{p\to p}=\frac{2\pi}s,\qquad
+ \boxed{\delta\varphi=2\pi\left(\frac1s-1\right)}.
+\]
+进动量是相邻两次经过近心点之间的累计转角减去 $2\pi$，方位角按运动过程连续计数。$\beta>0$ 时进动为负，表现为退行；$-h^2<\beta<0$ 时为正，表现为顺行。若 $|\beta|\ll h^2$，将 $1/s=(1+\beta/h^2)^{-1/2}=1-\beta/(2h^2)+O(\beta^2/h^4)$ 代入，有
+\[
+ \delta\varphi\simeq-\frac{\pi\beta}{h^2}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.6]
+ \draw[curve,domain=0:800,samples=550,variable=\s] plot ({cos(\s)/(1+.3*cos(.9*\s))},{sin(\s)/(1+.3*cos(.9*\s))});
+ \fill (0,0) circle (1.1pt) node[below] {$O$};
+ \draw[guide] (0,0)--(1.6,0) node[right] {$P_{p,0}$方向};
+ \draw[guide] (0,0)--({1.6*cos(40)},{1.6*sin(40)}) node[above right] {$P_{p,1}$方向};
+ \fill (.7692,0) circle (1.2pt);\fill ({.7692*cos(40)},{.7692*sin(40)}) circle (1.2pt);
+ \draw (.5,0) arc (0:40:.5) node[midway,right] {$\delta\varphi$};
+ \node[align=center] at (0,-1.95) {$s=0.9$，相邻近心点相隔 $400^\circ$\\扣除一周后顺行 $40^\circ$};
+\end{tikzpicture}
+\caption{有进动的轨道不再是一条固定椭圆。图示 $e_*=0.3,\beta/h^2=-0.19$，绘制两个径向周期。}\label{sup8:fig:d8-e10-s}
+\end{figure}
+图\ref{sup8:fig:d8-e10-s} 的两个近心点方向相差 $40^\circ$，对应完整转角 $400^\circ$。圆轨道由图\ref{sup8:fig:d8-e10-q} 中的有效势极小点确定：
+\[
+ r_c=\frac{h^2+\beta}{\mu}>0.
+\]
+具体地，$\Phi_{\rm eff}=(h^2+\beta)/(2r^2)-\mu/r$，逐次求导得
+\[
+\Phi_{\rm eff}'=-\frac{h^2+\beta}{r^3}+\frac\mu{r^2},\qquad
+\Phi_{\rm eff}''=\frac{3(h^2+\beta)}{r^4}-\frac{2\mu}{r^3}.
+\]
+由 $\Phi_{\rm eff}'(r_c)=0$ 得 $h^2+\beta=\mu r_c$，代入二阶导数，$3\mu/r_c^3-2\mu/r_c^3=\mu/r_c^3$，所以在此处
+\[
+ \omega_r^2=\Phi_{\rm eff}''(r_c)=\frac\mu{r_c^3}>0,
+ \qquad \omega_\varphi=\frac{|h|}{r_c^2},\qquad
+ \frac{\omega_r}{\omega_\varphi}=s.
+\]
+近圆频率法给出相同的拱点角。此势的 Binet 方程为线性，所以上述拱点角实际上也适用于所有 $0<e_*<1$ 的有界非圆轨道。
+
+其余两种情形须分别求解。取 $\theta=\varphi-\varphi_0$，其中 $\varphi_0$ 是任选的参考方向。当 $h^2+\beta=0$ 时，$u''=\mu/h^2$，先积分得 $u'=C_2+(\mu/h^2)\theta$，再积分为
+\[
+ u''=\frac\mu{h^2},\qquad
+ \boxed{u=C_1+C_2\theta+\frac\mu{2h^2}\theta^2}.
+\]
+当 $h^2+\beta<0$ 时，令 $\sigma=\sqrt{-(1+\beta/h^2)}>0$。方程为 $u''-\sigma^2u=\mu/h^2$，取常数特解 $u_p=-\mu/(h^2\sigma^2)$，齐次根为 $\pm\sigma$，故
+\[
+ u''-\sigma^2u=\frac\mu{h^2},\qquad
+ \boxed{u=C_1\cosh(\sigma\theta)+C_2\sinh(\sigma\theta)
+       -\frac\mu{h^2\sigma^2}}.
+\]
+设 $u(0)=u_0$、$u'(0)=u_0'$。临界解有 $C_1=u_0,C_2=u_0'$；双曲函数解则由 $u_0=C_1-\mu/(h^2\sigma^2)$、$u_0'=\sigma C_2$ 确定 $C_1=u_0+\mu/(h^2\sigma^2),C_2=u_0'/\sigma$。只取 $u>0$ 的区间，再用 $r=1/u$ 还原轨道。临界情形的有效势为 $\Phi_{\rm eff}=-\mu/r$；负值情形的有效势在 $r\to0$ 时趋于负无穷。它们在 $r>0$ 上均单调增加，因此不存在圆轨道。向内运动可以落到中心，角动量不再形成落心屏障。若力心有实体表面，则在首次接触处终止运动。
+\end{solution}
+
+
+
+\begin{example}[潮汐势与潮汐力]\label{ex:hw8-7}
+
+质量$M$的远方天体距行星中心$O$为$d$。取随$O$自由落体平移、坐标轴不旋转的参考系，以$OM$为极轴。求距$O$为$\varrho\ll d$、极角$\theta$处质量$\delta m$质元的潮汐势及潮汐力。只考虑远方天体造成的差异引力。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.2);\fill(0,0)circle(2pt)node[below]{$O$};\fill(5,0)circle(3pt)node[right]{$M$};\coordinate(P)at(.7,.75);\fill(P)circle(2pt)node[above]{$P$};\draw[guide](0,0)--(5,0);\draw(0,0)--(P)node[midway,left]{$\varrho$};\node at(2.7,-.4){$d$};\node at(.5,.18){$\theta$};
+\draw[axis](0,0)--(0,1.6)node[above]{$y$};\node[above]at(2.2,0){$x$};
+\end{tikzpicture}
+\caption{远方天体与行星内部质元的位置}\label{fig:hw8-7-q}
+\end{figure}
+
+\begin{solution}
+图\ref{fig:hw8-7-s}中$P$到远方天体的距离为$\sqrt{d^2+\varrho^2-2d\varrho\cos\theta}$。参考系平移加速度为$GM/d^2$，相应惯性势抵消引力势的一阶项。取中心潮汐势为零，精确表达式为
+\[
+ U_t=GM\delta m\left[\frac1d+\frac{\varrho\cos\theta}{d^2}
+ -\frac1{\sqrt{d^2+\varrho^2-2d\varrho\cos\theta}}\right].
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw(0,0)circle(1.2);\fill(0,0)circle(2pt)node[below]{$O$};\fill(5,0)circle(3pt)node[right]{$M$};\coordinate(P)at(.7,.75);\fill(P)circle(2pt)node[above]{$P$};\draw[guide](0,0)--(5,0);\draw(0,0)--(P)node[midway,left]{$\varrho$};\node at(2.7,-.4){$d$};\node at(.5,.18){$\theta$};\draw[axis](.7,.75)--(1.5,.75)node[above]{$2Cx$};\draw[axis](.7,.75)--(.7,.2)node[right]{$-Cy$};\node at(3,1.5){$C=GM\delta m/d^3$};
+\draw[axis](0,0)--(0,1.6)node[above]{$y$};\node[above]at(2.2,0){$x$};
+\end{tikzpicture}
+\caption{潮汐作用沿极轴拉伸、沿横向压缩}\label{fig:hw8-7-s}
+\end{figure}
+
+令 $s=\varrho/d$，距离倒数为 $d^{-1}(1-2s\cos\theta+s^2)^{-1/2}$。取 $z=-2s\cos\theta+s^2$，用二项式展开 $(1+z)^{-1/2}=1-z/2+3z^2/8+O(z^3)$。保留至 $s^2$ 阶，$-z/2=s\cos\theta-s^2/2$、$3z^2/8=(3/2)s^2\cos^2\theta+O(s^3)$，相加得
+\[
+ \frac1{|\vct d-\vct r|}=\frac1d
+ \left[1+s\cos\theta+\frac{s^2}{2}(3\cos^2\theta-1)\right]+O(s^3/d).
+\]
+中心值由所选势能零点消去，一次项由随行星中心自由落体的惯性势消去，留下的二次项才描述差异引力。
+
+展开到$\varrho^2$阶，得
+\[
+ \boxed{U_t=-\frac{GM\delta m}{2d^3}\varrho^2(3\cos^2\theta-1)}.
+\]
+记 $C=GM\delta m/d^3$。按极坐标取梯度时，径向是 $F_\varrho=-\partial U_t/\partial\varrho$，角向是 $F_\theta=-(1/\varrho)\partial U_t/\partial\theta$。分别求导：
+\[
+\frac{\partial U_t}{\partial\varrho}=-C\varrho(3\cos^2\theta-1),\qquad
+\frac{\partial U_t}{\partial\theta}
+=-\frac C2\varrho^2\cdot3\cdot2\cos\theta(-\sin\theta)
+=3C\varrho^2\sin\theta\cos\theta.
+\]
+代入两个分量的定义，得到
+\[
+ \boxed{F_\varrho=\frac{GM\delta m}{d^3}\varrho(3\cos^2\theta-1),\quad
+ F_\theta=-\frac{3GM\delta m}{d^3}\varrho\sin\theta\cos\theta}.
+\]
+沿$OM$方向的直角坐标为$x$时，同一结果为$\vct F_t=(GM\delta m/d^3)(2x,-y,-z)$：轴向拉伸，横向压缩。这里坐标轴不旋转，没有另加绕$O$的离心势；若换用随公转转动的坐标系，应连同离心、科里奥利项一起改变模型。
+
+
+\end{solution}
+
+
+
+\begin{example}[潮汐耗散与双星的稳定阈值]\label{ex:hw8-8}
+
+孤立双星质量分别为$M,m$，其中$m$视为质点，$M$绕自身对称轴的惯量为$I$。两星绕质心作圆周公转，轨道角动量为$\ell$；$M$的自转轴与公转轴同向。总角动量$L$守恒，潮汐耗散使机械能下降，并假定演化中轨道始终近圆。求体系存在稳定同步状态所需的临界总角动量$L_0$。
+
+\end{example}
+
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.9,>=Stealth,line cap=round,line join=round]
+\fill(-1.5,0)circle(3pt)node[above]{$M,I$};\fill(2,0)circle(2pt)node[above]{$m$};\fill(0,0)circle(1pt)node[below]{$C$};\draw[guide](-1.5,0)--(2,0);\draw[<->](-1.5,-.6)--(2,-.6)node[midway,below]{$r$};\draw[axis](-1.8,.5)arc(160:-100:.4)node[below left]{$\Omega_s$};
+\end{tikzpicture}
+\caption{双星公转与其中一天体的自转}\label{fig:hw8-8-q}
+\end{figure}
+
+\begin{solution}
+令约化质量$\mu_r=Mm/(M+m)$、$K=GMm$。图\ref{fig:hw8-8-s}中圆轨道有$\ell^2=\mu_rKr$，公转能量为$-K/(2r)$；自转角动量为$L-\ell$。因此在固定$L$下
+\[
+ E(\ell)=\frac{(L-\ell)^2}{2I}-\frac{A}{2\ell^2},\qquad A=\mu_rK^2.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[shift={(0,1)}]
+\fill(-1.5,0)circle(3pt)node[above]{$M,I$};\fill(1.8,0)circle(2pt)node[above]{$m$};\fill(0,0)circle(1pt)node[below]{$C$};
+\draw[guide](-1.5,0)--(1.8,0);\draw[<->](-1.5,-.65)--(1.8,-.65)node[midway,below]{$r$};
+\draw[axis](-1.8,.5)arc(160:-100:.4)node[below left]{$\Omega_s$};\end{scope}
+\begin{scope}[shift={(4.3,0)},x=1.2cm,y=1.2cm]
+\draw[axis](0,0)--(3,0)node[right]{$\ell$};\draw[axis](0,0)--(0,2.6)node[above]{$L(\ell)$};
+\draw[curve,domain=.55:2.8,samples=100]plot(\x,{\x+1/(3*\x^3)});
+\draw[guide](0,1.333333)--(2.8,1.333333);\node[left]at(0,1.333333){$L_0$};
+\draw[thin](0,1.7)--(2.8,1.7);\node[left]at(0,1.7){$L$};
+\fill(1,1.333333)circle(1.2pt);\draw[guide](1,0)--(1,1.333333);\node[below]at(1,0){$\ell_c$};
+\fill(0.691380504,1.7)circle(1pt);\fill(1.621867308,1.7)circle(1pt);
+\node[above left]at(0.691380504,1.7){内支};\node[above right]at(1.621867308,1.7){稳定外支};
+\node at(1.6,-.65){$L(\ell)=\ell+IA/\ell^3$};\end{scope}
+\end{tikzpicture}
+\caption{总角动量超过最低值时，同步解分为不稳定内支与稳定外支}\label{fig:hw8-8-s}
+\end{figure}
+
+\LectureNeedspace{8\baselineskip}
+驻值满足$E'=(\ell-L)/I+A/\ell^3=0$，即
+\[
+ L=\ell+\frac{IA}{\ell^3}.
+\]
+记右端为 $f(\ell)=\ell+IA\ell^{-3}$，求导得 $f'=1-3IA\ell^{-4}$、$f''=12IA\ell^{-5}>0$。由 $f'=0$ 得 $\ell_c=(3IA)^{1/4}$；又 $f$ 在 $\ell\downarrow0$ 和 $\ell\to\infty$ 时均趋于无穷，因此这是全局最小点。用 $IA/\ell_c^3=\ell_c/3$，最小值为 $L_0=4\ell_c/3$，即
+\[
+ \boxed{L_0=\frac43(3I\mu_rG^2M^2m^2)^{1/4}}.
+\]
+若$L>L_0$，有两个驻值。$E''=1/I-3A/\ell^4$说明$\ell>\ell_c$的一支是稳定局部极小，内侧一支是极大。$L=L_0$时两驻值合并，二阶回复消失，不是稳定极小；$L<L_0$则没有同步驻值。
+
+在临界点$E'=E''=0$，而$\dd^3E/\dd\ell^3=12A/\ell_c^5>0$，能量的局部主导项是三次项，故该合并点不是局部极小。所以稳定同步状态要求严格的$L>L_0$。图\ref{fig:hw8-8-s}将两支及合并阈值标出。
+
+稳定支满足同步条件。由 $\ell^2=\mu_rKr$，有
+\[
+\frac{L-\ell}{I}=\frac{A}{\ell^3}
+=\frac{\mu_rK^2}{(\mu_rKr)^{3/2}}
+=\sqrt{\frac{K}{\mu_rr^3}}=\sqrt{\frac{G(M+m)}{r^3}},
+\]
+恰为公转角速度。稳定支 $\ell^4>3IA$ 又给出 $IA/\ell^3<\ell/3$，所以 $L<4\ell/3$，即 $\ell>3L/4$。对应临界距离为 $r_c=\ell_c^2/(\mu_rK)=\sqrt{3I/\mu_r}$。实体天体还须满足不相交的几何条件；超过总角动量阈值只保证动力学平衡存在。
+
+
+\end{solution}
+
+
+
+\section{习题与解答}
+
+\begin{exercise}[在半长轴以内停留多久]\label{sup8:problem-exercise-2}\label{sup8:ex:d8-h2}
+在引力参数为 $\mu$ 的场中，质点沿半长轴为 $a$、偏心率为 $e=3/5$ 的椭圆运动。求从近心点向外飞到 $r=a$ 所需的时间，并求一周期中位于 $r<a$ 区域内的时间占比。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.9]
+ \draw[curve] (-1.8,0) ellipse (3 and 2.4);\draw[guide] (0,0) circle (3);
+ \fill (0,0) circle (1.6pt) node[below right] {$O$};\fill (1.2,0) circle (1.5pt) node[right] {$P_p$};
+ \fill (-1.8,2.4) circle (1.5pt) node[above] {$P_+$};\fill (-1.8,-2.4) circle (1.5pt) node[below] {$P_-$};
+ \draw (0,0)--(-1.8,2.4) node[midway,right] {$a$};
+ \node at (2.8,-2.8) {虚线：$r=a$};
+\end{tikzpicture}
+\caption{圆 $r=a$ 与椭圆交于 $P_+,P_-$，近心点位于圆内。}\label{sup8:fig:d8-h2-q}
+\end{figure}
+\begin{solution}
+以近心点为 $t=0$，令 $n=\sqrt{\mu/a^3}$。面积定律对应的时间积分为
+\[
+t(\mathcal E)=\frac1n\int_0^{\mathcal E}(1-e\cos s)\,\dd s
+=\frac1n[s-e\sin s]_0^{\mathcal E}
+=\frac{\mathcal E-e\sin\mathcal E}{n}.
+\]
+图\ref{sup8:fig:d8-h2-q} 的 $P_+$ 在向外分支，$r=a(1-e\cos\mathcal E)=a$ 给出 $\mathcal E=\pi/2$，故
+\[
+ t_+=\frac1n\left(\frac\pi2-\frac35\right).
+\]
+向内分支的 $P_-$ 对应 $\mathcal E=3\pi/2$，相应时刻为
+\[
+ t_-=\frac1n\left(\frac{3\pi}2+\frac35\right).
+\]
+一周期中，$r<a$ 的时间区间为 $[0,t_+)$ 与 $(t_-,T]$，不是 $P_+$ 到 $P_-$ 的长弧。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1.05cm]
+ \draw[axis] (0,0)--(6.8,0) node[right] {$\mathcal E$};
+ \draw[line width=3pt] (0,0)--(1.5708,0);\draw[line width=3pt] (4.7124,0)--(6.2832,0);
+ \foreach \x/\lab in {0/0,1.5708/{\pi/2},3.1416/\pi,4.7124/{3\pi/2},6.2832/{2\pi}} {\draw (\x,.12)--(\x,-.12) node[below=5pt] {$\lab$};}
+ \node at (.78,.55) {$r<a$};\node at (3.14,.55) {$r>a$};\node at (5.5,.55) {$r<a$};
+ \node[align=center] at (3.14,-1.25) {$\dd t=\dfrac{1-e\cos\mathcal E}{n}\dd\mathcal E$\\偏近点角等间隔不对应等时间};
+\end{tikzpicture}
+\caption{以偏近点角标记圆内、圆外的区间，时间需按 $1-e\cos\mathcal E$ 加权。}\label{sup8:fig:d8-h2-s}
+\end{figure}
+由图\ref{sup8:fig:d8-h2-s}，两个圆内区间关于近心点对称，总时间为 $2t_+$。因此
+\[
+ \boxed{\frac{\Delta t_{r<a}}T=\frac{2t_+}{2\pi/n}
+ =\frac12-\frac e\pi=\frac12-\frac3{5\pi}\simeq0.3090}.
+\]
+这两个区间合占偏近点角的一半，却用去不足半个周期。在圆内 $1-e\cos\mathcal E<1$，同样的偏近点角增量对应较短时间；面积速度始终为常量 $h/2$。区间端点是否包含，不影响这一时间占比。
+\end{solution}
+
+
+\begin{exercise}[抛物线的一段飞行时间]\label{sup8:problem-exercise-9}\label{sup8:ex:d8-h9}
+引力抛物线的近心距离为 $q$，引力参数为 $\mu$。求质点从近心点飞到 $r=2q$ 的时间及该处速度分量；再求它从向内运动的 $r=2q$ 处，经近心点到向外运动的 $r=2q$ 处的总时间。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.2]
+ \draw[curve,domain=-110:110,samples=130,variable=\s] plot ({2*cos(\s)/(1+cos(\s))},{2*sin(\s)/(1+cos(\s))});
+ \fill (0,0) circle (1.4pt) node[below right] {$O$};\fill (1,0) circle (1.4pt) node[right] {$P_p$};
+ \fill (0,2) circle (1.4pt) node[right] {$P_+$};\fill (0,-2) circle (1.4pt) node[right] {$P_-$};
+ \draw[guide] (0,-2)--(0,2);\draw[<->,>=Stealth] (0,-.5)--(1,-.5) node[midway,below] {$q$};
+ \draw[axis] plot[domain=45:75,samples=20] ({2*cos(\x)/(1+cos(\x))},{2*sin(\x)/(1+cos(\x))});
+\end{tikzpicture}
+\caption{抛物线 $r=2q/(1+\cos f)$，$P_-,P_+$ 分别对应 $f=-\pi/2,\pi/2$。}\label{sup8:fig:d8-h9-q}
+\end{figure}
+\begin{solution}
+抛物线 $e=1$，故 $p=2q,h=\sqrt{2\mu q}$。图\ref{sup8:fig:d8-h9-q} 中 $r=2q$ 给出 $\cos f=0$，向外分支取 $f=\pi/2$。
+
+由面积定律 $\dd t=r^2\dd f/h$。为完成积分，令 $D=\tan(f/2)$，其导数为 $\dd D/\dd f=\tfrac12\sec^2(f/2)=\tfrac12(1+D^2)$；再用 $1+\cos f=2/(1+D^2)$，则
+\[
+ r=q(1+D^2),\qquad \dd f=\frac{2\dd D}{1+D^2}.
+\]
+以经过近心点的时刻为零，
+\[
+ t=\frac{2q^2}h\int_0^D(1+s^2)\dd s
+ =\frac{2q^2}h\left[s+\frac{s^3}3\right]_0^D
+ =\sqrt{\frac{2q^3}\mu}\left(D+\frac{D^3}3\right).
+\]
+在 $P_+$ 处 $D=1$，所以
+\[
+ \boxed{t_{p\to+}=\frac43\sqrt{\frac{2q^3}\mu}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \begin{scope}[xshift=-2.5cm]
+  \draw[axis] (-.3,0)--(2,0) node[right] {$D$};\draw[axis] (0,-.2)--(0,2) node[above] {$t/\sqrt{2q^3/\mu}$};
+  \draw[curve,domain=0:1.1,samples=60] plot (\x,{\x+\x*\x*\x/3});
+  \draw[guide] (1,0)--(1,1.333)--(0,1.333);\node[below] at (1,0) {$1$};\node[left] at (0,1.333) {$4/3$};
+ \end{scope}
+ \begin{scope}[xshift=2.9cm]
+  \fill (0,0) circle (1.5pt) node[below right] {$P_+$};
+  \draw[axis] (0,0)--(0,1.2) node[above] {$v_r$};\draw[axis] (0,0)--(-1.2,0) node[left] {$v_\varphi$};
+  \draw[axis,line width=.8pt] (0,0)--(-1.2,1.2) node[above left] {$\vct v$};
+  \draw[guide] (-1.2,0)--(-1.2,1.2)--(0,1.2);
+ \end{scope}
+\end{tikzpicture}
+\caption{左图为抛物飞行时间；右图在 $P_+$ 分解速度，两个分量大小相等。}\label{sup8:fig:d8-h9-s}
+\end{figure}
+在 $P_+$，由径向、横向速度公式，
+\[
+ v_r=\frac\mu h=\sqrt{\frac\mu{2q}},\qquad
+ v_\varphi=\frac h{2q}=\sqrt{\frac\mu{2q}}.
+\]
+图\ref{sup8:fig:d8-h9-s} 中向上和向左两个分量合成的速率为 $\sqrt{\mu/q}$，也等于零能量式 $v^2=2\mu/r$ 在 $r=2q$ 处的结果。
+
+$t(D)$ 是奇函数，$P_-$ 对应 $D=-1$。从 $P_-$ 经近心点到 $P_+$ 的总时间为
+\[
+ \boxed{t_{-\to+}=\frac83\sqrt{\frac{2q^3}\mu}}.
+\]
+抛物轨道没有有限周期，这段飞行时间却是有限的。椭圆周期在 $a\to\infty$ 时发散，有限轨道弧段的时间仍须由局部面积积分求出。
+\end{solution}
+
+
+\begin{exercise}[双星同时失去部分质量]\label{deep8:problem-exercise-4}\label{deep8:ex:d8-h4}
+两颗质量均为 $m$ 的质点恒星，间距为 $d$，原来绕质心作圆周运动。某瞬间，两星各自以球对称方式失去相同质量比例，剩余质量均为 $\eta m$，$0<\eta<1$。假定抛出物迅速离开，此后不再施加引力，失质量过程无反冲，剩余恒星的瞬时位置、速度连续。求新相对轨道；确定双星仍束缚的条件。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \fill (-1.6,0) circle (2pt);\fill (1.6,0) circle (2pt);
+ \node at (-2.7,-.75) {$m\to\eta m$};\node at (2.7,-.75) {$m\to\eta m$};
+ \fill (0,0) circle (1.3pt) node[below] {$C$};\draw[<->,>=Stealth] (-1.6,.6)--(1.6,.6) node[midway,above] {$d$};
+ \draw[axis] (-1.6,0)--(-1.6,-1.2) node[left] {$v$};\draw[axis] (1.6,0)--(1.6,1.2) node[right] {$v$};
+ \foreach \a in {35,145,215,325} {\draw[axis] (-1.6,0)--++(\a:.65);\draw[axis] (1.6,0)--++(\a:.65);}
+\end{tikzpicture}
+\caption{两星同时、对称失质量，粗略辐射箭头仅表示无净反冲的抛出过程。}\label{deep8:fig:d8-h4-q}
+\end{figure}
+\begin{solution}
+图\ref{deep8:fig:d8-h4-q} 中每星的原圆周半径为 $d/2$。由 $mv^2/(d/2)=Gm^2/d^2$，
+\[
+ v=\sqrt{\frac{Gm}{2d}},\qquad v_{\rm rel}=2v=\sqrt{\frac{2Gm}d}.
+\]
+失质量后，相对速度不变，但引力参数从 $\mu_0=2Gm$ 变为 $\mu_1=2G\eta m$。新守恒量为
+\[
+ h=dv_{\rm rel}=\sqrt{2Gmd},\qquad
+ \varepsilon_+=\frac{Gm}d-\frac{2G\eta m}d
+ =\frac{Gm}d(1-2\eta).
+\]
+这里守恒的是失质量之后的 $h,\varepsilon_+$。剩余系统的约化质量也改变，故不能把总角动量与单位约化质量角动量混作同一不变量。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=.85]
+ \draw[curve] (-1,0) ellipse (2 and 1.732);\draw[guide] (0,0) circle (1);
+ \fill (0,0) circle (1.6pt) node[below] {$O$};\fill (1,0) circle (1.5pt) node[right] {$P_0=P_p$};
+ \draw[axis] (1,0)--(1,1.2) node[right] {$v_{\rm rel}$};
+ \node[align=left,anchor=west] at (2.8,1.4) {$\eta>1/2$：椭圆\\$\eta=1/2$：抛物线\\$\eta<1/2$：双曲线};
+ \node at (-1,-2.2) {实线示例：$\eta=2/3$};
+\end{tikzpicture}
+\caption{失质量后引力减弱，相对运动从原圆上的点向外离开。虚线为原相对圆轨道。}\label{deep8:fig:d8-h4-s}
+\end{figure}
+由能量符号，双星仍束缚的条件是 $\eta>1/2$。在此范围内
+\[
+ a=\frac{\eta d}{2\eta-1},\qquad
+ e=\frac{1-\eta}{\eta},\qquad
+ r_p=d,\qquad r_a=\frac d{2\eta-1}.
+\]
+图\ref{deep8:fig:d8-h4-s} 中初始点为近心点，因为原相对圆周速率大于新引力参数对应的圆周速率。新周期为
+\[
+ T_1=2\pi\sqrt{\frac{a^3}{2G\eta m}},\qquad
+ \frac{T_1}{T_0}=\frac{\eta}{(2\eta-1)^{3/2}},
+ \quad T_0=2\pi\sqrt{\frac{d^3}{2Gm}}.
+\]
+当 $\eta=1/2$ 时 $e=1$，恰好抛物逃逸；当 $\eta<1/2$ 时 $e=(1-\eta)/\eta>1$，沿双曲线分离。三种情况下最近距离均为 $d$。这些结果依赖题设的瞬时失质量模型；若抛出物仍在附近或有反冲，需重新计算初态和引力场。
+\end{solution}
+
+
+\begin{exercise}[穿过均匀球体的直通隧道]\label{deep8:problem-exercise-5}\label{deep8:ex:d8-h5}
+质量为 $M$、半径为 $R$ 的均匀球体中有一条穿过球心的极细直隧道，隧道对引力场的影响忽略。质点从球外轴线上距球心 $r_0>R$ 处静止释放，无摩擦地穿过球体。求一次完整往返的周期，分别写出球外和球内所用的运动规律。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[curve,fill=black!6] (0,0) circle (1.5);\draw[line width=3pt,white] (-1.5,0)--(1.5,0);\draw[guide] (-3.8,0)--(4,0);
+ \fill (0,0) circle (1.3pt) node[below] {$O$};\fill (3.3,0) circle (1.6pt) node[above] {$P_0$};
+ \node[above] at (-1.5,0) {$-R$};\node[above] at (1.5,0) {$R$};
+ \draw[axis] (3.1,0)--(2.4,0);\draw[<->,>=Stealth] (0,-1.9)--(3.3,-1.9) node[midway,below] {$r_0$};
+\end{tikzpicture}
+\caption{质点沿固定直径运动，以带符号坐标 $x$ 区分球心两侧。}\label{deep8:fig:d8-h5-q}
+\end{figure}
+\begin{solution}
+令 $\mu=GM$。在图\ref{deep8:fig:d8-h5-q} 的右侧球外，$x>R$，单位质量力为 $-\mu/x^2$。从 $r_0$ 落到 $R$ 的时间和入球速率由例\ref{sup8:ex:d8-e4} 的径向积分给出：
+\[
+ t_{\rm out}=\sqrt{\frac{r_0^3}{2\mu}}(\eta_R+\sin\eta_R\cos\eta_R),
+ \quad\eta_R=\arccos\sqrt{\frac R{r_0}},
+\]
+\[
+ v_R=\sqrt{2\mu\left(\frac1R-\frac1{r_0}\right)}.
+\]
+球内半径 $|x|$ 的包围质量为 $M|x|^3/R^3$，球壳部分的合力为零，故在整个 $-R<x<R$ 区间
+\[
+ \ddot x=-\frac\mu{R^3}x=-\omega^2x,\qquad
+ \omega=\sqrt{\frac\mu{R^3}}.
+\]
+取刚进入右端表面的时刻为球内时间 $s=0$。方程特征根为 $\pm i\omega$，故通解 $x=C\cos\omega s+D\sin\omega s$，求导为 $\dot x=-C\omega\sin\omega s+D\omega\cos\omega s$。由 $x(0)=R$ 得 $C=R$，由 $\dot x(0)=-v_R$ 得 $D=-v_R/\omega$，于是
+\[
+ x(s)=R\cos\omega s-\frac{v_R}{\omega}\sin\omega s
+     =A\cos(\omega s+\delta),
+\]
+其中
+\[
+ A=\sqrt{R^2+\frac{v_R^2}{\omega^2}}
+ =R\sqrt{3-\frac{2R}{r_0}},\qquad
+ \delta=\arctan\frac{v_R}{\omega R}\in(0,\pi/2).
+\]
+其中 $A>R$ 是球内简谐解的形式振幅；质点一到球面就转入球外运动，这段简谐解的使用区间只到球面为止。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1.5cm,y=1.5cm]
+ \draw[axis] (-2.8,0)--(2.9,0) node[right] {$x/R$};\draw[axis] (0,-1.35)--(0,1.45) node[above] {$f/(\mu/R^2)$};
+ \draw[curve,domain=-2.5:-1,samples=60] plot (\x,{1/(\x*\x)});
+ \draw[curve] (-1,1)--(1,-1);
+ \draw[curve,domain=1:2.5,samples=60] plot (\x,{-1/(\x*\x)});
+ \draw[guide] (-1,0)--(-1,1);\draw[guide] (1,0)--(1,-1);
+ \node[below] at (-1,0) {$-1$};\node[above] at (1,0) {$1$};
+ \node at (-1.9,1.2) {球外};\node[above right] at (.25,.45) {球内线性力};\node at (1.9,-1.2) {球外};
+\end{tikzpicture}
+\caption{带符号的引力加速度在两个表面连续，球内与球外分别采用不同函数。}\label{deep8:fig:d8-h5-s}
+\end{figure}
+图\ref{deep8:fig:d8-h5-s} 说明球内不能延用反平方力。首次到达 $x=-R$ 时相位为 $\pi-\delta$，故穿越球体的时间
+\[
+ t_{\rm in}=\frac{\pi-2\delta}{\omega}
+ =\frac2\omega\arctan\frac{\omega R}{v_R}.
+\]
+由对称性，从 $+r_0$ 到 $-r_0$ 需 $2t_{\rm out}+t_{\rm in}$；再返回原位置与原速度，周期为
+\[
+ \boxed{T=4t_{\rm out}+2t_{\rm in}}.
+\]
+当 $r_0\downarrow R$ 时，$t_{\rm out}\to0,v_R\to0$，从而 $t_{\rm in}\to\pi/\omega$、$T\to2\pi/\omega$，与从表面静止释放的全程简谐运动一致。一般 $r_0>R$ 时，只有球内的一段是简谐运动，不能把 $2\pi/\omega$ 当作完整周期。
+\end{solution}
+
+
+\begin{exercise}[引力轨道的速度端点圆]\label{deep8:problem-exercise-8}\label{deep8:ex:d8-h8}
+在引力参数为 $\mu$ 的反平方引力场中，取近心点方向为 $+x$，运动方向为逆时针，$h>0$。求速度分量 $v_x,v_y$ 关于真近点角 $f$ 的表达式，证明速度矢量端点落在一个圆上。用此圆解释椭圆、抛物线和双曲线的区别，并求 $e=1/2$ 椭圆的最大、最小速率。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.2]
+ \draw[axis] (-1.2,0)--(2.5,0) node[right] {近心点方向 $x$};\draw[axis] (0,-.4)--(0,3.1) node[above] {$y$};
+ \coordinate (P) at (1,1.732);\draw[axis] (0,0)--(P) node[midway,right] {$r$};
+ \fill (0,0) circle (1.3pt) node[below left] {$O$};\fill (P) circle (1.3pt) node[right] {$P$};
+ \draw[axis] (P)--++(.4,.693) node[above] {$v_r$};\draw[axis] (P)--++(-1.039,.6) node[left] {$v_\varphi$};
+ \draw (.55,0) arc (0:60:.55) node[midway,right] {$f$};
+\end{tikzpicture}
+\caption{速度沿径向与横向分解，基矢 $\vct e_r,\vct e_\varphi$ 随 $f$ 转动。}\label{deep8:fig:d8-h8-q}
+\end{figure}
+\begin{solution}
+图\ref{deep8:fig:d8-h8-q} 中
+\[
+ \vct e_r=(\cos f,\sin f),\qquad
+ \vct e_\varphi=(-\sin f,\cos f).
+\]
+将式\eqref{sup8:eq:d8-velocities} 的两个分量组合为 $\vct v=v_r\vct e_r+v_\varphi\vct e_\varphi$，得
+\begin{align*}
+ v_x&=\frac\mu h[e\sin f\cos f-(1+e\cos f)\sin f]
+     =-\frac\mu h\sin f,\\
+ v_y&=\frac\mu h[e\sin^2f+(1+e\cos f)\cos f]
+     =\frac\mu h(e+\cos f).
+\end{align*}
+故速度端点满足
+\begin{equation}
+ \boxed{v_x^2+\left(v_y-\frac{\mu e}h\right)^2
+ =\left(\frac\mu h\right)^2}.
+\end{equation}
+圆心为 $C_v=(0,\mu e/h)$，半径为 $\mu/h$。这是速度空间中的圆，不是位置空间中的轨道。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.6]
+ \draw[axis] (-1.35,0)--(1.55,0) node[right] {$v_x/(\mu/h)$};\draw[axis] (0,-.8)--(0,1.9) node[above] {$v_y/(\mu/h)$};
+ \draw[curve] (0,.5) circle (1);\fill (0,.5) circle (1.1pt) node[right] {$C_v$};
+ \fill (0,0) circle (1.1pt) node[below left] {$O_v$};
+ \fill (0,1.5) circle (1.1pt) node[right] {$P_p^v$};\fill (0,-.5) circle (1.1pt) node[right] {$P_a^v$};
+ \draw[axis] (0,0)--(-.866,1) node[above left] {$\vct v(f=\pi/3)$};
+ \draw[guide] (0,.5)--(-.866,1) node[midway,above] {$1$};
+ \node at (0,-1.2) {图示 $e=1/2$};
+\end{tikzpicture}
+\caption{速度端点圆。速率是从速度原点 $O_v$ 到圆上端点的距离，而非圆半径。}\label{deep8:fig:d8-h8-s}
+\end{figure}
+图\ref{deep8:fig:d8-h8-s} 中 $e<1$，原点 $O_v$ 在圆内，质点在一周期中走完整圆。最大、最小速率分别为
+\[
+ v_{\max}=\frac\mu h(1+e),\qquad
+ v_{\min}=\frac\mu h(1-e).
+\]
+对 $e=1/2$，二者为 $3\mu/(2h)$ 与 $\mu/(2h)$，对应近心点与远心点。
+
+$e=1$ 时，速度圆经过原点。沿抛物线飞至无穷远，速度端点趋近原点，有限时刻则仍有非零速率。$e>1$ 时，原点在圆外，物理轨道只覆盖满足 $1+e\cos f>0$ 的圆弧；圆弧两端是入射、出射渐近速度，模均为 $v_\infty$。
+
+双曲线的速率只能在这段物理圆弧上取值。整圆上离原点最近的点不在该圆弧内；沿实际轨道，速率的下确界是无穷远的 $v_\infty$，有限位置的速率都更大。
+\end{solution}
+
+
+\begin{exercise}[反幂次中心力的圆轨道稳定性（选做）]\label{deep8:problem-exercise-10}\label{deep8:ex:d8-h10}
+质量为 $m$ 的质点受 $\vct F=-k\vct e_r/r^n$，$k>0$，$n$ 为实数。对于存在的圆轨道，求角频率、固定角动量下的小径向振动频率及相邻远、近拱点的角间隔。分别讨论 $n<3,n=3,n>3$，说明近圆轨道闭合所需的频率条件。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[guide] (0,0) circle (2);\draw[guide] (0,0)--(2.3,0);
+ \fill (0,0) circle (1.6pt) node[below] {$O$};\fill (2.3,0) circle (1.5pt) node[right] {$P$};
+ \draw[axis] (2.3,0)--(2.3,1.2) node[right] {$h/r$};\draw[axis] (2.3,0)--(1.2,0) node[midway,above] {$k/(mr^n)$};
+ \draw[guide] (2,0)--(2,-.7);\draw[guide] (2.3,0)--(2.3,-.7);
+ \draw[<->,>=Stealth] (2,-.5)--(2.3,-.5) node[below] {$\xi$};
+ \node at (-2.5,2) {虚线：$r=r_c$};
+\end{tikzpicture}
+\caption{虚线圆是未扰动圆轨道，$P$ 是径向偏移后的瞬时位置。固定 $h$ 时，横向速率随半径改变。}\label{deep8:fig:d8-h10-q}
+\end{figure}
+\begin{solution}
+令 $K=k/m$。圆轨道满足 $r_c\omega_\varphi^2=K/r_c^n$，故
+\[
+ \omega_\varphi^2=\frac K{r_c^{n+1}},\qquad
+ h^2=r_c^4\omega_\varphi^2=Kr_c^{3-n}.
+\]
+当 $n\ne3$ 且 $h\ne0$ 时，圆轨道半径由上式唯一确定：$r_c=(h^2/K)^{1/(3-n)}$。保持 $h$ 不变，径向方程为
+\[
+ \ddot r=\frac{h^2}{r^3}-\frac K{r^n}.
+\]
+令 $F_r(r)=h^2r^{-3}-Kr^{-n}$，保持 $h$ 不变求导得 $F_r'=-3h^2r^{-4}+nKr^{-n-1}$。再令 $r=r_c+\xi$，按图\ref{deep8:fig:d8-h10-q} 展开 $F_r(r_c+\xi)=F_r(r_c)+F_r'(r_c)\xi+O(\xi^2)$。圆轨道条件使 $F_r(r_c)=0$，所以一阶方程为
+\[
+ \ddot\xi=\left(-\frac{3h^2}{r_c^4}+\frac{nK}{r_c^{n+1}}\right)\xi
+ =-(3-n)\omega_\varphi^2\xi.
+\]
+因此 $n<3$ 时
+\[
+ \boxed{\omega_r=\sqrt{3-n}\,\omega_\varphi}.
+\]
+由一个远拱点到下一个近拱点需半个径向周期；在近圆极限中，角速度取零阶值，故
+\[
+ \boxed{\Delta\varphi_{a\to p}=\frac\pi{\sqrt{3-n}}},\qquad
+ \Delta\varphi_{p\to p}=\frac{2\pi}{\sqrt{3-n}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=1.4cm,y=.85cm]
+ \draw[axis] (-1.2,0)--(4.8,0) node[right] {$n$};\draw[axis] (0,-2.2)--(0,4.5) node[above] {$\omega_r^2/\omega_\varphi^2$};
+ \draw[curve] (-1,4)--(4.5,-1.5);\fill (3,0) circle (1.4pt) node[above right] {$n=3$};
+ \fill (2,1) circle (1.4pt) node[above right] {引力 $n=2$};
+ \fill (-1,4) circle (1.4pt) node[above left] {线性力 $n=-1$};
+ \node at (1.2,-1.4) {稳定：$n<3$};\node at (4,-2) {不稳定};
+\end{tikzpicture}
+\caption{频率平方比为 $3-n$。$n=3$ 的零值需用完整径向方程另行判断。}\label{deep8:fig:d8-h10-s}
+\end{figure}
+图\ref{deep8:fig:d8-h10-s} 中 $n>3$ 时，令 $\lambda=\sqrt{n-3}\,\omega_\varphi$，扰动方程为 $\ddot\xi-\lambda^2\xi=0$。特征根 $\pm\lambda$ 给出 $\xi=C\cosh\lambda t+D\sinh\lambda t$；由初值 $C=\xi(0)$、$D=\dot\xi(0)/\lambda$，一般初态含增长分支，圆轨道不稳定。
+$n=3$ 时圆轨道存在须 $h^2=K$；在这个特殊 $h$ 下，完整径向方程对所有 $r$ 都给出 $\ddot r=0$。积分先得 $\dot r=\dot r(0)$，再得 $r=r(0)+\dot r(0)t$。纯位置扰动且 $\dot r=0$ 可停留在另一圆上，但任意微小径向速度会导致持续漂移。因此它没有恢复振动，也不是对一般小扰动稳定的圆轨道。若 $h^2\ne K$，则不存在圆轨道。
+
+近圆轨道在一阶近似下闭合，要求 $\omega_r/\omega_\varphi=\sqrt{3-n}$ 为有理数，使径向相位和方位角在有限圈后同时复原。这个条件只来自近圆展开，不能推出任意振幅轨道均闭合。引力 $n=2$ 和线性力 $n=-1$ 的闭合性质可由各自的完整解确认，分别对应频率比 $1$ 和 $2$。
+\end{solution}
+
+
+\begin{exercise}[同一椭圆，不同力心（选做）]\label{deep8:problem-exercise-11}\label{deep8:ex:d8-h11}
+已知位置轨道为半长轴 $A$、半短轴 $B$ 的椭圆，$A>B>0$。分别假设中心力的力心位于椭圆几何中心 $C$ 或一个焦点 $O$，且相应的单位质量角动量为非零常量 $h_C,h_O$。推导两种情况下沿该轨道所需的力与距离的关系。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \draw[curve] (0,0) ellipse (3 and 2);\draw[guide] (-3.4,0)--(3.5,0);
+ \fill (0,0) circle (1.6pt) node[below] {$C$};\fill (2.236,0) circle (1.6pt) node[below] {$O$};
+ \coordinate (P) at (1.5,1.732);\fill (P) circle (1.6pt) node[above] {$P$};
+ \draw[axis] (0,0)--(P) node[midway,left] {$r_C$};\draw[axis] (2.236,0)--(P) node[midway,right] {$r_O$};
+ \node at (-1.2,-2.5) {$CO=\sqrt{A^2-B^2}$};
+\end{tikzpicture}
+\caption{两种假设分别以 $C$ 或 $O$ 为力心，不能在同一次运动中同时要求这两个角动量守恒。}\label{deep8:fig:d8-h11-q}
+\end{figure}
+\begin{solution}
+先以图\ref{deep8:fig:d8-h11-q} 的 $C$ 为坐标原点。用几何参数 $\psi$ 表示椭圆：
+\[
+ x=A\cos\psi,\qquad y=B\sin\psi.
+\]
+这里尚未假设 $\psi$ 随时间匀速。计算角动量，有
+\[
+ h_C=x\dot y-y\dot x=AB\dot\psi.
+\]
+因为 $h_C$ 为常量，才得到 $\dot\psi=h_C/(AB)$ 为常量，因而 $\ddot\psi=0$。链式法则逐次给出 $\dot x=-A\sin\psi\,\dot\psi$、$\ddot x=-A\cos\psi\,\dot\psi^2-A\sin\psi\,\ddot\psi$，以及 $\dot y=B\cos\psi\,\dot\psi$、$\ddot y=-B\sin\psi\,\dot\psi^2+B\cos\psi\,\ddot\psi$。代入常角速度，得到
+\[
+ \ddot x=-\left(\frac{h_C}{AB}\right)^2x,\qquad
+ \ddot y=-\left(\frac{h_C}{AB}\right)^2y.
+\]
+所以力心在中心时，沿轨道所需的力为
+\begin{equation}
+ \boxed{\vct F_C=-\frac{mh_C^2}{A^2B^2}\vct r_C}.
+\end{equation}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \begin{scope}[xshift=-2.4cm]
+  \draw[curve] (0,0) ellipse (1.5 and 1);
+  \fill (0,0) circle (1.5pt) node[below] {$C$};\fill (.75,.866) circle (1.5pt) node[above] {$P$};
+  \draw[axis] (.75,.866)--(.225,.26) node[midway,left] {$\vct F_C$};
+  \node at (0,-1.55) {$|F_C|\propto r_C$};
+ \end{scope}
+ \begin{scope}[xshift=2.6cm]
+  \draw[curve] (0,0) ellipse (1.5 and 1);
+  \fill (1.118,0) circle (1.5pt) node[below] {$O$};\fill (.75,.866) circle (1.5pt) node[above] {$P$};
+  \draw[axis] (.75,.866)--(1.008,.26) node[midway,right] {$\vct F_O$};
+  \node at (0,-1.55) {$|F_O|\propto r_O^{-2}$};
+ \end{scope}
+\end{tikzpicture}
+\caption{在同一个几何点 $P$，两种假设下的力方向分别指向中心与焦点，时间参数化也不同。}\label{deep8:fig:d8-h11-s}
+\end{figure}
+再把力心移到焦点 $O$，并从与该焦点最近的顶点量真近点角 $f$。该椭圆的极坐标式为
+\[
+ u=\frac1r=\frac{1+e\cos f}{p},\qquad
+ e=\sqrt{1-\frac{B^2}{A^2}},\quad p=\frac{B^2}A.
+\]
+对真近点角逐次求导，$u'=-e\sin f/p$、$u''=-e\cos f/p$，所以 $u''+u=[-e\cos f+(1+e\cos f)]/p=1/p$。由 Binet 方程，
+\[
+ \frac{F_O}m=-h_O^2u^2(u''+u)=-\frac{h_O^2}{pr_O^2},
+\]
+即
+\begin{equation}
+ \boxed{\vct F_O=-\frac{mh_O^2A}{B^2r_O^2}\vct e_{r_O}}.
+\end{equation}
+图\ref{deep8:fig:d8-h11-s} 的力方向和两种距离定义进入了不同的运动方程。所得关系只由这条轨道采样到的距离确定：中心情形 $r_C\in[B,A]$，焦点情形 $r_O\in[A(1-e),A(1+e)]$。若要断言轨道范围以外也服从同一力律，须另加模型假设，不能仅凭一条观测椭圆推出。
+\end{solution}
+
+
+\begin{exercise}[有限半径行星的引力辅助（选做）]\label{deep8:problem-exercise-12}\label{deep8:ex:d8-h12}
+在一次短时遭遇中，行星在某惯性系中近似以恒速度 $\vct V=V\vct e_x$ 运动。行星引力参数为 $\mu_p$，吸收半径为 $R$；飞行器质量可忽略。在行星系远处，飞行器入射速度为 $\vct u_{\rm in}=-u\vct e_x$，$u>0$。飞行器由双曲线散射后离开，轨道不接触表面。忽略遭遇期间太阳等外场对相对运动的影响。
+
+求飞行器在原惯性系中的单位质量动能变化与偏转角 $\chi$ 的关系；求不接触表面的最大偏转角上界及可获得的能量增量上确界，说明能量的来源。
+\end{exercise}
+\begin{figure}[H]\centering
+\begin{tikzpicture}
+ \begin{scope}[xshift=-2.7cm]
+  \draw[curve,fill=black!7] (0,0) circle (.7);\fill (0,0) circle (1.5pt) node[below] {行星};
+  \draw[axis] (0,0)--(1.6,0) node[above] {$\vct V$};
+  \draw[axis] (2,1.5)--(.8,1.5) node[midway,above] {$\vct u_{\rm in}$};
+  \node at (0,-1.35) {相对入射从行星前方而来};
+ \end{scope}
+ \begin{scope}[xshift=2.5cm]
+  \draw[axis] (0,0)--(-1.7,0) node[left] {$\vct u_{\rm in}$};
+  \draw[axis] (0,0)--(.85,1.472) node[above] {$\vct u_{\rm out}$};
+  \draw (0,0)++(180:.6) arc (180:60:.6);
+  \node at (-.1,.85) {$\chi$};\fill (0,0) circle (1.5pt);
+ \end{scope}
+\end{tikzpicture}
+\caption{左图给出行星运动与相对入射的方向，右图单独画相对速度的偏转。}\label{deep8:fig:d8-h12-q}
+\end{figure}
+\begin{solution}
+\begingroup
+\setlength{\parskip}{2pt}
+\setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+在图\ref{deep8:fig:d8-h12-q} 的行星系中，引力是静态保守中心力，故入射、出射的远处相对速率相同，均为 $u$。取偏转后的横向分量为正，
+\[
+ \vct u_{\rm out}=u(-\cos\chi,\sin\chi).
+\]
+原惯性系中的速度要加上 $\vct V$：
+\[
+ \vct v_{\rm in}=(V-u,0),\qquad
+ \vct v_{\rm out}=(V-u\cos\chi,u\sin\chi).
+\]
+所以
+\begin{align*}
+ \Delta K/m
+ &=\frac12\left(|\vct V+\vct u_{\rm out}|^2
+                  -|\vct V+\vct u_{\rm in}|^2\right)\\
+ &=\vct V\cdot(\vct u_{\rm out}-\vct u_{\rm in})
+ =\boxed{Vu(1-\cos\chi)}.
+\end{align*}
+入射与出射的相对动能 $u^2/2$ 相同，原惯性系中的差别来自速度相加的交叉项。若向另一侧偏转，$y$ 分量变号，能量变化保持相同。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[scale=1.4]
+ \coordinate (O) at (0,0);\coordinate (C) at (1.7,0);\coordinate (I) at (.4,0);\coordinate (F) at (2.35,1.126);
+ \draw[guide] (C) circle (1.3);
+ \draw[axis] (O)--(C) node[pos=.75,below=12pt] {$\vct V$};
+ \draw[axis] (C)--(I) node[midway,above] {$\vct u_{\rm in}$};
+ \draw[axis] (C)--(F) node[midway,right] {$\vct u_{\rm out}$};
+ \draw[axis,line width=.8pt] (O)--(F) node[midway,above left] {$\vct v_{\rm out}$};
+ \fill (O) circle (1.1pt) node[below] {$O_v$};\fill (C) circle (1.1pt) node[below] {$C_v$};
+ \fill (I) circle (1.1pt) node[below] {$I$};\fill (F) circle (1.1pt) node[above] {$F$};
+ \draw (C)++(180:.4) arc (180:60:.4) node[midway,above] {$\chi$};
+\end{tikzpicture}
+\caption{原惯性系的速度端点位于以 $\vct V$ 为圆心、半径 $u$ 的圆上；距 $O_v$ 的距离随偏转而改变。}\label{deep8:fig:d8-h12-s}
+\end{figure}
+图\ref{deep8:fig:d8-h12-s} 中，偏转越大，出射速度端点离 $O_v$ 越远。但实体半径限制了可达到的偏转。行星系的吸引双曲线满足
+\[
+ e=1+\frac{r_pu^2}{\mu_p},\qquad
+ \sin\frac\chi2=\frac1e.
+\]
+要求 $r_p>R$，得到
+\[
+ \chi<\chi_{\rm graze}=2\arcsin\frac1{1+Ru^2/\mu_p}.
+\]
+等号对应擦过表面，不属于严格不接触的轨道。因此最大值一般不取到，偏转角的上确界为 $\chi_{\rm graze}$。代入能量式，
+\[
+ \boxed{\sup\frac{\Delta K}m
+ =\frac{2Vu}{(1+Ru^2/\mu_p)^2}}.
+\]
+与之对应的瞄准距离下界为
+\[
+ b_{\rm graze}=R\sqrt{1+\frac{2\mu_p}{Ru^2}},\qquad b>b_{\rm graze}.
+\]
+若把天体视作没有半径的点质量，形式上可令 $\chi\to\pi$，能量增量趋于 $2Vu$；有限半径排除了这一极限。
+
+完整二体模型中，飞行器获得的能量来自行星的平动能，行星会有极小的反冲。本题把行星速度视作恒量，是飞行器质量远小于行星质量的近似；不能据此认为飞行器在原惯性系中的机械能守恒。在太阳系应用中，若遭遇过程足够短，太阳势在进、出遭遇区时的差别可忽略，上式才可近似解释为日心轨道比能的改变。
+\par\endgroup
+\end{solution}
+

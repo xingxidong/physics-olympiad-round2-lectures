@@ -1,0 +1,1857 @@
+\chapter{多轨网络与非稳态电路}
+多轨电阻网络可以先分解横向模态，再求各模态沿轴的电位分布。电容和电感则引入随时间变化的状态量：电容电压、电感电流及它们的初态共同决定暂态过程。空间网络的边界条件和动态电路的初始条件，都须与方程一并确定。
+
+
+
+\section{三轨电阻带的横向模态}\label{sec:c4-modes}
+三轨网络的横向连接矩阵有三个正交模态。把端口注流投影到它们上面，三组耦合节点方程就可分别化成轴向差分方程。
+
+三条轨道沿$j\in\mathbb Z$无限延伸，同一截面上的三个点依次连接，每小边电阻均为$r$。令节点列向量为$\vct u_j=(u_{1j},u_{2j},u_{3j})^{\mathsf T}$。内部节点KCL写成
+\[
+ (2\mathsf I+\mathsf T)\vct u_j-\vct u_{j-1}-\vct u_{j+1}
+ =r\vct s_j,\qquad
+ \mathsf T=\begin{pmatrix}1&-1&0\\-1&2&-1\\0&-1&1\end{pmatrix}.
+\]
+两个外轨节点总度数为三，中轨为四；矩阵的对角数正是$3,4,3$。
+直接相乘可得三个单位正交向量
+\[
+ \vct e_0=\frac{(1,1,1)^{\mathsf T}}{\sqrt3},\quad
+ \vct e_1=\frac{(1,0,-1)^{\mathsf T}}{\sqrt2},\quad
+ \vct e_3=\frac{(1,-2,1)^{\mathsf T}}{\sqrt6},
+\]
+对应横向特征值$\mu=0,1,3$。将$\vct u_j$投影为$f_{\mu j}=\vct e_\mu^{\mathsf T}\vct u_j$后，
+\[
+ (2+\mu)f_{\mu j}-f_{\mu,j-1}-f_{\mu,j+1}
+ =r\,\vct e_\mu^{\mathsf T}\vct s_j.
+\]
+无源区的根满足$\lambda+\lambda^{-1}=2+\mu$，即原方程中的三个参数为$2,3,5$。零模态仍有重根一，解为仿射函数；其余两模态的衰减根为
+\[
+ a_1=\frac{3-\sqrt5}2,\qquad a_3=\frac{5-\sqrt{21}}2.
+\]
+对任意$\mu>0$，点源解为
+$G_\mu(j)=a_\mu^{|j|}/\sqrt{\mu(\mu+4)}$。
+分母由源点的差分跳跃条件确定，不能只凭衰减形状猜出。
+
+\Needspace{6\baselineskip}
+\begin{example}[三轨同一外轨的两点电阻]\label{ex:c4-three}
+三轨网络的上轨$j=0$注入$I$，上轨$j=N$流出$I$，求两点电阻。三轨在无穷远均无外来电流。 见图~\ref{fig:c4-three-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\coordinate(v2j0)at(0.0,2.3);
+\coordinate(v2j1)at(1.1,2.3);
+\coordinate(v2j2)at(2.2,2.3);
+\coordinate(v2j3)at(3.3000000000000003,2.3);
+\coordinate(v2j4)at(4.4,2.3);
+\coordinate(v2j5)at(5.5,2.3);
+\draw[curve](v2j0)--(v2j1);
+\draw[curve](v2j1)--(v2j2);
+\draw[guide](v2j2)--(v2j3);
+\draw[guide](v2j3)--(v2j4);
+\draw[curve](v2j4)--(v2j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\draw[curve](v1j0)--(v2j0);
+\draw[curve](v1j1)--(v2j1);
+\draw[curve](v1j2)--(v2j2);
+
+\draw[curve](v1j4)--(v2j4);
+\draw[curve](v1j5)--(v2j5);
+\fill(v2j5)circle(1.5pt)node[above]{$B$};
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+
+\fill(v2j0)circle(1.5pt)node[above]{$A$};\node at(-.7,1.15){$\cdots$};\node at(6.2,1.15){$\cdots$};\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{源汇位于同一外轨，中轨与另一外轨参与分流。}\label{fig:c4-three-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-three-q}的源汇都在上轨，横向单位向量为$\vct h=(1,0,0)^{\mathsf T}$。投影到三个单位模态，得到$c_0=\vct e_0^{\mathsf T}\vct h=1/\sqrt3$、$c_1=1/\sqrt2$、$c_3=1/\sqrt6$，且$c_0^2+c_1^2+c_3^2=1$。
+
+每一模态的源项为$rIc_\mu(\delta_{j0}-\delta_{jN})$。对$\mu>0$，有$f_{\mu j}=rIc_\mu[G_\mu(j)-G_\mu(j-N)]$；重新投影回上轨还需乘$c_\mu$，所以该模态端口压差为
+\[
+ c_\mu(f_{\mu0}-f_{\mu N})
+ =2rI c_\mu^2[G_\mu(0)-G_\mu(N)].
+\]
+因子二来自两端的自项减互项，投影平方则来自注入和读出各一次投影。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(O)at(0,0);
+\coordinate(Z)at(3,1.2);
+\coordinate(P)at(3,0);
+\coordinate(Q)at(3,-1.2);
+\draw[curve](O)--(Z);
+\draw[curve](O)--(P);
+\draw[curve](O)--(Q);
+\fill(O)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$I(1,0,0)$};
+\fill(Z)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\mu=0$};
+\fill(P)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\mu=1$};
+\fill(Q)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\mu=3$};
+\end{scope}
+\node[right]at(3.8,1.2){权重 $1/3$};\node[right]at(3.8,0){权重 $1/2$};\node[right]at(3.8,-1.2){权重 $1/6$};
+\end{tikzpicture}
+\caption{实际注流分解为三个正交模态，电压响应按投影平方加权。}\label{fig:c4-three-s}
+\end{figure}
+图~\ref{fig:c4-three-s}中的零模态由$H_j=-|j|/2$求得，端压贡献为$rIc_0^2N=rIN/3$。其余两项分别使用$G_1(j)=a_1^{|j|}/\sqrt5$、$G_3(j)=a_3^{|j|}/\sqrt{21}$，故
+\[
+ \boxed{R(N)=r\left[\frac N3+
+ \frac{1-a_1^N}{\sqrt5}+\frac{1-a_3^N}{3\sqrt{21}}\right]}.
+\]
+$N=0$时每个源汇对都相消，电阻为零；长距离时两个非零模态仅留下有限常数，线性项为$rN/3$。远离端口后电流近似均分三轨，而源点附近还需两个衰减模态建立“只在上轨注入”的实际边界，不能从源点起就预设三等分。
+\end{solution}
+
+
+\section{模态方法中的端口选择}
+改变端口位置并不改变网络的横向特征值，却会改变各模态的源强。源汇在同一截面时，零模态相消；轴向错开时，它承担长距离输运。
+
+横向特征值只由网络本身决定，激发哪些模态则取决于注流位置。若在第$a$轨零处输入$I$、第$b$轨$N$处输出$I$，非零模态对两点电阻的贡献为
+\[
+ r\frac{e_{\mu,a}^2+e_{\mu,b}^2
+ -2e_{\mu,a}e_{\mu,b}a_\mu^N}
+ {\sqrt{\mu(\mu+4)}}.
+\]
+自项来自两端各自产生的电位，互项带有两个端点投影的乘积。对共模而言，所有轨道投影相等，仍给$rN/3$。若端口位于同一截面，零模态完全抵消。因此，同截面的横向端口应使用相应的横向注流投影。
+
+\Needspace{6\baselineskip}
+\begin{example}[三轨同截面的横向端口]\label{ex:c4-three-transverse}
+在三轨无限电阻带同一截面上，分别求两条外轨之间，以及外轨与中轨之间的电阻。 见图~\ref{fig:c4-three-transverse-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[curve](v0j2)--(v0j3);
+\draw[curve](v0j3)--(v0j4);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[curve](v1j2)--(v1j3);
+\draw[curve](v1j3)--(v1j4);
+\coordinate(v2j0)at(0.0,2.3);
+\coordinate(v2j1)at(1.1,2.3);
+\coordinate(v2j2)at(2.2,2.3);
+\coordinate(v2j3)at(3.3000000000000003,2.3);
+\coordinate(v2j4)at(4.4,2.3);
+\draw[curve](v2j0)--(v2j1);
+\draw[curve](v2j1)--(v2j2);
+\draw[curve](v2j2)--(v2j3);
+\draw[curve](v2j3)--(v2j4);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+\draw[curve](v0j3)--(v1j3);
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v1j0)--(v2j0);
+\draw[curve](v1j1)--(v2j1);
+\draw[curve](v1j2)--(v2j2);
+\draw[curve](v1j3)--(v2j3);
+\draw[curve](v1j4)--(v2j4);
+
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$3$};
+\node[below]at(v0j4){$4$};
+\draw[<->](-.7,0)--(-.7,2.3);\node[left]at(-.7,1.1){外轨端口};
+\node at(-.7,2.8){$\cdots$};\node at(5.2,2.8){$\cdots$};\end{tikzpicture}
+\caption{两端轴向编号相同，电流仍会向两侧轨道扩展后再返回。}\label{fig:c4-three-transverse-q}
+\end{figure}
+\begin{solution}
+同截面源汇的注流向量总和为零，因而零模态投影为零。图~\ref{fig:c4-three-transverse-q}中，两外轨端口的单位注流为$\vct h=(1,0,-1)^{\mathsf T}$，它在$\vct e_1$上的投影为$\sqrt2$，在$\vct e_3$上的投影为零。因此只有$\mu=1$被激发。
+
+一般同截面向量$\vct h$产生模态幅值$f_{\mu j}=rI(\vct e_\mu^{\mathsf T}\vct h)G_\mu(j)$，测量端电压为$\vct h^{\mathsf T}\vct u_0$，故该模态的电阻为$r(\vct e_\mu^{\mathsf T}\vct h)^2G_\mu(0)$。外外端口于是给出$2r/\sqrt5$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(U)at(0,1.7);
+\coordinate(M)at(0,0);
+\coordinate(D)at(0,-1.7);
+\draw[curve](U)--(M);
+\draw[curve](M)--(D);
+\fill(U)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$+I$};
+\fill(M)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$0$};
+\fill(D)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$-I$};
+\end{scope}
+\node[right]at(1.3,0){外外仅激发 $(1,0,-1)$};
+\end{tikzpicture}
+\caption{外外端口的反对称注流只激发一个模态；外中端口还激发另一非零模态。}\label{fig:c4-three-transverse-s}
+\end{figure}
+外轨至中轨改用$\vct h=(1,-1,0)^{\mathsf T}$。按图~\ref{fig:c4-three-transverse-s}的横向向量逐个投影，
+\[
+ c_1=\frac1{\sqrt2},\qquad
+ c_3=\frac{1+2}{\sqrt6}=\frac3{\sqrt6}.
+\]
+两模态相互正交，电压贡献相加，得到
+\[
+ \boxed{R_{\text{外外}}=\frac{2r}{\sqrt5}},\qquad
+ \boxed{R_{\text{外中}}=r\left(\frac1{2\sqrt5}+\frac3{2\sqrt{21}}\right)}.
+\]
+外外激励下中轨电位为中性值，反对称模态的两个外轨电位相反；外中激励则还含$\mu=3$，中轨也有非平凡分流。两种电阻都低于直接横向路径的$2r,r$，说明电流会沿轴向扩展，再在其他截面转到输出轨，并非只经过源截面的竖边。
+\end{solution}
+
+\section{圆柱网络与离散傅里叶分解}\label{sec:c4-fourier}
+圆柱网络的周向编号按模$m$计算，离散傅里叶基恰好满足这个周期条件。轴向可以有限、半无限或双无限，所用的端部方程须另行指定。
+
+将$m\ge3$根纵向轨道均匀排成圆柱，每一截面用$m$段电阻围成圆环。节点记$(p,n)$，$p$按模$m$计算，$n$为轴向整数。每条边电阻$r$。内部节点的方程为
+\[
+ 4u_{p,n}-u_{p-1,n}-u_{p+1,n}-u_{p,n-1}-u_{p,n+1}
+ =rs_{p,n}.
+\]
+取$q=2\pi k/m$、$k=0,\ldots,m-1$，展开
+$u_{p,n}=\sum_q f_q(n)\ee^{\ii qp}$。利用
+\[
+ \frac1m\sum_{p=0}^{m-1}\ee^{\ii(q-q')p}=\delta_{q,q'},
+\]
+各模式满足
+\[
+ (2+\mu_q)f_q(n)-f_q(n-1)-f_q(n+1)=r\widehat s_q(n),
+ \qquad\mu_q=2-2\cos q.
+\]
+非零模态的衰减根为
+\[
+ \eta_q=2-\cos q-\sqrt{(2-\cos q)^2-1}.
+\]
+实电位要求共轭模态系数配对，最终可用$\cos qp$表示。零模态$\mu_0=0$对应整个圆环同电位，轴向电流在$m$条轨道中均分。
+
+\Needspace{6\baselineskip}
+\begin{example}[无限圆柱上真正的两端电阻]\label{ex:c4-cylinder}
+圆柱在轴向左右无限延伸。电流从$(0,0)$注入，从$(p,n)$抽出。求两端电阻，说明零模态与非零模态各起何作用。 见图~\ref{fig:c4-cylinder-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\foreach \j/\x in {0/0,1/1.25,2/2.5,3/4.6}{
+ \foreach \p/\y in {0/0,1/-.85,2/-1.7,3/-2.55}{\coordinate(n\p\j)at(\x,\y);\fill(n\p\j)circle(1.2pt);}
+ \draw[curve](n0\j)--(n1\j);\draw[guide](n1\j)--(n2\j);\draw[curve](n2\j)--(n3\j);\draw[guide](\x,.3)--(n0\j) (n3\j)--(\x,-2.85);}
+\foreach \p in {0,1,2,3}{\draw[curve](n\p0)--(n\p1)--(n\p2);\draw[guide](n\p2)--(n\p3);}
+\node[left]at(n00){$p=0$};\node[left]at(n10){$1$};
+\node[left]at(n20){$\vdots$};\node[left]at(n30){$m-1$};\node[align=center]at(2.3,-3.5){周向在切口续接：最下轨与最上轨相邻\\每条实际边为$r$；虚线省略部分不作新边};\node at(0,.65){$n=0$};\node at(1.25,.65){$1$};\node at(4.6,.65){$n$};\node at(-.4,-1.25){$\cdots$};\node at(5,-1.25){$\cdots$};\draw[axis](-.7,.65)--(0,.08)node[pos=0,above]{$I$};\draw[axis](4.6,-.85)--(5.3,-.45)node[right]{$I$};\node[right]at(4.6,-1.05){$(p,n)$示意};
+\end{tikzpicture}
+\caption{圆柱网络的切开示意图；输出轨$p$和输出截面$n$由题设指定，周向仍周期连接。}\label{fig:c4-cylinder-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-cylinder-q}的源汇为$+I\delta_{p0}\delta_{n0}$与$-I\delta_{p,p_0}\delta_{n,n_0}$，其中最终将$p_0,n_0$写回题目的$p,n$。按周向变换$\widehat s_q(n)=m^{-1}\sum_ps_{p,n}\ee^{-\ii qp}$，每个模态的源项为
+\[
+ \widehat s_q(n)=\frac Im\left[\delta_{n0}-\ee^{-\ii qp_0}\delta_{n,n_0}\right].
+\]
+对非零$q$，点源函数为$G_q(n)=\eta_q^{|n|}/D_q$，$D_q=\sqrt{\mu_q(\mu_q+4)}$，于是
+\[
+ f_q(n)=\frac{rI}m\left[G_q(n)-\ee^{-\ii qp_0}G_q(n-n_0)\right].
+\]
+在源端读电位直接取$f_q(0)$；在汇端读电位还须乘$\ee^{\ii qp_0}$，取$f_q(n_0)\ee^{\ii qp_0}$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\foreach \j/\x in {0/0,1/1.25,2/2.5,3/4.6}{
+ \foreach \p/\y in {0/0,1/-.85,2/-1.7,3/-2.55}{\coordinate(n\p\j)at(\x,\y);\fill(n\p\j)circle(1.2pt);}
+ \draw[curve](n0\j)--(n1\j);\draw[guide](n1\j)--(n2\j);\draw[curve](n2\j)--(n3\j);\draw[guide](\x,.3)--(n0\j) (n3\j)--(\x,-2.85);}
+\foreach \p in {0,1,2,3}{\draw[curve](n\p0)--(n\p1)--(n\p2);\draw[guide](n\p2)--(n\p3);}
+\node[left]at(n00){$p=0$};\node[left]at(n10){$1$};
+\node[left]at(n20){$\vdots$};\node[left]at(n30){$m-1$};\node[align=center]at(2.3,-3.5){周向在切口续接：最下轨与最上轨相邻\\每条实际边为$r$；虚线省略部分不作新边};\node at(0,.65){$n=0$};\node at(1.25,.65){$1$};\node at(4.6,.65){$n$};\node at(-.4,-1.25){$\cdots$};\node at(5,-1.25){$\cdots$};\draw[axis](-.7,.65)--(0,.08)node[pos=0,above]{$I$};\draw[axis](4.6,-.85)--(5.3,-.45)node[right]{$I$};\node[right]at(4.6,-1.05){$(p,n)$示意};\node at(2.3,.95){$q=0$均匀输运；$q\ne0$按$\eta_q^{|n|}$衰减};
+\end{tikzpicture}
+\caption{同一切开网络分别作周向投影和轴向点源叠加，端口位置保持不变。}\label{fig:c4-cylinder-s}
+\end{figure}
+图~\ref{fig:c4-cylinder-s}中两端相减，自项两次给$2G_q(0)$，互项为$[\ee^{\ii qp_0}+\ee^{-\ii qp_0}]G_q(n_0)=2\cos(qp_0)G_q(n_0)$。共轭模态配对后结果为实数。零模态则用$H_n=-|n|/2$，源汇电位差为$rI|n_0|/m$。
+
+合并并写回$p,n$，有
+\[
+ \boxed{R(p,n)=\frac{r|n|}m+
+ \frac{2r}m\sum_{k=1}^{m-1}
+ \frac{1-\eta_q^{|n|}\cos(qp)}{\sqrt{\mu_q(\mu_q+4)}}},\quad q=\frac{2\pi k}m.
+\]
+每项非负，源汇重合时全式为零。轴向距离很大时非零模式的互项衰减，自项仍留有限端部修正；零模态保留$r|n|/m$，对应$m$根纵线共同输运。参考电位可任取，但不能把承担电流的一次项当成参考常数删掉。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[四轨圆柱的两类相邻边]\label{ex:c4-cylinder-four}
+圆柱周向有四个节点，轴向双无限，每边$r$。分别求轴向相邻点及同一圆环相邻点的电阻，并证明二者之和为$r$。 见图~\ref{fig:c4-cylinder-four-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\foreach \j/\x in {0/0,1/1.25,2/2.5,3/4.6}{
+ \foreach \p/\y in {0/0,1/-.85,2/-1.7,3/-2.55}{\coordinate(n\p\j)at(\x,\y);\fill(n\p\j)circle(1.2pt);}
+ \draw[curve](n0\j)--(n1\j);\draw[curve](n1\j)--(n2\j)--(n3\j);\draw[guide](\x,.3)--(n0\j) (n3\j)--(\x,-2.85);}
+\foreach \p in {0,1,2,3}{\draw[curve](n\p0)--(n\p1)--(n\p2);\draw[guide](n\p2)--(n\p3);}
+\node[left]at(n00){$p=0$};\node[left]at(n10){$1$};
+\node[left]at(n20){$2$};\node[left]at(n30){$3$};\node[align=center]at(2.3,-3.5){周向在切口续接：最下轨与最上轨相邻\\每条实际边为$r$；虚线省略部分不作新边};\node at(0,.65){$n=0$};\node at(1.25,.65){$1$};\node at(4.6,.65){$n$};\node at(-.4,-1.25){$\cdots$};\node at(5,-1.25){$\cdots$};
+\end{tikzpicture}
+\caption{四轨圆柱沿周向切开后的连接图；上下切口按周期条件续接。}\label{fig:c4-cylinder-four-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-cylinder-four-q}的四个周向波数为$0,\pi/2,\pi,3\pi/2$。由$\mu_q=2-2\cos q$，三个非零特征值为$2,4,2$；相应衰减根为$a=2-\sqrt3,b=3-2\sqrt2,a$，根间距分别为$2\sqrt3,4\sqrt2,2\sqrt3$。
+
+轴向相邻端口取$(p,n)=(0,1)$，零模态贡献$r/4$，非零模态的余弦全为一。因此
+\[
+ \frac{R_{\text{轴}}}r=\frac14+
+ \frac12\left[\frac{2(1-a)}{2\sqrt3}+\frac{1-b}{4\sqrt2}\right].
+\]
+分别用$1-a=\sqrt3-1$、$1-b=2\sqrt2-2$化简，得到$R_{\text{轴}}/r=1-1/(2\sqrt3)-1/(4\sqrt2)$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\foreach \j/\x in {0/0,1/1.25,2/2.5,3/4.6}{
+ \foreach \p/\y in {0/0,1/-.85,2/-1.7,3/-2.55}{\coordinate(n\p\j)at(\x,\y);\fill(n\p\j)circle(1.2pt);}
+ \draw[curve](n0\j)--(n1\j);\draw[curve](n1\j)--(n2\j)--(n3\j);\draw[guide](\x,.3)--(n0\j) (n3\j)--(\x,-2.85);}
+\foreach \p in {0,1,2,3}{\draw[curve](n\p0)--(n\p1)--(n\p2);\draw[guide](n\p2)--(n\p3);}
+\node[left]at(n00){$p=0$};\node[left]at(n10){$1$};
+\node[left]at(n20){$2$};\node[left]at(n30){$3$};\node[align=center]at(2.3,-3.5){周向在切口续接：最下轨与最上轨相邻\\每条实际边为$r$；虚线省略部分不作新边};\node at(0,.65){$n=0$};\node at(1.25,.65){$1$};\node at(4.6,.65){$n$};\node at(-.4,-1.25){$\cdots$};\node at(5,-1.25){$\cdots$};
+\draw[axis](.1,.35)--(1.15,.35)node[midway,above=14pt]{轴向端口};
+\draw[axis](-.7,-.05)--(-.7,-.8)node[midway,left]{周向端口};
+
+\end{tikzpicture}
+\caption{轴向端口跨相邻截面，周向端口在同一截面；两种方向各有四条实际连接。}\label{fig:c4-cylinder-four-s}
+\end{figure}
+图~\ref{fig:c4-cylinder-four-s}的周向相邻端口取$(p,n)=(1,0)$，零模态为零；三个余弦依次为$0,-1,0$，故
+\[
+ \frac{R_{\text{周}}}r=\frac12
+ \left[\frac1{2\sqrt3}+\frac2{4\sqrt2}+\frac1{2\sqrt3}\right].
+\]
+于是
+\[
+ \boxed{R_{\text{轴}}=r\left(1-\frac1{2\sqrt3}-\frac1{4\sqrt2}\right)},
+ \qquad\boxed{R_{\text{周}}=r\left(\frac1{2\sqrt3}+\frac1{4\sqrt2}\right)}.
+\]
+相加为$r$，但两值并不各为$r/2$。一般$m$也有此和式：轴、周两项的每个非零模式分子相加为$2-\eta_q-\cos q=\sqrt{\mu_q(\mu_q+4)}/2$，求和贡献$r(m-1)/m$，零模态再贡献$r/m$。有限周长保留了方向差别，只有平面无限极限才恢复坐标互换对称。
+\end{solution}
+
+
+
+\Needspace{6\baselineskip}
+\begin{example}[半无限端面的单点注流]\label{ex:c4-cylinder-end}
+圆柱仅有$n\ge0$。在端环$(0,0)$注入$I$，电流在远处均匀流出。求节点电位的模态表达，解释它与两点电阻的区别。 见图~\ref{fig:c4-cylinder-end-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\foreach \j/\x in {0/0,1/1.25,2/2.5,3/4.6}{
+ \foreach \p/\y in {0/0,1/-.85,2/-1.7,3/-2.55}{\coordinate(n\p\j)at(\x,\y);\fill(n\p\j)circle(1.2pt);}
+ \draw[curve](n0\j)--(n1\j);\draw[guide](n1\j)--(n2\j);\draw[curve](n2\j)--(n3\j);\draw[guide](\x,.3)--(n0\j) (n3\j)--(\x,-2.85);}
+\foreach \p in {0,1,2,3}{\draw[curve](n\p0)--(n\p1)--(n\p2);\draw[guide](n\p2)--(n\p3);}
+\node[left]at(n00){$p=0$};\node[left]at(n10){$1$};
+\node[left]at(n20){$\vdots$};\node[left]at(n30){$m-1$};\node[align=center]at(2.3,-3.5){周向在切口续接：最下轨与最上轨相邻\\每条实际边为$r$；虚线省略部分不作新边};\node at(0,.65){$n=0$};\node at(1.25,.65){$1$};\node at(4.6,.65){$n$};\node at(5,-1.25){$\cdots$};\draw[axis](-.7,.65)--(0,.08)node[pos=0,above]{$I$};
+\end{tikzpicture}
+\caption{左端$n=0$无负轴向邻边，电流向右传至远端；上下切口周向续接。}\label{fig:c4-cylinder-end-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-cylinder-end-q}只有$n\ge0$，零模态的总电流$I$持续传向远端，故每根纵线分$I/m$，每层共模压降为$rI/m$。非零模态在远处应衰减，因此电位形式为
+\[
+ u_{p,n}=A_0-\frac{rI}mn+\sum_{q\ne0}B_q\eta_q^n\ee^{\ii qp}.
+\]
+增长根会使无外部局部源的远处电流发散，故舍去；零模态的一次项则是输运所必需。
+
+端环节点少一条负轴向边，真实KCL是$3u_{p,0}-u_{p-1,0}-u_{p+1,0}-u_{p,1}=rI\delta_{p0}$，对角系数为三而非内部的四。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);
+\Res{n0}{n1}{r/m}
+\Res{n1}{n2}{r/m}
+\fill(n0)circle(1.5pt)node[below]{$n=0$};
+\fill(n1)circle(1.5pt)node[below]{$n=1$};
+\fill(n2)circle(1.5pt)node[below]{$n=2$};
+\node at(2,1){零模态：每个截面总电流 $I$};
+\end{tikzpicture}
+\caption{均匀轴向模态等效为每节$r/m$，端面附加非均匀衰减模态。}\label{fig:c4-cylinder-end-s}
+\end{figure}
+将展开式代入图~\ref{fig:c4-cylinder-end-s}对应的端环方程，乘$\ee^{-\ii q'p}$并对$p$求平均，正交性给每个非零模式
+\[
+ (3-2\cos q-\eta_q)B_q=\frac{rI}m,
+ \qquad\boxed{B_q=\frac{rI}{m(3-2\cos q-\eta_q)}}.
+\]
+分母也可用特征根关系写成$\eta_q^{-1}-1>0$，所以系数有限。零模态则给$rI/m=rI/m$，没有另定$A_0$；它仍是参考电位。共轭模式相加得到实数余弦和。
+
+该问题的电流在远处均匀流出，不集中在某个$(p,n)$点。因此$[u_{0,0}-u_{p,n}]/I$是这项激励下的转移电压系数；真正两点电阻须在目标点抽出全部$I$，重新处理源汇与边界。无限长均匀输运本身有无界的累计压降，不能给无穷远强加一个有限零电位。
+\end{solution}
+\subsection{循环多端口的自相似递推}\label{sec:c4-cyclic-star}
+还可不逐点求电位，而把半无限圆柱看成端环的$m$端网络。对非零周向模态，定义无量纲导纳$\gamma_q$：端环电位幅值为$U_q$时，注入电流幅值为$\gamma_qU_q/r$。增加一层后，周向环边给导纳$\mu_q/r$；轴向电阻$r$与剩余网络的模态电阻$r/\gamma_q$串联，给导纳$\gamma_q/[r(1+\gamma_q)]$。自洽式为
+\[
+ \gamma_q=\mu_q+\frac{\gamma_q}{1+\gamma_q},
+ \qquad
+ \boxed{\gamma_q^2-\mu_q\gamma_q-\mu_q=0}.
+\]
+取正根$\gamma_q=[\mu_q+\sqrt{\mu_q^2+4\mu_q}]/2$。内部下一层电位与端环之比为
+$t_q=1/(1+\gamma_q)=\eta_q$，与差分法一致。
+
+展开递推式时，右侧乘以$1+\gamma_q$所得的常数项是$\mu_q$，不能多出一。零模态的极限$\mu_q\to0$给$\gamma_q\to0$、$t_q\to1$：无限长网络对均匀电位模式没有有限的对地导纳，这也能辨别代数中误加的常数。单点注流问题的零模态须单独保留线性电位，不能用$1/\gamma_0$机械代入。
+
+\Needspace{6\baselineskip}
+\begin{example}[无限方格相邻点的电阻]\label{ex:c4-square}
+将圆柱的周长也推至无穷，得到平面无限正方格，每边电阻$r$。求相邻点$(0,0)$、$(1,0)$间电阻，并写一般两点的积分表达。 见图~\ref{fig:c4-square-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(p-2x-2)at(-2.2,-2.2);
+\coordinate(p-2x-1)at(-2.2,-1.1);
+\coordinate(p-2x0)at(-2.2,0.0);
+\coordinate(p-2x1)at(-2.2,1.1);
+\coordinate(p-2x2)at(-2.2,2.2);
+\coordinate(p-1x-2)at(-1.1,-2.2);
+\coordinate(p-1x-1)at(-1.1,-1.1);
+\coordinate(p-1x0)at(-1.1,0.0);
+\coordinate(p-1x1)at(-1.1,1.1);
+\coordinate(p-1x2)at(-1.1,2.2);
+\coordinate(p0x-2)at(0.0,-2.2);
+\coordinate(p0x-1)at(0.0,-1.1);
+\coordinate(p0x0)at(0.0,0.0);
+\coordinate(p0x1)at(0.0,1.1);
+\coordinate(p0x2)at(0.0,2.2);
+\coordinate(p1x-2)at(1.1,-2.2);
+\coordinate(p1x-1)at(1.1,-1.1);
+\coordinate(p1x0)at(1.1,0.0);
+\coordinate(p1x1)at(1.1,1.1);
+\coordinate(p1x2)at(1.1,2.2);
+\coordinate(p2x-2)at(2.2,-2.2);
+\coordinate(p2x-1)at(2.2,-1.1);
+\coordinate(p2x0)at(2.2,0.0);
+\coordinate(p2x1)at(2.2,1.1);
+\coordinate(p2x2)at(2.2,2.2);
+\draw[curve](p-2x-2)--(p-1x-2);
+\draw[curve](p-2x-1)--(p-1x-1);
+\draw[curve](p-2x0)--(p-1x0);
+\draw[curve](p-2x1)--(p-1x1);
+\draw[curve](p-2x2)--(p-1x2);
+\draw[curve](p-1x-2)--(p0x-2);
+\draw[curve](p-1x-1)--(p0x-1);
+\draw[curve](p-1x0)--(p0x0);
+\draw[curve](p-1x1)--(p0x1);
+\draw[curve](p-1x2)--(p0x2);
+\draw[curve](p0x-2)--(p1x-2);
+\draw[curve](p0x-1)--(p1x-1);
+\draw[curve](p0x0)--(p1x0);
+\draw[curve](p0x1)--(p1x1);
+\draw[curve](p0x2)--(p1x2);
+\draw[curve](p1x-2)--(p2x-2);
+\draw[curve](p1x-1)--(p2x-1);
+\draw[curve](p1x0)--(p2x0);
+\draw[curve](p1x1)--(p2x1);
+\draw[curve](p1x2)--(p2x2);
+\draw[curve](p-2x-2)--(p-2x-1);
+\draw[curve](p-2x-1)--(p-2x0);
+\draw[curve](p-2x0)--(p-2x1);
+\draw[curve](p-2x1)--(p-2x2);
+\draw[curve](p-1x-2)--(p-1x-1);
+\draw[curve](p-1x-1)--(p-1x0);
+\draw[curve](p-1x0)--(p-1x1);
+\draw[curve](p-1x1)--(p-1x2);
+\draw[curve](p0x-2)--(p0x-1);
+\draw[curve](p0x-1)--(p0x0);
+\draw[curve](p0x0)--(p0x1);
+\draw[curve](p0x1)--(p0x2);
+\draw[curve](p1x-2)--(p1x-1);
+\draw[curve](p1x-1)--(p1x0);
+\draw[curve](p1x0)--(p1x1);
+\draw[curve](p1x1)--(p1x2);
+\draw[curve](p2x-2)--(p2x-1);
+\draw[curve](p2x-1)--(p2x0);
+\draw[curve](p2x0)--(p2x1);
+\draw[curve](p2x1)--(p2x2);
+\fill(p-2x-2)circle(1.3pt);
+\fill(p-2x-1)circle(1.3pt);
+\fill(p-2x0)circle(1.3pt);
+\fill(p-2x1)circle(1.3pt);
+\fill(p-2x2)circle(1.3pt);
+\fill(p-1x-2)circle(1.3pt);
+\fill(p-1x-1)circle(1.3pt);
+\fill(p-1x0)circle(1.3pt);
+\fill(p-1x1)circle(1.3pt);
+\fill(p-1x2)circle(1.3pt);
+\fill(p0x-2)circle(1.3pt);
+\fill(p0x-1)circle(1.3pt);
+\fill(p0x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$0,0$};
+\fill(p0x1)circle(1.3pt);
+\fill(p0x2)circle(1.3pt);
+\fill(p1x-2)circle(1.3pt);
+\fill(p1x-1)circle(1.3pt);
+\fill(p1x0)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$1,0$};
+\fill(p1x1)circle(1.3pt);
+\fill(p1x2)circle(1.3pt);
+\fill(p2x-2)circle(1.3pt);
+\fill(p2x-1)circle(1.3pt);
+\fill(p2x0)circle(1.3pt);
+\fill(p2x1)circle(1.3pt);
+\fill(p2x2)circle(1.3pt);
+\end{scope}
+\node at(3,0){$\cdots$};\node at(-3,0){$\cdots$};\node at(0,3){$\vdots$};\node at(0,-3){$\vdots$};
+\end{tikzpicture}
+\caption{有限方格只用来表示局部连接，实际网络无外边框。}\label{fig:c4-square-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-square-q}的节点算子为$4u_{a,b}-u_{a-1,b}-u_{a+1,b}-u_{a,b-1}-u_{a,b+1}$，对傅里叶模式$\ee^{\ii(ka+\ell b)}$的特征值为$D=4-2\cos k-2\cos\ell$。源汇位于$(0,0)$与$(m,n)$，变换后的源为$I[1-\ee^{-\ii(km+\ell n)}]$。
+
+电位解在逆变换中除以$D$；再作源端减汇端，相当于乘$1-\ee^{\ii(km+\ell n)}$。两因子之积为$2[1-\cos(km+\ell n)]$，所以
+\[
+ R(m,n)=\frac r{(2\pi)^2}\int_{-\pi}^{\pi}\!\int_{-\pi}^{\pi}
+ \frac{2[1-\cos(km+\ell n)]}{4-2\cos k-2\cos\ell}\,\dd k\,\dd\ell.
+\]
+原点附近分子分母都是二阶小量，其比有界，故这项电位差积分有限；单独点源的绝对电位则不能这样直接归零。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](-2,0)--(2,0);\draw[curve](0,-2)--(0,2);
+\fill(0,0)circle(1.5pt)node[below left]{$(0,0)$};
+\fill(1,0)circle(1.5pt)node[below]{$(1,0)$};
+\fill(0,1)circle(1.5pt)node[left]{$(0,1)$};
+\draw[axis](.8,.8)arc(45:110:1.13);
+\node[right]at(2,.9){水平、竖直两端口互换};
+\end{tikzpicture}
+\caption{旋转互换两种测量，并不要求某一种激励下四条支路电流相等。}\label{fig:c4-square-s}
+\end{figure}
+图~\ref{fig:c4-square-s}中水平与竖直相邻端口通过旋转互换，故两电阻相等。将$(1,0)$与$(0,1)$的两个被积式相加，分子为$2(1-\cos k)+2(1-\cos\ell)$，恰等于分母，除单点外比值为一。由积分域面积$(2\pi)^2$，
+\[
+ R(1,0)+R(0,1)=r,\qquad\boxed{R(1,0)=R(0,1)=\frac r2}.
+\]
+这里利用的是两次不同测量的旋转等价，而非在单次两点供电时假定源点四条出边各流$I/4$。汇点的位置破坏了后一种四重对称，两个论证的前提不同。
+\end{solution}
+
+
+\section{电容电路的独立变量与初态}
+多个电容的电压之间可能受到电压源或回路约束。求暂态前，应先确定独立变量，并判断接通时是否存在有限电荷的瞬时转移。
+
+电容的关系是$q=C(u_a-u_b)$，电流方向取流向$q$正极板时，$i=\dot q$。当电流保持有限，电荷连续；若理想电压源直接强制改变纯电容回路总电压，数学模型可能产生冲量电流，此时应把接通瞬间与后续有限电流分开处理。
+
+有多个电容，不一定就有同样多的独立动态变量。节点电荷守恒、固定电压源和几何对称性都可能建立约束。先消去受约束变量，才知道微分方程真正的阶数。
+
+\Needspace{6\baselineskip}
+\begin{example}[普通RC阶跃的完整初值解]\label{ex:c4-rc}
+电动势$\varepsilon$、电阻$r$、电容$C$串联，接通前电容正极板电荷为$q_0$。求$q(t)$、$I(t)$及$t\ge0$的电阻发热。 见图~\ref{fig:c4-rc-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2.5,0);\coordinate(c)at(5,0);
+\Res{a}{b}{r}\CircuitCap{b}{c}{C}
+\coordinate(d)at(0,-1.6);\coordinate(e)at(5,-1.6);
+\draw[curve](a)--(d);\draw[curve](c)--(e);\Src{d}{e}{\varepsilon}
+\draw[axis](.3,.6)--(1.3,.6)node[above]{$I$};
+\end{tikzpicture}
+\caption{电流参考方向为流入图中电容正极板。}\label{fig:c4-rc-q}
+\end{figure}
+\begin{solution}
+回路式$\varepsilon=q/C+r\dot q$移项为
+$\dot q+(q-C\varepsilon)/(rC)=0$。令$z=q-C\varepsilon$，则$\dot z=-z/(rC)$。
+若$q_0=C\varepsilon$，恒有$z=0$、$I=0$；其余初态令$z_0=q_0-C\varepsilon$，分离变量并带入初值积分：
+\[
+ \int_{z_0}^{z(t)}\frac{\dd u}{u}=-\frac1{rC}\int_0^t\dd s,
+ \quad [\ln|u|]_{z_0}^{z(t)}=-\frac t{rC}.
+\]
+指数化得到$z=z_0\ee^{-t/(rC)}$。两种情况统一为
+\[
+ \boxed{q=C\varepsilon+(q_0-C\varepsilon)\ee^{-t/(rC)}},
+ \qquad I=\frac{C\varepsilon-q_0}{rC}\ee^{-t/(rC)}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$t/(rC)$};\draw[axis](0,-.1)--(0,1.6)node[above]{$q/(C\varepsilon)$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{1-exp(-\x)});\draw[guide](0,1)--(5,1);
+\end{tikzpicture}
+\caption{归一化电荷趋于一，时间尺度由$rC$确定。}\label{fig:c4-rc-s}
+\end{figure}
+
+图~\ref{fig:c4-rc-s}画出$q_0=0$时的建立过程；若$q_0>C\varepsilon$，同一公式给反向电流。总热量为
+\[
+ Q_r=\int_0^\infty rI^2\dd t
+ =\frac{(C\varepsilon-q_0)^2}{rC^2}
+ \lim_{T\to\infty}\left[-\frac{rC}2\ee^{-2t/(rC)}\right]_0^T
+ =\boxed{\frac{(C\varepsilon-q_0)^2}{2C}}.
+\]
+电源做功$\varepsilon(C\varepsilon-q_0)$减去电场能变化
+$[(C\varepsilon)^2-q_0^2]/(2C)$也给同一结果。$r$改变充电时间和峰值电流，但在理想恒压源条件下不改变最终总热量。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[三电阻与两交叉电容]\label{ex:c4-bridge}
+四节点$0,1,2,3$按顺序用三个$r$连接；两电容$C$分别跨接$0,2$和$1,3$。在$0,3$接理想恒压源，$u_0-u_3=\varepsilon$，两电容初始均不带电。求电容电荷及电源电流。 见图~\ref{fig:c4-bridge-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\fill(n0)circle(1.5pt)node[below]{$0$};
+\coordinate(n1)at(2,0);\fill(n1)circle(1.5pt)node[below]{$1$};
+\coordinate(n2)at(4,0);\fill(n2)circle(1.5pt)node[below]{$2$};
+\coordinate(n3)at(6,0);\fill(n3)circle(1.5pt)node[below]{$3$};
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\coordinate(a)at(0,1.2);\coordinate(b)at(4,1.2);
+\draw[curve](n0)--(a);\draw[curve](b)--(n2);\CircuitCap{a}{b}{C}
+\coordinate(c)at(2,-1.2);\coordinate(d)at(6,-1.2);
+\draw[curve](n1)--(c);\draw[curve](d)--(n3);\CircuitCap{c}{d}{C}
+\coordinate(e)at(0,-2.4);\coordinate(f)at(6,-2.4);
+\draw[curve](n0)--(e);\draw[curve](n3)--(f);\Src{e}{f}{\varepsilon}
+
+\end{tikzpicture}
+\caption{电容跨过两个电阻，不能误作与单个电阻并联。}\label{fig:c4-bridge-q}
+\end{figure}
+\begin{solution}
+反射并互换源的两极，使两电容正向电压相等。记各电容电荷$q$，充电电流$i_1=\dot q$，总源电流$I$。在节点0，源电流先分出$i_1$流向跨接电容，第一只电阻中余下$I-i_1$；节点1再分出$i_1$，中间电阻中为$I-2i_1$；节点2汇入第一只电容的$i_1$，末只电阻中恢复为$I-i_1$。沿全部三个电阻，以及沿前两个电阻分别列电压关系：
+\[
+ \varepsilon=r(3I-4i_1),\qquad \frac qC=r(2I-3i_1).
+\]
+由第一式$I=\varepsilon/(3r)+4i_1/3$，代入第二式得
+$q/C=2\varepsilon/3-ri_1/3$，所以
+$\dot q+3q/(rC)=2\varepsilon/r$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\fill(n0)circle(1.5pt)node[below]{$0$};
+\coordinate(n1)at(2,0);\fill(n1)circle(1.5pt)node[below]{$1$};
+\coordinate(n2)at(4,0);\fill(n2)circle(1.5pt)node[below]{$2$};
+\coordinate(n3)at(6,0);\fill(n3)circle(1.5pt)node[below]{$3$};
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\coordinate(a)at(0,1.2);\coordinate(b)at(4,1.2);
+\draw[curve](n0)--(a);\draw[curve](b)--(n2);\CircuitCap{a}{b}{C}
+\coordinate(c)at(2,-1.2);\coordinate(d)at(6,-1.2);
+\draw[curve](n1)--(c);\draw[curve](d)--(n3);\CircuitCap{c}{d}{C}
+\coordinate(e)at(0,-2.4);\coordinate(f)at(6,-2.4);
+\draw[curve](n0)--(e);\draw[curve](n3)--(f);\Src{e}{f}{\varepsilon}
+\node at(1,-.55){$I-i_1$};\node at(3,-.55){$I-2i_1$};\node at(5,-.55){$I-i_1$};
+\end{tikzpicture}
+\caption{电阻支路电流先用同一个参考方向表示，负值保留其物理含义。}\label{fig:c4-bridge-s}
+\end{figure}
+
+图~\ref{fig:c4-bridge-s}中标出的支路方向允许中间电阻电流暂时反向。
+取常数特解$q_*=2C\varepsilon/3$，令$z=q-q_*$，则$\dot z=-3z/(rC)$。
+乘积分因子后从$0$积分到$t$，
+\[
+ [z(s)\ee^{3s/(rC)}]_0^t=0,
+ \quad z(t)=z(0)\ee^{-3t/(rC)}.
+\]
+零初始电荷给$z(0)=-2C\varepsilon/3$。加回特解并求导，得到
+\[
+ \boxed{q=\frac{2C\varepsilon}3(1-\ee^{-3t/(rC)})},\quad
+ i_1=\frac{2\varepsilon}r\ee^{-3t/(rC)},
+\]
+\[
+ \boxed{I=\frac{\varepsilon}{3r}+
+ \frac{8\varepsilon}{3r}\ee^{-3t/(rC)}}.
+\]
+初始两电容电压零，使$0,2$及$1,3$分别等势，三个$r$在当时等效并联，$I(0)=3\varepsilon/r$。长时电容断路，三个电阻串联，$I(\infty)=\varepsilon/(3r)$。中间电阻电流为
+$\varepsilon/(3r)-4\varepsilon\ee^{-3t/(rC)}/(3r)$，在$t=(rC/3)\ln4$改变方向。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[三串联电容与交叉电阻的两阶段过程]\label{ex:c4-threecaps}
+节点$0,1,2,3$间依次串联三个相等电容$C$，电阻$R_1=R_2=R$分别跨接$0,2$及$1,3$。全部电容最初不带电，$t=0$在$0,3$突然接上理想恒压源$\varepsilon$。求接通后电容电荷和有限部分的电源电流。 见图~\ref{fig:c4-threecaps-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\fill(n0)circle(1.5pt)node[below]{$0$};
+\coordinate(n1)at(2,0);\fill(n1)circle(1.5pt)node[below]{$1$};
+\coordinate(n2)at(4,0);\fill(n2)circle(1.5pt)node[below]{$2$};
+\coordinate(n3)at(6,0);\fill(n3)circle(1.5pt)node[below]{$3$};
+\CircuitCap{n0}{n1}{C}
+\CircuitCap{n1}{n2}{C}
+\CircuitCap{n2}{n3}{C}
+\coordinate(a)at(0,1.2);\coordinate(b)at(4,1.2);
+\draw[curve](n0)--(a);\draw[curve](b)--(n2);\Res{a}{b}{R_1}
+\coordinate(c)at(2,-1.2);\coordinate(d)at(6,-1.2);
+\draw[curve](n1)--(c);\draw[curve](d)--(n3);\Res{c}{d}{R_2}
+\coordinate(e)at(0,-2.4);\coordinate(f)at(6,-2.4);
+\draw[curve](n0)--(e);\draw[curve](n3)--(f);\Src{e}{f}{\varepsilon}
+
+\end{tikzpicture}
+\caption{电源与三个电容构成纯电容回路；接通瞬间需单独处理。}\label{fig:c4-threecaps-q}
+\end{figure}
+\begin{solution}
+规定$q_1=C(u_0-u_1)$、$q_2=C(u_1-u_2)$、$q_3=C(u_2-u_3)$。电源强制$q_1+q_2+q_3=C\varepsilon$。接通的无限短时间内，有限电阻来不及输运有限电荷，两个内部节点的净电荷保持零，于是$q_1=q_2=q_3=C\varepsilon/3$。这需要冲量充电，不能同时要求三个初始电压保持为零。
+
+后续$t>0$的有限过程具有$q_1=q_3$。记$\dot q_1=\dot q_3=i_1$。节点0的电流守恒给跨接电阻中电流$I-i_1$；另一电阻由对称性也通过该电流。节点1流入$i_1$，流出包括中间电容电流与电阻电流，故
+$i_1=\dot q_2+(I-i_1)$，即$\dot q_2=2i_1-I$。对固定总电压求导，
+$2i_1+(2i_1-I)=0$，得$I=4i_1$。每个电阻电流为$I-i_1=3i_1$，电阻电压为
+$(q_1+q_2)/C=\varepsilon-q_1/C$，从而
+\[
+ 3R\dot q_1=\varepsilon-\frac{q_1}C.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$t/(3RC)$};\draw[axis](0,-.1)--(0,1.6)node[above]{$q/(C\varepsilon)$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{1-2/3*exp(-\x)});\draw[curve,dashed,domain=0:5,samples=70]plot(\x,{-1+4/3*exp(-\x)});\draw[axis](0,-1.2)--(0,0);\node[right]at(3.4,.65){$q_1=q_3$};\node[right]at(3.4,-.65){$q_2$};
+\end{tikzpicture}
+\caption{接通后的有限过程从三只电容各带$C\varepsilon/3$开始，中间电容随后反向。}\label{fig:c4-threecaps-s}
+\end{figure}
+
+图~\ref{fig:c4-threecaps-s}中后续电荷从$q_1(0^+)=C\varepsilon/3$出发。
+令$z=q_1-C\varepsilon$，微分方程变为$\dot z=-z/(3RC)$。
+其积分因子为$\ee^{t/(3RC)}$，因此
+\[
+ [z(s)\ee^{s/(3RC)}]_{0^+}^{t}=0,
+ \quad z(t)=z(0^+)\ee^{-t/(3RC)},\quad z(0^+)=-\frac{2C\varepsilon}3.
+\]
+加回稳态电荷，再用$q_2=C\varepsilon-2q_1$，得到
+\[
+ \boxed{q_1=q_3=C\varepsilon
+ -\frac{2C\varepsilon}3\ee^{-t/(3RC)}},
+\quad
+ q_2=-C\varepsilon+\frac{4C\varepsilon}3\ee^{-t/(3RC)}.
+\]
+因此
+$i_1=2\varepsilon\ee^{-t/(3RC)}/(9R)$，
+\[
+ \boxed{I_{\text{有限}}(t)=\frac{8\varepsilon}{9R}
+ \ee^{-t/(3RC)}}.
+\]
+中间电容在$t=3RC\ln(4/3)$换极性，最终$q_2=-C\varepsilon$。所有符号按节点电压定义，负电荷表示实际正极板与最初约定相反，并非电容取负值。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[不用时间函数求电阻热量]\label{ex:c4-threecaps-heat}
+沿用例~\ref{ex:c4-threecaps}。求接通瞬间之后，每只有限电阻产生的热量，并说明整个过程的能量分配。 见图~\ref{fig:c4-threecaps-heat-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\fill(n0)circle(1.5pt)node[below]{$0$};
+\coordinate(n1)at(2,0);\fill(n1)circle(1.5pt)node[below]{$1$};
+\coordinate(n2)at(4,0);\fill(n2)circle(1.5pt)node[below]{$2$};
+\coordinate(n3)at(6,0);\fill(n3)circle(1.5pt)node[below]{$3$};
+\CircuitCap{n0}{n1}{C}
+\CircuitCap{n1}{n2}{C}
+\CircuitCap{n2}{n3}{C}
+\coordinate(a)at(0,1.2);\coordinate(b)at(4,1.2);
+\draw[curve](n0)--(a);\draw[curve](b)--(n2);\Res{a}{b}{R_1}
+\coordinate(c)at(2,-1.2);\coordinate(d)at(6,-1.2);
+\draw[curve](n1)--(c);\draw[curve](d)--(n3);\Res{c}{d}{R_2}
+\coordinate(e)at(0,-2.4);\coordinate(f)at(6,-2.4);
+\draw[curve](n0)--(e);\draw[curve](n3)--(f);\Src{e}{f}{\varepsilon}
+
+\end{tikzpicture}
+\caption{所求热量只计两只给定电阻中的有限电流阶段。}\label{fig:c4-threecaps-heat-q}
+\end{figure}
+\begin{solution}
+记从$0^+$起通过一只电阻的累计电荷为$Q$。因电阻电流为$3i_1$，有
+$\dd q_1=\dd Q/3$，故$q_1=C\varepsilon/3+Q/3$。电阻压降为
+\[
+ u_R=\varepsilon-\frac{q_1}C
+ =\frac{2\varepsilon}3-\frac Q{3C}.
+\]
+最终$u_R=0$，故$Q_f=2C\varepsilon$。以$\dd W=u_R\dd Q$积分，
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5,0)node[right]{$Q$};\draw[axis](0,-.1)--(0,2)node[above]{$u_R$};
+\fill[gray!15](0,0)--(4,0)--(0,1.333)--cycle;\draw[curve](0,1.333)--(4,0);\node[below]at(4,0){$2C\varepsilon$};\node[left]at(0,1.333){$2\varepsilon/3$};
+\end{tikzpicture}
+\caption{热量积分的变量是实际流过该电阻的电荷，面积为正。}\label{fig:c4-threecaps-heat-s}
+\end{figure}
+
+图~\ref{fig:c4-threecaps-heat-s}中热量就是直线下三角形面积：
+\[
+ \boxed{W_R=\int_0^{2C\varepsilon}
+ \left(\frac{2\varepsilon}3-\frac Q{3C}\right)\dd Q
+ =\left[\frac{2\varepsilon Q}3-\frac{Q^2}{6C}\right]_0^{2C\varepsilon}
+ =\frac23C\varepsilon^2}.
+\]
+两只电阻共发热$4C\varepsilon^2/3$。由前题$I=4\dot q_1$，有限阶段电源送电量为$4[q_1]_{0^+}^{\infty}=4(C\varepsilon-C\varepsilon/3)=8C\varepsilon/3$，做功$8C\varepsilon^2/3$；电场能从$C\varepsilon^2/6$增至$3C\varepsilon^2/2$，增量$4C\varepsilon^2/3$，能量平衡。
+
+最初冲量阶段，源做功$C\varepsilon^2/3$，储能增加$C\varepsilon^2/6$。理想零阻回路本身没有给出余下能量的耗散机制；若以趋零的串联电阻描述真实接通，它耗散$C\varepsilon^2/6$。这部分不能强行分给两只有限电阻，也不能删去冲量阶段后仍声称从最初零电荷状态计算了全部能量。
+\end{solution}
+
+
+
+\subsection{接通时的电荷约束与后续状态方程}
+确定初态时，先区分两种连接。若电容充电只能经有限电阻、电感等支路完成，有限时刻的有限电流不能使$q$跳变；若理想电压源直接接到纯电容回路，固定电压约束可能与原电压不相容，便须允许冲量。对无限短的接通过程积分节点守恒，有限电阻的输运电荷趋于零，内部浮置节点的净电荷保持不变。将这些条件与接通后的电压约束联立，求出$0^+$初态，再开始有限电流阶段。
+
+后续线性RC网络可在独立节点上写成$\mathsf C\dot{\vct v}+\mathsf G\vct v=\vct b$。电容矩阵的对角元为该节点所连电容之和，非对角元为两节点间电容的负值；电导矩阵同理。先消除电压源及纯电容回路的约束，才能在真正独立的状态空间讨论阶数。平移至稳态$\vct z=\vct v-\vct v_\infty$后，衰减率满足
+\[
+ \det(\mathsf G-\kappa\mathsf C)=0.
+\]
+特征率由网络参数决定，是否出现对应指数还取决于初始偏差在该模态上的投影。相等元件可以使某个幅值为零，但这个模式并未从网络中消失；改变元件或初态后仍可被激发。
+
+
+\section{两只电容并不总是一阶}
+两只电容可以产生两个衰减率，也可能在某种对称初态下只出现一个指数。下面用不等交叉电容说明参数与模态幅值各自的作用。
+
+电容数量只给动态阶数的上限，独立储能变量的数目须在消去电压约束后确定。对称性可以使状态方程分成互不耦合的模态；初态决定哪些模态被激发，所测电压或电流又决定哪些模态能被观察。交叉电容相等时，当前反对称初态只激发一个模式，网络本身仍有两个独立状态；改变一只电容后，两模态一般都会出现在该响应中。
+
+\Needspace{6\baselineskip}
+\begin{example}[不等交叉电容的两个衰减率]\label{ex:c4-unequal-caps}
+三电阻、两交叉电容网络中，跨$0,2$的电容为$C_1$，跨$1,3$为$C_2$，三电阻均$r$。源保持$V_0=\varepsilon,V_3=0$，两电容初始不带电。求两个衰减率，并写内部电位的完整解。 见图~\ref{fig:c4-unequal-caps-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\fill(n0)circle(1.5pt)node[below]{$0$};
+\coordinate(n1)at(2,0);\fill(n1)circle(1.5pt)node[below]{$1$};
+\coordinate(n2)at(4,0);\fill(n2)circle(1.5pt)node[below]{$2$};
+\coordinate(n3)at(6,0);\fill(n3)circle(1.5pt)node[below]{$3$};
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\coordinate(a)at(0,1.2);\coordinate(b)at(4,1.2);
+\draw[curve](n0)--(a);\draw[curve](b)--(n2);\CircuitCap{a}{b}{C_1}
+\coordinate(c)at(2,-1.2);\coordinate(d)at(6,-1.2);
+\draw[curve](n1)--(c);\draw[curve](d)--(n3);\CircuitCap{c}{d}{C_2}
+\coordinate(e)at(0,-2.4);\coordinate(f)at(6,-2.4);
+\draw[curve](n0)--(e);\draw[curve](n3)--(f);\Src{e}{f}{\varepsilon}
+
+\end{tikzpicture}
+\caption{不等电容破坏了暂态中的反射关系，不能再假定两电荷相同。}\label{fig:c4-unequal-caps-q}
+\end{figure}
+\begin{solution}
+内部电位记为$v_1,v_2$。节点KCL给
+$rC_2\dot v_1+2v_1-v_2=\varepsilon$，
+$rC_1\dot v_2+2v_2-v_1=0$。
+令时间导数为零，第二式给$v_{1\infty}=2v_{2\infty}$，代入第一式得到$3v_{2\infty}=\varepsilon$，故
+$v_{1\infty}=2\varepsilon/3,v_{2\infty}=\varepsilon/3$。
+写$z_1=v_1-2\varepsilon/3,z_2=v_2-\varepsilon/3$，偏差方程为
+\[
+ rC_2\dot z_1+2z_1-z_2=0,\qquad
+ rC_1\dot z_2+2z_2-z_1=0.
+\]
+第一式给$z_2=rC_2\dot z_1+2z_1$，求导得$\dot z_2=rC_2\ddot z_1+2\dot z_1$。
+将两式代入第二节点方程，逐项展开：
+\[
+ rC_1(rC_2\ddot z_1+2\dot z_1)
+ +2(rC_2\dot z_1+2z_1)-z_1=0,
+\]
+即$r^2C_1C_2\ddot z_1+2r(C_1+C_2)\dot z_1+3z_1=0$。
+令模式为$\ee^{-\kappa t}$，其一、二阶导数分别乘$-\kappa,\kappa^2$，得到特征方程
+\[
+ r^2C_1C_2\kappa^2-2r(C_1+C_2)\kappa+3=0,
+\]
+也就是原二元方程的行列式条件
+\[
+ (2-rC_2\kappa)(2-rC_1\kappa)-1=0.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\node[draw]at(0,1){$(z_1,z_2)$};
+\draw[axis](1.3,.9)--(3,.9)node[right]{$\ee^{-\kappa_-t}$};
+\draw[axis](1.3,.2)--(3,-.7)node[right]{$\ee^{-\kappa_+t}$};
+\node at(.5,-1.3){等电容且本题初态：慢模态幅值为零};
+\end{tikzpicture}
+\caption{衰减率由网络参数确定，模态幅值还由初态决定。}\label{fig:c4-unequal-caps-s}
+\end{figure}
+
+图~\ref{fig:c4-unequal-caps-s}中两个正衰减率是
+\[
+ \boxed{\kappa_\pm=
+ \frac{C_1+C_2\pm\sqrt{C_1^2-C_1C_2+C_2^2}}
+ {rC_1C_2}}.
+\]
+初始电容电压为零给$v_1(0)=0,v_2(0)=\varepsilon$，所以$z_1(0)=-2\varepsilon/3$，且第一节点式给$\dot z_1(0)=2\varepsilon/(rC_2)$。
+特征方程的判别式为$4r^2(C_1^2-C_1C_2+C_2^2)>0$，两个不同的指数解构成通解。
+令$D=\kappa_+-\kappa_->0$，写$z_1=A\ee^{-\kappa_-t}+B\ee^{-\kappa_+t}$，由两个初值得
+\[
+ A+B=-\frac{2\varepsilon}3,\qquad
+ -\kappa_-A-\kappa_+B=\frac{2\varepsilon}{rC_2}.
+\]
+以$B=-2\varepsilon/3-A$代入第二式，得到
+$DA=2\varepsilon/(rC_2)-2\varepsilon\kappa_+/3$。于是
+\[
+ z_1=A\ee^{-\kappa_-t}+B\ee^{-\kappa_+t},\qquad
+ A=\frac{2\varepsilon/(rC_2)-2\varepsilon\kappa_+/3}{D},
+\]
+\[
+ B=\frac{-2\varepsilon/(rC_2)+2\varepsilon\kappa_-/3}{D},
+\quad
+ z_2=(2-rC_2\kappa_-)A\ee^{-\kappa_-t}
+ +(2-rC_2\kappa_+)B\ee^{-\kappa_+t}.
+\]
+由$z$加回稳态就得到$v_1,v_2$。当$C_1=C_2=C$，$\kappa_-=1/(rC),\kappa_+=3/(rC)$，且$A=0$，慢模态没有被这一初态激发，因而只剩前面求得的一个指数。
+\end{solution}
+
+
+\section{串联RLC的二阶暂态}\label{sec:c4-rlc}
+串联RLC以电容电荷和电感电流为两个独立状态。它们的初值确定解的两个常数，特征根则决定后续是否发生振荡。
+
+电容正极板电荷为$q$，串联电流$I=\dot q$。电感电压按电流参考方向取$L\dot I$，回路方程为
+\[
+ L\ddot q+R\dot q+\frac qC=\varepsilon.
+\]
+设$R,L,C>0$，电源从零跃升至恒定$\varepsilon$，初始$q(0)=I(0)=0$。有限电压下电容电荷和电感电流都连续，回路式还给$\ddot q(0)=\varepsilon/L$。此初始加速度应与任何形式的解相符。
+
+取$\alpha=R/(2L)$、$\omega_0=1/\sqrt{LC}$，并令$x=q-C\varepsilon$，得
+$\ddot x+2\alpha\dot x+\omega_0^2x=0$。
+试指数解$x=e^{\lambda t}$，一、二阶导数分别为$\lambda e^{\lambda t}$、$\lambda^2e^{\lambda t}$。代入并约去非零指数，得$\lambda^2+2\alpha\lambda+\omega_0^2=0$，配方为$(\lambda+\alpha)^2=\alpha^2-\omega_0^2$，所以
+\[
+ \lambda_\pm=-\alpha\pm\sqrt{\alpha^2-\omega_0^2}.
+\]
+三种阻尼的区别是两根实异、实重或共轭复数。实异根给两个独立指数，共轭根可组合成实正弦、余弦。
+
+重根时不能把两个相同的指数当成两个独立解。令$x=e^{-\alpha t}y(t)$，乘积求导给
+\[
+ x'=e^{-\alpha t}(y'-\alpha y),\qquad
+ x''=e^{-\alpha t}(y''-2\alpha y'+\alpha^2y).
+\]
+代入偏差方程，$y'$项抵消，留下$y''+(\omega_0^2-\alpha^2)y=0$。临界条件下$y''=0$，从$0$积分至$t$先得$y'(t)=B$，再积分得$y(t)=A+\int_0^tB\dd s=A+Bt$，故$x=(A+Bt)e^{-\alpha t}$。三种情况都须加回驱动特解$C\varepsilon$，再由$q(0),I(0)$确定两常数。
+
+\Needspace{6\baselineskip}
+\begin{example}[过阻尼阶跃]\label{ex:c4-rlc-over}
+设$R^2>4L/C$，求零初态下串联RLC的$q(t),I(t)$，并证明电流不反向。 见图~\ref{fig:c4-rlc-over-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{电流流入电容所定义的正极板。}\label{fig:c4-rlc-over-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-rlc-over-q}采用流入电容正极板的电流$I=\dot q$。将$q=C\varepsilon+x$代入回路方程后，$x$满足齐次二阶方程，其两根$\lambda_+>\lambda_-$均为负。通解为$q=C\varepsilon+A\ee^{\lambda_+t}+B\ee^{\lambda_-t}$。
+
+电容原来无电荷，电感原来无电流；有限电压接通时二者分别连续，故
+\[
+ A+B=-C\varepsilon,\qquad \lambda_+A+\lambda_-B=0.
+\]
+以第二式减去第一式乘$\lambda_-$，有$(\lambda_+-\lambda_-)A=C\varepsilon\lambda_-$，因此
+\[
+ A=\frac{C\varepsilon\lambda_-}{\lambda_+-\lambda_-},\qquad
+ B=-\frac{C\varepsilon\lambda_+}{\lambda_+-\lambda_-}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$t$};\draw[axis](0,-.1)--(0,1.6)node[above]{$q/(C\varepsilon)$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{1-1.2*exp(-\x)+.2*exp(-6*\x)});\draw[guide](0,1)--(5,1);
+\end{tikzpicture}
+\caption{两条指数共同满足零初态，电荷从零单调趋于终值。}\label{fig:c4-rlc-over-s}
+\end{figure}
+将两常数代回，图~\ref{fig:c4-rlc-over-s}的电荷与电流为
+\[
+ \boxed{q=C\varepsilon\left[1+
+ \frac{\lambda_-\ee^{\lambda_+t}-\lambda_+\ee^{\lambda_-t}}
+ {\lambda_+-\lambda_-}\right]},
+\]
+\[
+ I=C\varepsilon\frac{\lambda_+\lambda_-}{\lambda_+-\lambda_-}
+ (\ee^{\lambda_+t}-\ee^{\lambda_-t})
+ =\boxed{\frac\varepsilon L\frac{\ee^{\lambda_+t}-\ee^{\lambda_-t}}
+ {\lambda_+-\lambda_-}}.
+\]
+最后用了根的乘积$\lambda_+\lambda_-=1/(LC)$。对$t>0$，分子分母均正，故$I>0$，$q$由零单调增至$C\varepsilon$，没有过冲。
+
+电流导数为零给$\lambda_+\ee^{\lambda_+t_p}=\lambda_-\ee^{\lambda_-t_p}$。两根同为负数，可取正比值的对数，得到$t_p=\ln(\lambda_-/\lambda_+)/(\lambda_+-\lambda_-)>0$。解在零处有$I(0)=0$、$\dot I(0)=\varepsilon/L$，与接通瞬间回路式相符；只保留较慢指数虽可近似长时，却不能满足两个初值。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[临界阻尼的重根]\label{ex:c4-rlc-critical}
+设$R^2=4L/C$，求$q(t),I(t)$以及电流峰值。 见图~\ref{fig:c4-rlc-critical-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{重根时第二个独立解是$t\ee^{-\alpha t}$。}\label{fig:c4-rlc-critical-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-rlc-critical-q}的临界条件为$\alpha^2=\omega_0^2=1/(LC)$，两特征根重合为$-\alpha$。两个独立齐次解是$\ee^{-\alpha t}$与$t\ee^{-\alpha t}$，所以偏差写为$x=(A+Bt)\ee^{-\alpha t}$，而$q=C\varepsilon+x$。
+
+由$q(0)=0$得$A=-C\varepsilon$。求导得到$I=[B-\alpha(A+Bt)]\ee^{-\alpha t}$，再用$I(0)=0$，得$B=\alpha A=-\alpha C\varepsilon$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$\alpha t$};\draw[axis](0,-.1)--(0,1.6)node[above]{$I/I_p$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{\x*exp(1-\x)});\draw[guide](1,0)--(1,1);\node[below]at(1,0){$1$};\node[left]at(0,1){$1$};
+\end{tikzpicture}
+\caption{电流在$\alpha t=1$取得唯一峰值，此后衰减至零。}\label{fig:c4-rlc-critical-s}
+\end{figure}
+图~\ref{fig:c4-rlc-critical-s}的时间以$1/\alpha$归一化，代回两常数有
+\[
+ \boxed{q=C\varepsilon[1-(1+\alpha t)\ee^{-\alpha t}]},\qquad
+ \boxed{I=C\varepsilon\alpha^2t\ee^{-\alpha t}}.
+\]
+再次求导，$\dot I=C\varepsilon\alpha^2(1-\alpha t)\ee^{-\alpha t}$。除正因子后，极值条件只有$1-\alpha t=0$；导数在此前为正、此后为负，故
+\[
+ \boxed{t_p=\frac1\alpha,\qquad I_p=\frac{C\varepsilon\alpha}{\ee}}.
+\]
+图中曲线从零上升再衰减，对$t>0$始终为正，因此电荷单调趋于终值。零处$\dot I(0)=C\varepsilon\alpha^2=\varepsilon/L$，也满足电感初始电压承担全部电源电压的条件。
+
+重根形式还可由过阻尼解验证：当$\lambda_\pm\to-\alpha$，商$(\ee^{\lambda_+t}-\ee^{\lambda_-t})/(\lambda_+-\lambda_-)$趋于$t\ee^{-\alpha t}$。两指数相合产生新的$t$因子，不能把相合后的两项简单并成一条常系数指数。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[欠阻尼、相位与过冲]\label{ex:c4-rlc-under}
+设$R^2<4L/C$，求$q(t),I(t)$，并求第一次电荷峰值及其超过最终值的比例。 见图~\ref{fig:c4-rlc-under-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{电感可使电流在电容达到最终电压后继续流动。}\label{fig:c4-rlc-under-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-rlc-under-q}中$\omega_d=\sqrt{\omega_0^2-\alpha^2}>0$。偏差通解为$x=\ee^{-\alpha t}(A\cos\omega_dt+B\sin\omega_dt)$。电荷初值给$A=-C\varepsilon$；电流初值给$-\alpha A+\omega_dB=0$，故$B=-\alpha C\varepsilon/\omega_d$。
+
+因此
+\[
+ \boxed{q=C\varepsilon\left[1-\ee^{-\alpha t}
+ \left(\cos\omega_dt+\frac\alpha{\omega_d}\sin\omega_dt\right)\right]}.
+\]
+完整使用乘积法则求导，有
+\[
+ \begin{aligned}
+ I=C\varepsilon\ee^{-\alpha t}\biggl[
+ &\alpha\cos\omega_dt+\frac{\alpha^2}{\omega_d}\sin\omega_dt\\
+ &+\omega_d\sin\omega_dt-\alpha\cos\omega_dt\biggr].
+ \end{aligned}
+\]
+两项余弦相消，正弦项系数为$C\varepsilon(\omega_d+\alpha^2/\omega_d)=C\varepsilon\omega_0^2/\omega_d$，所以
+\[
+ \boxed{I=\frac\varepsilon{L\omega_d}\ee^{-\alpha t}\sin\omega_dt}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[axis](0,0)--(8.8,0)node[right]{$\omega_dt$};
+\draw[axis](0,-.1)--(0,2)node[above]{$q/(C\varepsilon)$};
+\draw[curve,domain=0:8.3,samples=180]plot(\x,{1-exp(-.15*\x)*(cos(deg(\x))+.15*sin(deg(\x)))});
+\draw[guide](0,1)--(8.3,1);\node[left]at(0,1){$1$};
+\draw[guide](pi,0)--(pi,{1+exp(-.15*pi)});
+\fill(pi,{1+exp(-.15*pi)})circle(1.3pt);\node[below]at(pi,0){$\pi$};
+
+\end{tikzpicture}
+\caption{按解析解绘制，取$\alpha/\omega_d=0.15$；首峰在$\omega_dt=\pi$，高度为$1+\ee^{-0.15\pi}$。}\label{fig:c4-rlc-under-s}
+\end{figure}
+图~\ref{fig:c4-rlc-under-s}中，第一正半波$0<t<\pi/\omega_d$有$I>0$，其后$I<0$。由$\dot q=I$，第一次电荷峰值在$t_m=\pi/\omega_d$，不是在正弦项本身最大时。将此时的$\sin=0,\cos=-1$代入，
+\[
+ q_{\max}=C\varepsilon(1+\ee^{-\pi\alpha/\omega_d}),\qquad
+ \boxed{\frac{q_{\max}-C\varepsilon}{C\varepsilon}=\ee^{-\pi\alpha/\omega_d}}.
+\]
+若改用$x=A_*\ee^{-\alpha t}\cos(\omega_dt-\phi)$，须同时满足$A_*\cos\phi=-C\varepsilon$及$A_*\sin\phi=-\alpha C\varepsilon/\omega_d$，两式共同确定幅值与相位象限。
+
+电容先达到$q=C\varepsilon$时，电感中仍有电流和磁能，故电流继续给电容充电，随后才在首峰处降到零。含电感的回路应始终使用$L\dot I+RI+q/C=\varepsilon$，不能在电压相等时便断言$I=0$。$R>0$保证包络衰减，且$\dot I(0)=\varepsilon/L$与初态相符。
+\end{solution}
+
+
+\section{二阶电路的一般初态与能量}
+预充电的电容和已有电流的电感都能向后续过程供能。保留一般初值后，可以用同一偏差能量关系计算全部暂态热量。
+
+恒定电源下，平衡点为$q_*=C\varepsilon,I_*=0$。把电场能以平衡电荷为中心平移，定义
+\[
+ \mathcal H=\frac12LI^2+\frac{(q-C\varepsilon)^2}{2C}.
+\]
+对两个平方项分别求导，用$\dot q=I$及$L\dot I+q/C-\varepsilon=-RI$，
+\[\dot{\mathcal H}=LI\dot I+\frac{q-C\varepsilon}{C}\dot q
+=I\left(L\dot I+\frac qC-\varepsilon\right)=-RI^2\le0.\]
+这个正定量衡量状态对平衡点的偏离，在$R>0$时随暂态衰减。实际电场能仍为$q^2/(2C)$，与$\mathcal H$相差电源可交换的线性项及常数。
+
+\Needspace{6\baselineskip}
+\begin{example}[有预充电和初始电流的欠阻尼电路]\label{ex:c4-initial}
+串联RLC接恒定$\varepsilon$，处于欠阻尼。初始$q(0)=q_0,I(0)=I_0$，求后续$q(t)$及总发热，并说明电流初值对解的影响。 见图~\ref{fig:c4-initial-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+\node at(3,1.3){$q_0,\ I_0$不要求为零};
+\end{tikzpicture}
+\caption{初始电感电流与电容电荷是两个独立的状态量。}\label{fig:c4-initial-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-initial-q}保持两个独立初值$q_0,I_0$，令$x=q-C\varepsilon$、$x_0=q_0-C\varepsilon$。欠阻尼偏差解为$x=\ee^{-\alpha t}(A\cos\omega_dt+B\sin\omega_dt)$。在零时刻，$A=x_0$、$-\alpha A+\omega_dB=I_0$，因此
+\[
+ \boxed{q=C\varepsilon+\ee^{-\alpha t}
+ \left[x_0\cos\omega_dt+\frac{I_0+\alpha x_0}{\omega_d}\sin\omega_dt\right]}.
+\]
+对指数与三角函数的乘积求导，先保留两组项：
+\[
+ \begin{aligned}
+ I=\ee^{-\alpha t}\bigl[&-\alpha(A\cos\omega_dt+B\sin\omega_dt)\\
+ &-\omega_dA\sin\omega_dt+\omega_dB\cos\omega_dt\bigr].
+ \end{aligned}
+\]
+将$A=x_0$、$B=(I_0+\alpha x_0)/\omega_d$代入，余弦系数为$I_0$，正弦系数为
+$-\alpha(I_0+\alpha x_0)/\omega_d-\omega_dx_0
+=-(\alpha I_0+\omega_0^2x_0)/\omega_d$。于是
+\[
+ I=\ee^{-\alpha t}\left[I_0\cos\omega_dt
+ -\frac{\alpha I_0+\omega_0^2x_0}{\omega_d}\sin\omega_dt\right].
+\]
+它在$t=0$直接恢复$I_0$，说明初始电流改变的不只是整体幅值，还包括正弦系数和相位。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[axis](-2,0)--(2.1,0)node[right]{$X$};\draw[axis](0,-1.8)--(0,1.8)node[above]{$Y$};
+\draw[curve,domain=0:24,samples=240,variable=\t]
+ plot({exp(-.15*\t)*(cos(deg(sqrt(.9775)*\t))+.15/sqrt(.9775)*sin(deg(sqrt(.9775)*\t)))},
+ {-exp(-.15*\t)*sin(deg(sqrt(.9775)*\t))/sqrt(.9775)});
+\fill(1,0)circle(1.5pt)node[above right]{$(X_0,Y_0)=(1,0)$};
+\draw[axis](1,-.04)--(.96,-.3);
+\node[align=center]at(0,-2.35){$X=(q-C\varepsilon)/\sqrt C,\quad Y=\sqrt L I$\\示例：$\alpha/\omega_0=0.15$};
+
+\end{tikzpicture}
+\caption{用欠阻尼方程的解析解绘制状态轨迹；初始点、转向和收缩均由同一组初值决定。}\label{fig:c4-initial-s}
+\end{figure}
+图~\ref{fig:c4-initial-s}以$X=x/\sqrt C$、$Y=\sqrt L I$为坐标，绘出一组初态的解析轨迹。定义$\mathcal H=LI^2/2+x^2/(2C)$，由$\dot x=I$及$L\dot I+RI+x/C=0$，
+\[
+ \dot{\mathcal H}=I(L\dot I+x/C)=-RI^2.
+\]
+当$R>0$，两特征根实部为负，末态$x=I=0$。
+在$[0,T]$积分，$\int_0^T RI^2\dd t=-[\mathcal H(t)]_0^T=\mathcal H(0)-\mathcal H(T)$。
+令$T\to\infty$，末态偏差能为零，得到
+\[
+ \boxed{Q_R=\mathcal H(0)=\frac12LI_0^2+
+ \frac{(q_0-C\varepsilon)^2}{2C}}.
+\]
+用实际储能计算，电源做功$\varepsilon(C\varepsilon-q_0)$，初始储能为$LI_0^2/2+q_0^2/(2C)$，末态储能为$C\varepsilon^2/2$；前两项之和减去末态储能，仍得到上述热量。若记实际储能为$W=LI^2/2+q^2/(2C)$，则
+\[
+ \mathcal H=W-\varepsilon q+\frac12C\varepsilon^2.
+\]
+它扣除了恒压源可交换的$\varepsilon q$项，既不是实际储能，也不只是把实际储能加上一个常数。二阶过程需要同时给定电容电荷和电感电流两个初值。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[欠阻尼电流峰值与电荷峰值]\label{ex:c4-current-peak}
+零初态的欠阻尼RLC阶跃中，求第一次电流最大值及其时刻，与第一次电荷最大值时刻比较。 见图~\ref{fig:c4-current-peak-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{电流最大时电感电压为零，电荷最大时电流为零。}\label{fig:c4-current-peak-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-current-peak-q}的零初态电流为$I=\varepsilon\ee^{-\alpha t}\sin\omega_dt/(L\omega_d)$。完整求导得
+\[
+ \dot I=\frac\varepsilon{L\omega_d}\ee^{-\alpha t}
+ (\omega_d\cos\omega_dt-\alpha\sin\omega_dt).
+\]
+在第一次正半波中，导数从正变负的根位于$0<\omega_dt<\pi/2$，故峰值条件为$\tan\omega_dt_I=\omega_d/\alpha$，取此象限得到
+\[
+ \boxed{t_I=\frac1{\omega_d}\arctan\frac{\omega_d}{\alpha}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[axis](0,0)--(7.7,0)node[right]{$\omega_dt$};
+\draw[axis](0,-.55)--(0,1.3)node[above]{$L\omega_dI/\varepsilon$};
+\draw[curve,domain=0:7.2,samples=180]plot(\x,{exp(-.2*\x)*sin(deg(\x))});
+\pgfmathsetmacro{\tp}{rad(atan(5))}
+\draw[guide](\tp,0)--(\tp,{exp(-.2*\tp)*sin(deg(\tp))});
+\fill(\tp,{exp(-.2*\tp)*sin(deg(\tp))})circle(1.2pt);
+\node[below]at(\tp,0){$\omega_dt_I$};\node[above right]at(pi,0){$\omega_dt_q=\pi$};
+
+\end{tikzpicture}
+\caption{取$\alpha/\omega_d=0.2$，电流首峰由$\tan(\omega_dt_I)=5$确定；首个过零点对应电荷峰值。}\label{fig:c4-current-peak-s}
+\end{figure}
+图~\ref{fig:c4-current-peak-s}中，第一次电荷峰值在电流首次过零的$t_q=\pi/\omega_d$。由于$0<\omega_dt_I<\pi/2$，电流峰值早于电荷峰值。令$\theta=\omega_dt_I$，由$\tan\theta=\omega_d/\alpha$且$\theta$在第一象限，
+\[
+ \sin\theta=\frac{\omega_d}{\sqrt{\alpha^2+\omega_d^2}}
+ =\frac{\omega_d}{\omega_0},\qquad
+ \boxed{I_{\max}=\frac\varepsilon{L\omega_0}\ee^{-\alpha t_I}}.
+\]
+电流峰处$\dot I=0$，电感电压瞬时为零，所以$\varepsilon=RI+q/C$，但电感磁能$LI^2/2$并未为零。电荷峰处则$I=0$，电感磁能为零，通常$\dot I\ne0$。
+
+在弱阻尼极限$\alpha\to0^+$，$t_I\to\pi/(2\omega_0)$、$I_{\max}\to\varepsilon/(L\omega_0)$；临界极限$\omega_d\to0^+$时，$\arctan(\omega_d/\alpha)\simeq\omega_d/\alpha$，恢复$t_I\to1/\alpha$及临界峰值。这两个极限也核对了取根象限和归一化系数。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[电容过冲后的电源能量回收]\label{ex:c4-source-absorb}
+欠阻尼零初态阶跃中，令$\delta=\ee^{-\pi\alpha/\omega_d}$。求第一次电荷最大点到随后最小点之间，理想恒压源所做的功，解释其符号。 见图~\ref{fig:c4-source-absorb-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{理想恒压源允许吸收能量，功的正负仍按$\varepsilon I$定义。}\label{fig:c4-source-absorb-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-source-absorb-q}按源向回路做功$\varepsilon I$为正。相邻电荷极值满足$I=0$，第一次极大时$t_1=\pi/\omega_d$、$q_1=C\varepsilon(1+\delta)$；随后极小时$t_2=2\pi/\omega_d$、$q_2=C\varepsilon(1-\delta^2)$，其中$0<\delta<1$。
+
+这段时间$\sin\omega_dt<0$，故$I<0$，电荷从$q_1$降到$q_2$。电源有向做功为
+\[
+ W_s=\int_{t_1}^{t_2}\varepsilon I\dd t
+ =\varepsilon\int_{q_1}^{q_2}\dd q
+ =\boxed{-C\varepsilon^2(\delta+\delta^2)}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\draw[axis](0,0)--(8.5,0)node[right]{$\omega_dt$};
+\draw[axis](0,-.1)--(0,2.1)node[above]{$q/(C\varepsilon)$};
+\draw[curve,domain=0:8,samples=180]plot(\x,{1-exp(-.1*\x)*(cos(deg(\x))+.1*sin(deg(\x)))});
+\draw[guide](0,1)--(8,1);\node[left]at(0,1){$1$};
+\draw[guide](pi,0)--(pi,{1+exp(-.1*pi)});
+\draw[guide](2*pi,0)--(2*pi,{1-exp(-.2*pi)});
+\fill(pi,{1+exp(-.1*pi)})circle(1.4pt)node[above]{$q_1/(C\varepsilon)$};
+\fill(2*pi,{1-exp(-.2*pi)})circle(1.4pt)node[below right]{$q_2/(C\varepsilon)$};
+\node[below]at(pi,0){$\pi$};\node[below]at(2*pi,0){$2\pi$};
+
+\end{tikzpicture}
+\caption{取$\alpha/\omega_d=0.1$，两个标记落在实际极值点；其间$q$下降，电源有向功为负。}\label{fig:c4-source-absorb-s}
+\end{figure}
+图~\ref{fig:c4-source-absorb-s}中的负功表示电源吸收$C\varepsilon^2(\delta+\delta^2)$，并不表示电阻停止发热。两个端点$I=0$，只需比较电容储能。其减少量为
+\[
+ W_{C1}-W_{C2}=\frac{C\varepsilon^2}2
+ [(1+\delta)^2-(1-\delta^2)^2]
+ =\frac{C\varepsilon^2}2(2\delta+3\delta^2-\delta^4).
+\]
+减去返回电源的能量，余下为该时段热量：
+\[
+ Q_{12}=W_{C1}-W_{C2}+W_s
+ =\frac{C\varepsilon^2}2(\delta^2-\delta^4)>0.
+\]
+同样可由平移能量在两极值处分别为$C\varepsilon^2\delta^2/2$、$C\varepsilon^2\delta^4/2$求得。能量回收与耗散同时发生。若实际电源限制反向电流，就须把相应保护或回馈支路写入回路，原来的理想恒压边界将改变。
+\end{solution}
+
+
+
+偏差能量还给出状态平面中的几何信息。取$X=(q-C\varepsilon)/\sqrt C$、$Y=\sqrt L I$，则$\mathcal H=(X^2+Y^2)/2$，并有
+\[
+ \dot X=\omega_0Y,\qquad \dot Y=-\omega_0X-2\alpha Y,
+ \qquad\dot{\mathcal H}=-2\alpha Y^2.
+\]
+无阻尼时轨迹是圆；有阻尼时半径不增，但收缩速率随相位而变，在$I=0$处瞬时为零。欠阻尼轨迹围绕平衡点旋转，过阻尼则不发生持续绕行。实际画状态轨迹时应使用方程求得的$q(t),I(t)$，而非随意画一条匀速收缩的螺线。
+
+
+\section{正弦驱动与自由暂态}
+正弦电源接通后的解由受迫特解与自由暂态相加。受迫正弦的频率由外电源给定，相量法求出的就是这一部分；自由暂态的根由$\alpha,\omega_0$决定，幅值由接通初态确定。$R>0$时，自由暂态逐渐衰减，长时间后只剩正弦稳态。
+
+\Needspace{6\baselineskip}
+\begin{example}[串联RLC的稳态正弦响应]\label{ex:c4-forced}
+将电源改为$\varepsilon(t)=\varepsilon_0\cos\Omega t$，$\Omega>0$。求长时间后的电流幅值、相位及平均功率，说明电流幅值最大时的频率。 见图~\ref{fig:c4-forced-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon_0\cos\Omega t}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{正弦电源仍串联驱动同一组元件，初始自由暂态最终衰减。}\label{fig:c4-forced-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-forced-q}的受迫电荷取$q=A\cos\Omega t+B\sin\Omega t$。依次求导得
+\[
+ \dot q=-A\Omega\sin\Omega t+B\Omega\cos\Omega t,\quad
+ \ddot q=-A\Omega^2\cos\Omega t-B\Omega^2\sin\Omega t.
+\]
+记$K=1/C-L\Omega^2$，将三式代入回路式并分别比较余弦、正弦系数：
+\[
+ KA+R\Omega B=\varepsilon_0,\qquad KB-R\Omega A=0.
+\]
+将第一式乘$K$后减去第二式乘$R\Omega$，可求$A$；将第一式乘$R\Omega$后加上第二式乘$K$，可求$B$。结果为
+\[
+ A=\frac{\varepsilon_0K}{K^2+R^2\Omega^2},\qquad
+ B=\frac{\varepsilon_0R\Omega}{K^2+R^2\Omega^2}.
+\]
+求导后$I=-A\Omega\sin\Omega t+B\Omega\cos\Omega t$，幅值为$\Omega\sqrt{A^2+B^2}$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.8,0)node[right]{$\Omega/\omega_0$};\draw[axis](0,-.1)--(0,1.6)node[above]{$RI_m/\varepsilon_0$};
+\draw[curve,domain=.15:3,samples=120]plot(\x,{1/sqrt(1+4*(\x-1/\x)^2)});\draw[guide](1,0)--(1,1);\node[below]at(1,0){$1$};
+\end{tikzpicture}
+\caption{图示某一阻尼参数，归一化电流幅值在$\Omega/\omega_0=1$达到一。}\label{fig:c4-forced-s}
+\end{figure}
+将分子分母同除$\Omega$，图~\ref{fig:c4-forced-s}所绘稳态幅值与相位为
+\[
+ I=I_m\cos(\Omega t-\phi),\quad
+ \boxed{I_m=\frac{\varepsilon_0}{\sqrt{R^2+(\Omega L-1/(\Omega C))^2}}},
+\]
+其中$Z=R+\ii[\Omega L-1/(\Omega C)]$、$\phi=\arg Z$，用辐角确定正负；感性区电流滞后，容性区电流超前。
+取周期$T=2\pi/\Omega$，用$\cos^2z=(1+\cos2z)/2$积分：
+\[
+ \langle P\rangle=\frac{RI_m^2}{T}
+ \left[\frac t2+\frac{\sin(2\Omega t-2\phi)}{4\Omega}\right]_0^T
+ =\frac{RI_m^2}{2}=\frac{\varepsilon_0I_m\cos\phi}{2}.
+\]
+两端正弦项相同而抵消；电感与电容在一周期内净储能变化为零。
+
+分母中平方项在$\Omega L=1/(\Omega C)$时为零，故电流共振频率$\Omega=\omega_0=1/\sqrt{LC}$，峰值$\varepsilon_0/R$。这与自由衰减频率$\omega_d=\sqrt{\omega_0^2-\alpha^2}$不同。开启时还应叠加满足初态的齐次解；因$R>0$，该部分长时间后衰减，才可只保留本题稳态结果。
+\end{solution}
+
+
+\section{二极管与非线性负载线}\label{sec:c4-diode}
+二极管的电压与电流须同时满足器件伏安式和外电路方程。两条曲线的交点给出工作点，其电压范围还须符合所采用器件模型的条件。
+
+二极管在一定温度、未发生击穿且忽略其他修正时，可用
+\[
+ I_D=I_s\left(\ee^{u/V_T}-1\right),\qquad
+ V_T=\frac{k_{\rm B}T}{e}
+\]
+描述。$u$为正向电压，$I_s>0$为反向饱和电流。正向电流随电压迅速增加；在未击穿且$-u\gg V_T$的反向区，电流近似为$-I_s$。击穿区需要另外的伏安关系。
+
+外电路若只含理想电压源和电阻，可先作戴维南等效，再求直线与二极管曲线的交点。叠加原理适用于外部线性电路的等效过程，但不能把两次二极管工作点相加。
+
+\Needspace{6\baselineskip}
+\begin{example}[输出电流改变时的负载线]\label{ex:c4-diode}
+电动势$\varepsilon$、内阻$r$的电源接一只并联在输出端的二极管。另有外负载从同一端口抽取恒定电流$I$。求工作点方程，并讨论端口开路和短路。 见图~\ref{fig:c4-diode-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(3,0);\coordinate(c)at(0,-2);\coordinate(d)at(3,-2);
+\Res{a}{b}{r}\draw[curve](a)--(c);\Src{c}{d}{\varepsilon}
+\draw[curve](b)--(5,0)--(5,-2)--(d);
+\node[draw,fill=white]at(5,-1){$D$};
+\node[above]at(4,0){$u,+$};\node[below]at(4,-2){$-$};
+\draw[axis](5.5,-.3)--(5.5,-1.5)node[midway,right]{$I_D$};\draw[curve](b)--(7,0);\draw[axis](6,0)--(7,0)node[right]{$I$};\draw[curve](d)--(7,-2);
+\end{tikzpicture}
+\caption{内阻流过的是$I+I_D$，正向电压与二极管电流方向一致。}\label{fig:c4-diode-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-diode-q}取二极管电压$u$为正向、$I_D$流向其正端。端口另被外负载抽取$I$，因此内阻流过$I+I_D$，KVL给$u=\varepsilon-r(I+I_D)$。结合指数关系，工作点满足
+\[
+ \boxed{F(u)=u+rI_s(\ee^{u/V_T}-1)-(\varepsilon-rI)=0}.
+\]
+导数$F'(u)=1+(rI_s/V_T)\ee^{u/V_T}>0$，故至多一个根；当$u\to-\infty$时线性项使$F\to-\infty$，$u\to+\infty$时指数项使$F\to+\infty$，由连续性恰有一个实根。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(4.5,0)node[right]{$u$};\draw[axis](0,-.1)--(0,2.5)node[above]{$I_D$};
+\draw[curve,domain=0:2.1,samples=80]plot(\x,{.06*(exp(1.7*\x)-1)});\draw[curve](0,1.8)--(2.7,0);\draw[guide](0,1.2)--(1.8,0);\node[right]at(2.8,1.5){$I$增大};
+\end{tikzpicture}
+\caption{负载线随外部取流平移，交点决定实际电压及二极管电流。}\label{fig:c4-diode-s}
+\end{figure}
+图~\ref{fig:c4-diode-s}的负载线为$I_D=(\varepsilon-u)/r-I$。增加$I$使截距下降。对隐式方程微分，
+\[
+ \left[1+\frac{rI_s}{V_T}\ee^{u/V_T}\right]\frac{\dd u}{\dd I}+r=0,
+ \qquad\boxed{\frac{\dd u}{\dd I}=-\frac r{1+(rI_s/V_T)\ee^{u/V_T}}<0}.
+\]
+外负载开路时$I=0$，源与二极管之间仍是闭合回路。若$\varepsilon>0$，$F(0)=-\varepsilon<0$、$F(\varepsilon)>0$，因此$0<u_{\rm oc}<\varepsilon$，不能把源电动势直接当作端电压。
+
+外端短路时$u=0$，本模型$I_D=I_s(1-1)=0$，所以外短路电流为$\varepsilon/r$。若外恒流负载强求$I>\varepsilon/r$，唯一数学根将落到$u<0$；实际是否仍适用，应同时检查负载的工作电压范围及二极管尚未击穿的条件。开路、短路和恒流给定分别是不同端口边界。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[有限电阻负载下的工作点]\label{ex:c4-diode-load}
+将例~\ref{ex:c4-diode}的恒流负载改为电阻$R$。求二极管所见的线性等效电路，给出可求工作点的方程及一次有明确误差界的求解步骤。 见图~\ref{fig:c4-diode-load-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(3,0);\coordinate(c)at(0,-2);\coordinate(d)at(3,-2);
+\Res{a}{b}{r}\draw[curve](a)--(c);\Src{c}{d}{\varepsilon}
+\draw[curve](b)--(5,0)--(5,-2)--(d);
+\node[draw,fill=white]at(5,-1){$D$};
+\node[above]at(4,0){$u,+$};\node[below]at(4,-2){$-$};
+\draw[axis](5.5,-.3)--(5.5,-1.5)node[midway,right]{$I_D$};\coordinate(e)at(7,0);\coordinate(f)at(7,-2);
+\draw[curve](b)--(e);\draw[curve](d)--(f);\Res{e}{f}{R}
+\end{tikzpicture}
+\caption{二极管与负载$R$并联，电源内阻为$r$。}\label{fig:c4-diode-load-q}
+\end{figure}
+\begin{solution}
+外负载电流为$u/R$，节点方程
+$(\varepsilon-u)/r=u/R+I_D$。整理为
+\[
+ u=\varepsilon_{\rm th}-R_{\rm th}I_D,\qquad
+ \varepsilon_{\rm th}=\frac{\varepsilon R}{R+r},\quad
+ R_{\rm th}=\frac{rR}{r+R}.
+\]
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\coordinate(A)at(0,1.5);\coordinate(B)at(3.7,1.5);\coordinate(C)at(0,0);\coordinate(D)at(3.7,0);
+\Res{A}{B}{R_{\rm th}}\draw[curve](A)--(C);\Src{C}{D}{\varepsilon_{\rm th}}
+\draw[curve](B)--(D)node[midway,draw,fill=white]{$D$};
+\node[above right]at(B){$u,+$};\node[right]at(D){$-$};
+\draw[axis](4.2,1.25)--(4.2,.3)node[midway,right]{$I_D$};
+
+\end{tikzpicture}
+\caption{外电路先等效为戴维南源，非线性器件保持原伏安关系。}\label{fig:c4-diode-load-s}
+\end{figure}
+
+图~\ref{fig:c4-diode-load-s}中，断开二极管求开路电压得到$\varepsilon_{\rm th}$；关闭独立电压源，$r,R$并联得到$R_{\rm th}$。
+工作点满足
+$f(u)=u+R_{\rm th}I_s(\ee^{u/V_T}-1)-\varepsilon_{\rm th}=0$。
+若$\varepsilon>0$，则$f(0)<0$、$f(\varepsilon_{\rm th})>0$且$f'>0$，根唯一地位于$[0,\varepsilon_{\rm th}]$。
+
+每次取当前区间中点，若$f$为正就保留左半区间，为负就保留右半区间。$n$次二分后，以中点估计根的绝对误差不超过$\varepsilon_{\rm th}/2^{n+1}$。这给出了不依赖初猜的求解法。也可用
+$u_{\rm new}=u-f(u)/f'(u)$加速，但每步保留上述区间，避免指数较大时越过根。求得$u$后，再分别算$I_D$与$u/R$，两者不能混作同一支路电流。
+\end{solution}
+
+
+
+\section{非线性工作点的解析形式与局部响应}
+工作点附近的微小变化可用伏安曲线的切线描述。切线斜率随工作点改变，求局部响应前仍须先解原来的非线性静态方程。
+
+指数伏安式一般不产生初等函数解，但可借助单调性确定根的区间，再按所需精度求数值。解析特殊函数表达适合推导参数关系；数值计算则须避免直接计算过大的指数。无论使用哪种方法，工作点都应同时满足外电路线和器件曲线。
+
+\Needspace{6\baselineskip}
+\begin{example}[指数二极管的精确工作点]\label{ex:c4-lambert}
+二极管所见戴维南源为$E>0,R_0>0$。用满足$W(z)\ee^{W(z)}=z$的实函数$W$写出工作点电压，保留反向饱和项$-I_s$。 见图~\ref{fig:c4-lambert-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+
+\coordinate(A)at(0,1.5);\coordinate(B)at(3.7,1.5);\coordinate(C)at(0,0);\coordinate(D)at(3.7,0);
+\Res{A}{B}{R_0}\draw[curve](A)--(C);\Src{C}{D}{E}
+\draw[curve](B)--(D)node[midway,draw,fill=white]{$D$};
+\node[above right]at(B){$u,+$};\node[right]at(D){$-$};
+\draw[axis](4.2,1.25)--(4.2,.3)node[midway,right]{$I_D$};
+
+\end{tikzpicture}
+\caption{戴维南源与二极管形成闭合回路；电流流入二极管正端。}\label{fig:c4-lambert-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-lambert-q}中电源与内阻满足$E=u+R_0I_D$。保留完整二极管关系$I_D=I_s(\ee^{u/V_T}-1)$，得到
+\[
+ u+R_0I_s\ee^{u/V_T}=E+R_0I_s\equiv A.
+\]
+令$z=(A-u)/V_T$，则$u=A-V_Tz$，代回指数项有$V_Tz=R_0I_s\ee^{A/V_T-z}$，故
+\[
+ z\ee^z=\frac{R_0I_s}{V_T}\ee^{A/V_T}>0.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(3.5,0)node[right]{$z$};\draw[axis](0,-.1)--(0,3.7)node[above]{$z\ee^z$};
+\draw[curve,domain=0:1.1,samples=80]plot(\x,{\x*exp(\x)});\node[right]at(1.5,2.5){$z\ee^z$在$z>0$单调};
+\end{tikzpicture}
+\caption{正自变量下反函数唯一，工作点无需选择多个实根。}\label{fig:c4-lambert-s}
+\end{figure}
+图~\ref{fig:c4-lambert-s}中，正自变量对应唯一正实根$z=W(\cdots)$，因而
+\[
+ \boxed{u=A-V_TW\!\left(\frac{R_0I_s}{V_T}\ee^{A/V_T}\right)},\qquad
+ \boxed{I_D=\frac{V_T}{R_0}W(\cdots)-I_s}.
+\]
+第二式可由$I_D=(E-u)/R_0$恢复，其中$E-A=-R_0I_s$，正好留下饱和项。若近似删去原伏安式的$-I_s$，$A$必须同时改为$E$，两种精度不能混用。
+
+由原方程在$u=0,E$处异号及导数为正，可知$0<u<E$。这个区间既核对解析根的物理分支，也可用于数值求解。若$A/V_T$很大，直接构造指数自变量会溢出，可改解$z+\ln z=\ln(R_0I_s/V_T)+A/V_T$。其导数$1+1/z>0$，在$z>0$仍唯一，保留了原解析变换而避免先算巨大指数。
+\end{solution}
+
+\Needspace{6\baselineskip}
+\begin{example}[反向并联的两只二极管]\label{ex:c4-antiparallel}
+两只参数相同的二极管反向并联，接戴维南源$E,R_0$。以端口电压$u$及正向总电流为参考，写端口伏安式，证明工作点唯一，并求小电压近似。 见图~\ref{fig:c4-antiparallel-q}。
+\end{example}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[curve](0,0)--(4,0)--(4,-1.5)--(0,-1.5)--cycle;
+\node[draw,fill=white]at(2,0){$D_+$};\node[draw,fill=white]at(2,-1.5){$D_-$};
+\draw[axis](.5,.6)--(1.5,.6)node[midway,above]{$I_+$};
+\draw[axis](1.5,-.9)--(.5,-.9)node[midway,above]{$I_-$};
+\node[left]at(0,0){$A$};\node[right]at(4,0){$B$};
+\node at(2,-2.2){$u=V_A-V_B$；正向箭头相反};
+\end{tikzpicture}
+\caption{第二只器件方向反接，其支路电压和端口正向电流都需变号。}\label{fig:c4-antiparallel-q}
+\end{figure}
+\begin{solution}
+第一只供端口正向电流$I_s(\ee^{u/V_T}-1)$，第二只的端口正向电流为$-I_s(\ee^{-u/V_T}-1)$，相加得到
+$I_{\rm pair}=2I_s\sinh(u/V_T)$。
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(2.7,0)node[right]{$u/V_T$};\draw[axis](0,-.1)--(0,2.2)node[above]{$I_{\rm pair}/(2I_s)$};
+\draw[curve,domain=-1.4:1.4,samples=100]plot(\x,{.5*(exp(\x)-exp(-\x))});\draw[axis](-2,0)--(0,0);\draw[axis](0,-1.6)--(0,0);
+\end{tikzpicture}
+\caption{反向并联的伏安关系关于原点反对称，局部斜率为正。}\label{fig:c4-antiparallel-s}
+\end{figure}
+
+图~\ref{fig:c4-antiparallel-s}中工作点方程
+\[
+ u+2R_0I_s\sinh(u/V_T)=E
+\]
+左侧关于$u$的导数为
+\[
+ 1+\frac{2R_0I_s}{V_T}\cosh(u/V_T)>0.
+\]
+左侧在$u\to\pm\infty$时分别趋于$\pm\infty$，故任意有限$E$有唯一实根。
+
+当$|u|\ll V_T$，$\sinh(u/V_T)\simeq u/V_T$，两管合成动态电阻$V_T/(2I_s)$，于是
+\[
+ \boxed{u\simeq\frac{E}{1+2R_0I_s/V_T}}.
+\]
+大信号时端口伏安式仍为奇函数，改变电源极性使$u$反号。这里没有击穿模型；反向并联让任一极性都有一只管处于正向，不应把两只反向饱和电流误相加为同方向常量。
+\end{solution}
+
+
+
+
+\input{lecture4_depth}
+\section{习题与解答}
+
+\begin{exercise}[三轨中轨的同轨电阻]\label{ex:c4-h1}
+把三轨网络的两个端口都移到中轨，轴向相隔$N$格，求电阻并与同一外轨端口比较。 见图~\ref{fig:c4-h1-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(v0j0)at(0.0,0.0);
+\coordinate(v0j1)at(1.1,0.0);
+\coordinate(v0j2)at(2.2,0.0);
+\coordinate(v0j3)at(3.3000000000000003,0.0);
+\coordinate(v0j4)at(4.4,0.0);
+\coordinate(v0j5)at(5.5,0.0);
+\draw[curve](v0j0)--(v0j1);
+\draw[curve](v0j1)--(v0j2);
+\draw[guide](v0j2)--(v0j3);
+\draw[guide](v0j3)--(v0j4);
+\draw[curve](v0j4)--(v0j5);
+\coordinate(v1j0)at(0.0,1.15);
+\coordinate(v1j1)at(1.1,1.15);
+\coordinate(v1j2)at(2.2,1.15);
+\coordinate(v1j3)at(3.3000000000000003,1.15);
+\coordinate(v1j4)at(4.4,1.15);
+\coordinate(v1j5)at(5.5,1.15);
+\draw[curve](v1j0)--(v1j1);
+\draw[curve](v1j1)--(v1j2);
+\draw[guide](v1j2)--(v1j3);
+\draw[guide](v1j3)--(v1j4);
+\draw[curve](v1j4)--(v1j5);
+\coordinate(v2j0)at(0.0,2.3);
+\coordinate(v2j1)at(1.1,2.3);
+\coordinate(v2j2)at(2.2,2.3);
+\coordinate(v2j3)at(3.3000000000000003,2.3);
+\coordinate(v2j4)at(4.4,2.3);
+\coordinate(v2j5)at(5.5,2.3);
+\draw[curve](v2j0)--(v2j1);
+\draw[curve](v2j1)--(v2j2);
+\draw[guide](v2j2)--(v2j3);
+\draw[guide](v2j3)--(v2j4);
+\draw[curve](v2j4)--(v2j5);
+\draw[curve](v0j0)--(v1j0);
+\draw[curve](v0j1)--(v1j1);
+\draw[curve](v0j2)--(v1j2);
+
+\draw[curve](v0j4)--(v1j4);
+\draw[curve](v0j5)--(v1j5);
+\draw[curve](v1j0)--(v2j0);
+\draw[curve](v1j1)--(v2j1);
+\draw[curve](v1j2)--(v2j2);
+
+\draw[curve](v1j4)--(v2j4);
+\draw[curve](v1j5)--(v2j5);
+
+\node[below]at(v0j0){$0$};
+\node[below]at(v0j1){$1$};
+\node[below]at(v0j2){$2$};
+\node[below]at(v0j3){$\cdots$};
+\node[below]at(v0j4){$N-1$};
+\node[below]at(v0j5){$N$};
+\fill(v1j0)circle(2pt)node[left]{$A_*$};\fill(v1j5)circle(2pt)node[right]{$B_*$};
+\node at(-.7,1.15){$\cdots$};\node at(6.2,1.15){$\cdots$};\node[font=\scriptsize]at(2.75,-.9){虚线省略中间格，末端编号为$N$。};
+\end{tikzpicture}
+\caption{本题实际使用中轨上的两个端口。}\label{fig:c4-h1-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-h1-q}的中轨单位注流向量为$(0,1,0)^{\mathsf T}$，投影为$c_0=1/\sqrt3,c_1=0,c_3=-2/\sqrt6$。源汇都在中轨，故每个模态都有相反的两个点源；非零模式的端阻权重为$2c_\mu^2[G_\mu(0)-G_\mu(N)]$。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(U)at(0,1.5);
+\coordinate(M)at(0,0);
+\coordinate(D)at(0,-1.5);
+\coordinate(P)at(3,0);
+\draw[curve](U)--(M);
+\draw[curve](M)--(D);
+\draw[curve](M)--(P);
+\fill(U)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$u_1=u_3$};
+\fill(M)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$I$};
+\fill(D)circle(1.3pt);
+\fill(P)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\mu=0,3$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{对称注流不激发上下反对称模态，保留另两个模态。}\label{fig:c4-h1-s}
+\end{figure}
+图~\ref{fig:c4-h1-s}中$\mu=1$为上下反对称模态，与中轨源正交，完全不激发。零模态贡献$rN/3$；$\mu=3$的投影平方为$2/3$，所以
+\[
+ \boxed{R_{\text{中}}(N)=r\left[\frac N3+
+ \frac4{3\sqrt{21}}(1-a_3^N)\right]}.
+\]
+例如$N=1$，$1-a_3=(\sqrt{21}-3)/2$，代入得到
+\[
+ R_{\text{中}}(1)=r\left(1-\frac2{\sqrt{21}}\right).
+\]
+与同一外轨端口比较，两者共同的线性项抵消，差为
+\[
+ R_{\text{外}}-R_{\text{中}}
+ =r\left[\frac{1-a_1^N}{\sqrt5}
+ -\frac{1-a_3^N}{\sqrt{21}}\right].
+\]
+$N=0$时同点电阻均为零；当$N\gg1$，差趋于$r(1/\sqrt5-1/\sqrt{21})>0$。中轨可直接向两外轨分流，局部修正较小，但长距离三轨均分给出的斜率都为$r/3$。
+
+上下外轨的电位在本题始终互为镜像而相等，符合消失的反对称模态。求解只需使用已经定标的两种点源响应，无须重新引入并求解六个指数常数。
+\end{solution}
+
+\begin{exercise}[RC预充电后的反向接通]\label{ex:c4-h2}
+电容初始电压为$+U_0$，在$t=0$通过$r$接到极性相反、电动势大小$\varepsilon>0$的电源。按原电容正极板定义电荷，求换极性时间及总热量。 见图~\ref{fig:c4-h2-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2.5,0);\coordinate(c)at(5,0);
+\Res{a}{b}{r}\CircuitCap{b}{c}{C}
+\coordinate(d)at(0,-1.6);\coordinate(e)at(5,-1.6);
+\draw[curve](a)--(d);\draw[curve](c)--(e);\Src{d}{e}{-\varepsilon}
+\draw[axis](.3,.6)--(1.3,.6)node[above]{$I$};\node at(2.5,1.3){$q(0)=CU_0,\quad \mathcal E=-\varepsilon$};
+\end{tikzpicture}
+\caption{电容电荷符号保持原定义，电源有向电动势取负。}\label{fig:c4-h2-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-h2-q}始终沿原电容正极板定义$q$，故$q(0)=CU_0$，反向电源的有向电动势为$-\varepsilon$。回路式$r\dot q+q/C=-\varepsilon$，令$z=q+C\varepsilon$，则$\dot z=-z/(rC)$、$z(0)=C(U_0+\varepsilon)$。
+乘$\ee^{t/(rC)}$后，方程左边为$\dd[z\ee^{t/(rC)}]/\dd t=0$。
+从$0$积分至$t$得到$z(t)\ee^{t/(rC)}=z(0)$，再加回特解并求导：
+\[
+ q=-C\varepsilon+C(U_0+\varepsilon)\ee^{-t/(rC)},\qquad
+ I=\dot q=-\frac{U_0+\varepsilon}r\ee^{-t/(rC)}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\draw[axis](0,0)--(5.5,0)node[right]{$t/(rC)$};\draw[axis](0,-.1)--(0,1.6)node[above]{$q/(C\varepsilon)$};
+\draw[curve,domain=0:5,samples=70]plot(\x,{-1+2*exp(-\x)});\draw[axis](0,-1.2)--(0,0);
+\end{tikzpicture}
+\caption{曲线示意$U_0=\varepsilon$；电荷过零后极性反转。}\label{fig:c4-h2-s}
+\end{figure}
+图~\ref{fig:c4-h2-s}中电荷单调下降并穿过零；取$q(t_0)=0$得$\ee^{-t_0/(rC)}=\varepsilon/(U_0+\varepsilon)$，所以
+\[
+ \boxed{t_0=rC\ln\frac{U_0+\varepsilon}{\varepsilon}}.
+\]
+过零后电容换极性，电流参考方向仍保持原定义。以$rI^2$积分，
+\[\begin{aligned}
+ Q_r&=\frac{(U_0+\varepsilon)^2}r\int_0^\infty\ee^{-2t/(rC)}\dd t\\
+ &=\frac{(U_0+\varepsilon)^2}r
+ \lim_{T\to\infty}\left[-\frac{rC}2\ee^{-2t/(rC)}\right]_0^T
+ =\boxed{\frac C2(U_0+\varepsilon)^2}.
+\end{aligned}\]
+积分值$rC/2$消去了显式$r$，说明内阻控制持续时间与峰值，却不改变此理想恒压过程的总热量。
+
+按有向源功核对，$W_s=(-\varepsilon)[q(\infty)-q(0)]=C\varepsilon(U_0+\varepsilon)$；加上初能$CU_0^2/2$、减去末能$C\varepsilon^2/2$，仍得上式。虽然$I<0$，源的电动势也为负，所以$(-\varepsilon)I>0$，此处电源仍在供能，不能只看电流符号判定充电或回馈。
+\end{solution}
+
+\begin{exercise}[两交叉电容电路的储能]\label{ex:c4-h3}
+对三电阻、两交叉电容网络，求$t$时刻两电容总储能及长时极限。解释为何总发热积分发散。 见图~\ref{fig:c4-h3-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\fill(n0)circle(1.5pt)node[below]{$0$};
+\coordinate(n1)at(2,0);\fill(n1)circle(1.5pt)node[below]{$1$};
+\coordinate(n2)at(4,0);\fill(n2)circle(1.5pt)node[below]{$2$};
+\coordinate(n3)at(6,0);\fill(n3)circle(1.5pt)node[below]{$3$};
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\coordinate(a)at(0,1.2);\coordinate(b)at(4,1.2);
+\draw[curve](n0)--(a);\draw[curve](b)--(n2);\CircuitCap{a}{b}{C}
+\coordinate(c)at(2,-1.2);\coordinate(d)at(6,-1.2);
+\draw[curve](n1)--(c);\draw[curve](d)--(n3);\CircuitCap{c}{d}{C}
+\coordinate(e)at(0,-2.4);\coordinate(f)at(6,-2.4);
+\draw[curve](n0)--(e);\draw[curve](n3)--(f);\Src{e}{f}{\varepsilon}
+
+\end{tikzpicture}
+\caption{长时电源仍通过三个电阻供电，电流不趋零。}\label{fig:c4-h3-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-h3-q}中两电容电荷同为$q=(2C\varepsilon/3)(1-s)$，记$s=\ee^{-3t/(rC)}$。每只电容储能$q^2/(2C)$，因此
+\[
+ \boxed{W_C(t)=\frac{q^2}C=\frac{4C\varepsilon^2}9(1-s)^2},
+ \qquad W_C(\infty)=\frac{4C\varepsilon^2}9.
+\]
+电容电流趋零，只表示它们不再继续储能；理想电源与三电阻的直流通路仍然存在。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(n0)at(0,0);\coordinate(n1)at(2,0);\coordinate(n2)at(4,0);\coordinate(n3)at(6,0);
+\Res{n0}{n1}{r}
+\Res{n1}{n2}{r}
+\Res{n2}{n3}{r}
+\fill(n0)circle(1.5pt)node[below]{$0$};
+\fill(n1)circle(1.5pt)node[below]{$1$};
+\fill(n2)circle(1.5pt)node[below]{$2$};
+\fill(n3)circle(1.5pt)node[below]{$3$};
+\node at(3,1){$I_\infty=\varepsilon/(3r)$};
+\end{tikzpicture}
+\caption{长时电容不再取流，三个电阻仍构成有源闭合回路。}\label{fig:c4-h3-s}
+\end{figure}
+图~\ref{fig:c4-h3-s}长时三电阻串联，各流$\varepsilon/(3r)$，故背景功率为$P_\infty=3r[\varepsilon/(3r)]^2=\varepsilon^2/(3r)>0$，总热量$\int_0^\infty P\dd t$发散。
+
+若明确求相对这个背景的额外暂态热量，可用已知支路电流$J_o=\varepsilon(1+2s)/(3r)$（两侧各一只）及$J_m=\varepsilon(1-4s)/(3r)$，逐项平方：
+\[
+ P=r(2J_o^2+J_m^2)
+ =\frac{\varepsilon^2}{9r}[2(1+2s)^2+(1-4s)^2]
+ =\frac{\varepsilon^2}{3r}+\frac{8\varepsilon^2}{3r}s^2.
+\]
+一次$s$项相消，故
+\[
+ Q_{\rm extra}=\int_0^\infty(P-P_\infty)\dd t
+ =\frac{8\varepsilon^2}{3r}
+ \lim_{T\to\infty}\left[-\frac{rC}{6}\ee^{-6t/(rC)}\right]_0^T
+ =\frac49C\varepsilon^2.
+\]
+这是一项扣除指定稳态背景后的有限量，不能称为整个通电过程的总发热。两电容储能有限与持续直流发热并存，普通单回路RC充电的总热结论不适用于这个仍有直流通路的网络。
+\end{solution}
+
+\begin{exercise}[RLC阶跃的总能量]\label{ex:c4-h4}
+串联RLC从零初态接恒定电压$\varepsilon$，$R>0$。不分别积分三种阻尼解，求从零到无穷的总电阻热量。 见图~\ref{fig:c4-h4-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(2,0);\coordinate(c)at(4,0);\coordinate(d)at(6,0);
+\CircuitCap{a}{b}{C}\node[below]at(.65,-.15){$+q$};\node[below]at(1.35,-.15){$-q$};\Res{c}{d}{R}
+\draw[curve,decorate,decoration={coil,aspect=.5,segment length=4pt,amplitude=3pt}](b)--(c);
+\node[above]at(3,.3){$L$};
+\coordinate(e)at(0,-1.5);\coordinate(f)at(6,-1.5);\draw[curve](a)--(e);\draw[curve](d)--(f);\Src{e}{f}{\varepsilon}
+\draw[axis](4.7,.6)--(5.7,.6)node[above]{$I=\dot q$};
+
+\end{tikzpicture}
+\caption{用回路式乘电流，将电源功率分为两种储能变化与热功率。}\label{fig:c4-h4-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-h4-q}按$I=\dot q$取向，回路式$L\dot I+RI+q/C=\varepsilon$。乘$I$，利用$LI\dot I=\dd(LI^2/2)/\dd t$和$q\dot q/C=\dd(q^2/(2C))/\dd t$，有
+\[
+ \frac{\dd}{\dd t}\left(\frac12LI^2+\frac{q^2}{2C}\right)+RI^2
+ =\varepsilon\dot q.
+\]
+右边是电源有向功率，两个导数分别为磁能和电场能变化，储能导数在交换能量时可以为负。
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\begin{scope}[scale=1]
+\coordinate(S)at(0,0);
+\coordinate(C)at(3,1.2);
+\coordinate(L)at(3,0);
+\coordinate(R)at(3,-1.2);
+\draw[curve](S)--(C);
+\draw[curve](S)--(L);
+\draw[curve](S)--(R);
+\fill(S)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\varepsilon I$};
+\fill(C)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\dot W_C$};
+\fill(L)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$\dot W_L$};
+\fill(R)circle(1.3pt)node[above right,fill=white,inner sep=1pt,xshift=2pt,yshift=2pt]{$RI^2$};
+\end{scope}
+
+\end{tikzpicture}
+\caption{回路功率逐项进入电容、电感与电阻，储能变化可取负值。}\label{fig:c4-h4-s}
+\end{figure}
+图~\ref{fig:c4-h4-s}的能量分配可直接在有限时刻$T$积分：
+\[
+ \frac12LI(T)^2+\frac{q(T)^2}{2C}
+ +\int_0^T RI^2\dd t=\varepsilon q(T),
+\]
+其中零初态已使初能与$q(0)$项消失。因$R,L,C>0$，齐次根实部为负，$T\to\infty$时$I\to0,q\to C\varepsilon$。所以电源总功为$C\varepsilon^2$，末电场能为$C\varepsilon^2/2$，磁能为零，得到
+\[
+ \boxed{Q_R=C\varepsilon^2-\frac12C\varepsilon^2=\frac12C\varepsilon^2}.
+\]
+过阻尼、临界与欠阻尼只改变过程中能量交换和峰值，都具有相同初末态，故无需分别积分三种电流函数。
+
+若从一开始设$R=0$，热量严格为零，LC持续振荡，$q$没有上述静止末态。先对每个$R>0$等待足够长时间，再令$R\to0^+$，仍有同样总热量；这与无耗散电路的极限次序不同。使用初末态能量法前，必须先确定末态确实可达。
+\end{solution}
+
+\begingroup
+\setlength{\intextsep}{3pt}\setlength{\abovecaptionskip}{5pt}
+\begin{exercise}[二极管工作点的小变化]\label{ex:c4-h5}
+二极管并联负载电路已在电压$u_*$处稳定。电源电动势增加微量$\delta\varepsilon$，求一阶输出变化$\delta u$，其余参数固定。 见图~\ref{fig:c4-h5-q}。
+\end{exercise}
+
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a)at(0,0);\coordinate(b)at(3,0);\coordinate(c)at(0,-2);\coordinate(d)at(3,-2);
+\Res{a}{b}{r}\draw[curve](a)--(c);\Src{c}{d}{\varepsilon}
+\draw[curve](b)--(5,0)--(5,-2)--(d);
+\node[draw,fill=white]at(5,-1){$D$};
+\node[above]at(4,0){$u,+$};\node[below]at(4,-2){$-$};
+\draw[axis](5.5,-.3)--(5.5,-1.5)node[midway,right]{$I_D$};\coordinate(e)at(7,0);\coordinate(f)at(7,-2);
+\draw[curve](b)--(e);\draw[curve](d)--(f);\Res{e}{f}{R}
+\end{tikzpicture}
+\caption{小变化围绕已确定的工作点，不把非线性器件整体当成定值电阻。}\label{fig:c4-h5-q}
+\end{figure}
+\begin{solution}
+图~\ref{fig:c4-h5-q}原工作点满足$(\varepsilon-u_*)/r=u_*/R+I_D(u_*)$。电源增加微量$\delta\varepsilon$后，二极管电流在同一工作点展开：
+\[
+ I_D(u_*+\delta u)=I_D(u_*)+g_D\delta u+O((\delta u)^2),
+ \qquad g_D=\frac{I_s}{V_T}\ee^{u_*/V_T}>0.
+\]
+将新、旧节点方程相减并只保留一阶，得$(\delta\varepsilon-\delta u)/r=\delta u/R+g_D\delta u$。收集未知量后，
+\[
+ \boxed{\delta u=\frac{\delta\varepsilon}{1+r/R+rg_D}}.
+\]
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=Stealth,line cap=round,line join=round]
+\coordinate(a0)at(0,0);\coordinate(b0)at(4,0);\Res{a0}{b0}{R}
+\coordinate(a1)at(0,-1);\coordinate(b1)at(4,-1);\Res{a1}{b1}{r_D=V_T/[I_s\ee^{u_*/V_T}]}
+\draw[curve](a0)--(a1);\draw[curve](b0)--(b1);\node[left]at(a0){$A$};\node[right]at(b0){$B$};
+\end{tikzpicture}
+\caption{负载与二极管动态电阻并联，只描述工作点附近的一阶变化。}\label{fig:c4-h5-s}
+\end{figure}
+图~\ref{fig:c4-h5-s}中二极管对小变化表现为$r_D=1/g_D$。负载增量电流为$\delta I_R=\delta u/R$、二极管增量电流为$\delta I_D=g_D\delta u$，两者相加恰为内阻增量电流$(\delta\varepsilon-\delta u)/r$。动态电阻应与$R$并联，再与$r$分压。
+
+当$g_D\to0$时，恢复普通负载分压$\delta u=R\delta\varepsilon/(R+r)$；当$rg_D\gg1+r/R$时，输出变化近似为$\delta\varepsilon/(rg_D)$，强正向导通压低了电压灵敏度。$r_D$来自曲线切线，与$u_*/I_D(u_*)$这一静态比值不同。
+
+指数展开的二阶与一阶比约为$|\delta u|/(2V_T)$，所以$|\delta u|\ll V_T$是一项直接可用的小信号条件。大幅变化须重新求工作点，不能把当前切线延长为整个器件的定值电阻。
+\end{solution}
+\endgroup

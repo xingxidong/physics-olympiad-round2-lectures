@@ -1,0 +1,92 @@
+\section{习题与解答}
+\input{lecture3_additional}
+\input{lecture3_practice}
+\begin{exercise}\label{ex:m3threshold}
+静质量$m$的入射粒子撞击同样静质量的静止靶粒子，末态需产生四个质量均为$m$的粒子。忽略其他限制，求入射动能阈值，并与两束等能反向对撞比较。
+\Diagram{fig:m3thresholdq}{固定靶与对撞的入射配置}{\draw[->](0,.5)--(2,.5);\fill(2.8,.5)circle(2pt);\node[above]at(1,.5){$E$};\node[right]at(3,.5){固定靶};\draw[->](0,-1)--(1.7,-1);\draw[->](3.6,-1)--(1.9,-1);\node[right]at(4,-1){对撞};}
+\end{exercise}
+\begin{solution}
+在图\ref{fig:m3thresholdq}的固定靶实验室系，入射总能量记为$E$，动量记为$p$，有$E^2-p^2c^2=m^2c^4$。初态总能量$E+mc^2$、总动量$p$，因此
+\begin{align*}
+ s&=(E+mc^2)^2-p^2c^2\\
+ &=E^2-p^2c^2+2mc^2E+m^2c^4\\
+ &=2m^2c^4+2mc^2E.
+\end{align*}
+阈值时四个末态粒子在质心系相对静止，最小总能量为$4mc^2$，故$s=16m^2c^4$，解得$E=7mc^2$、$K=6mc^2$。
+\Diagram{fig:m3thresholda}{阈值末态在质心系中无相对运动}{\foreach\x in{0,1,2,3}{\fill(\x,0)circle(3pt)node[below]{$m$};}\draw[curve](-.4,-.5)rectangle(3.4,.6);\node[above]at(1.5,.6){总静能$4mc^2$};}
+图\ref{fig:m3thresholda}的末态静止是指质心系。实验室的初态总能量为$8mc^2$，总动量为$\sqrt{7^2-1}\,mc=4\sqrt3\,mc$，因而质心速度$V=Pc^2/E_T=\sqrt3c/2$、$\gamma_V=2$。末态整体动能为
+\[
+ K_{\rm bulk}=(\gamma_V-1)\,4mc^2=4mc^2.
+\]
+六份入射动能中，$2mc^2$用来增加末态静能，$4mc^2$用于整体运动。若改成两束等能反向对撞，总动量一开始为零，阈值只需每束总能量$2mc^2$，每束动能$mc^2$，两束共$2mc^2$。两种装置的末态最小静能相同，固定靶所需额外能量来自总动量约束。
+\end{solution}
+
+\begin{exercise}\label{ex:m3compton}
+能量$E$的光子撞击静止电子，散射光子与入射方向成$\theta$角。用四动量守恒推导波长改变量。
+\Diagram{fig:m3comptonq}{散射光子与反冲电子}{\draw[->,thick](-2,0)--(0,0)node[midway,above]{$E$};\draw[->,thick](0,0)--(2,1.7)node[right]{$E'$};\draw[->](0,0)--(2,-1.1)node[right]{电子};\draw[guide](0,0)--(2.5,0);\node at(.8,.35){$\theta$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3comptonq}中，初始电子四动量为$P=(mc,\vct0)$，初末光子四动量记为$k,k'$，其能量分别为$E,E'$。末电子$P'=P+k-k'$，电子静质量不变，故
+\[
+ 0=P'^2-P^2=2P\cdot k-2P\cdot k'-2k\cdot k'.
+\]
+光子各自平方为零，两个光子的空间夹角为$\theta$，因此
+\[
+ P\cdot k=mE,\quad P\cdot k'=mE',\quad
+ k\cdot k'=\frac{EE'}{c^2}(1-\cos\theta).
+\]
+代入并除以$EE'$，得$1/E'-1/E=(1-\cos\theta)/(mc^2)$。
+\Diagram{fig:m3comptona}{散射角越大，光子能量损失越大}{\draw[axis](0,0)--(4.1,0)node[right]{$\theta$};\draw[axis](0,0)--(0,2.8)node[above]{$\lambda'-\lambda$};\draw[curve,domain=0:180,samples=70]plot({\x/50},{1-cos(\x)});\node[below]at(3.6,0){$\pi$};\node[left]at(0,2){$2h/(mc)$};}
+以$E=hc/\lambda$表示，即为图\ref{fig:m3comptona}的康普顿关系
+\[
+ \lambda'-\lambda=\frac h{mc}(1-\cos\theta),\qquad
+ E'=\frac E{1+(E/mc^2)(1-\cos\theta)}.
+\]
+电子反冲不能在守恒中省掉。取散射光子在$x,y$平面且$y$分量为正，末电子分量为
+\[
+ p_{ex}=\frac{E-E'\cos\theta}c,\qquad
+ p_{ey}=-\frac{E'\sin\theta}c,
+ \quad K_e=E-E'.
+\]
+这些分量应与题图中的反冲方向一致。由它们平方得到$p_e^2c^2=E^2+E'^2-2EE'\cos\theta$；结合$K_e$又有$p_e^2c^2=K_e^2+2mc^2K_e$，两式相等恰恢复上面的散射能量式。正向散射无能量转移，反向散射波长改变量最大为$2h/(mc)$。
+\end{solution}
+
+\begin{exercise}\label{ex:m3circular}
+相对论带电粒子在均匀磁场中作圆周运动，速度垂直磁场。忽略辐射。求半径、实验室角频率、固有加速度及瞬时静止系电场。
+\Diagram{fig:m3circleq}{垂直磁场中的圆周运动，取正电荷}{\draw[curve](0,0)circle(1.5);\fill(1.5,0)circle(2pt);\draw[axis](1.5,0)--(1.5,1.2)node[right]{$v$};\draw[axis](1.5,0)--(.3,0)node[above]{$qvB$};\draw(0,0)circle(.15);\draw(-.1,-.1)--(.1,.1);\draw(-.1,.1)--(.1,-.1);\node[below]at(0,-.3){$B$入纸面};}
+\end{exercise}
+\begin{solution}
+磁力始终垂直速度，$\dd E/\dd t=0$，故$\gamma_v$恒定。图\ref{fig:m3circleq}中动量转向率$p v/R=|q|vB$，因此$R=p/(|q|B)=\gamma_vmv/(|q|B)$，$\omega=v/R=|q|B/(\gamma_vm)$。
+\Diagram{fig:m3circlea}{局部瞬时静止系中的电场指向圆心}{\fill(0,0)circle(2pt)node[below]{粒子};\draw[axis](0,0)--(-2,0)node[above]{$\vct E_0=\gamma_v\vct v\times\vct B$};\draw[guide](0,-1)--(0,1.2);\node[right]at(.2,.7){$\vct v$切向};}
+实验室向心加速度$a=v^2/R$属垂直分量，所以固有加速度$\alpha=\gamma_v^2v^2/R=\gamma_v|q|vB/m$。瞬时静止系场变换给图\ref{fig:m3circlea}的$\vct E_0=\gamma_v\vct v\times\vct B$；静止粒子所受电力大小$|q|\gamma_vvB=m\alpha$，与加速度关系相符。该系电场可做瞬时加速，却不意味着实验室磁场做功。
+\end{solution}
+
+\begin{exercise}\label{ex:m3sheet}
+无限带电平面静止系面密度为$\sigma_0$，平面为$xy$面。观察系沿$x$以$V$运动。求平面两侧的电磁场，并用变换后的面电流核对磁场方向。
+\Diagram{fig:m3sheetq}{静止带电平面两侧的电场}{\draw[curve](-2,0)--(2,0);\foreach\x in{-1.5,-.5,.5,1.5}{\node at(\x,0){$+$};\draw[axis](\x,.2)--(\x,1.2);\draw[axis](\x,-.2)--(\x,-1.2);}\node[right]at(2,0){$xy$面};\node[right]at(1.5,1.2){$z>0$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3sheetq}中$E_z=\operatorname{sgn}(z)\sigma_0/(2\varepsilon_0)$、$B=0$。沿$x$变换得$E_z'=\gamma E_z$、$B_y'=\gamma VE_z/c^2$。面密度$\sigma'=\gamma\sigma_0$，平面在新系沿$-x$运动，面电流$K_x'=-\gamma\sigma_0V$。
+\Diagram{fig:m3sheeta}{新系面电流沿$-x$，上侧磁场沿$+y$}{\draw[axis](-2,0)--(2,0)node[right]{$x'$};\draw[axis](0,-1.7)--(0,1.8)node[above]{$z'$};\draw[very thick,->](1,0)--(-1,0)node[below]{$\vct K'$};\draw(.8,1)circle(.15);\draw(.7,.9)--(.9,1.1);\draw(.7,1.1)--(.9,.9);\node[right]at(1.1,1){$B_y'$入纸面};}
+按图\ref{fig:m3sheeta}的右手定则，无限面电流上侧$B_y'=-\mu_0K_x'/2=\mu_0\gamma\sigma_0V/2$，与$\gamma VE_z/c^2$完全一致，因为$\varepsilon_0\mu_0c^2=1$。上下侧场都反号。这里$x'$向右、$z'$向上时，$+y'$朝纸内，基底方向需在图中明确。
+\end{solution}
+
+\begin{exercise}\label{ex:m3gauge}
+真空平面波的四势为$A^\mu=\epsilon^\mu\ee^{-ik_\nu x^\nu}$，满足洛伦兹规范。求极化四矢量的约束，并说明沿波矢的四势分量为何不改变场。
+\Diagram{fig:m3gaugeq}{横向极化与传播方向}{\draw[axis](0,0)--(4,0)node[right]{$\vct k$};\draw[axis](1,0)--(1,1.8)node[above]{$\vct\epsilon_\perp$};\draw[guide](0,1)--(4,1);\node[below]at(2,-.4){等相位波面垂直$\vct k$};}
+\end{exercise}
+\begin{solution}
+规范条件$\partial_\mu A^\mu=0$给$k_\mu\epsilon^\mu=0$。若再选无标势的横向规范$\epsilon^0=0$，则$\vct k\cdot\vct\epsilon=0$，得到图\ref{fig:m3gaugeq}的两个独立横向极化方向。
+\Diagram{fig:m3gaugea}{规范变化沿四维波矢方向，横向物理场不变}{\draw[axis](0,0)--(4.3,0)node[right]{$k^\mu$方向};\draw[axis](0,0)--(0,2.2)node[above]{横向};\draw[->,thick](0,0)--(1.5,1.6)node[above]{$\epsilon^\mu$};\draw[->,thick](0,0)--(3.2,1.6)node[right]{$\epsilon^\mu+ak^\mu$};\draw[guide](1.5,1.6)--(3.2,1.6);}
+场张量由反对称组合$k^\mu\epsilon^\nu-k^\nu\epsilon^\mu$给出。把图\ref{fig:m3gaugea}中$\epsilon^\mu$改为$\epsilon^\mu+ak^\mu$，新增项$a(k^\mu k^\nu-k^\nu k^\mu)=0$，所以场不变。并且$k^2=0$使$k\cdot\epsilon$约束仍成立。图为四维分量关系示意，不是普通空间中把电场沿传播方向倾斜。
+\end{solution}
+
+\begin{exercise}\label{ex:m3parallelfields}
+某处电磁场平行且均非零。能否通过惯性变换同时消去其中一个场？若两场本来不平行，两个场不变量可以提供哪些必要限制？
+\Diagram{fig:m3parallelq}{平行电磁场的点积不为零}{\draw[axis](0,0)--(0,1.65)node[above]{$\vct E$};\draw[axis](1.2,0)--(1.2,1.35)node[above]{$\vct B$};\node[below]at(.6,0){同向或反向均可};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m3parallelq}中$\vct E\cdot\vct B=\pm EB\ne0$，它是洛伦兹不变量。若在某系消去任意一个场，点积就为零，矛盾。因此不存在这种惯性系。
+\Diagram{fig:m3parallela}{消场必须先满足两个不变量的限制}{\draw[axis](0,0)--(5,0)node[right]{$E^2-c^2B^2$};\draw[curve](2.5,-.6)--(2.5,.8);\node[below]at(2.5,-.6){$0$};\node[above]at(1,.2){纯磁场可能};\node[above]at(4,.2){纯电场可能};\node[below]at(2.5,-1.1){还须$\vct E\cdot\vct B=0$};}
+一般场若可变为纯电场，必要有$\vct E\cdot\vct B=0$且$E^2-c^2B^2>0$；若可变为纯磁场，则后一不变量小于0。图\ref{fig:m3parallela}的零边界需要另行处理：两个不变量都零的非零场不能被消去，因为若某系变成零场，逆变换会使原系也为零。对正交场，例\ref{ex:m3crossed}已给出满足这些条件的具体速度。
+\end{solution}

@@ -1,0 +1,72 @@
+\begin{exercise}\label{ex:m2midburn}
+光子火箭需从静止到达距离$L$处并停止，前半程保持固有加速度$\alpha$，后半程保持同样大小的固有减速度。求地球时间、船上时间和初末质量比。
+\Diagram{fig:m2midq}{中点反转推力，速度连续}{\draw[axis](-.3,0)--(5.8,0)node[right]{$x$};\fill(0,0)circle(1.5pt);\fill(5,0)circle(1.5pt);\draw[guide](2.5,-.7)--(2.5,1.3);\draw[->](.5,.6)--(1.8,.6)node[above]{$\alpha$};\draw[->](4.5,.6)--(3.2,.6)node[above]{$-\alpha$};}
+\end{exercise}
+\begin{solution}
+对图\ref{fig:m2midq}的前半程，用恒固有加速度世界线，令$q=\alpha L/(2c^2)$，得到中点快度$\chi_m=\operatorname{arcosh}(1+q)$。该段地球时间$c\sinh\chi_m/\alpha$、船上时间$c\chi_m/\alpha$。
+\Diagram{fig:m2mida}{固有时中的快度先线性增加再线性减少}{\draw[axis](0,0)--(5.2,0)node[right]{$\tau$};\draw[axis](0,0)--(0,3)node[above]{$\chi$};\draw[curve](0,0)--(2.3,2.5)--(4.6,0);\node[above]at(2.3,2.5){$\chi_m$};}
+后半程是时间反向的减速过程，图\ref{fig:m2mida}两段持续时间相同。因此$T=2c\sqrt{q(2+q)}/\alpha$、$\tau=2c\operatorname{arcosh}(1+q)/\alpha$。光子火箭消耗与总绝对快度$2\chi_m$对应，$M_0/M_f=\ee^{2\chi_m}=[1+q+\sqrt{q(2+q)}]^2$。减速阶段仍耗质量，不能让快度符号变化抵消燃料消耗。
+\end{solution}
+
+\begin{exercise}\label{ex:m2staging}
+固定排气速度$u$的火箭初质量100，燃烧至60时丢弃质量20的空壳，再燃烧至最终质量20。求总快度，并与同样初质量、最终携带40质量但不丢壳的单级模型比较。所有质量使用同一单位。
+\Diagram{fig:m2stageq}{无相对弹射的丢壳瞬间，飞船速度不变}{\node at(0,0){$100$};\draw[->](.6,0)--(1.5,0);\node at(2,0){$60$};\draw[->](2.6,0)--(3.5,0);\node at(4,0){$40$};\draw[->](4.6,0)--(5.5,0);\node at(6,0){$20$};\node[below]at(3,-.6){丢壳20};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2stageq}第一段快度$(u/c)\ln(100/60)$。丢壳时空壳与飞船相对静止，四动量按共同四速度分开，没有快度突变；第二段快度$(u/c)\ln(40/20)$。总快度$\chi=(u/c)\ln(10/3)$。
+\Diagram{fig:m2stagea}{对数质量图中竖直丢壳不贡献推进快度}{\draw[axis](0,0)--(5.2,0)node[right]{阶段};\draw[axis](0,0)--(0,3.5)node[above]{$\ln m$};\draw[curve](0,3)--(1.8,2.3)--(1.8,1.7)--(4.2,.7);\node[right]at(1.8,2){丢壳};}
+不丢壳的对照模型结束时含壳和有效载荷总质量40。其快度为
+\[
+ \chi_1=\frac uc\ln\frac{100}{40},\qquad
+ \chi-\chi_1=\frac uc\ln\frac43>0.
+\]
+图\ref{fig:m2stagea}对应的分级增益为后一式。若把无推进丢掉的20也按火箭式积分，会错误地多算一段快度；比较模型的有效载荷、燃料和空壳质量必须逐项一致。
+\end{solution}
+
+\begin{exercise}\label{ex:m2labpower}
+光子火箭沿$+x$运动，瞬时静止系向后辐射功率为$P_*$。求按实验室发射时间计算的光功率，并由它和飞船动能变化核对质量能守恒。
+\Diagram{fig:m2labpowerq}{后向光子在实验室红移}{\draw[curve](2,0)rectangle(4,1);\draw[axis](4.2,.5)--(5.6,.5)node[above]{$V$};\draw[axis](1.8,.5)--(.2,.5)node[above]{$P_*$};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2labpowerq}后向光子能量因子为$\gamma(1-\beta)$，发射时间因子为$\gamma$，所以$P_\gamma=P_*(1-\beta)$。同时$\dd m/\dd t=-P_*/(\gamma c^2)$，飞船快度率$\dd\chi/\dd t=P_*/(\gamma mc^2)$。
+\Diagram{fig:m2labpowera}{飞船总能量减小率等于后向辐射实验室功率}{\draw[curve](0,0)rectangle(2.2,1);\node at(1.1,.5){$\gamma mc^2$};\draw[->](2.4,.5)--(3.5,.5);\node[right]at(3.7,.5){$P_*(1-\beta)$};}
+对图\ref{fig:m2labpowera}的飞船总能量求导，利用$\dd\gamma/\dd\chi=\gamma\beta$，有
+\[
+ \frac{\dd(\gamma mc^2)}{\dd t}
+ =c^2\left(\gamma\frac{\dd m}{\dd t}
+ +m\frac{\dd\gamma}{\dd\chi}\frac{\dd\chi}{\dd t}\right)
+ =-P_*+mc^2\gamma\beta\frac{P_*}{\gamma mc^2}
+ =-P_*(1-\beta).
+\]
+飞船虽加速，总能量仍因辐射流失而下降；静质量损失的一部分转为更大的运动因子。不能把“速度增加”直接等同于飞船总能量必增。
+\end{solution}
+
+\begin{exercise}\label{ex:m2relay}
+沿用地球与恒星相距10光年、速度$0.8c$的过程，但旅行者不转向。另一只返航钟在恒星处与其相遇，把读数设置为7.5年后飞回地球。比较重逢读数与原双生子结果，解释是否必须由同一只钟经历加速才能得到差值。
+\Diagram{fig:m2relayq}{两只匀速钟在恒星处交接读数}{\draw[axis](-.2,0)--(4.2,0);\draw[axis](0,0)--(0,5.4)node[above]{$ct$};\draw[curve](0,0)--(2,2.5)--(3.7,4.625);\draw[curve](3.6,.5)--(0,5);\fill(2,2.5)circle(1.4pt)node[right]{$B$交接};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2relayq}去程钟从出发到$B$经历7.5年，返航钟从$B$到地球也经历7.5年。它在$B$被设置为7.5年，所以到地球读15年，地球仍为25年。
+\Diagram{fig:m2relaya}{交接后的读数拼接两段不同世界线的固有时间}{\draw[axis](0,0)--(5.1,0)node[right]{地球时间};\draw[axis](0,0)--(0,3)node[above]{拼接读数};\draw[curve](0,0)--(4.6,2.4);\draw[guide](2.3,0)--(2.3,1.2);\node[below]at(2.3,0){12.5年};\node[right]at(4.6,2.4){15年};}
+图\ref{fig:m2relaya}的拼接读数沿两段组成的折线累积，几何上与瞬时转向世界线相同。没有单只返航钟需要在$B$改变速度，但必须实际校准读数；两只钟若早在各自惯性系随意同步，初始偏移未必满足本题。差值由选择的时空路径决定，加速是连接路径的一种实现方式。
+\end{solution}
+
+\begin{exercise}\label{ex:m2retardedzero}
+发光点在实验室沿$(vt,b)$运动，观察者在原点。观察者在$t_o=0$拍照，而该坐标时刻物体恰在最近点$x=0$。求照片中光的发射时刻和发射位置。
+\Diagram{fig:m2zeroq}{同时最近点与照片发光点不是同一点}{\draw[axis](-3,0)--(2.5,0)node[right]{$x$};\draw[axis](0,0)--(0,2.8)node[above]{$y$};\draw[curve](-2.6,1.6)--(2.2,1.6);\fill(0,1.6)circle(1.5pt)node[above right]{同时位置};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2zeroq}的延迟条件为$0=t_e+\sqrt{v^2t_e^2+b^2}/c$，要求$t_e<0$。移项平方后$c^2t_e^2=v^2t_e^2+b^2$，所以$t_e=-\gamma b/c$、$x_e=-\beta\gamma b$。
+\Diagram{fig:m2zeroa}{入眼光线来自最近点之前，路程为$\gamma b$}{\draw[axis](-3.2,0)--(2.3,0)node[right]{$x$};\draw[axis](0,0)--(0,2.7)node[above]{$y$};\fill(-2,1.6)circle(1.5pt)node[above]{$x_e=-\beta\gamma b$};\draw[->](-2,1.6)--(0,0);\draw[guide](0,0)--(0,1.6);\node[right]at(0,.8){$b$};}
+代回原式，光程$R_e=\sqrt{\beta^2\gamma^2b^2+b^2}=\gamma b$，恰在$\gamma b/c$后到达，验证选取了正确负根。图\ref{fig:m2zeroa}中的源虽在坐标时间0已到最近点，照片仍显示此前位置；照片记录的是经过传播后到达的旧信号。
+\end{solution}
+
+\begin{exercise}\label{ex:m2fuelbudget}
+理想光子火箭总初末质量比为$R$，需把给定质量的有效载荷送到远方并相对地球停下。不规定距离，忽略巡航损失。求最大巡航洛伦兹因子以及质量比达到100时的巡航速度。
+\Diagram{fig:m2budgetq}{燃料预算分成加速和减速两个相等快度段}{\draw[axis](0,0)--(5.2,0);\draw[curve](0,.3)--(2.3,1.8)--(4.6,.3);\node[above]at(2.3,1.8){巡航};\node[below]at(0,0){静止};\node[below]at(4.6,0){静止};}
+\end{exercise}
+\begin{solution}
+图\ref{fig:m2budgetq}总绝对快度为$\ln R$，要最终停止，两段均为$\chi=\tfrac12\ln R$。所以$\gamma_{\max}=\cosh(\tfrac12\ln R)=(\sqrt R+1/\sqrt R)/2$，$\beta=(R-1)/(R+1)$。
+\Diagram{fig:m2budgeta}{保留制动燃料会显著降低同一初末质量比的巡航速度}{\draw[axis](0,0)--(4.8,0)node[right]{$R$};\draw[axis](0,0)--(0,2.8)node[above]{$\beta$};\draw[curve,domain=1:100,samples=80]plot({.04*\x},{2.3*(\x-1)/(\x+1)});\node[below]at(4,0){100};}
+取$R=100$，$\gamma=5.05$、$\beta=99/101\simeq.980198$，如图\ref{fig:m2budgeta}。若把全部燃料只用来加速，速度可达$(R^2-1)/(R^2+1)$，但剩余质量不足以再完成制动。任务若要求到达后停下，质量比还要包含制动段的消耗。
+\end{solution}

@@ -1,0 +1,260 @@
+\section{界面、相变与外场的综合模型}
+液膜拉伸时，外界做功先与表面自由能相联系；计算供热还需表面内能。外场中的气体则同时涉及热运动、势能与外界机械功。以下各题按图中的系统边界分别列出这些能量项。
+
+\begin{example}[非线性表面张力与相容热容]
+界面满足 $\sigma=\sigma_0-a_sT^2$，$a_s>0$，热容在零面积参考处为常量 $C_0$。忽略其他广义功。求相容的 $C_\Sigma(\Sigma,T)$、$U$ 与 $S$；说明能否同时规定定面积热容处处等于 $C_0$。
+\Diagram{fig:nonlinearsurfaceq}{表面张力曲率影响面积方向的热容变化}{
+ \draw[axis](0,0)--(4.6,0)node[right]{$T$};\draw[axis](0,0)--(0,2.8)node[above]{$\sigma$};\draw[curve]plot[domain=0:4](\x,{2.5-.1*\x*\x});\node at(3,2.6){$\sigma_{TT}=-2a_s$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:nonlinearsurfaceq}的 $U_\Sigma=\sigma-T\sigma_T=\sigma_0+a_sT^2$，先对面积积分，$U=(\sigma_0+a_sT^2)\Sigma+\Phi(T)$。在零面积参考处 $U_T=C_0$，故 $\Phi=C_0T+\text{常量}$。因此
+\[
+ C_\Sigma=C_0+2a_sT\Sigma,
+ \qquad U=\sigma_0\Sigma+a_s\Sigma T^2+C_0T+\text{常量}.
+\]
+Maxwell 关系给 $S_\Sigma=-\sigma_T=2a_sT$，积分并匹配 $S_T=C_\Sigma/T$，得到
+\[
+ S=2a_s\Sigma T+C_0\ln T+\text{常量}.
+\]
+给定的 $C_0$ 用来确定温度积分函数 $\Phi(T)$，并非规定所有面积上的热容都相同。对 $U$ 中的 $a_s\Sigma T^2$ 求温度导数，产生不可略去的 $2a_s\Sigma T$。再用所得熵求回基本关系，温度方向有 $T S_T=C_0+2a_s\Sigma T$，面积方向有 $T S_\Sigma+\sigma=\sigma_0+a_sT^2$，分别与内能的两个偏导匹配。两个方向同时匹配，才说明 $U,S$ 属于同一个相容模型。
+
+\Diagram{fig:nonlinearsurfacea}{两种顺序求混合偏导必须一致}{
+ \node[draw]at(0,0){$\partial_\Sigma C_\Sigma$};\node at(2.3,0){$=$};\node[draw]at(4.6,0){$-T\sigma_{TT}=2a_sT$};
+}
+图\ref{fig:nonlinearsurfacea}的等式要求热容随面积变化。若处处规定 $C_\Sigma=C_0$，左侧为零而右侧非零，模型便不相容。线性 $\sigma(T)$ 的二阶温度导数为零，才允许采用面积无关的热容。零面积参考值用于指定积分函数，物理应用范围仍须满足界面可作连续描述且 $\sigma>0$。
+\end{solution}
+
+\begin{example}[封闭肥皂泡的等温膨胀]
+肥皂泡中有 $\nu$ 摩尔理想气体，温度保持 $T$。薄膜张力 $\sigma=\sigma_0+\alpha T$，两面面积近似相同，泡半径由 $r_1$ 缓慢变为 $r_2$。外压受控制，忽略膜厚、重力和膜体积功。求平衡外压、气体做功、对外负载做功及气体和膜整体吸热。
+\Diagram{fig:bubbleq}{泡内外压强差由两层界面提供}{
+ \draw[curve](0,0)circle(1.5);\draw[curve](0,0)circle(1.57);\draw[axis](0,0)--(1.5,0)node[midway,above]{$r$};\node at(0,-.65){$p_{\rm in}$};\node at(2.8,.7){$p_{\rm ext}$};\node at(3,-.2){$p_{\rm in}-p_{\rm ext}=4\sigma/r$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:bubbleq}中 $V=4\pi r^3/3$、实际界面面积 $\Sigma=8\pi r^2$，理想气体压强 $p_{\rm in}=\nu RT/V$。机械平衡要求
+\[
+ p_{\rm ext}(r)=\frac{3\nu RT}{4\pi r^3}-\frac{4\sigma}{r}.
+\]
+路径只能在外压条件可实现的半径区间运行。气体等温做功为
+\[
+ W_g=\nu RT\int_{V_1}^{V_2}\frac{\dd V}{V}
+ =\nu RT[\ln V]_{V_1}^{V_2}=3\nu RT\ln\frac{r_2}{r_1}.
+\]
+其中一部分增加膜的自由能，另一部分付给外压负载：
+\[
+ W_{\rm ext}=\int p_{\rm ext}\dd V
+ =W_g-\sigma\Delta\Sigma,
+ \quad \Delta\Sigma=8\pi(r_2^2-r_1^2).
+\]
+膜所需的功也可从气体内外压差直接积分。球体体积微元为 $\dd V=4\pi r^2\dd r$，因此
+\[
+ \int_{r_1}^{r_2}(p_{\rm in}-p_{\rm ext})\dd V
+ =\int_{r_1}^{r_2}16\pi\sigma r\dd r
+ =[8\pi\sigma r^2]_{r_1}^{r_2}=8\pi\sigma(r_2^2-r_1^2).
+\]
+这与两面总面积的自由能增量相同。气体把这部分能量交给膜，膜又与恒温热源交换热；对气体和膜的整体列式时，这笔内部功抵消，外界负载只收到由外压积分计算的那一部分。
+
+\Diagram{fig:bubblea}{以气体和膜为整体时，膜功属于内部能量交换}{
+ \node[draw]at(0,0){气体 $W_g$};\draw[axis](1.2,.2)--(2.8,1);\draw[axis](1.2,-.2)--(2.8,-1);\node[right]at(2.8,1){膜自由能增加 $\sigma\Delta\Sigma$};\node[right]at(2.8,-1){外界负载 $W_{\rm ext}$};
+}
+气体内能不变，膜内能增量为 $\sigma_0\Delta\Sigma$。按图\ref{fig:bubblea}选择整体边界，只有 $W_{\rm ext}$ 是对外功，故
+\[
+ Q=\Delta U_{\rm total}+W_{\rm ext}
+ =W_g-\alpha T\Delta\Sigma.
+\]
+也可由整体熵变 $\Delta S=\nu R\ln(V_2/V_1)-\alpha\Delta\Sigma$ 得 $Q=T\Delta S$。若把气体做功和膜功都再次计为整体对外功，会重复计算内部交换。
+\end{solution}
+
+\begin{example}[定容两相系统的表观热容]
+$\nu$ 摩尔物质在刚性容器中处于液气共存，摩尔平均体积为 $\bar v=V/\nu$。气相理想，液体体积可忽略，气相摩尔定容热容为 $c_{v,g}$，液相比热为 $c_l$。沿共存线缓慢加热，摩尔汽化热为 $L_m(T)$。求气相摩尔分数和系统定容供热率 $C=\delta Q/\dd T$。
+\Diagram{fig:twophasecapacityq}{容器定容，液气比例随温度改变}{
+ \draw(0,0)rectangle(3,2.6);\fill[gray!20](0,0)rectangle(3,.8);\draw[curve](0,.8)--(3,.8);\node at(1.5,.4){液相};\node at(1.5,1.7){气相 $x\nu$};\draw[axis](-1,1)--(0,1)node[midway,above]{$Q$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:twophasecapacityq}的气体占据几乎全部体积，故 $V\simeq x\nu RT/p_s(T)$，于是
+\[
+ x(T)=\frac{\bar v p_s(T)}{RT},\qquad
+ \frac{x'}x=\frac{L_m(T)}{RT^2}-\frac1T.
+\]
+只在 $0<x<1$ 且两相近似成立的区间使用。总内能为 $U=\nu[(1-x)u_l+xu_g]$，沿共存线求导要保留组分比例的变化：
+\[
+ \frac{\dd U}{\dd T}=\nu[(1-x)c_l+xc_{v,g}+(u_g-u_l)x'].
+\]
+由汽化焓差 $L_m=u_g-u_l+RT$，得到
+\[
+ C=\nu\left[(1-x)c_l+xc_{v,g}
+ +(L_m-RT)x\left(\frac{L_m}{RT^2}-\frac1T\right)\right].
+\]
+由 $x'/x=(L_m-RT)/(RT^2)$，相比例项还可化成
+\[
+ (L_m-RT)x'=\frac{x(L_m-RT)^2}{RT^2}\ge0.
+\]
+因此在本题近似下，这一额外储热能力非负。它与气相比例改变的方向无关：升温可使 $x$ 增大，也可在某些参数范围使其减小，相变对应的内能变化会同时换号。容器一旦完全气化或液化，$x$ 不能再按共存线公式继续变化，需改用对应单相的状态方程和热容。
+
+\Diagram{fig:twophasecapacitya}{供热同时改变各相温度和相的数量}{
+ \node[draw,align=center]at(0,0){显热项\\$(1-x)c_l+xc_{v,g}$};\node at(2.8,0){$+$};\node[draw,align=center]at(5.1,0){相比例项\\$(L_m-RT)x'$};
+}
+图\ref{fig:twophasecapacitya}中的相比例项可能很大。容器定容只使外壁体积功为零，内部相变仍会贡献热容。潜热 $L_m$ 是两相焓差，扣除气相形成所需的 $RT$ 后，才得到内能差 $L_m-RT$，故应由它乘以 $x'$。更精确的模型还须保留液体体积及各相沿共存线的压强效应。
+\end{solution}
+
+\begin{example}[临界点与等面积条件]
+对一摩尔 van der Waals 气体求临界参数。低于临界温度时，说明为什么不能把等温线中 $p_v|_T>0$ 的部分作为稳定平衡路径，并从两相 Gibbs 自由能相等导出等面积条件。
+\Diagram{fig:criticalvdwq}{低于临界温度的等温线与共存平台}{
+ \draw[axis](0,0)--(5.5,0)node[right]{$v/v_c$};\draw[axis](0,0)--(0,3)node[above]{$p/p_c$};
+ \draw[curve]plot[domain=.55:4,samples=120]({1.2*\x},{2*(7.2/(3*\x-1)-3/(\x*\x))});
+ \draw[guide](.7241,1.294)--(2.8186,1.294);\node at(3.7,2.5){$T=0.9T_c$};\node[below]at(.7241,0){$v_l/v_c$};\node[below]at(2.8186,0){$v_g/v_c$};
+}
+\end{example}
+\begin{solution}
+临界等温线在拐点有 $p_v=0$、$p_{vv}=0$：
+\[
+ -\frac{RT_c}{(v_c-b)^2}+\frac{2a}{v_c^3}=0,\qquad
+ \frac{2RT_c}{(v_c-b)^3}-\frac{6a}{v_c^4}=0.
+\]
+两式相除消去 $T_c$，得 $2/(v_c-b)=3/v_c$，所以
+\[
+ v_c=3b,\quad T_c=\frac{8a}{27Rb},\quad p_c=\frac a{27b^2}.
+\]
+图\ref{fig:criticalvdwq}中向右上升的曲线段满足等温压缩率为负，不能构成稳定均匀相。平衡时由液气两相共存平台替代。
+等面积条件不是对实际两相过程使用不稳定均匀状态，而是借数学状态方程比较两端纯相的自由能。实际共存状态由相比例改变连接两端，压强保持 $p_s$。对于平均摩尔体积 $\bar v$ 介于两端之间，气相摩尔分数由 $\bar v=(1-x)v_l+xv_g$ 给出，故 $x=(\bar v-v_l)/(v_g-v_l)$。平台内部的不同横坐标代表不同相比例，而不是均匀气体沿回折线逐点移动。
+
+\Diagram{fig:criticalvdwa}{平台上下的有向面积必须相抵}{
+ \draw[axis](0,0)--(5.4,0)node[right]{$v/v_c$};\draw[axis](0,0)--(0,2.6)node[above]{$p/p_c$};
+ \draw[curve]plot[domain=.6034:2.34884,samples=100]({1.8*\x},{2.5*(7.2/(3*\x-1)-3/(\x*\x))});
+ \draw[curve](1.0861,1.6175)--(4.2279,1.6175);\node at(1.7,.8){负面积};\node at(3.2,2){正面积};
+}
+在定温下 $\dd g=v\dd p$，沿数学等温线从 $v_l$ 积分到 $v_g$，分部积分得到
+\[
+ g_g-g_l=[vp]_{v_l}^{v_g}-\int_{v_l}^{v_g}p(v,T)\dd v.
+\]
+两端共存压强均为 $p_s$，且 $g_g=g_l$，所以
+\[
+ \int_{v_l}^{v_g}[p(v,T)-p_s]\dd v=0.
+\]
+这就是图\ref{fig:criticalvdwa}的等面积条件。与两端方程 $p(v_l,T)=p(v_g,T)=p_s$ 联立，可确定液、气摩尔体积与饱和压强。图中取 $T/T_c=0.9$，对应 $v_l/v_c\approx0.60340$、$v_g/v_c\approx2.34884$、$p_s/p_c\approx0.64700$，平台按这些数值绘制。
+\end{solution}
+
+\begin{example}[有限气柱的等温升顶做功]
+气柱截面积 $S$ 固定，内有 $N$ 个理想气体粒子，处于均匀温度 $T$ 的重力平衡。顶壁可缓慢从高度 $H_1$ 升至 $H_2$，粒子数固定，过程可逆等温。求顶壁做功和吸热；讨论 $H_2\to\infty$ 时的功是否发散。
+\Diagram{fig:raisetopq}{升高顶壁时只受顶端局部压强做功}{
+ \draw(0,0)--(0,3.4);\draw(2.2,0)--(2.2,3.4);\draw(0,0)--(2.2,0);\draw[line width=1.4pt](0,2)--(2.2,2);\draw[guide](0,3.1)--(2.2,3.1);\draw[axis](1.1,2.1)--(1.1,3);\node[right]at(2.4,2){$H_1$};\node[right]at(2.4,3.1){$H_2$};
+}
+\end{example}
+\begin{solution}
+由有限气柱归一化，图\ref{fig:raisetopq}的顶端压强为$p_t=Nmg/[S(\ee^{a_gH}-1)]$，$a_g=mg/(\kb T)$。气体向外做功只在顶壁。令$x=a_gH$，则$\dd H=\dd x/a_g$，上下限由$H_1,H_2$变为$a_gH_1,a_gH_2$，所以
+\begin{align*}
+ W&=\int_{H_1}^{H_2}Sp_t\dd H
+ =N\kb T\int_{a_gH_1}^{a_gH_2}\frac{\dd x}{\ee^x-1}\\
+ &=N\kb T\ln\frac{1-\ee^{-a_gH_2}}{1-\ee^{-a_gH_1}}.
+\end{align*}
+最后一步利用 $\dd\ln(1-\ee^{-x})/\dd x=1/(\ee^x-1)$。温度不变，平动内能不变，重力势能却改变，
+\[
+ \Delta E_p=Nmg\left[\frac{H_1}{\ee^{a_gH_1}-1}
+ -\frac{H_2}{\ee^{a_gH_2}-1}\right].
+\]
+吸热中的重力势能项取决于平均高度，顶壁功则由顶端的局部压强决定。也可用配分积分求熵：固定温度下，位置积分 $Z_h=(1-\ee^{-a_gH})/a_g$ 随顶壁高度改变，熵差为 $N\kb\ln(Z_{h,2}/Z_{h,1})+\Delta E_p/T$。乘以温度，第一项给出顶壁功，第二项给出势能增量，与第一定律一致。位置积分在无限高时收敛，功也趋于有限值。
+
+\Diagram{fig:raisetopa}{等温供热同时支付重力势能和顶壁功}{
+ \node[draw]at(0,0){$Q$};\draw[axis](.7,.2)--(2.3,1);\draw[axis](.7,-.2)--(2.3,-1);\node[right]at(2.3,1){$\Delta E_p$};\node[right]at(2.3,-1){$W$};
+}
+图\ref{fig:raisetopa}给 $Q=\Delta E_p+W$。$H_2\to\infty$ 时功趋于有限值 $-N\kb T\ln(1-\ee^{-a_gH_1})$，因为高处密度指数小，后续顶壁压强很快趋零。忽略重力时的 $N\kb T\ln(H_2/H_1)$ 发散结论不能用于这个极限；应先比较尺度高度与容器高度。
+\end{solution}
+
+\begin{example}[恒定角速度下的旋转气体热容]
+圆柱容器在电机维持的恒定角速度 $\Omega$ 下转动，半径 $R_c$，内有 $N$ 个质量为 $m$ 的单原子理想气体粒子。忽略重力，气体相对容器始终处于温度 $T$ 的平衡。求平均转动惯量，正确计入电机功后求供热热容。
+\Diagram{fig:rotcapacityq}{固定角速度下的供热与有符号机械功}{
+ \draw[curve](0,0)circle(1.6);\draw[->](77:1.9)arc(77:170:1.9);\node at(-1.5,2.2){$\Omega$ 固定};
+ \draw[<->](2.2,0)--(3.6,0)node[right]{电机 $\Omega\dd L_z$};\draw[axis](-3,0)--(-1.7,0)node[midway,above]{$Q$};
+}
+\end{example}
+\begin{solution}
+令 $a=m\Omega^2/(2\kb T)$、$b_\Omega=aR_c^2$。径向密度 $\propto\ee^{ar^2}$，体积元含 $r\dd r$。对归一化积分求参数导数，
+\[
+ \langle r^2\rangle=\frac{\dd}{\dd a}\ln\frac{\ee^{aR_c^2}-1}{a}
+ =\frac{R_c^2}{1-\ee^{-b_\Omega}}-\frac1a.
+\]
+转动惯量 $I=Nm\langle r^2\rangle$，角动量 $L_z=I\Omega$。实验室系总能量为平动热能加整体旋转能，$E=3N\kb T/2+I\Omega^2/2$。图\ref{fig:rotcapacityq}中电机为保持 $\Omega$ 还要做功 $\delta W_{\rm on}=\Omega\dd L_z=\Omega^2\dd I$，故
+\[
+ \delta Q=\dd E-\Omega\dd L_z
+ =\frac32N\kb\dd T-\frac12\Omega^2\dd I.
+\]
+将惯量写为$I=NmR_c^2/(1-\ee^{-b_\Omega})-2N\kb T/\Omega^2$。因$\dd b_\Omega/\dd T=-b_\Omega/T$，第一项求导为$NmR_c^2b_\Omega\ee^{-b_\Omega}/[T(1-\ee^{-b_\Omega})^2]$，第二项为$-2N\kb/\Omega^2$。再用$mR_c^2=2\kb Tb_\Omega/\Omega^2$，合并得
+\[
+ \frac{\dd I}{\dd T}=-\frac{2N\kb}{\Omega^2}
+ \left[1-\frac{b_\Omega^2\ee^{-b_\Omega}}
+ {(1-\ee^{-b_\Omega})^2}\right].
+\]
+括号非负，故升温时径向密度趋于均匀，平均惯量减小。角速度固定，电机须取走一部分角动量，电机对气体做的功因而为负。把这一有符号的机械功从实验室系能量增量中减去，才得到供热量。
+
+\Diagram{fig:rotcapacitya}{升温使径向位置分布变均匀，同时与电机交换功}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$s=r^2/R_c^2$};\draw[axis](0,0)--(0,4.7)node[above]{$q(s)$};
+ \draw[curve]plot[domain=0:1,samples=70]({4*\x},{exp(\x-1)/(1-exp(-1))});
+ \draw[curve,dashed]plot[domain=0:1,samples=70]({4*\x},{4*exp(4*(\x-1))/(1-exp(-4))});
+ \node[below]at(4,0){$1$};\node at(1.3,1.6){高温};\node at(2.8,3.7){低温};
+ \node at(2.4,-.85){$\delta Q=\dd E-\Omega\dd L_z$};
+}
+将已经求出的$\dd I/\dd T$代入图\ref{fig:rotcapacitya}对应的供热式，得到
+\[
+ C_\Omega=N\kb\left[\frac52-
+ \frac{b_\Omega^2\ee^{-b_\Omega}}{(1-\ee^{-b_\Omega})^2}\right].
+\]
+弱旋转极限回到 $3N\kb/2$，强旋转时边壁附近的分布重排再贡献约 $N\kb$。该供热热容已经扣除了电机的机械交换。若装置改为与外界隔绝、角动量固定，升温时 $\Omega$ 也会改变，需要按新的约束重新求导。
+\end{solution}
+
+\begin{example}[重力气柱从低处泄流可以升温]
+高 $H$、截面积 $S$ 的绝热刚性气柱中有 $N$ 个单原子理想气体粒子，温度 $T$ 均匀。高度 $h_0$ 处开小孔向真空缓慢泄流，气柱始终重新平衡，重力势能计入系统能量。写出 $T(N)$ 的微分关系；再求无限高气柱从底部泄流的温度粒子数关系。
+\Diagram{fig:gravityleakq}{出口高度决定粒子携带的外场势能}{
+ \draw(0,0)rectangle(2,3.2);\fill[white](1.94,1.05)rectangle(2.06,1.35);
+ \draw[axis](2,1.2)--(4,1.2);\draw[guide](-.3,1.2)--(2,1.2);\node[left]at(-.3,1.2){$h_0$};
+ \node at(3.2,1.9){$2\kb T+mgh_0$};\node at(1,-.5){势能零点在底部};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:gravityleakq}每个逸出粒子平均携带 $\varepsilon_e=2\kb T+mgh_0$。余气单粒子平均总能量 $u(T)=3\kb T/2+mg\langle h\rangle$，固定 $H$ 的单粒子热容 $c(T)=\dd u/\dd T$。开放系统能量守恒为
+\[
+ u\dd N+Nc\dd T=\varepsilon_e\dd N,
+ \qquad Nc\dd T=
+ \left[\frac12\kb T+mg(h_0-\langle h\rangle)\right]\dd N.
+\]
+因此泄流是否冷却取决于出口能量相对于体内平均总能量的高低，不能只比较平动能。若 $h_0<\langle h\rangle-\kb T/(2mg)$，右侧方括号为负，因 $\dd N<0$，温度反而上升。
+固定的重力场不显含时间，所以粒子穿孔时只把其所在高度的势能带出，不再额外计一次外场参数功。余气能量的全微分同时含 $u\dd N$ 和 $Nc\dd T$；前者是按体内平均能量减少粒子的贡献，后者才反映温度改变。底部逸出的粒子虽然平动能高于体内平动平均，却缺少体内平均具有的重力势能。比较总能量后，差值反而为负，这才使无限高气柱的底部泄流导致升温。
+
+\Diagram{fig:gravityleaka}{无限高气柱底部逸出的总能量低于体内平均}{
+ \node[draw,align=center]at(0,0){体内平均\\$5\kb T/2$};\node[draw,align=center]at(4.6,0){底部逸出\\$2\kb T$};\node at(2.3,-1){留下的粒子平均总能量升高};
+}
+无限高气柱有$mg\langle h\rangle=\kb T$、$c=5\kb/2$。从底部$h_0=0$泄流，图\ref{fig:gravityleaka}给
+\[
+ \frac52N\kb\dd T=-\frac12\kb T\dd N,
+ \qquad T=T_0(N/N_0)^{-1/5}.
+\]
+分离变量后的初值积分为$5\int_{T_0}^{T}\dd\vartheta/\vartheta=-\int_{N_0}^{N}\dd N'/N'$，即$5\ln(T/T_0)=-\ln(N/N_0)$，给出上式。余气升温的原因是底部逸出粒子的总能量低于体内平均值。无限高度近似只适用于尺度高度远小于容器高度的阶段；温度升高使尺度高度增大后，应改用有限$H$的微分式描述。
+\end{solution}
+
+\begin{example}[光子工质的卡诺循环]
+以平衡光子气体为工质，工作在 $T_h,T_c$ 之间。高温等温膨胀体积从 $V_A$ 到 $V_B$，随后可逆绝热到低温，再等温压缩和绝热返回。求其余两状态体积、两热源热量与循环功，验证卡诺效率。
+\Diagram{fig:photoncarnotq}{光子气体的等温线是水平线}{
+ \draw[axis](0,0)--(5.2,0)node[right]{$V$};\draw[axis](0,0)--(0,3.6)node[above]{$p$};
+ \draw[curve](1,3)--(2,3);\draw[curve]plot[domain=2:3.90625](\x,{3*(2/\x)^(4/3)});
+ \draw[curve](1.953125,1.2288)--(3.90625,1.2288);\draw[curve]plot[domain=1:1.953125](\x,{3/\x^(4/3)});
+ \node[above]at(1,3){$A$};\node[above]at(2,3){$B$};\node[right]at(3.90625,1.2288){$C$};\node[left]at(1.953125,1.2288){$D$};\node at(3.9,3){$T_c/T_h=0.8$ 示意};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:photoncarnotq}的绝热关系是 $VT^3=\text{常量}$，所以
+\[
+ V_C=V_B(T_h/T_c)^3,\qquad V_D=V_A(T_h/T_c)^3.
+\]
+高温等温段压强为 $aT_h^4/3$，内能也随体积增加。由 $Q=\Delta U+W$，
+\[
+ Q_h=\frac{4a}3T_h^4(V_B-V_A).
+\]
+低温段放热量大小 $Q_c=(4a/3)T_c^4(V_C-V_D)$，代入体积关系得到 $Q_c/Q_h=T_c/T_h$。
+高温等温膨胀中，光子工质的熵增为$\Delta S_h=(4a/3)T_h^3(V_B-V_A)$。两条绝热段保持各端点的熵，因而低温压缩的熵减大小相同。低温体积差是高温体积差的$(T_h/T_c)^3$倍，而能量密度缩小为$(T_c/T_h)^4$，相乘后热量比只剩一次温度比。转到图\ref{fig:photoncarnota}的熵温平面，矩形面积为$(T_h-T_c)\Delta S_h$，等于两热源热量之差；原压强—体积图中的循环并非矩形。
+
+\Diagram{fig:photoncarnota}{在熵温平面中不同工质具有相同的可逆循环结构}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$S$};\draw[axis](0,0)--(0,3.2)node[above]{$T$};\draw[curve](1,1)rectangle(3.6,2.5);\node[left]at(0,2.5){$T_h$};\node[left]at(0,1){$T_c$};\draw[axis](1.5,2.5)--(2.5,2.5);\draw[axis](3,1)--(2,1);\node at(2.3,1.8){循环功};
+}
+因此$W=Q_h(1-T_c/T_h)$，效率仍为卡诺值。图\ref{fig:photoncarnota}的矩形由两条等温线和两条等熵线组成；光子状态方程改变了各状态的体积及热量，不改变这一可逆循环的温度比效率。
+\end{solution}

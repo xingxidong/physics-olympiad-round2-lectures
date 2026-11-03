@@ -1,0 +1,83 @@
+\subsection{同一粒子群的不同概率测度}
+\label{th:samplingmeasure}
+概率密度总是相对于指定的积分变量定义。若一个单调变量变换为 $y=F(x)$，相同小区间中的概率应相等，
+\[
+ q(y)\dd y=p(x)\dd x,\qquad
+ q(y)=p(x(y))\left|\frac{\dd x}{\dd y}\right|.
+\]
+密度的峰值会随变量变换而改变，区间概率和由同一事件定义的期望值则保持一致。例如直接计算 $\langle mv^2/2\rangle$，与先变成能量密度再计算 $\langle E\rangle$，必得相同结果。两种算法若不一致，应检查微分因子和积分范围。
+
+\Diagram{fig:measuremap}{变量变换保持概率而改变区间宽度}{
+ \draw[axis](0,1.4)--(6,1.4)node[right]{$x$};
+ \draw[axis](0,0)--(6,0)node[right]{$y$};
+ \draw[line width=2pt](1,1.4)--(1.8,1.4);
+ \draw[line width=2pt](2.3,0)--(4.3,0);
+ \draw[->](1.4,1.15)--(3.3,.25);
+ \node[above]at(1.4,1.55){$\dd x$};
+ \node[below]at(3.3,-.15){$\dd y$};
+ \node[right]at(4,.8){$p(x)\dd x=q(y)\dd y$};
+}
+图\ref{fig:measuremap}中，两条粗线代表同一批事件在两个变量下占据的区间。速度矢量变为速率时，还须合并所有方向上的事件，球壳面积便来自这一步求和。这与单纯将一个一维变量改写成另一个变量有所不同。
+
+另一种变化来自抽样方式。若一个粒子处于状态 $x$ 时，每单位时间被记录的机会正比于 $w(x)\ge0$，原有归一化密度为 $p(x)$，则记录事件的密度为
+\[
+ p_{\rm event}(x)=\frac{w(x)p(x)}{\langle w\rangle},
+ \qquad
+ \langle A\rangle_{\rm event}
+ =\frac{\langle Aw\rangle}{\langle w\rangle}.
+\]
+分母是总记录率，用来把加权结果重新归一化。两次平均一般不同；差值可写成
+\[
+ \langle A\rangle_{\rm event}-\langle A\rangle
+ =\frac{\langle Aw\rangle-\langle A\rangle\langle w\rangle}
+ {\langle w\rangle}.
+\]
+因此事件样本中某个量偏大还是偏小，取决于它与记录权重的关联。快分子更常穿孔，所以穿孔样本的能量偏大；在一段束流中作瞬时空间计数，慢分子停留更久，权重又不同。这两种偏置都可由同一归一化式推导。
+
+\subsection{条件筛选与通量加权的次序}
+探测器若只接受某一区域 $\mathcal A$，先用指示函数 $\mathbf1_{\mathcal A}$ 表示筛选，则被记录事件的概率为
+\[
+ \dd P_{\rm det}=
+ \frac{\mathbf1_{\mathcal A}(x)w(x)p(x)\dd x}
+ {\int_{\mathcal A}w(x)p(x)\dd x}.
+\]
+分子中的筛选因子和权重可交换乘法次序，分母则始终取最终被接受事件的总记录率。体内满足阈值的粒子比例按粒子数计算，通量比例还包含各粒子的穿面机会，两者应分别积分。
+
+各向同性小孔泄流中，速率因子 $vg(v)$ 与角度因子 $\cos\theta\,\dd\Omega$ 分离。单独限制接受圆锥不会改变速率分布；单独限制速率也不会改变归一化的角分布。这一结论以孔的传输几何与速率无关为条件。带电粒子经偏转场、长孔中的碰壁损失或随速率变化的探测效率，都可能使速率和方向在记录样本中重新关联。
+
+\subsection{累积分布、典型宽度与尾部估计}
+分量高斯密度的自然宽度是 $s=\sqrt{\kb T/m}$，其分布写成
+\[
+ f_x(v_x)=\frac1{\sqrt{2\pi}s}
+ \exp\!\left(-\frac{v_x^2}{2s^2}\right).
+\]
+两个对称阈值之间的概率是
+$P(|v_x|<a)=\erf(a/(\sqrt2s))$，阈值之外则为相应的 $\erfc$。所谓“宽度约为热速率”，只表示密度发生显著变化的尺度；精确的区间概率仍须积分。
+
+对于远尾 $z\gg1$，令 $K(z)=\int_z^\infty\ee^{-t^2}\dd t$，用 $\ee^{-t^2}\dd t=-\dd(\ee^{-t^2})/(2t)$ 分部积分，
+\[
+ K(z)=\frac{\ee^{-z^2}}{2z}
+ -\frac12\int_z^\infty\frac{\ee^{-t^2}}{t^2}\dd t.
+\]
+被减去的积分为正，因此首项给上界。再利用 $t^{-2}\le z^{-2}$，
+\[
+ \frac{\ee^{-z^2}}{2z+z^{-1}}
+ \le K(z)\le\frac{\ee^{-z^2}}{2z}.
+\]
+两界之比趋于1，故
+$\erfc z\sim\ee^{-z^2}/(\sqrt\pi z)$。指数给主要压低作用，前面的 $1/z$ 来自尾区有效宽度。对较高阈值估算泄流、反应或探测计数时，这一前因子也应保留。
+
+\subsection{速率谱、能量谱与仪器记录的转换}
+实际记录的横坐标可以是速度、能量或飞行时间。先把记录事件的密度写成 $p_v(v)$，再换横坐标，才能保持同一批样本。设测量路程固定为 $\ell$，到达时间 $t=\ell/v$，则
+\[
+ p_t(t)=p_v(\ell/t)\frac{\ell}{t^2},\qquad
+ p_E(E)=p_v\!\left(\sqrt{\frac{2E}{m}}\right)
+ \frac1{\sqrt{2mE}}.
+\]
+两个雅可比分别来自 $\left|\dd v/\dd t\right|$ 与
+$\left|\dd v/\dd E\right|$。例如，等宽时间窗口并不对应等宽速度窗口：早到粒子的相邻时间窗口覆盖更大的速度区间。图上计数峰的位置因此随记录变量变化，测温时应拟合整个已归一化的记录模型，而不宜只把某个峰当作最概然速率。
+
+若仪器记录效率为 $\eta(v)$，实际事件密度还需乘此因子，
+$p_{\rm rec}(v)=\eta(v)p_v(v)/\langle\eta\rangle$。
+反推出原谱时，可以在效率非零的区域除去该权重并重新归一化；效率为零的区间没有记录信息，单凭已测区间无法恢复其概率。有限飞行路径分散和有限时间分辨率则引入不同初始条件的叠加，属于在变量变换之外的另一层平均。
+

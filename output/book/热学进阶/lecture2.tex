@@ -1,0 +1,645 @@
+\chapter{泄流、辐射与热力学关系}
+
+\section{小孔泄流中的能量选择}
+\label{th:effusion}
+第一讲求出的逸出速率密度为 $g_e(v)=2\alpha^2v^3\ee^{-\alpha v^2}$，$\alpha=m/(2\kb T)$。多出的速率因子来自单位时间的穿孔机会。利用 $I_5/I_3$，有
+\[
+ \langle v^2\rangle_e=\frac{I_5}{I_3}=\frac2\alpha,
+ \qquad \langle E_{\rm tr}\rangle_e=2\kb T.
+\]
+容器中的平均平动能为 $3\kb T/2$，逸出粒子平均多携带 $\kb T/2$。如果分子还有充分激发的转动自由度，而孔不按内部状态筛选，那么每个内部二次项携带的平均能量仍为 $\kb T/2$。设总有效自由度为 $f$，平动占3个，则
+\begin{equation}\label{eq:escapeenergy}
+ c_v=\frac f2\kb,\qquad
+ \varepsilon_e=2\kb T+\frac{f-3}{2}\kb T
+ =\frac{f+1}{2}\kb T.
+\end{equation}
+这里假定内部自由度与平动保持热平衡，且孔的传输不依赖内部能级。常数 $f$ 只计入所讨论温区内已充分激发的自由度；振动逐渐激发的温区应使用随温度变化的热容。
+
+泄流冷却还需要三个尺度条件：孔径远小于平均自由程，孔外压强足够低，容器内重新平衡的时间远短于粒子数显著变化的时间。第一项保证分子流穿孔，第三项使余气仍可用一个温度描述。它们可以同时满足：小孔很小，容器内部仍有足够碰撞。
+
+\input{lecture2_boundary}
+\begin{example}[刚性绝热容器中的余气冷却]\label{ex:cooling}
+刚性容器内最初有 $N_0$ 个单原子理想气体粒子，温度 $T_0$。壁绝热，气体经薄壁小孔向真空缓慢泄流，余气始终充分平衡。求余气温度 $T$ 与粒子数 $N$ 的关系。
+\Diagram{fig:coolingq}{粒子穿过系统边界并携带能量}{
+ \draw[curve](0,0)rectangle(3,2);\fill[white](2.95,.8)rectangle(3.05,1.2);\node at(1.5,1){$N,T,V$};
+ \draw[axis](3,1)--(5,1)node[right]{$-\dd N>0$};\node at(4.1,1.65){每粒子 $2\kb T$};\node at(1.5,-.5){刚性、绝热};
+}
+\end{example}
+\begin{solution}
+把图\ref{fig:coolingq}中容器内的余气作为变粒子数系统，取 $\dd N<0$。余气能量变化等于流出能量的负值，故
+\[
+ \dd U=2\kb T\dd N.
+\]
+另一方面 $U=3N\kb T/2$，全微分必须同时包含 $N$ 与 $T$ 的改变：
+\[
+ \frac32\kb(N\dd T+T\dd N)=2\kb T\dd N.
+\]
+移项得到 $3N\dd T=T\dd N$，分离变量并在初末态之间积分，$3\int_{T_0}^{T}\dd\vartheta/\vartheta=\int_{N_0}^{N}\dd N'/N'$。两边的原函数均为对数，代入上下限得
+\[
+ 3\ln\frac T{T_0}=\ln\frac N{N_0},\qquad
+ T=T_0\left(\frac N{N_0}\right)^{1/3}.
+\]
+这里忽略了二阶小量$\dd N\dd T$。逸出粒子比体内平均粒子多携带$\kb T/2$的能量，故余气降温。粒子离开时的$T$应取瞬时余气温度，不能在整个过程中用初温$T_0$计算流出能量。
+
+\Diagram{fig:coolinga}{粒子数减少时温度和压强的变化}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$N/N_0$};\draw[axis](0,0)--(0,2.8)node[above]{归一化量};
+ \draw[curve]plot[domain=.01:1,samples=60]({4*\x},{2.3*\x^(1/3)});
+ \draw[curve,dashed]plot[domain=0:1,samples=60]({4*\x},{2.3*\x^(4/3)});
+ \draw[guide](4,0)--(4,2.3)--(0,2.3);\node[below]at(4,0){$1$};\node[left]at(0,2.3){$1$};
+ \node at(1.5,2.5){$T/T_0$};\node at(2.8,.7){$p/p_0$};
+}
+容器体积固定，$p/p_0=NT/(N_0T_0)=(N/N_0)^{4/3}$，如图\ref{fig:coolinga}。这里没有活塞体积功，却有随粒子跨边界的能量流；把“绝热”理解成余气内能不变，会同时漏掉开放系统的能量交换。
+\end{solution}
+
+\begin{example}[单原子、双原子和非线性多原子的比较]\label{ex:degrees}
+在上一例条件下，分别讨论 $f=3,5,6$，求 $N(T)$、$p(T)$ 和减少一半粒子数后的温度。内部自由度在全过程保持同一激发状态。
+\Diagram{fig:degreesq}{三类气体的平动和转动自由度}{
+ \foreach \x/\s in{0/单原子,2.6/双原子,5.2/非线性分子}{\node[draw,minimum height=.7cm]at(\x,0){\s};}
+ \node at(0,-.8){$f=3$};\node at(2.6,-.8){$f=5$};\node at(5.2,-.8){$f=6$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:degreesq}三类气体分别满足 $U=fN\kb T/2$。流出能量按式\eqref{eq:escapeenergy}取 $(f+1)\kb T/2$，于是
+\[
+ f(N\dd T+T\dd N)=(f+1)T\dd N
+ \quad\Rightarrow\quad \frac{\dd N}{N}=f\frac{\dd T}{T}.
+\]
+沿用上一例的对数积分，只将系数$3$换为$f$，有$\ln(N/N_0)=f\ln(T/T_0)$，即$N/N_0=(T/T_0)^f$。体积固定，压强还多含一个温度因子，故$p/p_0=(T/T_0)^{f+1}$。
+三种情形的内部能量和逸出能量可以按每粒子逐项列出：平动在体内占 $3\kb T/2$，在逸出样本占 $2\kb T$；双原子的两个转动二次项另加 $\kb T$，非线性分子的三个转动项另加 $3\kb T/2$。因此逸出能量依次为 $2\kb T$、$3\kb T$、$7\kb T/2$。穿孔不改变内部状态的平均分布，所以这些转动项在能量守恒中部分抵消，留下的是不同的储热能力与同一个额外平动能。
+
+\Diagram{fig:degreesa}{相同泄流比例下不同自由度的温度下降}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$N/N_0$};\draw[axis](0,0)--(0,2.7)node[above]{$T/T_0$};
+ \foreach \f in{3,5,6}{\draw[curve]plot[domain=.02:1,samples=50]({4*\x},{2.3*\x^(1/\f)});}
+ \draw[guide](4,0)--(4,2.3)--(0,2.3);\node[below]at(4,0){$1$};\node[left]at(0,2.3){$1$};
+ \node at(2,2.8){上至下：$f=6,5,3$};
+}
+当 $N=N_0/2$，三种温度依次为 $T_02^{-1/3}$、$T_02^{-1/5}$、$T_02^{-1/6}$。图\ref{fig:degreesa}中自由度越多，冷却越弱，因为逸出粒子相对于体内平均粒子多带走的能量始终只有 $\kb T/2$，而每个粒子的热容随 $f$ 增大。
+\end{solution}
+
+\begin{example}[温度和粒子数的时间规律]\label{ex:coolingtime}
+容器体积 $V$、孔面积 $A_h$，其余条件同前。气体自由度 $f$ 恒定。求 $T(t)$、$N(t)$、$p(t)$，以及温度降至 $T_0/2$ 所需时间。
+\Diagram{fig:cooltimeq}{泄流速率由孔面积和余气状态决定}{
+ \draw(0,0)rectangle(3,1.8);\fill[white](2.95,.7)rectangle(3.05,1.1);\draw[axis](3,.9)--(5,.9);
+ \node at(1.5,.9){$V,N(t),T(t)$};\node at(4,1.6){$A_h$};\node at(4,-.1){$\dot N<0$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:cooltimeq}中穿孔粒子数率是碰壁数率乘孔面积：
+\[
+ \dot N=-\frac{A_hN}{V}\sqrt{\frac{\kb T}{2\pi m}}.
+\]
+由 $N\propto T^f$，对时间求导 $\dot N/N=f\dot T/T$，故
+\[
+ \dot T=-\frac{A_h}{fV}\sqrt{\frac{\kb}{2\pi m}}T^{3/2}.
+\]
+分离变量并取初末态为积分上下限，
+\[
+ \left[-2\vartheta^{-1/2}\right]_{T_0}^{T}
+ =-\frac{A_h}{fV}\sqrt{\frac{\kb}{2\pi m}}\int_0^t\dd s.
+\]
+代入端点并约去两边负号，得到
+\[
+ \frac1{\sqrt T}-\frac1{\sqrt{T_0}}
+ =\frac{A_h}{2fV}\sqrt{\frac{\kb}{2\pi m}}t.
+\]
+定义初始数目衰减率 $\kappa_0=(A_h/V)\sqrt{\kb T_0/(2\pi m)}$ 以及 $t_c=2f/\kappa_0$，则
+\[
+ \frac{T}{T_0}=(1+t/t_c)^{-2},\quad
+ \frac{N}{N_0}=(1+t/t_c)^{-2f},\quad
+ \frac{p}{p_0}=(1+t/t_c)^{-2(f+1)}.
+\]
+定义的$\kappa_0$量纲为时间的倒数，是初始时刻的$-\dot N/N$；后续瞬时衰减率为$\kappa_0\sqrt{T/T_0}$，随降温而减小，所以粒子数遵循幂律而非恒温指数律。
+
+\Diagram{fig:cooltimea}{变换后温度的线性时间关系}{
+ \draw[axis](0,0)--(5,0)node[right]{$t/t_c$};\draw[axis](0,0)--(0,3.4)node[above]{$\sqrt{T_0/T}$};
+ \draw[curve](0,.7)--(4,2.7);\node[left]at(0,.7){$1$};\node at(3,.8){$1+t/t_c$};
+}
+图\ref{fig:cooltimea}把$\sqrt{T_0/T}=1+t/t_c$画成直线，斜率为$1/t_c$。取$T/T_0=1/2$，有$1+t/t_c=\sqrt2$，故降至一半初温需$t=(\sqrt2-1)t_c$。
+\end{solution}
+
+\begin{example}[温变热容下的泄流]
+气体单粒子的平衡内能为 $u(T)$，热容 $c_v(T)=\dd u/\dd T$。内部状态与平动独立，穿孔不选择内部状态。求一般的 $N(T)$ 关系，并取 $c_v(T)=c_0+bT$ 求显式结果。
+\Diagram{fig:variablecvq}{逸出只对平动速率加权}{
+ \node[draw,align=center]at(0,0){体内\\$u(T)$};\draw[axis](1,0)--(3,0);\node[draw,align=center]at(4,0){逸出\\$u(T)+\kb T/2$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:variablecvq}表示内部平均能量不变，只有平动抽样多出 $\kb T/2$。余气总能量为 $Nu(T)$，所以
+\[
+ Nc_v(T)\dd T+u(T)\dd N=[u(T)+\kb T/2]\dd N.
+\]
+消去两侧的 $u\dd N$，有 $\dd N/N=2c_v(T)\dd T/(\kb T)$。因此
+\[
+ \ln\frac N{N_0}=\int_{T_0}^T\frac{2c_v(\vartheta)}{\kb\vartheta}\dd\vartheta.
+\]
+若给每个分子加上相同的常数参考能，余气和流出粒子的能量同时改变，温度方程不变。温变热容下，单粒子内能差要积$c_v\dd T$，粒子数关系则要积$c_v\dd T/T$；两种权重须分别保留。
+
+\Diagram{fig:variablecva}{温变热容分别贡献对数项和线性项}{
+ \node[draw]at(0,0){$c_0/T$};\draw[->](0,-.35)--(0,-1);\node[below]at(0,-1){$c_0\ln(T/T_0)$};
+ \node[draw]at(4,0){$b$};\draw[->](4,-.35)--(4,-1);\node[below]at(4,-1){$b(T-T_0)$};
+}
+按图\ref{fig:variablecva}将积分分成两项，
+\[
+ \ln\frac{N}{N_0}
+ =\frac{2}{\kb}\left[c_0\ln\vartheta+b\vartheta\right]_{T_0}^{T}
+ =\frac{2c_0}{\kb}\ln\frac{T}{T_0}+\frac{2b}{\kb}(T-T_0).
+\]
+两边取指数，得到
+\[
+ \frac N{N_0}=\left(\frac T{T_0}\right)^{2c_0/\kb}
+ \exp\!\left[\frac{2b}{\kb}(T-T_0)\right].
+\]
+该式只在给定热容模型的适用温区有效；若内部弛豫比泄流还慢，则内部状态不能由同一瞬时温度描述，需要分别写能量交换方程。
+\end{solution}
+
+\section{光子气体的压强与辐射}
+\label{th:radiation}
+热平衡辐射的传播方向各向同性，光子速率为 $c$。若频率为 $\omega/(2\pi)$ 的单光子能量为 $\varepsilon=\hbar\omega$，其动量大小是 $\varepsilon/c$。为避免把粒子数与能量分布混在一起，直接用频率积分后的能量密度 $u$。每个方向的能量密度为 $u\dd\Omega/(4\pi)$。
+
+单位面积、单位时间穿出小孔的能量为
+\begin{equation}\label{eq:radiationflux}
+ J_E=uc\int_0^{\pi/2}\frac12\sin\theta\cos\theta\dd\theta=\frac14cu.
+\end{equation}
+若黑体总辐射通量为 $\sigma_{\rm SB}T^4$，便有 $u=aT^4$，$a=4\sigma_{\rm SB}/c$。这里 $u$ 的单位为能量每体积，$J_E$ 为功率每面积；相差的因子 $c/4$ 有明确的速度和几何意义。只靠经典 Maxwell--Boltzmann 分布不能确定辐射谱和常数 $a$，本讲不把光子当作守恒的经典分子。
+
+\begin{example}[腔内能量与小孔辐射]\label{ex:cavity}
+温度 $T$ 的黑体腔体积为 $V$，小孔面积为 $A_h$。已知 $\sigma_{\rm SB}$，求腔内辐射能量与经小孔向冷真空辐射的功率。若外界也是温度 $T_e$ 的黑体辐射场，净功率如何改变？
+\Diagram{fig:cavityq}{小孔连接腔内与外界辐射场}{
+ \draw(0,0)rectangle(3,1.8);\fill[white](2.95,.7)rectangle(3.05,1.1);\node at(1.5,.9){$T,V$};
+ \draw[axis](3,.9)--(5,.9)node[right]{$T_e$};\node at(4,1.5){$A_h$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:cavityq}中腔内能量密度为 $u=4\sigma_{\rm SB}T^4/c$，故 $U=uV=4\sigma_{\rm SB}VT^4/c$。由式\eqref{eq:radiationflux}，出射功率
+\[
+ P_{\rm out}=A_h\frac{cu}{4}=A_h\sigma_{\rm SB}T^4.
+\]
+小孔的出射通量由孔口处的各向同性辐射场决定，乘的是孔面积 $A_h$。腔体其余内壁虽然也吸收、发射光，但它们之间的交换留在腔内，不应把整个腔壁面积再乘进外流功率。外界有平衡辐射场时，两个单向功率分别存在，温度相同只意味着净值为零。$U$ 的量纲是焦耳，$P$ 的量纲是瓦特，连接两者的面积、体积和速度因子可由 $P/U=A_hc/(4V)$ 直接辨认。
+
+\Diagram{fig:cavitya}{两侧能流分别计算后相减}{
+ \draw[axis](0,.5)--(4,.5)node[midway,above]{$A_h\sigma_{\rm SB}T^4$};
+ \draw[axis](4,-.5)--(0,-.5)node[midway,below]{$A_h\sigma_{\rm SB}T_e^4$};
+}
+图\ref{fig:cavitya}中，外界各向同性辐射的入射功率为 $A_h\sigma_{\rm SB}T_e^4$，相减得净外流功率 $P=A_h\sigma_{\rm SB}(T^4-T_e^4)$。该式要求腔内辐射始终接近平衡，且孔口接收完整的入射半球。孔过大导致明显不均匀，或孔前存在方向筛选时，须根据实际辐射分布重新作角积分。
+\end{solution}
+
+\begin{example}[辐射压强]\label{ex:photonpressure}
+能量密度为 $u$ 的各向同性辐射照射理想反射平面。由光子动量变化求壁面压强。
+\Diagram{fig:photonpressureq}{反射光子的法向动量变化}{
+ \draw[line width=1.3pt](3,-1.2)--(3,1.5);\draw[axis](.3,1.2)--(3,0);\draw[axis](3,0)--(.3,-1.2);\draw[guide](1,0)--(4,0);
+ \node at(1.4,.9){$\varepsilon/c$};\node at(2,.3){$\theta$};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:photonpressureq}的单光子法向冲量为 $2\varepsilon\cos\theta/c$。把方向能量密度 $u\dd\Omega/(4\pi)$ 除以单光子能量，再乘扫掠速度 $c\cos\theta$ 与冲量，能量和速度中的因子分别约去：
+\[
+ p=\int_{\rm hem}\frac u\varepsilon\frac{\dd\Omega}{4\pi}
+ c\cos\theta\frac{2\varepsilon}c\cos\theta
+ =u\int_0^{\pi/2}\sin\theta\cos^2\theta\dd\theta
+ =u\left[-\frac{\cos^3\theta}{3}\right]_0^{\pi/2}=\frac u3.
+\]
+频率分布不必预先给定。若用单位频率能量密度 $u_\omega$ 计算，每个频段的动量流同样给出 $p_\omega=u_\omega/3$，再对频率积分即可。因此 $p=u/3$ 依赖的是光子的能量动量关系和角度各向同性，不依赖这里是否知道具体的黑体谱。法向入射的单向光束则没有半球角度平均；对同样的入射能流，吸收与镜面反射的压强还相差两倍。
+
+\Diagram{fig:photonpressurea}{角度平均将动量流分成三个等价方向}{
+ \draw[axis](0,0)--(2,0)node[right]{$x$};\draw[axis](0,0)--(0,1.8)node[above]{$z$};\draw[axis](0,0)--(-1.4,-.9)node[left]{$y$};\node at(3,1){$\langle\cos^2\theta\rangle_{4\pi}=1/3$};
+}
+图\ref{fig:photonpressurea}给出同一结果的对称性解释。对黑色吸收壁，入射光的压强只有上述反射结果的一半；处于辐射平衡的壁还会向腔内发射光，发射反冲贡献另一半，总压强仍为 $u/3$。单向光束则不满足各向同性假设。
+\end{solution}
+
+\section{热力学势与偏导关系}
+\label{th:potentials}
+对成分、物质的量固定的简单可压缩系统，平衡态基本关系为
+\begin{equation}\label{eq:fundamental}
+ \dd U=T\dd S-p\dd V.
+\end{equation}
+这是状态空间中的微分恒等式，不要求实际过程可逆；但只有可逆传热才可把 $T\dd S$ 认作过程热量 $\delta Q_{\rm rev}$。不可逆过程中一般 $\delta Q\ne T\dd S$，边界做功也未必是内部平衡压强乘 $\dd V$。
+
+以 $U(S,V)$ 为势，$T=(\partial U/\partial S)_V$、$p=-(\partial U/\partial V)_S$。等温条件下希望把 $T$ 作为自变量，便减去 $TS$；等压条件下希望把 $p$ 作为自变量，便加上 $pV$。于是四种势为
+\[
+ \begin{array}{c|c|c}
+ \text{势}&\text{自然变量}&\text{全微分}\\\hline
+ U&S,V&T\dd S-p\dd V\\
+ F=U-TS&T,V&-S\dd T-p\dd V\\
+ H=U+pV&S,p&T\dd S+V\dd p\\
+ G=U+pV-TS&T,p&-S\dd T+V\dd p
+ \end{array}
+\]
+对同一势的混合二阶导数交换次序，依次得到
+\begin{align}
+ -\left(\frac{\partial p}{\partial S}\right)_V
+ &=\left(\frac{\partial T}{\partial V}\right)_S,&
+ \left(\frac{\partial S}{\partial V}\right)_T
+ &=\left(\frac{\partial p}{\partial T}\right)_V,\\
+ \left(\frac{\partial T}{\partial p}\right)_S
+ &=\left(\frac{\partial V}{\partial S}\right)_p,&
+ \left(\frac{\partial S}{\partial p}\right)_T
+ &=-\left(\frac{\partial V}{\partial T}\right)_p.
+\end{align}
+记忆关系式时保留自然变量，比仅记交换字母可靠。状态方程 $p=p(V,T)$ 可以给出压强的偏导，却不能独自确定任意温度下的内能；还需一个热容函数以及参考值，并满足相容条件。
+
+\subsection{由状态方程求内能}
+\label{th:energyidentity}
+从 $U(V,S)$ 改用 $V,T$ 作坐标，需要沿等温方向改变 $V$ 时同时计入 $S(V,T)$ 的改变：
+\begin{align}
+ \left(\frac{\partial U}{\partial V}\right)_T
+ &=\left(\frac{\partial U}{\partial V}\right)_S
+ +\left(\frac{\partial U}{\partial S}\right)_V
+ \left(\frac{\partial S}{\partial V}\right)_T\\
+ &=-p+T\left(\frac{\partial p}{\partial T}\right)_V.
+\end{align}
+又定义 $C_V=(\partial U/\partial T)_V$，所以
+\begin{equation}\label{eq:duvt}
+ \dd U=C_V\dd T+\left[T\left(\frac{\partial p}{\partial T}\right)_V-p\right]\dd V.
+\end{equation}
+代入式\eqref{eq:fundamental}，得到计算熵的常用式
+\begin{equation}\label{eq:dsvt}
+ \dd S=\frac{C_V}{T}\dd T+
+ \left(\frac{\partial p}{\partial T}\right)_V\dd V.
+\end{equation}
+由于$U$是状态函数，$\partial_VU_T=\partial_TU_V$。右侧的乘积求导给出$\partial_T(Tp_T-p)=p_T+Tp_{TT}-p_T=Tp_{TT}$，故
+\begin{equation}\label{eq:cvcompat}
+ \left(\frac{\partial C_V}{\partial V}\right)_T
+ =T\left(\frac{\partial^2p}{\partial T^2}\right)_V.
+\end{equation}
+因此指定状态方程以后，不能任意再指定一个与它冲突的热容。
+
+\subsection{焓与定压热容}
+\label{th:enthalpy}
+由$\dd H=T\dd S+V\dd p$，在定压可逆过程中$\delta Q=\dd H$，故$C_p=(\partial H/\partial T)_p$。写$\dd S=S_T|_p\dd T+S_p|_T\dd p$，其中$S_T|_p=C_p/T$；由$G(T,p)$的混合偏导有$S_p|_T=-V_T|_p$。代回焓微分，得到
+\begin{equation}\label{eq:dhpt}
+ \dd H=C_p\dd T+
+ \left[V-T\left(\frac{\partial V}{\partial T}\right)_p\right]\dd p,
+ \qquad
+ \dd S=\frac{C_p}{T}\dd T-
+ \left(\frac{\partial V}{\partial T}\right)_p\dd p.
+\end{equation}
+在单相稳定区，定义热膨胀系数 $\alpha_p=V^{-1}(\partial V/\partial T)_p$、等温压缩率 $\kappa_T=-V^{-1}(\partial V/\partial p)_T$，可将热容差写为
+\begin{equation}\label{eq:cpminuscv}
+ C_p-C_V=T\left(\frac{\partial p}{\partial T}\right)_V
+ \left(\frac{\partial V}{\partial T}\right)_p
+ =\frac{TV\alpha_p^2}{\kappa_T}.
+\end{equation}
+推导时在式\eqref{eq:dsvt}中沿定压方向取 $\dd V=(\partial V/\partial T)_p\dd T$，再与定压熵微分比较即可。稳定性要求 $\kappa_T>0$，从而 $C_p\ge C_V$。
+
+\input{lecture2_derivatives}
+\begin{example}[理想气体的内能与熵]\label{ex:idealstate}
+$\nu$ 摩尔理想气体满足 $pV=\nu RT$，已知 $C_V$ 为常量。相对于参考态 $(V_0,T_0)$，求 $U$、$H$、$S$ 的变化，说明为什么内能与体积无关。
+\Diagram{fig:idealstateq}{参考态到任意态的两段积分路径}{
+ \draw[axis](0,0)--(4.8,0)node[right]{$V$};\draw[axis](0,0)--(0,3)node[above]{$T$};
+ \coordinate(a)at(1,.8);\coordinate(b)at(3.5,.8);\coordinate(c)at(3.5,2.3);
+ \draw[axis](a)--(b);\draw[axis](b)--(c);\node[below]at(a){$A(V_0,T_0)$};\node[right]at(c){$C(V,T)$};\node[below]at(b){$B$};
+}
+\end{example}
+\begin{solution}
+$p_T|_V=\nu R/V$，所以$U_V|_T=T\nu R/V-p=0$。图\ref{fig:idealstateq}的等温段$A\to B$不改变内能；等容段$B\to C$给出$U-U_0=\int_{T_0}^TC_V\dd\vartheta=[C_V\vartheta]_{T_0}^T=C_V(T-T_0)$。焓增量为
+\[
+ H-H_0=U-U_0+pV-p_0V_0=(C_V+\nu R)(T-T_0),
+\]
+故 $C_p=C_V+\nu R$。熵微分为 $\dd S=C_V\dd T/T+\nu R\dd V/V$。
+图中第一段固定 $T_0$、第二段固定最终体积 $V$，是为积分选取的可逆参考路径，并不限定系统实际如何由初态到末态。两段内能变化相加时，等温段为零，等容段才贡献热容积分。焓中还含 $pV=\nu RT$，所以定压热容多出 $\nu R$；这里 $C_V,C_p$ 均为整个 $\nu$ 摩尔系统的热容。把它们换成摩尔量时，内能与熵的温度项还要同时乘回物质的量。
+
+\Diagram{fig:idealstatea}{两段路径分别给出体积项与温度项}{
+ \node[draw,align=center]at(0,0){$A\to B$ 等温\\$\nu R\ln(V/V_0)$};
+ \node[draw,align=center]at(4.4,0){$B\to C$ 等容\\$C_V\ln(T/T_0)$};\draw[->](1.5,-.8)--(3,-.8);
+}
+按图\ref{fig:idealstatea}，两段熵变分别为$\nu R\int_{V_0}^V\dd w/w=\nu R[\ln w]_{V_0}^V$和$C_V\int_{T_0}^T\dd\vartheta/\vartheta=C_V[\ln\vartheta]_{T_0}^T$，相加得
+\[
+ S-S_0=C_V\ln\frac T{T_0}+\nu R\ln\frac V{V_0}.
+\]
+内能仅依赖温度并非“所有气体”的性质，而是理想气体状态方程与热力学相容性的结果。若 $C_V=C_V(T)$，内能温度项改为 $\int C_V\dd T$，熵温度项改为 $\int C_V\dd T/T$。
+\end{solution}
+
+\begin{example}[van der Waals 气体的内能与熵]\label{ex:vdwstate}
+固定物质的量 $\nu$，气体满足
+\[
+ p=\frac{\nu RT}{V-B}-\frac A{V^2},\quad A=\nu^2a,\ B=\nu b,
+\]
+其中 $a,b$ 为摩尔形式的常数。给定常量 $C_V$，求相对于参考态 $(V_0,T_0)$ 的内能和熵变化。只讨论稳定单相区，$V>B$。
+\Diagram{fig:vdwstateq}{排除体积改变可用的构型空间}{
+ \draw[axis](0,0)--(5,0)node[right]{$V$};\draw[axis](0,0)--(0,2.3)node[above]{$p$};
+ \draw[guide](1,0)--(1,2.1)node[above]{$B$};\draw[curve]plot[domain=1.6:4.6,samples=50](\x,{1/(\x-1)-.5/\x^2});\node at(3.6,1.8){稳定区示意};
+}
+\end{example}
+\begin{solution}
+图\ref{fig:vdwstateq}的 $B$ 是固定量，求偏导时不随 $T$ 改变。有 $p_T|_V=\nu R/(V-B)$，代入式\eqref{eq:duvt}：
+\[
+ T p_T-p=\frac A{V^2},\qquad
+ \dd U=C_V\dd T+\frac A{V^2}\dd V.
+\]
+分别积分温度项和体积项。温度积分同上一例；体积积分为$\int_{V_0}^{V}A\dd w/w^2=[-A/w]_{V_0}^{V}=A(1/V_0-1/V)$，所以
+\[
+ U-U_0=C_V(T-T_0)+A\left(\frac1{V_0}-\frac1V\right).
+\]
+这里$A,B$均按固定物质的量看作常数。原函数$-A/V$的导数为$+A/V^2$，因此膨胀使负的吸引势能升高。参考常数只改变内能与熵的零点，不改变偏导、热容或两态之间的差。
+
+\Diagram{fig:vdwstatea}{熵微分中的吸引项相消}{
+ \node[draw,align=center]at(0,0){$\dd U$ 中\\$+A\dd V/V^2$};\node at(2.7,0){$+$};
+ \node[draw,align=center]at(5.1,0){$p\dd V$ 中\\$-A\dd V/V^2$};\node at(2.5,-1){$T\dd S=C_V\dd T+\nu RT\dd V/(V-B)$};
+}
+按图\ref{fig:vdwstatea}在$\dd U+p\dd V$中消去吸引项，再除以$T$。温度项仍给$C_V\ln(T/T_0)$；体积项令$z=w-B$、$\dd z=\dd w$，上下限变为$V_0-B,V-B$，于是$\nu R\int_{V_0-B}^{V-B}\dd z/z=\nu R[\ln z]_{V_0-B}^{V-B}$。两项相加，
+\[
+ S-S_0=C_V\ln\frac T{T_0}+\nu R\ln\frac{V-B}{V_0-B}.
+\]
+吸引参数 $A$ 出现在内能中，但在以 $V,T$ 为自变量的熵差中抵消；排除体积 $B$ 则保留。若把 $A,B$ 当成摩尔常数却仍用总容积 $V$，会漏掉物质的量因子。
+\end{solution}
+
+\begin{example}[实际气体的可逆绝热膨胀]\label{ex:vdwadiabat}
+上述 van der Waals 气体由 $(V_1,T_1)$ 可逆绝热膨胀至体积 $V_2$，热容为常量。求 $T_2$、$p_2$ 和气体对外做功，并比较同初温、同体积比的理想气体。
+\Diagram{fig:vdwadiabatq}{绝热线上的初末两态}{
+ \draw[axis](0,0)--(5,0)node[right]{$V$};\draw[axis](0,0)--(0,3)node[above]{$p$};
+ \draw[curve]plot[domain=1:4.3](\x,{1.8/(\x-.3)^1.3-.2/\x^2});\fill(1,{1.8/.7^1.3-.2})circle(1.2pt)node[above right]{$1$};\fill(4,{1.8/3.7^1.3-.2/16})circle(1.2pt)node[above right]{$2$};\draw[->]plot[domain=2:2.5](\x,{1.8/(\x-.3)^1.3-.2/\x^2});
+}
+\end{example}
+\begin{solution}
+图\ref{fig:vdwadiabatq}的路径可逆绝热，故 $\dd S=0$。由上一例的熵微分
+\[
+ C_V\frac{\dd T}T+\nu R\frac{\dd V}{V-B}=0.
+\]
+取初态$1$为积分下限，利用上一例的两个对数积分，得到$C_V\ln(T/T_1)+\nu R\ln[(V-B)/(V_1-B)]=0$，即$T(V-B)^{\nu R/C_V}=T_1(V_1-B)^{\nu R/C_V}$。
+所以 $T_2=T_1[(V_1-B)/(V_2-B)]^{\nu R/C_V}$，压强再由状态方程求得
+\[
+ p_2=\frac{\nu RT_2}{V_2-B}-\frac A{V_2^2}.
+\]
+令 $s=\nu R/C_V$，将绝热温度关系代入热压强项，可写成 $T(V)=K(V-B)^{-s}$。其功积分中的热运动部分为
+\begin{align*}
+ \nu RK\int_{V_1}^{V_2}(V-B)^{-s-1}\dd V
+ &=\left[-\frac{\nu RK}{s}(V-B)^{-s}\right]_{V_1}^{V_2}\\
+ &=\frac{\nu RK}{s}\bigl[(V_1-B)^{-s}-(V_2-B)^{-s}\bigr].
+\end{align*}
+因$\nu R/s=C_V$，热运动部分为$C_V(T_1-T_2)$。吸引项单独积分为$\int_{V_1}^{V_2}(-A/V^2)\dd V=[A/V]_{V_1}^{V_2}=-A(1/V_1-1/V_2)$，代表克服分子间吸引所需的能量。两项之和即气体对外做的功。
+
+\Diagram{fig:vdwadiabata}{绝热功等于内能减少}{
+ \node[draw]at(0,0){热运动能减少};\node[draw]at(4,0){吸引势能增加};\draw[->](0,-.4)--(2,-1);\draw[->](4,-.4)--(2,-1);\node[below]at(2,-1){$W=C_V(T_1-T_2)-A(1/V_1-1/V_2)$};
+}
+第一定律给 $W=U_1-U_2$，即图\ref{fig:vdwadiabata}的表达式。吸引势能在膨胀时上升，因而减少可供做功的热运动能。对于相同 $V_2/V_1>1$，$B>0$ 使 $(V_1-B)/(V_2-B)<V_1/V_2$，温度比理想气体降得更多；但功还包含吸引能，不能只比较温降。等价的绝热线为 $(p+A/V^2)(V-B)^{1+\nu R/C_V}=\text{常量}$。
+\end{solution}
+
+\begin{example}[从辐射压强求能量与熵]\label{ex:photonstate}
+平衡光子气体满足 $p=b_rT^4$，$b_r$ 是常量。利用热力学关系求 $U(V,T)$、$S(V,T)$。说明不守恒的光子数为何不妨碍使用 $\dd U=T\dd S-p\dd V$。
+\Diagram{fig:photonstateq}{可改变光子数的平衡辐射腔}{
+ \draw(0,0)rectangle(3.5,1.8);\draw[decorate,decoration={snake,amplitude=1.3pt,segment length=7pt},->](.4,.5)--(3,.5);
+ \draw[decorate,decoration={snake,amplitude=1.3pt,segment length=7pt},->](3,1.3)--(.4,1.3);\node[right]at(3.7,.9){$p=b_rT^4$};
+}
+\end{example}
+\begin{solution}
+一般开放系统的基本关系中还含 $\mu\dd N$。图\ref{fig:photonstateq}的热平衡光子可以被壁吸收或发射，光子化学势为零，因此该项消失。用式\eqref{eq:duvt}，
+\[
+ \left(\frac{\partial U}{\partial V}\right)_T=-b_rT^4+4b_rT^4=3b_rT^4.
+\]
+先积分得 $U=3b_rVT^4+\phi(T)$。均匀系统在固定温度下能量随体积广延，$U(\lambda V,T)=\lambda U(V,T)$，故不能保留体积无关的 $\phi(T)$。于是 $U=3b_rVT^4$。
+广延性也可通过复制腔体理解：同温、同体积的两份辐射合在一起，忽略界面效应，能量应加倍。求出下文的熵后，代入$G=U+pV-TS$得到$G=0$，与平衡光子的零化学势一致。固定粒子数的分子气体仍须保留其粒子数约束。
+
+\Diagram{fig:photonstatea}{在状态平面中积分熵微分}{
+ \draw[axis](0,0)--(4.5,0)node[right]{$V$};\draw[axis](0,0)--(0,2.8)node[above]{$T$};
+ \draw[axis](1,.7)--(3.2,.7);\draw[axis](3.2,.7)--(3.2,2.1);\node[below]at(1,.7){$(V_0,T_0)$};\node[right]at(3.2,2.1){$(V,T)$};
+}
+对$U=3b_rVT^4$作乘积微分，$\dd U=3b_rT^4\dd V+12b_rVT^3\dd T$。加$p\dd V$并除以$T$，得$\dd S=4b_rT^3\dd V+12b_rVT^2\dd T$。按图\ref{fig:photonstatea}先沿$T_0$等温段积分，再沿$V$等容段积分，
+\begin{align*}
+ \Delta S_{\rm iso}&=\int_{V_0}^{V}4b_rT_0^3\dd w=4b_rT_0^3(V-V_0),\\
+ \Delta S_{\rm vol}&=\int_{T_0}^{T}12b_rV\vartheta^2\dd\vartheta
+ =[4b_rV\vartheta^3]_{T_0}^{T}=4b_rV(T^3-T_0^3).
+\end{align*}
+相加并消去$VT_0^3$项，得到
+\[
+ S-S_0=4b_r(VT^3-V_0T_0^3).
+\]
+取无辐射的零温极限为熵零点，则 $S=4b_rVT^3$。与 $u=aT^4$ 对比有 $a=3b_r$，从而 $S=4aVT^3/3$。
+\end{solution}
+
+\begin{example}[状态方程与热容的相容性]
+某系统状态方程为 $p=\nu RT/V+qT^2/V^2$，其中 $q>0$。有人同时给定 $C_V=C_0$，这是否相容？若规定在参考体积 $V_*$ 处 $C_V=C_*(T)$，求相容的 $C_V(V,T)$ 与内能。
+\Diagram{fig:compatq}{在不同体积处比较定容升温}{
+ \draw[axis](0,0)--(4.5,0)node[right]{$V$};\draw[axis](0,0)--(0,2.7)node[above]{$T$};
+ \draw[axis](1,.5)--(1,2.1);\draw[axis](3,.5)--(3,2.1);\node[below]at(1,0){$V_*$};\node[below]at(3,0){$V$};
+}
+\end{example}
+\begin{solution}
+$p_{TT}|_V=2q/V^2$，故相容式\eqref{eq:cvcompat}要求 $(C_V)_V=2qT/V^2$，不能为零。图\ref{fig:compatq}中两条定容路径的热容存在体积差。积分得
+\[
+ C_V(V,T)=C_*(T)+2qT\left(\frac1{V_*}-\frac1V\right).
+\]
+这一结果来自相容条件的体积积分：
+\[
+ C_V(V,T)-C_V(V_*,T)
+ =\int_{V_*}^{V}\frac{2qT}{w^2}\dd w
+ =\left[-\frac{2qT}{w}\right]_{V_*}^{V}
+ =2qT\left(\frac1{V_*}-\frac1V\right).
+\]
+再由$U_V=Tp_T-p=qT^2/V^2$积分，得$U=\Phi(T)-qT^2/V$。其温度导数为$\Phi'(T)-2qT/V$；在$V=V_*$匹配热容，确定$\Phi'=C_*(T)+2qT/V_*$。参考热容只规定一条等容线，其余体积处的热容由状态相容性确定。
+
+\Diagram{fig:compata}{同一状态函数的两条积分路径必须闭合}{
+ \draw[axis](0,0)--(3,0);\draw[axis](3,0)--(3,1.7);\draw[axis](3,1.7)--(0,1.7);\draw[axis](0,1.7)--(0,0);\node at(1.5,.85){$\oint\dd U=0$};
+}
+相对于$(V_*,T_*)$，先在$V_*$上从$T_*$升温至$T$，再在终温下从$V_*$改变体积到$V$。第二段的内能增量为$\int_{V_*}^VqT^2w^{-2}\dd w=[-qT^2/w]_{V_*}^V$，所以
+\[
+ U-U_*=\int_{T_*}^{T}C_*(\vartheta)\dd\vartheta
+ +qT^2\left(\frac1{V_*}-\frac1V\right).
+\]
+图\ref{fig:compata}中，内能沿闭合矩形的增量应为零。若另行指定与状态方程不相容的常热容，两条路径将给出不同内能，模型便失去唯一的状态函数。
+\end{solution}
+
+\input{lecture2_processes}
+\input{lecture2_models}
+\input{lecture2_depth}
+\section{习题与解答}
+\begin{exercise}[恒温泄流所需热量]
+刚性容器内有自由度为 $f$ 的理想气体，经小孔向真空泄流；外界供热使温度保持 $T_0$。求从 $N_0$ 减至 $N_1$ 所需的总热量及 $N(t)$。
+\Diagram{fig:isothermalleakq}{恒温装置补热，气体经另一侧小孔泄流}{
+ \draw(0,0)rectangle(3,1.7);\fill[white](2.94,.64)rectangle(3.06,.96);
+ \draw[axis](-1,.8)--(0,.8)node[midway,above]{$Q$};\draw[axis](3,.8)--(4.6,.8)node[midway,above]{粒子};\node at(1.5,.8){$T_0$ 恒定};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:isothermalleakq}中余气 $U=fN\kb T_0/2$。开放系统能量式 $\dd U=\delta Q+\varepsilon_e\dd N$ 给出
+\[
+ \delta Q=\frac f2\kb T_0\dd N-\frac{f+1}2\kb T_0\dd N
+ =-\frac12\kb T_0\dd N.
+\]
+有限变化的热量由 $\int_{N_0}^{N_1}(-\kb T_0/2)\dd N$ 得到，积分下限大于上限时，负号使最终供热为正。每减少一个粒子，余气内能按体内平均能量下降，而流出粒子所带能量更高，外界只补足这个差额。即使有内部转动自由度，它们在“体内减少”和“粒子带走”两项中以相同平均值出现，所以相减后只留下半个平动热能尺度。
+
+\Diagram{fig:isothermalleaka}{每逸出一个粒子所需补热}{
+ \node[draw]at(0,0){余气减少 $f\kb T_0/2$};\node[draw]at(4.6,0){逸出带走 $(f+1)\kb T_0/2$};\node at(2.3,-.9){差额由外界供给 $\kb T_0/2$};
+}
+按图\ref{fig:isothermalleaka}，总热量$Q=(N_0-N_1)\kb T_0/2$，与$f$无关。通量给$\dot N=-\kappa N$，其中$\kappa=(A_h/V)\sqrt{\kb T_0/(2\pi m)}$为常量。分离变量，$\int_{N_0}^{N(t)}\dd N'/N'=-\kappa\int_0^t\dd s$，得到$\ln[N(t)/N_0]=-\kappa t$，故$N=N_0\ee^{-\kappa t}$。保持恒温仍需补热；内能因粒子减少而下降，但不足以支付全部逸出能量。
+\end{solution}
+
+\begin{exercise}[辐射腔冷却的两种热容]
+体积 $V$ 的腔经小孔 $A_h$ 辐射至冷真空。分别讨论：仅计辐射场能量 $U=aVT^4$；以及腔壁热容为常量 $C_w$ 且主导总能量、腔内辐射始终与壁平衡。求两种近似的 $T(t)$。
+\Diagram{fig:radcoolq}{腔壁与辐射场同温，经孔口向外辐射}{
+ \draw[line width=2pt](0,0)rectangle(3.4,1.7);\fill[white](3.32,.69)rectangle(3.48,1.01);
+ \node at(1.7,.85){$U_r=aVT^4$};\node at(1.7,2.2){壁热容 $C_w$};\draw[axis](3.4,.85)--(5,.85);
+}
+\end{exercise}
+\begin{solution}
+净外流功率为$A_hcaT^4/4$。若图\ref{fig:radcoolq}中只计辐射能量，能量方程为
+\[
+ 4aVT^3\dot T=-A_hcaT^4/4.
+\]
+约去$aT^3$，令$\beta=A_hc/(16V)$，得到$\dot T=-\beta T$。分离变量，$\int_{T_0}^T\dd\vartheta/\vartheta=-\beta\int_0^t\dd s$，故$\ln(T/T_0)=-\beta t$，即
+\[
+ T=T_0\ee^{-A_hct/(16V)}.
+\]
+
+若两种热容都不能忽略，应取总热容$C_w+4aVT^3$。将能量方程除以$T^4$，并从初温积分到$T$，
+\[
+ \int_{T_0}^{T}\left(C_w\vartheta^{-4}+\frac{4aV}{\vartheta}\right)\dd\vartheta
+ =-\frac{A_hca}{4}\int_0^t\dd s.
+\]
+左边的原函数为$-C_w/(3\vartheta^3)+4aV\ln\vartheta$，代入两端并同时变号，得到
+\[
+ \frac{C_w}{3}(T^{-3}-T_0^{-3})
+ +4aV\ln\frac{T_0}{T}=\frac{A_hca}{4}t.
+\]
+第一项来自壁热容乘 $T^{-4}$ 的积分，第二项来自辐射热容乘 $T^{-4}$ 后剩下的 $1/T$。温度低于初温时两项都为正。分别忽略其中一个热容贡献，就恢复题设两种极限的显式温度规律。
+
+\Diagram{fig:radcoola}{由能量温度关系决定不同的冷却微分方程}{
+ \node[draw,align=center]at(0,0){辐射热容 $4aVT^3$\\$\dot T\propto-T$};
+ \node[draw,align=center]at(4.5,0){腔壁热容 $C_w$\\$\dot T\propto-T^4$};
+}
+若壁主导，忽略混合积分中的辐射热容项，有$C_w(T^{-3}-T_0^{-3})/3=A_hcat/4$。移项并取$-1/3$次幂，得到
+\[
+ T=T_0\left(1+\frac{3A_hcaT_0^3}{4C_w}t\right)^{-1/3}.
+\]
+图\ref{fig:radcoola}表明同一个辐射功率律不决定唯一的温度时间律。第一种模型需要有能维持平衡而热容可忽略的壁；真实腔体通常要把壁与辐射热容相加，写 $(C_w+4aVT^3)\dot T=-A_hcaT^4/4$ 后再积分。
+\end{solution}
+
+\begin{exercise}[由响应系数求热容差]
+某稳定单相物质的体积为 $V$，等温压缩率 $\kappa_T$、热膨胀系数 $\alpha_p$ 已知。推导 $C_p-C_V$，并对理想气体验证。
+\Diagram{fig:responsq}{等压升温与等容升温的体积差}{
+ \draw[axis](0,0)--(4.7,0)node[right]{$T$};\draw[axis](0,0)--(0,2.8)node[above]{$V$};\draw[axis](1,.8)--(3.5,2);\draw[axis](1,.8)--(3.5,.8);\node[right]at(3.5,2){定压};\node[right]at(3.5,.8){定容};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:responsq}的定压路径有 $\dd V=V\alpha_p\dd T$。代入式\eqref{eq:dsvt}，再乘 $T/\dd T$，$C_p=C_V+Tp_TV\alpha_p$。状态方程全微分在定容时为 $0=V\alpha_p\dd T-V\kappa_T\dd p$，故 $p_T|_V=\alpha_p/\kappa_T$。
+热容差比较的是从同一平衡态出发、同样微小温升所需的可逆热量差。定容路径直接给 $C_V\dd T$；定压路径还改变体积，其熵的额外变化由 $S_V|_T\dd V$ 给出。再用 Maxwell 关系把该偏导改写为 $p_T|_V$，便能完全由可测的响应系数表达。稳定物质 $\kappa_T>0$，故即使 $\alpha_p$ 为负，热容差仍因其平方而非负；负热膨胀本身不会令 $C_p<C_V$。
+
+\Diagram{fig:responsa}{响应系数把状态平面中的斜率相联系}{
+ \node[draw]at(0,0){$p_T|_V=\alpha_p/\kappa_T$};\draw[->](2,0)--(3,0);\node[draw]at(5,0){$C_p-C_V=TV\alpha_p^2/\kappa_T$};
+}
+联立两项偏导关系，得到图\ref{fig:responsa}中的$C_p-C_V=TV\alpha_p^2/\kappa_T$。理想气体$\alpha_p=1/T$、$\kappa_T=1/p$，给出$C_p-C_V=pV/T=\nu R$。若$\alpha_p=0$，两热容相等；若接近临界区响应发散，不能仍使用远离临界点的常数热容近似。
+\end{solution}
+
+\begin{exercise}[实际气体的 Joule 自由膨胀]
+一摩尔 van der Waals 气体在绝热刚性大容器中从体积 $v_1$ 自由膨胀至 $v_2$，原空区为真空。$C_{V,m}=c$ 恒定。求最终温度和熵增，假设初末态均为稳定单相气体。
+\Diagram{fig:jouleq}{撤去隔板后的自由膨胀}{
+ \draw(0,0)rectangle(5,1.7);\draw[dashed](2,0)--(2,1.7);\node at(1,.85){$v_1,T_1$};\node at(3.5,.85){真空};\draw[->](2.2,2)--(2.2,1.4);
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:jouleq}的整体边界不移动且绝热，$Q=W=0$，所以 $U_2=U_1$。摩尔内能 $U_m=cT-a/v+\text{常量}$，故
+\[
+ c(T_2-T_1)+a\left(\frac1{v_1}-\frac1{v_2}\right)=0,
+ \qquad T_2=T_1-\frac ac\left(\frac1{v_1}-\frac1{v_2}\right).
+\]
+熵增的符号还可在状态空间中直接判断。把等内能平衡态连接起来，基本关系给
+\[
+ 0=T\dd S-p\dd V,
+ \qquad \left(\frac{\partial S}{\partial V}\right)_U=\frac pT>0.
+\]
+这条可用于求状态差的等内能曲线，不是实际自由膨胀的准静态路径。只要它处于同一稳定单相、正温正压范围，体积增大就使熵增加。由能量式求得的末温也须先确认在此范围内，再代入熵公式。
+
+\Diagram{fig:joulea}{实际不可逆路径与用于求熵的可逆替代路径}{
+ \draw[axis](0,0)--(4.5,0)node[right]{$v$};\draw[axis](0,0)--(0,2.7)node[above]{$T$};
+ \draw[axis](1,2)--(3.4,2);\draw[axis](3.4,2)--(3.4,1);\draw[guide](1,2)--(3.4,1);\node[right]at(3.4,1){$2$};\node[left]at(1,2){$1$};
+}
+利用图\ref{fig:joulea}的替代路径或直接用状态函数，
+\[
+ \Delta S=c\ln\frac{T_2}{T_1}+R\ln\frac{v_2-b}{v_1-b}.
+\]
+在满足模型及稳定性的可达状态间，该值非负。温度降低是吸引势能增加的结果；$a=0$ 时温度不变，但熵仍随可用体积增大。若计算给出负温度或跨入相变区，说明单相常热容模型已被用出范围。
+\end{solution}
+
+\begin{exercise}[节流系数与反转温度]
+稳定流经绝热多孔塞，忽略高度和宏观动能变化。先说明为何焓不变，再对一摩尔 van der Waals 气体求 $\mu_{\rm JT}=(\partial T/\partial p)_H$，给出稀薄极限的反转温度。
+\Diagram{fig:jtq}{多孔塞两侧的流动功}{
+ \draw(0,0)rectangle(6,1.3);\fill[pattern=north east lines](2.8,0)rectangle(3.2,1.3);\draw[axis](.3,.65)--(1.3,.65);\draw[axis](4.6,.65)--(5.6,.65);\node at(1.5,1.8){$p_1,v_1$};\node at(4.6,1.8){$p_2,v_2$};
+}
+\end{exercise}
+\begin{solution}
+取图\ref{fig:jtq}中随一摩尔气体穿塞的能量，入口推动功为 $p_1v_1$，出口排开气体需 $p_2v_2$。绝热稳流能量守恒给 $U_{m,1}+p_1v_1=U_{m,2}+p_2v_2$，故 $H_m$ 不变。由式\eqref{eq:dhpt}，
+\[
+ \mu_{\rm JT}=\frac{T(\partial v/\partial T)_p-v}{C_{p,m}}.
+\]
+van der Waals 方程的定压微分满足
+\[
+ 0=\frac R{v-b}\dd T+
+ \left[-\frac{RT}{(v-b)^2}+\frac{2a}{v^3}\right]\dd v.
+\]
+因此$v_T|_p=[R/(v-b)]/[RT/(v-b)^2-2a/v^3]$。令$D_v=RT/(v-b)^2-2a/v^3>0$表示机械稳定分母，则
+\[
+ Tv_T-v=\frac{RT/(v-b)-vD_v}{D_v}
+ =\frac{2a/v^2-RTb/(v-b)^2}{D_v},
+\]
+从而精确的单相结果为$\mu_{\rm JT}=[2a/v^2-RTb/(v-b)^2]/(C_{p,m}D_v)$。
+低压近似体积的来源可从原方程逐项展开。对 $b/v\ll1$，$RT/(v-b)\simeq RT/v+RTb/v^2$，故 $pv\simeq RT+(RTb-a)/v$。在修正项的分母用首项 $v\simeq RT/p$ 代入，再除以 $p$，得到所用的 $v\simeq RT/p+b-a/(RT)$。这样保留的体积修正对压强是零阶，而在 $pv$ 中对应一阶低压修正，其使用范围与稀薄假设一致。
+
+\Diagram{fig:jta}{稀薄节流时吸引与排除体积效应的竞争}{
+ \draw[axis](0,0)--(5,0)node[right]{$T$};\draw[axis](0,-1)--(0,2)node[above]{$\mu_{\rm JT}$};\draw[curve]plot[domain=.9:4.5](\x,{2/\x-.8});\node[below]at(2.5,0){$T_i$};
+}
+稀薄近似 $v\simeq RT/p+b-a/(RT)$，所以 $Tv_T-v\simeq2a/(RT)-b$。于是
+\[
+ \mu_{\rm JT}\simeq\frac{2a/(RT)-b}{C_{p,m}},\qquad T_i\simeq\frac{2a}{Rb}.
+\]
+图\ref{fig:jta}中 $\mu_{\rm JT}>0$ 时降压 $\dd p<0$ 才导致冷却 $\dd T<0$。理想气体的焓仅依赖温度，节流不改变温度。
+\end{solution}
+
+\begin{exercise}[温度线性状态方程的内能体积项]
+某物质在研究范围内满足 $p=p_*(V)+Tq(V)$。证明其内能可写为 $U=\Phi(T)-\int p_*(V)\dd V$；指出 $C_V$ 可以怎样依赖温度和体积。
+\Diagram{fig:linearstateq}{在同一体积上压强随温度线性变化}{
+ \draw[axis](0,0)--(4.5,0)node[right]{$T$};\draw[axis](0,0)--(0,2.7)node[above]{$p$};\draw[curve](0,.6)--(4,2.2);\node[left]at(0,.6){$p_*$};\node at(3,.7){斜率 $q(V)$};
+}
+\end{exercise}
+\begin{solution}
+在图\ref{fig:linearstateq}对应的固定体积上，$p_T=q(V)$。故 $Tp_T-p=-p_*(V)$，沿等温体积方向积分得
+\[
+ U(V,T)=\Phi(T)-\int^V p_*(w)\dd w.
+\]
+把得到的内能对温度求导时，体积积分在定容条件下不变，因而热容只有 $\Phi'(T)$。另一方面，$p$ 对温度二阶导为零，相容条件也直接要求 $C_V$ 的体积偏导为零，两种判断一致。若 $p_*(V)$ 为吸引造成的负压强项，负号再乘体积积分后可产生随膨胀上升的势能；若 $p_*$ 为零，则内能只含温度函数，理想气体正属于这一类。
+
+\Diagram{fig:linearstatea}{内能中温度项与体积项分离}{
+ \node[draw]at(0,0){$\Phi(T)$};\node at(2,0){$+$};\node[draw]at(4,0){$-\int^V p_*(w)\dd w$};\node at(2,-.8){$C_V=\Phi'(T)$，不依赖 $V$};
+}
+按图\ref{fig:linearstatea}求温度偏导，$C_V$ 只能依赖 $T$。熵则满足 $\dd S=\Phi'(T)\dd T/T+q(V)\dd V$。状态方程中与温度成正比的项不直接贡献内能体积项，却通过 $q(V)$ 贡献熵的体积变化。题设若再给某个随体积变化的定容热容，便与此线性状态方程不相容。
+\end{solution}
+
+\begin{exercise}[光子气体的等温膨胀]
+体积由 $V_1$ 变为 $V_2$ 的光子气体与温度 $T$ 的热源接触，过程可逆。求做功、内能变化、吸热和熵增，并比较 $Q$ 与 $W$。
+\Diagram{fig:photonisoq}{恒温辐射腔的可动反射壁}{
+ \draw(0,0)rectangle(3.2,1.5);\draw[line width=2pt](3.2,0)--(3.2,1.5);\draw[axis](3.2,.75)--(4.5,.75);\node at(1.6,.75){$T$ 恒定};\node at(1.6,-.5){$V_1\to V_2$};
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:photonisoq}中$p=aT^4/3$不随体积变化，所以$W=\int_{V_1}^{V_2}p\dd V=p[V]_{V_1}^{V_2}=p(V_2-V_1)$。光子总数可随腔壁发射而改变，即使温度不变，能量仍随体积增加：$\Delta U=aT^4(V_2-V_1)$。
+等温不变的是单位体积辐射能 $u=aT^4$，增加的体积中还要建立同样的辐射场，因此产生非零内能增量。反射壁每移动一小段，所做功为 $(u/3)\dd V$，新增辐射能为 $u\dd V$，两者比例固定。恒温热源需同时承担这两部分；增加的光子由平衡壁吸收、发射调节，其数目不受固定粒子数约束。图中的能流分配据此适用于整个可逆等温过程。
+
+\Diagram{fig:photonisoa}{热量同时增加辐射能与支付膨胀功}{
+ \node[draw]at(0,0){$Q$};\draw[->](.5,.1)--(2,1);\draw[->](.5,-.1)--(2,-1);\node[right]at(2,1){$\Delta U=3W$};\node[right]at(2,-1){$W$};
+}
+由第一定律 $Q=\Delta U+W=4aT^4(V_2-V_1)/3=4W$。图\ref{fig:photonisoa}中温度保持不变，辐射能仍随体积增加；其余吸热用于膨胀功。熵增 $\Delta S=Q/T=4aT^3(V_2-V_1)/3$，与状态函数表达式一致。
+\end{solution}
+
+\begingroup
+\setlength{\intextsep}{3pt}\setlength{\abovecaptionskip}{4pt}
+\begin{exercise}[通过熵函数反推状态方程]
+某固定粒子数系统给出的熵差为 $S-S_0=C\ln(T/T_0)+\lambda\ln[(V-B)/(V_0-B)]$，其中 $C,\lambda,B$ 为常量。求与它相容的状态方程的一般形式，并说明为何还不能唯一求出压强。
+\Diagram{fig:reverseq}{熵函数的两个独立方向导数}{
+ \begin{scope}[yscale=.8]
+ \draw[axis](0,0)--(4.4,0)node[right]{$V$};\draw[axis](0,0)--(0,2.6)node[above]{$T$};\draw[axis](1,.8)--(3,.8)node[right]{$S_V|_T$};\draw[axis](1,.8)--(1,2.1)node[above]{$S_T|_V$};
+ \end{scope}
+}
+\end{exercise}
+\begin{solution}
+图\ref{fig:reverseq}中定容方向给 $C_V=TS_T|_V=C$。Maxwell 关系在等温方向给 $p_T|_V=S_V|_T=\lambda/(V-B)$。对温度积分，
+\[
+ p(V,T)=\frac{\lambda T}{V-B}+\psi(V).
+\]
+若进一步给出参考温度 $T_*$ 上的一条压强曲线 $p_*(V)$，则待定函数由 $\psi(V)=p_*(V)-\lambda T_* /(V-B)$ 唯一确定。随后内能的体积积分也随之确定，只剩一个整体参考常数。这个步骤区分了两类信息：熵给出温度变化时的压强斜率，参考等温线给出固定温度时的压强截距。两类信息合用，才足以恢复完整状态方程。
+
+\Diagram{fig:reversea}{熵只确定压强的温度斜率}{
+ \begin{scope}[yscale=.65]
+ \draw[axis](0,0)--(4,0)node[right]{$T$};\draw[axis](0,0)--(0,2.8)node[above]{$p$};\draw[curve](0,.4)--(3.4,1.9);\draw[guide](0,1)--(3.4,2.5);\node at(3,.5){相同斜率，不同截距};
+ \end{scope}
+}
+图\ref{fig:reversea}的截距 $\psi(V)$ 仍为待定函数，内能相应为 $U=CT-\int^V\psi(w)\dd w+\text{常量}$。取 $\lambda=\nu R$、$\psi=-A/V^2$ 可还原 van der Waals 模型；其他选择给出不同的物质模型。要确定 $\psi(V)$，还需一条参考等温线的压强数据，或等价的能量信息。
+\end{solution}
+\endgroup

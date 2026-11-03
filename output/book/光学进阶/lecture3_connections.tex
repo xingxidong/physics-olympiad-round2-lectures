@@ -1,0 +1,84 @@
+\section{孔面相位误差与相干峰的损失}
+\subsection{误差的相关性先于误差的大小}
+有$N$个等振幅、等间距单元时，远场场为$A(\delta)=a\sum_{j=0}^{N-1}\ee^{\mathrm i(j\delta+\epsilon_j)}$。相位误差全相同时，只有一个共同相位因子，强度完全不变；误差为$\epsilon_j=j\epsilon$时，分布整体移到$\delta=-\epsilon$；独立随机误差才会把部分窄峰能量转成背景。只报“均方相位误差相同”，不足以确定实际图样。
+
+设各$\epsilon_j$均值为零，服从联合高斯分布，协方差为$C_{jk}=\langle\epsilon_j\epsilon_k\rangle$。场强平方含成对项，使用高斯特征函数有
+\[
+ \left\langle\ee^{\mathrm i(\epsilon_j-\epsilon_k)}\right\rangle
+ =\exp[-\tfrac12(C_{jj}+C_{kk}-2C_{jk})].
+\]
+因而平均强度直接由每一对单元的相位差方差决定。共同误差使这个方差为零；远距离误差不相关时，其交叉项受到抑制。此式把完全相干阵列与部分相干孔径联系起来，也说明局部加工误差、整体倾斜和共同振动的影响不同。
+
+若误差独立、方差同为$\sigma_\phi^2$，对角项始终为1，非对角项均为$\ee^{-\sigma_\phi^2}$，于是
+\[
+ \langle I(\delta)\rangle=|a|^2\left[
+ \ee^{-\sigma_\phi^2}\left|\sum_j\ee^{\mathrm ij\delta}\right|^2
+ +N(1-\ee^{-\sigma_\phi^2})\right].
+\]
+平均强度由等间距阵列的窄峰和角度均匀的背景组成，实际图样还要乘单元包络。在一个相位周期内积分，非对角指数项均为零，总积分仍是$2\pi N|a|^2$。这个纯相位模型没有吸收能量，峰值下降的同时，其他方向的强度增加。
+
+\begin{example}相位误差对峰高和暗点的不同影响
+取$N=100$，各单元独立高斯相位误差标准差为$\sigma_\phi=0.5$弧度。求平均主峰强度相对理想峰的比例、理想暗点处的平均背景，并求保持主峰至少为理想峰90\%所允许的最大$\sigma_\phi$。若误差来自正常入射反射面的独立高度误差，波长为$500\,\mathrm{nm}$，换算高度标准差。
+\ExpansionDiagram{fig:dep-o3-phase-q}{单元位置不变，但各单元出射场的相位独立偏离}{
+\draw[->](0,0)--(7,0)node[right]{单元};\foreach\x/\a in{.5/80,1.5/105,2.5/60,3.5/95,4.5/115,5.5/70}{\fill(\x,0)circle(1.2pt);\draw[->](\x,.3)--++(\a:.8);}\node[above]at(3,1.7){$\epsilon_j$改变相量方向};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o3-phase-q}中主峰的理想相位差为零，故
+\[
+ \frac{\langle I_{\max}\rangle}{N^2|a|^2}
+ =\ee^{-\sigma_\phi^2}+
+ \frac{1-\ee^{-\sigma_\phi^2}}N.
+\]
+代入$\ee^{-0.25}\simeq0.778801$，得到主峰比例0.781013。理想零点处的相干和为零，但背景为$N(1-\ee^{-0.25})|a|^2\simeq22.1199|a|^2$，不再严格消光。
+\ExpansionDiagram{fig:dep-o3-phase-a}{独立相位误差降低平均主峰并填高理想零点；示意取10单元}{
+\draw[->](0,0)--(6.8,0)node[right]{$\delta$};\draw[->](0,0)--(0,2.6)node[above]{强度};\draw[dashed,domain=.003:6.28,samples=400]plot(\x,{.022*(sin(5*\x r)/sin(.5*\x r))^2});\draw[thick,domain=.003:6.28,samples=400]plot(\x,{.022*(exp(-.25)*(sin(5*\x r)/sin(.5*\x r))^2+10*(1-exp(-.25)))});}
+图\ref{fig:dep-o3-phase-a}用10单元显示曲线形状，本题数值计算使用100单元。要求主峰比例不低于0.9，等价于
+\[
+ \ee^{-\sigma_\phi^2}\geq\frac{0.9N-1}{N-1},\qquad
+ \sigma_\phi\leq\sqrt{-\ln(89/99)}\simeq0.3263.
+\]
+正常入射反射面高度差造成往返程差$2\delta h$，故$\sigma_\phi=4\pi\sigma_h/\lambda$，允许$\sigma_h\lesssim13.0\,\mathrm{nm}$。若表面误差在各单元间强相关，不能继续用独立误差的背景公式；例如整面同步平移只改变共同相位，相干峰不因此降低。
+\end{solution}
+
+\subsection{连续孔径的平均相位与相位方差}
+对均匀孔径，目标轴上场相对理想场为$\langle\ee^{\mathrm i\phi(\xi)}\rangle_P$，其中平均按孔径面积归一化。小相位误差展开至二阶：
+\[
+ \langle\ee^{\mathrm i\phi}\rangle_P
+ \simeq1+\mathrm i\langle\phi\rangle_P-\frac12\langle\phi^2\rangle_P,
+\]
+所以轴上强度比
+\[
+ \mathcal S\simeq1-[\langle\phi^2\rangle_P-\langle\phi\rangle_P^2].
+\]
+共同相位从方差中抵消。这是围绕指定理想像点的二阶近似，须让去掉平均值后的相位足够小。若波前含线性倾斜，固定轴上点的强度会降低，但把观察点移到新峰中心后即可补偿；若含二次曲率，则需移动像面或改变聚焦条件。
+
+\begin{example}一维光瞳的小离焦容许量
+宽$a$的均匀一维孔径经焦距$f$的理想透镜聚焦。观察平面偏离后焦面$\delta$，$|\delta|\ll f$，忽略振幅传播因子的相对小变化。求轴上峰强相对该面理想相位补偿后峰强的二阶损失，并给出损失不超过5\%的近似离焦范围。
+\ExpansionDiagram{fig:dep-o3-defocus-q}{同一孔径在偏离焦面的屏上留下二次相位}{
+\draw[->](0,0)--(6,0)node[right]{$z$};\draw[<->,thick](.5,-1.4)--(.5,1.4);\draw(.5,1.2)--(4,0)--(5,-.34);\draw(.5,-1.2)--(4,0)--(5,.34);\draw[dashed](4,-1)--(4,1)node[above]{$f$};\draw[thick](5,-1)--(5,1)node[above]{$f+\delta$};}
+\end{example}
+\begin{solution}
+图\ref{fig:dep-o3-defocus-q}中孔面到屏的近轴传播保留$kx^2/[2(f+\delta)]$，透镜原有相位为$-kx^2/(2f)$，故残余$\phi(x)=bx^2$，其中$b\simeq-k\delta/(2f^2)$。均匀区间$[-a/2,a/2]$的矩为
+\[
+ \langle x^2\rangle=\frac1a\int_{-a/2}^{a/2}x^2\dd x
+ =\frac1a\left[\frac{x^3}{3}\right]_{-a/2}^{a/2}=\frac{a^2}{12},
+\]
+\[
+ \langle x^4\rangle=\frac1a\int_{-a/2}^{a/2}x^4\dd x
+ =\frac1a\left[\frac{x^5}{5}\right]_{-a/2}^{a/2}=\frac{a^4}{80},
+ \quad \operatorname{Var}(x^2)=a^4\left(\frac1{80}-\frac1{144}\right)=\frac{a^4}{180}.
+\]
+于是
+\[
+ 1-\mathcal S\simeq\frac{b^2a^4}{180}
+ =\frac{k^2\delta^2a^4}{720f^4}.
+\]
+\ExpansionDiagram{fig:dep-o3-defocus-a}{去掉平均相位后的孔面相位仍呈弯曲，不能靠共同相移消除}{
+\draw[->](-2.5,0)--(2.5,0)node[right]{$x$};\draw[->](0,-1.8)--(0,1.8)node[above]{$\phi-\langle\phi\rangle$};\draw[thick,domain=-2:2,samples=70]plot(\x,{-.5*((\x)^2-4/3)});\node[above]at(-2,0){$-a/2$};\node[above]at(2,0){$a/2$};}
+图\ref{fig:dep-o3-defocus-a}表明影响峰强的是相位离散程度。要求上式不超过0.05，给
+\[
+ |\delta|\lesssim\frac{6f^2}{ka^2}=
+ \frac{3\lambda f^2}{\pi a^2}
+\]
+（空气中$k=2\pi/\lambda$）。边界对应的均方根相位约$\sqrt{0.05}$弧度，仍属小误差估计；若要求更精确的阈值，应对完整菲涅耳积分求强度。几何弥散斑和轴上波动峰强是不同描述，不能仅把几何斑半径为零作为所有波前误差消失的条件。
+\end{solution}

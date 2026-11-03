@@ -1,0 +1,135 @@
+\section{相干叠加的时间平均}
+\subsection{交叉项由什么决定}
+设两复包络为$\mathcal E_1(t),\mathcal E_2(t)$，共同载频为$\omega_0$。探测器先平均光学快振荡，再按曝光时间平均包络，强度含$\langle|\mathcal E_1|^2\rangle+\langle|\mathcal E_2|^2\rangle+2\operatorname{Re}\langle\mathcal E_1\mathcal E_2^*\rangle$。定义归一化互相干度
+\[
+ \gamma_{12}=\frac{\langle\mathcal E_1\mathcal E_2^*\rangle}
+ {\sqrt{\langle|\mathcal E_1|^2\rangle\langle|\mathcal E_2|^2\rangle}},
+ \quad |\gamma_{12}|\leq1.
+\]
+最后不等式由柯西不等式给出，保证总强度非负。相干度模控制对比度，其幅角控制条纹偏移；整体初相位虽可任取，两臂相对相位不能删去。
+
+两个独立光源即使名义频率相同，相位也可能随机变化，使长曝光交叉项消失。稍异频而相位关系稳定的两束光，则可在短曝光中形成移动条纹；曝光足够长时，交叉项又会平均为零。是否记录到条纹，取决于频谱、相位变化与探测时间的共同作用。
+
+\subsection{时间延迟与光程差}
+同一稳定光源分成两路，一路相对另一路延迟$\tau$。取包含载频的复场$E(t)$，其互相关为$\langle E(t)E^*(t-\tau)\rangle$；不同频率分量互不相干时，这个量就是功率谱乘$\ee^{-i\omega\tau}$的频率积分。若使用前文除去载频的包络$\mathcal E(t)$，谱的变量应改为偏移频率$\Omega=\omega-\omega_0$，两种相关函数只差载频相位因子$\ee^{-i\omega_0\tau}$，模相同。矩形谱给sinc包络，双线谱给拍频包络，高斯谱给高斯包络。计算时先求每一频率的同频两路干涉，再将不同频率的强度相加。
+
+在真空静态路径中，传播延迟为光程差除以$c$；色散材料中相位差为$\phi(\omega)$，一阶频率展开的群延迟是$\dd\phi/\dd\omega$。两臂在中心频率相位补偿为零，并不保证宽带光的群延迟也为零。白光干涉需要各频率的交叉相位在谱宽内不过度散开，因此一般要同时补偿中心相位和主要色散。
+
+\subsection{空间延伸与相干面积}
+扩展非相干光源的不同源元之间没有稳定相位关系，每个源元却可同时照亮两个观察点，产生同频相关项。设窄带光的波长为$\lambda$，源方向的近轴角坐标为$\boldsymbol\theta=(\theta_x,\theta_y)$，观察基线为$\vct d=(d_x,d_y)$。各源元的亮度权重为$B(\boldsymbol\theta)$，且两点到源的距离远大于源宽和基线。去掉与源元无关的共同相位，归一化互相干度为
+\[
+ \gamma(\vct d)=
+ \frac{\iint B(\boldsymbol\theta)
+ \ee^{ik(d_x\theta_x+d_y\theta_y)}\dd\theta_x\dd\theta_y}
+ {\iint B(\boldsymbol\theta)\dd\theta_x\dd\theta_y},
+ \qquad k=\frac{2\pi}{\lambda}.
+\]
+这里积分的是每个源元的两路相关项；独立源元之间的交叉项在平均后为零。它不是把独立源元的确定电场直接相加。
+
+取图\ref{fig:o2rectcoherence}中的均匀矩形角源，两个方向的全角宽分别为$\Theta_x,\Theta_y$。积分可分离。对$i=x,y$，当$d_i\ne0$时，
+\[
+ \frac1{\Theta_i}\int_{-\Theta_i/2}^{\Theta_i/2}
+ \ee^{ikd_i\theta_i}\dd\theta_i
+ =\left[\frac{\ee^{ikd_i\theta_i}}{ikd_i\Theta_i}\right]_{-\Theta_i/2}^{\Theta_i/2}
+ =\operatorname{sinc}\left(\frac{\pi\Theta_i d_i}{\lambda}\right);
+\]
+$d_i=0$时直接积分为1。因此
+\[
+ \gamma(d_x,d_y)=
+ \operatorname{sinc}\left(\frac{\pi\Theta_xd_x}{\lambda}\right)
+ \operatorname{sinc}\left(\frac{\pi\Theta_yd_y}{\lambda}\right).
+\]
+\Diagram{fig:o2rectcoherence}{矩形角源与基线平面上的首零范围；两个方向的宽度分别决定相干尺度}{
+\begin{scope}
+\fill[gray!15](-1.2,-.7)rectangle(1.2,.7);
+\draw(-1.2,-.7)rectangle(1.2,.7);
+\draw[axis](-1.9,0)--(2,0)node[right]{$\theta_x$};
+\draw[axis](0,-1.3)--(0,1.8)node[above]{$\theta_y$};
+\draw[<->](-1.2,-1)--(1.2,-1)node[midway,below]{$\Theta_x$};
+\draw[<->](-1.5,-.7)--(-1.5,.7)node[midway,left,fill=white,inner sep=1pt]{$\Theta_y$};
+\end{scope}
+\begin{scope}[xshift=5.7cm]
+\fill[gray!15](-.95,-.85)rectangle(.95,.85);
+\draw[dashed](-.95,-.85)rectangle(.95,.85);
+\draw[axis](-1.7,0)--(1.9,0)node[right]{$d_x$};
+\draw[axis](0,-1.4)--(0,1.8)node[above]{$d_y$};
+\node[above right]at(.95,0){$\lambda/\Theta_x$};
+\node[above right]at(.1,.85){$\lambda/\Theta_y$};
+\end{scope}}
+两路等强时，可见度为$|\gamma|$。沿坐标轴的首零基线分别为$\lambda/\Theta_x$、$\lambda/\Theta_y$；首零围成的中央矩形面积为$4\lambda^2/(\Theta_x\Theta_y)$。若源实际宽度为$w_x,w_y$、距离为$a$，近轴有$\Theta_i\simeq w_i/a$，线源结果见例\ref{ex:o2extendedsource}。
+
+以近轴相关函数的全平面延拓定义积分相干面积$A_c=\iint|\gamma(\vct d)|^2\dd d_x\dd d_y$。分别令$u_i=\pi\Theta_id_i/\lambda$，$\dd d_i=\lambda\dd u_i/(\pi\Theta_i)$，上下限仍为整个实轴，得到
+\[
+ A_c=\frac{\lambda^2}{\pi^2\Theta_x\Theta_y}
+ \left(\int_{-\infty}^{\infty}\operatorname{sinc}^2u\,\dd u\right)^2
+ =\frac{\lambda^2}{\Theta_x\Theta_y}.
+\]
+最后用了习题\ref{ex:o3energy}由帕塞瓦尔关系证明的积分$\int\operatorname{sinc}^2u\,\dd u=\pi$。这个积分面积与首零中央矩形面积采用不同定义；若按指定可见度阈值划区，系数还会改变。源角宽越小，相干基线范围越大；某方向角宽趋零时，该理想模型在对应基线方向上不衰减。
+
+\section{薄膜程差的同波面比较}
+膜内折射角为$r$，外部入射角为$i$，膜厚$h$。入射点$A$、底面反射点$B$、再出射点$C$的水平间距$AC=2h\tan r$。第二束在膜内累计光程$2nh/\cos r$，但两束要比较到同一个出射参考波面，第一束从$A$还走了一段$AD=AC\sin i$。若外部折射率$n_0$，相减得到
+\begin{align*}
+ \Delta&=\frac{2nh}{\cos r}-n_0(2h\tan r)\sin i\\
+ &=\frac{2nh}{\cos r}-\frac{2nh\sin^2r}{\cos r}
+ =2nh\cos r.
+\end{align*}
+第二步用$n_0\sin i=n\sin r$。扣除同一出射波面上的参考光程后，程差中便出现$\cos r$因子。
+
+\Diagram{fig:o2filmphase}{$CD$垂直出射方向，$A\to D$光程须从膜内往返光程中扣除}{\draw[curve](-.7,0)--(3.2,0);\draw[curve](-.7,-1)--(3.2,-1);\fill(0,0)circle(1.3pt)node[left]{$A$};\fill(.57735,-1)circle(1.3pt)node[below]{$B$};\fill(1.1547,0)circle(1.3pt)node[below right]{$C$};\draw[->](0,0)--(.57735,-1)--(1.1547,0)--(2.8,1.6453);\draw[->](0,0)--(2,2);\draw[guide](.57735,.57735)--(1.1547,0);\fill(.57735,.57735)circle(1.3pt)node[above left]{$D$};}
+图\ref{fig:o2filmphase}中两束出射光平行，$AD$沿第一束方向，$CD$为参考波面。若膜厚、折射率、入射角在观察区域变化，等相位条件相应形成等厚纹或等倾纹。实际观测透镜把哪一组光线汇到同一点，决定条纹的定域位置，不能只凭“是薄膜”就断言条纹一定在膜面。
+
+总干涉相位还含反射相位。采用一致的偏振基时，两路实反射系数同号给相对相位0，异号给$\pi$；全反射的复系数则须取各自辐角。将它与传播相位相加后，才能确定亮暗级次。
+
+\section{焦散相移的波动来由}
+在腰面$z=0$取圆对称高斯场$U(r,0)=U_0\exp(-r^2/w_0^2)$。对于$z\ne0$，代入近轴菲涅耳传播积分，并展开$(x-\xi)^2+(y-\eta)^2$。记
+\[
+ a=\frac1{w_0^2}-\frac{ik}{2z},\qquad
+ b_x=-\frac{ikx}{z},\qquad b_y=-\frac{iky}{z}.
+\]
+两个横向积分分别具有式\eqref{eq:o1gaussintegral}的形式，故
+\begin{align*}
+ U(r,z)&=\frac{U_0\ee^{ikz}}{i\lambda z}\ee^{ikr^2/(2z)}
+ \mathcal G(a,b_x)\mathcal G(a,b_y)\\
+ &=\frac{\pi U_0\ee^{ikz}}{i\lambda za}
+ \exp\left[\frac{ikr^2}{2z}-\frac{k^2r^2}{4az^2}\right].
+\end{align*}
+取$z_R=kw_0^2/2$、$\lambda=2\pi/k$，记$\zeta=z/z_R$。则
+\[
+ aw_0^2=1-\frac{i}{\zeta},\qquad
+ \frac{i\lambda za}{\pi}=1+i\zeta,\qquad
+ \frac1{1-i/\zeta}=\frac{i\zeta}{1+i\zeta}.
+\]
+前因子因而为$U_0\ee^{ikz}/(1+i\zeta)$。指数中的两项先提取$r^2/w_0^2$，再通分：
+\begin{align*}
+ \frac{ikr^2}{2z}-\frac{k^2r^2}{4az^2}
+ &=\frac{r^2}{w_0^2}
+ \left[\frac i\zeta-\frac1{\zeta^2(1-i/\zeta)}\right]\\
+ &=\frac{r^2}{w_0^2}
+ \left[\frac i\zeta-\frac{i}{\zeta(1+i\zeta)}\right]
+ =-\frac{r^2}{w_0^2(1+i\zeta)}.
+\end{align*}
+代回得到
+\[
+ U(r,z)=\frac{U_0\ee^{ikz}}{1+iz/z_R}
+ \exp\left[-\frac{r^2}{w_0^2(1+iz/z_R)}\right].
+\]
+在轴上$r=0$，除去平面传播相位$kz$，剩余相位为$-\arctan(z/z_R)$。从负远处经过腰面到正远处，其总变化为$-\pi$。一维柱面高斯场只有一个高斯积分，前因子为$(1+iz/z_R)^{-1/2}$，额外相位总变化为$-\pi/2$。
+
+\Diagram{fig:o2gouy}{高斯束腰附近，波动相位连续经过焦区}{\draw[axis](-3,0)--(3.2,0)node[right]{$z$};\draw[curve,domain=-2.7:2.7,samples=80]plot(\x,{.45*sqrt(1+\x*\x)});\draw[curve,domain=-2.7:2.7,samples=80]plot(\x,{-.45*sqrt(1+\x*\x)});\draw[guide](0,-1.6)--(0,1.6);\node[above]at(0,1.7){束腰};}
+图\ref{fig:o2gouy}中的场在焦区有限、相位连续，几何光学常把整个焦区压成一个点，才把总变化记为一次焦点相移。焦点相移的数值取决于横向受限维数，因此点聚焦与线聚焦不同。两条干涉臂如果经历相同束腰和相同方向传播，这些相移通常相消，不应在每个透镜后重复添加。
+
+\section{有限束数与多次反射腔的比较}
+有限$N$束等幅的合场是有限几何级数，零点来自相量正多边形闭合；多次反射腔是无限几何级数，但每次场幅乘$R<1$，闭合多边形的零点结构不再相同。反射率越高，后续束衰减越慢，相干参与的有效往返数大致增多，透射共振更尖。
+
+对正常入射腔，$2nl=m\lambda$，频率共振间隔$c/(2nl)$。若精细度为$\mathcal F_c$，线宽约$c/(2nl\mathcal F_c)$，中心频率$\nu_m=mc/(2nl)$，所以局部频率分辨本领$\nu_m/\delta\nu\simeq m\mathcal F_c$。它与有限光栅的$mN$形式类似，但$\mathcal F_c$由反射损耗和腔镜决定，不能把它严格解释成某个整数条数。
+
+当腔镜不对称、存在吸收或散射，共振峰值一般不再为1，最佳入射耦合也依赖两镜透射率和内部损耗。前述单位峰值只属于理想无损对称腔。分析实测峰高时，应分别计入相位失配、孔径损失和吸收。
+
+\subsection{扫描相位与扫描角度的极值区别}
+对两束确定相干场，写$I(x)=I_1(x)+I_2(x)+2\sqrt{I_1(x)I_2(x)}|\gamma(x)|\cos\delta(x)$。若在固定空间点只改变一臂的均匀相位，前面的系数不变，最大、最小强度严格为$I_1+I_2\pm2\sqrt{I_1I_2}|\gamma|$，可见度公式可直接使用。
+
+若沿屏幕扫描，包络、偏振投影和相干度也可能随$x$变化，实际极值应对整个$I(x)$求导。局部条纹可见度要求这些系数在一个纹距内近似不变。衍射包络零点、窄谱共振边缘或强渐变照明区需要保留系数的空间变化。可先在同一$x$固定位置扫描相位，区分包络变化与干涉对比度变化。
+\Diagram{fig:o2localvisibility}{缓变包络内的局部明暗纹；靠近包络边缘时需对完整强度求极值}{\draw[axis](-.2,0)--(6.3,0)node[right]{$x$};\draw[axis](0,0)--(0,2.8)node[above]{$I$};\draw[guide,domain=0:5.8,samples=70]plot(\x,{2.4*exp(-.11*(\x-2.4)^2)});\draw[curve,domain=0:5.8,samples=200]plot(\x,{1.2*exp(-.11*(\x-2.4)^2)*(1+.8*cos(300*\x))});}
+图\ref{fig:o2localvisibility}的上包络不等于每个实际亮纹都恰好落在$\delta=2m\pi$；相位极值与包络斜率共同决定峰位。这一点在有限$N$束加权、法布里—珀罗有吸收以及不等宽双缝中都会出现。
+
+多束完全相干时还应区别场相加与功率归一化。若场权重为$a_j$，主峰场为$\sum a_j$，而输入功率按$\sum|a_j|^2$计。改变权重后比较峰高，必须保持同一功率条件；否则峰高的改变可能仅来自总照明功率改变。旁瓣降低、主峰变宽和峰值变化应分别从同一个加权和推导，不能用其中一个指标代替全部光学性能。
